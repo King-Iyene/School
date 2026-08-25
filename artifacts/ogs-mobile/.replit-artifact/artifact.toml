@@ -1,0 +1,26 @@
+kind = "mobile"
+previewPath = "/ogs-mobile/"
+title = "OGS School Mobile"
+version = "1.0.0"
+id = "artifacts/ogs-mobile"
+router = "expo-domain"
+
+[[integratedSkills]]
+name = "expo"
+version = "1.0.0"
+
+[[services]]
+name = "expo"
+paths = [ "/ogs-mobile/" ]
+localPort = 25459
+
+[services.development]
+run = "pnpm --filter @workspace/ogs-mobile run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ogs-mobile", "run", "build" ]
+run = [ "pnpm", "--filter", "@workspace/ogs-mobile", "run", "serve" ]
+
+[services.env]
+PORT = "25459"
+BASE_PATH = "/ogs-mobile/"

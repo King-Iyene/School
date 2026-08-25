@@ -1,0 +1,310 @@
+supabase : 
+Initialising login 
+role...
+At line:1 char:10
++ echo y | supabase 
+db push --include-all 
+> output_final_try_4.t
+xt 2>&1
++          ~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (Initialisi   
+ ng login role...:    
+String) [], Remot    
+eException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+Connecting to remote 
+database...
+Do you want to push 
+these migrations to 
+the remote database?
+ ΓÇó 20260422150712_fi
+x_grades_unique_constr
+aint_and_rls.sql
+ ΓÇó 20260423095741_fi
+x_principal_rls_access
+_comprehensive.sql
+ ΓÇó 20260423103520_20
+260423110000_fix_profi
+les_rls_recursion_v2.s
+ql
+
+ [Y/n] y
+Applying migration 202
+60422150712_fix_grades
+_unique_constraint_and
+_rls.sql...
+NOTICE (00000): 
+constraint "grades_stu
+dent_id_subject_id_ter
+m_id_key" of relation 
+"grades" does not 
+exist, skipping
+NOTICE (00000): 
+policy "Teachers can 
+insert grades" for 
+relation "grades" 
+does not exist, 
+skipping
+NOTICE (00000): 
+policy "Teachers can 
+update grades" for 
+relation "grades" 
+does not exist, 
+skipping
+Applying migration 202
+60423095741_fix_princi
+pal_rls_access_compreh
+ensive.sql...
+NOTICE (00000): 
+policy "Teachers and 
+admins can view 
+grades" for relation 
+"grades" does not 
+exist, skipping
+NOTICE (00000): 
+policy "Teachers can 
+create assignments" 
+for relation 
+"assignments" does 
+not exist, skipping
+NOTICE (00000): 
+policy "Teachers can 
+update own 
+assignments" for 
+relation 
+"assignments" does 
+not exist, skipping
+NOTICE (00000): 
+policy "Teachers can 
+view submissions" for 
+relation "assignment_s
+ubmissions" does not 
+exist, skipping
+NOTICE (00000): 
+policy "Teachers can 
+grade submissions" 
+for relation "assignme
+nt_submissions" does 
+not exist, skipping
+NOTICE (00000): 
+policy "Accountants 
+can insert fee 
+structures" for 
+relation 
+"fee_structures" does 
+not exist, skipping
+NOTICE (00000): 
+policy "Accountants 
+can update fee 
+structures" for 
+relation 
+"fee_structures" does 
+not exist, skipping
+NOTICE (00000): 
+policy "Accountants 
+and admins can view 
+all payments" for 
+relation 
+"fee_payments" does 
+not exist, skipping
+NOTICE (00000): 
+policy "Accountants 
+can record payments" 
+for relation 
+"fee_payments" does 
+not exist, skipping
+NOTICE (00000): 
+policy "Accountants 
+can update payments" 
+for relation 
+"fee_payments" does 
+not exist, skipping
+NOTICE (00000): 
+policy "Admins can 
+manage timetable 
+insert" for relation 
+"timetable" does not 
+exist, skipping
+NOTICE (00000): 
+policy "Admins can 
+manage timetable 
+update" for relation 
+"timetable" does not 
+exist, skipping
+NOTICE (00000): 
+policy "Super admin 
+can update leave 
+applications" for 
+relation 
+"leave_applications" 
+does not exist, 
+skipping
+NOTICE (00000): 
+policy "Super admin 
+can delete leave 
+applications" for 
+relation 
+"leave_applications" 
+does not exist, 
+skipping
+NOTICE (00000): 
+policy "Allow update 
+for owners and 
+admins" for relation 
+"leave_applications" 
+does not exist, 
+skipping
+NOTICE (00000): 
+policy "Allow delete 
+for owners and 
+admins" for relation 
+"leave_applications" 
+does not exist, 
+skipping
+NOTICE (00000): 
+policy "Allow insert 
+for staff and admins" 
+for relation 
+"leave_applications" 
+does not exist, 
+skipping
+NOTICE (00000): 
+policy "Staff can 
+insert leave 
+applications" for 
+relation 
+"leave_applications" 
+does not exist, 
+skipping
+NOTICE (00000): 
+policy "Super admins 
+can view all school 
+leave applications" 
+for relation 
+"leave_applications" 
+does not exist, 
+skipping
+NOTICE (00000): 
+policy "Super admins 
+view all 
+applications" for 
+relation 
+"leave_applications" 
+does not exist, 
+skipping
+NOTICE (00000): 
+policy "Admins can 
+view all leave 
+applications" for 
+relation 
+"leave_applications" 
+does not exist, 
+skipping
+NOTICE (00000): 
+policy "Staff can 
+view own leave 
+applications" for 
+relation 
+"leave_applications" 
+does not exist, 
+skipping
+NOTICE (00000): 
+policy "Admins and 
+principal can view 
+all leave" for 
+relation 
+"leave_applications" 
+does not exist, 
+skipping
+ERROR: policy "Staff 
+and admins can view 
+leave applications" 
+for table 
+"leave_applications" 
+already exists 
+(SQLSTATE 42710)
+At statement: 60      
+                      
+                      
+                      
+                      
+             
+CREATE POLICY "Staff 
+and admins can view 
+leave applications"   
+                      
+                      
+                
+  ON 
+leave_applications 
+FOR SELECT            
+                      
+                      
+                      
+           
+  TO authenticated    
+                      
+                      
+                      
+                      
+             
+  USING (             
+                      
+                      
+                      
+                      
+             
+    staff_id = 
+(SELECT auth.uid())   
+                      
+                      
+                      
+                    
+    OR EXISTS (       
+                      
+                      
+                      
+                      
+             
+      SELECT 1 FROM 
+profiles p            
+                      
+                      
+                      
+               
+      WHERE p.id = 
+(SELECT auth.uid())   
+                      
+                      
+                      
+                
+      AND p.role IN 
+('super_admin', 
+'admin', 'principal') 
+                      
+                      
+                     
+    )                 
+                      
+                      
+                      
+                      
+             
+  )                   
+                      
+                      
+                      
+                      
+             
+Try rerunning the 
+command with --debug 
+to troubleshoot the 
+error.

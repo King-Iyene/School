@@ -1,0 +1,27 @@
+uploads = []
+
+[[generated]]
+id = "Jl6m_aZVRSuKAnCo8_E1B"
+uri = "file://artifacts/ogs-mobile/assets/images/icon.png"
+type = "image"
+title = "generated_image"
+
+[[outputs]]
+id = "ZA-7SAofOkXaFfY5n5ksx"
+uri = "file://artifacts/ogs-promo-video/public/audio/bg_music.mp3"
+type = "audio"
+title = "OGS school promo background music"
+
+[[outputs]]
+id = "CGKW5Bbe8giUkH3R1NLgG"
+uri = "file://attached_assets/conference_registration_qr.png"
+type = "image"
+title = "Conference Registration QR Code"
+description = "Scans to https://eportal.okrikagrammarschool.org/conference-registration"
+
+[[outputs]]
+id = "WGHiuIf6A50-ZnKpNHcko"
+uri = "file://artifacts/ogs-school/SUPABASE_RESET_EMAIL_TEMPLATE.html"
+type = "text"
+title = "Password reset email design"
+description = "Branded OGS reset-password email template — preview it here, then paste into Supabase → Authentication → Email Templates → Reset Password."

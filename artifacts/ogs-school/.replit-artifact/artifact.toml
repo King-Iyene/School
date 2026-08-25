@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "OGS School Management"
+version = "1.0.0"
+id = "artifacts/ogs-school"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 26166
+
+[services.development]
+run = "pnpm --filter @workspace/ogs-school run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ogs-school", "run", "build" ]
+publicDir = "artifacts/ogs-school/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "26166"
+BASE_PATH = "/"

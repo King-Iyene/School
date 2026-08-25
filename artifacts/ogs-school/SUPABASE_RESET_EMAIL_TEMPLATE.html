@@ -1,0 +1,78 @@
+<!-- Okrika Grammar School — Password Reset email template
+     Paste into: Supabase Dashboard → Authentication → Email Templates → Reset Password
+     Subject suggestion: Reset your OGS Portal password -->
+<div style="margin:0;padding:0;background-color:#f1f5f9;font-family:Arial,Helvetica,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f1f5f9;padding:24px 0;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background-color:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;">
+          <!-- Header -->
+          <tr>
+            <td style="background-color:#1a3a5c;padding:28px 32px;text-align:center;">
+              <img src="https://eportal.okrikagrammarschool.org/ogs_logo_bg.png" alt="Okrika Grammar School" width="64" height="64" style="display:block;margin:0 auto 12px;border-radius:8px;">
+              <div style="color:#ffffff;font-size:20px;font-weight:bold;letter-spacing:1px;">OKRIKA GRAMMAR SCHOOL</div>
+              <div style="color:#9db8d4;font-size:12px;font-style:italic;margin-top:4px;">Founded 1940 &nbsp;|&nbsp; Perseverantia Vincit</div>
+            </td>
+          </tr>
+          <!-- Green accent bar -->
+          <tr><td style="background-color:#1a6b3a;height:4px;font-size:0;line-height:0;">&nbsp;</td></tr>
+          <!-- Body -->
+          <tr>
+            <td style="padding:36px 40px 8px;">
+              <h1 style="margin:0 0 16px;font-size:20px;color:#1a3a5c;">Reset your password</h1>
+              <p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#334155;">
+                Hello,
+              </p>
+              <p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#334155;">
+                We received a request to reset the password for your OGS School Portal account.
+                Click the button below to choose a new password. This link can only be used once.
+              </p>
+              <!-- Button -->
+              <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto 24px;">
+                <tr>
+                  <td style="border-radius:8px;background-color:#1a6b3a;">
+                    <a href="{{ .ConfirmationURL }}" target="_blank"
+                       style="display:inline-block;padding:14px 36px;font-size:15px;font-weight:bold;color:#ffffff;text-decoration:none;border-radius:8px;">
+                      Set a new password
+                    </a>
+                  </td>
+                </tr>
+              </table>
+              <p style="margin:0 0 8px;font-size:13px;line-height:1.6;color:#64748b;">
+                If the button doesn't work, copy and paste this link into your browser:
+              </p>
+              <p style="margin:0 0 24px;font-size:12px;line-height:1.5;word-break:break-all;">
+                <a href="{{ .ConfirmationURL }}" style="color:#1a6b3a;">{{ .ConfirmationURL }}</a>
+              </p>
+              <div style="border-left:4px solid #e2e8f0;padding:10px 14px;background-color:#f8fafc;border-radius:0 8px 8px 0;">
+                <p style="margin:0;font-size:13px;line-height:1.6;color:#64748b;">
+                  Didn't request this? You can safely ignore this email — your password will not change.
+                </p>
+              </div>
+            </td>
+          </tr>
+          <!-- Footer -->
+          <tr>
+            <td style="padding:24px 40px 28px;">
+              <hr style="border:none;border-top:1px solid #e2e8f0;margin:0 0 16px;">
+              <p style="margin:0 0 6px;font-size:12px;line-height:1.6;color:#94a3b8;text-align:center;">
+                Okrika Grammar School &bull; Diocese of Okrika, Church of Nigeria (Anglican Communion)<br>
+                Okrika, Rivers State, Nigeria &bull; Tel: 09034210590
+              </p>
+              <p style="margin:0;font-size:12px;line-height:1.6;color:#94a3b8;text-align:center;">
+                <a href="https://okrikagrammarschool.org" style="color:#1a6b3a;text-decoration:none;">okrikagrammarschool.org</a>
+                &nbsp;&bull;&nbsp;
+                <a href="mailto:info@okrikagrammarschool.org" style="color:#1a6b3a;text-decoration:none;">Contact us</a>
+                &nbsp;&bull;&nbsp;
+                <a href="mailto:info@okrikagrammarschool.org?subject=Unsubscribe" style="color:#94a3b8;text-decoration:underline;">Unsubscribe</a>
+              </p>
+              <p style="margin:12px 0 0;font-size:11px;line-height:1.5;color:#cbd5e1;text-align:center;">
+                You received this email because a password reset was requested for your account on the OGS School Portal.
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>

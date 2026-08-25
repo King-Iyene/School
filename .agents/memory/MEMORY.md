@@ -1,0 +1,4 @@
+- [Web Push architecture](web-push.md) — VAPID keys stored as env vars; api-server sends push; push_subscriptions in Supabase.
+- [Students list caching](students-list-caching.md) — bump both list & export cache keys when Students query changes; graduated students live in Alumni; activity_logs DDL is user-run SQL.
+- [Subject exclusions](subject-exclusions.md) — excluded scores are kept & shown flagged, never deleted; skip them in all averages/positions.
+- [Enrollment status](enrollment-status.md) — allowed statuses limited by check constraint; promote must close the old-year enrollment.

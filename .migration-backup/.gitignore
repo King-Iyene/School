@@ -1,0 +1,36 @@
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+dist-electron
+*.local
+
+# Platform-specific folders
+electron
+android
+ios
+
+# Capacitor/Mobile build artifacts
+android/app/build
+ios/App/build
+android/app/src/main/assets/public
+ios/App/App/public
+
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.env
+tmp/

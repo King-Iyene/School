@@ -1,0 +1,390 @@
+supabase : 
+Initialising login 
+role...
+At line:1 char:10
++ echo y | supabase 
+db push --include-all 
+> 
+output_final_try.txt 
+2>&1
++          ~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (Initialisi   
+ ng login role...:    
+String) [], Remot    
+eException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+Connecting to remote 
+database...
+Do you want to push 
+these migrations to 
+the remote database?
+ ΓÇó 20260418012347_re
+structure_terms_global
+_system_v2.sql
+ ΓÇó 20260418023025_en
+sure_academic_years_cr
+ud_policies.sql
+ ΓÇó 20260420115905_up
+date_atonke_dede_email
+_and_name.sql
+ ΓÇó 20260420123641_up
+date_rev_oroyi_email.s
+ql
+ ΓÇó 20260420124434_up
+date_ruth_irisominabo_
+email.sql
+ ΓÇó 20260420161905_ad
+d_principal_role.sql
+ ΓÇó 20260420231019_fi
+x_announcements_rls_ad
+d_delete_principal.sql
+ ΓÇó 20260420232127_fi
+x_student_attendance_r
+ls_form_master_only.sq
+l
+ ΓÇó 20260421141740_up
+date_atamuno_ibedein_e
+mail.sql
+ ΓÇó 20260422010844_re
+work_prospective_stude
+nts_schema_v2.sql
+ ΓÇó 20260422011143_re
+lax_prospective_studen
+ts_not_null.sql
+ ΓÇó 20260422085959_up
+date_precious_ishiguzo
+n_email.sql
+ ΓÇó 20260422143433_fi
+x_samgentle_auth_ident
+ity_v2.sql
+ ΓÇó 20260422150712_fi
+x_grades_unique_constr
+aint_and_rls.sql
+ ΓÇó 20260423095741_fi
+x_principal_rls_access
+_comprehensive.sql
+ ΓÇó 20260423103520_20
+260423110000_fix_profi
+les_rls_recursion_v2.s
+ql
+
+ [Y/n] y
+Applying migration 202
+60418012347_restructur
+e_terms_global_system_
+v2.sql...
+NOTICE (00000): 
+policy "School 
+members can view 
+terms" for relation 
+"terms" does not 
+exist, skipping
+NOTICE (00000): 
+policy "Admins can 
+insert terms" for 
+relation "terms" does 
+not exist, skipping
+NOTICE (00000): 
+policy "Admins can 
+update terms" for 
+relation "terms" does 
+not exist, skipping
+NOTICE (00000): 
+policy "Users can 
+view terms" for 
+relation "terms" does 
+not exist, skipping
+NOTICE (00000): 
+policy "Admins can 
+manage terms" for 
+relation "terms" does 
+not exist, skipping
+NOTICE (00000): 
+policy "School admins 
+can manage terms" for 
+relation "terms" does 
+not exist, skipping
+NOTICE (00000): 
+policy "School admins 
+can delete terms" for 
+relation "terms" does 
+not exist, skipping
+NOTICE (00000): 
+policy "Enable read 
+access for all 
+authenticated users" 
+for relation "terms" 
+does not exist, 
+skipping
+NOTICE (00000): 
+constraint "terms_scho
+ol_id_academic_year_id
+_name_key" of 
+relation "terms" does 
+not exist, skipping
+NOTICE (42P07): 
+relation 
+"academic_year_terms" 
+already exists, 
+skipping
+NOTICE (00000): 
+column 
+"academic_year_id" of 
+relation "terms" does 
+not exist, skipping
+NOTICE (00000): 
+column "school_id" of 
+relation "terms" does 
+not exist, skipping
+NOTICE (00000): 
+column "start_date" 
+of relation "terms" 
+does not exist, 
+skipping
+NOTICE (00000): 
+column "end_date" of 
+relation "terms" does 
+not exist, skipping
+NOTICE (00000): 
+column "is_current" 
+of relation "terms" 
+does not exist, 
+skipping
+NOTICE (00000): 
+policy "All 
+authenticated users 
+can view terms" for 
+relation "terms" does 
+not exist, skipping
+Applying migration 202
+60418023025_ensure_aca
+demic_years_crud_polic
+ies.sql...
+Applying migration 202
+60420115905_update_ato
+nke_dede_email_and_nam
+e.sql...
+Applying migration 202
+60420123641_update_rev
+_oroyi_email.sql...
+Applying migration 202
+60420124434_update_rut
+h_irisominabo_email.sq
+l...
+Applying migration 202
+60420161905_add_princi
+pal_role.sql...
+Applying migration 202
+60420231019_fix_announ
+cements_rls_add_delete
+_principal.sql...
+NOTICE (00000): 
+policy "Staff can 
+create announcements" 
+for relation 
+"announcements" does 
+not exist, skipping
+NOTICE (00000): 
+policy "Authors and 
+admins can update 
+announcements" for 
+relation 
+"announcements" does 
+not exist, skipping
+Applying migration 202
+60420232127_fix_studen
+t_attendance_rls_form_
+master_only.sql...
+NOTICE (00000): 
+policy "Admins and 
+teachers can insert 
+student_attendance" 
+for relation 
+"student_attendance" 
+does not exist, 
+skipping
+NOTICE (00000): 
+policy "Admins and 
+teachers can update 
+student_attendance" 
+for relation 
+"student_attendance" 
+does not exist, 
+skipping
+ERROR: policy "Form 
+masters and admins 
+can insert 
+attendance" for table 
+"student_attendance" 
+already exists 
+(SQLSTATE 42710)
+At statement: 3       
+                      
+                      
+                      
+                      
+              
+-- INSERT: admin 
+roles + form masters 
+only                  
+                      
+                      
+                    
+CREATE POLICY "Form 
+masters and admins 
+can insert 
+attendance"           
+                      
+                      
+        
+  ON 
+student_attendance 
+FOR INSERT            
+                      
+                      
+                      
+            
+  TO authenticated    
+                      
+                      
+                      
+                      
+              
+  WITH CHECK (        
+                      
+                      
+                      
+                      
+              
+    school_id = 
+get_my_school_id()    
+                      
+                      
+                      
+                    
+    AND (             
+                      
+                      
+                      
+                      
+              
+      get_my_role() = 
+ANY(ARRAY['super_admin
+','admin','principal']
+)                     
+                      
+              
+      OR (            
+                      
+                      
+                      
+                      
+              
+        get_my_role() 
+= 'teacher'           
+                      
+                      
+                      
+              
+        AND (         
+                      
+                      
+                      
+                      
+              
+          EXISTS (    
+                      
+                      
+                      
+                      
+              
+            SELECT 1 
+FROM classes          
+                      
+                      
+                      
+               
+            WHERE 
+classes.id = student_a
+ttendance.class_id    
+                      
+                      
+                  
+              AND clas
+ses.class_teacher_id 
+= (SELECT auth.uid()) 
+                      
+                      
+               
+          )           
+                      
+                      
+                      
+                      
+              
+          OR EXISTS ( 
+                      
+                      
+                      
+                      
+              
+            SELECT 1 
+FROM class_teachers   
+                      
+                      
+                      
+               
+            WHERE clas
+s_teachers.class_id = 
+student_attendance.cla
+ss_id                 
+                      
+              
+              AND clas
+s_teachers.teacher_id 
+= (SELECT auth.uid()) 
+                      
+                      
+              
+          )           
+                      
+                      
+                      
+                      
+              
+        )             
+                      
+                      
+                      
+                      
+              
+      )               
+                      
+                      
+                      
+                      
+              
+    )                 
+                      
+                      
+                      
+                      
+              
+  )                   
+                      
+                      
+                      
+                      
+              
+Try rerunning the 
+command with --debug 
+to troubleshoot the 
+error.

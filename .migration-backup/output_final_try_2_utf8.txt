@@ -1,0 +1,199 @@
+supabase : 
+Initialising login 
+role...
+At line:1 char:10
++ echo y | supabase 
+db push --include-all 
+> output_final_try_2.t
+xt 2>&1
++          ~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (Initialisi   
+ ng login role...:    
+String) [], Remot    
+eException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+Connecting to remote 
+database...
+Do you want to push 
+these migrations to 
+the remote database?
+ ΓÇó 20260420232127_fi
+x_student_attendance_r
+ls_form_master_only.sq
+l
+ ΓÇó 20260421141740_up
+date_atamuno_ibedein_e
+mail.sql
+ ΓÇó 20260422010844_re
+work_prospective_stude
+nts_schema_v2.sql
+ ΓÇó 20260422011143_re
+lax_prospective_studen
+ts_not_null.sql
+ ΓÇó 20260422085959_up
+date_precious_ishiguzo
+n_email.sql
+ ΓÇó 20260422143433_fi
+x_samgentle_auth_ident
+ity_v2.sql
+ ΓÇó 20260422150712_fi
+x_grades_unique_constr
+aint_and_rls.sql
+ ΓÇó 20260423095741_fi
+x_principal_rls_access
+_comprehensive.sql
+ ΓÇó 20260423103520_20
+260423110000_fix_profi
+les_rls_recursion_v2.s
+ql
+
+ [Y/n] y
+Applying migration 202
+60420232127_fix_studen
+t_attendance_rls_form_
+master_only.sql...
+NOTICE (00000): 
+policy "Admins and 
+teachers can insert 
+student_attendance" 
+for relation 
+"student_attendance" 
+does not exist, 
+skipping
+NOTICE (00000): 
+policy "Admins and 
+teachers can update 
+student_attendance" 
+for relation 
+"student_attendance" 
+does not exist, 
+skipping
+Applying migration 202
+60421141740_update_ata
+muno_ibedein_email.sql
+...
+Applying migration 202
+60422010844_rework_pro
+spective_students_sche
+ma_v2.sql...
+NOTICE (00000): 
+constraint "prospectiv
+e_students_gender_chec
+k" of relation "prospe
+ctive_students" does 
+not exist, skipping
+NOTICE (42701): 
+column "blood_group" 
+of relation "prospecti
+ve_students" already 
+exists, skipping
+NOTICE (42701): 
+column "religion" of 
+relation "prospective_
+students" already 
+exists, skipping
+NOTICE (42701): 
+column "nationality" 
+of relation "prospecti
+ve_students" already 
+exists, skipping
+NOTICE (42701): 
+column "phone" of 
+relation "prospective_
+students" already 
+exists, skipping
+NOTICE (42701): 
+column "city" of 
+relation "prospective_
+students" already 
+exists, skipping
+NOTICE (42701): 
+column "lga" of 
+relation "prospective_
+students" already 
+exists, skipping
+NOTICE (42701): 
+column "class_id" of 
+relation "prospective_
+students" already 
+exists, skipping
+NOTICE (42701): 
+column "section_id" 
+of relation "prospecti
+ve_students" already 
+exists, skipping
+NOTICE (42701): 
+column "roll_number" 
+of relation "prospecti
+ve_students" already 
+exists, skipping
+NOTICE (42701): 
+column 
+"admission_number" of 
+relation "prospective_
+students" already 
+exists, skipping
+Applying migration 202
+60422011143_relax_pros
+pective_students_not_n
+ull.sql...
+Applying migration 202
+60422085959_update_pre
+cious_ishiguzon_email.
+sql...
+Applying migration 202
+60422143433_fix_samgen
+tle_auth_identity_v2.s
+ql...
+Applying migration 202
+60422150712_fix_grades
+_unique_constraint_and
+_rls.sql...
+NOTICE (00000): 
+constraint "grades_stu
+dent_id_subject_id_ter
+m_id_key" of relation 
+"grades" does not 
+exist, skipping
+ERROR: relation "grade
+s_unique_student_subje
+ct_class_term_year" 
+already exists 
+(SQLSTATE 42P07)
+At statement: 2       
+                      
+                      
+                      
+       
+-- Add correct wide 
+unique constraint 
+(student, subject, 
+class, term, year)    
+                
+ALTER TABLE grades    
+                      
+                      
+                      
+       
+  ADD CONSTRAINT grade
+s_unique_student_subje
+ct_class_term_year    
+                      
+       
+  UNIQUE (student_id, 
+subject_id, class_id, 
+term_id, 
+academic_year_id)     
+                    
+Try rerunning the 
+command with --debug 
+to troubleshoot the 
+error.
