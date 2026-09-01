@@ -269,31 +269,29 @@ export default function Landing() {
               return (
                 <Reveal key={tier} delay={i * 100} className="h-full">
                   <div
-                    className={`relative rounded-2xl p-8 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 ${
+                    className={`relative rounded-2xl p-8 pt-9 flex flex-col h-full bg-white transition-all duration-300 hover:-translate-y-1 overflow-hidden ${
                       featured
-                        ? 'bg-slate-900 text-white shadow-2xl md:scale-[1.04]'
-                        : 'bg-white border border-slate-200 shadow-sm'
+                        ? 'border-2 border-brand-violet shadow-xl shadow-brand-violet/10 md:scale-[1.03]'
+                        : 'border border-slate-200 shadow-sm hover:shadow-md'
                     }`}
                   >
-                    {featured && (
-                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-violet to-brand-indigo text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-                        MOST POPULAR
-                      </span>
-                    )}
-                    <h3 className={`font-bold text-lg ${featured ? 'text-white' : 'text-slate-800'}`}>{PLAN_LABELS[tier]}</h3>
-                    <p className={`text-sm mt-1 ${featured ? 'text-slate-400' : 'text-slate-500'}`}>
-                      {PLAN_STUDENT_LIMITS[tier] ? `Up to ${PLAN_STUDENT_LIMITS[tier]!.toLocaleString()} students` : 'Unlimited students & staff'}
-                    </p>
-                    <div className="mt-5 mb-6">
-                      <span className={`text-4xl font-extrabold ${featured ? 'text-white' : 'text-slate-900'}`}>
+                    {featured && <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-brand-violet to-brand-indigo" />}
+                    <h3 className="font-bold text-lg text-slate-800">{PLAN_LABELS[tier]}</h3>
+                    <div className="mt-4 mb-1">
+                      <span className="text-4xl font-extrabold text-slate-900">
                         {formatNaira(PLAN_PRICES_NGN[tier])}
                       </span>
-                      <span className={`text-sm ${featured ? 'text-slate-400' : 'text-slate-500'}`}> /month</span>
+                      <span className="text-sm text-slate-500"> /month</span>
                     </div>
+                    <p className="text-sm font-medium text-slate-500 mb-6">
+                      {PLAN_STUDENT_LIMITS[tier] ? `For schools up to ${PLAN_STUDENT_LIMITS[tier]!.toLocaleString()} students` : 'For large & multi-branch schools'}
+                    </p>
                     <ul className="space-y-3 flex-1 mb-8">
                       {FEATURE_ROWS.filter(row => row[tier]).map(row => (
-                        <li key={row.label} className={`flex items-start gap-2 text-sm ${featured ? 'text-slate-200' : 'text-slate-600'}`}>
-                          <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${featured ? 'text-brand-mint' : 'text-brand-indigo'}`} />
+                        <li key={row.label} className="flex items-start gap-2.5 text-sm text-slate-600">
+                          <span className="w-4 h-4 mt-0.5 rounded bg-brand-violet/10 flex items-center justify-center flex-shrink-0">
+                            <Check className="w-3 h-3 text-brand-indigo" />
+                          </span>
                           {row.label}
                         </li>
                       ))}
@@ -302,17 +300,20 @@ export default function Landing() {
                       onClick={() => goToCheckout(tier)}
                       className={`w-full py-3 rounded-xl font-semibold transition-colors ${
                         featured
-                          ? 'bg-gradient-to-r from-brand-violet to-brand-indigo hover:brightness-110 text-white'
-                          : 'bg-slate-900 hover:bg-brand-indigo text-white'
+                          ? 'bg-gradient-to-r from-brand-violet to-brand-indigo hover:brightness-110 text-white shadow-sm'
+                          : 'bg-white border border-slate-200 hover:border-slate-300 text-slate-800'
                       }`}
                     >
-                      Subscribe Now
+                      Start 14-Day Free Trial
                     </button>
                   </div>
                 </Reveal>
               );
             })}
           </div>
+          <Reveal delay={80} className="text-center mt-6 text-sm text-slate-400">
+            14-day free trial on every plan — your plan price is only charged after the trial, cancel any time before then.
+          </Reveal>
 
           {/* Full comparison grid */}
           <Reveal delay={150} className="mt-16 overflow-x-auto rounded-2xl border border-slate-200 bg-white">

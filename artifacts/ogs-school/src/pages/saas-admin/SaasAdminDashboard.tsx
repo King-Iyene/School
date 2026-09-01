@@ -12,6 +12,8 @@ interface TenantRow {
   plan_tier: PlanTier;
   student_limit: number | null;
   status: TenantStatus;
+  trial_ends_at: string | null;
+  cancel_at_period_end: boolean;
   created_at: string;
   school_name: string;
   logo_url: string;
@@ -26,6 +28,7 @@ const STATUS_COLORS: Record<TenantStatus, string> = {
   active: 'bg-brand-mint/15 text-brand-ink ring-1 ring-brand-mint/40',
   trial: 'bg-amber-100 text-amber-700',
   suspended: 'bg-red-100 text-red-700',
+  canceled: 'bg-slate-200 text-slate-600',
 };
 
 const PLAN_BADGE_COLORS: Record<PlanTier, string> = {
@@ -88,6 +91,7 @@ export default function SaasAdminDashboard() {
     if (patch.plan_tier !== undefined) tenantPatch.plan_tier = patch.plan_tier;
     if (patch.student_limit !== undefined) tenantPatch.student_limit = patch.student_limit;
     if (patch.status !== undefined) tenantPatch.status = patch.status;
+    if (patch.cancel_at_period_end !== undefined) tenantPatch.cancel_at_period_end = patch.cancel_at_period_end;
 
     if (Object.keys(tenantPatch).length) {
       await supabase.from('tenants').update(tenantPatch).eq('id', tenantId);
@@ -196,6 +200,11 @@ export default function SaasAdminDashboard() {
                     </td>
                     <td className="p-4">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${STATUS_COLORS[t.status]}`}>{t.status}</span>
+                      {t.status === 'trial' && t.trial_ends_at && (
+                        <p className="text-[11px] text-slate-400 mt-1">
+                          {t.cancel_at_period_end ? 'Cancels' : 'Ends'} {new Date(t.trial_ends_at).toLocaleDateString()}
+                        </p>
+                      )}
                     </td>
                     <td className="p-4 text-slate-500">{new Date(t.created_at).toLocaleDateString()}</td>
                     <td className="p-4 text-right">
@@ -263,9 +272,22 @@ function TenantEditModal({
                 <option value="trial">Trial</option>
                 <option value="active">Active</option>
                 <option value="suspended">Suspended</option>
+                <option value="canceled">Canceled</option>
               </select>
             </div>
           </div>
+          {form.status === 'trial' && (
+            <label className="flex items-center gap-2 mt-3 text-sm text-slate-600">
+              <input
+                type="checkbox"
+                checked={form.cancel_at_period_end}
+                onChange={e => setForm(f => ({ ...f, cancel_at_period_end: e.target.checked }))}
+                className="rounded border-slate-300 text-brand-indigo focus:ring-brand-violet/40"
+              />
+              Cancel at trial end (don't auto-charge the saved card)
+              {form.trial_ends_at && <span className="text-slate-400">— {new Date(form.trial_ends_at).toLocaleDateString()}</span>}
+            </label>
+          )}
           <div className="mt-3">
             <label className="block text-xs font-medium text-slate-600 mb-1">Student Limit (blank = unlimited)</label>
             <input

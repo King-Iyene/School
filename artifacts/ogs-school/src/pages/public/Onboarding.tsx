@@ -12,6 +12,12 @@ declare global {
 
 const PLATFORM_PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PLATFORM_PAYSTACK_PUBLIC_KEY as string | undefined;
 
+// Keep in sync with artifacts/api-server/src/routes/onboarding.ts — a small,
+// fully-refunded hold used only to save the card for the day-14 trial
+// conversion charge. The real plan price is never charged today.
+const TRIAL_VERIFICATION_AMOUNT_NGN = 100;
+const TRIAL_DAYS = 14;
+
 function loadPaystackScript(): Promise<void> {
   return new Promise((resolve, reject) => {
     if (window.PaystackPop) { resolve(); return; }
@@ -98,7 +104,8 @@ export default function Onboarding() {
   const [adminFirstName, setAdminFirstName] = useState('');
   const [adminLastName, setAdminLastName] = useState('');
   const [adminEmail, setAdminEmail] = useState('');
-  const [plan, setPlan] = useState<PlanTier>((params.get('plan') as PlanTier) || 'starter');
+  const preselectedPlan = params.get('plan') as PlanTier | null;
+  const [plan, setPlan] = useState<PlanTier>(preselectedPlan || 'starter');
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [loginUrl, setLoginUrl] = useState('');
@@ -164,8 +171,9 @@ export default function Onboarding() {
       const handler = window.PaystackPop!.setup({
         key: PLATFORM_PAYSTACK_PUBLIC_KEY,
         email: adminEmail.trim(),
-        amount: PLAN_PRICES_NGN[plan] * 100, // kobo
+        amount: TRIAL_VERIFICATION_AMOUNT_NGN * 100, // kobo — card verification hold only, refunded; see backend
         currency: 'NGN',
+        channels: ['card'],
         metadata: { schoolName, subdomain, plan },
         callback: (response: { reference: string }) => {
           registerTenant(response.reference);
@@ -182,8 +190,8 @@ export default function Onboarding() {
   const stepTitles: Record<Step, { title: string; subtitle: string }> = {
     details: { title: 'Tell us about your school', subtitle: "We'll use this to set up your portal and subdomain." },
     plan: { title: 'Choose your plan', subtitle: 'Pick what fits your school today — you can change this any time.' },
-    payment: { title: 'Review & confirm', subtitle: 'Check your order summary before subscribing.' },
-    success: { title: "You're all set!", subtitle: 'Your school portal has been created.' },
+    payment: { title: 'Start your free trial', subtitle: `Save your card to activate ${TRIAL_DAYS} days free — cancel any time before it ends.` },
+    success: { title: "You're all set!", subtitle: `Your ${TRIAL_DAYS}-day free trial has started.` },
   };
 
   return (
@@ -226,7 +234,7 @@ export default function Onboarding() {
                     const err = validateDetails();
                     if (err) { setError(err); return; }
                     setError('');
-                    setStep('plan');
+                    setStep(preselectedPlan ? 'payment' : 'plan');
                   }}
                 >
                   <Field label="School Name">
@@ -293,26 +301,44 @@ export default function Onboarding() {
               {step === 'payment' && (
                 <div className="space-y-5">
                   <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
-                    <p className="text-slate-400 text-xs uppercase tracking-wide mb-2">Order Summary</p>
-                    <div className="flex justify-between text-sm text-slate-600 mb-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-slate-400 text-xs uppercase tracking-wide">Your Plan</p>
+                      <button onClick={() => setStep('plan')} className="text-xs font-semibold text-brand-indigo hover:underline">Change</button>
+                    </div>
+                    <div className="flex justify-between text-sm text-slate-700 font-medium mb-1">
                       <span>{schoolName}</span>
                       <span>{PLAN_LABELS[plan]} Plan</span>
                     </div>
-                    <div className="flex justify-between text-slate-900 font-bold text-lg mt-3 pt-3 border-t border-slate-200">
-                      <span>Total due today</span>
-                      <span>₦{PLAN_PRICES_NGN[plan].toLocaleString('en-NG')}</span>
+                    <p className="text-xs text-slate-500 mb-4">
+                      {PLAN_STUDENT_LIMITS[plan] ? `Up to ${PLAN_STUDENT_LIMITS[plan]!.toLocaleString()} students` : 'Unlimited students & staff'}
+                    </p>
+
+                    <div className="flex justify-between text-slate-900 font-bold text-lg pt-3 border-t border-slate-200">
+                      <span>Due today</span>
+                      <span>{PLATFORM_PAYSTACK_PUBLIC_KEY ? `₦${TRIAL_VERIFICATION_AMOUNT_NGN.toLocaleString('en-NG')}` : '₦0'}</span>
                     </div>
-                    {!PLATFORM_PAYSTACK_PUBLIC_KEY && (
+                    <div className="flex justify-between text-xs text-slate-400 mt-1">
+                      <span>Then, after your {TRIAL_DAYS}-day free trial</span>
+                      <span>₦{PLAN_PRICES_NGN[plan].toLocaleString('en-NG')}/mo</span>
+                    </div>
+
+                    {PLATFORM_PAYSTACK_PUBLIC_KEY ? (
+                      <p className="text-slate-500 text-xs mt-3 leading-relaxed">
+                        We place a small, fully-refundable ₦{TRIAL_VERIFICATION_AMOUNT_NGN} hold on your card today just to
+                        save it for billing — you are not charged the plan price until your {TRIAL_DAYS}-day trial ends,
+                        and you can cancel any time before then at no cost.
+                      </p>
+                    ) : (
                       <p className="text-brand-indigo text-xs mt-3">
                         Payment gateway not configured on this deployment — your school will be created on a trial
-                        subscription; billing can be activated later from the Super Admin panel.
+                        subscription with no card on file; billing can be activated later from the Super Admin panel.
                       </p>
                     )}
                   </div>
                   <div className="flex items-center justify-between pt-2">
                     <button onClick={() => setStep('plan')} className="text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors disabled:opacity-50" disabled={submitting}>Back</button>
                     <button onClick={handlePayment} disabled={submitting} className={primaryBtnClass}>
-                      {submitting ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : PLATFORM_PAYSTACK_PUBLIC_KEY ? 'Pay & Subscribe' : 'Start Trial'}
+                      {submitting ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : `Start ${TRIAL_DAYS}-Day Free Trial`}
                     </button>
                   </div>
                 </div>
@@ -325,7 +351,8 @@ export default function Onboarding() {
                   </div>
                   <p className="text-slate-500 text-sm mb-6">
                     We've emailed <strong className="text-slate-800">{adminEmail}</strong> with a temporary password.
-                    Sign in to finish setting up {schoolName}.
+                    Your {TRIAL_DAYS}-day free trial for {schoolName} runs with no charge — cancel any time from your
+                    account settings before it ends and you won't be billed.
                   </p>
                   <button onClick={() => navigate(loginUrl || '/login')} className={primaryBtnClass}>Go to Sign In</button>
                 </div>
