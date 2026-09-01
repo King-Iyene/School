@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { navigate } from '../../components/hooks/useLocation';
+import { useTenantSettings } from '../../context/TenantContext';
+import { schoolCodeFromName } from '../../lib/schoolCode';
 import { Search, Clock, CheckCircle, XCircle, AlertCircle, ArrowLeft } from 'lucide-react';
 
 const WHATSAPP_NUMBER = '2348012345678'; // ← update to school's WhatsApp number
 
-function WhatsAppFAB() {
+function WhatsAppFAB({ schoolName }: { schoolName: string }) {
   return (
     <a
-      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello, I have a question about admission to Okrika Grammar School.')}`}
+      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hello, I have a question about admission to ${schoolName}.`)}`}
       target="_blank" rel="noopener noreferrer" title="Chat with us on WhatsApp"
       className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 group"
       style={{ padding: '12px 18px 12px 14px' }}
@@ -53,7 +55,7 @@ const STATUS_CONFIG: Record<string, { label: string; icon: typeof Clock; color: 
     color: 'text-amber-600',
     bg: 'bg-amber-50',
     border: 'border-amber-200',
-    desc: 'You have been invited to sit the OGS entrance examination. Please check your guardian\'s email for the exam scheduling link.',
+    desc: 'You have been invited to sit the entrance examination. Please check your guardian\'s email for the exam scheduling link.',
     step: 2,
   },
   exam_scheduled: {
@@ -113,6 +115,7 @@ const STATUS_CONFIG: Record<string, { label: string; icon: typeof Clock; color: 
 };
 
 export default function ApplicationStatus() {
+  const { settings } = useTenantSettings();
   const [ref, setRef] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -171,8 +174,8 @@ export default function ApplicationStatus() {
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
             <img
-              src="/ogs_logo_bg.png"
-              alt="OGS Logo"
+              src={settings.logo_url || '/ogs_logo_bg.png'}
+              alt={`${settings.school_name} Logo`}
               className="w-20 h-20 object-contain rounded-2xl bg-white/90 p-2 shadow-xl"
             />
           </div>
@@ -204,7 +207,7 @@ export default function ApplicationStatus() {
                   value={ref}
                   onChange={e => { setRef(e.target.value.toUpperCase()); setError(''); setResult(null); setSearched(false); }}
                   className="flex-1 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-400 uppercase placeholder:normal-case placeholder:font-sans"
-                  placeholder="e.g. OGS-2025-001"
+                  placeholder={`e.g. ${schoolCodeFromName(settings.school_name)}-${new Date().getFullYear()}-001`}
                   autoFocus
                 />
                 <button
@@ -322,7 +325,9 @@ export default function ApplicationStatus() {
 
                 {result.status === 'rejected' && (
                   <div className="bg-white/60 rounded-lg px-3 py-2.5 text-xs text-slate-600">
-                    Please contact our admissions office at <span className="font-semibold">admissions@okrikagrammars.edu.ng</span>{' '}
+                    Please contact {settings.email
+                      ? <span className="font-semibold">{settings.email}</span>
+                      : 'your school\'s admissions office'}{' '}
                     for further information or to enquire about future intake opportunities.
                   </div>
                 )}
@@ -337,7 +342,7 @@ export default function ApplicationStatus() {
           )}
         </div>
 
-        <WhatsAppFAB />
+        <WhatsAppFAB schoolName={settings.school_name} />
 
         {/* Footer links */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6 text-sm text-slate-300">

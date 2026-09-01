@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 import { Printer, Plus, X, CheckCircle, XCircle, Banknote, Upload, FileText, ChevronDown } from 'lucide-react';
 import { sendWebPush } from '../../hooks/usePushSubscription';
 
@@ -136,6 +137,7 @@ function dateStr(d: string | null) {
 
 export default function Requisition() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
   const isAdmin = profile ? ADMIN_ROLES.includes(profile.role) : false;
 
   const [activeTab, setActiveTab] = useState<'mine' | 'all' | 'retirement'>(() => isAdmin ? 'all' : 'mine');
@@ -143,7 +145,7 @@ export default function Requisition() {
   const [loading, setLoading] = useState(true);
   const [setupNeeded, setSetupNeeded] = useState(false);
   const [showSql, setShowSql] = useState(false);
-  const [schoolName, setSchoolName] = useState('Okrika Grammar School');
+  const schoolName = settings.school_name;
 
   const [showForm, setShowForm] = useState(false);
   const emptyItem = { description: '', amount: '' };
@@ -167,14 +169,7 @@ export default function Requisition() {
   const [syncingExpense, setSyncingExpense] = useState(false);
   const [syncExpenseMsg, setSyncExpenseMsg] = useState('');
   const [deleteConfirm, setDeleteConfirm] = useState(false);
-  const principalName = 'Kelvin Sampson Fubara';
-
-  useEffect(() => {
-    if (profile?.school_id) {
-      supabase.from('schools').select('name').eq('id', profile.school_id).maybeSingle()
-        .then(({ data }) => { if (data?.name) setSchoolName(data.name); });
-    }
-  }, [profile?.school_id]);
+  const principalName = '';
 
   async function sendReqNotification(recipientIds: string[], title: string, message: string) {
     if (!profile?.school_id || !profile?.id || recipientIds.length === 0) return;
@@ -459,29 +454,32 @@ export default function Requisition() {
     const total = pending.reduce((s, r) => s + r.amount, 0);
     const win = window.open('', '_blank', 'width=900,height=1100');
     if (!win) return;
+    const primaryColor = settings.primary_color || '#1a3a5c';
+    const secondaryColor = settings.secondary_color || '#1a6b3a';
+    const contactLine = [settings.phone && `Tel: ${settings.phone}`, settings.email && `Email: ${settings.email}`].filter(Boolean).join(' &nbsp;|&nbsp; ');
     win.document.write(`<!DOCTYPE html><html><head>
 <title>Pending Retirement – ${esc(schoolName)}</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;padding:36px;font-size:13px;color:#111}
-h1{font-size:18px;font-weight:bold;text-align:center;text-transform:uppercase;color:#1a3a5c}
+h1{font-size:18px;font-weight:bold;text-align:center;text-transform:uppercase;color:${primaryColor}}
 h2{font-size:13px;text-align:center;color:#555;margin-top:4px}
 .lh{display:flex;align-items:center;justify-content:space-between;padding-bottom:8px}
 .lh img{width:72px;height:72px;object-fit:contain}
 .lh .c{flex:1;text-align:center;padding:0 14px}
-.lh .name{font-size:20pt;font-weight:900;letter-spacing:1.5px;color:#1a3a5c;font-family:'Times New Roman',serif;line-height:1.1}
-.lh .motto{font-size:9pt;font-style:italic;color:#1a6b3a;font-weight:600;margin:2px 0}
+.lh .name{font-size:20pt;font-weight:900;letter-spacing:1.5px;color:${primaryColor};font-family:'Times New Roman',serif;line-height:1.1}
+.lh .motto{font-size:9pt;font-style:italic;color:${secondaryColor};font-weight:600;margin:2px 0}
 .lh .addr{font-size:8.5pt;color:#333;line-height:1.5}
-.lh .office{font-size:9pt;font-weight:bold;color:#1a3a5c;margin-top:2px}
+.lh .office{font-size:9pt;font-weight:bold;color:${primaryColor};margin-top:2px}
 .lh .contact{font-size:8pt;color:#555;margin-top:2px}
-.rule{border-top:3px solid #1a3a5c;border-bottom:1px solid #1a6b3a;height:4px;margin:0 0 10px}
-.title-bar{background:#1a3a5c;color:#fff;text-align:center;padding:8px;font-size:13px;font-weight:bold;letter-spacing:2px;margin:14px 0 20px;border-radius:3px}
+.rule{border-top:3px solid ${primaryColor};border-bottom:1px solid ${secondaryColor};height:4px;margin:0 0 10px}
+.title-bar{background:${primaryColor};color:#fff;text-align:center;padding:8px;font-size:13px;font-weight:bold;letter-spacing:2px;margin:14px 0 20px;border-radius:3px}
 table{width:100%;border-collapse:collapse;font-size:12px}
 thead th{background:#f1f5f9;padding:8px 10px;text-align:left;font-size:11px;color:#64748b;border-bottom:1px solid #e2e8f0}
 thead th.r{text-align:right}
 tbody td{padding:8px 10px;border-bottom:1px solid #f1f5f9}
 tbody td.r{text-align:right}
-.total-row td{font-weight:bold;background:#1a3a5c;color:#fff;padding:9px 10px}
+.total-row td{font-weight:bold;background:${primaryColor};color:#fff;padding:9px 10px}
 .total-row td.r{text-align:right}
 .sigs{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:60px}
 .sig-line{border-top:1px solid #333;padding-top:6px;font-size:11px;color:#555;text-align:center;margin-top:60px}
@@ -490,15 +488,15 @@ tbody td.r{text-align:right}
 @media print{body{padding:16px}}
 </style></head><body>
 <div class="lh">
-  <img src="/ogs_logo_bg.png" alt="OGS Logo" />
+  <img src="${settings.logo_url || '/ogs_logo_bg.png'}" alt="${esc(schoolName)} Logo" />
   <div class="c">
-    <div class="name">OKRIKA GRAMMAR SCHOOL</div>
-    <div class="motto">Founded 1940 | Perseverantia Vincit</div>
-    <div class="addr">Diocese of Okrika | Church of Nigeria (Anglican Communion)<br/>Okrika, Rivers State, Nigeria</div>
+    <div class="name">${esc(schoolName).toUpperCase()}</div>
+    ${settings.motto ? `<div class="motto">${esc(settings.motto)}</div>` : ''}
+    ${settings.address ? `<div class="addr">${esc(settings.address)}</div>` : ''}
     <div class="office">Office of the Principal</div>
-    <div class="contact">Tel: 09034210590 &nbsp;|&nbsp; Website: okrikagrammarschool.org &nbsp;|&nbsp; Email: info@okrikagrammarschool.org</div>
+    ${contactLine ? `<div class="contact">${contactLine}</div>` : ''}
   </div>
-  <img src="/diocese_of_okrika_logo.jpg" alt="Diocese of Okrika" />
+  <div style="width:72px"></div>
 </div>
 <div class="rule"></div>
 <div class="title-bar">PENDING RETIREMENT LIST — DISBURSED REQUISITIONS</div>
@@ -557,6 +555,9 @@ ${pending.map((r, i) => `<tr>
     const words = amountInWords(req.amount);
     const win = window.open('', '_blank', 'width=850,height=1100');
     if (!win) return;
+    const primaryColor = settings.primary_color || '#1a3a5c';
+    const secondaryColor = settings.secondary_color || '#1a6b3a';
+    const contactLine = [settings.phone && `Tel: ${settings.phone}`, settings.email && `Email: ${settings.email}`].filter(Boolean).join(' &nbsp;|&nbsp; ');
     win.document.write(`<!DOCTYPE html><html><head>
 <title>Requisition – ${esc(req.title)}</title>
 <style>
@@ -565,12 +566,12 @@ body{font-family:Arial,sans-serif;padding:32px;font-size:12px;color:#111}
 .lh{display:flex;align-items:center;justify-content:space-between;padding-bottom:8px}
 .lh img{width:72px;height:72px;object-fit:contain}
 .lh .c{flex:1;text-align:center;padding:0 14px}
-.lh .name{font-size:20pt;font-weight:900;letter-spacing:1.5px;color:#1a3a5c;font-family:'Times New Roman',serif;line-height:1.1}
-.lh .motto{font-size:9pt;font-style:italic;color:#1a6b3a;font-weight:600;margin:2px 0}
+.lh .name{font-size:20pt;font-weight:900;letter-spacing:1.5px;color:${primaryColor};font-family:'Times New Roman',serif;line-height:1.1}
+.lh .motto{font-size:9pt;font-style:italic;color:${secondaryColor};font-weight:600;margin:2px 0}
 .lh .addr{font-size:8.5pt;color:#333;line-height:1.5}
-.lh .office{font-size:9pt;font-weight:bold;color:#1a3a5c;margin-top:2px}
+.lh .office{font-size:9pt;font-weight:bold;color:${primaryColor};margin-top:2px}
 .lh .contact{font-size:8pt;color:#555;margin-top:2px}
-.rule{border-top:3px solid #1a3a5c;border-bottom:1px solid #1a6b3a;height:4px;margin:0 0 10px}
+.rule{border-top:3px solid ${primaryColor};border-bottom:1px solid ${secondaryColor};height:4px;margin:0 0 10px}
 .form-type{font-size:14px;font-weight:bold;text-transform:uppercase;text-decoration:underline;text-align:center;margin:4px 0 8px;letter-spacing:1px}
 .meta{display:flex;justify-content:space-between;align-items:flex-end;margin:10px 0 6px;font-size:12px;gap:8px}
 .meta .f{display:flex;align-items:baseline;gap:5px;flex:1}
@@ -591,15 +592,15 @@ tfoot td{font-weight:bold;background:#eaeaea}
 @media print{body{padding:16px}}
 </style></head><body>
 <div class="lh">
-  <img src="/ogs_logo_bg.png" alt="OGS Logo" />
+  <img src="${settings.logo_url || '/ogs_logo_bg.png'}" alt="${esc(schoolName)} Logo" />
   <div class="c">
-    <div class="name">OKRIKA GRAMMAR SCHOOL</div>
-    <div class="motto">Founded 1940 | Perseverantia Vincit</div>
-    <div class="addr">Diocese of Okrika | Church of Nigeria (Anglican Communion)<br/>Okrika, Rivers State, Nigeria</div>
+    <div class="name">${esc(schoolName).toUpperCase()}</div>
+    ${settings.motto ? `<div class="motto">${esc(settings.motto)}</div>` : ''}
+    ${settings.address ? `<div class="addr">${esc(settings.address)}</div>` : ''}
     <div class="office">Office of the Principal</div>
-    <div class="contact">Tel: 09034210590 &nbsp;|&nbsp; Website: okrikagrammarschool.org &nbsp;|&nbsp; Email: info@okrikagrammarschool.org</div>
+    ${contactLine ? `<div class="contact">${contactLine}</div>` : ''}
   </div>
-  <img src="/diocese_of_okrika_logo.jpg" alt="Diocese of Okrika" />
+  <div style="width:72px"></div>
 </div>
 <div class="rule"></div>
 <div class="form-type">Requisition Form</div>

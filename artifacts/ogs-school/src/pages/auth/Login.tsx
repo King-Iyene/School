@@ -1,44 +1,44 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Eye, EyeOff, GraduationCap } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 import { supabase } from '../../lib/supabase';
 import { navigate } from '../../components/hooks/useLocation';
 
+// NOTE: student accounts are provisioned with a deterministic
+// `<admission-number>@student.okrika.edu.ng` identity. This is left as a
+// fixed suffix (rather than derived per-tenant) because changing it would
+// break sign-in for every already-provisioned student account on the live
+// Okrika tenant. Before onboarding a second school, give each tenant its own
+// student email domain (e.g. stored on tenant_settings) and provision new
+// student accounts with it — this suffix should not simply be templated
+// from the tenant slug without a data migration for existing users.
+const LEGACY_STUDENT_EMAIL_DOMAIN = 'student.okrika.edu.ng';
+
 export default function Login() {
   const { signIn } = useAuth();
+  const { settings } = useTenantSettings();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [logoUrl, setLogoUrl] = useState<string | null>(null);
-  const [schoolName, setSchoolName] = useState('Okrika Grammar School');
   const [forgotMode, setForgotMode] = useState(false);
   const [resetSent, setResetSent] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
 
-
-  useEffect(() => {
-    supabase
-      .from('schools')
-      .select('name, logo_url')
-      .limit(1)
-      .maybeSingle()
-      .then(({ data }) => {
-        if (data?.logo_url) setLogoUrl(data.logo_url);
-        if (data?.name) setSchoolName(data.name);
-      });
-  }, []);
+  const logoUrl = settings.logo_url || null;
+  const schoolName = settings.school_name || 'School Portal';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
-    
+
     // Transparently proxy raw student admission numbers into deterministic Supabase identities
     let loginIdentifier = email.trim().toLowerCase();
     if (!loginIdentifier.includes('@')) {
-      loginIdentifier = `${loginIdentifier}@student.okrika.edu.ng`;
+      loginIdentifier = `${loginIdentifier}@${LEGACY_STUDENT_EMAIL_DOMAIN}`;
     }
 
     const { error } = await signIn(loginIdentifier, password);
@@ -149,7 +149,7 @@ export default function Login() {
                 type="text"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder="e.g. OGS-YYYY-XXX or example@okrika.edu.ng"
+                placeholder="Admission number or email address"
                 required
                 className="w-full bg-white/5 border border-white/10 text-white placeholder-slate-500 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all"
               />

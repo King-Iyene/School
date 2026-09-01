@@ -3,6 +3,8 @@ import { UserPlus, Eye, EyeOff, Search, User, Check } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { logActivity } from '../../lib/activityLog';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
+import { schoolCodeFromName } from '../../lib/schoolCode';
 
 interface Class {
   id: string;
@@ -77,19 +79,19 @@ const defaultForm: FormData = {
   lga: '',
 };
 
-async function getNextAdmissionNumber(schoolId: string): Promise<string> {
+async function getNextAdmissionNumber(schoolId: string, prefix: string): Promise<string> {
   const year = new Date().getFullYear();
   try {
     const [{ data: sData }, { data: pData }, { data: prData }] = await Promise.all([
       supabase.from('students').select('admission_number')
         .eq('school_id', schoolId)
-        .ilike('admission_number', `OGS-${year}-%`),
+        .ilike('admission_number', `${prefix}-${year}-%`),
       supabase.from('profiles').select('admission_number')
         .eq('school_id', schoolId)
-        .ilike('admission_number', `OGS-${year}-%`),
+        .ilike('admission_number', `${prefix}-${year}-%`),
       supabase.from('prospective_students').select('admission_number')
         .eq('school_id', schoolId)
-        .ilike('admission_number', `OGS-${year}-%`)
+        .ilike('admission_number', `${prefix}-${year}-%`)
     ]);
 
     const allNums = [
@@ -98,7 +100,7 @@ async function getNextAdmissionNumber(schoolId: string): Promise<string> {
       ...(prData || []).map(pr => pr.admission_number)
     ].filter(Boolean);
 
-    if (allNums.length === 0) return `OGS-${year}-001`;
+    if (allNums.length === 0) return `${prefix}-${year}-001`;
 
     let maxSeq = 0;
     allNums.forEach(num => {
@@ -109,10 +111,10 @@ async function getNextAdmissionNumber(schoolId: string): Promise<string> {
 
     const nextSeq = maxSeq + 1;
     const padding = nextSeq >= 1000 ? 0 : 3;
-    return `OGS-${year}-${String(nextSeq).padStart(padding, '0')}`;
+    return `${prefix}-${year}-${String(nextSeq).padStart(padding, '0')}`;
   } catch (e) {
     console.error('Error getting next admission number:', e);
-    return `OGS-${year}-001`;
+    return `${prefix}-${year}-001`;
   }
 }
 
@@ -120,6 +122,8 @@ async function getNextAdmissionNumber(schoolId: string): Promise<string> {
 
 export default function StudentAdmission() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
+  const admissionPrefix = schoolCodeFromName(settings.school_name);
   const [classes, setClasses] = useState<Class[]>([]);
   const [sections, setSections] = useState<Section[]>([]);
   const [filteredSections, setFilteredSections] = useState<Section[]>([]);
@@ -138,7 +142,7 @@ export default function StudentAdmission() {
   useEffect(() => {
     fetchReferenceData();
     if (profile?.school_id) {
-      getNextAdmissionNumber(profile.school_id).then(num => updateField('admission_number', num));
+      getNextAdmissionNumber(profile.school_id, admissionPrefix).then(num => updateField('admission_number', num));
     }
   }, [profile]);
 
@@ -377,7 +381,7 @@ export default function StudentAdmission() {
     
     // Get next number for the next entry
     if (!profile?.school_id) return;
-    const num = await getNextAdmissionNumber(profile.school_id);
+    const num = await getNextAdmissionNumber(profile.school_id, admissionPrefix);
     setForm(f => ({ ...f, admission_number: num }));
     setParentSearch('');
     setParentResults([]);
@@ -514,7 +518,7 @@ export default function StudentAdmission() {
                 className={inputClass}
                 value={form.lga}
                 onChange={(e) => updateField('lga', e.target.value)}
-                placeholder="e.g. Okrika"
+                placeholder="e.g. City"
               />
             </div>
           </div>
@@ -642,7 +646,7 @@ export default function StudentAdmission() {
                   onChange={(e) => updateField('admission_number', e.target.value)}
                   placeholder="OGS-2024-001"
                 />
-                <button type="button" onClick={async () => { const n = await getNextAdmissionNumber(profile?.school_id || ''); setForm(f => ({ ...f, admission_number: n })); }} className="px-3 py-2 text-xs rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 whitespace-nowrap transition-colors">
+                <button type="button" onClick={async () => { const n = await getNextAdmissionNumber(profile?.school_id || '', admissionPrefix); setForm(f => ({ ...f, admission_number: n })); }} className="px-3 py-2 text-xs rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 whitespace-nowrap transition-colors">
                   Generate
                 </button>
               </div>

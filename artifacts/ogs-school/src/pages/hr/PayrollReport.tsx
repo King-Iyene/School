@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 
 interface PayrollRow {
   id: string;
@@ -64,6 +65,7 @@ function getBankDetails(notes?: string): { bank_name: string; account_number: st
 
 export default function PayrollReport() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
   const currentDate = new Date();
   const [filterRole, setFilterRole] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
@@ -79,11 +81,15 @@ export default function PayrollReport() {
     bankName: 'Ecobank Nig. Ltd.',
     bankBranch: 'Refinery Branch, Port Harcourt',
     schoolAccount: '0562040932',
-    schoolAccountName: 'Okrika Grammar School (Anglican Communion)',
+    schoolAccountName: '',
     bishopName: 'RT. REVD. (DR) ENOCH ATUBOYEDIA (JP)',
     principalName: 'Kelvin Sampson Fubara',
   });
   const pc = (k: keyof typeof printConfig, v: string) => setPrintConfig(p => ({ ...p, [k]: v }));
+
+  useEffect(() => {
+    setPrintConfig(p => ({ ...p, schoolAccountName: p.schoolAccountName || settings.school_name }));
+  }, [settings.school_name]);
 
   // Auto-fill principal and vice-principal names from profiles
   useEffect(() => {
@@ -180,6 +186,9 @@ export default function PayrollReport() {
     const origin = window.location.origin;
     const win = window.open('', '_blank', 'width=950,height=1100');
     if (!win) return;
+    const primaryColor = settings.primary_color || '#1a3a5c';
+    const secondaryColor = settings.secondary_color || '#1a6b3a';
+    const contactLine = [settings.phone && `Tel: ${settings.phone}`, settings.email && `Email: ${settings.email}`].filter(Boolean).join(' &nbsp;|&nbsp; ');
     win.document.write(`<!DOCTYPE html><html><head>
 <title>Payment for ${monthLabel} ${filterYear} Salary</title>
 <style>
@@ -205,17 +214,17 @@ tfoot td{font-weight:bold;background:#e8e8e8;border:1px solid #555}
 </style></head><body>
 <div style="margin-bottom:18px">
   <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px">
-    <img src="${origin}/ogs_logo_bg.png" alt="OGS Logo" style="width:82px;height:82px;object-fit:contain"/>
+    <img src="${settings.logo_url || origin + '/ogs_logo_bg.png'}" alt="${settings.school_name} Logo" style="width:82px;height:82px;object-fit:contain"/>
     <div style="flex:1;text-align:center;padding:0 16px">
-      <div style="font-size:20pt;font-weight:900;letter-spacing:1.5px;color:#1a3a5c;font-family:'Times New Roman',serif;line-height:1.1">OKRIKA GRAMMAR SCHOOL</div>
-      <div style="font-size:9pt;font-style:italic;color:#1a6b3a;font-weight:600;margin:3px 0">Founded 1940 | Perseverantia Vincit</div>
-      <div style="font-size:8.5pt;color:#333;line-height:1.5">Diocese of Okrika | Church of Nigeria (Anglican Communion)<br/>Okrika, Rivers State, Nigeria</div>
-      <div style="font-size:9pt;font-weight:bold;color:#1a3a5c;margin-top:2px">Office of the Principal</div>
-      <div style="font-size:7.5pt;color:#555;margin-top:2px">Tel: 09034210590 &nbsp;|&nbsp; Website: okrikagrammarschool.org &nbsp;|&nbsp; Email: info@okrikagrammarschool.org</div>
+      <div style="font-size:20pt;font-weight:900;letter-spacing:1.5px;color:${primaryColor};font-family:'Times New Roman',serif;line-height:1.1">${settings.school_name.toUpperCase()}</div>
+      ${settings.motto ? `<div style="font-size:9pt;font-style:italic;color:${secondaryColor};font-weight:600;margin:3px 0">${settings.motto}</div>` : ''}
+      ${settings.address ? `<div style="font-size:8.5pt;color:#333;line-height:1.5">${settings.address}</div>` : ''}
+      <div style="font-size:9pt;font-weight:bold;color:${primaryColor};margin-top:2px">Office of the Principal</div>
+      ${contactLine ? `<div style="font-size:7.5pt;color:#555;margin-top:2px">${contactLine}</div>` : ''}
     </div>
-    <img src="${origin}/diocese_of_okrika_logo.jpg" alt="Diocese Logo" style="width:76px;height:76px;object-fit:contain"/>
+    <div style="width:76px"></div>
   </div>
-  <div style="border-top:3px solid #1a3a5c;border-bottom:1px solid #1a6b3a;height:4px;margin:0 0 12px 0"></div>
+  <div style="border-top:3px solid ${primaryColor};border-bottom:1px solid ${secondaryColor};height:4px;margin:0 0 12px 0"></div>
 </div>
 <div class="meta">${dateStr}</div>
 <div class="address">

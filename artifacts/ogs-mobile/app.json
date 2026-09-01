@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "OGS School",
-    "slug": "ogs-mobile",
+    "name": "SchoolOS",
+    "slug": "schoolos-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "ogs-mobile",
+    "scheme": "schoolos-mobile",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "splash": {
@@ -15,10 +15,10 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.ogs.school.mobile"
+      "bundleIdentifier": "com.schoolos.mobile"
     },
     "android": {
-      "package": "com.ogs.school.mobile"
+      "package": "com.schoolos.mobile"
     },
     "web": {
       "favicon": "./assets/images/icon.png"

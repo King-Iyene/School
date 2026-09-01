@@ -3,6 +3,7 @@ import { Search, Printer, User, BookOpen, Award, X } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { getWAECGrade, getOverallRemark } from '../../lib/grading';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 
 interface Exam { id: string; name: string; }
 interface SearchResult {
@@ -43,6 +44,7 @@ function gradeColor(grade: string) {
 
 export default function ProgressCardReport() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
   const [exams, setExams] = useState<Exam[]>([]);
   const [selectedExam, setSelectedExam] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -258,6 +260,10 @@ export default function ProgressCardReport() {
     const overallPosText = overallRank ? `${getOrdinal(overallRank.pos)} of ${overallRank.size}` : '—';
     const classAvgText = classOverallAverage != null ? classOverallAverage.toFixed(2) + '%' : '—';
 
+    const primaryColor = settings.primary_color || '#1a3a5c';
+    const secondaryColor = settings.secondary_color || '#1a6b3a';
+    const contactLine = [settings.phone && `Tel: ${settings.phone}`, settings.email && `Email: ${settings.email}`].filter(Boolean).join(' | ');
+
     win.document.write(`<!DOCTYPE html>
 <html><head>
   <title>Result Card - ${selectedStudent.full_name}</title>
@@ -288,18 +294,18 @@ export default function ProgressCardReport() {
   <button class="no-print" onclick="window.print()" style="display:block;margin:0 0 16px auto;padding:8px 24px;background:#059669;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:14px">Print</button>
   <div style="margin-bottom:14px">
     <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px">
-      <img src="${origin}/ogs_logo_bg.png" alt="OGS Logo" style="width:78px;height:78px;object-fit:contain"/>
+      <img src="${settings.logo_url || origin + '/ogs_logo_bg.png'}" alt="${settings.school_name} Logo" style="width:78px;height:78px;object-fit:contain"/>
       <div style="flex:1;text-align:center;padding:0 14px">
-        <div style="font-size:19pt;font-weight:900;letter-spacing:1.5px;color:#1a3a5c;font-family:'Times New Roman',serif;line-height:1.1">OKRIKA GRAMMAR SCHOOL</div>
-        <div style="font-size:9pt;font-style:italic;color:#1a6b3a;font-weight:600;margin:3px 0">Founded 1940 | Perseverantia Vincit</div>
-        <div style="font-size:8.5pt;color:#333;line-height:1.5">Diocese of Okrika | Church of Nigeria (Anglican Communion)<br/>Okrika, Rivers State, Nigeria</div>
-        <div style="font-size:9pt;font-weight:bold;color:#1a3a5c;margin-top:2px">Office of the Principal</div>
-        <div style="font-size:7.5pt;color:#555;margin-top:2px">Tel: 09034210590 | Website: okrikagrammarschool.org | Email: info@okrikagrammarschool.org</div>
+        <div style="font-size:19pt;font-weight:900;letter-spacing:1.5px;color:${primaryColor};font-family:'Times New Roman',serif;line-height:1.1">${settings.school_name.toUpperCase()}</div>
+        ${settings.motto ? `<div style="font-size:9pt;font-style:italic;color:${secondaryColor};font-weight:600;margin:3px 0">${settings.motto}</div>` : ''}
+        ${settings.address ? `<div style="font-size:8.5pt;color:#333;line-height:1.5">${settings.address}</div>` : ''}
+        <div style="font-size:9pt;font-weight:bold;color:${primaryColor};margin-top:2px">Office of the Principal</div>
+        ${contactLine ? `<div style="font-size:7.5pt;color:#555;margin-top:2px">${contactLine}</div>` : ''}
       </div>
-      <img src="${origin}/diocese_of_okrika_logo.jpg" alt="Diocese Logo" style="width:72px;height:72px;object-fit:contain"/>
+      <div style="width:72px"></div>
     </div>
-    <div style="border-top:3px solid #1a3a5c;border-bottom:1px solid #1a6b3a;height:4px;margin:0 0 10px 0"></div>
-    <div style="text-align:center;font-size:14px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;color:#1a3a5c;margin:6px 0 2px">STUDENT RESULT CARD</div>
+    <div style="border-top:3px solid ${primaryColor};border-bottom:1px solid ${secondaryColor};height:4px;margin:0 0 10px 0"></div>
+    <div style="text-align:center;font-size:14px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;color:${primaryColor};margin:6px 0 2px">STUDENT RESULT CARD</div>
     <div style="text-align:center;font-size:12px;color:#444;margin-bottom:6px">${examName}</div>
   </div>
   <div class="info">

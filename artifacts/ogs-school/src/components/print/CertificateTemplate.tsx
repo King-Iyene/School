@@ -1,4 +1,5 @@
-import OGSLetterhead from './OGSLetterhead';
+import DynamicSchoolLetterhead from './DynamicSchoolLetterhead';
+import { useTenantSettings } from '../../context/TenantContext';
 
 interface Props {
   type: 'graduation' | 'excellence' | 'participation' | 'merit' | 'custom';
@@ -18,17 +19,19 @@ const CERT_TITLES: Record<string, string> = {
   custom: 'CERTIFICATE OF ACHIEVEMENT',
 };
 
-const CERT_TEXTS: Record<string, (name: string, cls?: string, yr?: string) => string> = {
-  graduation: (n, cls, yr) => `This is to certify that <strong>${n}</strong> has successfully completed the prescribed course of study${cls ? ` in <strong>${cls}</strong>` : ''} for the Academic Year <strong>${yr ?? new Date().getFullYear()}</strong> at Okrika Grammar School, having satisfied all the requirements for graduation.`,
-  excellence: (n, cls) => `This is to certify that <strong>${n}</strong>${cls ? ` of <strong>${cls}</strong>` : ''} has demonstrated outstanding academic achievement and exceptional dedication to scholarly excellence, earning this recognition.`,
-  participation: (n) => `This is to certify that <strong>${n}</strong> actively participated and contributed meaningfully to school activities, upholding the values and traditions of Okrika Grammar School.`,
-  merit: (n, cls) => `This is to certify that <strong>${n}</strong>${cls ? ` of <strong>${cls}</strong>` : ''} has earned this Certificate of Merit in recognition of outstanding conduct, diligence, and commitment to excellence.`,
-  custom: (n) => `This is to certify that <strong>${n}</strong> has distinguished themselves through exemplary commitment to the pursuit of knowledge and the advancement of the values of Okrika Grammar School.`,
+const CERT_TEXTS: Record<string, (name: string, school: string, cls?: string, yr?: string) => string> = {
+  graduation: (n, school, cls, yr) => `This is to certify that <strong>${n}</strong> has successfully completed the prescribed course of study${cls ? ` in <strong>${cls}</strong>` : ''} for the Academic Year <strong>${yr ?? new Date().getFullYear()}</strong> at ${school}, having satisfied all the requirements for graduation.`,
+  excellence: (n, _school, cls) => `This is to certify that <strong>${n}</strong>${cls ? ` of <strong>${cls}</strong>` : ''} has demonstrated outstanding academic achievement and exceptional dedication to scholarly excellence, earning this recognition.`,
+  participation: (n, school) => `This is to certify that <strong>${n}</strong> actively participated and contributed meaningfully to school activities, upholding the values and traditions of ${school}.`,
+  merit: (n, _school, cls) => `This is to certify that <strong>${n}</strong>${cls ? ` of <strong>${cls}</strong>` : ''} has earned this Certificate of Merit in recognition of outstanding conduct, diligence, and commitment to excellence.`,
+  custom: (n, school) => `This is to certify that <strong>${n}</strong> has distinguished themselves through exemplary commitment to the pursuit of knowledge and the advancement of the values of ${school}.`,
 };
 
 export default function CertificateTemplate({ type, studentName, className, academicYear, description, date, onClose }: Props) {
+  const { settings } = useTenantSettings();
+  const schoolName = settings.school_name || 'the school';
   const certDate = date ?? new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-  const certText = description ?? CERT_TEXTS[type]?.(studentName, className, academicYear) ?? '';
+  const certText = description ?? CERT_TEXTS[type]?.(studentName, schoolName, className, academicYear) ?? '';
 
   return (
     <>
@@ -62,7 +65,7 @@ export default function CertificateTemplate({ type, studentName, className, acad
             <div style={{ position: 'absolute', inset: '12px', border: '2px solid #1a6b3a', borderRadius: '2px', pointerEvents: 'none' }} />
 
             <div style={{ position: 'relative' }}>
-              <OGSLetterhead />
+              <DynamicSchoolLetterhead />
 
               <div style={{ textAlign: 'center', margin: '24px 0 20px' }}>
                 <div style={{
@@ -130,31 +133,22 @@ export default function CertificateTemplate({ type, studentName, className, acad
                   <div style={{ fontSize: '9pt', color: '#555' }}>Date</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', height: '45px', paddingBottom: '2px' }}>
-                    <img src="/kelvin_signature_.jpeg" alt="Principal Signature" style={{ height: '40px', objectFit: 'contain' }} />
-                  </div>
+                  <div style={{ height: '45px' }} />
                   <div style={{ borderBottom: '1px solid #999', marginBottom: '4px' }} />
-                  <div style={{ fontSize: '10pt', fontWeight: 'bold', color: '#1a1a1a' }}>Kelvin Sampson Fubara</div>
-                  <div style={{ fontSize: '9pt', color: '#555' }}>Principal, Okrika Grammar School</div>
+                  <div style={{ fontSize: '9pt', color: '#555' }}>Principal, {schoolName}</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ height: '45px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <svg width="80" height="80" viewBox="0 0 80 80" style={{ display: 'block' }}>
                       <defs>
                         <path id="ctTopArc" d="M 4,40 A 36,36 0 0,1 76,40" />
-                        <path id="ctBottomArc" d="M 72,46 A 36,36 0 0,1 8,46" />
                       </defs>
-                      <circle cx="40" cy="40" r="37" fill="none" stroke="#1a3a5c" strokeWidth="2.5" />
-                      <circle cx="40" cy="40" r="30" fill="none" stroke="#1a3a5c" strokeWidth="0.8" />
-                      <text style={{ fontSize: '6.5px', fontFamily: 'Arial, sans-serif', fontWeight: 'bold', fill: '#1a3a5c', letterSpacing: '1px' }}>
-                        <textPath href="#ctTopArc" startOffset="50%" textAnchor="middle">OKRIKA GRAMMAR SCHOOL</textPath>
+                      <circle cx="40" cy="40" r="37" fill="none" stroke={settings.primary_color || '#1a3a5c'} strokeWidth="2.5" />
+                      <circle cx="40" cy="40" r="30" fill="none" stroke={settings.primary_color || '#1a3a5c'} strokeWidth="0.8" />
+                      <text style={{ fontSize: '6px', fontFamily: 'Arial, sans-serif', fontWeight: 'bold', fill: settings.primary_color || '#1a3a5c', letterSpacing: '0.6px' }}>
+                        <textPath href="#ctTopArc" startOffset="50%" textAnchor="middle">{schoolName.toUpperCase()}</textPath>
                       </text>
-                      <text style={{ fontSize: '5.8px', fontFamily: 'Arial, sans-serif', fill: '#1a3a5c', letterSpacing: '0.6px' }}>
-                        <textPath href="#ctBottomArc" startOffset="50%" textAnchor="middle">DIOCESE OF OKRIKA · RIVERS STATE</textPath>
-                      </text>
-                      <text x="40" y="37" textAnchor="middle" style={{ fontSize: '12px', fontWeight: '900', fontFamily: "'Times New Roman', serif", fill: '#1a3a5c' }}>OGS</text>
-                      <text x="40" y="47" textAnchor="middle" style={{ fontSize: '5.5px', fontFamily: 'Arial, sans-serif', fill: '#1a3a5c', letterSpacing: '1px' }}>EST. 1940</text>
-                      <line x1="24" y1="51" x2="56" y2="51" stroke="#1a3a5c" strokeWidth="0.6" />
+                      <line x1="24" y1="51" x2="56" y2="51" stroke={settings.primary_color || '#1a3a5c'} strokeWidth="0.6" />
                     </svg>
                   </div>
                   <div style={{ borderBottom: '1px solid #999', marginBottom: '4px', marginTop: '2px' }} />
@@ -162,9 +156,11 @@ export default function CertificateTemplate({ type, studentName, className, acad
                 </div>
               </div>
 
-              <div style={{ textAlign: 'center', marginTop: '24px', fontSize: '8pt', color: '#888', borderTop: '1px solid #eee', paddingTop: '10px' }}>
-                <em>"Perseverantia Vincit" — Founded 1940 | Diocese of Okrika | Church of Nigeria (Anglican Communion)</em>
-              </div>
+              {settings.motto && (
+                <div style={{ textAlign: 'center', marginTop: '24px', fontSize: '8pt', color: '#888', borderTop: '1px solid #eee', paddingTop: '10px' }}>
+                  <em>"{settings.motto}"{settings.address ? ` — ${settings.address}` : ''}</em>
+                </div>
+              )}
             </div>
           </div>
         </div>
