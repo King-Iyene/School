@@ -196,7 +196,7 @@ export default function Landing() {
           </Reveal>
           <Reveal delay={80}>
             <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight text-slate-900">
-              The all-in-one platform
+              The all-in-one platform{' '}
               <br className="hidden sm:block" />
               to run your <span className="text-brand-indigo">school</span>
             </h1>
