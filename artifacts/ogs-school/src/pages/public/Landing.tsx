@@ -396,7 +396,7 @@ export default function Landing() {
             <div className="absolute -bottom-20 -left-10 w-56 h-56 rounded-full bg-white/10" />
             <div className="relative">
               <h2 className="text-3xl font-bold text-white">Ready to modernize your school?</h2>
-              <p className="text-white/80 mt-2 mb-8">Get started in minutes — no credit card required for the trial.</p>
+              <p className="text-white/80 mt-2 mb-8">Get started in minutes — your plan price is only charged after your 14-day trial.</p>
               <button
                 onClick={() => navigate('/onboarding')}
                 className="px-8 py-3.5 bg-white hover:bg-slate-50 text-brand-indigo font-semibold rounded-xl shadow-lg transition-colors"
