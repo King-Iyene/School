@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import {
   GraduationCap, Check, Menu, X, Users, BarChart2, CreditCard,
-  BookOpen, Building2, ShieldCheck, Sparkles, ChevronDown, ArrowRight,
+  BookOpen, Building2, ShieldCheck, ChevronDown, ArrowRight, Calendar,
+  MessageCircle, Bell, CheckCircle2,
 } from 'lucide-react';
 import { navigate } from '../../components/hooks/useLocation';
 import Reveal from '../../components/shared/Reveal';
-import GlowBlobs from '../../components/shared/GlowBlobs';
 import { PLAN_LABELS, PLAN_STUDENT_LIMITS, PLAN_PRICES_NGN } from '../../lib/planFeatures';
 import type { PlanTier } from '../../lib/types';
 
@@ -46,6 +46,69 @@ const FAQ = [
   },
 ];
 
+// Angle (degrees) + ring radius (px, at 1024px reference width) for each orbiting icon.
+// Kept off the horizontal/vertical axes (where the headline and CTA row are
+// widest/tallest) so the badges sit clear of the text at typical widths.
+const ORBIT_ICONS: { icon: typeof GraduationCap; angle: number; radius: number }[] = [
+  { icon: Users, angle: -22, radius: 410 },
+  { icon: CreditCard, angle: 22, radius: 410 },
+  { icon: BarChart2, angle: 65, radius: 400 },
+  { icon: BookOpen, angle: 115, radius: 400 },
+  { icon: ShieldCheck, angle: 158, radius: 410 },
+  { icon: Calendar, angle: -158, radius: 410 },
+  { icon: Building2, angle: -115, radius: 400 },
+  { icon: MessageCircle, angle: -65, radius: 400 },
+];
+
+function OrbitField() {
+  return (
+    <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
+      <div className="relative w-[860px] h-[860px] max-w-[95vw] max-h-[95vw]">
+        <div className="absolute inset-[130px] rounded-full border border-slate-200" />
+        <div className="absolute inset-[40px] rounded-full border border-slate-200" />
+        <div className="absolute inset-0 rounded-full border border-slate-100" />
+        {ORBIT_ICONS.map(({ icon: Icon, angle, radius }, i) => {
+          const rad = (angle * Math.PI) / 180;
+          const x = Math.cos(rad) * radius;
+          const y = Math.sin(rad) * radius;
+          return (
+            <div
+              key={i}
+              className="absolute w-11 h-11 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center"
+              style={{ top: `calc(50% + ${y}px)`, left: `calc(50% + ${x}px)`, transform: 'translate(-50%, -50%)' }}
+            >
+              <Icon className="w-4 h-4 text-brand-indigo" />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function FloatingActivityCard() {
+  const rows = [
+    { icon: CheckCircle2, color: 'text-brand-mint bg-brand-mint/15', title: 'New admission approved', sub: 'JSS1 · 8 min ago' },
+    { icon: CreditCard, color: 'text-brand-violet bg-brand-violet/15', title: 'Fee payment received', sub: '₦45,000 · Term 2' },
+    { icon: Bell, color: 'text-brand-indigo bg-brand-indigo/10', title: 'Report card published', sub: 'SS2 Science' },
+  ];
+  return (
+    <div className="relative z-10 w-[300px] sm:w-[340px] bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-900/5 p-4 space-y-3">
+      {rows.map((r, i) => (
+        <div key={i} className={`flex items-center gap-3 ${i > 0 ? 'pt-3 border-t border-slate-100' : ''}`}>
+          <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 ${r.color}`}>
+            <r.icon className="w-4 h-4" />
+          </div>
+          <div className="min-w-0 text-left">
+            <p className="text-sm font-medium text-slate-800 truncate">{r.title}</p>
+            <p className="text-xs text-slate-400">{r.sub}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function formatNaira(n: number) {
   return `₦${n.toLocaleString('en-NG')}`;
 }
@@ -69,17 +132,11 @@ function FaqItem({ item, isOpen, onToggle }: { item: (typeof FAQ)[number]; isOpe
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const prevTitle = document.title;
     document.title = 'School Management SaaS — All-in-One Platform for Schools';
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      document.title = prevTitle;
-      window.removeEventListener('scroll', onScroll);
-    };
+    return () => { document.title = prevTitle; };
   }, []);
 
   const goToCheckout = (plan: PlanTier) => navigate(`/onboarding?plan=${plan}`);
@@ -87,88 +144,87 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-white text-slate-800 selection:bg-brand-violet/30">
       {/* Nav */}
-      <header className={`fixed top-0 inset-x-0 z-40 transition-colors duration-300 ${scrolled ? 'bg-brand-ink/90 backdrop-blur-md border-b border-white/10' : 'bg-transparent'}`}>
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-violet to-brand-indigo flex items-center justify-center shadow-lg shadow-brand-violet/20">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-violet to-brand-indigo flex items-center justify-center shadow-sm">
               <GraduationCap className="w-5 h-5 text-white" />
             </div>
-            <span className="font-bold text-lg text-white">SchoolOS</span>
+            <span className="font-bold text-lg text-slate-900">SchoolOS</span>
           </div>
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-            <a href="#features" className="hover:text-brand-mint transition-colors">Features</a>
-            <a href="#pricing" className="hover:text-brand-mint transition-colors">Pricing</a>
-            <a href="#faq" className="hover:text-brand-mint transition-colors">FAQ</a>
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+            <a href="#features" className="hover:text-brand-indigo transition-colors">Features</a>
+            <a href="#pricing" className="hover:text-brand-indigo transition-colors">Pricing</a>
+            <a href="#faq" className="hover:text-brand-indigo transition-colors">FAQ</a>
           </nav>
           <div className="hidden md:flex items-center gap-3">
-            <button onClick={() => navigate('/login')} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
-              Sign In
+            <button onClick={() => navigate('/login')} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
+              Sign in
             </button>
             <button
               onClick={() => navigate('/onboarding')}
-              className="px-4 py-2 bg-gradient-to-r from-brand-violet to-brand-indigo hover:brightness-110 text-white text-sm font-semibold rounded-xl transition-all shadow-lg shadow-brand-violet/20"
+              className="px-4 py-2 bg-slate-900 hover:bg-brand-indigo text-white text-sm font-semibold rounded-xl transition-colors shadow-sm"
             >
-              Start Free Trial
+              Get Started Free
             </button>
           </div>
-          <button className="md:hidden text-white" onClick={() => setMenuOpen(v => !v)}>
+          <button className="md:hidden text-slate-700" onClick={() => setMenuOpen(v => !v)}>
             {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
         {menuOpen && (
-          <div className="md:hidden bg-brand-ink border-t border-white/10 px-4 py-4 space-y-3">
-            <a href="#features" className="block text-sm font-medium text-slate-300">Features</a>
-            <a href="#pricing" className="block text-sm font-medium text-slate-300">Pricing</a>
-            <a href="#faq" className="block text-sm font-medium text-slate-300">FAQ</a>
-            <button onClick={() => navigate('/login')} className="block text-sm font-medium text-slate-300">Sign In</button>
-            <button onClick={() => navigate('/onboarding')} className="w-full px-4 py-2 bg-gradient-to-r from-brand-violet to-brand-indigo text-white text-sm font-semibold rounded-xl">
-              Start Free Trial
+          <div className="md:hidden bg-white border-t border-slate-100 px-4 py-4 space-y-3">
+            <a href="#features" className="block text-sm font-medium text-slate-600">Features</a>
+            <a href="#pricing" className="block text-sm font-medium text-slate-600">Pricing</a>
+            <a href="#faq" className="block text-sm font-medium text-slate-600">FAQ</a>
+            <button onClick={() => navigate('/login')} className="block text-sm font-medium text-slate-600">Sign in</button>
+            <button onClick={() => navigate('/onboarding')} className="w-full px-4 py-2 bg-slate-900 text-white text-sm font-semibold rounded-xl">
+              Get Started Free
             </button>
           </div>
         )}
       </header>
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-brand-ink">
-        <GlowBlobs />
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-32 pb-24 sm:pt-40 sm:pb-32 text-center">
+      <section className="relative overflow-hidden">
+        <OrbitField />
+        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-4 sm:pt-28 text-center">
           <Reveal>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-brand-mint text-xs font-semibold mb-6 backdrop-blur-sm">
-              <Sparkles className="w-3.5 h-3.5" /> Now onboarding schools across Nigeria
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-violet/10 border border-brand-violet/20 text-brand-indigo text-xs font-semibold mb-6">
+              <GraduationCap className="w-3.5 h-3.5" /> Built for school administrators
             </div>
           </Reveal>
           <Reveal delay={80}>
-            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight">
-              <span className="text-white">The all-in-one platform</span>
+            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight text-slate-900">
+              The all-in-one platform
               <br className="hidden sm:block" />
-              <span
-                className="bg-clip-text text-transparent bg-[length:200%_auto] bg-gradient-to-r from-brand-mint via-brand-violet to-brand-mint animate-brand-gradient-x"
-              >
-                to run your school
-              </span>
+              to run your <span className="text-brand-indigo">school</span>
             </h1>
           </Reveal>
           <Reveal delay={160}>
-            <p className="mt-6 text-lg text-slate-400 max-w-2xl mx-auto">
+            <p className="mt-6 text-lg text-slate-500 max-w-xl mx-auto">
               Admissions, attendance, exams, fees, HR, transport, and parent communication —
               one portal, fully hosted, with a plan that fits your school's size.
             </p>
           </Reveal>
           <Reveal delay={240}>
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
               <button
                 onClick={() => navigate('/onboarding')}
-                className="group px-8 py-3.5 bg-gradient-to-r from-brand-violet to-brand-indigo hover:brightness-110 text-white font-semibold rounded-xl shadow-lg shadow-brand-violet/25 transition-all animate-brand-glow-pulse inline-flex items-center gap-2"
+                className="group px-8 py-3.5 bg-slate-900 hover:bg-brand-indigo text-white font-semibold rounded-xl shadow-lg shadow-slate-900/10 transition-colors inline-flex items-center gap-2"
               >
-                Start Free Trial
+                Get Started Free
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </button>
-              <a href="#pricing" className="px-8 py-3.5 border border-white/15 hover:border-white/30 hover:bg-white/5 text-white font-semibold rounded-xl transition-colors">
+              <a href="#pricing" className="px-8 py-3.5 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold rounded-xl transition-colors">
                 See Pricing
               </a>
             </div>
           </Reveal>
         </div>
+        <Reveal delay={320} className="relative flex justify-center pb-16 sm:pb-24 pt-6">
+          <FloatingActivityCard />
+        </Reveal>
       </section>
 
       {/* Features */}
@@ -200,12 +256,11 @@ export default function Landing() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="relative bg-brand-ink py-20 overflow-hidden">
-        <GlowBlobs />
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
+      <section id="pricing" className="bg-slate-50 py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <Reveal className="text-center mb-14">
-            <h2 className="text-3xl font-bold text-white">Simple, transparent pricing</h2>
-            <p className="text-slate-400 mt-2">Pick the plan that matches your school's size today — upgrade any time.</p>
+            <h2 className="text-3xl font-bold text-slate-900">Simple, transparent pricing</h2>
+            <p className="text-slate-500 mt-2">Pick the plan that matches your school's size today — upgrade any time.</p>
           </Reveal>
 
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
@@ -216,8 +271,8 @@ export default function Landing() {
                   <div
                     className={`relative rounded-2xl p-8 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 ${
                       featured
-                        ? 'bg-brand-ink-light text-white shadow-2xl shadow-brand-violet/20 md:scale-[1.04] border border-brand-violet/40 ring-1 ring-brand-violet/30'
-                        : 'bg-white/5 backdrop-blur-sm border border-white/10 text-white'
+                        ? 'bg-slate-900 text-white shadow-2xl md:scale-[1.04]'
+                        : 'bg-white border border-slate-200 shadow-sm'
                     }`}
                   >
                     {featured && (
@@ -225,30 +280,30 @@ export default function Landing() {
                         MOST POPULAR
                       </span>
                     )}
-                    <h3 className="font-bold text-lg text-white">{PLAN_LABELS[tier]}</h3>
-                    <p className="text-sm mt-1 text-slate-400">
+                    <h3 className={`font-bold text-lg ${featured ? 'text-white' : 'text-slate-800'}`}>{PLAN_LABELS[tier]}</h3>
+                    <p className={`text-sm mt-1 ${featured ? 'text-slate-400' : 'text-slate-500'}`}>
                       {PLAN_STUDENT_LIMITS[tier] ? `Up to ${PLAN_STUDENT_LIMITS[tier]!.toLocaleString()} students` : 'Unlimited students & staff'}
                     </p>
                     <div className="mt-5 mb-6">
-                      <span className="text-4xl font-extrabold text-white">
+                      <span className={`text-4xl font-extrabold ${featured ? 'text-white' : 'text-slate-900'}`}>
                         {formatNaira(PLAN_PRICES_NGN[tier])}
                       </span>
-                      <span className="text-sm text-slate-400"> /month</span>
+                      <span className={`text-sm ${featured ? 'text-slate-400' : 'text-slate-500'}`}> /month</span>
                     </div>
                     <ul className="space-y-3 flex-1 mb-8">
                       {FEATURE_ROWS.filter(row => row[tier]).map(row => (
-                        <li key={row.label} className="flex items-start gap-2 text-sm text-slate-300">
-                          <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${featured ? 'text-brand-mint' : 'text-brand-violet'}`} />
+                        <li key={row.label} className={`flex items-start gap-2 text-sm ${featured ? 'text-slate-200' : 'text-slate-600'}`}>
+                          <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${featured ? 'text-brand-mint' : 'text-brand-indigo'}`} />
                           {row.label}
                         </li>
                       ))}
                     </ul>
                     <button
                       onClick={() => goToCheckout(tier)}
-                      className={`w-full py-3 rounded-xl font-semibold transition-all ${
+                      className={`w-full py-3 rounded-xl font-semibold transition-colors ${
                         featured
-                          ? 'bg-gradient-to-r from-brand-violet to-brand-indigo hover:brightness-110 text-white shadow-lg shadow-brand-violet/25'
-                          : 'bg-white/10 hover:bg-white/20 text-white border border-white/10'
+                          ? 'bg-gradient-to-r from-brand-violet to-brand-indigo hover:brightness-110 text-white'
+                          : 'bg-slate-900 hover:bg-brand-indigo text-white'
                       }`}
                     >
                       Subscribe Now
@@ -333,24 +388,27 @@ export default function Landing() {
       </section>
 
       {/* Final CTA */}
-      <section className="relative bg-brand-ink py-20 overflow-hidden">
-        <GlowBlobs />
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <Reveal>
-            <h2 className="text-3xl font-bold text-white">Ready to modernize your school?</h2>
-            <p className="text-slate-400 mt-2 mb-8">Get started in minutes — no credit card required for the trial.</p>
-            <button
-              onClick={() => navigate('/onboarding')}
-              className="px-8 py-3.5 bg-gradient-to-r from-brand-violet to-brand-indigo hover:brightness-110 text-white font-semibold rounded-xl shadow-lg shadow-brand-violet/25 transition-all"
-            >
-              Start Free Trial
-            </button>
-          </Reveal>
-        </div>
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-20">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-violet to-brand-indigo px-8 py-16 text-center">
+            <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-white/10" />
+            <div className="absolute -bottom-20 -left-10 w-56 h-56 rounded-full bg-white/10" />
+            <div className="relative">
+              <h2 className="text-3xl font-bold text-white">Ready to modernize your school?</h2>
+              <p className="text-white/80 mt-2 mb-8">Get started in minutes — no credit card required for the trial.</p>
+              <button
+                onClick={() => navigate('/onboarding')}
+                className="px-8 py-3.5 bg-white hover:bg-slate-50 text-brand-indigo font-semibold rounded-xl shadow-lg transition-colors"
+              >
+                Start Free Trial
+              </button>
+            </div>
+          </div>
+        </Reveal>
       </section>
 
-      <footer className="bg-brand-ink border-t border-white/10 py-8 text-center text-sm text-slate-500">
-        <button onClick={() => navigate('/login')} className="hover:text-slate-300 transition-colors">Sign In</button>
+      <footer className="border-t border-slate-100 py-8 text-center text-sm text-slate-400">
+        <button onClick={() => navigate('/login')} className="hover:text-slate-600 transition-colors">Sign In</button>
         <span className="mx-2">·</span>
         <span>&copy; {new Date().getFullYear()} SchoolOS. All rights reserved.</span>
       </footer>
