@@ -1,9 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "incremental": true,
-    "tsBuildInfoFile": ".tsbuildinfo",
-    "outDir": "dist",
+    "noEmit": true,
     "rootDir": "src",
     "types": ["node"]
   },
