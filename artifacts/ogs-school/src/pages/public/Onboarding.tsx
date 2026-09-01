@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { GraduationCap, Check, Loader2, ArrowLeft } from 'lucide-react';
 import { navigate, getSearchParams } from '../../components/hooks/useLocation';
+import GlowBlobs from '../../components/shared/GlowBlobs';
 import { PLAN_LABELS, PLAN_STUDENT_LIMITS, PLAN_PRICES_NGN } from '../../lib/planFeatures';
 import type { PlanTier } from '../../lib/types';
 
@@ -24,6 +25,41 @@ function loadPaystackScript(): Promise<void> {
 }
 
 type Step = 'details' | 'plan' | 'payment' | 'success';
+const STEPS: { key: Step; label: string }[] = [
+  { key: 'details', label: 'School' },
+  { key: 'plan', label: 'Plan' },
+  { key: 'payment', label: 'Payment' },
+  { key: 'success', label: 'Done' },
+];
+
+function Stepper({ step }: { step: Step }) {
+  const activeIndex = STEPS.findIndex(s => s.key === step);
+  return (
+    <div className="flex items-center justify-between mb-8">
+      {STEPS.map((s, i) => (
+        <div key={s.key} className="flex items-center flex-1 last:flex-none">
+          <div className="flex flex-col items-center gap-1.5">
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${
+                i < activeIndex
+                  ? 'bg-brand-mint text-brand-ink'
+                  : i === activeIndex
+                  ? 'bg-gradient-to-br from-brand-violet to-brand-indigo text-white shadow-lg shadow-brand-violet/30 scale-110'
+                  : 'bg-white/5 text-slate-500 border border-white/10'
+              }`}
+            >
+              {i < activeIndex ? <Check className="w-4 h-4" /> : i + 1}
+            </div>
+            <span className={`text-[11px] font-medium ${i <= activeIndex ? 'text-slate-200' : 'text-slate-500'}`}>{s.label}</span>
+          </div>
+          {i < STEPS.length - 1 && (
+            <div className={`h-0.5 flex-1 mx-1.5 rounded-full transition-colors duration-500 ${i < activeIndex ? 'bg-brand-mint' : 'bg-white/10'}`} />
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function Onboarding() {
   const params = useMemo(() => getSearchParams(), []);
@@ -115,7 +151,8 @@ export default function Onboarding() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
+    <div className="relative min-h-screen bg-brand-ink flex items-center justify-center p-4 overflow-hidden">
+      <GlowBlobs />
       <div className="relative w-full max-w-lg">
         <button
           onClick={() => navigate('/landing')}
@@ -124,23 +161,26 @@ export default function Onboarding() {
           <ArrowLeft className="w-4 h-4" /> Back to home
         </button>
 
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl">
+        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-black/40">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-11 h-11 rounded-xl bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/25">
+            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-violet to-brand-indigo flex items-center justify-center shadow-lg shadow-brand-violet/25">
               <GraduationCap className="w-6 h-6 text-white" />
             </div>
             <div>
               <h1 className="text-xl font-bold text-white">Create your school's portal</h1>
-              <p className="text-slate-400 text-sm">Step {['details', 'plan', 'payment', 'success'].indexOf(step) + 1} of 4</p>
+              <p className="text-slate-400 text-sm">Step {STEPS.findIndex(s => s.key === step) + 1} of {STEPS.length}</p>
             </div>
           </div>
 
+          <Stepper step={step} />
+
           {error && (
-            <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm px-4 py-3 rounded-xl mb-4">
+            <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm px-4 py-3 rounded-xl mb-4 animate-brand-fade-up">
               {error}
             </div>
           )}
 
+          <div className="animate-brand-fade-up" key={step}>
           {step === 'details' && (
             <form
               className="space-y-4"
@@ -182,8 +222,8 @@ export default function Onboarding() {
                 <button
                   key={tier}
                   onClick={() => setPlan(tier)}
-                  className={`w-full text-left p-4 rounded-xl border transition-all ${
-                    plan === tier ? 'border-emerald-500 bg-emerald-500/10' : 'border-white/10 hover:border-white/20'
+                  className={`w-full text-left p-4 rounded-xl border transition-all duration-200 ${
+                    plan === tier ? 'border-brand-violet bg-brand-violet/10 ring-1 ring-brand-violet/40' : 'border-white/10 hover:border-white/25'
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -198,7 +238,7 @@ export default function Onboarding() {
                       <p className="text-slate-500 text-xs">/month</p>
                     </div>
                   </div>
-                  {plan === tier && <Check className="w-4 h-4 text-emerald-400 mt-2" />}
+                  {plan === tier && <Check className="w-4 h-4 text-brand-mint mt-2" />}
                 </button>
               ))}
               <div className="flex gap-3">
@@ -221,7 +261,7 @@ export default function Onboarding() {
                   <span>₦{PLAN_PRICES_NGN[plan].toLocaleString('en-NG')}</span>
                 </div>
                 {!PLATFORM_PAYSTACK_PUBLIC_KEY && (
-                  <p className="text-amber-400 text-xs mt-3">
+                  <p className="text-brand-mint/80 text-xs mt-3">
                     Payment gateway not configured on this deployment — your school will be created on a trial
                     subscription; billing can be activated later from the Super Admin panel.
                   </p>
@@ -238,8 +278,8 @@ export default function Onboarding() {
 
           {step === 'success' && (
             <div className="text-center py-4">
-              <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Check className="w-8 h-8 text-emerald-400" />
+              <div className="w-16 h-16 bg-gradient-to-br from-brand-mint/20 to-brand-violet/20 rounded-full flex items-center justify-center mx-auto mb-4 ring-1 ring-brand-mint/30">
+                <Check className="w-8 h-8 text-brand-mint" />
               </div>
               <h2 className="text-xl font-bold text-white mb-2">Your portal is ready!</h2>
               <p className="text-slate-400 text-sm mb-6">
@@ -249,14 +289,15 @@ export default function Onboarding() {
               <button onClick={() => navigate(loginUrl || '/login')} className={primaryBtnClass}>Go to Sign In</button>
             </div>
           )}
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-const inputClass = 'w-full bg-white/5 border border-white/10 text-white placeholder-slate-500 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all';
-const primaryBtnClass = 'w-full bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-xl transition-colors shadow-lg shadow-emerald-500/25';
+const inputClass = 'w-full bg-white/5 border border-white/10 text-white placeholder-slate-500 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-violet/50 focus:border-brand-violet/50 transition-all';
+const primaryBtnClass = 'w-full bg-gradient-to-r from-brand-violet to-brand-indigo hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-xl transition-all shadow-lg shadow-brand-violet/25';
 const secondaryBtnClass = 'w-full bg-white/5 hover:bg-white/10 disabled:opacity-50 text-slate-300 font-semibold py-3 px-4 rounded-xl transition-colors border border-white/10';
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
