@@ -26,7 +26,7 @@ function checkMetro() {
 const proxy = http.createServer((req, res) => {
   if (!metroReady) {
     res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
-    res.end("<!DOCTYPE html><html><body><h2>OGS Mobile — Metro is starting\u2026</h2><script>setTimeout(()=>location.reload(),2000)</script></body></html>");
+    res.end("<!DOCTYPE html><html><body><h2>SchoolOS Mobile — Metro is starting\u2026</h2><script>setTimeout(()=>location.reload(),2000)</script></body></html>");
     return;
   }
 

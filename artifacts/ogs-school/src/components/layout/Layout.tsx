@@ -4,6 +4,7 @@ import Header from './Header';
 import { useLocation } from '../hooks/useLocation';
 import { getNavItems } from './navConfig';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 import OfflineIndicator from '../common/OfflineIndicator';
 import AIAssistantWidget from '../shared/AIAssistantWidget';
 
@@ -14,8 +15,9 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { profile } = useAuth();
+  const { tenant } = useTenantSettings();
   const location = useLocation();
-  const navItems = getNavItems(profile?.role);
+  const navItems = getNavItems(profile?.role, tenant?.plan_tier);
   const currentNav = navItems.find(item => item.path === location);
   const title = currentNav?.label || 'Dashboard';
 

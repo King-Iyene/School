@@ -1,3 +1,6 @@
+import { useTenantSettings } from '../../context/TenantContext';
+import type { TenantSettings } from '../../lib/types';
+
 interface Student {
   id: string;
   first_name: string;
@@ -18,12 +21,13 @@ interface Props {
   onClose: () => void;
 }
 
-function StudentCard({ student, academicYear }: { student: Student; academicYear: string }) {
+function StudentCard({ student, academicYear, settings }: { student: Student; academicYear: string; settings: TenantSettings }) {
   const initials = `${student.first_name?.[0] ?? ''}${student.last_name?.[0] ?? ''}`.toUpperCase();
+  const primaryColor = settings.primary_color || '#1a3a5c';
   return (
     <div style={{
       width: '85.6mm', height: '53.98mm',
-      border: '1px solid #1a3a5c',
+      border: `1px solid ${primaryColor}`,
       borderRadius: '4px',
       display: 'flex',
       flexDirection: 'column',
@@ -33,13 +37,12 @@ function StudentCard({ student, academicYear }: { student: Student; academicYear
       boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
       pageBreakInside: 'avoid',
     }}>
-      <div style={{ background: '#1a3a5c', padding: '4px 8px', display: 'flex', alignItems: 'center', gap: '5px' }}>
-        <img src="/ogs_logo_bg.png" alt="OGS" style={{ width: '22px', height: '22px', objectFit: 'contain', background: 'white', borderRadius: '50%', padding: '1px', flexShrink: 0 }} />
+      <div style={{ background: primaryColor, padding: '4px 8px', display: 'flex', alignItems: 'center', gap: '5px' }}>
+        <img src={settings.logo_url || '/ogs_logo_bg.png'} alt="Logo" style={{ width: '22px', height: '22px', objectFit: 'contain', background: 'white', borderRadius: '50%', padding: '1px', flexShrink: 0 }} />
         <div style={{ flex: 1 }}>
-          <div style={{ color: 'white', fontWeight: 'bold', fontSize: '7.5pt', letterSpacing: '0.5px', lineHeight: 1.1 }}>OKRIKA GRAMMAR SCHOOL</div>
-          <div style={{ color: '#93c5fd', fontSize: '6pt', lineHeight: 1 }}>Perseverantia Vincit | Okrika, Rivers State</div>
+          <div style={{ color: 'white', fontWeight: 'bold', fontSize: '7.5pt', letterSpacing: '0.5px', lineHeight: 1.1 }}>{(settings.school_name || 'SCHOOL PORTAL').toUpperCase()}</div>
+          {settings.motto && <div style={{ color: '#93c5fd', fontSize: '6pt', lineHeight: 1 }}>{settings.motto}</div>}
         </div>
-        <img src="/diocese_of_okrika_logo.jpg" alt="Diocese" style={{ width: '22px', height: '22px', objectFit: 'contain', background: 'white', borderRadius: '50%', padding: '1px', flexShrink: 0 }} />
       </div>
       <div style={{ flex: 1, display: 'flex', padding: '5px 8px', gap: '8px' }}>
         <div style={{ flexShrink: 0 }}>
@@ -70,10 +73,10 @@ function StudentCard({ student, academicYear }: { student: Student; academicYear
       <div style={{ background: '#f0f9ff', borderTop: '1px solid #bfdbfe', padding: '3px 8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <div style={{ fontSize: '5.5pt', color: '#555' }}>If found, please return to:</div>
-          <div style={{ fontSize: '5.5pt', color: '#1a3a5c', fontWeight: '600' }}>Tel: 09034210590 | okrikagrammarschool.org</div>
+          <div style={{ fontSize: '5.5pt', color: primaryColor, fontWeight: '600' }}>{settings.phone || settings.email || ''}</div>
         </div>
         <div style={{ textAlign: 'center' }}>
-          <img src="/kelvin_signature_.jpeg" alt="Principal" style={{ height: '18px', objectFit: 'contain', display: 'block', margin: '0 auto' }} />
+          <div style={{ height: '18px' }} />
           <div style={{ borderTop: '0.5px solid #999', width: '54px', marginBottom: '1px' }} />
           <div style={{ fontSize: '5pt', color: '#555' }}>Principal</div>
         </div>
@@ -83,6 +86,7 @@ function StudentCard({ student, academicYear }: { student: Student; academicYear
 }
 
 export default function StudentIDCardPrint({ students, academicYear = '2025/2026', onClose }: Props) {
+  const { settings } = useTenantSettings();
   return (
     <>
       <style>{`
@@ -105,7 +109,7 @@ export default function StudentIDCardPrint({ students, academicYear = '2025/2026
             <button onClick={() => window.print()} className="px-4 py-2 text-sm bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors">Print All Cards</button>
           </div>
           <div className="id-grid" style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'flex-start' }}>
-            {students.map(s => <StudentCard key={s.id} student={s} academicYear={academicYear} />)}
+            {students.map(s => <StudentCard key={s.id} student={s} academicYear={academicYear} settings={settings} />)}
           </div>
         </div>
       </div>

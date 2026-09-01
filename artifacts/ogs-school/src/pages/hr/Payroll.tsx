@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Printer, X, Zap, CheckCircle, AlertCircle } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
+import type { TenantSettings } from '../../lib/types';
 import Modal from '../../components/common/Modal';
 
 interface StaffProfile {
@@ -88,27 +90,31 @@ function buildNotes(b: BankDetails): string {
 interface VoucherProps {
   record: PayrollRecord;
   staff: StaffProfile;
-  schoolName: string;
+  settings: TenantSettings;
   onClose: () => void;
 }
 
-function SalaryVoucher({ record, staff, schoolName, onClose }: VoucherProps) {
+function SalaryVoucher({ record, staff, settings, onClose }: VoucherProps) {
   const bank = parseNotes(record.notes);
   const monthLabel = MONTHS.find(m => m.value === record.month)?.label ?? '';
   const roleLabel = ROLE_LABEL[staff.role] ?? staff.role.replace(/_/g, ' ');
+  const schoolName = settings.school_name;
 
   const handlePrint = () => {
     const origin = window.location.origin;
     const win = window.open('', '_blank', 'width=820,height=1000');
     if (!win) return;
+    const primaryColor = settings.primary_color || '#1a3a5c';
+    const secondaryColor = settings.secondary_color || '#1a6b3a';
+    const contactLine = [settings.phone && `Tel: ${settings.phone}`, settings.email && `Email: ${settings.email}`].filter(Boolean).join(' | ');
     win.document.write(`<!DOCTYPE html><html><head>
 <title>Salary Voucher – ${staff.first_name} ${staff.last_name} – ${monthLabel} ${record.year}</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:Arial,sans-serif;padding:36px;color:#111;font-size:13px}
-  .voucher-title{background:#1a3a5c;color:#fff;text-align:center;font-size:14px;font-weight:bold;letter-spacing:3px;padding:8px 0;margin:14px 0 6px;border-radius:3px}
+  .voucher-title{background:${primaryColor};color:#fff;text-align:center;font-size:14px;font-weight:bold;letter-spacing:3px;padding:8px 0;margin:14px 0 6px;border-radius:3px}
   .period{text-align:center;font-size:13px;color:#444;margin-bottom:16px}
-  hr{border:none;border-top:1.5px solid #1a3a5c;margin:14px 0}
+  hr{border:none;border-top:1.5px solid ${primaryColor};margin:14px 0}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin-bottom:16px}
   .field-label{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.8px}
   .field-value{font-size:13px;font-weight:600;color:#111;margin-top:2px}
@@ -119,7 +125,7 @@ function SalaryVoucher({ record, staff, schoolName, onClose }: VoucherProps) {
   thead th:last-child{text-align:right}
   tbody td{padding:8px 12px;border-bottom:1px solid #f1f5f9;font-size:13px}
   tbody td:last-child{text-align:right}
-  .total-row td{background:#1a3a5c;color:#fff;font-weight:bold;font-size:15px;border-radius:2px}
+  .total-row td{background:${primaryColor};color:#fff;font-weight:bold;font-size:15px;border-radius:2px}
   .sigs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-top:44px}
   .sig-block{text-align:center}
   .sig-line{border-top:1px solid #333;padding-top:6px;font-size:11px;color:#555;margin-top:32px}
@@ -129,17 +135,17 @@ function SalaryVoucher({ record, staff, schoolName, onClose }: VoucherProps) {
 </head><body>
   <div style="margin-bottom:14px">
     <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px">
-      <img src="${origin}/ogs_logo_bg.png" alt="OGS Logo" style="width:70px;height:70px;object-fit:contain"/>
+      <img src="${settings.logo_url || origin + '/ogs_logo_bg.png'}" alt="${schoolName} Logo" style="width:70px;height:70px;object-fit:contain"/>
       <div style="flex:1;text-align:center;padding:0 12px">
-        <div style="font-size:16pt;font-weight:900;letter-spacing:1.5px;color:#1a3a5c;font-family:'Times New Roman',serif;line-height:1.1">OKRIKA GRAMMAR SCHOOL</div>
-        <div style="font-size:8.5pt;font-style:italic;color:#1a6b3a;font-weight:600;margin:3px 0">Founded 1940 | Perseverantia Vincit</div>
-        <div style="font-size:8pt;color:#333;line-height:1.5">Diocese of Okrika | Church of Nigeria (Anglican Communion)<br/>Okrika, Rivers State, Nigeria</div>
-        <div style="font-size:8.5pt;font-weight:bold;color:#1a3a5c;margin-top:2px">Office of the Principal</div>
-        <div style="font-size:7pt;color:#555;margin-top:2px">Tel: 09034210590 | Website: okrikagrammarschool.org | Email: info@okrikagrammarschool.org</div>
+        <div style="font-size:16pt;font-weight:900;letter-spacing:1.5px;color:${primaryColor};font-family:'Times New Roman',serif;line-height:1.1">${schoolName.toUpperCase()}</div>
+        ${settings.motto ? `<div style="font-size:8.5pt;font-style:italic;color:${secondaryColor};font-weight:600;margin:3px 0">${settings.motto}</div>` : ''}
+        ${settings.address ? `<div style="font-size:8pt;color:#333;line-height:1.5">${settings.address}</div>` : ''}
+        <div style="font-size:8.5pt;font-weight:bold;color:${primaryColor};margin-top:2px">Office of the Principal</div>
+        ${contactLine ? `<div style="font-size:7pt;color:#555;margin-top:2px">${contactLine}</div>` : ''}
       </div>
-      <img src="${origin}/diocese_of_okrika_logo.jpg" alt="Diocese Logo" style="width:65px;height:65px;object-fit:contain"/>
+      <div style="width:65px"></div>
     </div>
-    <div style="border-top:3px solid #1a3a5c;border-bottom:1px solid #1a6b3a;height:4px;margin:0 0 10px 0"></div>
+    <div style="border-top:3px solid ${primaryColor};border-bottom:1px solid ${secondaryColor};height:4px;margin:0 0 10px 0"></div>
   </div>
   <div class="voucher-title">S A L A R Y &nbsp; V O U C H E R</div>
   <div class="period">${monthLabel} ${record.year}</div>
@@ -173,8 +179,7 @@ function SalaryVoucher({ record, staff, schoolName, onClose }: VoucherProps) {
     <div class="sig-block"><div class="sig-line">Prepared By</div></div>
     <div class="sig-block">
       <div class="sig-line">Approved By</div>
-      <div style="font-size:11px;font-weight:bold;margin-top:5px">Kelvin Sampson Fubara</div>
-      <div style="font-size:10px;color:#555;margin-top:1px">Principal</div>
+      <div style="font-size:10px;color:#555;margin-top:5px">Principal</div>
     </div>
     <div class="sig-block"><div class="sig-line">Staff Signature</div></div>
   </div>
@@ -201,7 +206,7 @@ function SalaryVoucher({ record, staff, schoolName, onClose }: VoucherProps) {
         <div className="p-5 space-y-4">
           <div className="text-center pb-3 border-b-2 border-slate-800">
             <p className="text-lg font-bold text-slate-800 uppercase tracking-wider">{schoolName}</p>
-            <p className="text-xs text-slate-500 mt-0.5">Okrika, Rivers State, Nigeria</p>
+            {settings.address && <p className="text-xs text-slate-500 mt-0.5">{settings.address}</p>}
             <div className="inline-block mt-2 bg-slate-800 text-white text-xs font-bold tracking-widest px-6 py-1.5 rounded">
               SALARY VOUCHER
             </div>
@@ -277,6 +282,7 @@ function SalaryVoucher({ record, staff, schoolName, onClose }: VoucherProps) {
 
 export default function Payroll() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
   const currentDate = new Date();
   const [filterRole, setFilterRole] = useState('');
   const [filterMonth, setFilterMonth] = useState(currentDate.getMonth() + 1);
@@ -289,7 +295,6 @@ export default function Payroll() {
   const [selectedStaff, setSelectedStaff] = useState<StaffProfile | null>(null);
   const [voucherRecord, setVoucherRecord] = useState<PayrollRecord | null>(null);
   const [voucherStaff, setVoucherStaff] = useState<StaffProfile | null>(null);
-  const [schoolName, setSchoolName] = useState('Okrika Grammar School');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [pageError, setPageError] = useState('');
@@ -318,13 +323,6 @@ export default function Payroll() {
     (Number(form.basic_salary) || 0) +
     (Number(form.allowances) || 0) -
     (Number(form.deductions) || 0);
-
-  useEffect(() => {
-    if (profile?.school_id) {
-      supabase.from('schools').select('name').eq('id', profile.school_id).maybeSingle()
-        .then(({ data }) => { if (data?.name) setSchoolName(data.name); });
-    }
-  }, [profile?.school_id]);
 
   useEffect(() => { fetchData(); }, [filterRole, filterMonth, filterYear, profile?.school_id]);
 
@@ -390,19 +388,22 @@ export default function Payroll() {
     const origin = window.location.origin;
     const win = window.open('', '_blank', 'width=1050,height=1100');
     if (!win) return;
+    const primaryColor = settings.primary_color || '#1a3a5c';
+    const secondaryColor = settings.secondary_color || '#1a6b3a';
+    const contactLine = [settings.phone && `Tel: ${settings.phone}`, settings.email && `Email: ${settings.email}`].filter(Boolean).join(' &nbsp;|&nbsp; ');
     win.document.write(`<!DOCTYPE html><html><head>
 <title>Salary Sheet – ${monthLabel} ${filterYear}</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;padding:36px;font-size:12px;color:#111}
-.title-bar{background:#1a3a5c;color:#fff;text-align:center;padding:9px;font-size:13px;font-weight:bold;letter-spacing:2px;margin:14px 0 20px;border-radius:3px}
+.title-bar{background:${primaryColor};color:#fff;text-align:center;padding:9px;font-size:13px;font-weight:bold;letter-spacing:2px;margin:14px 0 20px;border-radius:3px}
 table{width:100%;border-collapse:collapse;font-size:11px}
 thead th{background:#f1f5f9;padding:8px 7px;text-align:left;font-size:10px;color:#64748b;border-bottom:2px solid #e2e8f0;white-space:nowrap}
 thead th.r{text-align:right}
 tbody tr:nth-child(even){background:#f8fafc}
 tbody td{padding:7px 7px;border-bottom:1px solid #e8edf2}
 tbody td.r{text-align:right}
-.total-row td{font-weight:bold;background:#1a3a5c;color:#fff;padding:9px 7px;font-size:12px}
+.total-row td{font-weight:bold;background:${primaryColor};color:#fff;padding:9px 7px;font-size:12px}
 .total-row td.r{text-align:right}
 .sigs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;margin-top:64px}
 .sig-line{border-top:1px solid #333;padding-top:6px;font-size:11px;color:#555;text-align:center;margin-top:44px}
@@ -411,17 +412,17 @@ tbody td.r{text-align:right}
 </style></head><body>
 <div style="margin-bottom:16px">
   <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px">
-    <img src="${origin}/ogs_logo_bg.png" alt="OGS Logo" style="width:82px;height:82px;object-fit:contain"/>
+    <img src="${settings.logo_url || origin + '/ogs_logo_bg.png'}" alt="${settings.school_name} Logo" style="width:82px;height:82px;object-fit:contain"/>
     <div style="flex:1;text-align:center;padding:0 16px">
-      <div style="font-size:20pt;font-weight:900;letter-spacing:1.5px;color:#1a3a5c;font-family:'Times New Roman',serif;line-height:1.1">OKRIKA GRAMMAR SCHOOL</div>
-      <div style="font-size:9pt;font-style:italic;color:#1a6b3a;font-weight:600;margin:3px 0">Founded 1940 | Perseverantia Vincit</div>
-      <div style="font-size:8.5pt;color:#333;line-height:1.5">Diocese of Okrika | Church of Nigeria (Anglican Communion)<br/>Okrika, Rivers State, Nigeria</div>
-      <div style="font-size:9pt;font-weight:bold;color:#1a3a5c;margin-top:2px">Office of the Principal</div>
-      <div style="font-size:7.5pt;color:#555;margin-top:2px">Tel: 09034210590 &nbsp;|&nbsp; Website: okrikagrammarschool.org &nbsp;|&nbsp; Email: info@okrikagrammarschool.org</div>
+      <div style="font-size:20pt;font-weight:900;letter-spacing:1.5px;color:${primaryColor};font-family:'Times New Roman',serif;line-height:1.1">${settings.school_name.toUpperCase()}</div>
+      ${settings.motto ? `<div style="font-size:9pt;font-style:italic;color:${secondaryColor};font-weight:600;margin:3px 0">${settings.motto}</div>` : ''}
+      ${settings.address ? `<div style="font-size:8.5pt;color:#333;line-height:1.5">${settings.address}</div>` : ''}
+      <div style="font-size:9pt;font-weight:bold;color:${primaryColor};margin-top:2px">Office of the Principal</div>
+      ${contactLine ? `<div style="font-size:7.5pt;color:#555;margin-top:2px">${contactLine}</div>` : ''}
     </div>
-    <img src="${origin}/diocese_of_okrika_logo.jpg" alt="Diocese Logo" style="width:76px;height:76px;object-fit:contain"/>
+    <div style="width:76px"></div>
   </div>
-  <div style="border-top:3px solid #1a3a5c;border-bottom:1px solid #1a6b3a;height:4px;margin:0 0 12px 0"></div>
+  <div style="border-top:3px solid ${primaryColor};border-bottom:1px solid ${secondaryColor};height:4px;margin:0 0 12px 0"></div>
 </div>
 <div class="title-bar">MONTHLY SALARY PAYMENT SHEET &nbsp;—&nbsp; ${monthLabel.toUpperCase()} ${filterYear}</div>
 <div class="date">Printed: ${new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}</div>
@@ -460,8 +461,7 @@ ${sheetRows.map((s, i) => {
   <div><div class="sig-line">Prepared By (Accountant)</div></div>
   <div>
     <div class="sig-line">Approved By</div>
-    <div style="font-size:11px;font-weight:bold;text-align:center;margin-top:5px">Kelvin Sampson Fubara</div>
-    <div style="font-size:10px;color:#555;text-align:center;margin-top:1px">Principal</div>
+    <div style="font-size:10px;color:#555;text-align:center;margin-top:5px">Principal</div>
   </div>
   <div><div class="sig-line">Bank Receiving Officer</div></div>
 </div>
@@ -1098,7 +1098,7 @@ ${sheetRows.map((s, i) => {
         <SalaryVoucher
           record={voucherRecord}
           staff={voucherStaff}
-          schoolName={schoolName}
+          settings={settings}
           onClose={() => { setVoucherRecord(null); setVoucherStaff(null); }}
         />
       )}

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { navigate } from '../../components/hooks/useLocation';
+import { useTenantSettings } from '../../context/TenantContext';
+import { schoolCodeFromName } from '../../lib/schoolCode';
 import {
   User, Users, GraduationCap, Phone, Mail, AlertCircle,
   ChevronRight, ChevronLeft, Building2, BookOpen, Search,
@@ -43,6 +45,7 @@ const STEPS = [
 ];
 
 export default function AdmissionForm() {
+  const { settings } = useTenantSettings();
   const [form, setForm] = useState(emptyForm);
   const [step, setStep] = useState(1);
 
@@ -99,21 +102,21 @@ export default function AdmissionForm() {
     setStep(s => s + 1);
   }
 
-  async function generateApplicationRef(schoolId: string | null): Promise<string> {
+  async function generateApplicationRef(schoolId: string | null, prefix: string): Promise<string> {
     const year = new Date().getFullYear();
     try {
       const { data } = await supabase
         .from('prospective_students')
         .select('application_ref')
         .eq('school_id', schoolId ?? '')
-        .ilike('application_ref', `OGS/APP/${year}/%`);
+        .ilike('application_ref', `${prefix}/APP/${year}/%`);
       const nums = (data ?? [])
         .map((r: any) => parseInt((r.application_ref ?? '').split('/').pop() ?? '0'))
         .filter(Boolean);
       const next = nums.length ? Math.max(...nums) + 1 : 1;
-      return `OGS/APP/${year}/${String(next).padStart(4, '0')}`;
+      return `${prefix}/APP/${year}/${String(next).padStart(4, '0')}`;
     } catch {
-      return `OGS/APP/${year}/0001`;
+      return `${prefix}/APP/${year}/0001`;
     }
   }
 
@@ -126,7 +129,7 @@ export default function AdmissionForm() {
 
     // Generate a human-readable application reference client-side so it is
     // always present and readable even if the DB trigger is not active.
-    const applicationRef = await generateApplicationRef(school?.id ?? null);
+    const applicationRef = await generateApplicationRef(school?.id ?? null, schoolCodeFromName(settings.school_name));
 
     const payload = {
       ...form,
@@ -193,13 +196,13 @@ export default function AdmissionForm() {
           <div className="text-center mb-7">
             <div className="flex justify-center mb-4">
               <img
-                src="/ogs_logo_bg.png"
-                alt="OGS Logo"
+                src={settings.logo_url || '/ogs_logo_bg.png'}
+                alt={`${settings.school_name} Logo`}
                 className="w-20 h-20 object-contain rounded-2xl bg-white/90 p-2 shadow-xl"
               />
             </div>
             <h1 className="text-3xl font-extrabold text-white tracking-tight drop-shadow">
-              Okrika Grammar School
+              {settings.school_name}
             </h1>
             <p className="text-slate-300 mt-1 text-base font-medium">
               Student Admission Application Form
@@ -367,7 +370,7 @@ export default function AdmissionForm() {
                         value={form.lga}
                         onChange={e => f('lga', e.target.value)}
                         className={inputCls}
-                        placeholder="e.g. Okrika"
+                        placeholder="e.g. City"
                       />
                     </div>
                   </div>
@@ -648,17 +651,17 @@ export default function AdmissionForm() {
       </div>
 
       {/* WhatsApp FAB */}
-      <WhatsAppFAB />
+      <WhatsAppFAB schoolName={settings.school_name} />
     </div>
   );
 }
 
 const WHATSAPP_NUMBER = '2348012345678'; // ← update to school's WhatsApp number
 
-function WhatsAppFAB() {
+function WhatsAppFAB({ schoolName }: { schoolName: string }) {
   return (
     <a
-      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello, I have a question about admission to Okrika Grammar School.')}`}
+      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hello, I have a question about admission to ${schoolName}.`)}`}
       target="_blank"
       rel="noopener noreferrer"
       title="Chat with us on WhatsApp"

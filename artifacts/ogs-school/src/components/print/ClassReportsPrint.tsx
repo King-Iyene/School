@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { supabase } from '../../lib/supabase';
 import { getOverallRemark, remarkForGrade, principalRemarkForAvg } from '../../lib/grading';
-import OGSLetterhead from './OGSLetterhead';
+import DynamicSchoolLetterhead from './DynamicSchoolLetterhead';
 
 interface Props {
   classId: string;
@@ -323,7 +323,7 @@ export default function ClassReportsPrint({ classId, termId, academicYearId, stu
 
             return (
               <div key={pkt.student.id} className="print-card" style={{ border: '2px double #1a3a5c', padding: '8px 10px', background: '#fff' }}>
-                <OGSLetterhead compact />
+                <DynamicSchoolLetterhead compact />
 
                 <div style={{ textAlign: 'center', marginBottom: '6px' }}>
                   <div style={{ fontSize: '10pt', fontWeight: 'bold', background: '#1a3a5c', color: 'white', padding: '2px 14px', display: 'inline-block', borderRadius: '3px', letterSpacing: '0.5px' }}>

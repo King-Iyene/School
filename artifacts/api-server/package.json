@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.103.0",
+    "@supabase/supabase-js": "^2.106.2",
     "@types/web-push": "^3.6.4",
     "@workspace/api-zod": "workspace:*",
     "@workspace/db": "workspace:*",

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from '../common/NavLink';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 import { LogOut, X, ChevronDown, ChevronRight } from 'lucide-react';
 import { getNavItems } from './navConfig';
 import { navigate } from '../hooks/useLocation';
-import { supabase } from '../../lib/supabase';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -13,21 +13,17 @@ interface SidebarProps {
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const { profile, signOut } = useAuth();
-  const navItems = getNavItems(profile?.role);
+  const { settings, tenant } = useTenantSettings();
+  const navItems = getNavItems(profile?.role, tenant?.plan_tier);
   const groupedMapInit = navItems.filter(i => i.group).reduce((acc, item) => { acc[item.group!] = true; return acc; }, {} as Record<string, boolean>);
   const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(() => new Set(Object.keys(groupedMapInit)));
   const [schoolName, setSchoolName] = useState('');
   const [logoUrl, setLogoUrl] = useState('');
 
   useEffect(() => {
-    if (!profile?.school_id) return;
-    supabase.from('schools').select('name, logo_url').eq('id', profile.school_id).maybeSingle().then(({ data }) => {
-      if (data) {
-        setSchoolName(data.name ?? '');
-        setLogoUrl(data.logo_url ?? '');
-      }
-    });
-  }, [profile?.school_id]);
+    setSchoolName(settings.school_name ?? '');
+    setLogoUrl(settings.logo_url ?? '');
+  }, [settings.school_name, settings.logo_url]);
 
   useEffect(() => {
     const handler = (e: Event) => {

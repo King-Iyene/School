@@ -152,7 +152,7 @@ const OPEN_QUESTIONS = [
   'What are you best at in your role? Where do you make the most difference?',
   'What is the single biggest obstacle stopping you from doing your job at your best right now?',
   'What specific training or support would help you most this year?',
-  'What is one improvement you would like to see at OGS, and how could you help deliver it?',
+  'What is one improvement you would like to see at your school, and how could you help deliver it?',
 ];
 
 const RATING_LABELS = ['', 'Needs support', 'Developing', 'Competent', 'Strong', 'Exemplary'];
@@ -925,7 +925,7 @@ export default function StaffAssessment() {
                   </>
                 )}
                 <div>
-                  <label className="block text-xs font-medium text-slate-500 mb-1">Years at OGS</label>
+                  <label className="block text-xs font-medium text-slate-500 mb-1">Years of Service</label>
                   <input className={INPUT} disabled={!myCanEdit} value={selfData.section1.years_at_ogs ?? ''} onChange={e => setSelfData(p => ({ ...p, section1: { ...p.section1, years_at_ogs: e.target.value } }))} placeholder="e.g. 7" />
                 </div>
                 <div>
@@ -1143,7 +1143,7 @@ export default function StaffAssessment() {
                         </>
                       )}
                       <div>
-                        <label className="block text-xs font-medium text-slate-500 mb-1">Years at OGS</label>
+                        <label className="block text-xs font-medium text-slate-500 mb-1">Years of Service</label>
                         <input className={INPUT} value={dataEntrySelfData.section1.years_at_ogs ?? ''} onChange={e => setDataEntrySelfData(p => ({ ...p, section1: { ...p.section1, years_at_ogs: e.target.value } }))} placeholder="e.g. 7" />
                       </div>
                       <div>

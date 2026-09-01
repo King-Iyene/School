@@ -1,8 +1,25 @@
 /**
- * OGS Admission Letter – Official template based on the school's signed format.
- * Opens a new browser window with the formatted letter + acceptance slip, then
- * triggers the print dialog.
+ * Admission Letter – official offer-of-admission template. Opens a new
+ * browser window with the formatted letter + acceptance slip, then triggers
+ * the print dialog. All school branding/contact/payment details are passed
+ * in via `SchoolBranding` — never hardcode a specific school's bank account
+ * or contact details here, since this template is shared by every tenant.
  */
+
+import { schoolCodeFromName } from '../../lib/schoolCode';
+
+export interface SchoolBranding {
+  school_name: string;
+  motto?: string;
+  address?: string;
+  phone?: string;
+  email?: string;
+  logo_url?: string;
+  primary_color?: string;
+  secondary_color?: string;
+  /** e.g. "Account Number: 0123456789 | Account Name: ... | Bank: ..." — omit if fees are collected online. */
+  bank_details?: string;
+}
 
 interface Prospect {
   first_name: string;
@@ -37,18 +54,22 @@ function seqFromRef(ref?: string | null): string {
   return match ? match[0].padStart(3, '0') : ref;
 }
 
-export function printAdmissionLetter(prospect: Prospect, admissionNumber: string) {
+export function printAdmissionLetter(prospect: Prospect, admissionNumber: string, school: SchoolBranding) {
   const year = new Date().getFullYear();
   const p     = pronoun(prospect.gender);
   const fee   = prospect.student_type === 'boarding' ? '₦300,000' : '₦150,000';
   const type  = prospect.student_type === 'boarding' ? 'Boarding' : 'Day';
   const cls   = prospect.class_applying_for || '[CLASS]';
   const seq   = seqFromRef(prospect.application_ref);
-  const ref   = `OGS/PRIN/ADM/${year}/${seq}`;
+  const ref   = `${schoolCodeFromName(school.school_name)}/PRIN/ADM/${year}/${seq}`;
   const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
   const studentName = `${prospect.first_name} ${prospect.last_name}`.trim();
   const guardian = prospect.guardian_name || '[Parent/Guardian]';
   const surname  = guardianSurname(prospect.guardian_name);
+  const primaryColor = school.primary_color || '#1a3a5c';
+  const secondaryColor = school.secondary_color || '#1a6b3a';
+  const contactLine = [school.phone && `Tel: ${school.phone}`, school.email && `Email: ${school.email}`].filter(Boolean).join(' &nbsp;|&nbsp; ');
+  const bankBlock = school.bank_details || 'Contact the school office for payment instructions.';
 
   const addressLines = [
     guardian,
@@ -75,12 +96,12 @@ export function printAdmissionLetter(prospect: Prospect, admissionNumber: string
     .lh-logo { width:72px; height:72px; object-fit:contain; }
     .lh-centre { flex:1; text-align:center; padding:0 14px; }
     .lh-name  { font-size:20pt; font-weight:900; letter-spacing:1.5px;
-                color:#1a3a5c; line-height:1.1; }
-    .lh-motto { font-size:9.5pt; font-style:italic; color:#1a6b3a;
+                color:${primaryColor}; line-height:1.1; }
+    .lh-motto { font-size:9.5pt; font-style:italic; color:${secondaryColor};
                 font-weight:600; margin:4px 0; }
     .lh-dets  { font-size:8.5pt; color:#333; line-height:1.5; }
-    .lh-office{ font-size:9pt; font-weight:bold; color:#1a3a5c; margin-top:2px; }
-    .lh-rule1 { border-top:3px solid #1a3a5c; border-bottom:1px solid #1a6b3a;
+    .lh-office{ font-size:9pt; font-weight:bold; color:${primaryColor}; margin-top:2px; }
+    .lh-rule1 { border-top:3px solid ${primaryColor}; border-bottom:1px solid ${secondaryColor};
                 height:4px; margin:6px 0 10px; }
     .lh-contact{ font-size:8pt; color:#555; text-align:center; margin-bottom:14px; }
 
@@ -148,17 +169,16 @@ export function printAdmissionLetter(prospect: Prospect, admissionNumber: string
 
   <!-- Letterhead -->
   <div class="lh-wrap">
-    <img class="lh-logo" src="/ogs_logo_bg.png" alt="OGS Logo"/>
+    <img class="lh-logo" src="${school.logo_url || '/ogs_logo_bg.png'}" alt="${school.school_name} Logo"/>
     <div class="lh-centre">
-      <div class="lh-name">OKRIKA GRAMMAR SCHOOL</div>
-      <div class="lh-motto">Founded 1940 | Perseverantia Vincit</div>
-      <div class="lh-dets">Diocese of Okrika | Church of Nigeria (Anglican Communion)<br/>Okrika, Rivers State, Nigeria</div>
+      <div class="lh-name">${school.school_name.toUpperCase()}</div>
+      ${school.motto ? `<div class="lh-motto">${school.motto}</div>` : ''}
+      ${school.address ? `<div class="lh-dets">${school.address}</div>` : ''}
       <div class="lh-office">OFFICE OF THE PRINCIPAL</div>
     </div>
-    <img class="lh-logo" src="/diocese_of_okrika_logo.jpg" alt="Diocese of Okrika"/>
   </div>
   <div class="lh-rule1"></div>
-  <div class="lh-contact">Tel: 09034210590 &nbsp;|&nbsp; Website: okrikagrammarschool.org &nbsp;|&nbsp; Email: info@okrikagrammarschool.org</div>
+  ${contactLine ? `<div class="lh-contact">${contactLine}</div>` : ''}
 
   <!-- Letter body -->
   <p class="confidential">PRIVATE &amp; CONFIDENTIAL</p>
@@ -174,29 +194,21 @@ export function printAdmissionLetter(prospect: Prospect, admissionNumber: string
 
   <p class="subject">Offer of Admission into ${cls} for the ${year}/${year + 1} Academic Session</p>
 
-  <p class="body indent">Following your ward's participation in the Okrika Grammar School Entrance Examination and the
+  <p class="body indent">Following your ward's participation in the ${school.school_name} Entrance Examination and the
 review of results by the school's Admissions Committee, I am pleased to inform you that admission
 has been offered to <strong>${studentName}</strong> (Admission Number: <strong>${admissionNumber}</strong>) into
-<strong>${cls}</strong> of Okrika Grammar School for the ${year}/${year + 1} academic session.</p>
+<strong>${cls}</strong> of ${school.school_name} for the ${year}/${year + 1} academic session.</p>
 
-  <p class="body">Okrika Grammar School, founded in 1940 under the Diocese of Okrika, Church of Nigeria (Anglican
-Communion), is undergoing a structured institutional transformation under the Fubara Agenda, our
-three-year Smart School plan. Your ward will join a school culture built around strong academic
-standards and hands-on digital and STEM training in our ICT Centre and robotics laboratory, delivered
-in a disciplined, values-driven environment consistent with our motto, <em>Perseverantia Vincit</em>.</p>
+  <p class="body">${school.school_name} maintains a school culture built around strong academic
+standards and a disciplined, values-driven environment${school.motto ? `, consistent with our motto, <em>${school.motto}</em>` : ''}.</p>
 
   <h3 class="section">Conditions of Admission</h3>
   <p class="body">This offer is subject to the following conditions being met on or before 9th September ${year}:</p>
   <ol class="conds">
     <li>
       Payment of the prescribed school fees of <strong>${fee} for ${type} students</strong> for First (1st) Term
-      of the ${year}/${year + 1} Academic Session, made only through the official bank account.<br/><br/>
-      <div class="bank-block">
-        Account Number: <strong>0562040932</strong><br/>
-        Account Name: <strong>Okrika Grammar School (Anglican Communion)</strong><br/>
-        Bank: <strong>Ecobank Nigeria</strong>
-      </div>
-      Okrika Grammar School does not accept payments made outside our official bank above.
+      of the ${year}/${year + 1} Academic Session.<br/><br/>
+      <div class="bank-block">${bankBlock}</div>
     </li>
     <li>Submission of the documents listed below at the point of registration.</li>
     <li>Completion and return of the signed Acceptance Slip attached to this letter.</li>
@@ -207,7 +219,6 @@ in a disciplined, values-driven environment consistent with our motto, <em>Perse
     <li>2 recent passport photographs</li>
     <li>Last Result from previous school</li>
     <li>Copy of this admission letter</li>
-    <li>Signed copy of the OGS Code of Excellence (issued and signed at registration)</li>
   </ul>
 
   <h3 class="section">Resumption</h3>
@@ -215,26 +226,24 @@ in a disciplined, values-driven environment consistent with our motto, <em>Perse
 report to the school by 8:00 am for orientation, registration, and verification of documents and
 uniform. Details of the approved school uniform and textbook list will be issued at registration.</p>
 
-  <p class="body">We are confident that your ward will find in Okrika Grammar School an institution committed to
-academic excellence, discipline, and the digital skills required for the 21st century, and we look
-forward to welcoming <strong>${p.him}</strong> into the OGS family.</p>
+  <p class="body">We are confident that your ward will find in ${school.school_name} an institution committed to
+academic excellence and discipline, and we look forward to welcoming <strong>${p.him}</strong> into the school family.</p>
 
   <p class="body">Should you require any clarification, please contact the school using the details below.</p>
 
-  <p class="body">Congratulations, and welcome to Okrika Grammar School.</p>
+  <p class="body">Congratulations, and welcome to ${school.school_name}.</p>
 
   <div class="closing">
     <p>Yours sincerely,</p>
   </div>
   <div class="sig-block">
-    <img class="sig-img" src="/kelvin_signature_.jpeg" alt="Principal's Signature"/>
-    <p class="sig-name">Kelvin Sampson Fubara</p>
-    <p>Principal, Okrika Grammar School</p>
+    <p class="sig-name">&nbsp;</p>
+    <p>Principal, ${school.school_name}</p>
   </div>
-  <p class="cc">cc: OGS Admissions File</p>
+  <p class="cc">cc: Admissions File</p>
 
   <div class="footer">
-    Okrika Grammar School &nbsp;|&nbsp; info@okrikagrammarschool.org &nbsp;|&nbsp; 09034210590 &nbsp;|&nbsp; okrikagrammarschool.org
+    ${school.school_name}${contactLine ? ` &nbsp;|&nbsp; ${contactLine}` : ''}
   </div>
 
   <!-- Cut line -->
@@ -242,12 +251,12 @@ forward to welcoming <strong>${p.him}</strong> into the OGS family.</p>
 
   <!-- Acceptance slip -->
   <div class="slip">
-    <p class="slip-title">Okrika Grammar School</p>
+    <p class="slip-title">${school.school_name}</p>
     <p class="slip-sub">Admission Acceptance Slip</p>
     <p class="slip-ref">Ref: ${ref}</p>
 
     <p class="slip-body">I, <strong>${guardian}</strong>, acknowledge receipt of the offer of admission for <strong>${studentName}</strong>
-into <strong>${cls}</strong> of Okrika Grammar School for the ${year}/${year + 1} academic session, and
+into <strong>${cls}</strong> of ${school.school_name} for the ${year}/${year + 1} academic session, and
 confirm my acceptance of the offer and the conditions stated therein.</p>
 
     <div class="slip-fields">

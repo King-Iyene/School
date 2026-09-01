@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { getOverallRemark, remarkForGrade, principalRemarkForAvg } from '../../lib/grading';
-import OGSLetterhead from './OGSLetterhead';
+import DynamicSchoolLetterhead from './DynamicSchoolLetterhead';
 
 interface Props {
   studentId: string;
@@ -438,7 +438,7 @@ export default function StudentReportPrint({ studentId, termId, academicYearId, 
           </div>
 
           <div className="print-card" style={{ border: '2px double #1a3a5c', padding: '8px 10px', background: '#fff' }}>
-            <OGSLetterhead compact />
+            <DynamicSchoolLetterhead compact />
 
             <div style={{ textAlign: 'center', marginBottom: '6px' }}>
               <div

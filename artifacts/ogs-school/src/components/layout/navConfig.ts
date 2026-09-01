@@ -1,11 +1,52 @@
 import { Sparkles, LayoutDashboard, Users, GraduationCap, BookOpen, ClipboardList, Calendar, DollarSign, Bell, Settings, School, UserCheck, BarChart2, FileText, CreditCard, BookMarked, Award, MessageCircle, BookUser, AlertCircle, Mail, MailOpen, Phone, SlidersHorizontal, ScrollText, BadgeCheck, Clock, Building, Building2, Briefcase, Receipt, TrendingUp, TrendingDown, Tag, Map, Truck, Megaphone, HardDrive, Monitor, ArrowRightLeft, Percent, Book, LayoutGrid, UserCog, CheckSquare, CalendarCheck, BarChart, Download, FolderOpen, ClipboardCheck, Globe, AtSign, MessageSquare, Umbrella, ShieldCheck, RefreshCw, Package, Store, PackagePlus, PackageCheck, ShoppingCart, ShoppingBag, Send, UserPlus, BookCopy, List, Upload, User, Activity, History, Star, Bus, Eye, Flag, Shield, Home } from 'lucide-react';
-import { UserRole } from '../../lib/types';
+import { UserRole, PlanTier } from '../../lib/types';
+import { Feature, isFeatureEnabledForPlan } from '../../lib/planFeatures';
 
 export interface NavItem {
   label: string;
   path: string;
   icon: React.ElementType;
   group?: string;
+}
+
+// ── Plan gating ────────────────────────────────────────────────────────────
+// Applied in filterNavByPlan() below, independent of the (very long) role nav
+// arrays further down this file. Add new gated groups/paths here rather than
+// annotating every NavItem — most modules gate by nav `group` name; a few
+// items need a narrower, path-specific override (e.g. the Finance group is
+// split between fee-collection and full accounting).
+const GROUP_FEATURE_MAP: Record<string, Feature> = {
+  'HR & Leave': 'hr_payroll',
+  'HR': 'hr_payroll',
+  'Leave': 'hr_payroll',
+  'Transport': 'transport',
+  'Dormitory': 'dormitory',
+  'Library': 'library_inventory_store',
+  'Inventory': 'library_inventory_store',
+  'Online Store': 'library_inventory_store',
+  'Store': 'library_inventory_store',
+  'Bulk Print': 'bulk_printing',
+  'Messaging': 'sms_email_broadcasts',
+  'Lesson Plan': 'lesson_plan_workflow',
+  'Finance': 'payment_gateway_collections',
+};
+
+// Path-specific overrides win over the group default above.
+const PATH_FEATURE_OVERRIDES: Record<string, Feature> = {
+  '/finance/income': 'financial_accounting',
+  '/finance/expense': 'financial_accounting',
+  '/finance/bank-accounts': 'financial_accounting',
+  '/finance/chart-of-accounts': 'financial_accounting',
+  '/exam/question-bank': 'cbt_engine',
+  '/reports/online-exam': 'cbt_engine',
+};
+
+export function filterNavByPlan(items: NavItem[], planTier?: PlanTier): NavItem[] {
+  return items.filter(item => {
+    const feature = PATH_FEATURE_OVERRIDES[item.path] ?? (item.group ? GROUP_FEATURE_MAP[item.group] : undefined);
+    if (!feature) return true;
+    return isFeatureEnabledForPlan(planTier, feature);
+  });
 }
 
 const superAdminNav: NavItem[] = [
@@ -598,24 +639,38 @@ const nonTeachingStaffNav: NavItem[] = [
   { label: 'Complaint',        path: '/complaint',            icon: AlertCircle,   group: 'Admin' },
 ];
 
-export function getNavItems(role?: UserRole): NavItem[] {
-  switch (role) {
-    case 'super_admin':
-    case 'admin': return superAdminNav;
-    case 'principal': return principalNav;
-    case 'head_teacher': return headTeacherNav;
-    case 'teacher': return teacherNav;
-    case 'nur_prim_teacher': return nurPrimTeacherNav;
-    case 'non_teaching_staff':
-    case 'matron':
-    case 'porter':
-    case 'cleaner':
-    case 'admin_support': return nonTeachingStaffNav;
-    case 'student': return studentNav;
-    case 'parent': return parentNav;
-    case 'accountant': return accountantNav;
-    case 'security_officer': return securityOfficerNav;
-    case 'diocesan_official': return diocesanOfficialNav;
-    default: return [];
+export function getNavItems(role?: UserRole, planTier?: PlanTier): NavItem[] {
+  // Whole-role gates: these roles only exist as Enterprise-tier modules
+  // (Campus Security / Multi-Branch oversight), so on a lower plan they fall
+  // back to just a Dashboard link rather than disappearing entirely.
+  if (role === 'security_officer' && !isFeatureEnabledForPlan(planTier, 'campus_security')) {
+    return [{ label: 'Dashboard', path: '/dashboard', icon: LayoutDashboard }];
   }
+  if (role === 'diocesan_official' && !isFeatureEnabledForPlan(planTier, 'multi_branch')) {
+    return [{ label: 'Dashboard', path: '/dashboard', icon: LayoutDashboard }];
+  }
+
+  const items = (() => {
+    switch (role) {
+      case 'super_admin':
+      case 'admin': return superAdminNav;
+      case 'principal': return principalNav;
+      case 'head_teacher': return headTeacherNav;
+      case 'teacher': return teacherNav;
+      case 'nur_prim_teacher': return nurPrimTeacherNav;
+      case 'non_teaching_staff':
+      case 'matron':
+      case 'porter':
+      case 'cleaner':
+      case 'admin_support': return nonTeachingStaffNav;
+      case 'student': return studentNav;
+      case 'parent': return parentNav;
+      case 'accountant': return accountantNav;
+      case 'security_officer': return securityOfficerNav;
+      case 'diocesan_official': return diocesanOfficialNav;
+      default: return [];
+    }
+  })();
+
+  return filterNavByPlan(items, planTier);
 }

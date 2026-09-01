@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 import { Printer, Filter, CheckSquare, Square, Users } from 'lucide-react';
 
 interface ClassOption {
@@ -21,6 +22,7 @@ interface Student {
 
 const IDCardPrint: React.FC = () => {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
   const [classes, setClasses] = useState<ClassOption[]>([]);
   const [students, setStudents] = useState<Student[]>([]);
   const [selectedClass, setSelectedClass] = useState('');
@@ -267,14 +269,14 @@ const IDCardPrint: React.FC = () => {
         <div className="id-card-grid">
           {printableStudents.map((student) => (
             <div key={student.id} className="id-card" style={{ fontFamily: "'Arial', sans-serif" }}>
-              <div style={{ background: '#1a3a5c', color: 'white', padding: '8px 10px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <img src="/ogs_logo_bg.png" alt="OGS" style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
+              <div style={{ background: settings.primary_color || '#1a3a5c', color: 'white', padding: '8px 10px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <img src={settings.logo_url || '/ogs_logo_bg.png'} alt={settings.school_name} style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
                 <div>
-                  <p style={{ fontWeight: '900', fontSize: '10px', letterSpacing: '0.5px', lineHeight: 1.1 }}>OKRIKA GRAMMAR SCHOOL</p>
-                  <p style={{ fontSize: '7px', opacity: 0.85, fontStyle: 'italic' }}>Perseverantia Vincit | Est. 1940</p>
+                  <p style={{ fontWeight: '900', fontSize: '10px', letterSpacing: '0.5px', lineHeight: 1.1 }}>{settings.school_name.toUpperCase()}</p>
+                  {settings.motto && <p style={{ fontSize: '7px', opacity: 0.85, fontStyle: 'italic' }}>{settings.motto}</p>}
                 </div>
               </div>
-              <div style={{ background: '#1a6b3a', height: '2px' }} />
+              <div style={{ background: settings.secondary_color || '#1a6b3a', height: '2px' }} />
               <div style={{ padding: '8px 10px', display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
                 <div style={{ width: '48px', height: '56px', borderRadius: '4px', background: '#e8f5e9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px', fontWeight: 'bold', color: '#1a3a5c', border: '1px solid #1a3a5c', flexShrink: 0 }}>
                   {student.avatar_url ? (
@@ -291,7 +293,7 @@ const IDCardPrint: React.FC = () => {
                 </div>
               </div>
               <div style={{ background: '#f0f4f8', borderTop: '1px solid #ddd', padding: '4px 10px', textAlign: 'center', fontSize: '7.5px', color: '#555' }}>
-                Tel: 09034210590 | okrikagrammarschool.org
+                {[settings.phone && `Tel: ${settings.phone}`, settings.email].filter(Boolean).join(' | ')}
               </div>
             </div>
           ))}

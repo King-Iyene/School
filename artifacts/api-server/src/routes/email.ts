@@ -3,8 +3,42 @@ import { logger } from '../lib/logger';
 
 const router = Router();
 
-const FROM = 'Okrika Grammar School <admissions@okrikagrammarschool.org>';
-const STATUS_URL = 'https://eportal.okrikagrammarschool.org/application-status';
+export interface SchoolBrandingParams {
+  schoolName?: string;
+  logoUrl?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
+  contactEmail?: string;
+  statusUrl?: string;
+  bankDetailsHtml?: string;
+}
+
+// Fallbacks preserve current behaviour for callers that haven't been updated
+// yet to pass tenant-specific branding — see artifacts/ogs-school's
+// TenantContext / tenant_settings table for the source of truth per tenant.
+function resolveBranding(school?: SchoolBrandingParams) {
+  return {
+    schoolName: school?.schoolName || 'Okrika Grammar School',
+    logoUrl: school?.logoUrl || 'https://eportal.okrikagrammarschool.org/ogs_logo_bg.png',
+    primaryColor: school?.primaryColor || '#059669',
+    secondaryColor: school?.secondaryColor || '#0d9488',
+    contactEmail: school?.contactEmail || 'admissions@okrikagrammarschool.org',
+    statusUrl: school?.statusUrl || 'https://eportal.okrikagrammarschool.org/application-status',
+    bankDetailsHtml: school?.bankDetailsHtml || `
+                    <tr style="background:#fef3c7;">
+                      <td style="padding:10px 16px;font-size:12px;font-weight:600;color:#92400e;text-transform:uppercase;">Bank</td>
+                      <td style="padding:10px 16px;font-size:14px;font-weight:700;color:#1e293b;text-align:right;">Ecobank Nigeria</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:10px 16px;font-size:12px;font-weight:600;color:#92400e;text-transform:uppercase;border-top:1px solid #fde68a;">Account Number</td>
+                      <td style="padding:10px 16px;font-size:18px;font-weight:800;color:#1e293b;font-family:monospace;text-align:right;border-top:1px solid #fde68a;letter-spacing:2px;">0562040932</td>
+                    </tr>
+                    <tr style="background:#fef3c7;">
+                      <td style="padding:10px 16px;font-size:12px;font-weight:600;color:#92400e;text-transform:uppercase;border-top:1px solid #fde68a;">Account Name</td>
+                      <td style="padding:10px 16px;font-size:13px;font-weight:600;color:#1e293b;text-align:right;border-top:1px solid #fde68a;">Okrika Grammar School (Anglican Communion)</td>
+                    </tr>`,
+  };
+}
 
 function admissionWelcomeHtml(p: {
   firstName: string;
@@ -12,14 +46,16 @@ function admissionWelcomeHtml(p: {
   applicationRef: string;
   classApplyingFor: string;
   guardianName: string;
+  school: ReturnType<typeof resolveBranding>;
 }) {
+  const { schoolName, logoUrl, primaryColor, secondaryColor, statusUrl, bankDetailsHtml } = p.school;
   return `
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Application Received – Okrika Grammar School</title>
+  <title>Application Received – ${schoolName}</title>
 </head>
 <body style="margin:0;padding:0;background:#f1f5f9;font-family:'Segoe UI',Arial,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:32px 0;">
@@ -28,13 +64,12 @@ function admissionWelcomeHtml(p: {
 
         <!-- Header -->
         <tr>
-          <td style="background:linear-gradient(135deg,#059669,#0d9488);padding:36px 40px;text-align:center;">
-            <img src="https://eportal.okrikagrammarschool.org/ogs_logo_bg.png" alt="OGS Logo" width="72" height="72"
+          <td style="background:linear-gradient(135deg,${primaryColor},${secondaryColor});padding:36px 40px;text-align:center;">
+            <img src="${logoUrl}" alt="${schoolName} Logo" width="72" height="72"
               style="border-radius:14px;background:rgba(255,255,255,0.15);padding:6px;margin-bottom:16px;display:block;margin-left:auto;margin-right:auto;" />
             <h1 style="color:#ffffff;margin:0;font-size:24px;font-weight:700;letter-spacing:-0.3px;">
-              Okrika Grammar School
+              ${schoolName}
             </h1>
-            <p style="color:#a7f3d0;margin:6px 0 0;font-size:14px;">Anglican Communion · Est. 1944</p>
           </td>
         </tr>
 
@@ -48,7 +83,7 @@ function admissionWelcomeHtml(p: {
             </p>
             <p style="margin:0 0 24px;font-size:15px;color:#475569;line-height:1.6;">
               Thank you for submitting an admission application for <strong>${p.firstName} ${p.lastName}</strong>
-              to Okrika Grammar School. We are delighted to receive your interest and look forward to welcoming
+              to ${schoolName}. We are delighted to receive your interest and look forward to welcoming
               ${p.firstName} into our school community.
             </p>
 
@@ -77,18 +112,7 @@ function admissionWelcomeHtml(p: {
                     to the account below. After payment, visit the portal to confirm your transfer.
                   </p>
                   <table width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:10px;overflow:hidden;border:1px solid #fde68a;">
-                    <tr style="background:#fef3c7;">
-                      <td style="padding:10px 16px;font-size:12px;font-weight:600;color:#92400e;text-transform:uppercase;">Bank</td>
-                      <td style="padding:10px 16px;font-size:14px;font-weight:700;color:#1e293b;text-align:right;">Ecobank Nigeria</td>
-                    </tr>
-                    <tr>
-                      <td style="padding:10px 16px;font-size:12px;font-weight:600;color:#92400e;text-transform:uppercase;border-top:1px solid #fde68a;">Account Number</td>
-                      <td style="padding:10px 16px;font-size:18px;font-weight:800;color:#1e293b;font-family:monospace;text-align:right;border-top:1px solid #fde68a;letter-spacing:2px;">0562040932</td>
-                    </tr>
-                    <tr style="background:#fef3c7;">
-                      <td style="padding:10px 16px;font-size:12px;font-weight:600;color:#92400e;text-transform:uppercase;border-top:1px solid #fde68a;">Account Name</td>
-                      <td style="padding:10px 16px;font-size:13px;font-weight:600;color:#1e293b;text-align:right;border-top:1px solid #fde68a;">Okrika Grammar School<br/>(Anglican Communion)</td>
-                    </tr>
+                    ${bankDetailsHtml}
                     <tr>
                       <td style="padding:10px 16px;font-size:12px;font-weight:600;color:#92400e;text-transform:uppercase;border-top:1px solid #fde68a;">Amount</td>
                       <td style="padding:10px 16px;font-size:18px;font-weight:800;color:#059669;text-align:right;border-top:1px solid #fde68a;">₦5,000</td>
@@ -110,7 +134,7 @@ function admissionWelcomeHtml(p: {
                     ② Prepare for the Entrance Examination
                   </p>
                   <p style="margin:0 0 12px;font-size:14px;color:#1e40af;line-height:1.6;">
-                    After your payment is verified, you will be invited to sit the OGS Entrance Examination.
+                    After your payment is verified, you will be invited to sit the entrance examination.
                     Here is how to prepare:
                   </p>
                   <table width="100%" cellpadding="0" cellspacing="0">
@@ -157,7 +181,7 @@ function admissionWelcomeHtml(p: {
             <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
               <tr>
                 <td align="center">
-                  <a href="${STATUS_URL}" style="display:inline-block;background:linear-gradient(135deg,#059669,#0d9488);color:#ffffff;text-decoration:none;font-size:15px;font-weight:700;padding:14px 36px;border-radius:10px;letter-spacing:0.2px;">
+                  <a href="${statusUrl}" style="display:inline-block;background:linear-gradient(135deg,${primaryColor},${secondaryColor});color:#ffffff;text-decoration:none;font-size:15px;font-weight:700;padding:14px 36px;border-radius:10px;letter-spacing:0.2px;">
                     Track Your Application Status
                   </a>
                 </td>
@@ -170,7 +194,7 @@ function admissionWelcomeHtml(p: {
               If you have any questions, please contact our admissions office:
             </p>
             <p style="margin:0;font-size:13px;color:#0f172a;">
-              📧 <a href="mailto:admissions@okrikagrammarschool.org" style="color:#059669;text-decoration:none;">admissions@okrikagrammarschool.org</a>
+              📧 <a href="mailto:${p.school.contactEmail}" style="color:#059669;text-decoration:none;">${p.school.contactEmail}</a>
             </p>
 
           </td>
@@ -180,7 +204,7 @@ function admissionWelcomeHtml(p: {
         <tr>
           <td style="background:#f8fafc;border-top:1px solid #e2e8f0;padding:20px 40px;text-align:center;">
             <p style="margin:0 0 4px;font-size:12px;font-weight:600;color:#64748b;">
-              Okrika Grammar School (Anglican Communion)
+              ${schoolName}
             </p>
             <p style="margin:0;font-size:11px;color:#94a3b8;">
               This email was sent because an admission application was submitted for ${p.firstName} ${p.lastName}.
@@ -196,7 +220,7 @@ function admissionWelcomeHtml(p: {
 }
 
 router.post('/api/email/admission-welcome', async (req, res) => {
-  const { firstName, lastName, guardianName, guardianEmail, applicationRef, classApplyingFor } = req.body ?? {};
+  const { firstName, lastName, guardianName, guardianEmail, applicationRef, classApplyingFor, school } = req.body ?? {};
 
   if (!guardianEmail || !applicationRef) {
     return res.status(400).json({ error: 'guardianEmail and applicationRef are required' });
@@ -208,6 +232,8 @@ router.post('/api/email/admission-welcome', async (req, res) => {
     return res.status(200).json({ skipped: true, reason: 'RESEND_API_KEY not configured' });
   }
 
+  const branding = resolveBranding(school);
+
   try {
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -216,10 +242,14 @@ router.post('/api/email/admission-welcome', async (req, res) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: FROM,
+        // The "from" address must stay on a domain Resend has verified for
+        // this platform — a per-tenant email can't be used as the envelope
+        // sender without that tenant verifying DKIM/SPF for their own
+        // domain. The tenant's name appears in the display name instead.
+        from: `${branding.schoolName} <admissions@okrikagrammarschool.org>`,
         to: [guardianEmail],
-        subject: `Application Received – ${firstName} ${lastName} | Okrika Grammar School`,
-        html: admissionWelcomeHtml({ firstName, lastName, guardianName, applicationRef, classApplyingFor }),
+        subject: `Application Received – ${firstName} ${lastName} | ${branding.schoolName}`,
+        html: admissionWelcomeHtml({ firstName, lastName, guardianName, applicationRef, classApplyingFor, school: branding }),
       }),
     });
 
@@ -251,10 +281,12 @@ function admissionConfirmHtml(p: {
   classAdmittedFor: string;
   password: string;
   resumptionDate: string;
+  school: ReturnType<typeof resolveBranding>;
 }) {
   const fee     = p.studentType === 'boarding' ? '₦300,000' : '₦150,000';
   const typeStr = p.studentType === 'boarding' ? 'Boarding' : 'Day';
   const loginId = p.admissionNumber; // admission number is the login username
+  const { schoolName, logoUrl, primaryColor, secondaryColor, contactEmail, bankDetailsHtml } = p.school;
 
   return `
 <!DOCTYPE html>
@@ -262,7 +294,7 @@ function admissionConfirmHtml(p: {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admission Confirmed – Okrika Grammar School</title>
+  <title>Admission Confirmed – ${schoolName}</title>
 </head>
 <body style="margin:0;padding:0;background:#f1f5f9;font-family:'Segoe UI',Arial,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:32px 0;">
@@ -271,13 +303,12 @@ function admissionConfirmHtml(p: {
 
         <!-- Header -->
         <tr>
-          <td style="background:linear-gradient(135deg,#059669,#0d9488);padding:36px 40px;text-align:center;">
-            <img src="https://eportal.okrikagrammarschool.org/ogs_logo_bg.png" alt="OGS Logo" width="72" height="72"
+          <td style="background:linear-gradient(135deg,${primaryColor},${secondaryColor});padding:36px 40px;text-align:center;">
+            <img src="${logoUrl}" alt="${schoolName} Logo" width="72" height="72"
               style="border-radius:14px;background:rgba(255,255,255,0.15);padding:6px;margin-bottom:16px;display:block;margin-left:auto;margin-right:auto;" />
             <h1 style="color:#ffffff;margin:0;font-size:24px;font-weight:700;letter-spacing:-0.3px;">
-              Okrika Grammar School
+              ${schoolName}
             </h1>
-            <p style="color:#a7f3d0;margin:6px 0 0;font-size:14px;">Anglican Communion · Est. 1944</p>
           </td>
         </tr>
 
@@ -288,7 +319,7 @@ function admissionConfirmHtml(p: {
             <h2 style="margin:0 0 8px;font-size:22px;font-weight:800;color:#14532d;">Congratulations!</h2>
             <p style="margin:0;font-size:15px;color:#166534;line-height:1.6;">
               <strong>${p.firstName} ${p.lastName}</strong> has been officially admitted to<br/>
-              <strong>Okrika Grammar School</strong>.
+              <strong>${schoolName}</strong>.
             </p>
           </td>
         </tr>
@@ -300,7 +331,7 @@ function admissionConfirmHtml(p: {
             <p style="margin:0 0 24px;font-size:15px;color:#475569;line-height:1.6;">
               Dear ${p.guardianName},<br/><br/>
               We are thrilled to inform you that <strong>${p.firstName} ${p.lastName}</strong> has been
-              successfully admitted to Okrika Grammar School as a <strong>${typeStr} student</strong>.
+              successfully admitted to ${schoolName} as a <strong>${typeStr} student</strong>.
               Please find all the important details below.
             </p>
 
@@ -334,8 +365,7 @@ function admissionConfirmHtml(p: {
                 <td style="padding:20px 24px;">
                   <p style="margin:0 0 12px;font-size:15px;font-weight:700;color:#1d4ed8;">🔐 Student Portal Login Credentials</p>
                   <p style="margin:0 0 14px;font-size:13px;color:#1e40af;line-height:1.6;">
-                    Use these credentials to access the OGS student portal at
-                    <a href="https://eportal.okrikagrammarschool.org" style="color:#1d4ed8;">eportal.okrikagrammarschool.org</a>.
+                    Use these credentials to access the ${schoolName} student portal.
                     Please keep them safe and change the password after first login.
                   </p>
                   <table width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:10px;overflow:hidden;border:1px solid #bfdbfe;">
@@ -368,18 +398,7 @@ function admissionConfirmHtml(p: {
                     <strong>${p.admissionNumber}</strong> as the payment narration.
                   </p>
                   <table width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:10px;overflow:hidden;border:1px solid #fde68a;">
-                    <tr style="background:#fef3c7;">
-                      <td style="padding:10px 16px;font-size:12px;font-weight:600;color:#92400e;text-transform:uppercase;">Bank</td>
-                      <td style="padding:10px 16px;font-size:14px;font-weight:700;color:#1e293b;text-align:right;">Ecobank Nigeria</td>
-                    </tr>
-                    <tr>
-                      <td style="padding:10px 16px;font-size:12px;font-weight:600;color:#92400e;text-transform:uppercase;border-top:1px solid #fde68a;">Account Number</td>
-                      <td style="padding:10px 16px;font-size:18px;font-weight:800;color:#1e293b;font-family:monospace;text-align:right;border-top:1px solid #fde68a;letter-spacing:2px;">0562040932</td>
-                    </tr>
-                    <tr style="background:#fef3c7;">
-                      <td style="padding:10px 16px;font-size:12px;font-weight:600;color:#92400e;text-transform:uppercase;border-top:1px solid #fde68a;">Account Name</td>
-                      <td style="padding:10px 16px;font-size:13px;font-weight:600;color:#1e293b;text-align:right;border-top:1px solid #fde68a;">Okrika Grammar School<br/>(Anglican Communion)</td>
-                    </tr>
+                    ${bankDetailsHtml}
                     <tr>
                       <td style="padding:10px 16px;font-size:12px;font-weight:600;color:#92400e;text-transform:uppercase;border-top:1px solid #fde68a;">Amount</td>
                       <td style="padding:10px 16px;font-size:18px;font-weight:800;color:#059669;text-align:right;border-top:1px solid #fde68a;">${fee}</td>
@@ -396,7 +415,7 @@ function admissionConfirmHtml(p: {
                   <p style="margin:0 0 14px;font-size:15px;font-weight:700;color:#7c3aed;">📋 Before Resumption Checklist</p>
                   ${[
                     ['💳', 'Pay school fees of <strong>' + fee + '</strong> before ' + p.resumptionDate + '.'],
-                    ['👕', 'Purchase the OGS school uniform from the school store or approved vendors.'],
+                    ['👕', 'Purchase the school uniform from the school store or approved vendors.'],
                     ['📚', 'Obtain the booklist from the school office and purchase required textbooks.'],
                     ['🏥', 'Submit any medical records or special health notes to the school nurse.'],
                     ['🔐', 'Log in to the student portal and change your default password.'],
@@ -417,7 +436,7 @@ function admissionConfirmHtml(p: {
               For enquiries, contact our admissions office:
             </p>
             <p style="margin:0;font-size:13px;color:#0f172a;">
-              📧 <a href="mailto:admissions@okrikagrammarschool.org" style="color:#059669;text-decoration:none;">admissions@okrikagrammarschool.org</a>
+              📧 <a href="mailto:${contactEmail}" style="color:#059669;text-decoration:none;">${contactEmail}</a>
             </p>
 
           </td>
@@ -427,7 +446,7 @@ function admissionConfirmHtml(p: {
         <tr>
           <td style="background:#f8fafc;border-top:1px solid #e2e8f0;padding:20px 40px;text-align:center;">
             <p style="margin:0 0 4px;font-size:12px;font-weight:600;color:#64748b;">
-              Okrika Grammar School (Anglican Communion) · Est. 1944
+              ${schoolName}
             </p>
             <p style="margin:0;font-size:11px;color:#94a3b8;">
               This email was sent to the parent/guardian of ${p.firstName} ${p.lastName} upon formal admission.
@@ -446,7 +465,7 @@ router.post('/api/email/admission-confirm', async (req, res) => {
   const {
     firstName, lastName, guardianName, guardianEmail,
     admissionNumber, studentType, classAdmittedFor, password,
-    resumptionDate,
+    resumptionDate, school,
   } = req.body ?? {};
 
   if (!guardianEmail || !admissionNumber) {
@@ -459,6 +478,8 @@ router.post('/api/email/admission-confirm', async (req, res) => {
     return res.status(200).json({ skipped: true, reason: 'RESEND_API_KEY not configured' });
   }
 
+  const branding = resolveBranding(school);
+
   try {
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -467,14 +488,15 @@ router.post('/api/email/admission-confirm', async (req, res) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: FROM,
+        from: `${branding.schoolName} <admissions@okrikagrammarschool.org>`,
         to: [guardianEmail],
-        subject: `Admission Confirmed – ${firstName} ${lastName} | Okrika Grammar School`,
+        subject: `Admission Confirmed – ${firstName} ${lastName} | ${branding.schoolName}`,
         html: admissionConfirmHtml({
           firstName, lastName, guardianName: guardianName || 'Parent/Guardian',
           admissionNumber, studentType: studentType || 'day',
           classAdmittedFor: classAdmittedFor || '',
           password, resumptionDate: resumptionDate || '7th September, 2025',
+          school: branding,
         }),
       }),
     });

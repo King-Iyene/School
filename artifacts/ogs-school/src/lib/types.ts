@@ -13,6 +13,35 @@ export interface School {
   updated_at: string;
 }
 
+export type PlanTier = 'starter' | 'premium' | 'enterprise';
+export type TenantStatus = 'active' | 'suspended' | 'trial';
+
+export interface Tenant {
+  id: string;
+  slug: string;
+  plan_tier: PlanTier;
+  student_limit: number | null;
+  status: TenantStatus;
+  trial_ends_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface TenantSettings {
+  tenant_id: string;
+  school_name: string;
+  motto: string;
+  address: string;
+  phone: string;
+  email: string;
+  logo_url: string;
+  primary_color: string;
+  secondary_color: string;
+  paystack_public_key: string;
+  custom_domain: string | null;
+  updated_at: string;
+}
+
 export interface Profile {
   id: string;
   school_id: string | null;
@@ -29,6 +58,7 @@ export interface Profile {
   staff_id: string;
   student_id: string;
   is_active: boolean;
+  is_platform_owner?: boolean;
   created_at: string;
   updated_at: string;
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { navigate, getSearchParams } from '../../components/hooks/useLocation';
+import { useTenantSettings } from '../../context/TenantContext';
 import { CheckCircle, AlertCircle, Copy, Check, Building2, ClipboardList } from 'lucide-react';
 
 const WHATSAPP_NUMBER = '2348012345678'; // ← update to school's WhatsApp number
@@ -9,10 +10,10 @@ const WHATSAPP_NUMBER = '2348012345678'; // ← update to school's WhatsApp numb
 declare global { interface Window { fbq?: (...args: any[]) => void; } }
 const track = (event: string, data?: Record<string, unknown>) => window.fbq?.('track', event, data);
 
-function WhatsAppFAB() {
+function WhatsAppFAB({ schoolName }: { schoolName: string }) {
   return (
     <a
-      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello, I have a question about admission to Okrika Grammar School.')}`}
+      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hello, I have a question about admission to ${schoolName}.`)}`}
       target="_blank" rel="noopener noreferrer" title="Chat with us on WhatsApp"
       className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 group"
       style={{ padding: '12px 18px 12px 14px' }}
@@ -36,6 +37,7 @@ function getParams() {
 }
 
 export default function AdmissionPayment() {
+  const { settings } = useTenantSettings();
   const { id, ref, email, name } = getParams();
   const [applicationRef, setApplicationRef] = useState(ref);
   const [confirming, setConfirming]         = useState(false);
@@ -111,9 +113,9 @@ export default function AdmissionPayment() {
         {/* Header */}
         <div className="bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-5">
           <div className="flex items-center gap-3">
-            <img src="/ogs_logo_bg.png" alt="OGS Logo" className="w-10 h-10 object-contain rounded-lg bg-white/20 p-1" />
+            <img src={settings.logo_url || '/ogs_logo_bg.png'} alt={`${settings.school_name} Logo`} className="w-10 h-10 object-contain rounded-lg bg-white/20 p-1" />
             <div>
-              <p className="text-white font-bold">Okrika Grammar School</p>
+              <p className="text-white font-bold">{settings.school_name}</p>
               <p className="text-emerald-100 text-sm">Admission Application Fee</p>
             </div>
           </div>
@@ -176,7 +178,7 @@ export default function AdmissionPayment() {
               <div className="flex items-center justify-between px-4 py-3">
                 <div>
                   <p className="text-xs text-slate-500">Account Name</p>
-                  <p className="font-semibold text-slate-800 text-sm">Okrika Grammar School (Anglican Communion)</p>
+                  <p className="font-semibold text-slate-800 text-sm">{settings.school_name}</p>
                 </div>
               </div>
 
@@ -235,7 +237,7 @@ export default function AdmissionPayment() {
           </p>
         </div>
       </div>
-      <WhatsAppFAB />
+      <WhatsAppFAB schoolName={settings.school_name} />
     </div>
   );
 }

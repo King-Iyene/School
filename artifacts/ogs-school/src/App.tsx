@@ -1,11 +1,16 @@
 import { useEffect } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { TenantProvider } from './context/TenantContext';
 import NotificationListener from './components/shared/NotificationListener';
 import Login from './pages/auth/Login';
 import ParentSignup from './pages/auth/ParentSignup';
 import ConferenceRegistration from './pages/public/ConferenceRegistration';
 import Layout from './components/layout/Layout';
 import { useLocation, navigate, isElectron } from './components/hooks/useLocation';
+
+import Landing from './pages/public/Landing';
+import Onboarding from './pages/public/Onboarding';
+import SaasAdminDashboard from './pages/saas-admin/SaasAdminDashboard';
 
 import SuperAdminDashboard from './pages/super-admin/Dashboard';
 import Classes from './pages/super-admin/Classes';
@@ -250,14 +255,16 @@ function AppContent() {
     }
   }, [user, profile, path]);
 
-  const publicPaths = ['/apply', '/admission', '/admission-payment', '/schedule-exam', '/application-status', '/conference-registration'];
+  const publicPaths = ['/apply', '/admission', '/admission-payment', '/schedule-exam', '/application-status', '/conference-registration', '/landing', '/onboarding'];
   if (publicPaths.includes(path)) {
-    if (path === '/apply') { window.location.replace('https://okrikagrammarschool.org/admission'); return null; }
+    if (path === '/apply') { navigate('/admission'); return null; }
     if (path === '/conference-registration') return <ConferenceRegistration />;
     if (path === '/admission') return <AdmissionForm />;
     if (path === '/admission-payment') return <AdmissionPayment />;
     if (path === '/schedule-exam') return <ExamScheduling />;
     if (path === '/application-status') return <ApplicationStatus />;
+    if (path === '/landing') return <Landing />;
+    if (path === '/onboarding') return <Onboarding />;
   }
 
   if (loading) {
@@ -310,6 +317,9 @@ function AppContent() {
         if (role === 'parent') return <ParentPortal />;
         return <SuperAdminDashboard />;
 
+      case '/saas-admin':
+        if (!profile.is_platform_owner) return <SuperAdminDashboard />;
+        return <SaasAdminDashboard />;
       case '/staff': return <StaffPage />;
       case '/classes': return <Classes />;
       case '/subjects': return <Subjects />;
@@ -574,6 +584,10 @@ function AppContent() {
     }
   };
 
+  if (!profile.school_id && role === 'super_admin' && profile.is_platform_owner) {
+    return <SaasAdminDashboard />;
+  }
+
   if (!profile.school_id && (role === 'super_admin' || role === 'admin' || role === 'principal' || role === 'head_teacher')) {
     return <SchoolSetup />;
   }
@@ -607,8 +621,10 @@ function AppContent() {
 export default function App() {
   return (
     <AuthProvider>
-      <NotificationListener />
-      <AppContent />
+      <TenantProvider>
+        <NotificationListener />
+        <AppContent />
+      </TenantProvider>
     </AuthProvider>
   );
 }

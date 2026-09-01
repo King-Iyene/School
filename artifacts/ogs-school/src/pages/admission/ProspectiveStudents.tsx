@@ -8,6 +8,8 @@ import {
 import { printAdmissionLetter } from '../../components/print/AdmissionLetterPrint';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
+import { schoolCodeFromName } from '../../lib/schoolCode';
 
 /* ─── Constants ─────────────────────────────────────────────────────────── */
 const STATES = ['Abia','Adamawa','Akwa Ibom','Anambra','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Edo','Ekiti','Enugu','FCT - Abuja','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara'];
@@ -69,21 +71,21 @@ function effectiveStatus(p: any): string {
 }
 
 /* ─── Admission number helper ────────────────────────────────────────────── */
-async function getNextAdmissionNumber(schoolId: string): Promise<string> {
+async function getNextAdmissionNumber(schoolId: string, prefix: string): Promise<string> {
   const year = new Date().getFullYear();
   try {
     const [{ data: sData }, { data: pData }, { data: prData }] = await Promise.all([
-      supabase.from('students').select('admission_number').eq('school_id', schoolId).ilike('admission_number', `OGS-${year}-%`),
-      supabase.from('profiles').select('admission_number').eq('school_id', schoolId).ilike('admission_number', `OGS-${year}-%`),
-      supabase.from('prospective_students').select('admission_number').eq('school_id', schoolId).ilike('admission_number', `OGS-${year}-%`),
+      supabase.from('students').select('admission_number').eq('school_id', schoolId).ilike('admission_number', `${prefix}-${year}-%`),
+      supabase.from('profiles').select('admission_number').eq('school_id', schoolId).ilike('admission_number', `${prefix}-${year}-%`),
+      supabase.from('prospective_students').select('admission_number').eq('school_id', schoolId).ilike('admission_number', `${prefix}-${year}-%`),
     ]);
     const allNums = [...(sData||[]),...(pData||[]),...(prData||[])].map((x:any)=>x.admission_number).filter(Boolean);
-    if (!allNums.length) return `OGS-${year}-001`;
+    if (!allNums.length) return `${prefix}-${year}-001`;
     let max = 0;
     allNums.forEach((n:string) => { const s=parseInt(n.split('-').pop()??'0'); if(s>max) max=s; });
     const next = max + 1;
-    return `OGS-${year}-${String(next).padStart(next>=1000?0:3,'0')}`;
-  } catch { return `OGS-${year}-001`; }
+    return `${prefix}-${year}-${String(next).padStart(next>=1000?0:3,'0')}`;
+  } catch { return `${prefix}-${year}-001`; }
 }
 
 /* ─── Empty forms ────────────────────────────────────────────────────────── */
@@ -149,6 +151,7 @@ function PipelineBar({ status }: { status: string }) {
 ═══════════════════════════════════════════════════════════════════════════ */
 export default function ProspectiveStudents() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
   const [tab, setTab]           = useState<StageKey>('applications');
   const [prospects, setProspects] = useState<any[]>([]);
   const [classes, setClasses]   = useState<any[]>([]);
@@ -211,10 +214,10 @@ export default function ProspectiveStudents() {
         .maybeSingle();
       if (data?.admission_number) admissionNumber = data.admission_number;
     }
-    printAdmissionLetter(p, admissionNumber);
+    printAdmissionLetter(p, admissionNumber, settings);
   }
 
-  const applyUrl  = 'https://eportal.okrikagrammarschool.org/admission';
+  const applyUrl  = `${window.location.origin}/admission`;
   const statusUrl = `${window.location.origin}/application-status`;
 
   function copyUrl(url: string) {
@@ -416,7 +419,7 @@ export default function ProspectiveStudents() {
   /* ── Admit modal ─────────────────────────────────────────────────────── */
   async function openAdmit(p: any) {
     setAdmitting(p);
-    const nextNum = await getNextAdmissionNumber(profile?.school_id ?? '');
+    const nextNum = await getNextAdmissionNumber(profile?.school_id ?? '', schoolCodeFromName(settings.school_name));
 
     // Normalise a class name for comparison: lowercase, strip spaces and punctuation
     const norm = (s: string) => (s ?? '').toLowerCase().replace(/[\s\-_.]/g, '');
@@ -518,6 +521,13 @@ export default function ProspectiveStudents() {
             classAdmittedFor: className,
             password:         admitForm.password,
             resumptionDate:   '7th September, 2025',
+            school: {
+              schoolName: settings.school_name,
+              logoUrl: settings.logo_url,
+              primaryColor: settings.primary_color,
+              secondaryColor: settings.secondary_color,
+              contactEmail: settings.email,
+            },
           }),
         }).catch(() => { /* non-critical */ });
       }
@@ -1055,8 +1065,8 @@ export default function ProspectiveStudents() {
               <div>
                 <label className={labelCls}>Admission Number <span className="text-red-500">*</span></label>
                 <div className="flex gap-2">
-                  <input className={inputCls} value={admitForm.admission_number} onChange={e=>setAdmitForm(f=>({...f,admission_number:e.target.value}))} placeholder="OGS-2026-001"/>
-                  <button type="button" onClick={async()=>{const n=await getNextAdmissionNumber(profile?.school_id||'');setAdmitForm(f=>({...f,admission_number:n}));}} className="px-3 py-2 text-xs rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 whitespace-nowrap transition-colors">Generate</button>
+                  <input className={inputCls} value={admitForm.admission_number} onChange={e=>setAdmitForm(f=>({...f,admission_number:e.target.value}))} placeholder={`${schoolCodeFromName(settings.school_name)}-${new Date().getFullYear()}-001`}/>
+                  <button type="button" onClick={async()=>{const n=await getNextAdmissionNumber(profile?.school_id||'', schoolCodeFromName(settings.school_name));setAdmitForm(f=>({...f,admission_number:n}));}} className="px-3 py-2 text-xs rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 whitespace-nowrap transition-colors">Generate</button>
                 </div>
               </div>
               <div>
