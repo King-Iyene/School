@@ -14,7 +14,7 @@ export interface School {
 }
 
 export type PlanTier = 'starter' | 'premium' | 'enterprise';
-export type TenantStatus = 'active' | 'suspended' | 'trial';
+export type TenantStatus = 'active' | 'suspended' | 'trial' | 'canceled';
 
 export interface Tenant {
   id: string;
@@ -23,6 +23,9 @@ export interface Tenant {
   student_limit: number | null;
   status: TenantStatus;
   trial_ends_at: string | null;
+  paystack_authorization_code: string | null;
+  paystack_customer_code: string | null;
+  cancel_at_period_end: boolean;
   created_at: string;
   updated_at: string;
 }

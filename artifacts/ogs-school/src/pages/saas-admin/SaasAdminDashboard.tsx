@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Building2, Users, DollarSign, Search, Save, Palette, X } from 'lucide-react';
+import { useEffect, useMemo, useState, ElementType } from 'react';
+import { Building2, Users, DollarSign, Search, Save, Palette, X, TrendingUp } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
-import StatCard from '../../components/common/StatCard';
 import Modal from '../../components/common/Modal';
+import Reveal from '../../components/shared/Reveal';
 import { PLAN_LABELS, PLAN_PRICES_NGN, PLAN_ORDER } from '../../lib/planFeatures';
 import type { PlanTier, TenantStatus } from '../../lib/types';
 
@@ -12,6 +12,8 @@ interface TenantRow {
   plan_tier: PlanTier;
   student_limit: number | null;
   status: TenantStatus;
+  trial_ends_at: string | null;
+  cancel_at_period_end: boolean;
   created_at: string;
   school_name: string;
   logo_url: string;
@@ -23,10 +25,34 @@ interface TenantRow {
 }
 
 const STATUS_COLORS: Record<TenantStatus, string> = {
-  active: 'bg-emerald-100 text-emerald-700',
+  active: 'bg-brand-mint/15 text-brand-ink ring-1 ring-brand-mint/40',
   trial: 'bg-amber-100 text-amber-700',
   suspended: 'bg-red-100 text-red-700',
+  canceled: 'bg-slate-200 text-slate-600',
 };
+
+const PLAN_BADGE_COLORS: Record<PlanTier, string> = {
+  starter: 'bg-slate-100 text-slate-700',
+  premium: 'bg-brand-violet/15 text-brand-indigo ring-1 ring-brand-violet/30',
+  enterprise: 'bg-gradient-to-r from-brand-violet to-brand-indigo text-white',
+};
+
+function StatTile({ title, value, icon: Icon, delay }: { title: string; value: string | number; icon: ElementType; delay: number }) {
+  return (
+    <Reveal delay={delay}>
+      <div className="relative overflow-hidden rounded-2xl p-5 bg-brand-ink border border-white/10 shadow-lg shadow-black/10">
+        <div className="absolute -right-6 -top-6 w-28 h-28 rounded-full bg-brand-violet/20 blur-2xl" />
+        <div className="relative">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-violet to-brand-indigo flex items-center justify-center mb-3 shadow-lg shadow-brand-violet/20">
+            <Icon className="w-5 h-5 text-white" />
+          </div>
+          <p className="text-xs font-medium text-slate-400">{title}</p>
+          <p className="text-2xl font-bold text-white mt-0.5">{value}</p>
+        </div>
+      </div>
+    </Reveal>
+  );
+}
 
 export default function SaasAdminDashboard() {
   const [tenants, setTenants] = useState<TenantRow[]>([]);
@@ -65,6 +91,7 @@ export default function SaasAdminDashboard() {
     if (patch.plan_tier !== undefined) tenantPatch.plan_tier = patch.plan_tier;
     if (patch.student_limit !== undefined) tenantPatch.student_limit = patch.student_limit;
     if (patch.status !== undefined) tenantPatch.status = patch.status;
+    if (patch.cancel_at_period_end !== undefined) tenantPatch.cancel_at_period_end = patch.cancel_at_period_end;
 
     if (Object.keys(tenantPatch).length) {
       await supabase.from('tenants').update(tenantPatch).eq('id', tenantId);
@@ -87,25 +114,27 @@ export default function SaasAdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 p-4 sm:p-8">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white p-4 sm:p-8">
       <div className="max-w-6xl mx-auto">
-        <div className="flex items-center gap-3 mb-8">
-          <div className="w-11 h-11 rounded-xl bg-slate-900 flex items-center justify-center">
-            <Building2 className="w-5 h-5 text-white" />
+        <Reveal>
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-violet to-brand-indigo flex items-center justify-center shadow-lg shadow-brand-violet/25">
+              <Building2 className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-slate-900">SaaS Platform Admin</h1>
+              <p className="text-slate-500 text-sm">Manage every subscribed school from one place</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900">SaaS Platform Admin</h1>
-            <p className="text-slate-500 text-sm">Manage every subscribed school from one place</p>
-          </div>
-        </div>
+        </Reveal>
 
         <div className="grid sm:grid-cols-3 gap-4 mb-8">
-          <StatCard title="Subscribed Schools" value={tenants.length} icon={Building2} color="blue" />
-          <StatCard title="Monthly Recurring Revenue" value={`₦${mrr.toLocaleString('en-NG')}`} icon={DollarSign} color="emerald" />
-          <StatCard title="Active Students (Platform-wide)" value={totalStudents.toLocaleString()} icon={Users} color="amber" />
+          <StatTile title="Subscribed Schools" value={tenants.length} icon={Building2} delay={0} />
+          <StatTile title="Monthly Recurring Revenue" value={`₦${mrr.toLocaleString('en-NG')}`} icon={TrendingUp} delay={80} />
+          <StatTile title="Active Students (Platform-wide)" value={totalStudents.toLocaleString()} icon={Users} delay={160} />
         </div>
 
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
+        <Reveal delay={200} className="bg-white rounded-2xl border border-slate-200 shadow-sm">
           <div className="p-4 border-b border-slate-200 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
             <div className="relative w-full sm:w-72">
               <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -113,7 +142,7 @@ export default function SaasAdminDashboard() {
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="Search schools…"
-                className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-violet/30 focus:border-brand-violet/40"
               />
             </div>
             <div className="flex gap-2">
@@ -121,8 +150,10 @@ export default function SaasAdminDashboard() {
                 <button
                   key={p}
                   onClick={() => setPlanFilter(p as PlanTier | 'all')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-colors ${
-                    planFilter === p ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-all ${
+                    planFilter === p
+                      ? 'bg-gradient-to-r from-brand-violet to-brand-indigo text-white shadow-sm'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                   }`}
                 >
                   {p === 'all' ? 'All Plans' : PLAN_LABELS[p as PlanTier]}
@@ -149,7 +180,7 @@ export default function SaasAdminDashboard() {
                 ) : filtered.length === 0 ? (
                   <tr><td colSpan={6} className="p-8 text-center text-slate-400">No schools match this filter.</td></tr>
                 ) : filtered.map(t => (
-                  <tr key={t.tenant_id} className="border-b border-slate-50 hover:bg-slate-50/50">
+                  <tr key={t.tenant_id} className="border-b border-slate-50 hover:bg-brand-violet/[0.03] transition-colors">
                     <td className="p-4">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center overflow-hidden flex-shrink-0">
@@ -162,19 +193,24 @@ export default function SaasAdminDashboard() {
                       </div>
                     </td>
                     <td className="p-4">
-                      <span className="px-2 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-medium">{PLAN_LABELS[t.plan_tier]}</span>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${PLAN_BADGE_COLORS[t.plan_tier]}`}>{PLAN_LABELS[t.plan_tier]}</span>
                     </td>
                     <td className="p-4 text-slate-600">
                       {t.student_count}{t.student_limit ? ` / ${t.student_limit}` : ' / ∞'}
                     </td>
                     <td className="p-4">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${STATUS_COLORS[t.status]}`}>{t.status}</span>
+                      {t.status === 'trial' && t.trial_ends_at && (
+                        <p className="text-[11px] text-slate-400 mt-1">
+                          {t.cancel_at_period_end ? 'Cancels' : 'Ends'} {new Date(t.trial_ends_at).toLocaleDateString()}
+                        </p>
+                      )}
                     </td>
                     <td className="p-4 text-slate-500">{new Date(t.created_at).toLocaleDateString()}</td>
                     <td className="p-4 text-right">
                       <button
                         onClick={() => setEditing(t)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-colors"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-brand-indigo bg-brand-violet/10 hover:bg-brand-violet/20 rounded-lg transition-colors"
                       >
                         <Palette className="w-3.5 h-3.5" /> Manage
                       </button>
@@ -184,7 +220,7 @@ export default function SaasAdminDashboard() {
               </tbody>
             </table>
           </div>
-        </div>
+        </Reveal>
       </div>
 
       {editing && (
@@ -208,19 +244,20 @@ function TenantEditModal({
   onSave: (patch: Partial<TenantRow>) => void;
 }) {
   const [form, setForm] = useState<TenantRow>({ ...tenant });
+  const fieldClass = 'w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-violet/30 focus:border-brand-violet/40 transition-colors';
 
   return (
     <Modal isOpen title={`Manage ${tenant.school_name || tenant.slug}`} onClose={onClose} size="lg">
       <div className="space-y-5">
         <section>
-          <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Plan & Billing</h4>
+          <h4 className="text-xs font-semibold text-brand-indigo uppercase tracking-wide mb-2">Plan & Billing</h4>
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Plan Tier</label>
               <select
                 value={form.plan_tier}
                 onChange={e => setForm(f => ({ ...f, plan_tier: e.target.value as PlanTier }))}
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm"
+                className={fieldClass}
               >
                 {PLAN_ORDER.map(p => <option key={p} value={p}>{PLAN_LABELS[p]}</option>)}
               </select>
@@ -230,14 +267,27 @@ function TenantEditModal({
               <select
                 value={form.status}
                 onChange={e => setForm(f => ({ ...f, status: e.target.value as TenantStatus }))}
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm"
+                className={fieldClass}
               >
                 <option value="trial">Trial</option>
                 <option value="active">Active</option>
                 <option value="suspended">Suspended</option>
+                <option value="canceled">Canceled</option>
               </select>
             </div>
           </div>
+          {form.status === 'trial' && (
+            <label className="flex items-center gap-2 mt-3 text-sm text-slate-600">
+              <input
+                type="checkbox"
+                checked={form.cancel_at_period_end}
+                onChange={e => setForm(f => ({ ...f, cancel_at_period_end: e.target.checked }))}
+                className="rounded border-slate-300 text-brand-indigo focus:ring-brand-violet/40"
+              />
+              Cancel at trial end (don't auto-charge the saved card)
+              {form.trial_ends_at && <span className="text-slate-400">— {new Date(form.trial_ends_at).toLocaleDateString()}</span>}
+            </label>
+          )}
           <div className="mt-3">
             <label className="block text-xs font-medium text-slate-600 mb-1">Student Limit (blank = unlimited)</label>
             <input
@@ -245,49 +295,51 @@ function TenantEditModal({
               value={form.student_limit ?? ''}
               onChange={e => setForm(f => ({ ...f, student_limit: e.target.value ? Number(e.target.value) : null }))}
               placeholder="Unlimited"
-              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm"
+              className={fieldClass}
             />
           </div>
         </section>
 
         <section>
-          <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Branding</h4>
+          <h4 className="text-xs font-semibold text-brand-indigo uppercase tracking-wide mb-2">Branding</h4>
           <div className="space-y-3">
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">School Name</label>
-              <input value={form.school_name} onChange={e => setForm(f => ({ ...f, school_name: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm" />
+              <input value={form.school_name} onChange={e => setForm(f => ({ ...f, school_name: e.target.value }))} className={fieldClass} />
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1">Logo URL</label>
-              <input value={form.logo_url} onChange={e => setForm(f => ({ ...f, logo_url: e.target.value }))} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm" />
+              <input value={form.logo_url} onChange={e => setForm(f => ({ ...f, logo_url: e.target.value }))} className={fieldClass} />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">Primary Color</label>
                 <div className="flex items-center gap-2">
                   <input type="color" value={form.primary_color} onChange={e => setForm(f => ({ ...f, primary_color: e.target.value }))} className="w-10 h-9 border border-slate-200 rounded-lg" />
-                  <input value={form.primary_color} onChange={e => setForm(f => ({ ...f, primary_color: e.target.value }))} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm" />
+                  <input value={form.primary_color} onChange={e => setForm(f => ({ ...f, primary_color: e.target.value }))} className={`flex-1 ${fieldClass}`} />
                 </div>
               </div>
               <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">Secondary Color</label>
                 <div className="flex items-center gap-2">
                   <input type="color" value={form.secondary_color} onChange={e => setForm(f => ({ ...f, secondary_color: e.target.value }))} className="w-10 h-9 border border-slate-200 rounded-lg" />
-                  <input value={form.secondary_color} onChange={e => setForm(f => ({ ...f, secondary_color: e.target.value }))} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm" />
+                  <input value={form.secondary_color} onChange={e => setForm(f => ({ ...f, secondary_color: e.target.value }))} className={`flex-1 ${fieldClass}`} />
                 </div>
               </div>
             </div>
             <div>
               <label className="block text-xs font-medium text-slate-600 mb-1 flex items-center gap-1.5">
                 Custom Domain
-                {tenant.plan_tier !== 'enterprise' && <span className="text-amber-600 text-[10px] font-semibold">ENTERPRISE ONLY</span>}
+                {tenant.plan_tier !== 'enterprise' && (
+                  <span className="text-white text-[10px] font-semibold px-1.5 py-0.5 rounded bg-gradient-to-r from-brand-violet to-brand-indigo">ENTERPRISE ONLY</span>
+                )}
               </label>
               <input
                 value={form.custom_domain ?? ''}
                 onChange={e => setForm(f => ({ ...f, custom_domain: e.target.value }))}
                 placeholder="portal.yourschool.com"
                 disabled={form.plan_tier !== 'enterprise'}
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm disabled:bg-slate-50 disabled:text-slate-400"
+                className={`${fieldClass} disabled:bg-slate-50 disabled:text-slate-400`}
               />
             </div>
           </div>
@@ -300,7 +352,7 @@ function TenantEditModal({
           <button
             onClick={() => onSave(form)}
             disabled={saving}
-            className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-colors"
+            className="flex-1 py-2.5 bg-gradient-to-r from-brand-violet to-brand-indigo hover:brightness-110 disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-all shadow-lg shadow-brand-violet/20"
           >
             <Save className="w-4 h-4 inline mr-1" /> {saving ? 'Saving…' : 'Save Changes'}
           </button>
