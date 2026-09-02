@@ -5,13 +5,12 @@ import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 import autoprefixer from "autoprefixer";
 import tailwindcss from "tailwindcss";
 
-const rawPort = process.env.PORT;
-
-if (!rawPort) {
-  throw new Error(
-    "PORT environment variable is required but was not provided.",
-  );
-}
+// PORT/BASE_PATH are only meaningful for the dev/preview server (e.g. under
+// Replit, which always injects them); a static build has no server to bind
+// and no reason to require a non-default base path, so both fall back to
+// sane defaults instead of failing `vite build` in environments (Vercel,
+// local, CI) that never set them.
+const rawPort = process.env.PORT ?? "5173";
 
 const port = Number(rawPort);
 
@@ -19,13 +18,7 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
-const basePath = process.env.BASE_PATH;
-
-if (!basePath) {
-  throw new Error(
-    "BASE_PATH environment variable is required but was not provided.",
-  );
-}
+const basePath = process.env.BASE_PATH ?? "/";
 
 export default defineConfig({
   base: basePath,
