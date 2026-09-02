@@ -3,7 +3,6 @@ import { Eye, EyeOff, GraduationCap } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTenantSettings } from '../../context/TenantContext';
 import { supabase } from '../../lib/supabase';
-import { navigate } from '../../components/hooks/useLocation';
 
 // NOTE: student accounts are provisioned with a deterministic
 // `<admission-number>@student.okrika.edu.ng` identity. This is left as a
@@ -97,7 +96,9 @@ export default function Login() {
         </div>
 
         <div className="bg-white border border-slate-200 rounded-2xl p-5 sm:p-8 shadow-lg shadow-slate-900/5">
-          <h2 className="text-xl font-semibold text-slate-900 mb-6">Sign in to your account</h2>
+          <h2 className="text-xl font-semibold text-slate-900 mb-6">
+            {forgotMode ? (resetSent ? 'Check your email' : 'Reset your password') : 'Sign in to your account'}
+          </h2>
 
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl mb-4">
@@ -108,8 +109,7 @@ export default function Login() {
           {forgotMode ? (
             resetSent ? (
               <div className="text-center py-4">
-                <p className="text-brand-indigo font-medium text-sm">Check your email</p>
-                <p className="text-slate-500 text-sm mt-2">
+                <p className="text-slate-500 text-sm">
                   If an account exists for that address, a password reset link has been sent.
                 </p>
                 <button
@@ -195,19 +195,10 @@ export default function Login() {
           </form>
           )}
 
-          <div className="mt-6 pt-6 border-t border-slate-100 space-y-3">
+          <div className="mt-6 pt-6 border-t border-slate-100">
             <p className="text-xs text-slate-400 text-center">
               Contact your administrator if you have trouble accessing your account
             </p>
-            <div className="text-center">
-              <button
-                type="button"
-                onClick={() => navigate('/parent-signup')}
-                className="text-sm text-brand-indigo hover:underline font-medium transition-colors"
-              >
-                Parent? Create an account →
-              </button>
-            </div>
           </div>
         </div>
 
