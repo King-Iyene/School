@@ -76,7 +76,7 @@ async function refundVerificationCharge(reference: string) {
   }
 }
 
-router.post("/api/onboarding/register", async (req, res) => {
+router.post("/onboarding/register", async (req, res) => {
   const {
     schoolName, subdomain, adminFirstName, adminLastName, adminEmail, plan, paystackReference,
   } = req.body ?? {};
@@ -206,7 +206,7 @@ router.post("/api/onboarding/register", async (req, res) => {
  * Cron, a hosting platform's scheduled job, or a simple GitHub Action) at
  * this endpoint with the shared secret. Untested against live Paystack.
  */
-router.post("/api/billing/process-trial-conversions", async (req, res) => {
+router.post("/billing/process-trial-conversions", async (req, res) => {
   const secret = process.env.BILLING_CRON_SECRET;
   if (!secret || req.header("x-cron-secret") !== secret) {
     return res.status(401).json({ error: "Unauthorized" });
