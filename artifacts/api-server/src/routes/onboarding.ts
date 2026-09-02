@@ -191,7 +191,16 @@ router.post("/onboarding/register", async (req, res) => {
     }
 
     logger.info({ schoolId: school.id, subdomain, plan, hasCard: !!authorizationCode }, "Tenant trial started");
-    return res.status(200).json({ ok: true, loginUrl: "/login", tenantId: school.id });
+    // Always return the temp password directly — the welcome email is a
+    // best-effort convenience (needs RESEND_API_KEY configured), never the
+    // only place the admin can see the credential they need to log in.
+    return res.status(200).json({
+      ok: true,
+      loginUrl: "/login",
+      tenantId: school.id,
+      adminEmail,
+      tempPassword,
+    });
   } catch (err: any) {
     logger.error({ err }, "Tenant onboarding failed");
     return res.status(500).json({ error: err.message || "Onboarding failed" });

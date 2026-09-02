@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { GraduationCap, Check, Loader2, ArrowLeft, Mail, MessageCircle, Star } from 'lucide-react';
+import { GraduationCap, Check, Loader2, ArrowLeft, Mail, MessageCircle, Star, Copy } from 'lucide-react';
 import { navigate, getSearchParams } from '../../components/hooks/useLocation';
 import { PLAN_LABELS, PLAN_STUDENT_LIMITS, PLAN_PRICES_NGN } from '../../lib/planFeatures';
 import type { PlanTier } from '../../lib/types';
@@ -110,6 +110,8 @@ export default function Onboarding() {
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [loginUrl, setLoginUrl] = useState('');
+  const [tempPassword, setTempPassword] = useState('');
+  const [passwordCopied, setPasswordCopied] = useState(false);
 
   useEffect(() => {
     const prevTitle = document.title;
@@ -149,6 +151,7 @@ export default function Onboarding() {
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || 'Registration failed. Please try again.');
       setLoginUrl(data.loginUrl || '/login');
+      setTempPassword(data.tempPassword || '');
       setStep('success');
     } catch (err: any) {
       setError(err.message || 'Something went wrong. Please try again.');
@@ -350,11 +353,43 @@ export default function Onboarding() {
                   <div className="w-14 h-14 bg-brand-mint/15 rounded-full flex items-center justify-center mb-5">
                     <Check className="w-7 h-7 text-brand-indigo" />
                   </div>
-                  <p className="text-slate-500 text-sm mb-6">
-                    We've emailed <strong className="text-slate-800">{adminEmail}</strong> with a temporary password.
+                  <p className="text-slate-500 text-sm mb-4">
                     Your {TRIAL_DAYS}-day free trial for {schoolName} runs with no charge — cancel any time from your
-                    account settings before it ends and you won't be billed.
+                    account settings before it ends and you won't be billed. We've also tried emailing{' '}
+                    <strong className="text-slate-800">{adminEmail}</strong> a copy of these details.
                   </p>
+                  {tempPassword && (
+                    <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-6 space-y-3">
+                      <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Your sign-in details</p>
+                      <div>
+                        <p className="text-xs text-slate-500 mb-0.5">Email</p>
+                        <p className="text-sm font-medium text-slate-800">{adminEmail}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-slate-500 mb-0.5">Temporary password</p>
+                        <div className="flex items-center gap-2">
+                          <code className="flex-1 text-sm font-mono font-semibold text-slate-900 bg-white border border-slate-200 rounded-lg px-3 py-2">
+                            {tempPassword}
+                          </code>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              navigator.clipboard.writeText(tempPassword).then(() => {
+                                setPasswordCopied(true);
+                                setTimeout(() => setPasswordCopied(false), 2000);
+                              });
+                            }}
+                            className="p-2 rounded-lg border border-slate-200 text-slate-500 hover:text-brand-indigo hover:border-brand-violet/50 transition-colors"
+                            title="Copy password"
+                          >
+                            <Copy className="w-4 h-4" />
+                          </button>
+                        </div>
+                        {passwordCopied && <p className="text-xs text-brand-indigo mt-1">Copied!</p>}
+                      </div>
+                      <p className="text-xs text-slate-500">Save this now — you'll be asked to change it after signing in.</p>
+                    </div>
+                  )}
                   <button onClick={() => navigate(loginUrl || '/login')} className={primaryBtnClass}>Go to Sign In</button>
                 </div>
               )}
