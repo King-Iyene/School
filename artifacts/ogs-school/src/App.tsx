@@ -3,7 +3,6 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { TenantProvider } from './context/TenantContext';
 import NotificationListener from './components/shared/NotificationListener';
 import Login from './pages/auth/Login';
-import ParentSignup from './pages/auth/ParentSignup';
 import ConferenceRegistration from './pages/public/ConferenceRegistration';
 import Layout from './components/layout/Layout';
 import { useLocation, navigate, isElectron } from './components/hooks/useLocation';
@@ -280,10 +279,6 @@ function AppContent() {
 
   if (passwordRecovery) {
     return <SetPassword />;
-  }
-
-  if (path === '/parent-signup') {
-    return <ParentSignup />;
   }
 
   if (!user || !profile) {
