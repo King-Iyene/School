@@ -3,6 +3,7 @@ import { GraduationCap, Check, Loader2, ArrowLeft, Mail, MessageCircle, Star } f
 import { navigate, getSearchParams } from '../../components/hooks/useLocation';
 import { PLAN_LABELS, PLAN_STUDENT_LIMITS, PLAN_PRICES_NGN } from '../../lib/planFeatures';
 import type { PlanTier } from '../../lib/types';
+import { apiUrl } from '../../lib/apiUrl';
 
 declare global {
   interface Window {
@@ -132,7 +133,7 @@ export default function Onboarding() {
     setSubmitting(true);
     setError('');
     try {
-      const res = await fetch('/api/onboarding/register', {
+      const res = await fetch(apiUrl('/api/onboarding/register'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

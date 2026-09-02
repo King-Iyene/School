@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { apiUrl } from '../lib/apiUrl';
 
 function urlBase64ToUint8Array(base64String: string): Uint8Array {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
@@ -22,7 +23,7 @@ export function usePushSubscription(userId: string | undefined) {
 
     async function setupPush() {
       try {
-        const res = await fetch('/api/push/vapid-key');
+        const res = await fetch(apiUrl('/api/push/vapid-key'));
         if (!res.ok || cancelled) return;
         const { publicKey } = await res.json();
         if (!publicKey || cancelled) return;
@@ -78,7 +79,7 @@ export async function sendWebPush(
 
     const subscriptions = data.map((r) => r.subscription);
 
-    await fetch('/api/push/send', {
+    await fetch(apiUrl('/api/push/send'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ subscriptions, title, message, url }),

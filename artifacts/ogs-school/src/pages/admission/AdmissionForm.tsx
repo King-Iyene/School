@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabase';
 import { navigate } from '../../components/hooks/useLocation';
 import { useTenantSettings } from '../../context/TenantContext';
 import { schoolCodeFromName } from '../../lib/schoolCode';
+import { apiUrl } from '../../lib/apiUrl';
 import {
   User, Users, GraduationCap, Phone, Mail, AlertCircle,
   ChevronRight, ChevronLeft, Building2, BookOpen, Search,
@@ -157,7 +158,7 @@ export default function AdmissionForm() {
     });
 
     // Send welcome email (fire-and-forget — don't block navigation on failure)
-    fetch('/api/email/admission-welcome', {
+    fetch(apiUrl('/api/email/admission-welcome'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
