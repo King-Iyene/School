@@ -219,7 +219,7 @@ function admissionWelcomeHtml(p: {
 </html>`;
 }
 
-router.post('/api/email/admission-welcome', async (req, res) => {
+router.post('/email/admission-welcome', async (req, res) => {
   const { firstName, lastName, guardianName, guardianEmail, applicationRef, classApplyingFor, school } = req.body ?? {};
 
   if (!guardianEmail || !applicationRef) {
@@ -461,7 +461,7 @@ function admissionConfirmHtml(p: {
 </html>`;
 }
 
-router.post('/api/email/admission-confirm', async (req, res) => {
+router.post('/email/admission-confirm', async (req, res) => {
   const {
     firstName, lastName, guardianName, guardianEmail,
     admissionNumber, studentType, classAdmittedFor, password,
