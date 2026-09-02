@@ -3,6 +3,7 @@ import { Upload, FileText, ClipboardPaste, Sparkles, Save, Search, Trash2, Edit2
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import type { QuestionBankItem, Subject } from '../../lib/types';
+import { apiUrl } from '../../lib/apiUrl';
 
 async function extractTextFromPDF(arrayBuffer: ArrayBuffer): Promise<string> {
   const pdfjsLib = await import('pdfjs-dist');
@@ -159,7 +160,7 @@ export default function QuestionBank() {
         throw new Error('Your session has expired. Please log in again.');
       }
 
-      const res = await fetch('/api/extract-questions', {
+      const res = await fetch(apiUrl('/api/extract-questions'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

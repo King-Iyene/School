@@ -10,6 +10,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import { useTenantSettings } from '../../context/TenantContext';
 import { schoolCodeFromName } from '../../lib/schoolCode';
+import { apiUrl } from '../../lib/apiUrl';
 
 /* ─── Constants ─────────────────────────────────────────────────────────── */
 const STATES = ['Abia','Adamawa','Akwa Ibom','Anambra','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Edo','Ekiti','Enugu','FCT - Abuja','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara'];
@@ -508,7 +509,7 @@ export default function ProspectiveStudents() {
       const emailToSend = displayEmail(admitting.guardian_email);
       if (emailToSend) {
         const className = classes.find((c: any) => c.id === classId)?.name || admitting.class_applying_for || '';
-        fetch('/api/email/admission-confirm', {
+        fetch(apiUrl('/api/email/admission-confirm'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

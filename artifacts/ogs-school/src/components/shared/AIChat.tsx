@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Sparkles, Send, Loader2, CheckCircle2, XCircle, Check, X } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { apiUrl } from '../../lib/apiUrl';
 
 interface ProposedAction {
   id: string;
@@ -100,7 +101,7 @@ export default function AIChat({ compact = false, messages, onMessagesChange }: 
         setBusy(false);
         return;
       }
-      const resp = await fetch('/api/ai/chat', {
+      const resp = await fetch(apiUrl('/api/ai/chat'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -141,7 +142,7 @@ export default function AIChat({ compact = false, messages, onMessagesChange }: 
         patchMessage(index, { actionState: 'error', actionResult: 'Your session has expired. Please log in again.' });
         return;
       }
-      const resp = await fetch('/api/ai/execute-action', {
+      const resp = await fetch(apiUrl('/api/ai/execute-action'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
