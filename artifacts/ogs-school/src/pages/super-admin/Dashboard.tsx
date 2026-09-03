@@ -795,30 +795,30 @@ export default function SuperAdminDashboard() {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-          <div className="bg-emerald-50 rounded-lg p-4">
-            <div className="flex items-center gap-2 text-emerald-600 mb-1">
+          <div className="bg-emerald-50 dark:bg-emerald-500/10 rounded-lg p-4">
+            <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 mb-1">
               <TrendingUp size={16} />
               <span className="text-xs font-medium uppercase tracking-wide">
                 Total Income
               </span>
             </div>
-            <div className="text-2xl font-bold text-emerald-700">
+            <div className="text-2xl font-bold text-emerald-700 dark:text-emerald-400">
               {loadingFinance ? "\u2014" : formatCurrency(totalIncome)}
             </div>
           </div>
-          <div className="bg-red-50 rounded-lg p-4">
-            <div className="flex items-center gap-2 text-red-500 mb-1">
+          <div className="bg-red-50 dark:bg-red-500/10 rounded-lg p-4">
+            <div className="flex items-center gap-2 text-red-500 dark:text-red-400 mb-1">
               <TrendingDown size={16} />
               <span className="text-xs font-medium uppercase tracking-wide">
                 Total Expenses
               </span>
             </div>
-            <div className="text-2xl font-bold text-red-600">
+            <div className="text-2xl font-bold text-red-600 dark:text-red-400">
               {loadingFinance ? "\u2014" : formatCurrency(totalExpense)}
             </div>
           </div>
-          <div className="bg-blue-50 rounded-lg p-4">
-            <div className="flex items-center gap-2 text-blue-600 mb-1">
+          <div className="bg-blue-50 dark:bg-blue-500/10 rounded-lg p-4">
+            <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 mb-1">
               <DollarSign size={16} />
               <span className="text-xs font-medium uppercase tracking-wide">
                 Total Profit
@@ -827,8 +827,8 @@ export default function SuperAdminDashboard() {
             <div
               className={`text-2xl font-bold ${
                 totalIncome - totalExpense >= 0
-                  ? "text-blue-700"
-                  : "text-red-600"
+                  ? "text-blue-700 dark:text-blue-400"
+                  : "text-red-600 dark:text-red-400"
               }`}
             >
               {loadingFinance
@@ -836,14 +836,14 @@ export default function SuperAdminDashboard() {
                 : formatCurrency(totalIncome - totalExpense)}
             </div>
           </div>
-          <div className="bg-amber-50 rounded-lg p-4">
-            <div className="flex items-center gap-2 text-amber-600 mb-1">
+          <div className="bg-amber-50 dark:bg-amber-500/10 rounded-lg p-4">
+            <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 mb-1">
               <DollarSign size={16} />
               <span className="text-xs font-medium uppercase tracking-wide">
                 Total Revenue
               </span>
             </div>
-            <div className="text-2xl font-bold text-amber-700">
+            <div className="text-2xl font-bold text-amber-700 dark:text-amber-400">
               {loadingFinance ? "\u2014" : formatCurrency(totalIncome)}
             </div>
           </div>

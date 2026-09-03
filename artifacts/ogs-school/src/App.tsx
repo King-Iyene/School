@@ -274,10 +274,10 @@ function AppContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-app-bg flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-brand-violet/30 border-t-brand-indigo rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-400">Loading...</p>
+          <p className="text-app-text-muted">Loading...</p>
         </div>
       </div>
     );
@@ -597,16 +597,16 @@ function AppContent() {
 
   if (!profile.school_id && role !== 'super_admin') {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 text-center max-w-md">
-          <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+      <div className="min-h-screen bg-app-bg flex items-center justify-center p-4">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-8 text-center max-w-md">
+          <div className="w-16 h-16 bg-amber-100 dark:bg-amber-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-3xl">⚠️</span>
           </div>
-          <h2 className="text-xl font-bold text-slate-800 mb-2">Account Not Configured</h2>
-          <p className="text-slate-500 text-sm mb-4">
+          <h2 className="text-xl font-bold text-app-text mb-2">Account Not Configured</h2>
+          <p className="text-app-text-muted text-sm mb-4">
             Your account has not been assigned to a school yet. Please contact your administrator.
           </p>
-          <button onClick={signOut} className="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-200 transition-colors">
+          <button onClick={signOut} className="px-4 py-2 bg-app-surface-alt text-app-text rounded-xl text-sm font-medium hover:bg-app-border transition-colors">
             Sign Out
           </button>
         </div>
