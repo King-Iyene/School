@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { navigate, getSearchParams } from '../../components/hooks/useLocation';
+import { useTenantSettings } from '../../context/TenantContext';
 import { Calendar, Clock, Users, CheckCircle, AlertCircle } from 'lucide-react';
 
 const WHATSAPP_NUMBER = '2348012345678'; // ← update to school's WhatsApp number
 
-function WhatsAppFAB() {
+function WhatsAppFAB({ schoolName }: { schoolName: string }) {
   return (
     <a
-      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello, I have a question about admission to Okrika Grammar School.')}`}
+      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hello, I have a question about admission to ${schoolName}.`)}`}
       target="_blank" rel="noopener noreferrer" title="Chat with us on WhatsApp"
       className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 group"
       style={{ padding: '12px 18px 12px 14px' }}
@@ -27,6 +28,7 @@ function getParams() {
 }
 
 export default function ExamScheduling() {
+  const { settings } = useTenantSettings();
   const { id, ref } = getParams();
   const [slots, setSlots] = useState<any[]>([]);
   const [selected, setSelected] = useState<string>('');
@@ -134,7 +136,7 @@ export default function ExamScheduling() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4 py-10">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
-          <img src="/ogs_logo_bg.png" alt="OGS Logo" className="w-16 h-16 object-contain rounded-xl bg-white p-1.5 shadow-lg mx-auto mb-3" />
+          <img src={settings.logo_url || '/ogs_logo_bg.png'} alt={`${settings.school_name || 'School'} Logo`} className="w-16 h-16 object-contain rounded-xl bg-white p-1.5 shadow-lg mx-auto mb-3" />
           <h1 className="text-2xl font-bold text-white">Schedule Admission Exam</h1>
           <p className="text-slate-400 text-sm mt-1">Choose a convenient date and time for your entrance examination</p>
         </div>
@@ -229,10 +231,10 @@ export default function ExamScheduling() {
         </div>
 
         <p className="text-center text-slate-500 text-xs mt-5">
-          Questions? Contact admissions at <span className="text-emerald-400">admissions@okrikagrammars.edu.ng</span>
+          Questions? Call or WhatsApp the admissions office.
         </p>
       </div>
-      <WhatsAppFAB />
+      <WhatsAppFAB schoolName={settings.school_name || 'School Portal'} />
     </div>
   );
 }

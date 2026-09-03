@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { School, GraduationCap } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 
 export default function SchoolSetup() {
   const { profile, refreshProfile } = useAuth();
+  const { settings } = useTenantSettings();
   const [schools, setSchools] = useState<any[]>([]);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState('');
@@ -31,7 +33,7 @@ export default function SchoolSetup() {
           <div className="w-16 h-16 bg-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <GraduationCap className="w-8 h-8 text-white" />
           </div>
-          <h2 className="text-xl font-bold text-slate-800">Welcome to Okrika Grammar School</h2>
+          <h2 className="text-xl font-bold text-slate-800">Welcome to {settings.school_name || 'School Portal'}</h2>
           <p className="text-slate-500 text-sm mt-1">Select your school to continue</p>
         </div>
         <div className="space-y-3">

@@ -3,6 +3,7 @@ import { Save, Printer, CheckCircle, AlertCircle } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { getWAECGrade } from '../../lib/grading';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 
 interface Exam {
   id: string;
@@ -37,6 +38,7 @@ function getOrdinal(n: number): string {
 
 export default function MarksRegister() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
   const [exams, setExams] = useState<Exam[]>([]);
   const [classes, setClasses] = useState<ClassItem[]>([]);
   const [subjects, setSubjects] = useState<Subject[]>([]);
@@ -373,6 +375,13 @@ export default function MarksRegister() {
     });
 
     const origin = window.location.origin;
+    const schoolName = settings.school_name || 'School Portal';
+    const logoSrc = settings.logo_url || `${origin}/ogs_logo_bg.png`;
+    const primaryColor = settings.primary_color || '#1a3a5c';
+    const secondaryColor = settings.secondary_color || '#1a6b3a';
+    const contactLine = [settings.phone && `Tel: ${settings.phone}`, settings.email && `Email: ${settings.email}`]
+      .filter(Boolean)
+      .join(' | ');
     const cardsHTML = enrollments.map(e => {
       const s = e.students as any;
       const studentName = s ? `${s.first_name} ${s.last_name}` : 'Unknown';
@@ -414,17 +423,17 @@ export default function MarksRegister() {
       return `<div class="card">
         <div class="header">
           <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:8px">
-            <img src="${origin}/ogs_logo_bg.png" alt="OGS Logo" style="width:68px;height:68px;object-fit:contain"/>
+            <img src="${logoSrc}" alt="${schoolName} Logo" style="width:68px;height:68px;object-fit:contain"/>
             <div style="flex:1;text-align:center;padding:0 12px">
-              <div style="font-size:17pt;font-weight:900;letter-spacing:1.5px;color:#1a3a5c;font-family:'Times New Roman',serif;line-height:1.1">OKRIKA GRAMMAR SCHOOL</div>
-              <div style="font-size:8.5pt;font-style:italic;color:#1a6b3a;font-weight:600;margin:3px 0">Founded 1940 | Perseverantia Vincit</div>
-              <div style="font-size:8pt;color:#333;line-height:1.4">Diocese of Okrika | Church of Nigeria (Anglican Communion) | Okrika, Rivers State, Nigeria</div>
-              <div style="font-size:8pt;font-weight:bold;color:#1a3a5c;margin-top:2px">Office of the Principal</div>
-              <div style="font-size:7pt;color:#555;margin-top:2px">Tel: 09034210590 | Website: okrikagrammarschool.org | Email: info@okrikagrammarschool.org</div>
+              <div style="font-size:17pt;font-weight:900;letter-spacing:1.5px;color:${primaryColor};font-family:'Times New Roman',serif;line-height:1.1">${schoolName.toUpperCase()}</div>
+              ${settings.motto ? `<div style="font-size:8.5pt;font-style:italic;color:${secondaryColor};font-weight:600;margin:3px 0">${settings.motto}</div>` : ''}
+              ${settings.address ? `<div style="font-size:8pt;color:#333;line-height:1.4">${settings.address}</div>` : ''}
+              <div style="font-size:8pt;font-weight:bold;color:${primaryColor};margin-top:2px">Office of the Principal</div>
+              ${contactLine ? `<div style="font-size:7pt;color:#555;margin-top:2px">${contactLine}</div>` : ''}
             </div>
-            <img src="${origin}/diocese_of_okrika_logo.jpg" alt="Diocese Logo" style="width:63px;height:63px;object-fit:contain"/>
+            <div style="width:63px"></div>
           </div>
-          <div style="border-top:3px solid #1a3a5c;border-bottom:1px solid #1a6b3a;height:4px;margin:0 0 8px 0"></div>
+          <div style="border-top:3px solid ${primaryColor};border-bottom:1px solid ${secondaryColor};height:4px;margin:0 0 8px 0"></div>
           <div class="report-title">STUDENT RESULT CARD &mdash; ${examName.toUpperCase()}</div>
         </div>
         <div class="info-grid">

@@ -379,7 +379,7 @@ export default function MyProfile() {
             <input className={ic} value={form.state_of_origin} onChange={e => set('state_of_origin', e.target.value)} placeholder="e.g. Rivers State" />
           </Field>
           <Field label="Local Government Area (LGA)">
-            <input className={ic} value={form.lga} onChange={e => set('lga', e.target.value)} placeholder="e.g. Okrika LGA" />
+            <input className={ic} value={form.lga} onChange={e => set('lga', e.target.value)} placeholder="e.g. Ikeja LGA" />
           </Field>
           <Field label="Phone Number">
             <input className={ic} value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="e.g. 08012345678" />

@@ -4,6 +4,7 @@ import StatCard from '../../components/common/StatCard';
 import DashboardCalendar from '../../components/dashboard/DashboardCalendar';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 import { navigate } from '../../components/hooks/useLocation';
 import TodoWidget from '../../components/dashboard/TodoWidget';
 import RequisitionStatusWidget from '../../components/dashboard/RequisitionStatusWidget';
@@ -11,6 +12,7 @@ import RequisitionStatusWidget from '../../components/dashboard/RequisitionStatu
 
 export default function AccountantDashboard() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
   const [stats, setStats] = useState({ totalCollected: 0, pendingCount: 0, students: 0, todayCollections: 0 });
   const [recentPayments, setRecentPayments] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -55,7 +57,7 @@ export default function AccountantDashboard() {
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold text-slate-800">Financial Overview</h2>
-        <p className="text-slate-500 mt-1">Track collections and fee management for Okrika Grammar School</p>
+        <p className="text-slate-500 mt-1">Track collections and fee management for {settings.school_name || 'School Portal'}</p>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

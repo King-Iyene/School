@@ -69,7 +69,7 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
           body: message,
           icon: '/ogs_logo_bg.png',
           badge: '/favicon.ico',
-          tag: 'ogs-notification',
+          tag: 'schoolos-notification',
         });
       } catch { }
     }

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Trophy, Star, Award, Printer, GraduationCap } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 
 interface PrincipalRecord {
   rank: number;
@@ -41,6 +42,7 @@ const LIST_SIZE = 10;
 
 export default function PrincipalsListReport() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
   const printRef = useRef<HTMLDivElement>(null);
 
   const [records, setRecords] = useState<PrincipalRecord[]>([]);
@@ -359,7 +361,7 @@ export default function PrincipalsListReport() {
         <div id="principals-list-print" ref={printRef} className="hidden print:block bg-white p-10 text-black" style={{ display: 'none' }}>
           {/* School Header */}
           <div className="text-center mb-8 border-b-2 border-black pb-6">
-            <h1 className="text-2xl font-extrabold uppercase tracking-wide">Okrika Grammar School</h1>
+            <h1 className="text-2xl font-extrabold uppercase tracking-wide">{settings.school_name || 'School Portal'}</h1>
             <p className="text-sm mt-1">Port Harcourt, Rivers State</p>
             <div className="mt-4">
               <h2 className="text-xl font-bold uppercase border border-black inline-block px-8 py-2 tracking-widest">
@@ -442,7 +444,7 @@ export default function PrincipalsListReport() {
           </div>
 
           <p className="text-center text-xs text-gray-400 mt-8">
-            This document is an official record of Okrika Grammar School — generated from the school management portal.
+            This document is an official record of {settings.school_name || 'School Portal'} — generated from the school management portal.
           </p>
         </div>
       )}
