@@ -176,16 +176,27 @@ router.post("/onboarding/register", async (req, res) => {
 
     const apiKey = process.env.RESEND_API_KEY;
     if (apiKey) {
+      // resend.dev is Resend's shared, unverified-domain sender -- it only
+      // delivers to the email address that owns this Resend account, so
+      // this will silently fail (a real, logged failure) for any other
+      // adminEmail until a real domain is verified with Resend and this
+      // "from" address is updated to use it.
       fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
         body: JSON.stringify({
-          from: "SchoolOS <onboarding@schoolos.app>",
+          from: "SchoolOS <onboarding@resend.dev>",
           to: [adminEmail],
           subject: `${schoolName} portal is ready`,
           html: `<p>Hi ${adminFirstName},</p><p>Your school portal for <strong>${schoolName}</strong> is ready — your 14-day free trial has started.</p><p>Sign in with:</p><p>Email: ${adminEmail}<br/>Temporary password: <strong>${tempPassword}</strong></p><p>Please change your password after first login. You can cancel any time before your trial ends with no charge.</p>`,
         }),
-      }).catch(err => logger.error({ err }, "Failed to send onboarding welcome email"));
+      })
+        .then(async (r) => {
+          if (!r.ok) {
+            logger.warn({ status: r.status, body: await r.text().catch(() => "") }, "Onboarding welcome email rejected by Resend");
+          }
+        })
+        .catch(err => logger.error({ err }, "Failed to send onboarding welcome email"));
     } else {
       logger.warn("RESEND_API_KEY not set — onboarding welcome email skipped");
     }
