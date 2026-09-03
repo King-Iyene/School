@@ -88,6 +88,15 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           </button>
         </div>
 
+        {tenant?.plan_tier && (
+          <div className="px-4 py-2 border-b border-app-border">
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-app-text-muted capitalize">
+              <span className={`w-1.5 h-1.5 rounded-full ${tenant.status === 'active' || tenant.status === 'trial' ? 'bg-emerald-500' : tenant.status === 'past_due' ? 'bg-amber-500' : 'bg-red-500'}`} />
+              {tenant.plan_tier} Plan &middot; {tenant.status === 'trial' ? 'Trial' : tenant.status}
+            </span>
+          </div>
+        )}
+
         <div className="px-4 py-3 border-b border-app-border">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-full bg-app-primary flex items-center justify-center flex-shrink-0">
