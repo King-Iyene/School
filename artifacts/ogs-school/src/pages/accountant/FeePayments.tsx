@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Plus, Search, Receipt, TrendingUp, CreditCard as Edit2, Trash2, Printer, ChevronDown, ChevronUp, Download, Filter } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 import Modal from '../../components/common/Modal';
 import Badge from '../../components/common/Badge';
 
@@ -57,6 +58,7 @@ function generateReceiptNumber(termId: string | null, terms: Term[]): string {
 
 export default function FeePayments() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
   const isSuperAdmin = profile?.role === 'super_admin';
   const isAdmin = profile?.role === 'admin' || isSuperAdmin;
 
@@ -320,7 +322,7 @@ export default function FeePayments() {
       @media print { body { padding: 20px; } }
     </style></head><body>
     <div class="header">
-      <h1>Okrika Grammar School</h1>
+      <h1>${settings.school_name || 'School Portal'}</h1>
       <p>Payment Receipt</p>
     </div>
     <div class="receipt-no">Receipt: <strong>${payment.receipt_number || 'N/A'}</strong></div>

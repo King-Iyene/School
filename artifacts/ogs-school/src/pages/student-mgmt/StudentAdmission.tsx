@@ -644,7 +644,7 @@ export default function StudentAdmission() {
                   className={inputClass}
                   value={form.admission_number}
                   onChange={(e) => updateField('admission_number', e.target.value)}
-                  placeholder="OGS-2024-001"
+                  placeholder="STU-2024-001"
                 />
                 <button type="button" onClick={async () => { const n = await getNextAdmissionNumber(profile?.school_id || '', admissionPrefix); setForm(f => ({ ...f, admission_number: n })); }} className="px-3 py-2 text-xs rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 whitespace-nowrap transition-colors">
                   Generate

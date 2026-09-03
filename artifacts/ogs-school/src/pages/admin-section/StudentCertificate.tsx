@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import { Plus, Trash2, CreditCard as Edit2, Award, Users, ChevronLeft, Printer, Sparkles } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 import Modal from '../../components/common/Modal';
 import CertificateTemplate from '../../components/print/CertificateTemplate';
 
 type CertType = 'graduation' | 'excellence' | 'participation' | 'merit' | 'custom';
 type View = 'templates' | 'generate' | 'print';
 
-const OGS_DEFAULTS = [
+const DEFAULT_CERTIFICATES = [
   { name: 'Certificate of Graduation', cert_type: 'graduation', description: 'Awarded to graduating students who have successfully completed the prescribed course of study.' },
   { name: 'Certificate of Excellence', cert_type: 'excellence', description: 'Awarded for outstanding academic performance and exceptional scholarly achievement.' },
   { name: 'Certificate of Participation', cert_type: 'participation', description: 'Awarded to students for active participation in school activities and programmes.' },
@@ -18,6 +19,7 @@ const OGS_DEFAULTS = [
 
 export default function StudentCertificate() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
   const [view, setView] = useState<View>('templates');
   const [templates, setTemplates] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -62,14 +64,14 @@ export default function StudentCertificate() {
 
   async function seedDefaults() {
     if (!profile?.school_id) return;
-    const inserts = OGS_DEFAULTS.map(d => ({
+    const inserts = DEFAULT_CERTIFICATES.map(d => ({
       school_id: profile.school_id,
       name: d.name,
       cert_type: d.cert_type,
       description: d.description,
       background_image_url: '/ogs_logo_bg.png',
-      header_text: 'Okrika Grammar School',
-      footer_text: '"Perseverantia Vincit" — Founded 1940',
+      header_text: settings.school_name || 'Your School Name',
+      footer_text: settings.motto ? `"${settings.motto}"` : '',
     }));
     const { data } = await supabase.from('student_certificates').insert(inserts).select('*');
     setTemplates(data ?? []);
@@ -321,10 +323,10 @@ export default function StudentCertificate() {
                   <button onClick={() => openEdit(t)} className="p-1.5 bg-white/90 rounded-lg shadow-sm text-slate-600 hover:text-slate-800"><Edit2 className="w-3.5 h-3.5" /></button>
                   <button onClick={() => handleDelete(t.id)} className="p-1.5 bg-white/90 rounded-lg shadow-sm text-red-500 hover:text-red-700"><Trash2 className="w-3.5 h-3.5" /></button>
                 </div>
-                {OGS_DEFAULTS.some(d => d.name === t.name) && (
+                {DEFAULT_CERTIFICATES.some(d => d.name === t.name) && (
                   <div className="absolute top-2 left-2">
                     <span className="flex items-center gap-1 text-xs bg-white/90 text-emerald-600 font-semibold px-2 py-0.5 rounded-full shadow-sm">
-                      <Sparkles className="w-3 h-3" /> OGS Default
+                      <Sparkles className="w-3 h-3" /> Default Template
                     </span>
                   </div>
                 )}
@@ -367,7 +369,7 @@ export default function StudentCertificate() {
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">Header Text</label>
-            <input value={form.header_text} onChange={e => setForm({ ...form, header_text: e.target.value })} className={inputCls} placeholder="Okrika Grammar School" />
+            <input value={form.header_text} onChange={e => setForm({ ...form, header_text: e.target.value })} className={inputCls} placeholder="Your School Name" />
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">Footer Text</label>

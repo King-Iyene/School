@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { DollarSign, Plus, Trash2, CreditCard as Edit2, Search, Printer, X, CheckCircle, XCircle, Clock } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 import Modal from '../../components/common/Modal';
 import { cache } from '../../utils/cache';
 
@@ -54,6 +55,7 @@ const PAYMENT_METHODS = ['cash', 'bank_transfer', 'cheque', 'card', 'online'];
 
 export default function FeeManagementPage() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
   const [tab, setTab] = useState<Tab>('approvals');
 
   const [classes, setClasses] = useState<ClassOption[]>([]);
@@ -329,7 +331,7 @@ export default function FeeManagementPage() {
       <style>body{font-family:Arial,sans-serif;max-width:400px;margin:40px auto;padding:20px}h2{text-align:center;margin-bottom:4px}.school{text-align:center;color:#666;margin-bottom:20px}.divider{border-top:2px dashed #ccc;margin:16px 0}.row{display:flex;justify-content:space-between;margin:8px 0;font-size:14px}.label{color:#666}.value{font-weight:600}.total{font-size:18px;color:#059669}.footer{text-align:center;margin-top:24px;font-size:12px;color:#999}</style></head>
       <body>
       <h2>PAYMENT RECEIPT</h2>
-      <p class="school">Okrika Grammar School</p>
+      <p class="school">${settings.school_name || 'School Portal'}</p>
       <div class="divider"></div>
       <div class="row"><span class="label">Receipt No.</span><span class="value">${p.receipt_number}</span></div>
       <div class="row"><span class="label">Date</span><span class="value">${new Date(p.payment_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</span></div>

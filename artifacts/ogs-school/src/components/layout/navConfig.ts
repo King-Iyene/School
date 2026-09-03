@@ -674,3 +674,23 @@ export function getNavItems(role?: UserRole, planTier?: PlanTier): NavItem[] {
 
   return filterNavByPlan(items, planTier);
 }
+
+// path -> group, merged across every role's nav array, for route-level
+// enforcement. filterNavByPlan only ever hides nav *links* -- it never
+// stopped someone from typing a gated URL directly, so App.tsx looks up
+// getRequiredFeatureForPath(path) and enforces it with <FeatureGuard> around
+// the actual page render, independent of which nav (if any) links to it.
+const PATH_TO_GROUP: Record<string, string> = {};
+for (const items of [
+  superAdminNav, teacherNav, studentNav, parentNav, securityOfficerNav,
+  accountantNav, principalNav, headTeacherNav, diocesanOfficialNav,
+  nonTeachingStaffNav,
+]) {
+  for (const item of items) {
+    if (item.group && !(item.path in PATH_TO_GROUP)) PATH_TO_GROUP[item.path] = item.group;
+  }
+}
+
+export function getRequiredFeatureForPath(path: string): Feature | undefined {
+  return PATH_FEATURE_OVERRIDES[path] ?? (PATH_TO_GROUP[path] ? GROUP_FEATURE_MAP[PATH_TO_GROUP[path]] : undefined);
+}

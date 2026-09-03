@@ -3,8 +3,9 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { TenantProvider } from './context/TenantContext';
 import NotificationListener from './components/shared/NotificationListener';
 import Login from './pages/auth/Login';
-import ConferenceRegistration from './pages/public/ConferenceRegistration';
 import Layout from './components/layout/Layout';
+import { FeatureGuard } from './components/guards/FeatureGuard';
+import { getRequiredFeatureForPath } from './components/layout/navConfig';
 import { useLocation, navigate, isElectron } from './components/hooks/useLocation';
 
 import Landing from './pages/public/Landing';
@@ -254,10 +255,9 @@ function AppContent() {
     }
   }, [user, profile, path]);
 
-  const publicPaths = ['/apply', '/admission', '/admission-payment', '/schedule-exam', '/application-status', '/conference-registration', '/landing', '/onboarding'];
+  const publicPaths = ['/apply', '/admission', '/admission-payment', '/schedule-exam', '/application-status', '/landing', '/onboarding'];
   if (publicPaths.includes(path)) {
     if (path === '/apply') { navigate('/admission'); return null; }
-    if (path === '/conference-registration') return <ConferenceRegistration />;
     if (path === '/admission') return <AdmissionForm />;
     if (path === '/admission-payment') return <AdmissionPayment />;
     if (path === '/schedule-exam') return <ExamScheduling />;
@@ -268,9 +268,9 @@ function AppContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-12 h-12 border-4 border-brand-violet/30 border-t-brand-indigo rounded-full animate-spin mx-auto mb-4" />
           <p className="text-slate-400">Loading...</p>
         </div>
       </div>
@@ -606,9 +606,13 @@ function AppContent() {
     );
   }
 
+  const requiredFeature = getRequiredFeatureForPath(path);
+
   return (
     <Layout>
-      {getPage()}
+      <FeatureGuard feature={requiredFeature}>
+        {getPage()}
+      </FeatureGuard>
     </Layout>
   );
 }

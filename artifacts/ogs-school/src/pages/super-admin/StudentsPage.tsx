@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { Plus, Search, Trash2, CreditCard as Edit2, Users, Eye } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 import Modal from '../../components/common/Modal';
 import { navigate } from '../../components/hooks/useLocation';
 import { cache } from '../../utils/cache';
+import { schoolCodeFromName } from '../../lib/schoolCode';
 
 interface Student {
   id: string;
@@ -46,6 +48,7 @@ const statusColors: Record<string, string> = {
 
 export default function StudentsPage() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
   const [students, setStudents] = useState<Student[]>([]);
   const [classes, setClasses] = useState<ClassOption[]>([]);
   const [loading, setLoading] = useState(true);
@@ -119,7 +122,7 @@ export default function StudentsPage() {
     const year = new Date().getFullYear();
     const { count } = await supabase.from('students').select('id', { count: 'exact', head: true }).eq('school_id', profile.school_id);
     const next = String((count ?? 0) + 1).padStart(3, '0');
-    return `OGS-${year}-${next}`;
+    return `${schoolCodeFromName(settings.school_name)}-${year}-${next}`;
   }
 
   function openAdd() {

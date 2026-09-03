@@ -2,24 +2,29 @@ import { useEffect, useState } from 'react';
 import { Plus, Trash2, CreditCard as Edit2, CreditCard, Users, ChevronLeft, Printer, Sparkles } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 import Modal from '../../components/common/Modal';
 import StudentIDCardPrint from '../../components/print/StudentIDCardPrint';
 
 type View = 'templates' | 'generate' | 'print';
 
-const OGS_DEFAULT_CARD = {
-  title: 'OGS Student Identity Card 2025/2026',
-  logo_url: '/ogs_logo_bg.png',
-  designation: 'Principal',
-  signature_url: '/kelvin_signature_.jpeg',
-  background_color: '#ffffff',
-  accent_color: '#1a3a5c',
-  header_text: 'Okrika Grammar School',
-  footer_text: 'Diocese of Okrika | Church of Nigeria',
-};
+function getDefaultCard(schoolName: string) {
+  return {
+    title: `${schoolName} Student Identity Card 2025/2026`,
+    logo_url: '/ogs_logo_bg.png',
+    designation: 'Principal',
+    signature_url: '/kelvin_signature_.jpeg',
+    background_color: '#ffffff',
+    accent_color: '#1a3a5c',
+    header_text: schoolName,
+    footer_text: '',
+  };
+}
 
 export default function StudentIDCard() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
+  const defaultCard = getDefaultCard(settings.school_name || 'Your School Name');
   const [view, setView] = useState<View>('templates');
   const [templates, setTemplates] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -61,7 +66,7 @@ export default function StudentIDCard() {
   async function seedDefault() {
     if (!profile?.school_id) return;
     const { data } = await supabase.from('student_id_cards').insert({
-      ...OGS_DEFAULT_CARD,
+      ...defaultCard,
       school_id: profile.school_id,
     }).select('*');
     setTemplates(data ?? []);
@@ -266,10 +271,10 @@ export default function StudentIDCard() {
                   <button onClick={() => openEdit(t)} className="p-1.5 bg-white/90 rounded-lg shadow-sm text-slate-600 hover:text-slate-800"><Edit2 className="w-3.5 h-3.5" /></button>
                   <button onClick={() => handleDelete(t.id)} className="p-1.5 bg-white/90 rounded-lg shadow-sm text-red-500 hover:text-red-700"><Trash2 className="w-3.5 h-3.5" /></button>
                 </div>
-                {t.title === OGS_DEFAULT_CARD.title && (
+                {t.title === defaultCard.title && (
                   <div className="absolute top-2 left-2">
                     <span className="flex items-center gap-1 text-xs bg-white/90 text-emerald-600 font-semibold px-2 py-0.5 rounded-full shadow-sm">
-                      <Sparkles className="w-3 h-3" /> OGS Default
+                      <Sparkles className="w-3 h-3" /> Default Template
                     </span>
                   </div>
                 )}

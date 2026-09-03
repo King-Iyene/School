@@ -302,7 +302,7 @@ export default function ParentDashboard() {
                     value={admissionInput}
                     onChange={e => { setAdmissionInput(e.target.value); setSearchError(''); setFoundStudent(null); setLinkSuccess(''); }}
                     onKeyDown={e => e.key === 'Enter' && handleSearch()}
-                    placeholder="e.g. OGS/2024/001"
+                    placeholder="e.g. STU/2024/001"
                     className="flex-1 px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                   />
                   <button

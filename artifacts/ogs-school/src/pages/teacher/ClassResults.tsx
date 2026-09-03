@@ -3,6 +3,7 @@ import { GraduationCap, Users, CheckCircle, AlertCircle, Printer, RefreshCw, Awa
 import { navigate } from '../../components/hooks/useLocation';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 
 interface SubjectCol {
   id: string;
@@ -25,6 +26,7 @@ interface StudentRow {
 
 export default function ClassResults() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
   const printRef = useRef<HTMLDivElement>(null);
   const isAdmin = profile?.role === 'super_admin' || profile?.role === 'admin' || profile?.role === 'principal' || profile?.role === 'head_teacher';
 
@@ -266,6 +268,10 @@ export default function ClassResults() {
     const classLabel = className ? ((className as any)?.name || `${(className as any)?.level}${(className as any)?.section}`) : '';
 
     const origin = window.location.origin;
+    const schoolName = settings.school_name || 'School Portal';
+    const logoSrc = settings.logo_url || `${origin}/ogs_logo_bg.png`;
+    const primaryColor = settings.primary_color || '#1a3a5c';
+    const secondaryColor = settings.secondary_color || '#1a6b3a';
     const html = `<!DOCTYPE html>
 <html>
 <head>
@@ -285,16 +291,16 @@ export default function ClassResults() {
 <body>
 <div style="margin-bottom:10px">
   <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:8px">
-    <img src="${origin}/ogs_logo_bg.png" alt="OGS Logo" style="width:62px;height:62px;object-fit:contain"/>
+    <img src="${logoSrc}" alt="${schoolName} Logo" style="width:62px;height:62px;object-fit:contain"/>
     <div style="flex:1;text-align:center;padding:0 12px">
-      <div style="font-size:14pt;font-weight:900;letter-spacing:1px;color:#1a3a5c;font-family:'Times New Roman',serif;line-height:1.1">OKRIKA GRAMMAR SCHOOL</div>
-      <div style="font-size:8pt;font-style:italic;color:#1a6b3a;font-weight:600;margin:2px 0">Founded 1940 | Perseverantia Vincit</div>
-      <div style="font-size:7.5pt;color:#333">Diocese of Okrika | Church of Nigeria (Anglican Communion) | Okrika, Rivers State, Nigeria</div>
-      <div style="font-size:8pt;font-weight:bold;color:#1a3a5c;margin-top:3px">Class Results Broadsheet — ${classLabel} | ${termName} | ${yearName}</div>
+      <div style="font-size:14pt;font-weight:900;letter-spacing:1px;color:${primaryColor};font-family:'Times New Roman',serif;line-height:1.1">${schoolName.toUpperCase()}</div>
+      ${settings.motto ? `<div style="font-size:8pt;font-style:italic;color:${secondaryColor};font-weight:600;margin:2px 0">${settings.motto}</div>` : ''}
+      ${settings.address ? `<div style="font-size:7.5pt;color:#333">${settings.address}</div>` : ''}
+      <div style="font-size:8pt;font-weight:bold;color:${primaryColor};margin-top:3px">Class Results Broadsheet — ${classLabel} | ${termName} | ${yearName}</div>
     </div>
-    <img src="${origin}/diocese_of_okrika_logo.jpg" alt="Diocese Logo" style="width:57px;height:57px;object-fit:contain"/>
+    <div style="width:57px"></div>
   </div>
-  <div style="border-top:2px solid #1a3a5c;border-bottom:1px solid #1a6b3a;height:3px;margin:0 0 8px 0"></div>
+  <div style="border-top:2px solid ${primaryColor};border-bottom:1px solid ${secondaryColor};height:3px;margin:0 0 8px 0"></div>
 </div>
 <table>
 <thead>

@@ -16,9 +16,11 @@ import { useAuth } from '../../context/AuthContext';
 import Badge from '../../components/common/Badge';
 import { navigate } from '../../components/hooks/useLocation';
 import { cache } from '../../utils/cache';
+import { useTenantSettings } from '../../context/TenantContext';
 
 export default function Students() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
   const [students, setStudents] = useState<any[]>([]);
   const [classes, setClasses] = useState<any[]>([]);
   const [years, setYears] = useState<any[]>([]);
@@ -177,7 +179,7 @@ export default function Students() {
     <div className="space-y-5">
       <div>
         <h2 className="text-xl font-bold text-slate-800">Students</h2>
-        <p className="text-slate-500 text-sm">All enrolled students at Okrika Grammar School</p>
+        <p className="text-slate-500 text-sm">All enrolled students at {settings.school_name || 'School Portal'}</p>
       </div>
 
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
