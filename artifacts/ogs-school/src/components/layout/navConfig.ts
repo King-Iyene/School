@@ -1,4 +1,4 @@
-import { Sparkles, LayoutDashboard, Users, GraduationCap, BookOpen, ClipboardList, Calendar, DollarSign, Bell, Settings, School, UserCheck, BarChart2, FileText, CreditCard, BookMarked, Award, MessageCircle, BookUser, AlertCircle, Mail, MailOpen, Phone, SlidersHorizontal, ScrollText, BadgeCheck, Clock, Building, Building2, Briefcase, Receipt, TrendingUp, TrendingDown, Tag, Map, Truck, Megaphone, HardDrive, Monitor, ArrowRightLeft, Percent, Book, LayoutGrid, UserCog, CheckSquare, CalendarCheck, BarChart, Download, FolderOpen, ClipboardCheck, Globe, AtSign, MessageSquare, Umbrella, ShieldCheck, RefreshCw, Package, Store, PackagePlus, PackageCheck, ShoppingCart, ShoppingBag, Send, UserPlus, BookCopy, List, Upload, User, Activity, History, Star, Bus, Eye, Flag, Shield, Home } from 'lucide-react';
+import { Sparkles, LayoutDashboard, Users, GraduationCap, BookOpen, ClipboardList, Calendar, DollarSign, Bell, Settings, School, UserCheck, BarChart2, FileText, CreditCard, BookMarked, Award, MessageCircle, BookUser, AlertCircle, Mail, MailOpen, Phone, SlidersHorizontal, ScrollText, BadgeCheck, Clock, Building, Building2, Briefcase, Receipt, TrendingUp, TrendingDown, Tag, Map, Truck, Megaphone, HardDrive, Monitor, ArrowRightLeft, Percent, Book, LayoutGrid, UserCog, CheckSquare, CalendarCheck, BarChart, Download, FolderOpen, ClipboardCheck, Globe, AtSign, MessageSquare, Umbrella, ShieldCheck, RefreshCw, Package, Store, PackagePlus, PackageCheck, ShoppingCart, ShoppingBag, Send, UserPlus, BookCopy, List, Upload, User, Activity, History, Star, Bus, Eye, Flag, Shield, Home, Palette } from 'lucide-react';
 import { UserRole, PlanTier } from '../../lib/types';
 import { Feature, isFeatureEnabledForPlan } from '../../lib/planFeatures';
 
@@ -39,6 +39,7 @@ const PATH_FEATURE_OVERRIDES: Record<string, Feature> = {
   '/finance/chart-of-accounts': 'financial_accounting',
   '/exam/question-bank': 'cbt_engine',
   '/reports/online-exam': 'cbt_engine',
+  '/system/appearance': 'white_labeling',
 };
 
 export function filterNavByPlan(items: NavItem[], planTier?: PlanTier): NavItem[] {
@@ -236,6 +237,7 @@ const superAdminNav: NavItem[] = [
   // ── System Settings (always last) ────────────────────────────────────────────
   { label: 'School Setup',         path: '/school-setup',              icon: School,       group: 'System Settings' },
   { label: 'General Setting',      path: '/system/general',            icon: Globe,        group: 'System Settings' },
+  { label: 'Appearance',           path: '/system/appearance',         icon: Palette,      group: 'System Settings' },
   { label: 'Role Permission',      path: '/system/role-permission',    icon: ShieldCheck,  group: 'System Settings' },
   { label: 'Holiday',              path: '/system/holiday',            icon: Umbrella,     group: 'System Settings' },
   { label: 'Weekend',              path: '/system/weekend',            icon: CalendarCheck,group: 'System Settings' },

@@ -12,10 +12,14 @@ import {
   ChevronRight,
   Bell,
   Eye,
+  BarChart2,
+  Megaphone,
 } from "lucide-react";
 import Modal from "../../components/common/Modal";
 import { supabase } from "../../lib/supabase";
 import { useAuth } from "../../context/AuthContext";
+import { useTenantSettings } from "../../context/TenantContext";
+import { navigate } from "../../components/hooks/useLocation";
 
 interface StatsData {
   students: number;
@@ -106,6 +110,7 @@ function formatDate(dateStr: string): string {
 
 export default function SuperAdminDashboard() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
 
   const [stats, setStats] = useState<StatsData>({
     students: 0,
@@ -534,122 +539,150 @@ export default function SuperAdminDashboard() {
     1,
   );
 
+  const totalHeadcount = stats.students + stats.teachers + stats.parents + stats.staffs;
+  const totalStaffMarked =
+    todayAttendance.present + todayAttendance.absent + todayAttendance.late + todayAttendance.on_leave + todayAttendance.holiday;
+  const attendancePct = totalStaffMarked > 0 ? Math.round((todayAttendance.present / totalStaffMarked) * 100) : null;
+  const profitPositive = totalIncome - totalExpense >= 0;
 
+  const statTiles: { label: string; value: number; icon: typeof GraduationCap; color: string }[] = [
+    { label: "Students", value: stats.students, icon: GraduationCap, color: "#2A0A5C" },
+    { label: "Teachers", value: stats.teachers, icon: Users, color: "#B679F5" },
+    { label: "Parents", value: stats.parents, icon: UserCheck, color: "#0d9488" },
+    { label: "Staff", value: stats.staffs, icon: School, color: "#d97706" },
+  ];
 
-
+  const attendanceRows: { label: string; value: number; color: string }[] = [
+    { label: "Present", value: todayAttendance.present, color: "#059669" },
+    { label: "Absent", value: todayAttendance.absent, color: "#dc2626" },
+    { label: "Late / Half-day", value: todayAttendance.late, color: "#d97706" },
+    { label: "On Leave", value: todayAttendance.on_leave, color: "#7c3aed" },
+    { label: "Holiday", value: todayAttendance.holiday, color: "#0284c7" },
+  ];
   return (
-    <div className="md:p-6 space-y-8 bg-gray-50 min-h-screen">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-800">
-          Welcome back{profile?.first_name ? `, ${profile.first_name}` : ""}
-        </h1>
-        <p className="text-sm text-gray-500 mt-1">
-          {MONTH_NAMES[new Date().getMonth()]} {new Date().getFullYear()}
-        </p>
+    <div className="space-y-6">
+      {/* Hero */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-app-primary to-app-primary-light p-6 sm:p-8">
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 85% 20%, white 0%, transparent 45%)' }} />
+        <div className="relative flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div>
+            <span className="inline-block text-[11px] font-semibold tracking-wider uppercase text-white/70 mb-2">
+              {settings.school_name || "School Portal"} \u00b7 Overview
+            </span>
+            <h1 className="text-2xl sm:text-3xl font-bold text-white">
+              Welcome back{profile?.first_name ? `, ${profile.first_name}` : ""}
+            </h1>
+            <p className="text-white/70 mt-1.5 text-sm max-w-lg">
+              {MONTH_NAMES[new Date().getMonth()]} {new Date().getFullYear()} \u2014 {totalHeadcount.toLocaleString()} people across your school portal today.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-4">
+            {attendancePct !== null && (
+              <div className="flex items-center gap-3 bg-white/10 rounded-2xl px-4 py-3">
+                <div
+                  className="w-12 h-12 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
+                  style={{ background: `conic-gradient(#9FF3EF ${attendancePct}%, rgba(255,255,255,0.15) 0)` }}
+                >
+                  <span className="w-9 h-9 rounded-full bg-app-primary flex items-center justify-center text-xs">{attendancePct}%</span>
+                </div>
+                <div>
+                  <p className="text-white text-sm font-semibold leading-tight">Staff Present</p>
+                  <p className="text-white/60 text-xs">Today's attendance</p>
+                </div>
+              </div>
+            )}
+            <div className="flex flex-col sm:flex-row gap-2">
+              <button
+                onClick={() => navigate("/notice-board")}
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-app-primary text-sm font-semibold rounded-xl hover:bg-white/90 transition-colors"
+              >
+                <Megaphone className="w-4 h-4" /> Notice Board
+              </button>
+              <button
+                onClick={() => navigate("/reports")}
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-white/10 text-white text-sm font-semibold rounded-xl hover:bg-white/20 transition-colors border border-white/20"
+              >
+                <BarChart2 className="w-4 h-4" /> Reports
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
+      {/* Stat tiles */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-xl shadow-sm p-6 flex items-center gap-4 relative overflow-hidden">
-          <div className="absolute right-4 top-4 opacity-10">
-            <GraduationCap size={56} className="text-emerald-600" />
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-emerald-600">
-              {loadingStats ? "\u2014" : stats.students.toLocaleString()}
+        {statTiles.map((tile) => {
+          const Icon = tile.icon;
+          const pct = totalHeadcount > 0 ? Math.round((tile.value / totalHeadcount) * 100) : 0;
+          return (
+            <div key={tile.label} className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-5">
+              <div className="flex items-start justify-between">
+                <span className="text-xs font-semibold text-app-text-muted uppercase tracking-wide">{tile.label}</span>
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${tile.color}1a` }}>
+                  <Icon className="w-4.5 h-4.5" style={{ color: tile.color }} />
+                </div>
+              </div>
+              <div className="text-3xl font-bold text-app-text mt-3">
+                {loadingStats ? "\u2014" : tile.value.toLocaleString()}
+              </div>
+              <div className="mt-3 h-1.5 rounded-full bg-app-surface-alt overflow-hidden">
+                <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: tile.color }} />
+              </div>
+              <p className="text-xs text-app-text-muted mt-1.5">{pct}% of total headcount</p>
             </div>
-            <div className="text-sm text-gray-500 mt-1">Students</div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-sm p-6 flex items-center gap-4 relative overflow-hidden">
-          <div className="absolute right-4 top-4 opacity-10">
-            <Users size={56} className="text-blue-600" />
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-blue-600">
-              {loadingStats ? "\u2014" : stats.teachers.toLocaleString()}
-            </div>
-            <div className="text-sm text-gray-500 mt-1">Teachers</div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-sm p-6 flex items-center gap-4 relative overflow-hidden">
-          <div className="absolute right-4 top-4 opacity-10">
-            <UserCheck size={56} className="text-amber-500" />
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-amber-500">
-              {loadingStats ? "\u2014" : stats.parents.toLocaleString()}
-            </div>
-            <div className="text-sm text-gray-500 mt-1">Parents</div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-sm p-6 flex items-center gap-4 relative overflow-hidden">
-          <div className="absolute right-4 top-4 opacity-10">
-            <School size={56} className="text-slate-500" />
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-slate-600">
-              {loadingStats ? "\u2014" : stats.staffs.toLocaleString()}
-            </div>
-            <div className="text-sm text-gray-500 mt-1">Staff</div>
-          </div>
-        </div>
+          );
+        })}
       </div>
 
-      {/* Staff Attendance Today Widget */}
-      <div className="bg-white rounded-xl shadow-sm p-6 border-l-4 border-emerald-500">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-          <UserCheck className="w-5 h-5 text-emerald-600" /> Today's Staff Attendance
+      {/* Staff Attendance Today */}
+      <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">
+        <h2 className="text-lg font-semibold text-app-text mb-4 flex items-center gap-2">
+          <UserCheck className="w-5 h-5 text-app-primary" /> Today's Staff Attendance
         </h2>
         {loadingAttendance ? (
-          <div className="text-sm text-gray-400">Loading attendance data...</div>
+          <div className="text-sm text-app-text-muted">Loading attendance data...</div>
+        ) : totalStaffMarked === 0 ? (
+          <div className="text-sm text-app-text-muted">No attendance recorded for today yet.</div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            <div className="bg-emerald-50 rounded-xl p-3 border border-emerald-100">
-              <div className="text-2xl font-bold text-emerald-700">{todayAttendance.present}</div>
-              <div className="text-xs font-medium text-emerald-600 uppercase tracking-wide mt-1">Present</div>
-            </div>
-            <div className="bg-red-50 rounded-xl p-3 border border-red-100">
-              <div className="text-2xl font-bold text-red-700">{todayAttendance.absent}</div>
-              <div className="text-xs font-medium text-red-600 uppercase tracking-wide mt-1">Absent</div>
-            </div>
-            <div className="bg-amber-50 rounded-xl p-3 border border-amber-100">
-              <div className="text-2xl font-bold text-amber-700">{todayAttendance.late}</div>
-              <div className="text-xs font-medium text-amber-600 uppercase tracking-wide mt-1">Late/Half-day</div>
-            </div>
-            <div className="bg-purple-50 rounded-xl p-3 border border-purple-100">
-              <div className="text-2xl font-bold text-purple-700">{todayAttendance.on_leave}</div>
-              <div className="text-xs font-medium text-purple-600 uppercase tracking-wide mt-1">On Leave</div>
-            </div>
-            <div className="bg-sky-50 rounded-xl p-3 border border-sky-100">
-              <div className="text-2xl font-bold text-sky-700">{todayAttendance.holiday}</div>
-              <div className="text-xs font-medium text-sky-600 uppercase tracking-wide mt-1">Holiday</div>
-            </div>
+          <div className="space-y-4">
+            {attendanceRows.map((row) => {
+              const pct = Math.round((row.value / totalStaffMarked) * 100);
+              return (
+                <div key={row.label}>
+                  <div className="flex items-center justify-between text-sm mb-1.5">
+                    <span className="font-medium text-app-text">{row.label}</span>
+                    <span className="text-app-text-muted">{row.value} \u00b7 {pct}%</span>
+                  </div>
+                  <div className="h-2 rounded-full bg-app-surface-alt overflow-hidden">
+                    <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: row.color }} />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm p-6">
+      <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-800">
+          <h2 className="text-lg font-semibold text-app-text">
             Income and Expenses
           </h2>
-          <div className="flex items-center bg-gray-50 rounded-xl border border-gray-100 p-1">
+          <div className="flex items-center bg-app-surface-alt rounded-xl border border-app-border p-1">
             <button
               onClick={() =>
                 setSelectedDate(new Date(currentYear, currentMonth - 1, 1))
               }
-              className="p-1.5 hover:bg-white hover:shadow-sm rounded-lg transition-all text-gray-600"
+              className="p-1.5 hover:bg-app-surface hover:shadow-sm rounded-lg transition-all text-app-text-muted"
             >
               <ChevronLeft size={18} />
             </button>
             <div className="px-3 flex flex-col items-center min-w-[100px]">
-              <span className="text-xs font-bold text-gray-700">
+              <span className="text-xs font-bold text-app-text">
                 {MONTH_NAMES[currentMonth]}
               </span>
-              <span className="text-[9px] uppercase tracking-tighter text-gray-400 font-black">
+              <span className="text-[9px] uppercase tracking-tighter text-app-text-muted font-black">
                 {currentYear}
               </span>
             </div>
@@ -657,7 +690,7 @@ export default function SuperAdminDashboard() {
               onClick={() =>
                 setSelectedDate(new Date(currentYear, currentMonth + 1, 1))
               }
-              className="p-1.5 hover:bg-white hover:shadow-sm rounded-lg transition-all text-gray-600"
+              className="p-1.5 hover:bg-app-surface hover:shadow-sm rounded-lg transition-all text-app-text-muted"
             >
               <ChevronRight size={18} />
             </button>
@@ -720,11 +753,11 @@ export default function SuperAdminDashboard() {
         </div>
 
         <div className="mb-2">
-          <h3 className="text-sm font-semibold text-gray-600 mb-3">
+          <h3 className="text-sm font-semibold text-app-text mb-3">
             Daily Income vs Expenses
           </h3>
           {loadingFinance ? (
-            <div className="h-48 flex items-center justify-center text-gray-400 text-sm">
+            <div className="h-48 flex items-center justify-center text-app-text-muted text-sm">
               Loading chart...
             </div>
           ) : (
@@ -733,7 +766,7 @@ export default function SuperAdminDashboard() {
                 {chartYLabels.map((v, i) => (
                   <span
                     key={i}
-                    className="absolute right-0 text-xs text-gray-400 text-right"
+                    className="absolute right-0 text-xs text-app-text-muted text-right"
                     style={{ top: `${(i / (chartYLabels.length - 1)) * 100}%`, transform: 'translateY(-50%)' }}
                   >
                     {v === 0 ? "0" : v >= 1000 ? `${(v / 1000).toFixed(v < 10000 ? 1 : 0)}k` : Math.round(v)}
@@ -771,7 +804,7 @@ export default function SuperAdminDashboard() {
                   {dailyFinance.map((d) => (
                     <div
                       key={d.day}
-                      className="flex-1 text-center text-xs text-gray-400"
+                      className="flex-1 text-center text-xs text-app-text-muted"
                       style={{ minWidth: 16 }}
                     >
                       {d.day % 5 === 1 || d.day === 1 ? d.day : ""}
@@ -782,11 +815,11 @@ export default function SuperAdminDashboard() {
             </div>
           )}
           <div className="flex gap-4 mt-2">
-            <div className="flex items-center gap-1.5 text-xs text-gray-500">
+            <div className="flex items-center gap-1.5 text-xs text-app-text-muted">
               <span className="w-3 h-3 rounded bg-emerald-400 inline-block" />{" "}
               Income
             </div>
-            <div className="flex items-center gap-1.5 text-xs text-gray-500">
+            <div className="flex items-center gap-1.5 text-xs text-app-text-muted">
               <span className="w-3 h-3 rounded bg-red-400 inline-block" />{" "}
               Expenses
             </div>
@@ -794,15 +827,15 @@ export default function SuperAdminDashboard() {
         </div>
 
         <div className="mt-8">
-          <h3 className="text-sm font-semibold text-gray-600 mb-3">
+          <h3 className="text-sm font-semibold text-app-text mb-3">
             Monthly Trend (Last 6 Months)
           </h3>
           {loadingFinance ? (
-            <div className="h-40 flex items-center justify-center text-gray-400 text-sm">
+            <div className="h-40 flex items-center justify-center text-app-text-muted text-sm">
               Loading chart...
             </div>
           ) : (
-            <div className="flex items-end gap-3 h-40 border-l border-b border-gray-200 px-2 pb-1">
+            <div className="flex items-end gap-3 h-40 border-l border-b border-app-border px-2 pb-1">
               {monthlyFinance.map((m) => {
                 const incH = Math.round((m.income / maxMonthly) * 100);
                 const expH = Math.round((m.expense / maxMonthly) * 100);
@@ -831,18 +864,18 @@ export default function SuperAdminDashboard() {
                         )}`}
                       />
                     </div>
-                    <span className="text-xs text-gray-500">{m.month}</span>
+                    <span className="text-xs text-app-text-muted">{m.month}</span>
                   </div>
                 );
               })}
             </div>
           )}
           <div className="flex gap-4 mt-2">
-            <div className="flex items-center gap-1.5 text-xs text-gray-500">
+            <div className="flex items-center gap-1.5 text-xs text-app-text-muted">
               <span className="w-3 h-3 rounded bg-emerald-400 inline-block" />{" "}
               Income
             </div>
-            <div className="flex items-center gap-1.5 text-xs text-gray-500">
+            <div className="flex items-center gap-1.5 text-xs text-app-text-muted">
               <span className="w-3 h-3 rounded bg-red-400 inline-block" />{" "}
               Expenses
             </div>
@@ -850,31 +883,31 @@ export default function SuperAdminDashboard() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm p-6">
+      <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">
         <div className="flex items-center gap-2 mb-4">
-          <Bell size={18} className="text-emerald-600" />
-          <h2 className="text-lg font-semibold text-gray-800">Notice Board</h2>
+          <Bell size={18} className="text-app-primary" />
+          <h2 className="text-lg font-semibold text-app-text">Notice Board</h2>
         </div>
         {loadingAnnouncements ? (
-          <div className="text-sm text-gray-400 py-6 text-center">
+          <div className="text-sm text-app-text-muted py-6 text-center">
             Loading announcements...
           </div>
         ) : announcements.length === 0 ? (
-          <div className="text-sm text-gray-400 py-6 text-center">
+          <div className="text-sm text-app-text-muted py-6 text-center">
             No announcements found.
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-100">
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">
+                <tr className="border-b border-app-border">
+                  <th className="text-left py-2 px-3 text-app-text-muted font-medium">
                     Date
                   </th>
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">
+                  <th className="text-left py-2 px-3 text-app-text-muted font-medium">
                     Title
                   </th>
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">
+                  <th className="text-left py-2 px-3 text-app-text-muted font-medium">
                     Actions
                   </th>
                 </tr>
@@ -883,18 +916,18 @@ export default function SuperAdminDashboard() {
                 {announcements.map((a) => (
                   <tr
                     key={a.id}
-                    className="border-b border-gray-50 hover:bg-gray-50 transition-colors"
+                    className="border-b border-app-border/60 hover:bg-app-surface-alt transition-colors"
                   >
-                    <td className="py-2 px-3 text-gray-500 whitespace-nowrap">
+                    <td className="py-2 px-3 text-app-text-muted whitespace-nowrap">
                       {formatDate(a.created_at)}
                     </td>
-                    <td className="py-2 px-3 text-gray-800 font-medium">
+                    <td className="py-2 px-3 text-app-text font-medium">
                       {a.title}
                     </td>
                     <td className="py-2 px-3">
                       <button
                         onClick={() => setSelectedAnnouncement(a)}
-                        className="flex items-center gap-1.5 text-emerald-600 hover:text-emerald-700 text-xs font-medium border border-emerald-200 rounded px-2 py-1 hover:bg-emerald-50 transition-colors"
+                        className="flex items-center gap-1.5 text-app-primary hover:opacity-80 text-xs font-medium border border-app-primary/30 rounded px-2 py-1 hover:bg-app-primary/5 transition-colors"
                       >
                         <Eye size={12} />
                         View
@@ -936,16 +969,16 @@ export default function SuperAdminDashboard() {
           title={selectedAnnouncement.title}
         >
           <div className="space-y-3">
-            <div className="text-xs text-gray-400">
+            <div className="text-xs text-app-text-muted">
               {formatDate(selectedAnnouncement.created_at)}
             </div>
-            <div className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
+            <div className="text-sm text-app-text whitespace-pre-wrap leading-relaxed">
               {selectedAnnouncement.content}
             </div>
             <div className="flex justify-end pt-2">
               <button
                 onClick={() => setSelectedAnnouncement(null)}
-                className="px-4 py-2 text-sm font-medium text-gray-600 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                className="px-4 py-2 text-sm font-medium text-app-text border border-app-border rounded-lg hover:bg-app-surface-alt transition-colors"
               >
                 Close
               </button>
