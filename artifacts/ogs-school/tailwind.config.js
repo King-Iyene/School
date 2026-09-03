@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
@@ -13,6 +14,25 @@ export default {
           mint: '#9FF3EF',
           violet: '#B679F5',
           indigo: '#2A0A5C',
+        },
+        // "app-*" tokens back the redesigned shell (Layout/Sidebar/Header)
+        // and Dashboard — CSS variables defined in index.css, switched by
+        // the `.dark` class (ThemeContext) and, for app-primary/-secondary,
+        // overridable per-tenant at runtime (Enterprise "white_labeling"
+        // appearance settings). Deliberately namespaced under "app-" rather
+        // than reusing bare color names so none of the existing
+        // emerald/slate pages are affected by this — they keep working
+        // exactly as before.
+        app: {
+          bg: 'var(--app-bg)',
+          surface: 'var(--app-surface)',
+          'surface-alt': 'var(--app-surface-alt)',
+          border: 'var(--app-border)',
+          text: 'var(--app-text)',
+          'text-muted': 'var(--app-text-muted)',
+          primary: 'var(--app-primary)',
+          'primary-light': 'var(--app-primary-light)',
+          secondary: 'var(--app-secondary)',
         },
       },
       keyframes: {

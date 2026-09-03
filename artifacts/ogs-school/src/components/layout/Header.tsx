@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { Menu, Bell, Search, Globe, LayoutDashboard, BarChart2, User, KeyRound, LogOut, Check, ChevronDown, X } from 'lucide-react';
+import { Menu, Bell, Search, Globe, LayoutDashboard, BarChart2, Calendar, Sun, Moon, Monitor, User, KeyRound, LogOut, Check, ChevronDown, X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../lib/supabase';
 import { navigate } from '../hooks/useLocation';
 import { usePushSubscription } from '../../hooks/usePushSubscription';
+import { useTheme, ThemeMode } from '../../context/ThemeContext';
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -39,12 +40,21 @@ function getNotifRoute(n: Notification): string | null {
 }
 
 
+const THEME_OPTIONS: { mode: ThemeMode; label: string; icon: typeof Sun }[] = [
+  { mode: 'light', label: 'Light', icon: Sun },
+  { mode: 'dark', label: 'Dark', icon: Moon },
+  { mode: 'system', label: 'System', icon: Monitor },
+];
+
 export default function Header({ onMenuClick, title }: HeaderProps) {
   const { profile, signOut } = useAuth();
+  const { mode, isDark, setMode } = useTheme();
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [showThemeMenu, setShowThemeMenu] = useState(false);
+  const themeRef = useRef<HTMLDivElement>(null);
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const [pwLoading, setPwLoading] = useState(false);
@@ -122,6 +132,7 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
         setShowChangePassword(false);
         setPwMsg('');
       }
+      if (themeRef.current && !themeRef.current.contains(e.target as Node)) setShowThemeMenu(false);
     }
     document.addEventListener('mousedown', handleClick);
     return () => document.removeEventListener('mousedown', handleClick);
@@ -176,26 +187,26 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
   const initials = `${profile?.first_name?.[0] ?? ''}${profile?.last_name?.[0] ?? ''}`.toUpperCase();
 
   return (
-    <header className="bg-white border-b border-slate-200 flex-shrink-0">
+    <header className="bg-app-surface border-b border-app-border flex-shrink-0">
       {/* Push notification toast — fixed so it escapes the header's layout */}
       {toast && (
         <div
-          className="fixed top-4 right-4 z-[9999] flex items-start gap-3 bg-white border border-slate-200 shadow-xl rounded-2xl px-4 py-3.5 max-w-sm w-full"
+          className="fixed top-4 right-4 z-[9999] flex items-start gap-3 bg-app-surface border border-app-border shadow-xl rounded-2xl px-4 py-3.5 max-w-sm w-full"
           style={{ animation: 'slideInRight 0.3s ease' }}
         >
           <style>{`@keyframes slideInRight{from{opacity:0;transform:translateX(110%)}to{opacity:1;transform:translateX(0)}}`}</style>
-          <div className="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-            <Bell className="w-4 h-4 text-emerald-600" />
+          <div className="w-8 h-8 rounded-xl bg-app-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <Bell className="w-4 h-4 text-app-primary" />
           </div>
           <div
             className={`flex-1 min-w-0 ${toast.url ? 'cursor-pointer' : ''}`}
             onClick={() => { if (toast.url) { setToast(null); navigate(toast.url); } }}
           >
-            <p className="text-sm font-semibold text-slate-800 leading-tight">{toast.title}</p>
-            <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">{toast.message}</p>
-            {toast.url && <p className="text-xs text-emerald-600 font-medium mt-1">Tap to open →</p>}
+            <p className="text-sm font-semibold text-app-text leading-tight">{toast.title}</p>
+            <p className="text-xs text-app-text-muted mt-0.5 line-clamp-2">{toast.message}</p>
+            {toast.url && <p className="text-xs text-app-primary font-medium mt-1">Tap to open →</p>}
           </div>
-          <button onClick={() => setToast(null)} className="text-slate-300 hover:text-slate-500 flex-shrink-0 mt-0.5">
+          <button onClick={() => setToast(null)} className="text-app-text-muted/60 hover:text-app-text-muted flex-shrink-0 mt-0.5">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -204,20 +215,20 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
         <div className="flex items-center gap-3 flex-1 min-w-0">
           <button
             onClick={onMenuClick}
-            className="lg:hidden p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+            className="lg:hidden p-2 text-app-text-muted hover:text-app-text hover:bg-app-surface-alt rounded-lg transition-colors"
           >
             <Menu className="w-5 h-5" />
           </button>
-          <h1 className="text-sm font-bold text-slate-800 lg:hidden truncate">{title}</h1>
+          <h1 className="text-sm font-bold text-app-text lg:hidden truncate">{title}</h1>
 
           <div className="relative hidden sm:flex items-center max-w-xs w-full">
-            <Search className="absolute left-3 w-4 h-4 text-slate-400 pointer-events-none" />
+            <Search className="absolute left-3 w-4 h-4 text-app-text-muted pointer-events-none" />
             <input
               type="text"
               placeholder="Search..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full pl-9 pr-4 py-1.5 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder:text-slate-400"
+              className="w-full pl-9 pr-4 py-1.5 text-sm bg-app-surface-alt border border-app-border rounded-lg focus:outline-none focus:ring-2 focus:ring-app-primary/40 focus:border-transparent placeholder:text-app-text-muted text-app-text"
             />
           </div>
         </div>
@@ -225,14 +236,14 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
         <div className="flex items-center gap-1.5">
           <button
             onClick={() => navigate('/dashboard')}
-            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg transition-colors"
+            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-app-text-muted bg-app-surface-alt hover:bg-app-border/50 border border-app-border rounded-lg transition-colors"
           >
             <LayoutDashboard className="w-3.5 h-3.5" />
             Dashboard
           </button>
           <button
             onClick={() => navigate('/reports')}
-            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg transition-colors"
+            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-app-text-muted bg-app-surface-alt hover:bg-app-border/50 border border-app-border rounded-lg transition-colors"
           >
             <BarChart2 className="w-3.5 h-3.5" />
             Reports
@@ -240,16 +251,52 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="hidden sm:flex items-center gap-1 px-2 py-1.5 text-xs font-medium text-slate-500 hover:bg-slate-50 rounded-lg cursor-pointer transition-colors">
+          <div className="hidden sm:flex items-center gap-1 px-2 py-1.5 text-xs font-medium text-app-text-muted hover:bg-app-surface-alt rounded-lg cursor-pointer transition-colors">
             <Globe className="w-3.5 h-3.5" />
             <span>English</span>
             <ChevronDown className="w-3 h-3" />
           </div>
 
+          <button
+            onClick={() => navigate('/events')}
+            className="p-2 text-app-text-muted hover:text-app-text hover:bg-app-surface-alt rounded-lg transition-colors"
+            title="Calendar"
+          >
+            <Calendar className="w-5 h-5" />
+          </button>
+
+          <div className="relative" ref={themeRef}>
+            <button
+              onClick={() => setShowThemeMenu(v => !v)}
+              className="p-2 text-app-text-muted hover:text-app-text hover:bg-app-surface-alt rounded-lg transition-colors"
+              title="Theme"
+            >
+              {isDark ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+            </button>
+            {showThemeMenu && (
+              <div className="absolute right-0 top-full mt-2 w-40 bg-app-surface rounded-xl shadow-lg border border-app-border z-50 overflow-hidden py-1">
+                {THEME_OPTIONS.map(opt => {
+                  const OptIcon = opt.icon;
+                  return (
+                    <button
+                      key={opt.mode}
+                      onClick={() => { setMode(opt.mode); setShowThemeMenu(false); }}
+                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm transition-colors ${mode === opt.mode ? 'text-app-primary font-medium bg-app-primary/10' : 'text-app-text hover:bg-app-surface-alt'}`}
+                    >
+                      <OptIcon className="w-4 h-4" />
+                      {opt.label}
+                      {mode === opt.mode && <Check className="w-3.5 h-3.5 ml-auto" />}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
           <div className="relative" ref={notifRef}>
             <button
               onClick={() => { setShowNotifications(v => !v); setShowProfile(false); }}
-              className="relative p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+              className="relative p-2 text-app-text-muted hover:text-app-text hover:bg-app-surface-alt rounded-lg transition-colors"
             >
               <Bell className="w-5 h-5" />
               {unreadCount > 0 && (
@@ -260,23 +307,23 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
             </button>
 
             {showNotifications && (
-              <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-lg border border-slate-200 z-50 overflow-hidden">
-                <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
-                  <h3 className="font-semibold text-slate-800 text-sm">Notifications</h3>
+              <div className="absolute right-0 top-full mt-2 w-80 bg-app-surface rounded-xl shadow-lg border border-app-border z-50 overflow-hidden">
+                <div className="flex items-center justify-between px-4 py-3 border-b border-app-border">
+                  <h3 className="font-semibold text-app-text text-sm">Notifications</h3>
                   <div className="flex items-center gap-2">
                     {unreadCount > 0 && (
-                      <button onClick={markAllRead} className="text-xs text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1">
+                      <button onClick={markAllRead} className="text-xs text-app-primary hover:opacity-80 font-medium flex items-center gap-1">
                         <Check className="w-3 h-3" /> Mark all read
                       </button>
                     )}
-                    <button onClick={() => setShowNotifications(false)} className="text-slate-400 hover:text-slate-600">
+                    <button onClick={() => setShowNotifications(false)} className="text-app-text-muted hover:text-app-text">
                       <X className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
-                <div className="max-h-72 overflow-y-auto divide-y divide-slate-50">
+                <div className="max-h-72 overflow-y-auto divide-y divide-app-border/60">
                   {notifications.length === 0 ? (
-                    <div className="px-4 py-8 text-center text-slate-400 text-sm">
+                    <div className="px-4 py-8 text-center text-app-text-muted text-sm">
                       <Bell className="w-8 h-8 mx-auto mb-2 opacity-30" />
                       No notifications
                     </div>
@@ -289,16 +336,16 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
                           markRead(n.id);
                           if (route) { setShowNotifications(false); navigate(route); }
                         }}
-                        className={`px-4 py-3 cursor-pointer hover:bg-slate-50 transition-colors ${!n.is_read ? 'bg-emerald-50/50' : ''}`}
+                        className={`px-4 py-3 cursor-pointer hover:bg-app-surface-alt transition-colors ${!n.is_read ? 'bg-app-primary/5' : ''}`}
                       >
                         <div className="flex items-start gap-2">
-                          {!n.is_read && <div className="w-2 h-2 rounded-full bg-emerald-500 mt-1.5 flex-shrink-0" />}
+                          {!n.is_read && <div className="w-2 h-2 rounded-full bg-app-primary mt-1.5 flex-shrink-0" />}
                           <div className={`flex-1 min-w-0 ${!n.is_read ? '' : 'pl-4'}`}>
-                            <p className="text-sm font-medium text-slate-800 leading-tight">{n.title}</p>
-                            <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">{n.message}</p>
+                            <p className="text-sm font-medium text-app-text leading-tight">{n.title}</p>
+                            <p className="text-xs text-app-text-muted mt-0.5 line-clamp-2">{n.message}</p>
                             <div className="flex items-center gap-2 mt-1">
-                              <p className="text-xs text-slate-400">{new Date(n.created_at).toLocaleDateString()}</p>
-                              {route && <span className="text-xs text-emerald-600 font-medium">→ Go to module</span>}
+                              <p className="text-xs text-app-text-muted">{new Date(n.created_at).toLocaleDateString()}</p>
+                              {route && <span className="text-xs text-app-primary font-medium">→ Go to module</span>}
                             </div>
                           </div>
                         </div>
@@ -306,10 +353,10 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
                     );
                   })}
                 </div>
-                <div className="px-4 py-2.5 border-t border-slate-100 bg-slate-50">
+                <div className="px-4 py-2.5 border-t border-app-border bg-app-surface-alt">
                   <button
                     onClick={() => { navigate('/notifications'); setShowNotifications(false); }}
-                    className="text-xs text-emerald-600 hover:text-emerald-700 font-medium w-full text-center"
+                    className="text-xs text-app-primary hover:opacity-80 font-medium w-full text-center"
                   >
                     View all notifications
                   </button>
@@ -321,28 +368,28 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
           <div className="relative" ref={profileRef}>
             <button
               onClick={() => { setShowProfile(v => !v); setShowNotifications(false); }}
-              className="flex items-center gap-2 p-1 hover:bg-slate-100 rounded-lg transition-colors"
+              className="flex items-center gap-2 p-1 hover:bg-app-surface-alt rounded-lg transition-colors"
             >
-              <div className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-xs font-bold text-white">
+              <div className="w-8 h-8 rounded-full bg-app-primary flex items-center justify-center text-xs font-bold text-white">
                 {initials || <User className="w-4 h-4" />}
               </div>
               <div className="hidden md:block text-left">
-                <p className="text-xs font-semibold text-slate-700 leading-tight">{profile?.first_name} {profile?.last_name}</p>
-                <p className="text-[10px] text-slate-400 capitalize">{profile?.role?.replace('_', ' ')}</p>
+                <p className="text-xs font-semibold text-app-text leading-tight">{profile?.first_name} {profile?.last_name}</p>
+                <p className="text-[10px] text-app-text-muted capitalize">{profile?.role?.replace('_', ' ')}</p>
               </div>
-              <ChevronDown className="hidden md:block w-3 h-3 text-slate-400" />
+              <ChevronDown className="hidden md:block w-3 h-3 text-app-text-muted" />
             </button>
 
             {showProfile && (
-              <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-xl shadow-lg border border-slate-200 z-50 overflow-hidden">
-                <div className="px-4 py-3 bg-emerald-600 text-white">
+              <div className="absolute right-0 top-full mt-2 w-64 bg-app-surface rounded-xl shadow-lg border border-app-border z-50 overflow-hidden">
+                <div className="px-4 py-3 bg-app-primary text-white">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold">
                       {initials}
                     </div>
                     <div>
                       <p className="font-semibold text-sm">{profile?.first_name} {profile?.last_name}</p>
-                      <p className="text-xs text-emerald-100 capitalize">{profile?.role?.replace('_', ' ')}</p>
+                      <p className="text-xs text-white/80 capitalize">{profile?.role?.replace('_', ' ')}</p>
                     </div>
                   </div>
                 </div>
@@ -356,17 +403,17 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
                       else navigate(`/teacher-profile?id=${profile?.id}`);
                       setShowProfile(false);
                     }}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-app-text hover:bg-app-surface-alt transition-colors"
                   >
-                    <User className="w-4 h-4 text-slate-400" />
+                    <User className="w-4 h-4 text-app-text-muted" />
                     My Profile
                   </button>
 
                   <button
                     onClick={() => setShowChangePassword(v => !v)}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-app-text hover:bg-app-surface-alt transition-colors"
                   >
-                    <KeyRound className="w-4 h-4 text-slate-400" />
+                    <KeyRound className="w-4 h-4 text-app-text-muted" />
                     Change Password
                   </button>
 
@@ -377,20 +424,20 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
                         placeholder="New password"
                         value={newPassword}
                         onChange={e => setNewPassword(e.target.value)}
-                        className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-2"
+                        className="w-full px-3 py-2 text-sm bg-app-surface border border-app-border text-app-text rounded-lg focus:outline-none focus:ring-2 focus:ring-app-primary/40 mb-2"
                       />
                       {pwMsg && <p className={`text-xs mb-2 ${pwMsg.includes('success') ? 'text-emerald-600' : 'text-red-500'}`}>{pwMsg}</p>}
                       <button
                         onClick={changePassword}
                         disabled={pwLoading}
-                        className="w-full py-1.5 bg-emerald-600 text-white text-xs font-medium rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50"
+                        className="w-full py-1.5 bg-app-primary text-white text-xs font-medium rounded-lg hover:opacity-90 transition-colors disabled:opacity-50"
                       >
                         {pwLoading ? 'Updating...' : 'Update Password'}
                       </button>
                     </div>
                   )}
 
-                  <div className="border-t border-slate-100 mt-1" />
+                  <div className="border-t border-app-border mt-1" />
 
                   <button
                     onClick={signOut}

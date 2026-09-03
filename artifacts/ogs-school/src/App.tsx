@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { TenantProvider } from './context/TenantContext';
+import { ThemeProvider } from './context/ThemeContext';
 import NotificationListener from './components/shared/NotificationListener';
 import Login from './pages/auth/Login';
 import Layout from './components/layout/Layout';
@@ -190,6 +191,7 @@ import SecurityDashboard from './pages/security/Dashboard';
 import DiocesanDashboard from './pages/diocesan/Dashboard';
 
 import GeneralSetting from './pages/system-settings/GeneralSetting';
+import Appearance from './pages/system-settings/Appearance';
 import EmailSetting from './pages/system-settings/EmailSetting';
 import SmsSetting from './pages/system-settings/SmsSetting';
 import Holiday from './pages/system-settings/Holiday';
@@ -461,6 +463,7 @@ function AppContent() {
       case '/hr/departments': return <Departments />;
 
       case '/system/general': return <GeneralSetting />;
+      case '/system/appearance': return <Appearance />;
       case '/system/email': return <EmailSetting />;
       case '/system/sms': return <SmsSetting />;
       case '/system/holiday': return <Holiday />;
@@ -630,8 +633,10 @@ export default function App() {
   return (
     <AuthProvider>
       <TenantProvider>
-        <NotificationListener />
-        <AppContent />
+        <ThemeProvider>
+          <NotificationListener />
+          <AppContent />
+        </ThemeProvider>
       </TenantProvider>
     </AuthProvider>
   );

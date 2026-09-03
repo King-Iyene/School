@@ -23,7 +23,7 @@ export default function Layout({ children }: LayoutProps) {
   const title = currentNav?.label || 'Dashboard';
 
   return (
-    <div className="flex h-screen bg-slate-50 overflow-hidden">
+    <div className="flex h-screen bg-app-bg overflow-hidden">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="flex-1 flex flex-col min-w-0">
         <TrialStatusBanner />

@@ -3,6 +3,34 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Default app-shell theme: brand-indigo/violet, matching the landing
+       page. Overridden per-tenant at runtime (Enterprise "Appearance"
+       settings, see ThemeContext) for --app-primary/-primary-light/
+       -secondary only — bg/surface/text stay fixed per light/dark mode. */
+    --app-bg: #f7f6fb;
+    --app-surface: #ffffff;
+    --app-surface-alt: #f1eff8;
+    --app-border: #e6e3f2;
+    --app-text: #1e1b2e;
+    --app-text-muted: #6b7280;
+    --app-primary: #2a0a5c;
+    --app-primary-light: color-mix(in srgb, var(--app-primary) 65%, white);
+    --app-secondary: #b679f5;
+  }
+
+  .dark {
+    --app-bg: #100c1e;
+    --app-surface: #1a1530;
+    --app-surface-alt: #241d3d;
+    --app-border: #322a4d;
+    --app-text: #f1f0f7;
+    --app-text-muted: #9d97b8;
+    --app-primary: #b679f5;
+    --app-primary-light: color-mix(in srgb, var(--app-primary) 65%, white);
+    --app-secondary: #9ff3ef;
+  }
+
   * {
     font-family: 'Inter', system-ui, sans-serif;
   }

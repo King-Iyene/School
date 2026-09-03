@@ -47,6 +47,9 @@ export interface TenantSettings {
   secondary_color: string;
   paystack_public_key: string;
   custom_domain: string | null;
+  /** Enterprise-only ("white_labeling") app-shell accent override. Null = default brand theme. */
+  app_primary_color: string | null;
+  app_secondary_color: string | null;
   updated_at: string;
 }
 
