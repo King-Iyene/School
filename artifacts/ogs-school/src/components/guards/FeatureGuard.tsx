@@ -9,7 +9,11 @@ import {
   planMeetsMinimum,
   isFeatureEnabledForPlan,
 } from '../../lib/planFeatures';
-import { navigate } from '../hooks/useLocation';
+
+// No self-service in-app upgrade flow exists yet -- plan changes are made by
+// the platform owner from /saas-admin, which a regular tenant admin can't
+// reach. Point them at sales instead of a dead-end redirect.
+const SALES_EMAIL = 'sales@schoolos.app';
 
 interface FeatureGuardProps {
   /** Gate on a specific feature flag (preferred — maps to its minimum plan automatically). */
@@ -52,13 +56,13 @@ export function FeatureGuard({ feature, plan, children, silent = false }: Featur
           This module is only available on the <span className="font-semibold text-slate-700">{PLAN_LABELS[requiredPlan]}</span> plan
           {currentPlan && <> — you're currently on <span className="font-semibold">{PLAN_LABELS[currentPlan]}</span></>}.
         </p>
-        <button
-          onClick={() => navigate('/saas-admin')}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-xl transition-colors"
+        <a
+          href={`mailto:${SALES_EMAIL}?subject=${encodeURIComponent(`Upgrade to ${PLAN_LABELS[requiredPlan]}`)}`}
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-brand-indigo text-white text-sm font-semibold rounded-xl transition-colors"
         >
           <Sparkles className="w-4 h-4" />
-          Upgrade Plan
-        </button>
+          Contact Us to Upgrade
+        </a>
       </div>
     </div>
   );
