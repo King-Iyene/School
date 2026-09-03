@@ -222,7 +222,14 @@ router.post("/billing/change-plan", requireBillingAdmin, async (req, res) => {
   const isTrial = tenant.status === "trial";
 
   if (isTrial || isUpgrade) {
-    await supabaseAdmin.from("tenants").update({ plan_tier: newPlanTier, pending_plan_tier: null }).eq("id", schoolId);
+    const { error: updateErr } = await supabaseAdmin
+      .from("tenants")
+      .update({ plan_tier: newPlanTier, pending_plan_tier: null })
+      .eq("id", schoolId);
+    if (updateErr) {
+      logger.error({ err: updateErr, schoolId, newPlanTier }, "change-plan: tenants update failed");
+      return res.status(500).json({ error: updateErr.message || "Could not update your plan. Please try again." });
+    }
     return res.status(200).json({
       ok: true,
       appliedNow: true,
@@ -234,7 +241,11 @@ router.post("/billing/change-plan", requireBillingAdmin, async (req, res) => {
 
   // Downgrade on an active/past_due subscription: schedule it instead of
   // taking anything away from a cycle they already paid for.
-  await supabaseAdmin.from("tenants").update({ pending_plan_tier: newPlanTier }).eq("id", schoolId);
+  const { error: scheduleErr } = await supabaseAdmin.from("tenants").update({ pending_plan_tier: newPlanTier }).eq("id", schoolId);
+  if (scheduleErr) {
+    logger.error({ err: scheduleErr, schoolId, newPlanTier }, "change-plan: tenants pending_plan_tier update failed");
+    return res.status(500).json({ error: scheduleErr.message || "Could not schedule your plan change. Please try again." });
+  }
   return res.status(200).json({
     ok: true,
     appliedNow: false,
@@ -267,13 +278,17 @@ router.post("/billing/update-card", requireBillingAdmin, async (req, res) => {
     .maybeSingle();
   if (error || !tenant) return res.status(404).json({ error: "Tenant not found" });
 
-  await supabaseAdmin
+  const { error: saveCardErr } = await supabaseAdmin
     .from("tenants")
     .update({
       paystack_authorization_code: verification.authorizationCode,
       paystack_customer_code: verification.customerCode,
     })
     .eq("id", schoolId);
+  if (saveCardErr) {
+    logger.error({ err: saveCardErr, schoolId }, "update-card: tenants update failed");
+    return res.status(500).json({ error: saveCardErr.message || "Card was verified, but could not be saved. Please try again." });
+  }
   refundVerificationCharge(paystackReference).catch(() => {});
 
   if (tenant.status !== "past_due" && tenant.status !== "suspended") {
