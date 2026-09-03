@@ -11,9 +11,9 @@ type View = 'templates' | 'generate' | 'print';
 function getDefaultCard(schoolName: string) {
   return {
     title: `${schoolName} Student Identity Card 2025/2026`,
-    logo_url: '/ogs_logo_bg.png',
+    logo_url: '/default-logo.png',
     designation: 'Principal',
-    signature_url: '/kelvin_signature_.jpeg',
+    signature_url: '',
     background_color: '#ffffff',
     accent_color: '#1a3a5c',
     header_text: schoolName,
@@ -100,7 +100,7 @@ export default function StudentIDCard() {
 
   function openAdd() {
     setEditItem(null);
-    setForm({ title: '', logo_url: '/ogs_logo_bg.png', designation: 'Principal', signature_url: '/kelvin_signature_.jpeg', background_color: '#ffffff', accent_color: '#1a3a5c', header_text: '', footer_text: '' });
+    setForm({ title: '', logo_url: '/default-logo.png', designation: 'Principal', signature_url: '', background_color: '#ffffff', accent_color: '#1a3a5c', header_text: '', footer_text: '' });
     setSaveError('');
     setShowModal(true);
   }
@@ -309,7 +309,7 @@ export default function StudentIDCard() {
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Logo URL</label>
-              <input value={form.logo_url} onChange={e => setForm({ ...form, logo_url: e.target.value })} className={inputCls} placeholder="/ogs_logo_bg.png" />
+              <input value={form.logo_url} onChange={e => setForm({ ...form, logo_url: e.target.value })} className={inputCls} placeholder="/default-logo.png" />
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Designation</label>
@@ -318,7 +318,7 @@ export default function StudentIDCard() {
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">Signature URL</label>
-            <input value={form.signature_url} onChange={e => setForm({ ...form, signature_url: e.target.value })} className={inputCls} placeholder="/kelvin_signature_.jpeg" />
+            <input value={form.signature_url} onChange={e => setForm({ ...form, signature_url: e.target.value })} className={inputCls} placeholder="/signature.png" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>

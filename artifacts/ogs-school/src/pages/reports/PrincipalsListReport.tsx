@@ -430,7 +430,6 @@ export default function PrincipalsListReport() {
             <div className="text-center">
               <div className="border-t-2 border-black pt-2">
                 <p className="font-bold text-sm">Principal's Signature</p>
-                <p className="text-xs text-gray-500 mt-1">Kelvin Sampson Fubara</p>
               </div>
             </div>
             <div className="text-center">

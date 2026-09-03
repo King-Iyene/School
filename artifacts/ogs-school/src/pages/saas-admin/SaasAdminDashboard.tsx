@@ -27,6 +27,7 @@ interface TenantRow {
 const STATUS_COLORS: Record<TenantStatus, string> = {
   active: 'bg-brand-mint/15 text-brand-ink ring-1 ring-brand-mint/40',
   trial: 'bg-amber-100 text-amber-700',
+  past_due: 'bg-orange-100 text-orange-700',
   suspended: 'bg-red-100 text-red-700',
   canceled: 'bg-slate-200 text-slate-600',
 };
@@ -271,6 +272,7 @@ function TenantEditModal({
               >
                 <option value="trial">Trial</option>
                 <option value="active">Active</option>
+                <option value="past_due">Past Due</option>
                 <option value="suspended">Suspended</option>
                 <option value="canceled">Canceled</option>
               </select>

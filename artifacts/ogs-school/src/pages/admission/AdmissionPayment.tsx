@@ -113,7 +113,7 @@ export default function AdmissionPayment() {
         {/* Header */}
         <div className="bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-5">
           <div className="flex items-center gap-3">
-            <img src={settings.logo_url || '/ogs_logo_bg.png'} alt={`${settings.school_name} Logo`} className="w-10 h-10 object-contain rounded-lg bg-white/20 p-1" />
+            <img src={settings.logo_url || '/default-logo.png'} alt={`${settings.school_name} Logo`} className="w-10 h-10 object-contain rounded-lg bg-white/20 p-1" />
             <div>
               <p className="text-white font-bold">{settings.school_name}</p>
               <p className="text-emerald-100 text-sm">Admission Application Fee</p>

@@ -5,12 +5,15 @@ import NotificationListener from './components/shared/NotificationListener';
 import Login from './pages/auth/Login';
 import Layout from './components/layout/Layout';
 import { FeatureGuard } from './components/guards/FeatureGuard';
+import AccountLockout from './components/guards/AccountLockout';
 import { getRequiredFeatureForPath } from './components/layout/navConfig';
+import { useTenantSettings } from './context/TenantContext';
 import { useLocation, navigate, isElectron } from './components/hooks/useLocation';
 
 import Landing from './pages/public/Landing';
 import Onboarding from './pages/public/Onboarding';
 import SaasAdminDashboard from './pages/saas-admin/SaasAdminDashboard';
+import Billing from './pages/billing/Billing';
 
 import SuperAdminDashboard from './pages/super-admin/Dashboard';
 import Classes from './pages/super-admin/Classes';
@@ -247,6 +250,7 @@ import ActivityLogPage from './pages/admin-section/ActivityLog';
 
 function AppContent() {
   const { user, profile, loading, signOut, passwordRecovery } = useAuth();
+  const { tenant } = useTenantSettings();
   const path = useLocation();
 
   useEffect(() => {
@@ -315,6 +319,7 @@ function AppContent() {
       case '/saas-admin':
         if (!profile.is_platform_owner) return <SuperAdminDashboard />;
         return <SaasAdminDashboard />;
+      case '/billing': return <Billing />;
       case '/staff': return <StaffPage />;
       case '/classes': return <Classes />;
       case '/subjects': return <Subjects />;
@@ -604,6 +609,10 @@ function AppContent() {
         </div>
       </div>
     );
+  }
+
+  if (tenant && (tenant.status === 'suspended' || tenant.status === 'canceled')) {
+    return <AccountLockout />;
   }
 
   const requiredFeature = getRequiredFeatureForPath(path);

@@ -376,7 +376,7 @@ export default function MarksRegister() {
 
     const origin = window.location.origin;
     const schoolName = settings.school_name || 'School Portal';
-    const logoSrc = settings.logo_url || `${origin}/ogs_logo_bg.png`;
+    const logoSrc = settings.logo_url || `${origin}/default-logo.png`;
     const primaryColor = settings.primary_color || '#1a3a5c';
     const secondaryColor = settings.secondary_color || '#1a6b3a';
     const contactLine = [settings.phone && `Tel: ${settings.phone}`, settings.email && `Email: ${settings.email}`]

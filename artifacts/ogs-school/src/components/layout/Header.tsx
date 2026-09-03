@@ -67,7 +67,7 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
       try {
         new Notification(title, {
           body: message,
-          icon: '/ogs_logo_bg.png',
+          icon: '/default-logo.png',
           badge: '/favicon.ico',
           tag: 'schoolos-notification',
         });

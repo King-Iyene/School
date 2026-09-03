@@ -270,7 +270,7 @@ const IDCardPrint: React.FC = () => {
           {printableStudents.map((student) => (
             <div key={student.id} className="id-card" style={{ fontFamily: "'Arial', sans-serif" }}>
               <div style={{ background: settings.primary_color || '#1a3a5c', color: 'white', padding: '8px 10px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <img src={settings.logo_url || '/ogs_logo_bg.png'} alt={settings.school_name} style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
+                <img src={settings.logo_url || '/default-logo.png'} alt={settings.school_name} style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
                 <div>
                   <p style={{ fontWeight: '900', fontSize: '10px', letterSpacing: '0.5px', lineHeight: 1.1 }}>{settings.school_name.toUpperCase()}</p>
                   {settings.motto && <p style={{ fontSize: '7px', opacity: 0.85, fontStyle: 'italic' }}>{settings.motto}</p>}

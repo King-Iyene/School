@@ -64,7 +64,7 @@ class NotificationService {
       if (this.platform === 'web') {
         new Notification(payload.title, {
           body: payload.body,
-          icon: '/ogs_logo_bg.png',
+          icon: '/default-logo.png',
           data: payload.data,
         });
       } else {

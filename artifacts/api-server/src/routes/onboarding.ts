@@ -11,11 +11,6 @@ const PLAN_STUDENT_LIMITS: Record<string, number | null> = {
   premium: 1000,
   enterprise: null,
 };
-const PLAN_PRICES_NGN: Record<string, number> = {
-  starter: 15000,
-  premium: 45000,
-  enterprise: 120000,
-};
 
 // Every plan gets a 14-day free trial. Paystack has no "authorize a card for
 // $0" mode for card channels, so we run one small, fully-refunded charge at
@@ -218,86 +213,8 @@ router.post("/onboarding/register", async (req, res) => {
   }
 });
 
-/**
- * Converts trials that have reached trial_ends_at into paid subscriptions
- * (charging the saved card) or cancels them, per cancel_at_period_end.
- *
- * Not wired to a schedule by this change — point a daily cron (Supabase
- * Cron, a hosting platform's scheduled job, or a simple GitHub Action) at
- * this endpoint with the shared secret. Untested against live Paystack.
- */
-router.post("/billing/process-trial-conversions", async (req, res) => {
-  const secret = process.env.BILLING_CRON_SECRET;
-  if (!secret || req.header("x-cron-secret") !== secret) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-  if (!supabaseAdmin) {
-    return res.status(503).json({ error: "Not configured" });
-  }
-  const paystackSecretKey = process.env.PAYSTACK_SECRET_KEY;
-
-  const { data: dueTrials, error } = await supabaseAdmin
-    .from("tenants")
-    .select("id, plan_tier, status, trial_ends_at, cancel_at_period_end, paystack_authorization_code")
-    .eq("status", "trial")
-    .lte("trial_ends_at", new Date().toISOString());
-  if (error) return res.status(500).json({ error: error.message });
-
-  const results: Record<string, string> = {};
-
-  for (const tenant of dueTrials ?? []) {
-    if (tenant.cancel_at_period_end) {
-      await supabaseAdmin.from("tenants").update({ status: "canceled" }).eq("id", tenant.id);
-      results[tenant.id] = "canceled (requested)";
-      continue;
-    }
-    if (!tenant.paystack_authorization_code || !paystackSecretKey) {
-      await supabaseAdmin.from("tenants").update({ status: "suspended" }).eq("id", tenant.id);
-      results[tenant.id] = "suspended (no card on file)";
-      continue;
-    }
-
-    const { data: settings } = await supabaseAdmin
-      .from("tenant_settings")
-      .select("email")
-      .eq("tenant_id", tenant.id)
-      .maybeSingle();
-
-    try {
-      const chargeRes = await fetch("https://api.paystack.co/transaction/charge_authorization", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${paystackSecretKey}`, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          authorization_code: tenant.paystack_authorization_code,
-          email: settings?.email || "billing@schoolos.app",
-          amount: PLAN_PRICES_NGN[tenant.plan_tier] * 100,
-        }),
-      });
-      const chargeData = (await chargeRes.json()) as any;
-      if (chargeRes.ok && chargeData?.data?.status === "success") {
-        await supabaseAdmin.from("tenants").update({ status: "active" }).eq("id", tenant.id);
-        await supabaseAdmin.from("tenant_billing_events").insert({
-          tenant_id: tenant.id,
-          plan_tier: tenant.plan_tier,
-          amount: PLAN_PRICES_NGN[tenant.plan_tier],
-          currency: "NGN",
-          provider: "paystack",
-          provider_reference: chargeData.data.reference,
-          status: "success",
-        });
-        results[tenant.id] = "active (charged)";
-      } else {
-        await supabaseAdmin.from("tenants").update({ status: "suspended" }).eq("id", tenant.id);
-        results[tenant.id] = `suspended (charge failed: ${chargeData?.message || "unknown"})`;
-      }
-    } catch (err: any) {
-      logger.error({ err, tenantId: tenant.id }, "Trial conversion charge failed");
-      await supabaseAdmin.from("tenants").update({ status: "suspended" }).eq("id", tenant.id);
-      results[tenant.id] = "suspended (charge request error)";
-    }
-  }
-
-  return res.status(200).json({ ok: true, processed: Object.keys(results).length, results });
-});
+// Trial->paid conversion, recurring renewals, reminders and dunning all live
+// in ./billing.ts (POST /billing/run-cycle) now, alongside the tenant-facing
+// self-service plan-change/card-update routes it needs to sit next to.
 
 export default router;

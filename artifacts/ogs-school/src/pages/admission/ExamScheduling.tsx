@@ -136,7 +136,7 @@ export default function ExamScheduling() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4 py-10">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
-          <img src={settings.logo_url || '/ogs_logo_bg.png'} alt={`${settings.school_name || 'School'} Logo`} className="w-16 h-16 object-contain rounded-xl bg-white p-1.5 shadow-lg mx-auto mb-3" />
+          <img src={settings.logo_url || '/default-logo.png'} alt={`${settings.school_name || 'School'} Logo`} className="w-16 h-16 object-contain rounded-xl bg-white p-1.5 shadow-lg mx-auto mb-3" />
           <h1 className="text-2xl font-bold text-white">Schedule Admission Exam</h1>
           <p className="text-slate-400 text-sm mt-1">Choose a convenient date and time for your entrance examination</p>
         </div>
