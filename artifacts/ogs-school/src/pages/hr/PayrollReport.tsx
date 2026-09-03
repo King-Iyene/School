@@ -78,12 +78,12 @@ export default function PayrollReport() {
   const [showPrintConfig, setShowPrintConfig] = useState(false);
   const [printConfig, setPrintConfig] = useState({
     recipientTitle: 'The Manager',
-    bankName: 'Ecobank Nig. Ltd.',
-    bankBranch: 'Refinery Branch, Port Harcourt',
-    schoolAccount: '0562040932',
+    bankName: '',
+    bankBranch: '',
+    schoolAccount: '',
     schoolAccountName: '',
-    bishopName: 'RT. REVD. (DR) ENOCH ATUBOYEDIA (JP)',
-    principalName: 'Kelvin Sampson Fubara',
+    bishopName: '',
+    principalName: '',
   });
   const pc = (k: keyof typeof printConfig, v: string) => setPrintConfig(p => ({ ...p, [k]: v }));
 
@@ -214,7 +214,7 @@ tfoot td{font-weight:bold;background:#e8e8e8;border:1px solid #555}
 </style></head><body>
 <div style="margin-bottom:18px">
   <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px">
-    <img src="${settings.logo_url || origin + '/ogs_logo_bg.png'}" alt="${settings.school_name} Logo" style="width:82px;height:82px;object-fit:contain"/>
+    <img src="${settings.logo_url || origin + '/default-logo.png'}" alt="${settings.school_name} Logo" style="width:82px;height:82px;object-fit:contain"/>
     <div style="flex:1;text-align:center;padding:0 16px">
       <div style="font-size:20pt;font-weight:900;letter-spacing:1.5px;color:${primaryColor};font-family:'Times New Roman',serif;line-height:1.1">${settings.school_name.toUpperCase()}</div>
       ${settings.motto ? `<div style="font-size:9pt;font-style:italic;color:${secondaryColor};font-weight:600;margin:3px 0">${settings.motto}</div>` : ''}

@@ -5,10 +5,10 @@ self.addEventListener('push', (event) => {
   let data = {};
   try { data = event.data ? event.data.json() : {}; } catch (_) {}
 
-  const title = data.title || 'OGS Notification';
+  const title = data.title || 'School Notification';
   const options = {
     body: data.message || '',
-    icon: '/ogs_logo_bg.png',
+    icon: '/default-logo.png',
     badge: '/favicon.ico',
     data: { url: data.url || '/' },
     vibrate: [100, 50, 100],

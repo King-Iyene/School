@@ -169,7 +169,7 @@ export function printAdmissionLetter(prospect: Prospect, admissionNumber: string
 
   <!-- Letterhead -->
   <div class="lh-wrap">
-    <img class="lh-logo" src="${school.logo_url || '/ogs_logo_bg.png'}" alt="${school.school_name} Logo"/>
+    <img class="lh-logo" src="${school.logo_url || '/default-logo.png'}" alt="${school.school_name} Logo"/>
     <div class="lh-centre">
       <div class="lh-name">${school.school_name.toUpperCase()}</div>
       ${school.motto ? `<div class="lh-motto">${school.motto}</div>` : ''}

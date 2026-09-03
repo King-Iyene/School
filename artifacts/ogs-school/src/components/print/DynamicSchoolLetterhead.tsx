@@ -14,7 +14,7 @@ export default function DynamicSchoolLetterhead({ compact = false }: Props) {
   return (
     <div style={{ marginBottom: compact ? '12px' : '20px' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '10px' }}>
-        <img src={settings.logo_url || '/ogs_logo_bg.png'} alt={`${schoolName} logo`} style={{ width: compact ? '60px' : '80px', height: compact ? '60px' : '80px', objectFit: 'contain' }} />
+        <img src={settings.logo_url || '/default-logo.png'} alt={`${schoolName} logo`} style={{ width: compact ? '60px' : '80px', height: compact ? '60px' : '80px', objectFit: 'contain' }} />
         <div style={{ flex: 1, textAlign: 'center', padding: '0 16px' }}>
           <div style={{ fontSize: compact ? '18pt' : '22pt', fontWeight: '900', letterSpacing: '1.5px', color: settings.primary_color || '#1a3a5c', fontFamily: "'Times New Roman', serif", lineHeight: 1.1 }}>
             {schoolName.toUpperCase()}

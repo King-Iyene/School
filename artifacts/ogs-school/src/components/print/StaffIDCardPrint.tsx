@@ -73,7 +73,7 @@ function StaffCard({ member, academicYear, settings }: { member: StaffMember; ac
       pageBreakInside: 'avoid',
     }}>
       <div style={{ background: primaryColor, padding: '4px 8px', display: 'flex', alignItems: 'center', gap: '5px' }}>
-        <img src={settings.logo_url || '/ogs_logo_bg.png'} alt="Logo" style={{ width: '22px', height: '22px', objectFit: 'contain', background: 'white', borderRadius: '50%', padding: '1px', flexShrink: 0 }} />
+        <img src={settings.logo_url || '/default-logo.png'} alt="Logo" style={{ width: '22px', height: '22px', objectFit: 'contain', background: 'white', borderRadius: '50%', padding: '1px', flexShrink: 0 }} />
         <div style={{ flex: 1 }}>
           <div style={{ color: 'white', fontWeight: 'bold', fontSize: '7.5pt', letterSpacing: '0.5px', lineHeight: 1.1 }}>{(settings.school_name || 'SCHOOL PORTAL').toUpperCase()}</div>
           {settings.motto && <div style={{ color: '#93c5fd', fontSize: '6pt', lineHeight: 1 }}>{settings.motto}</div>}

@@ -162,7 +162,7 @@ export default function ApplicationStatus() {
     <div
       className="min-h-screen relative flex flex-col items-center justify-center py-10 px-4"
       style={{
-        backgroundImage: `url('/ogs_school_bg.jpg')`,
+        backgroundImage: `url('/admission_bg.jpg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -174,7 +174,7 @@ export default function ApplicationStatus() {
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
             <img
-              src={settings.logo_url || '/ogs_logo_bg.png'}
+              src={settings.logo_url || '/default-logo.png'}
               alt={`${settings.school_name} Logo`}
               className="w-20 h-20 object-contain rounded-2xl bg-white/90 p-2 shadow-xl"
             />

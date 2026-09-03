@@ -69,7 +69,7 @@ export default function StudentCertificate() {
       name: d.name,
       cert_type: d.cert_type,
       description: d.description,
-      background_image_url: '/ogs_logo_bg.png',
+      background_image_url: '/default-logo.png',
       header_text: settings.school_name || 'Your School Name',
       footer_text: settings.motto ? `"${settings.motto}"` : '',
     }));
@@ -127,7 +127,7 @@ export default function StudentCertificate() {
       description: form.description,
       header_text: form.header_text,
       footer_text: form.footer_text,
-      background_image_url: '/ogs_logo_bg.png',
+      background_image_url: '/default-logo.png',
     };
     if (editItem) {
       const res = await supabase.from('student_certificates').update({ ...payload, updated_at: new Date().toISOString() }).eq('id', editItem.id);

@@ -488,7 +488,7 @@ tbody td.r{text-align:right}
 @media print{body{padding:16px}}
 </style></head><body>
 <div class="lh">
-  <img src="${settings.logo_url || '/ogs_logo_bg.png'}" alt="${esc(schoolName)} Logo" />
+  <img src="${settings.logo_url || '/default-logo.png'}" alt="${esc(schoolName)} Logo" />
   <div class="c">
     <div class="name">${esc(schoolName).toUpperCase()}</div>
     ${settings.motto ? `<div class="motto">${esc(settings.motto)}</div>` : ''}
@@ -592,7 +592,7 @@ tfoot td{font-weight:bold;background:#eaeaea}
 @media print{body{padding:16px}}
 </style></head><body>
 <div class="lh">
-  <img src="${settings.logo_url || '/ogs_logo_bg.png'}" alt="${esc(schoolName)} Logo" />
+  <img src="${settings.logo_url || '/default-logo.png'}" alt="${esc(schoolName)} Logo" />
   <div class="c">
     <div class="name">${esc(schoolName).toUpperCase()}</div>
     ${settings.motto ? `<div class="motto">${esc(settings.motto)}</div>` : ''}

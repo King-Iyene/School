@@ -135,7 +135,7 @@ function SalaryVoucher({ record, staff, settings, onClose }: VoucherProps) {
 </head><body>
   <div style="margin-bottom:14px">
     <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px">
-      <img src="${settings.logo_url || origin + '/ogs_logo_bg.png'}" alt="${schoolName} Logo" style="width:70px;height:70px;object-fit:contain"/>
+      <img src="${settings.logo_url || origin + '/default-logo.png'}" alt="${schoolName} Logo" style="width:70px;height:70px;object-fit:contain"/>
       <div style="flex:1;text-align:center;padding:0 12px">
         <div style="font-size:16pt;font-weight:900;letter-spacing:1.5px;color:${primaryColor};font-family:'Times New Roman',serif;line-height:1.1">${schoolName.toUpperCase()}</div>
         ${settings.motto ? `<div style="font-size:8.5pt;font-style:italic;color:${secondaryColor};font-weight:600;margin:3px 0">${settings.motto}</div>` : ''}
@@ -412,7 +412,7 @@ tbody td.r{text-align:right}
 </style></head><body>
 <div style="margin-bottom:16px">
   <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px">
-    <img src="${settings.logo_url || origin + '/ogs_logo_bg.png'}" alt="${settings.school_name} Logo" style="width:82px;height:82px;object-fit:contain"/>
+    <img src="${settings.logo_url || origin + '/default-logo.png'}" alt="${settings.school_name} Logo" style="width:82px;height:82px;object-fit:contain"/>
     <div style="flex:1;text-align:center;padding:0 16px">
       <div style="font-size:20pt;font-weight:900;letter-spacing:1.5px;color:${primaryColor};font-family:'Times New Roman',serif;line-height:1.1">${settings.school_name.toUpperCase()}</div>
       ${settings.motto ? `<div style="font-size:9pt;font-style:italic;color:${secondaryColor};font-weight:600;margin:3px 0">${settings.motto}</div>` : ''}

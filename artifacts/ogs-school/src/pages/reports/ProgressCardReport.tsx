@@ -294,7 +294,7 @@ export default function ProgressCardReport() {
   <button class="no-print" onclick="window.print()" style="display:block;margin:0 0 16px auto;padding:8px 24px;background:#059669;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:14px">Print</button>
   <div style="margin-bottom:14px">
     <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px">
-      <img src="${settings.logo_url || origin + '/ogs_logo_bg.png'}" alt="${settings.school_name} Logo" style="width:78px;height:78px;object-fit:contain"/>
+      <img src="${settings.logo_url || origin + '/default-logo.png'}" alt="${settings.school_name} Logo" style="width:78px;height:78px;object-fit:contain"/>
       <div style="flex:1;text-align:center;padding:0 14px">
         <div style="font-size:19pt;font-weight:900;letter-spacing:1.5px;color:${primaryColor};font-family:'Times New Roman',serif;line-height:1.1">${settings.school_name.toUpperCase()}</div>
         ${settings.motto ? `<div style="font-size:9pt;font-style:italic;color:${secondaryColor};font-weight:600;margin:3px 0">${settings.motto}</div>` : ''}

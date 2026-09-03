@@ -73,7 +73,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           <div className="flex items-center gap-3 min-w-0">
             <div className="w-9 h-9 rounded-xl flex-shrink-0 overflow-hidden bg-white flex items-center justify-center">
               <img
-                src={logoUrl || '/ogs_logo_bg.png'}
+                src={logoUrl || '/default-logo.png'}
                 alt="School logo"
                 className="w-full h-full object-contain p-0.5"
               />

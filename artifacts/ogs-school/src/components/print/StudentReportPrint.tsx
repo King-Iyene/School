@@ -654,11 +654,10 @@ export default function StudentReportPrint({ studentId, termId, academicYearId, 
                     {comments?.principal_comment || (grades.length > 0 ? principalRemarkForAvg(overallAvg) : '___________________________________')}
                   </span>
                   <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '7.5pt', color: '#777', whiteSpace: 'nowrap' }}>
-                    <img src="/kelvin_signature_.jpeg" alt="Principal Signature" style={{ height: '18px', objectFit: 'contain' }} />
                     <span style={{ fontWeight: 600, color: '#1a1a1a' }}>
                       {comments?.principal
                         ? `${comments.principal.first_name ?? ''} ${comments.principal.last_name ?? ''}`.trim()
-                        : 'Kelvin S. Fubara'}
+                        : '___________'}
                     </span>
                   </span>
                 </div>
