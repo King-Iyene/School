@@ -58,6 +58,7 @@ const superAdminNav: NavItem[] = [
   { label: 'Notice Board', path: '/notice-board', icon: Megaphone },
   { label: 'Notifications',path: '/notifications',icon: Bell },
   { label: 'My Profile',    path: '/my-profile',    icon: User },
+  { label: 'Billing',       path: '/billing',       icon: CreditCard },
 
   // ── Student Information ─────────────────────────────────────────────────────
   { label: 'Student Admission',     path: '/student-mgmt/admission',         icon: UserPlus,    group: 'Student Information' },

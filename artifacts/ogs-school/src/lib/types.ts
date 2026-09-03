@@ -14,15 +14,20 @@ export interface School {
 }
 
 export type PlanTier = 'starter' | 'premium' | 'enterprise';
-export type TenantStatus = 'active' | 'suspended' | 'trial' | 'canceled';
+export type TenantStatus = 'active' | 'suspended' | 'trial' | 'canceled' | 'past_due';
 
 export interface Tenant {
   id: string;
   slug: string;
   plan_tier: PlanTier;
+  pending_plan_tier: PlanTier | null;
   student_limit: number | null;
   status: TenantStatus;
   trial_ends_at: string | null;
+  next_billing_at: string | null;
+  payment_retry_count: number;
+  last_payment_error: string | null;
+  trial_reminder_sent_at: string | null;
   paystack_authorization_code: string | null;
   paystack_customer_code: string | null;
   cancel_at_period_end: boolean;
