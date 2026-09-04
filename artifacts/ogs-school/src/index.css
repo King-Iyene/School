@@ -20,12 +20,14 @@
   }
 
   .dark {
-    --app-bg: #100c1e;
-    --app-surface: #1a1530;
-    --app-surface-alt: #241d3d;
-    --app-border: #322a4d;
-    --app-text: #f1f0f7;
-    --app-text-muted: #9d97b8;
+    /* GitHub dark-theme palette (canvas/overlay/border/fg) instead of pure
+       black — keeps the brand violet as the only accent color. */
+    --app-bg: #0d1117;
+    --app-surface: #161b22;
+    --app-surface-alt: #21262d;
+    --app-border: #30363d;
+    --app-text: #e6edf3;
+    --app-text-muted: #8b949e;
     --app-primary: #b679f5;
     --app-primary-light: color-mix(in srgb, var(--app-primary) 65%, white);
     --app-secondary: #9ff3ef;

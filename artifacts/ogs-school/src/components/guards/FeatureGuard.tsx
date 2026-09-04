@@ -47,18 +47,18 @@ export function FeatureGuard({ feature, plan, children, silent = false }: Featur
 
   return (
     <div className="min-h-[60vh] flex items-center justify-center p-6">
-      <div className="max-w-md text-center bg-white border border-slate-200 rounded-2xl shadow-sm p-8">
-        <div className="w-14 h-14 rounded-2xl bg-amber-100 flex items-center justify-center mx-auto mb-4">
-          <Lock className="w-6 h-6 text-amber-600" />
+      <div className="max-w-md text-center bg-app-surface border border-app-border rounded-2xl shadow-sm p-8">
+        <div className="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-500/10 flex items-center justify-center mx-auto mb-4">
+          <Lock className="w-6 h-6 text-amber-600 dark:text-amber-400" />
         </div>
-        <h2 className="text-lg font-bold text-slate-800 mb-2">This feature needs an upgrade</h2>
-        <p className="text-slate-500 text-sm mb-6">
-          This module is only available on the <span className="font-semibold text-slate-700">{PLAN_LABELS[requiredPlan]}</span> plan
+        <h2 className="text-lg font-bold text-app-text mb-2">This feature needs an upgrade</h2>
+        <p className="text-app-text-muted text-sm mb-6">
+          This module is only available on the <span className="font-semibold text-app-text">{PLAN_LABELS[requiredPlan]}</span> plan
           {currentPlan && <> — you're currently on <span className="font-semibold">{PLAN_LABELS[currentPlan]}</span></>}.
         </p>
         <a
           href={`mailto:${SALES_EMAIL}?subject=${encodeURIComponent(`Upgrade to ${PLAN_LABELS[requiredPlan]}`)}`}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-brand-indigo text-white text-sm font-semibold rounded-xl transition-colors"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-app-primary hover:opacity-90 text-white text-sm font-semibold rounded-xl transition-colors"
         >
           <Sparkles className="w-4 h-4" />
           Contact Us to Upgrade

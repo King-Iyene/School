@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import DashboardCalendar from "../../components/dashboard/DashboardCalendar";
 import {
   Users,
   GraduationCap,
@@ -11,9 +10,14 @@ import {
   ChevronLeft,
   ChevronRight,
   Bell,
-  Eye,
   BarChart2,
   Megaphone,
+  Radio,
+  CalendarDays,
+  ArrowRight,
+  Check,
+  X,
+  ClipboardCheck,
 } from "lucide-react";
 import Modal from "../../components/common/Modal";
 import { supabase } from "../../lib/supabase";
@@ -52,6 +56,16 @@ interface CalendarEvent {
   title: string;
   date: string;
   type: "event" | "holiday";
+}
+
+interface PendingLeave {
+  id: string;
+  from_date: string;
+  to_date: string;
+  days: number;
+  reason: string | null;
+  leave_types: { name: string } | null;
+  profiles: { id: string; first_name: string; last_name: string; role: string } | null;
 }
 
 import TodoWidget from "../../components/dashboard/TodoWidget";
@@ -134,6 +148,10 @@ export default function SuperAdminDashboard() {
   const [todayAttendance, setTodayAttendance] = useState({present: 0, absent: 0, late: 0, on_leave: 0, holiday: 0});
   const [loadingAttendance, setLoadingAttendance] = useState(true);
 
+  const [pendingLeaves, setPendingLeaves] = useState<PendingLeave[]>([]);
+  const [loadingLeaves, setLoadingLeaves] = useState(true);
+  const [actingOnLeave, setActingOnLeave] = useState<string | null>(null);
+
   const schoolId = profile?.school_id;
   const userId = profile?.id;
 
@@ -182,8 +200,33 @@ export default function SuperAdminDashboard() {
     fetchTodayAttendance();
   }, [schoolId]);
 
+  useEffect(() => {
+    if (!schoolId) return;
+    fetchPendingLeaves();
+  }, [schoolId]);
 
+  async function fetchPendingLeaves() {
+    setLoadingLeaves(true);
+    const { data } = await supabase
+      .from("leave_applications")
+      .select("id, from_date, to_date, days, reason, leave_types(name), profiles!staff_id(id, first_name, last_name, role)")
+      .eq("school_id", schoolId)
+      .eq("status", "pending")
+      .order("from_date", { ascending: true })
+      .limit(5);
+    setPendingLeaves((data as unknown as PendingLeave[]) ?? []);
+    setLoadingLeaves(false);
+  }
 
+  async function actOnLeave(id: string, status: "approved" | "rejected") {
+    setActingOnLeave(id);
+    const { error } = await supabase
+      .from("leave_applications")
+      .update({ status, approved_by: userId })
+      .eq("id", id);
+    setActingOnLeave(null);
+    if (!error) setPendingLeaves((prev) => prev.filter((l) => l.id !== id));
+  }
 
 
   async function fetchStats() {
@@ -473,55 +516,6 @@ export default function SuperAdminDashboard() {
     setCalendarEvents(all);
   }
 
-
-  const calendarYear = calendarDate.getFullYear();
-  const calendarMonth = calendarDate.getMonth();
-  const firstDayOfMonth = new Date(calendarYear, calendarMonth, 1).getDay();
-  const daysInCalendarMonth = new Date(
-    calendarYear,
-    calendarMonth + 1,
-    0,
-  ).getDate();
-  const prevMonthDays = new Date(calendarYear, calendarMonth, 0).getDate();
-
-  const calendarCells: Array<{
-    day: number;
-    currentMonth: boolean;
-    dateStr: string;
-  }> = [];
-  for (let i = firstDayOfMonth - 1; i >= 0; i--) {
-    const d = prevMonthDays - i;
-    const m = calendarMonth === 0 ? 11 : calendarMonth - 1;
-    const y = calendarMonth === 0 ? calendarYear - 1 : calendarYear;
-    const dateStr = `${y}-${String(m + 1).padStart(2, "0")}-${String(
-      d,
-    ).padStart(2, "0")}`;
-    calendarCells.push({ day: d, currentMonth: false, dateStr });
-  }
-  for (let d = 1; d <= daysInCalendarMonth; d++) {
-    const dateStr = `${calendarYear}-${String(calendarMonth + 1).padStart(
-      2,
-      "0",
-    )}-${String(d).padStart(2, "0")}`;
-    calendarCells.push({ day: d, currentMonth: true, dateStr });
-  }
-  const remaining = 42 - calendarCells.length;
-  for (let d = 1; d <= remaining; d++) {
-    const m = calendarMonth === 11 ? 0 : calendarMonth + 1;
-    const y = calendarMonth === 11 ? calendarYear + 1 : calendarYear;
-    const dateStr = `${y}-${String(m + 1).padStart(2, "0")}-${String(
-      d,
-    ).padStart(2, "0")}`;
-    calendarCells.push({ day: d, currentMonth: false, dateStr });
-  }
-
-  const eventsByDate: Record<string, CalendarEvent[]> = {};
-  calendarEvents.forEach((ev) => {
-    const key = ev.date.split("T")[0];
-    if (!eventsByDate[key]) eventsByDate[key] = [];
-    eventsByDate[key].push(ev);
-  });
-
   const maxDaily = Math.max(
     ...dailyFinance.map((d) => Math.max(d.income, d.expense)),
     1000,
@@ -559,49 +553,63 @@ export default function SuperAdminDashboard() {
     { label: "On Leave", value: todayAttendance.on_leave, color: "#7c3aed" },
     { label: "Holiday", value: todayAttendance.holiday, color: "#0284c7" },
   ];
+
+  const todayStr = new Date().toISOString().split("T")[0];
+  const upcomingEvents = calendarEvents
+    .filter((ev) => ev.date.split("T")[0] >= todayStr)
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .slice(0, 4);
+
+  function daysUntil(dateStr: string) {
+    const diff = Math.round((new Date(dateStr).getTime() - new Date(todayStr).getTime()) / 86400000);
+    if (diff === 0) return "Today";
+    if (diff === 1) return "Tomorrow";
+    if (diff > 1) return `In ${diff}d`;
+    return formatDate(dateStr);
+  }
+
   return (
     <div className="space-y-6">
       {/* Hero */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-app-primary to-app-primary-light p-6 sm:p-8">
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 85% 20%, white 0%, transparent 45%)' }} />
+      <div className="relative overflow-hidden rounded-3xl border border-app-border p-6 sm:p-8" style={{ background: 'linear-gradient(135deg, color-mix(in srgb, var(--app-primary) 6%, var(--app-surface)), color-mix(in srgb, var(--app-secondary) 10%, var(--app-surface)))' }}>
         <div className="relative flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div>
-            <span className="inline-block text-[11px] font-semibold tracking-wider uppercase text-white/70 mb-2">
-              {settings.school_name || "School Portal"} \u00b7 Overview
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-wider uppercase text-app-primary mb-3">
+              <Radio className="w-3 h-3" /> Leadership Command Console \u00b7 {settings.school_name || "School Portal"}
             </span>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">
+            <h1 className="text-2xl sm:text-3xl font-bold text-app-text">
               Welcome back{profile?.first_name ? `, ${profile.first_name}` : ""}
             </h1>
-            <p className="text-white/70 mt-1.5 text-sm max-w-lg">
+            <p className="text-app-text-muted mt-1.5 text-sm max-w-lg">
               {MONTH_NAMES[new Date().getMonth()]} {new Date().getFullYear()} \u2014 {totalHeadcount.toLocaleString()} people across your school portal today.
             </p>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
             {attendancePct !== null && (
-              <div className="flex items-center gap-3 bg-white/10 rounded-2xl px-4 py-3">
+              <div className="flex items-center gap-3 bg-app-surface rounded-2xl px-4 py-3 border border-app-border">
                 <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
-                  style={{ background: `conic-gradient(#9FF3EF ${attendancePct}%, rgba(255,255,255,0.15) 0)` }}
+                  className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
+                  style={{ background: `conic-gradient(var(--app-primary) ${attendancePct}%, var(--app-surface-alt) 0)` }}
                 >
-                  <span className="w-9 h-9 rounded-full bg-app-primary flex items-center justify-center text-xs">{attendancePct}%</span>
+                  <span className="w-9 h-9 rounded-full bg-app-surface flex items-center justify-center text-xs text-app-text">{attendancePct}%</span>
                 </div>
                 <div>
-                  <p className="text-white text-sm font-semibold leading-tight">Staff Present</p>
-                  <p className="text-white/60 text-xs">Today's attendance</p>
+                  <p className="text-app-text text-sm font-semibold leading-tight">Staff Present</p>
+                  <p className="text-app-text-muted text-xs">Today's attendance</p>
                 </div>
               </div>
             )}
             <div className="flex flex-col sm:flex-row gap-2">
               <button
                 onClick={() => navigate("/notice-board")}
-                className="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-app-primary text-sm font-semibold rounded-xl hover:bg-white/90 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-app-primary text-white text-sm font-semibold rounded-xl hover:opacity-90 transition-colors"
               >
                 <Megaphone className="w-4 h-4" /> Notice Board
               </button>
               <button
                 onClick={() => navigate("/reports")}
-                className="inline-flex items-center gap-2 px-4 py-2.5 bg-white/10 text-white text-sm font-semibold rounded-xl hover:bg-white/20 transition-colors border border-white/20"
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-app-surface text-app-text text-sm font-semibold rounded-xl hover:bg-app-surface-alt transition-colors border border-app-border"
               >
                 <BarChart2 className="w-4 h-4" /> Reports
               </button>
@@ -635,33 +643,122 @@ export default function SuperAdminDashboard() {
         })}
       </div>
 
-      {/* Staff Attendance Today */}
-      <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">
-        <h2 className="text-lg font-semibold text-app-text mb-4 flex items-center gap-2">
-          <UserCheck className="w-5 h-5 text-app-primary" /> Today's Staff Attendance
-        </h2>
-        {loadingAttendance ? (
-          <div className="text-sm text-app-text-muted">Loading attendance data...</div>
-        ) : totalStaffMarked === 0 ? (
-          <div className="text-sm text-app-text-muted">No attendance recorded for today yet.</div>
-        ) : (
-          <div className="space-y-4">
-            {attendanceRows.map((row) => {
-              const pct = Math.round((row.value / totalStaffMarked) * 100);
-              return (
-                <div key={row.label}>
-                  <div className="flex items-center justify-between text-sm mb-1.5">
-                    <span className="font-medium text-app-text">{row.label}</span>
-                    <span className="text-app-text-muted">{row.value} \u00b7 {pct}%</span>
+      {/* Attendance progress + Staff Authorizations */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+        <div className="lg:col-span-3 bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">
+          <h2 className="text-lg font-semibold text-app-text">Today's Staff Attendance</h2>
+          <p className="text-sm text-app-text-muted mt-0.5 mb-5">Live check-ins vs. total staff on record today.</p>
+          {loadingAttendance ? (
+            <div className="text-sm text-app-text-muted">Loading attendance data...</div>
+          ) : totalStaffMarked === 0 ? (
+            <div className="text-sm text-app-text-muted">No attendance recorded for today yet.</div>
+          ) : (
+            <div className="space-y-5">
+              {attendanceRows.map((row) => {
+                const pct = Math.round((row.value / totalStaffMarked) * 100);
+                return (
+                  <div key={row.label}>
+                    <div className="flex items-center justify-between text-sm mb-1.5">
+                      <span className="flex items-center gap-2 font-medium text-app-text">
+                        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: row.color }} />
+                        {row.label}
+                      </span>
+                      <span className="text-app-text-muted">{row.value} of {totalStaffMarked} \u00b7 {pct}%</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-app-surface-alt overflow-hidden">
+                      <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: row.color }} />
+                    </div>
                   </div>
-                  <div className="h-2 rounded-full bg-app-surface-alt overflow-hidden">
-                    <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: row.color }} />
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        <div className="lg:col-span-2 space-y-6">
+          <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-app-border">
+              <div>
+                <h2 className="font-semibold text-app-text flex items-center gap-2">
+                  <ClipboardCheck className="w-4 h-4 text-app-primary" /> Staff Authorizations
+                </h2>
+                <p className="text-xs text-app-text-muted mt-0.5">Pending leave requests awaiting your sign-off.</p>
+              </div>
+              {pendingLeaves.length > 0 && (
+                <span className="bg-app-primary text-white text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0">
+                  {pendingLeaves.length} New
+                </span>
+              )}
+            </div>
+            {loadingLeaves ? (
+              <div className="px-5 py-6 text-center text-app-text-muted text-sm">Loading\u2026</div>
+            ) : pendingLeaves.length === 0 ? (
+              <div className="px-5 py-6 text-center text-app-text-muted text-sm">No pending approvals right now.</div>
+            ) : (
+              <div className="divide-y divide-app-border">
+                {pendingLeaves.map((leave) => {
+                  const initials = `${leave.profiles?.first_name?.[0] ?? ''}${leave.profiles?.last_name?.[0] ?? ''}`.toUpperCase();
+                  return (
+                    <div key={leave.id} className="px-5 py-4">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className="w-9 h-9 rounded-full bg-app-primary/10 text-app-primary flex items-center justify-center text-xs font-bold flex-shrink-0">
+                            {initials || '?'}
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-sm font-semibold text-app-text truncate">
+                              {leave.profiles ? `${leave.profiles.first_name} ${leave.profiles.last_name}` : 'Staff member'}
+                            </p>
+                            <p className="text-xs text-app-text-muted truncate capitalize">
+                              {leave.profiles?.role?.replace('_', ' ')} {leave.leave_types?.name ? `\u00b7 ${leave.leave_types.name}` : ''}
+                            </p>
+                          </div>
+                        </div>
+                        <span className="text-xs font-medium text-app-text-muted bg-app-surface-alt px-2 py-0.5 rounded-full flex-shrink-0">
+                          {leave.days}d
+                        </span>
+                      </div>
+                      <p className="text-xs text-app-text-muted mt-2 ml-12 line-clamp-2">
+                        {formatDate(leave.from_date)} \u2013 {formatDate(leave.to_date)}{leave.reason ? ` \u00b7 ${leave.reason}` : ''}
+                      </p>
+                      <div className="flex items-center gap-2 mt-3 ml-12">
+                        <button
+                          onClick={() => navigate('/hr/approve-leave')}
+                          className="px-3 py-1.5 text-xs font-medium text-app-text border border-app-border rounded-lg hover:bg-app-surface-alt transition-colors"
+                        >
+                          Review
+                        </button>
+                        <button
+                          onClick={() => actOnLeave(leave.id, 'approved')}
+                          disabled={actingOnLeave === leave.id}
+                          className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-white bg-app-primary rounded-lg hover:opacity-90 disabled:opacity-50 transition-colors"
+                        >
+                          <Check className="w-3 h-3" /> Approve
+                        </button>
+                        <button
+                          onClick={() => actOnLeave(leave.id, 'rejected')}
+                          disabled={actingOnLeave === leave.id}
+                          className="flex items-center gap-1 px-2 py-1.5 text-xs font-medium text-app-text-muted hover:text-red-600 disabled:opacity-50 transition-colors"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
-        )}
+
+          {userId && schoolId && (
+            <RequisitionStatusWidget userId={userId} schoolId={schoolId} isApprover={true} />
+          )}
+          <TodoWidget
+            userId={userId}
+            schoolId={schoolId ?? undefined}
+            isSuperAdmin={profile?.role === "super_admin" || profile?.role === "admin" || profile?.role === "principal"}
+          />
+        </div>
       </div>
 
       <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">
@@ -698,30 +795,30 @@ export default function SuperAdminDashboard() {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-          <div className="bg-emerald-50 rounded-lg p-4">
-            <div className="flex items-center gap-2 text-emerald-600 mb-1">
+          <div className="bg-emerald-50 dark:bg-emerald-500/10 rounded-lg p-4">
+            <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 mb-1">
               <TrendingUp size={16} />
               <span className="text-xs font-medium uppercase tracking-wide">
                 Total Income
               </span>
             </div>
-            <div className="text-2xl font-bold text-emerald-700">
+            <div className="text-2xl font-bold text-emerald-700 dark:text-emerald-400">
               {loadingFinance ? "\u2014" : formatCurrency(totalIncome)}
             </div>
           </div>
-          <div className="bg-red-50 rounded-lg p-4">
-            <div className="flex items-center gap-2 text-red-500 mb-1">
+          <div className="bg-red-50 dark:bg-red-500/10 rounded-lg p-4">
+            <div className="flex items-center gap-2 text-red-500 dark:text-red-400 mb-1">
               <TrendingDown size={16} />
               <span className="text-xs font-medium uppercase tracking-wide">
                 Total Expenses
               </span>
             </div>
-            <div className="text-2xl font-bold text-red-600">
+            <div className="text-2xl font-bold text-red-600 dark:text-red-400">
               {loadingFinance ? "\u2014" : formatCurrency(totalExpense)}
             </div>
           </div>
-          <div className="bg-blue-50 rounded-lg p-4">
-            <div className="flex items-center gap-2 text-blue-600 mb-1">
+          <div className="bg-blue-50 dark:bg-blue-500/10 rounded-lg p-4">
+            <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 mb-1">
               <DollarSign size={16} />
               <span className="text-xs font-medium uppercase tracking-wide">
                 Total Profit
@@ -730,8 +827,8 @@ export default function SuperAdminDashboard() {
             <div
               className={`text-2xl font-bold ${
                 totalIncome - totalExpense >= 0
-                  ? "text-blue-700"
-                  : "text-red-600"
+                  ? "text-blue-700 dark:text-blue-400"
+                  : "text-red-600 dark:text-red-400"
               }`}
             >
               {loadingFinance
@@ -739,14 +836,14 @@ export default function SuperAdminDashboard() {
                 : formatCurrency(totalIncome - totalExpense)}
             </div>
           </div>
-          <div className="bg-amber-50 rounded-lg p-4">
-            <div className="flex items-center gap-2 text-amber-600 mb-1">
+          <div className="bg-amber-50 dark:bg-amber-500/10 rounded-lg p-4">
+            <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 mb-1">
               <DollarSign size={16} />
               <span className="text-xs font-medium uppercase tracking-wide">
                 Total Revenue
               </span>
             </div>
-            <div className="text-2xl font-bold text-amber-700">
+            <div className="text-2xl font-bold text-amber-700 dark:text-amber-400">
               {loadingFinance ? "\u2014" : formatCurrency(totalIncome)}
             </div>
           </div>
@@ -883,82 +980,117 @@ export default function SuperAdminDashboard() {
         </div>
       </div>
 
-      <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">
-        <div className="flex items-center gap-2 mb-4">
-          <Bell size={18} className="text-app-primary" />
-          <h2 className="text-lg font-semibold text-app-text">Notice Board</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+        <div className="lg:col-span-3 bg-app-surface border border-app-border rounded-2xl shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-app-border">
+            <div>
+              <h2 className="font-semibold text-app-text flex items-center gap-2">
+                <Bell className="w-4 h-4 text-app-primary" /> Campus Operations &amp; Incident Stream
+              </h2>
+              <p className="text-xs text-app-text-muted mt-0.5">Latest notices and updates posted across the school.</p>
+            </div>
+            <button
+              onClick={() => navigate("/notice-board")}
+              className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold text-app-primary hover:opacity-80 transition-colors flex-shrink-0"
+            >
+              View all <ArrowRight className="w-3 h-3" />
+            </button>
+          </div>
+          {loadingAnnouncements ? (
+            <div className="text-sm text-app-text-muted py-10 text-center">Loading announcements…</div>
+          ) : announcements.length === 0 ? (
+            <div className="text-sm text-app-text-muted py-10 text-center">No announcements posted yet.</div>
+          ) : (
+            <div className="divide-y divide-app-border">
+              {announcements.map((a) => (
+                <button
+                  key={a.id}
+                  onClick={() => setSelectedAnnouncement(a)}
+                  className="w-full flex items-start gap-3 px-6 py-4 text-left hover:bg-app-surface-alt transition-colors"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-app-primary/10 text-app-primary flex items-center justify-center flex-shrink-0">
+                    <Megaphone className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="text-sm font-semibold text-app-text truncate">{a.title}</p>
+                      <span className="text-xs text-app-text-muted whitespace-nowrap flex-shrink-0">{formatDate(a.created_at)}</span>
+                    </div>
+                    <p className="text-xs text-app-text-muted mt-0.5 line-clamp-1">{a.content}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
-        {loadingAnnouncements ? (
-          <div className="text-sm text-app-text-muted py-6 text-center">
-            Loading announcements...
+
+        <div className="lg:col-span-2 bg-app-surface border border-app-border rounded-2xl shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-app-border">
+            <h2 className="font-semibold text-app-text flex items-center gap-2">
+              <CalendarDays className="w-4 h-4 text-app-primary" /> Institutional Calendar
+            </h2>
+            <button
+              onClick={() => navigate("/events")}
+              className="inline-flex items-center gap-1 text-xs font-semibold text-app-primary hover:opacity-80 transition-colors flex-shrink-0"
+            >
+              Full Schedule <ArrowRight className="w-3 h-3" />
+            </button>
           </div>
-        ) : announcements.length === 0 ? (
-          <div className="text-sm text-app-text-muted py-6 text-center">
-            No announcements found.
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-app-border">
-                  <th className="text-left py-2 px-3 text-app-text-muted font-medium">
-                    Date
-                  </th>
-                  <th className="text-left py-2 px-3 text-app-text-muted font-medium">
-                    Title
-                  </th>
-                  <th className="text-left py-2 px-3 text-app-text-muted font-medium">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {announcements.map((a) => (
-                  <tr
-                    key={a.id}
-                    className="border-b border-app-border/60 hover:bg-app-surface-alt transition-colors"
-                  >
-                    <td className="py-2 px-3 text-app-text-muted whitespace-nowrap">
-                      {formatDate(a.created_at)}
-                    </td>
-                    <td className="py-2 px-3 text-app-text font-medium">
-                      {a.title}
-                    </td>
-                    <td className="py-2 px-3">
-                      <button
-                        onClick={() => setSelectedAnnouncement(a)}
-                        className="flex items-center gap-1.5 text-app-primary hover:opacity-80 text-xs font-medium border border-app-primary/30 rounded px-2 py-1 hover:bg-app-primary/5 transition-colors"
-                      >
-                        <Eye size={12} />
-                        View
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+          {upcomingEvents.length === 0 ? (
+            <div className="text-sm text-app-text-muted py-10 text-center">No upcoming events scheduled.</div>
+          ) : (
+            <div className="divide-y divide-app-border">
+              {upcomingEvents.map((ev) => {
+                const d = new Date(ev.date);
+                return (
+                  <div key={ev.id} className="flex items-center gap-3 px-6 py-4">
+                    <div className="w-11 h-11 rounded-xl bg-app-surface-alt border border-app-border flex flex-col items-center justify-center flex-shrink-0 leading-none">
+                      <span className="text-[9px] font-bold uppercase text-app-text-muted">{SHORT_MONTH_NAMES[d.getMonth()]}</span>
+                      <span className="text-sm font-bold text-app-text">{d.getDate()}</span>
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-semibold text-app-text truncate">{ev.title}</p>
+                      <p className={`text-xs mt-0.5 ${ev.type === "holiday" ? "text-amber-600" : "text-app-text-muted"}`}>
+                        {ev.type === "holiday" ? "Holiday" : "Event"} · {daysUntil(ev.date)}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        <div className="lg:col-span-3">
-          <DashboardCalendar />
+      <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-app-primary/10 text-app-primary flex items-center justify-center flex-shrink-0">
+            <ClipboardCheck className="w-5 h-5" />
+          </div>
+          <div>
+            <h2 className="font-semibold text-app-text">Administrative Quick Dispatch</h2>
+            <p className="text-xs text-app-text-muted mt-0.5">Jump straight into the actions that need your attention.</p>
+          </div>
         </div>
-
-        <div className="lg:col-span-2 space-y-6">
-          {userId && schoolId && (
-            <RequisitionStatusWidget
-              userId={userId}
-              schoolId={schoolId}
-              isApprover={true}
-            />
-          )}
-          <TodoWidget
-            userId={userId}
-            schoolId={schoolId ?? undefined}
-            isSuperAdmin={profile?.role === "super_admin" || profile?.role === "admin" || profile?.role === "principal"}
-          />
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={() => navigate("/notice-board")}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-app-surface-alt hover:bg-app-border text-app-text text-sm font-medium rounded-xl transition-colors border border-app-border"
+          >
+            <Megaphone className="w-4 h-4" /> Post Announcement
+          </button>
+          <button
+            onClick={() => navigate("/hr/approve-leave")}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-app-surface-alt hover:bg-app-border text-app-text text-sm font-medium rounded-xl transition-colors border border-app-border"
+          >
+            <ClipboardCheck className="w-4 h-4" /> Approve Leave Requests
+          </button>
+          <button
+            onClick={() => navigate("/events")}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-app-primary text-white text-sm font-medium rounded-xl hover:opacity-90 transition-colors"
+          >
+            <CalendarDays className="w-4 h-4" /> Manage Calendar
+          </button>
         </div>
       </div>
 
