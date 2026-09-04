@@ -52,10 +52,18 @@ export interface TenantSettings {
   app_secondary_color: string | null;
   /** Enterprise-only ("white_labeling") dashboard section order/visibility. Null = default layout. */
   dashboard_layout: DashboardLayoutEntry[] | null;
+  /** Enterprise-only ("white_labeling") sidebar nav group order/visibility. Null = default order. */
+  sidebar_layout: SidebarLayoutEntry[] | null;
   updated_at: string;
 }
 
 export interface DashboardLayoutEntry {
+  id: string;
+  visible: boolean;
+}
+
+export interface SidebarLayoutEntry {
+  /** A nav group name (e.g. "Academics", "HR & Leave") — shared vocabulary across every role's nav. */
   id: string;
   visible: boolean;
 }
