@@ -299,7 +299,7 @@ export default function DomainRatingGrid({ domain, title }: Props) {
           <button
             onClick={handleSave}
             disabled={saving || !hasUnsaved}
-            className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-lg text-sm font-medium transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-app-primary hover:opacity-90 disabled:opacity-50 text-white rounded-lg text-sm font-medium transition-colors"
           >
             <Save className="h-4 w-4" />
             {saving ? 'Saving...' : 'Save Ratings'}
@@ -316,7 +316,7 @@ export default function DomainRatingGrid({ domain, title }: Props) {
             <select
               value={filters.year_id}
               onChange={e => setFilters(f => ({ ...f, year_id: e.target.value }))}
-              className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
             >
               <option value="">Select Year</option>
               {years.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
@@ -327,7 +327,7 @@ export default function DomainRatingGrid({ domain, title }: Props) {
             <select
               value={filters.class_id}
               onChange={e => setFilters(f => ({ ...f, class_id: e.target.value }))}
-              className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
             >
               <option value="">Select Class</option>
               {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -338,7 +338,7 @@ export default function DomainRatingGrid({ domain, title }: Props) {
             <select
               value={filters.term_id}
               onChange={e => setFilters(f => ({ ...f, term_id: e.target.value }))}
-              className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
             >
               <option value="">All Terms</option>
               {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
@@ -366,7 +366,7 @@ export default function DomainRatingGrid({ domain, title }: Props) {
             <select
               value={selectedStudent}
               onChange={e => setSelectedStudent(e.target.value)}
-              className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 w-full max-w-xs"
+              className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary w-full max-w-xs"
             >
               <option value="">Select Student</option>
               {allStudents.map(s => <option key={s.id} value={s.id}>{s.full_name}</option>)}
@@ -454,7 +454,7 @@ export default function DomainRatingGrid({ domain, title }: Props) {
             <button
               onClick={handleSave}
               disabled={saving || !hasUnsaved}
-              className="flex items-center gap-2 px-5 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-lg text-sm font-medium transition-colors"
+              className="flex items-center gap-2 px-5 py-2 bg-app-primary hover:opacity-90 disabled:opacity-50 text-white rounded-lg text-sm font-medium transition-colors"
             >
               <Save className="h-4 w-4" />
               {saving ? 'Saving...' : 'Save All Ratings'}
@@ -494,12 +494,12 @@ export default function DomainRatingGrid({ domain, title }: Props) {
                   value={newSkillName}
                   onChange={e => setNewSkillName(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && addSkill()}
-                  className="flex-1 border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="bg-app-surface text-app-text flex-1 border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
                 />
                 <button
                   onClick={addSkill}
                   disabled={addingSkill || !newSkillName.trim()}
-                  className="flex items-center gap-1.5 px-3 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-lg text-sm font-medium"
+                  className="flex items-center gap-1.5 px-3 py-2 bg-app-primary hover:opacity-90 disabled:opacity-50 text-white rounded-lg text-sm font-medium"
                 >
                   <Plus className="h-4 w-4" /> Add
                 </button>

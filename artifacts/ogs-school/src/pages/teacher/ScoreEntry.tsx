@@ -344,21 +344,21 @@ export default function ScoreEntry() {
           <div>
             <label className="block text-xs font-medium text-app-text-muted mb-1">Class</label>
             <select value={selectedClass} onChange={e => { setSelectedClass(e.target.value); setSelectedSubject(''); }}
-              className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+              className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
               {classes.map(c => <option key={(c as any)?.id} value={(c as any)?.id}>{(c as any)?.name || `${(c as any)?.level}${(c as any)?.section}`}</option>)}
             </select>
           </div>
           <div>
             <label className="block text-xs font-medium text-app-text-muted mb-1">Term</label>
             <select value={selectedTerm} onChange={e => setSelectedTerm(e.target.value)}
-              className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+              className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
               {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
             </select>
           </div>
           <div>
             <label className="block text-xs font-medium text-app-text-muted mb-1">Academic Year</label>
             <select value={selectedYear} onChange={e => setSelectedYear(e.target.value)}
-              className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+              className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
               {academicYears.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
             </select>
           </div>
@@ -443,7 +443,7 @@ export default function ScoreEntry() {
                       <tr key={s.id} className={`transition-colors ${isOut ? 'bg-app-surface-alt/80 opacity-60' : `hover:bg-app-surface-alt/60 ${idx % 2 === 0 ? '' : 'bg-app-surface-alt/30'}`}`}>
                         <td className="px-3 py-2.5 text-center">
                           <input type="checkbox" checked={!isOut} onChange={() => toggleExclude(s.id)}
-                            className="w-4 h-4 rounded border-app-border text-emerald-600 focus:ring-emerald-500/30 cursor-pointer"
+                            className="w-4 h-4 rounded border-app-border text-emerald-600 focus:ring-app-primary/30 cursor-pointer"
                             title={isOut ? 'Check to restore: student offers this subject' : 'Uncheck to mark: student does not offer this subject'} />
                         </td>
                         <td className="px-5 py-2.5">
@@ -456,19 +456,19 @@ export default function ScoreEntry() {
                           <input type="number" min="0" max="10" disabled={isOut}
                             value={isOut ? '' : (grades[s.id]?.['ca1_score'] ?? '')}
                             onChange={e => updateGrade(s.id, 'ca1_score', e.target.value)}
-                            className="w-16 text-center border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface disabled:bg-slate-100 disabled:text-slate-300" />
+                            className="w-16 text-center border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface disabled:bg-slate-100 disabled:text-slate-300" />
                         </td>
                         <td className="px-3 py-2 text-center">
                           <input type="number" min="0" max="30" disabled={isOut}
                             value={isOut ? '' : (grades[s.id]?.['ca3_score'] ?? '')}
                             onChange={e => updateGrade(s.id, 'ca3_score', e.target.value)}
-                            className="w-16 text-center border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface disabled:bg-slate-100 disabled:text-slate-300" />
+                            className="w-16 text-center border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface disabled:bg-slate-100 disabled:text-slate-300" />
                         </td>
                         <td className="px-3 py-2 text-center">
                           <input type="number" min="0" max="60" disabled={isOut}
                             value={isOut ? '' : (grades[s.id]?.['exam_score'] ?? '')}
                             onChange={e => updateGrade(s.id, 'exam_score', e.target.value)}
-                            className="w-16 text-center border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface disabled:bg-slate-100 disabled:text-slate-300" />
+                            className="w-16 text-center border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface disabled:bg-slate-100 disabled:text-slate-300" />
                         </td>
                         <td className="px-3 py-2 text-center">
                           <span className={`text-sm font-bold ${isOut ? 'text-slate-300' : 'text-app-text'}`}>{isOut ? '—' : total}</span>
@@ -494,7 +494,7 @@ export default function ScoreEntry() {
               You can update CA, Test and Exam scores at any time. Save often to avoid losing progress.
             </p>
             <button onClick={saveScores} disabled={saving || students.length === 0}
-              className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors">
+              className="flex items-center gap-2 bg-app-primary hover:opacity-90 disabled:opacity-50 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors">
               {saved
                 ? <><CheckCircle className="w-4 h-4" /> Saved!</>
                 : <><Save className="w-4 h-4" />{saving ? 'Saving...' : 'Save Scores'}<ChevronRight className="w-4 h-4" /></>}

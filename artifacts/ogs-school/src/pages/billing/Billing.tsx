@@ -227,7 +227,7 @@ export default function Billing() {
                   <button
                     onClick={() => changePlan(tier)}
                     disabled={busyPlan !== null}
-                    className="mt-4 px-4 py-2 border border-app-border hover:border-brand-indigo hover:text-brand-indigo disabled:opacity-50 text-app-text text-sm font-semibold rounded-lg transition-colors"
+                    className="bg-app-surface text-app-text mt-4 px-4 py-2 border border-app-border hover:border-brand-indigo hover:text-brand-indigo disabled:opacity-50 text-app-text text-sm font-semibold rounded-lg transition-colors"
                   >
                     {busyPlan === tier ? 'Updating…' : PLAN_ORDER.indexOf(tier) > PLAN_ORDER.indexOf(tenant.plan_tier) ? 'Upgrade' : 'Downgrade'}
                   </button>

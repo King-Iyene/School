@@ -143,7 +143,7 @@ export default function StudentCategory() {
         </div>
         <button
           onClick={openCreate}
-          className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-2 rounded-xl transition-colors"
+          className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white text-sm font-medium px-4 py-2 rounded-xl transition-colors"
         >
           <Plus size={16} />
           Add Category
@@ -214,7 +214,7 @@ export default function StudentCategory() {
               type="text"
               value={form.name}
               onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+              className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full"
               placeholder="e.g. General, Special Needs"
             />
           </div>
@@ -223,7 +223,7 @@ export default function StudentCategory() {
             <textarea
               value={form.description}
               onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
-              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full resize-none"
+              className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full resize-none"
               rows={3}
               placeholder="Optional description..."
             />
@@ -238,7 +238,7 @@ export default function StudentCategory() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="px-5 py-2 text-sm font-medium bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl transition-colors disabled:opacity-60"
+              className="px-5 py-2 text-sm font-medium bg-app-primary hover:opacity-90 text-white rounded-xl transition-colors disabled:opacity-60"
             >
               {saving ? 'Saving...' : editTarget ? 'Update' : 'Create'}
             </button>

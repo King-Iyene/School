@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import { School as SchoolType } from '../../lib/types';
 
-const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+const inputCls = 'bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30';
 
 export default function Settings() {
   const { profile } = useAuth();
@@ -142,7 +142,7 @@ export default function Settings() {
           </div>
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{saveError}</div>}
           <div className="flex justify-end pt-2">
-            <button onClick={handleSave} disabled={saving} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+            <button onClick={handleSave} disabled={saving} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
               <Save className="w-4 h-4" />
               {saved ? 'Saved!' : saving ? 'Saving...' : 'Save Changes'}
             </button>

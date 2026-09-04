@@ -198,7 +198,7 @@ export default function Prefects() {
             <select
               value={selectedYear}
               onChange={e => setSelectedYear(e.target.value)}
-              className="appearance-none pl-3 pr-8 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
+              className="appearance-none pl-3 pr-8 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface"
             >
               {years.map(y => <option key={y.id} value={y.id}>{y.name}{y.is_current ? ' (Current)' : ''}</option>)}
             </select>
@@ -206,7 +206,7 @@ export default function Prefects() {
           </div>
           {isAdmin && (
             <button onClick={() => { setEditingPos(null); setPosForm({ ...EMPTY_POS }); setShowAddPos(true); }}
-              className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-sm">
+              className="flex items-center gap-2 px-4 py-2 bg-app-primary text-white rounded-lg hover:opacity-90 transition-colors text-sm">
               <Plus className="w-4 h-4" /> Add Position
             </button>
           )}
@@ -330,13 +330,13 @@ export default function Prefects() {
               <div>
                 <label className="block text-sm font-medium text-app-text mb-1">Appointment Date</label>
                 <input type="date" value={appointedDate} onChange={e => setAppointedDate(e.target.value)}
-                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                  className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-app-text mb-1">Notes (optional)</label>
                 <input type="text" value={assignNotes} onChange={e => setAssignNotes(e.target.value)}
                   placeholder="e.g. Appointed by principal"
-                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                  className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-app-text mb-1">Search Student</label>
@@ -347,7 +347,7 @@ export default function Prefects() {
                     placeholder="Type student name..."
                     value={studentSearch}
                     onChange={e => { setStudentSearch(e.target.value); searchStudents(e.target.value); }}
-                    className="w-full pl-9 pr-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="bg-app-surface text-app-text w-full pl-9 pr-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
                   />
                 </div>
                 {studentResults.length > 0 && (
@@ -391,13 +391,13 @@ export default function Prefects() {
                 <label className="block text-sm font-medium text-app-text mb-1">Title *</label>
                 <input type="text" value={posForm.title} onChange={e => setPosForm(p => ({ ...p, title: e.target.value }))}
                   placeholder="e.g. Sports Prefect"
-                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                  className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-sm font-medium text-app-text mb-1">Gender</label>
                   <select value={posForm.gender} onChange={e => setPosForm(p => ({ ...p, gender: e.target.value as any }))}
-                    className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary">
                     <option value="boy">Boy</option>
                     <option value="girl">Girl</option>
                     <option value="any">Any</option>
@@ -406,19 +406,19 @@ export default function Prefects() {
                 <div>
                   <label className="block text-sm font-medium text-app-text mb-1">Sort Order</label>
                   <input type="number" value={posForm.sort_order} onChange={e => setPosForm(p => ({ ...p, sort_order: parseInt(e.target.value) || 0 }))}
-                    className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                    className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" />
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-app-text mb-1">Category</label>
                 <input type="text" value={posForm.category} onChange={e => setPosForm(p => ({ ...p, category: e.target.value }))}
                   placeholder="e.g. Sports, Hostel, Chapel..."
-                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                  className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" />
               </div>
             </div>
             <div className="flex gap-3 mt-6">
               <button onClick={() => { setShowAddPos(false); setEditingPos(null); }} className="flex-1 px-4 py-2 border border-app-border rounded-lg text-app-text-muted hover:bg-app-surface-alt text-sm">Cancel</button>
-              <button onClick={savePosition} disabled={savingPos || !posForm.title.trim()} className="flex-1 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 text-sm font-medium">
+              <button onClick={savePosition} disabled={savingPos || !posForm.title.trim()} className="flex-1 px-4 py-2 bg-app-primary text-white rounded-lg hover:opacity-90 disabled:opacity-50 text-sm font-medium">
                 {savingPos ? 'Saving...' : editingPos ? 'Save' : 'Add Position'}
               </button>
             </div>

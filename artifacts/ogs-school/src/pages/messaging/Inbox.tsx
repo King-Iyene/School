@@ -110,7 +110,7 @@ export default function Inbox() {
           <h1 className="text-2xl font-bold text-app-text">Messages</h1>
           <p className="text-app-text-muted text-sm mt-0.5">{unread > 0 ? `${unread} unread` : 'All caught up'}</p>
         </div>
-        <button onClick={() => setCompose(true)} className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 transition-colors">
+        <button onClick={() => setCompose(true)} className="flex items-center gap-2 px-4 py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 transition-colors">
           <Plus className="w-4 h-4" /> Compose
         </button>
       </div>
@@ -120,12 +120,12 @@ export default function Inbox() {
           <div className="p-3 space-y-2">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
-              <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search messages..." className="w-full pl-9 pr-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+              <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search messages..." className="bg-app-surface text-app-text w-full pl-9 pr-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" />
             </div>
             <div className="flex gap-1">
               {(['inbox', 'sent'] as Tab[]).map(t => (
                 <button key={t} onClick={() => setTab(t)} className={`flex-1 py-1.5 text-xs font-medium rounded-lg capitalize transition-colors ${tab === t ? 'bg-emerald-50 text-emerald-700' : 'text-app-text-muted hover:bg-app-surface-alt'}`}>
-                  {t} {t === 'inbox' && unread > 0 && <span className="ml-1 bg-emerald-500 text-white rounded-full px-1.5 text-xs">{unread}</span>}
+                  {t} {t === 'inbox' && unread > 0 && <span className="ml-1 bg-app-primary text-white rounded-full px-1.5 text-xs">{unread}</span>}
                 </button>
               ))}
             </div>
@@ -219,7 +219,7 @@ export default function Inbox() {
           {!form.broadcast && (
             <div>
               <label className="block text-sm font-medium text-app-text mb-1">Recipient</label>
-              <select value={form.recipient_id} onChange={e => setForm(f => ({ ...f, recipient_id: e.target.value }))} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface">
+              <select value={form.recipient_id} onChange={e => setForm(f => ({ ...f, recipient_id: e.target.value }))} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface">
                 <option value="">Select recipient...</option>
                 {recipients.map(r => (
                   <option key={r.id} value={r.id}>{r.first_name} {r.last_name} ({r.role.replace('_', ' ')})</option>
@@ -229,18 +229,18 @@ export default function Inbox() {
           )}
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Subject</label>
-            <input value={form.subject} onChange={e => setForm(f => ({ ...f, subject: e.target.value }))} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Message subject..." />
+            <input value={form.subject} onChange={e => setForm(f => ({ ...f, subject: e.target.value }))} className="bg-app-surface text-app-text w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" placeholder="Message subject..." />
           </div>
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Message</label>
-            <textarea value={form.body} onChange={e => setForm(f => ({ ...f, body: e.target.value }))} rows={5} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none" placeholder="Write your message..." />
+            <textarea value={form.body} onChange={e => setForm(f => ({ ...f, body: e.target.value }))} rows={5} className="bg-app-surface text-app-text w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none" placeholder="Write your message..." />
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setCompose(false)} className="flex-1 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
             <button
               onClick={sendMessage}
               disabled={sending || !form.subject.trim() || !form.body.trim() || (!form.broadcast && !form.recipient_id)}
-              className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-50 transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 disabled:opacity-50 transition-colors"
             >
               <Send className="w-4 h-4" />{sending ? 'Sending...' : 'Send Message'}
             </button>

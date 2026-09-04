@@ -172,7 +172,7 @@ export default function DisabledStudents() {
         </div>
         <button
           onClick={openAdd}
-          className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-2 rounded-xl transition-colors"
+          className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white text-sm font-medium px-4 py-2 rounded-xl transition-colors"
         >
           <Plus size={16} />
           Add Record
@@ -185,7 +185,7 @@ export default function DisabledStudents() {
           <select
             value={filterClass}
             onChange={(e) => setFilterClass(e.target.value)}
-            className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+            className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full"
           >
             <option value="">All Classes</option>
             {classes.map((c) => (
@@ -295,7 +295,7 @@ export default function DisabledStudents() {
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
                 placeholder="Search student by name..."
-                className="border border-app-border rounded-xl pl-8 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+                className="bg-app-surface text-app-text border border-app-border rounded-xl pl-8 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full"
               />
               {searchResults.length > 0 && (
                 <div className="absolute z-10 top-full mt-1 w-full bg-app-surface border border-app-border rounded-xl shadow-lg overflow-hidden max-h-48 overflow-y-auto">
@@ -329,7 +329,7 @@ export default function DisabledStudents() {
             <textarea
               value={reason}
               onChange={(e) => setReason(e.target.value)}
-              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full resize-none"
+              className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full resize-none"
               rows={3}
               placeholder="Reason for disabling this student..."
             />
@@ -344,7 +344,7 @@ export default function DisabledStudents() {
             <button
               onClick={handleAdd}
               disabled={saving}
-              className="px-5 py-2 text-sm font-medium bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl transition-colors disabled:opacity-60"
+              className="px-5 py-2 text-sm font-medium bg-app-primary hover:opacity-90 text-white rounded-xl transition-colors disabled:opacity-60"
             >
               {saving ? 'Saving...' : 'Add Record'}
             </button>

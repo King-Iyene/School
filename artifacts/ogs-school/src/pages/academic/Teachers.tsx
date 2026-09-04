@@ -165,7 +165,7 @@ export default function Teachers() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Search by name, staff ID, or email..."
-            className="w-full pl-9 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="bg-app-surface text-app-text w-full pl-9 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
           />
         </div>
         {departments.length > 0 && (

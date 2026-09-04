@@ -21,7 +21,7 @@ const OGS_COMMITTEES = [
   "Environmental Committee",
 ];
 
-const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+const inputCls = 'bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30';
 const labelCls = 'block text-xs font-semibold text-app-text-muted uppercase tracking-wide mb-1';
 
 export default function CommitteesTab({ profileId, schoolId }: Props) {
@@ -125,7 +125,7 @@ export default function CommitteesTab({ profileId, schoolId }: Props) {
       <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
         <div className="p-4 border-b border-app-border flex items-center justify-between">
           <h4 className="font-bold text-app-text flex items-center gap-2 text-sm"><Shield className="w-4 h-4 text-blue-600" />Committee Memberships</h4>
-          {isAdmin && <button onClick={openAddCom} className="flex items-center gap-1.5 text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg font-medium"><Plus className="w-3 h-3" />Add</button>}
+          {isAdmin && <button onClick={openAddCom} className="flex items-center gap-1.5 text-xs bg-app-primary hover:opacity-90 text-white px-3 py-1.5 rounded-lg font-medium"><Plus className="w-3 h-3" />Add</button>}
         </div>
         {committees.length === 0 ? (
           <div className="text-center py-8 text-app-text-muted text-sm">No committee memberships recorded</div>
@@ -220,7 +220,7 @@ export default function CommitteesTab({ profileId, schoolId }: Props) {
           <div><label className={labelCls}>Notes</label><textarea value={comForm.notes} onChange={e => setComForm({ ...comForm, notes: e.target.value })} rows={2} className={`${inputCls} resize-none`} /></div>
           <div className="flex gap-2 pt-1">
             <button onClick={() => setShowComModal(false)} className="flex-1 border border-app-border text-app-text rounded-xl py-2 text-sm hover:bg-app-surface-alt">Cancel</button>
-            <button onClick={saveCom} disabled={saving || !comForm.committee_name || comForm.committee_name === '__custom__'} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-2 text-sm font-medium disabled:opacity-50">{saving ? 'Saving...' : editCom ? 'Update' : 'Add'}</button>
+            <button onClick={saveCom} disabled={saving || !comForm.committee_name || comForm.committee_name === '__custom__'} className="flex-1 bg-app-primary hover:opacity-90 text-white rounded-xl py-2 text-sm font-medium disabled:opacity-50">{saving ? 'Saving...' : editCom ? 'Update' : 'Add'}</button>
           </div>
         </div>
       </Modal>

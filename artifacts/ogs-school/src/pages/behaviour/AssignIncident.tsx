@@ -198,7 +198,7 @@ export default function AssignIncident() {
               <select
                 value={form.class_id}
                 onChange={e => handleClassChange(e.target.value)}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
               >
                 <option value="">Select Class</option>
                 {classes.map(c => (
@@ -213,7 +213,7 @@ export default function AssignIncident() {
                 value={form.student_id}
                 onChange={e => setForm(prev => ({ ...prev, student_id: e.target.value }))}
                 disabled={!form.class_id || loadingStudents}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:bg-app-surface-alt disabled:text-app-text-muted"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary disabled:bg-app-surface-alt disabled:text-app-text-muted"
               >
                 <option value="">{loadingStudents ? 'Loading...' : 'Select Student'}</option>
                 {students.map(s => (
@@ -227,7 +227,7 @@ export default function AssignIncident() {
               <select
                 value={form.incident_id}
                 onChange={e => setForm(prev => ({ ...prev, incident_id: e.target.value }))}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
               >
                 <option value="">Select Incident Type</option>
                 {incidentTypes.map(i => (
@@ -243,7 +243,7 @@ export default function AssignIncident() {
                 value={form.incident_date}
                 onChange={e => setForm(prev => ({ ...prev, incident_date: e.target.value }))}
                 max={new Date().toISOString().slice(0, 10)}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
               />
             </div>
           </div>
@@ -254,7 +254,7 @@ export default function AssignIncident() {
               value={form.description}
               onChange={e => setForm(prev => ({ ...prev, description: e.target.value }))}
               rows={3}
-              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none"
               placeholder="Describe what happened..."
             />
           </div>
@@ -265,7 +265,7 @@ export default function AssignIncident() {
               value={form.action_taken}
               onChange={e => setForm(prev => ({ ...prev, action_taken: e.target.value }))}
               rows={2}
-              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none"
               placeholder="Describe the action taken..."
             />
           </div>
@@ -275,7 +275,7 @@ export default function AssignIncident() {
             <select
               value={form.status}
               onChange={e => setForm(prev => ({ ...prev, status: e.target.value as any }))}
-              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
             >
               <option value="pending">Pending</option>
               <option value="resolved">Resolved</option>
@@ -287,7 +287,7 @@ export default function AssignIncident() {
             <button
               type="submit"
               disabled={submitting}
-              className="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-sm font-medium disabled:opacity-60"
+              className="flex items-center gap-2 px-5 py-2.5 bg-app-primary text-white rounded-lg hover:opacity-90 transition-colors text-sm font-medium disabled:opacity-60"
             >
               <UserPlus size={16} />
               {submitting ? 'Assigning...' : 'Assign Incident'}

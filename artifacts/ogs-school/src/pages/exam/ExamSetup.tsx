@@ -147,9 +147,9 @@ export default function ExamSetup() {
   }
 
   const inputClass =
-    'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+    'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
   const cellInputClass =
-    'border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-20';
+    'bg-app-surface text-app-text border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-20';
 
   return (
     <div className="p-6">
@@ -204,7 +204,7 @@ export default function ExamSetup() {
           <button
             onClick={handleSaveAll}
             disabled={saving || rows.length === 0}
-            className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
           >
             <Save size={16} />
             {saving ? 'Saving...' : 'Save All'}
@@ -304,7 +304,7 @@ export default function ExamSetup() {
             <button
               onClick={handleAddSubject}
               disabled={!newSubjectId}
-              className="px-4 py-2 text-sm rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors disabled:opacity-50"
+              className="px-4 py-2 text-sm rounded-xl bg-app-primary hover:opacity-90 text-white font-medium transition-colors disabled:opacity-50"
             >
               Add
             </button>

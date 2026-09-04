@@ -128,13 +128,13 @@ const DeleteStudentRecord: React.FC = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Search by name or student ID..."
-                className="w-full pl-9 pr-4 py-2 border border-app-border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                className="bg-app-surface text-app-text w-full pl-9 pr-4 py-2 border border-app-border rounded-lg text-sm focus:ring-2 focus:ring-app-primary focus:border-emerald-500 outline-none"
               />
             </div>
             <button
               onClick={handleSearch}
               disabled={searching || !searchQuery.trim()}
-              className="flex items-center gap-2 bg-emerald-600 text-white px-5 py-2 rounded-lg hover:bg-emerald-700 transition-colors text-sm font-medium disabled:opacity-50"
+              className="flex items-center gap-2 bg-app-primary text-white px-5 py-2 rounded-lg hover:opacity-90 transition-colors text-sm font-medium disabled:opacity-50"
             >
               {searching ? <RefreshCw size={15} className="animate-spin" /> : <Search size={15} />}
               Search

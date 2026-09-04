@@ -140,7 +140,7 @@ export default function Shop() {
         </div>
         <button
           onClick={() => setCartOpen(true)}
-          className="relative flex items-center gap-2 px-4 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 transition-colors"
+          className="relative flex items-center gap-2 px-4 py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 transition-colors"
         >
           <ShoppingCart className="w-4 h-4" />
           Cart
@@ -159,14 +159,14 @@ export default function Shop() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Search products..."
-            className="w-full pl-10 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
+            className="w-full pl-10 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface"
           />
         </div>
         <div className="relative">
           <select
             value={selectedCat}
             onChange={e => setSelectedCat(e.target.value)}
-            className="appearance-none pl-4 pr-8 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
+            className="appearance-none pl-4 pr-8 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface"
           >
             <option value="">All categories</option>
             {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -214,7 +214,7 @@ export default function Shop() {
                     {inCart === 0 ? (
                       <button
                         onClick={() => addToCart(product)}
-                        className="w-full py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 transition-colors flex items-center justify-center gap-2"
+                        className="w-full py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 transition-colors flex items-center justify-center gap-2"
                       >
                         <Plus className="w-4 h-4" /> Add to Cart
                       </button>
@@ -224,7 +224,7 @@ export default function Shop() {
                           <Minus className="w-4 h-4" />
                         </button>
                         <span className="font-semibold text-emerald-800 text-sm">{inCart} in cart</span>
-                        <button onClick={() => updateQty(product.id, 1)} className="w-9 h-9 rounded-lg bg-emerald-600 flex items-center justify-center text-white hover:bg-emerald-700 transition-colors">
+                        <button onClick={() => updateQty(product.id, 1)} className="w-9 h-9 rounded-lg bg-app-primary flex items-center justify-center text-white hover:opacity-90 transition-colors">
                           <Plus className="w-4 h-4" />
                         </button>
                       </div>
@@ -287,7 +287,7 @@ export default function Shop() {
               </button>
               <button
                 onClick={() => { setCartOpen(false); setCheckoutOpen(true); }}
-                className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700"
+                className="flex-1 py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90"
               >
                 Checkout
               </button>
@@ -317,7 +317,7 @@ export default function Shop() {
               onChange={e => setNotes(e.target.value)}
               rows={3}
               placeholder="Any special instructions or size requirements..."
-              className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="bg-app-surface text-app-text w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none"
             />
           </div>
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-sm text-amber-800">
@@ -328,7 +328,7 @@ export default function Shop() {
             <button
               onClick={placeOrder}
               disabled={placing}
-              className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-50"
+              className="flex-1 py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 disabled:opacity-50"
             >
               {placing ? 'Placing...' : 'Place Order'}
             </button>
@@ -345,7 +345,7 @@ export default function Shop() {
           <p className="text-app-text-muted text-sm mb-6">Your order has been received. You will be notified when it is ready for pickup. Payment is due at the school office.</p>
           <button
             onClick={() => setSuccessOpen(false)}
-            className="px-6 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700"
+            className="px-6 py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90"
           >
             Continue Shopping
           </button>

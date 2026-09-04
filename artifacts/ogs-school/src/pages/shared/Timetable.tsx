@@ -272,7 +272,7 @@ export default function Timetable() {
             <select
                value={selectedClass}
                onChange={(e) => setSelectedClass(e.target.value)}
-               className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+               className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
             >
                {classes.map((cls) => (
                  <option key={cls.id} value={cls.id}>
@@ -284,7 +284,7 @@ export default function Timetable() {
           <button
              onClick={fetchRoutines}
              disabled={!selectedClass}
-             className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
+             className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
           >
              <Search size={16} />
              View Timetable
@@ -425,7 +425,7 @@ export default function Timetable() {
                <select
                  value={selectedSubject}
                  onChange={(e) => setSelectedSubject(e.target.value)}
-                 className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                 className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
                >
                  <option value="">Select subject</option>
                  {availableSubjects.map((sub: any) => (
@@ -440,7 +440,7 @@ export default function Timetable() {
                <select
                  value={selectedTeacher}
                  onChange={(e) => setSelectedTeacher(e.target.value)}
-                 className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                 className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
                >
                  <option value="">Select teacher</option>
                  {availableTeachers.map((teacher: any) => (
@@ -474,7 +474,7 @@ export default function Timetable() {
              <button
                onClick={handleSaveCell}
                disabled={saving || (!isBreak && (!selectedSubject || !selectedTeacher))}
-               className="px-6 py-2 text-sm rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors disabled:opacity-50"
+               className="px-6 py-2 text-sm rounded-lg bg-app-primary hover:opacity-90 text-white font-medium transition-colors disabled:opacity-50"
              >
                {saving ? 'Saving...' : 'Save'}
              </button>

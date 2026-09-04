@@ -200,7 +200,7 @@ export default function PrincipalsListReport() {
               const y = academicYears.find(a => a.id === e.target.value);
               if (y) setYearLabel(y.name);
             }}
-            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
           >
             <option value="">Select Academic Year *</option>
             {academicYears.map(y => (
@@ -212,7 +212,7 @@ export default function PrincipalsListReport() {
             value={selectedExam}
             onChange={e => setSelectedExam(e.target.value)}
             disabled={!selectedYear}
-            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+            className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary disabled:opacity-50"
           >
             <option value="">Select Term / Exam *</option>
             {exams.map(e => (

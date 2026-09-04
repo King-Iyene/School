@@ -21,7 +21,7 @@ interface DebtRecord {
   academic_years?: { name: string };
 }
 
-const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 
 const EMPTY_FORM = {
   student_id: '',
@@ -172,7 +172,7 @@ export default function FeesCarryForward() {
           <h1 className="text-2xl font-bold text-app-text">Student Debt Tracker</h1>
           <p className="text-sm text-app-text-muted mt-1">Track and manage outstanding student fees by term</p>
         </div>
-        <button onClick={openAdd} className="bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors">
+        <button onClick={openAdd} className="bg-app-primary hover:opacity-90 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors">
           + Record Debt
         </button>
       </div>
@@ -314,7 +314,7 @@ export default function FeesCarryForward() {
           </div>
           <div className="flex justify-end gap-2 pt-2">
             <button onClick={() => setModalOpen(false)} className="px-4 py-2.5 text-sm text-app-text-muted hover:text-app-text font-medium rounded-xl hover:bg-slate-100 transition-colors">Cancel</button>
-            <button onClick={handleSave} disabled={saving} className="px-5 py-2.5 text-sm bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-xl transition-colors disabled:opacity-60">
+            <button onClick={handleSave} disabled={saving} className="px-5 py-2.5 text-sm bg-app-primary hover:opacity-90 text-white font-medium rounded-xl transition-colors disabled:opacity-60">
               {saving ? 'Saving...' : editRecord ? 'Update' : 'Save'}
             </button>
           </div>

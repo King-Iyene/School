@@ -110,7 +110,7 @@ export default function Appearance() {
               <button
                 key={p.label}
                 onClick={() => { setPrimary(p.primary); setSecondary(p.secondary); }}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-app-border hover:border-app-primary/50 text-xs font-medium text-app-text transition-colors"
+                className="bg-app-surface text-app-text flex items-center gap-2 px-3 py-1.5 rounded-lg border border-app-border hover:border-app-primary/50 text-xs font-medium text-app-text transition-colors"
               >
                 <span className="w-3 h-3 rounded-full" style={{ background: `linear-gradient(135deg, ${p.primary}, ${p.secondary})` }} />
                 {p.label}
@@ -140,7 +140,7 @@ export default function Appearance() {
             <button
               onClick={reset}
               disabled={saving}
-              className="inline-flex items-center gap-2 px-4 py-2.5 border border-app-border text-app-text-muted hover:text-app-text text-sm font-medium rounded-xl transition-colors"
+              className="bg-app-surface text-app-text inline-flex items-center gap-2 px-4 py-2.5 border border-app-border text-app-text-muted hover:text-app-text text-sm font-medium rounded-xl transition-colors"
             >
               <RotateCcw className="w-4 h-4" /> Reset to Default
             </button>

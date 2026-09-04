@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
+const INPUT = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface';
 
 interface AssetCategory { id: string; name: string; color: string; }
 interface AssetLocation { id: string; name: string; type: string; }
@@ -203,7 +203,7 @@ export default function AssetTracker() {
           <p className="text-app-text-muted text-sm">Master tracker of all school property — furniture, equipment, bedding and more</p>
         </div>
         <button onClick={openAdd}
-          className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-200">
+          className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-200">
           <Plus className="w-4 h-4" /> Add Asset
         </button>
       </div>
@@ -236,17 +236,17 @@ export default function AssetTracker() {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
             <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search items, location, room, serial…"
-              className="w-full border border-app-border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              className="bg-app-surface text-app-text w-full border border-app-border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
           </div>
           <button onClick={() => setShowFilters(f => !f)}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-medium transition-all ${showFilters || activeFilters > 0 ? 'border-emerald-400 bg-emerald-50 text-emerald-700' : 'border-app-border text-app-text-muted hover:border-app-border'}`}>
             <Filter className="w-4 h-4" />
             Filters
-            {activeFilters > 0 && <span className="w-5 h-5 rounded-full bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center">{activeFilters}</span>}
+            {activeFilters > 0 && <span className="w-5 h-5 rounded-full bg-app-primary text-white text-[10px] font-bold flex items-center justify-center">{activeFilters}</span>}
           </button>
           {activeFilters > 0 && (
             <button onClick={() => { setFilterLoc(''); setFilterRoom(''); setFilterCat(''); setFilterCond(''); }}
-              className="flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-app-border text-sm text-app-text-muted hover:text-red-500 hover:border-red-200 transition-colors">
+              className="bg-app-surface text-app-text flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-app-border text-sm text-app-text-muted hover:text-red-500 hover:border-red-200 transition-colors">
               <X className="w-3.5 h-3.5" /> Clear
             </button>
           )}
@@ -431,7 +431,7 @@ export default function AssetTracker() {
           {saveError && <p className="text-sm text-red-500 bg-red-50 rounded-xl px-3 py-2">{saveError}</p>}
           <div className="flex justify-end gap-2 pt-1">
             <button type="button" onClick={() => setModalOpen(false)} className="px-4 py-2 rounded-xl border border-app-border text-sm text-app-text-muted hover:bg-app-surface-alt">Cancel</button>
-            <button type="submit" disabled={saving} className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium disabled:opacity-50 transition-colors">
+            <button type="submit" disabled={saving} className="px-5 py-2 rounded-xl bg-app-primary hover:opacity-90 text-white text-sm font-medium disabled:opacity-50 transition-colors">
               {saving ? 'Saving…' : editId ? 'Save Changes' : 'Add Asset'}
             </button>
           </div>

@@ -151,17 +151,17 @@ export default function Orders() {
       <div className="flex flex-wrap gap-3">
         <div className="relative flex-1 min-w-48">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
-          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by customer name..." className="w-full pl-10 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface" />
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by customer name..." className="w-full pl-10 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface" />
         </div>
         <div className="relative">
-          <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="appearance-none pl-4 pr-8 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface">
+          <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="appearance-none pl-4 pr-8 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface">
             <option value="">All statuses</option>
             {STATUSES.map(s => <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>)}
           </select>
           <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted pointer-events-none" />
         </div>
         <div className="relative">
-          <select value={filterPayment} onChange={e => setFilterPayment(e.target.value)} className="appearance-none pl-4 pr-8 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface">
+          <select value={filterPayment} onChange={e => setFilterPayment(e.target.value)} className="appearance-none pl-4 pr-8 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface">
             <option value="">All payments</option>
             <option value="unpaid">Unpaid</option>
             <option value="paid">Paid</option>
@@ -265,19 +265,19 @@ export default function Orders() {
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-medium text-app-text mb-1">Payment Method</label>
-                    <select value={payForm.method} onChange={e => setPayForm(f => ({ ...f, method: e.target.value }))} className="w-full px-3 py-2 border border-app-border rounded-lg text-sm bg-app-surface focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <select value={payForm.method} onChange={e => setPayForm(f => ({ ...f, method: e.target.value }))} className="w-full px-3 py-2 border border-app-border rounded-lg text-sm bg-app-surface focus:outline-none focus:ring-2 focus:ring-app-primary">
                       {PAYMENT_METHODS.map(m => <option key={m}>{m}</option>)}
                     </select>
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-app-text mb-1">Reference (optional)</label>
-                    <input value={payForm.reference} onChange={e => setPayForm(f => ({ ...f, reference: e.target.value }))} placeholder="Receipt no., etc." className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                    <input value={payForm.reference} onChange={e => setPayForm(f => ({ ...f, reference: e.target.value }))} placeholder="Receipt no., etc." className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" />
                   </div>
                 </div>
                 <button
                   onClick={markPaid}
                   disabled={updating}
-                  className="w-full py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="w-full py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
                 >
                   <CheckCircle className="w-4 h-4" /> Mark as Paid
                 </button>

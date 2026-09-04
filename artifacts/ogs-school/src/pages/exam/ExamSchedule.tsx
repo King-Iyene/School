@@ -165,8 +165,8 @@ export default function ExamSchedule() {
     }
   }
 
-  const inputClass = 'border border-app-border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
-  const filterInputClass = 'border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
+  const inputClass = 'bg-app-surface text-app-text border border-app-border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
+  const filterInputClass = 'border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface';
 
   return (
     <div className="p-6">

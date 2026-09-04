@@ -86,7 +86,7 @@ export default function Subjects() {
           <h2 className="text-xl font-bold text-app-text">Subject Management</h2>
           <p className="text-app-text-muted text-sm">Manage all subjects offered in the school</p>
         </div>
-        <button onClick={openCreate} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-500/20">
+        <button onClick={openCreate} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-500/20">
           <Plus className="w-4 h-4" />
           Add Subject
         </button>
@@ -133,15 +133,15 @@ export default function Subjects() {
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Subject Name</label>
-            <input value={form.name} onChange={e => setForm({...form, name: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            <input value={form.name} onChange={e => setForm({...form, name: e.target.value})} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
           </div>
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Subject Code</label>
-            <input value={form.code} onChange={e => setForm({...form, code: e.target.value})} placeholder="e.g. MATH" className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            <input value={form.code} onChange={e => setForm({...form, code: e.target.value})} placeholder="e.g. MATH" className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
           </div>
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Category</label>
-            <select value={form.category} onChange={e => setForm({...form, category: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+            <select value={form.category} onChange={e => setForm({...form, category: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
               <option value="core">Core</option>
               <option value="elective">Elective</option>
               <option value="vocational">Vocational</option>
@@ -149,7 +149,7 @@ export default function Subjects() {
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
-            <button onClick={handleSave} disabled={saving} className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50">
+            <button onClick={handleSave} disabled={saving} className="flex-1 px-4 py-2 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50">
               {saving ? 'Saving...' : editSubject ? 'Update' : 'Add Subject'}
             </button>
           </div>

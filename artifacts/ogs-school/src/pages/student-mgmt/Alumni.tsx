@@ -125,7 +125,7 @@ export default function Alumni() {
             onChange={e => setSearch(e.target.value)}
             onKeyDown={e => { if (e.key === 'Enter') { setPage(1); setQuery(search.trim()); } }}
             placeholder="Search name or admission number…"
-            className="w-full border border-app-border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+            className="bg-app-surface text-app-text w-full border border-app-border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30"
           />
         </div>
         <span className="text-sm text-app-text-muted">{total} alumni</span>

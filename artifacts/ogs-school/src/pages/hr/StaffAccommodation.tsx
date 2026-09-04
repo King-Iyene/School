@@ -30,7 +30,7 @@ ALTER TABLE staff_accommodation_assignments DROP COLUMN IF EXISTS room_id;
 ALTER TABLE staff_accommodation_assignments
   ADD COLUMN IF NOT EXISTS room_id uuid REFERENCES asset_rooms(id) ON DELETE SET NULL;`;
 
-const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
+const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface';
 
 interface Assignment {
   id: string;
@@ -243,7 +243,7 @@ export default function StaffAccommodation() {
         </div>
         {isAdmin && (
           <button onClick={() => { resetForm(); setModalOpen(true); }}
-            className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 transition-colors shadow-sm">
+            className="flex items-center gap-2 px-4 py-2 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 transition-colors shadow-sm">
             <Plus size={16} /> New Assignment
           </button>
         )}
@@ -430,7 +430,7 @@ export default function StaffAccommodation() {
           {saveError && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle size={13} />{saveError}</p>}
           <div className="flex gap-3 pt-2">
             <button onClick={save} disabled={saving}
-              className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-60">
+              className="flex-1 py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 disabled:opacity-60">
               {saving ? 'Saving…' : 'Save Assignment'}
             </button>
             <button onClick={() => setModalOpen(false)} className="px-4 py-2.5 bg-slate-100 text-app-text rounded-xl text-sm font-medium">Cancel</button>

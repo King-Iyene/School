@@ -93,7 +93,7 @@ export default function UserLog() {
   return (
     <div className="space-y-6">
       {showToast && (
-        <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-emerald-600 text-white px-4 py-3 rounded-lg shadow-lg">
+        <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-app-primary text-white px-4 py-3 rounded-lg shadow-lg">
           <CheckCircle className="h-5 w-5" />
           <span>Report exported successfully!</span>
         </div>
@@ -103,7 +103,7 @@ export default function UserLog() {
         <h1 className="text-2xl font-bold text-app-text">User Activity Log</h1>
         <button
           onClick={handleExport}
-          className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+          className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
         >
           <Download className="h-4 w-4" />
           Export
@@ -118,7 +118,7 @@ export default function UserLog() {
               type="date"
               value={filters.date_from}
               onChange={e => setFilters(f => ({ ...f, date_from: e.target.value }))}
-              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
             />
           </div>
 
@@ -128,14 +128,14 @@ export default function UserLog() {
               type="date"
               value={filters.date_to}
               onChange={e => setFilters(f => ({ ...f, date_to: e.target.value }))}
-              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
             />
           </div>
 
           <select
             value={filters.role}
             onChange={e => setFilters(f => ({ ...f, role: e.target.value }))}
-            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 self-end"
+            className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary self-end"
           >
             <option value="">All Roles</option>
             <option value="super_admin">Super Admin</option>
@@ -153,7 +153,7 @@ export default function UserLog() {
               placeholder="Search user..."
               value={filters.search}
               onChange={e => setFilters(f => ({ ...f, search: e.target.value }))}
-              className="w-full border border-app-border rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="bg-app-surface text-app-text w-full border border-app-border rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
             />
           </div>
         </div>

@@ -181,7 +181,7 @@ export default function AssignSubject() {
             <select
               value={selectedClass}
               onChange={(e) => setSelectedClass(e.target.value)}
-              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
             >
               <option value="">Select class</option>
               {classes.map((cls) => (
@@ -203,7 +203,7 @@ export default function AssignSubject() {
           <h2 className="text-sm font-semibold text-app-text uppercase tracking-wider">Subject Assignments</h2>
           <button
             onClick={() => openAssign()}
-            className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
           >
             <Plus size={16} />
             Assign Subject
@@ -282,7 +282,7 @@ export default function AssignSubject() {
                           ) : (
                             <button
                               onClick={() => openAssign(subject.id)}
-                              className="text-[11px] font-bold uppercase text-emerald-600 hover:text-white px-2.5 py-1.5 rounded-lg border border-emerald-500/20 hover:bg-emerald-500 transition-all"
+                              className="text-[11px] font-bold uppercase text-emerald-600 hover:text-white px-2.5 py-1.5 rounded-lg border border-emerald-500/20 hover:opacity-90 transition-all"
                             >
                               Assign
                             </button>
@@ -310,7 +310,7 @@ export default function AssignSubject() {
             <select
               value={form.subject_id}
               onChange={(e) => setForm({ ...form, subject_id: e.target.value })}
-              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
             >
               <option value="">Select subject</option>
               {subjects.map((subject) => (
@@ -323,7 +323,7 @@ export default function AssignSubject() {
             <select
               value={form.teacher_id}
               onChange={(e) => setForm({ ...form, teacher_id: e.target.value })}
-              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
             >
               <option value="">Select teacher</option>
               {teachers.map((teacher) => (
@@ -345,7 +345,7 @@ export default function AssignSubject() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="px-4 py-2 text-sm rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors disabled:opacity-50"
+              className="px-4 py-2 text-sm rounded-lg bg-app-primary hover:opacity-90 text-white font-medium transition-colors disabled:opacity-50"
             >
               {saving ? 'Saving...' : 'Save'}
             </button>

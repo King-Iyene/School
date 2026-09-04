@@ -598,7 +598,7 @@ export default function Notifications() {
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                  className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
                   placeholder="Notification title"
                 />
               </div>
@@ -609,7 +609,7 @@ export default function Notifications() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   rows={4}
-                  className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none"
+                  className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none"
                   placeholder="Notification message..."
                 />
               </div>
@@ -709,7 +709,7 @@ export default function Notifications() {
                           type="text"
                           value={individualQuery}
                           onChange={(e) => setIndividualQuery(e.target.value)}
-                          className="w-full border border-app-border rounded-lg pl-8 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                          className="bg-app-surface text-app-text w-full border border-app-border rounded-lg pl-8 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
                           placeholder="Type a name to search..."
                         />
                       </div>
@@ -759,7 +759,7 @@ export default function Notifications() {
                   type="datetime-local"
                   value={scheduledAt}
                   onChange={(e) => setScheduledAt(e.target.value)}
-                  className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                  className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
                 />
                 <p className="text-[10px] text-app-text-muted mt-1">Leave empty to send immediately</p>
               </div>
@@ -771,7 +771,7 @@ export default function Notifications() {
                     Attachments (Optional)
                   </div>
                 </label>
-                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-app-border border-dashed rounded-lg">
+                <div className="bg-app-surface text-app-text mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-app-border border-dashed rounded-lg">
                   <div className="space-y-1 text-center">
                     <div className="flex text-sm text-app-text-muted">
                       <label htmlFor="file-upload" className="relative cursor-pointer bg-app-surface rounded-md font-medium text-emerald-600 hover:text-emerald-500">
@@ -805,7 +805,7 @@ export default function Notifications() {
               <button
                 onClick={handleSend}
                 disabled={sending || uploading}
-                className="w-full bg-emerald-500 text-white font-medium py-2 rounded-lg hover:bg-emerald-600 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 shadow-md"
+                className="w-full bg-app-primary text-white font-medium py-2 rounded-lg hover:opacity-90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 shadow-md"
               >
                 {sending ? 'Sending...' : (
                   <>

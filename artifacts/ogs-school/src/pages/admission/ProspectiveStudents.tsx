@@ -22,7 +22,7 @@ const RELATIONSHIPS = ['Aunt','Father','Guardian','Mother','Other','Sibling','Un
 const PLACEHOLDER_EMAIL = 'no-email@pending.local';
 const displayEmail = (e?: string|null) => (!e || e === PLACEHOLDER_EMAIL) ? '' : e;
 
-const inputCls  = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface';
+const inputCls  = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface';
 const labelCls  = 'block text-sm font-medium text-app-text mb-1';
 
 /* ─── Stage config ───────────────────────────────────────────────────────── */
@@ -624,7 +624,7 @@ export default function ProspectiveStudents() {
 
       {/* ── Success toast ────────────────────────────────────────────────── */}
       {successMsg && (
-        <div className="fixed top-5 right-5 z-[9999] flex items-center gap-3 bg-emerald-600 text-white px-5 py-3.5 rounded-2xl shadow-xl text-sm font-medium animate-in slide-in-from-top-2 duration-300">
+        <div className="fixed top-5 right-5 z-[9999] flex items-center gap-3 bg-app-primary text-white px-5 py-3.5 rounded-2xl shadow-xl text-sm font-medium animate-in slide-in-from-top-2 duration-300">
           <CheckCircle className="w-5 h-5 flex-shrink-0"/>
           {successMsg}
         </div>
@@ -636,7 +636,7 @@ export default function ProspectiveStudents() {
           <h2 className="text-xl font-bold text-app-text">Prospective Students</h2>
           <p className="text-app-text-muted text-sm">Manage the full admission pipeline: Application → Exam → Interview → Decision</p>
         </div>
-        <button onClick={openAdd} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm">
+        <button onClick={openAdd} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm">
           <Plus className="w-4 h-4"/> Add Applicant
         </button>
       </div>
@@ -658,7 +658,7 @@ export default function ProspectiveStudents() {
                   {copied ? <Check className="w-3.5 h-3.5 text-emerald-500"/> : <Copy className="w-3.5 h-3.5"/>}
                 </button>
               </div>
-              <a href={applyUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 px-3 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-medium rounded-xl transition-colors whitespace-nowrap">
+              <a href={applyUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 px-3 py-2 bg-app-primary hover:opacity-90 text-white text-xs font-medium rounded-xl transition-colors whitespace-nowrap">
                 <Eye className="w-3.5 h-3.5"/> Preview Form
               </a>
               <a href={statusUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 px-3 py-2 bg-app-surface border border-emerald-200 hover:bg-emerald-50 text-emerald-700 text-xs font-medium rounded-xl transition-colors whitespace-nowrap">
@@ -709,7 +709,7 @@ export default function ProspectiveStudents() {
       <div className="relative max-w-sm">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted"/>
         <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search by name, ref, email, phone…"
-          className="w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"/>
+          className="bg-app-surface text-app-text w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"/>
       </div>
 
       {/* ── Table ────────────────────────────────────────────────────────── */}
@@ -769,10 +769,10 @@ export default function ProspectiveStudents() {
                   {(()=>{ const ve=effectiveStatus(viewing); return (<>
                   {ve === 'pending' && <button onClick={()=>{setViewing(null);inviteToExam(viewing);}} className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-amber-500 hover:bg-amber-600 rounded-lg transition-colors"><GraduationCap className="w-3.5 h-3.5"/>Invite to Exam</button>}
                   {['exam_invited','exam_scheduled','exam_done'].includes(ve) && <button onClick={()=>{setViewing(null);openExamModal(viewing);}} className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-amber-500 hover:bg-amber-600 rounded-lg transition-colors"><FileText className="w-3.5 h-3.5"/>Exam Result</button>}
-                  {['exam_invited','exam_scheduled','exam_done'].includes(ve) && <button onClick={()=>{setViewing(null);openInterviewModal(viewing);}} className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-purple-500 hover:bg-purple-600 rounded-lg transition-colors"><Users className="w-3.5 h-3.5"/>Interview</button>}
-                  {['interview_scheduled','interview_done'].includes(ve) && <button onClick={()=>{setViewing(null);openInterviewModal(viewing);}} className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-purple-500 hover:bg-purple-600 rounded-lg transition-colors"><Star className="w-3.5 h-3.5"/>Record Outcome</button>}
-                  {ve === 'interview_done' && <button onClick={()=>{setViewing(null);openAdmit(viewing);}} className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 rounded-lg transition-colors"><UserPlus className="w-3.5 h-3.5"/>Admit</button>}
-                  {ve === 'admitted' && <button onClick={()=>handlePrintLetter(viewing)} className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors"><Printer className="w-3.5 h-3.5"/>Print Admission Letter</button>}
+                  {['exam_invited','exam_scheduled','exam_done'].includes(ve) && <button onClick={()=>{setViewing(null);openInterviewModal(viewing);}} className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-app-primary hover:opacity-90 rounded-lg transition-colors"><Users className="w-3.5 h-3.5"/>Interview</button>}
+                  {['interview_scheduled','interview_done'].includes(ve) && <button onClick={()=>{setViewing(null);openInterviewModal(viewing);}} className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-app-primary hover:opacity-90 rounded-lg transition-colors"><Star className="w-3.5 h-3.5"/>Record Outcome</button>}
+                  {ve === 'interview_done' && <button onClick={()=>{setViewing(null);openAdmit(viewing);}} className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-app-primary hover:opacity-90 rounded-lg transition-colors"><UserPlus className="w-3.5 h-3.5"/>Admit</button>}
+                  {ve === 'admitted' && <button onClick={()=>handlePrintLetter(viewing)} className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-app-primary hover:opacity-90 rounded-lg transition-colors"><Printer className="w-3.5 h-3.5"/>Print Admission Letter</button>}
                   </>); })()}
                   {!['admitted','rejected'].includes(viewing.status) && <button onClick={()=>rejectProspect(viewing.id)} className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"><X className="w-3.5 h-3.5"/>Reject</button>}
                   <button onClick={()=>setViewing(null)} className="p-2 hover:bg-slate-100 rounded-xl text-app-text-muted"><X className="w-4 h-4"/></button>
@@ -960,7 +960,7 @@ export default function ProspectiveStudents() {
               )}
               <div className="flex gap-3 pt-2 border-t border-app-border">
                 <button onClick={()=>setInterviewModal(null)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text-muted rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
-                <button onClick={saveInterview} disabled={interviewSaving} className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-purple-500 hover:bg-purple-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+                <button onClick={saveInterview} disabled={interviewSaving} className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
                   {interviewSaving?'Saving…':'Save Interview Record'}
                 </button>
               </div>
@@ -1025,7 +1025,7 @@ export default function ProspectiveStudents() {
 
               <div className="flex gap-3 pt-2 border-t border-app-border">
                 <button onClick={()=>setShowForm(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text-muted rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
-                <button onClick={saveProspect} disabled={saving} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+                <button onClick={saveProspect} disabled={saving} className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
                   {saving?'Saving…':editingId?'Save Changes':'Add Applicant'}
                 </button>
               </div>
@@ -1101,7 +1101,7 @@ export default function ProspectiveStudents() {
               </div>
               <div className="flex gap-3 pt-2 border-t border-app-border">
                 <button onClick={()=>setAdmitting(null)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text-muted rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
-                <button onClick={confirmAdmit} disabled={admitSaving} className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+                <button onClick={confirmAdmit} disabled={admitSaving} className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
                   <UserPlus className="w-4 h-4"/>
                   {admitSaving?'Admitting…':'Confirm Admission'}
                 </button>

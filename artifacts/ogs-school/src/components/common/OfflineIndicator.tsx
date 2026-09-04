@@ -22,7 +22,7 @@ export default function OfflineIndicator() {
             <button
               onClick={triggerSync}
               disabled={syncing}
-              className="mt-2 flex items-center gap-1.5 mx-auto bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1 rounded-lg text-xs font-medium transition-colors disabled:opacity-50"
+              className="mt-2 flex items-center gap-1.5 mx-auto bg-app-primary hover:opacity-90 text-white px-3 py-1 rounded-lg text-xs font-medium transition-colors disabled:opacity-50"
             >
               <RefreshCw className={`w-3 h-3 ${syncing ? 'animate-spin' : ''}`} />
               {syncing ? 'Syncing...' : 'Sync Now'}

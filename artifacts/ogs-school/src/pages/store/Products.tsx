@@ -117,14 +117,14 @@ export default function Products() {
           <h1 className="text-2xl font-bold text-app-text">Products</h1>
           <p className="text-app-text-muted text-sm mt-1">{products.length} products in store</p>
         </div>
-        <button onClick={openAdd} className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 transition-colors">
+        <button onClick={openAdd} className="flex items-center gap-2 px-4 py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 transition-colors">
           <Plus className="w-4 h-4" /> Add Product
         </button>
       </div>
 
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
-        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search products..." className="w-full pl-10 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface" />
+        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search products..." className="w-full pl-10 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface" />
       </div>
 
       {loading ? (
@@ -183,28 +183,28 @@ export default function Products() {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Product Name</label>
-            <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="e.g. School Polo Shirt" />
+            <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="bg-app-surface text-app-text w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" placeholder="e.g. School Polo Shirt" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-sm font-medium text-app-text mb-1">Price (₦)</label>
-              <input type="number" value={form.price} onChange={e => setForm(f => ({ ...f, price: Number(e.target.value) }))} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+              <input type="number" value={form.price} onChange={e => setForm(f => ({ ...f, price: Number(e.target.value) }))} className="bg-app-surface text-app-text w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" />
             </div>
             <div>
               <label className="block text-sm font-medium text-app-text mb-1">Stock Qty</label>
-              <input type="number" value={form.stock_qty} onChange={e => setForm(f => ({ ...f, stock_qty: Number(e.target.value) }))} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+              <input type="number" value={form.stock_qty} onChange={e => setForm(f => ({ ...f, stock_qty: Number(e.target.value) }))} className="bg-app-surface text-app-text w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" />
             </div>
           </div>
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Category</label>
-            <select value={form.category_id ?? ''} onChange={e => setForm(f => ({ ...f, category_id: e.target.value || null }))} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface">
+            <select value={form.category_id ?? ''} onChange={e => setForm(f => ({ ...f, category_id: e.target.value || null }))} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface">
               <option value="">None</option>
               {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Description</label>
-            <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} rows={2} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none" placeholder="Product description..." />
+            <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} rows={2} className="bg-app-surface text-app-text w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none" placeholder="Product description..." />
           </div>
           <div>
             <label className="block text-sm font-medium text-app-text mb-2">Product Image</label>
@@ -240,13 +240,13 @@ export default function Products() {
             <input
               value={form.image_url}
               onChange={e => { setForm(f => ({ ...f, image_url: e.target.value })); setImagePreview(e.target.value); }}
-              className="w-full mt-1 px-3 py-2 border border-app-border rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="bg-app-surface text-app-text w-full mt-1 px-3 py-2 border border-app-border rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-app-primary"
               placeholder="https://..."
             />
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setModal(false)} className="flex-1 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
-            <button onClick={save} disabled={saving || !form.name.trim() || uploading} className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-50 transition-colors">
+            <button onClick={save} disabled={saving || !form.name.trim() || uploading} className="flex-1 py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 disabled:opacity-50 transition-colors">
               {saving ? 'Saving...' : editing ? 'Save Changes' : 'Add Product'}
             </button>
           </div>

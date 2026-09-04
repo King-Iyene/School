@@ -257,7 +257,7 @@ export default function StudentProfile() {
                   type="text"
                   value={editForm.phone}
                   onChange={e => setEditForm(f => ({ ...f, phone: e.target.value }))}
-                  className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                  className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
                   placeholder="Enter phone number"
                 />
               </div>
@@ -268,7 +268,7 @@ export default function StudentProfile() {
                   type="date"
                   value={editForm.date_of_birth}
                   onChange={e => setEditForm(f => ({ ...f, date_of_birth: e.target.value }))}
-                  className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                  className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
                 />
               </div>
               <div>
@@ -277,7 +277,7 @@ export default function StudentProfile() {
                   value={editForm.address}
                   onChange={e => setEditForm(f => ({ ...f, address: e.target.value }))}
                   rows={3}
-                  className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none"
+                  className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none"
                   placeholder="Enter address"
                 />
               </div>
@@ -289,7 +289,7 @@ export default function StudentProfile() {
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 rounded-xl transition-colors disabled:opacity-60"
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium text-white bg-app-primary hover:opacity-90 rounded-xl transition-colors disabled:opacity-60"
               >
                 <Save className="w-4 h-4" />
                 {saving ? 'Saving...' : 'Save Changes'}

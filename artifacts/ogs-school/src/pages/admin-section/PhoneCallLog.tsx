@@ -69,7 +69,7 @@ export default function PhoneCallLog() {
     return matchSearch && matchType;
   });
 
-  const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+  const inputCls = 'bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30';
 
   return (
     <div className="space-y-5">
@@ -78,7 +78,7 @@ export default function PhoneCallLog() {
           <h2 className="text-xl font-bold text-app-text">Phone Call Log</h2>
           <p className="text-app-text-muted text-sm">Track all incoming and outgoing phone calls</p>
         </div>
-        <button onClick={openAdd} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors">
+        <button onClick={openAdd} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors">
           <Plus className="w-4 h-4" /> Log Call
         </button>
       </div>
@@ -86,7 +86,7 @@ export default function PhoneCallLog() {
       <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 flex gap-3">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
-          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by name, phone, subject..." className="w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by name, phone, subject..." className="bg-app-surface text-app-text w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
         </div>
         <select value={filterType} onChange={e => setFilterType(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none bg-app-surface">
           <option value="">All Calls</option>
@@ -192,7 +192,7 @@ export default function PhoneCallLog() {
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
-            <button onClick={handleSave} disabled={saving || !form.caller_name} className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50">{saving ? 'Saving...' : editItem ? 'Update' : 'Log Call'}</button>
+            <button onClick={handleSave} disabled={saving || !form.caller_name} className="flex-1 px-4 py-2 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50">{saving ? 'Saving...' : editItem ? 'Update' : 'Log Call'}</button>
           </div>
         </div>
       </Modal>

@@ -21,7 +21,7 @@ CREATE POLICY "school_access" ON departments
 -- Add department column to staff profiles:
 ALTER TABLE profiles ADD COLUMN IF NOT EXISTS department text;`;
 
-const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
+const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface';
 
 interface Department {
   id: string; name: string; description: string | null; hod_id: string | null;
@@ -148,7 +148,7 @@ export default function Departments() {
         </div>
         {isAdmin && (
           <button onClick={() => { setForm({ name: '', description: '', hod_id: '' }); setSaveError(''); setHodSearch(''); setCreateModal(true); }}
-            className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 shadow-sm">
+            className="flex items-center gap-2 px-4 py-2 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 shadow-sm">
             <Plus size={16} /> New Department
           </button>
         )}
@@ -347,7 +347,7 @@ export default function Departments() {
           {saveError && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle size={13} />{saveError}</p>}
           <div className="flex gap-3 pt-1">
             <button onClick={() => saveDepartment(!!editModal)} disabled={saving}
-              className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-60">
+              className="flex-1 py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 disabled:opacity-60">
               {saving ? 'Saving…' : editModal ? 'Save Changes' : 'Create Department'}
             </button>
             <button onClick={() => { setCreateModal(false); setEditModal(null); }} className="px-4 py-2.5 bg-slate-100 text-app-text rounded-xl text-sm font-medium">Cancel</button>

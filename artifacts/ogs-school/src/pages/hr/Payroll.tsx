@@ -64,7 +64,7 @@ const STAFF_ROLES: { value: string; label: string }[] = [
 
 const ROLE_LABEL: Record<string, string> = Object.fromEntries(STAFF_ROLES.map(r => [r.value, r.label]));
 
-const inputClass = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const inputClass = 'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 const fmt = (n: number) => `₦${n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
 function parseNotes(notes?: string): BankDetails {
@@ -194,7 +194,7 @@ function SalaryVoucher({ record, staff, settings, onClose }: VoucherProps) {
         <div className="flex items-center justify-between px-5 py-4 border-b border-app-border sticky top-0 bg-app-surface rounded-t-2xl">
           <h2 className="text-base font-bold text-app-text">Salary Voucher</h2>
           <div className="flex gap-2">
-            <button onClick={handlePrint} className="flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-1.5 rounded-xl transition-colors">
+            <button onClick={handlePrint} className="flex items-center gap-1.5 bg-app-primary hover:opacity-90 text-white text-sm font-medium px-4 py-1.5 rounded-xl transition-colors">
               <Printer className="w-3.5 h-3.5" /> Print
             </button>
             <button onClick={onClose} className="p-1.5 text-app-text-muted hover:text-app-text hover:bg-slate-100 rounded-xl transition-colors">
@@ -708,7 +708,7 @@ ${sheetRows.map((s, i) => {
             <button
               onClick={handleGenerateSelected}
               disabled={autoGenerating || loading || selectedPayrollStaffIds.size === 0}
-              className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors"
+              className="flex items-center gap-2 bg-app-primary hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors"
             >
               {autoGenerating
                 ? <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> Generating...</>
@@ -783,26 +783,26 @@ ${sheetRows.map((s, i) => {
         <div className="flex flex-wrap items-end gap-3">
           <div className="flex-1 min-w-[140px]">
             <label className="block text-xs font-medium text-app-text-muted mb-1.5">Role</label>
-            <select disabled={autoGenerating} className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed" value={filterRole} onChange={e => setFilterRole(e.target.value)}>
+            <select disabled={autoGenerating} className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed" value={filterRole} onChange={e => setFilterRole(e.target.value)}>
               <option value="">All Staff</option>
               {STAFF_ROLES.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
             </select>
           </div>
           <div className="flex-1 min-w-[120px]">
             <label className="block text-xs font-medium text-app-text-muted mb-1.5">Month</label>
-            <select disabled={autoGenerating} className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed" value={filterMonth} onChange={e => setFilterMonth(Number(e.target.value))}>
+            <select disabled={autoGenerating} className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed" value={filterMonth} onChange={e => setFilterMonth(Number(e.target.value))}>
               {MONTHS.map(m => <option key={m.value} value={m.value}>{m.label}</option>)}
             </select>
           </div>
           <div className="flex-1 min-w-[90px]">
             <label className="block text-xs font-medium text-app-text-muted mb-1.5">Year</label>
-            <select disabled={autoGenerating} className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed" value={filterYear} onChange={e => setFilterYear(Number(e.target.value))}>
+            <select disabled={autoGenerating} className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed" value={filterYear} onChange={e => setFilterYear(Number(e.target.value))}>
               {yearOptions.map(y => <option key={y} value={y}>{y}</option>)}
             </select>
           </div>
           <div className="flex-1 min-w-[160px]">
             <label className="block text-xs font-medium text-app-text-muted mb-1.5">Search</label>
-            <input disabled={autoGenerating} className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full disabled:opacity-50 disabled:cursor-not-allowed" placeholder="Search name…" value={search} onChange={e => setSearch(e.target.value)} />
+            <input disabled={autoGenerating} className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full disabled:opacity-50 disabled:cursor-not-allowed" placeholder="Search name…" value={search} onChange={e => setSearch(e.target.value)} />
           </div>
         </div>
       </div>
@@ -846,7 +846,7 @@ ${sheetRows.map((s, i) => {
                     disabled={selectableDisplayed.length === 0 || autoGenerating}
                     aria-label="Select all visible staff without payroll records"
                     title="Select all visible staff without payroll records"
-                    className="w-4 h-4 rounded border-app-border text-emerald-500 focus:ring-emerald-500 disabled:opacity-40"
+                    className="w-4 h-4 rounded border-app-border text-emerald-500 focus:ring-app-primary disabled:opacity-40"
                   />
                 </th>
                 <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Staff</th>
@@ -871,7 +871,7 @@ ${sheetRows.map((s, i) => {
                         disabled={!!pr || autoGenerating}
                         aria-label={`Select ${s.first_name} ${s.last_name} for ${monthLabel} payroll`}
                         title={pr ? `Payroll already exists for ${monthLabel} ${filterYear}` : `Add ${s.first_name} ${s.last_name} to selected payroll`}
-                        className="w-4 h-4 rounded border-app-border text-emerald-500 focus:ring-emerald-500 disabled:opacity-40"
+                        className="w-4 h-4 rounded border-app-border text-emerald-500 focus:ring-app-primary disabled:opacity-40"
                       />
                     </td>
                     <td className="px-5 py-3.5">
@@ -1086,7 +1086,7 @@ ${sheetRows.map((s, i) => {
             <button onClick={() => setModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-app-text-muted border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors">
               Cancel
             </button>
-            <button onClick={handleSave} disabled={saving} className="px-4 py-2.5 text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 rounded-xl transition-colors disabled:opacity-60">
+            <button onClick={handleSave} disabled={saving} className="px-4 py-2.5 text-sm font-medium text-white bg-app-primary hover:opacity-90 rounded-xl transition-colors disabled:opacity-60">
               {saving ? 'Saving…' : 'Save Payroll'}
             </button>
           </div>

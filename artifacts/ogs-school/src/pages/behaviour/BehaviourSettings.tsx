@@ -110,7 +110,7 @@ export default function BehaviourSettings() {
                   min={1}
                   value={settings.warningThreshold}
                   onChange={e => handleChange('warningThreshold', parseInt(e.target.value) || 1)}
-                  className="w-20 border border-app-border rounded-lg px-3 py-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium"
+                  className="bg-app-surface text-app-text w-20 border border-app-border rounded-lg px-3 py-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-app-primary font-medium"
                 />
                 <span className="text-sm text-app-text-muted">pts</span>
               </div>
@@ -129,7 +129,7 @@ export default function BehaviourSettings() {
                   min={1}
                   value={settings.suspensionThreshold}
                   onChange={e => handleChange('suspensionThreshold', parseInt(e.target.value) || 1)}
-                  className="w-20 border border-app-border rounded-lg px-3 py-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium"
+                  className="bg-app-surface text-app-text w-20 border border-app-border rounded-lg px-3 py-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-app-primary font-medium"
                 />
                 <span className="text-sm text-app-text-muted">pts</span>
               </div>
@@ -148,7 +148,7 @@ export default function BehaviourSettings() {
                   min={1}
                   value={settings.expulsionThreshold}
                   onChange={e => handleChange('expulsionThreshold', parseInt(e.target.value) || 1)}
-                  className="w-20 border border-app-border rounded-lg px-3 py-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium"
+                  className="bg-app-surface text-app-text w-20 border border-app-border rounded-lg px-3 py-2 text-sm text-center focus:outline-none focus:ring-2 focus:ring-app-primary font-medium"
                 />
                 <span className="text-sm text-app-text-muted">pts</span>
               </div>
@@ -274,7 +274,7 @@ export default function BehaviourSettings() {
           </button>
           <button
             onClick={handleSave}
-            className="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-sm font-medium"
+            className="flex items-center gap-2 px-5 py-2.5 bg-app-primary text-white rounded-lg hover:opacity-90 transition-colors text-sm font-medium"
           >
             <Save size={16} /> Save Settings
           </button>

@@ -229,7 +229,7 @@ export default function StudentAttendance() {
   const lateCount    = records.filter(r => r.status === 'late').length;
   const missingCount = recentDays.filter(d => d !== today && !recordedDates.has(d)).length;
 
-  const inputClass = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
+  const inputClass = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface';
 
   if (!metaLoaded) {
     return (
@@ -264,7 +264,7 @@ export default function StudentAttendance() {
               All Present
             </button>
             <button onClick={saveAll} disabled={saving}
-              className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+              className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
               <Save size={15} /> {saving ? 'Saving…' : 'Save All'}
             </button>
           </>}
@@ -300,7 +300,7 @@ export default function StudentAttendance() {
           </div>
           <div className="flex items-end">
             <button onClick={loadStudents} disabled={!selectedClass || !selectedDate || loading}
-              className="w-full bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+              className="w-full bg-app-primary hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
               {loading ? 'Loading…' : 'Load Students'}
             </button>
           </div>
@@ -314,7 +314,7 @@ export default function StudentAttendance() {
               className="p-2 rounded-xl border border-app-border hover:bg-slate-100 transition-colors text-app-text-muted">
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <input type="date" className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            <input type="date" className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
               value={selectedDate} max={today} onChange={e => setSelectedDate(e.target.value)} />
             <button onClick={() => setSelectedDate(nextWeekday(selectedDate))} disabled={selectedDate >= today} title="Next weekday"
               className="p-2 rounded-xl border border-app-border hover:bg-slate-100 transition-colors text-app-text-muted disabled:opacity-30 disabled:cursor-not-allowed">
@@ -374,17 +374,17 @@ export default function StudentAttendance() {
               <div>
                 <label className="block text-xs font-medium text-app-text-muted mb-1">From</label>
                 <input type="date" value={bulkFrom} max={today} onChange={e => setBulkFrom(e.target.value)}
-                  className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface" />
+                  className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-app-text-muted mb-1">To</label>
                 <input type="date" value={bulkTo} min={bulkFrom || undefined} max={today} onChange={e => setBulkTo(e.target.value)}
-                  className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface" />
+                  className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-app-text-muted mb-1">Status for all</label>
                 <select value={bulkStatus} onChange={e => setBulkStatus(e.target.value as any)}
-                  className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface">
+                  className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface">
                   <option value="present">Present</option>
                   <option value="absent">Absent</option>
                   <option value="late">Late</option>
@@ -406,7 +406,7 @@ export default function StudentAttendance() {
             )}
             <div className="flex items-center gap-2">
               <button onClick={doBulkFill} disabled={bulkSaving || bulkSchoolDays.length === 0 || records.length === 0}
-                className="flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+                className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
                 <Zap size={14} />
                 {bulkSaving ? 'Filling…' : `Fill ${bulkSchoolDays.length > 0 ? bulkSchoolDays.length : ''} Day${bulkSchoolDays.length !== 1 ? 's' : ''}`}
               </button>

@@ -40,7 +40,7 @@ export default function StudentAttendance() {
           <h2 className="text-xl font-bold text-app-text">My Attendance</h2>
           <p className="text-app-text-muted text-sm">Track your attendance records</p>
         </div>
-        <input type="month" value={month} onChange={e => setMonth(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+        <input type="month" value={month} onChange={e => setMonth(e.target.value)} className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">

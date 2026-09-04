@@ -104,7 +104,7 @@ export default function StudentHistory() {
   return (
     <div className="space-y-6">
       {showToast && (
-        <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-emerald-600 text-white px-4 py-3 rounded-lg shadow-lg">
+        <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-app-primary text-white px-4 py-3 rounded-lg shadow-lg">
           <CheckCircle className="h-5 w-5" />
           <span>Report exported successfully!</span>
         </div>
@@ -114,7 +114,7 @@ export default function StudentHistory() {
         <h1 className="text-2xl font-bold text-app-text">Student History</h1>
         <button
           onClick={handleExport}
-          className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+          className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
         >
           <Download className="h-4 w-4" />
           Export
@@ -130,14 +130,14 @@ export default function StudentHistory() {
               placeholder="Search student..."
               value={filters.search}
               onChange={e => setFilters(f => ({ ...f, search: e.target.value }))}
-              className="w-full border border-app-border rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="bg-app-surface text-app-text w-full border border-app-border rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
             />
           </div>
 
           <select
             value={filters.academic_year_id}
             onChange={e => setFilters(f => ({ ...f, academic_year_id: e.target.value }))}
-            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
           >
             <option value="">All Academic Years</option>
             {academicYears.map(y => (

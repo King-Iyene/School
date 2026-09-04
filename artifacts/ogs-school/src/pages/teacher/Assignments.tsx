@@ -285,7 +285,7 @@ export default function TeacherAssignments() {
         </div>
         <button
           onClick={() => { setShowModal(true); setSaveError(''); }}
-          className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-3 sm:px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-500/20 shrink-0"
+          className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-3 sm:px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-500/20 shrink-0"
         >
           <Plus className="w-4 h-4" />
           <span className="hidden sm:inline">New Assignment</span>
@@ -357,23 +357,23 @@ export default function TeacherAssignments() {
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Title</label>
-            <input value={form.title} onChange={e => setForm({...form, title: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            <input value={form.title} onChange={e => setForm({...form, title: e.target.value})} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
           </div>
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Description (Optional)</label>
-            <textarea value={form.description} onChange={e => setForm({...form, description: e.target.value})} rows={3} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 resize-none" />
+            <textarea value={form.description} onChange={e => setForm({...form, description: e.target.value})} rows={3} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 resize-none" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-sm font-medium text-app-text mb-1">Class</label>
-              <select value={form.class_id} onChange={e => { setForm({...form, class_id: e.target.value, subject_id: ''}); loadSubjectsForClass(e.target.value); }} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+              <select value={form.class_id} onChange={e => { setForm({...form, class_id: e.target.value, subject_id: ''}); loadSubjectsForClass(e.target.value); }} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
                 <option value="">Select class</option>
                 {classes.map(c => <option key={(c as any)?.id} value={(c as any)?.id}>{(c as any)?.name || `${(c as any)?.level}${(c as any)?.section}`}</option>)}
               </select>
             </div>
             <div>
               <label className="block text-sm font-medium text-app-text mb-1">Subject</label>
-              <select value={form.subject_id} onChange={e => setForm({...form, subject_id: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+              <select value={form.subject_id} onChange={e => setForm({...form, subject_id: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
                 <option value="">Select subject</option>
                 {subjects.map(s => <option key={(s as any)?.id} value={(s as any)?.id}>{(s as any)?.name}</option>)}
               </select>
@@ -382,11 +382,11 @@ export default function TeacherAssignments() {
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-sm font-medium text-app-text mb-1">Due Date</label>
-              <input type="datetime-local" value={form.due_date} onChange={e => setForm({...form, due_date: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <input type="datetime-local" value={form.due_date} onChange={e => setForm({...form, due_date: e.target.value})} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
             </div>
             <div>
               <label className="block text-sm font-medium text-app-text mb-1">Max Score</label>
-              <input type="number" value={form.max_score} onChange={e => setForm({...form, max_score: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <input type="number" value={form.max_score} onChange={e => setForm({...form, max_score: e.target.value})} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
             </div>
           </div>
 
@@ -401,7 +401,7 @@ export default function TeacherAssignments() {
                     value={form.source_url} 
                     onChange={e => setForm({...form, source_url: e.target.value})} 
                     placeholder="Source URL (Optional)"
-                    className="w-full border border-app-border rounded-xl pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" 
+                    className="bg-app-surface text-app-text w-full border border-app-border rounded-xl pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" 
                   />
                 </div>
               </div>
@@ -424,7 +424,7 @@ export default function TeacherAssignments() {
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => { setShowModal(false); setEditingAssignment(null); }} className="flex-1 px-4 py-2 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
-            <button onClick={handleSave} disabled={saving} className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-all">
+            <button onClick={handleSave} disabled={saving} className="flex-1 px-4 py-2 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-all">
               {saving ? 'Saving...' : editingAssignment ? 'Update Assignment' : 'Create Assignment'}
             </button>
           </div>
@@ -538,7 +538,7 @@ export default function TeacherAssignments() {
                 onChange={e => setGradingForm({...gradingForm, score: e.target.value})}
                 max={selectedForSubmissions?.max_score}
                 placeholder="Enter score"
-                className="w-full border border-app-border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
               />
             </div>
 
@@ -549,7 +549,7 @@ export default function TeacherAssignments() {
                 onChange={e => setGradingForm({...gradingForm, feedback: e.target.value})}
                 rows={4}
                 placeholder="Provide feedback to the student..."
-                className="w-full border border-app-border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 resize-none"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 resize-none"
               />
             </div>
           </div>
@@ -559,7 +559,7 @@ export default function TeacherAssignments() {
             <button 
               onClick={handleGrade} 
               disabled={grading || !gradingForm.score}
-              className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-all flex items-center justify-center gap-2 shadow-sm shadow-emerald-500/20"
+              className="flex-1 px-4 py-2 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-all flex items-center justify-center gap-2 shadow-sm shadow-emerald-500/20"
             >
               {grading ? 'Saving...' : (
                 <>

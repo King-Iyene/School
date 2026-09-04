@@ -286,7 +286,7 @@ export default function ClubDetail() {
             <select
               value={selectedYear}
               onChange={e => setSelectedYear(e.target.value)}
-              className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
+              className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface"
             >
               {years.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
             </select>
@@ -322,7 +322,7 @@ export default function ClubDetail() {
                 <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">{executives.length}</span>
               </h2>
               {canManage && (
-                <button onClick={() => { setAddMemberRole('president'); setShowAddMember(true); }} className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-xs font-medium">
+                <button onClick={() => { setAddMemberRole('president'); setShowAddMember(true); }} className="flex items-center gap-1.5 px-3 py-1.5 bg-app-primary text-white rounded-lg hover:opacity-90 transition-colors text-xs font-medium">
                   <Plus className="w-3.5 h-3.5" /> Add Executive
                 </button>
               )}
@@ -432,7 +432,7 @@ export default function ClubDetail() {
           <div className="flex items-center justify-between">
             <h2 className="font-semibold text-app-text">Patrons & Advisors</h2>
             {isAdmin && (
-              <button onClick={() => setShowAddTeacher(true)} className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-xs font-medium">
+              <button onClick={() => setShowAddTeacher(true)} className="flex items-center gap-1.5 px-3 py-1.5 bg-app-primary text-white rounded-lg hover:opacity-90 transition-colors text-xs font-medium">
                 <Plus className="w-3.5 h-3.5" /> Assign Teacher
               </button>
             )}
@@ -474,7 +474,7 @@ export default function ClubDetail() {
                   <select
                     value={addMemberRole}
                     onChange={e => setAddMemberRole(e.target.value)}
-                    className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
                   >
                     {MEMBER_ROLES.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
                   </select>
@@ -482,7 +482,7 @@ export default function ClubDetail() {
                 <div>
                   <label className="block text-sm font-medium text-app-text mb-1">Joined Date</label>
                   <input type="date" value={addMemberDate} onChange={e => setAddMemberDate(e.target.value)}
-                    className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                    className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" />
                 </div>
               </div>
               <div>
@@ -494,7 +494,7 @@ export default function ClubDetail() {
                     placeholder="Type student name..."
                     value={studentSearch}
                     onChange={e => { setStudentSearch(e.target.value); searchStudents(e.target.value); }}
-                    className="w-full pl-9 pr-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="bg-app-surface text-app-text w-full pl-9 pr-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
                   />
                 </div>
                 {searchResults.length > 0 && (
@@ -537,7 +537,7 @@ export default function ClubDetail() {
                 <select
                   value={addTeacherRole}
                   onChange={e => setAddTeacherRole(e.target.value)}
-                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
                 >
                   {TEACHER_ROLES.map(r => <option key={r} value={r} className="capitalize">{r.charAt(0).toUpperCase() + r.slice(1).replace('-', ' ')}</option>)}
                 </select>
@@ -551,7 +551,7 @@ export default function ClubDetail() {
                     placeholder="Type teacher name..."
                     value={teacherSearch}
                     onChange={e => { setTeacherSearch(e.target.value); searchTeachers(e.target.value); }}
-                    className="w-full pl-9 pr-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="bg-app-surface text-app-text w-full pl-9 pr-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
                   />
                 </div>
                 {teacherResults.length > 0 && (
@@ -584,13 +584,13 @@ export default function ClubDetail() {
             <select
               value={editRole}
               onChange={e => setEditRole(e.target.value)}
-              className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-4"
+              className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary mb-4"
             >
               {MEMBER_ROLES.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
             </select>
             <div className="flex gap-3">
               <button onClick={() => setEditingMember(null)} className="flex-1 px-4 py-2 border border-app-border rounded-lg text-app-text-muted hover:bg-app-surface-alt text-sm">Cancel</button>
-              <button onClick={saveEditRole} className="flex-1 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 text-sm font-medium">Save</button>
+              <button onClick={saveEditRole} className="flex-1 px-4 py-2 bg-app-primary text-white rounded-lg hover:opacity-90 text-sm font-medium">Save</button>
             </div>
           </div>
         </div>

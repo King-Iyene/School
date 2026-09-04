@@ -93,7 +93,7 @@ export default function AdmissionQueryDetail({ query, onClose, onEdit, onDelete,
           <div className="flex items-center gap-2">
             <button
               onClick={() => onAddFollowUp(query.id)}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-app-primary hover:opacity-90 text-white text-xs font-medium rounded-lg transition-colors"
             >
               <Plus className="w-3.5 h-3.5" /> Follow-up
             </button>
@@ -157,7 +157,7 @@ export default function AdmissionQueryDetail({ query, onClose, onEdit, onDelete,
               {loading ? (
                 <p className="text-sm text-app-text-muted py-4 text-center">Loading...</p>
               ) : followUps.length === 0 ? (
-                <div className="text-center py-6 border-2 border-dashed border-app-border rounded-xl">
+                <div className="bg-app-surface text-app-text text-center py-6 border-2 border-dashed border-app-border rounded-xl">
                   <MessageSquare className="w-8 h-8 text-slate-300 mx-auto mb-2" />
                   <p className="text-sm text-app-text-muted">No follow-ups yet</p>
                   <button

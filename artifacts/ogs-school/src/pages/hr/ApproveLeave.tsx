@@ -38,7 +38,7 @@ function calcDays(from: string, to: string): number {
 }
 
 const inputClass =
-  'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 
 function statusBadge(status: string) {
   switch (status) {
@@ -168,7 +168,7 @@ export default function ApproveLeave() {
         <h1 className="text-2xl font-bold text-app-text">Approve Leave Request</h1>
         <div className="flex items-center gap-3">
           <select
-            className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
           >
@@ -344,7 +344,7 @@ export default function ApproveLeave() {
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="px-4 py-2.5 text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 rounded-xl shadow-sm transition-colors disabled:opacity-60"
+                className="px-4 py-2.5 text-sm font-medium text-white bg-app-primary hover:opacity-90 rounded-xl shadow-sm transition-colors disabled:opacity-60"
               >
                 {saving ? 'Saving...' : 'Update & Save'}
               </button>

@@ -171,7 +171,7 @@ export default function Clubs() {
           <p className="text-app-text-muted text-sm mt-0.5">Manage clubs, assign patrons and student members</p>
         </div>
         {isAdmin && (
-          <button onClick={openAdd} className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">
+          <button onClick={openAdd} className="flex items-center gap-2 px-4 py-2 bg-app-primary text-white rounded-lg hover:opacity-90 transition-colors">
             <Plus className="w-4 h-4" /> Add Club
           </button>
         )}
@@ -186,7 +186,7 @@ export default function Clubs() {
               <select
                 value={selectedYear}
                 onChange={e => setSelectedYear(e.target.value)}
-                className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
+                className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface"
               >
                 {years.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
               </select>
@@ -198,7 +198,7 @@ export default function Clubs() {
                 placeholder="Search by name or description..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
               />
             </div>
           </div>
@@ -327,7 +327,7 @@ export default function Clubs() {
                   type="text"
                   value={form.name}
                   onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
-                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
                   placeholder="e.g. Chess Club"
                 />
               </div>
@@ -337,7 +337,7 @@ export default function Clubs() {
                   value={form.description}
                   onChange={e => setForm(p => ({ ...p, description: e.target.value }))}
                   rows={2}
-                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                  className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none"
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -346,7 +346,7 @@ export default function Clubs() {
                   <select
                     value={form.category}
                     onChange={e => setForm(p => ({ ...p, category: e.target.value }))}
-                    className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
                   >
                     {CATEGORIES.filter(c => c !== 'All').map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
@@ -356,7 +356,7 @@ export default function Clubs() {
                   <select
                     value={form.meeting_day}
                     onChange={e => setForm(p => ({ ...p, meeting_day: e.target.value }))}
-                    className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
                   >
                     <option value="">None</option>
                     {DAYS.map(d => <option key={d} value={d}>{d}</option>)}
@@ -370,7 +370,7 @@ export default function Clubs() {
                     type="time"
                     value={form.meeting_time}
                     onChange={e => setForm(p => ({ ...p, meeting_time: e.target.value }))}
-                    className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
                   />
                 </div>
                 <div>
@@ -379,7 +379,7 @@ export default function Clubs() {
                     type="text"
                     value={form.meeting_venue}
                     onChange={e => setForm(p => ({ ...p, meeting_venue: e.target.value }))}
-                    className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
                     placeholder="e.g. Science Lab"
                   />
                 </div>
@@ -396,7 +396,7 @@ export default function Clubs() {
             </div>
             <div className="p-6 border-t border-app-border flex gap-3 justify-end">
               <button onClick={() => setShowModal(false)} className="px-4 py-2 text-app-text-muted hover:bg-app-surface-alt rounded-lg transition-colors text-sm">Cancel</button>
-              <button onClick={handleSave} disabled={saving || !form.name.trim()} className="px-5 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 transition-colors text-sm font-medium">
+              <button onClick={handleSave} disabled={saving || !form.name.trim()} className="px-5 py-2 bg-app-primary text-white rounded-lg hover:opacity-90 disabled:opacity-50 transition-colors text-sm font-medium">
                 {saving ? 'Saving...' : editing ? 'Save Changes' : 'Create Club'}
               </button>
             </div>

@@ -49,10 +49,10 @@ export default function ParentAttendance() {
         <p className="text-app-text-muted text-sm">Monitor your children's school attendance</p>
       </div>
       <div className="flex gap-3">
-        <select value={selectedChild} onChange={e => setSelectedChild(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+        <select value={selectedChild} onChange={e => setSelectedChild(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
           {children.map(c => <option key={(c as any).id} value={(c as any).id}>{(c as any).first_name} {(c as any).last_name}</option>)}
         </select>
-        <input type="month" value={month} onChange={e => setMonth(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+        <input type="month" value={month} onChange={e => setMonth(e.target.value)} className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
       </div>
       <div className="grid grid-cols-4 gap-3">
         {[

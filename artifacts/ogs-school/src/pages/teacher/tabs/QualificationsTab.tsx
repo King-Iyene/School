@@ -33,7 +33,7 @@ const QUAL_TYPES = [
   { value: 'other', label: 'Other' },
 ];
 
-const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+const inputCls = 'bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30';
 
 export default function QualificationsTab({ profileId, schoolId }: Props) {
   const { profile: viewer } = useAuth();
@@ -130,7 +130,7 @@ export default function QualificationsTab({ profileId, schoolId }: Props) {
       <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
         <div className="p-4 border-b border-app-border flex items-center justify-between">
           <h4 className="font-bold text-app-text flex items-center gap-2 text-sm"><GraduationCap className="w-4 h-4 text-emerald-600" />Academic & Professional Qualifications</h4>
-          {isAdmin && <button onClick={openAddQual} className="flex items-center gap-1.5 text-xs bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1.5 rounded-lg font-medium"><Plus className="w-3 h-3" />Add</button>}
+          {isAdmin && <button onClick={openAddQual} className="flex items-center gap-1.5 text-xs bg-app-primary hover:opacity-90 text-white px-3 py-1.5 rounded-lg font-medium"><Plus className="w-3 h-3" />Add</button>}
         </div>
         {quals.length === 0 ? (
           <div className="text-center py-8 text-app-text-muted text-sm">No qualifications recorded yet</div>
@@ -178,7 +178,7 @@ export default function QualificationsTab({ profileId, schoolId }: Props) {
               </div>
               <div>
                 <input ref={fileRef} type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" className="hidden" onChange={handleFileUpload} />
-                <button onClick={() => fileRef.current?.click()} disabled={uploading} className="flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
+                <button onClick={() => fileRef.current?.click()} disabled={uploading} className="flex items-center gap-1.5 bg-app-primary hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
                   <Upload className="w-4 h-4" />{uploading ? 'Uploading...' : 'Upload File'}
                 </button>
               </div>
@@ -245,7 +245,7 @@ export default function QualificationsTab({ profileId, schoolId }: Props) {
           </div>
           <div className="flex gap-2 pt-2">
             <button onClick={() => setShowQualModal(false)} className="flex-1 border border-app-border text-app-text rounded-xl py-2 text-sm hover:bg-app-surface-alt">Cancel</button>
-            <button onClick={saveQual} disabled={saving || !qualForm.title} className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-2 text-sm font-medium disabled:opacity-50">
+            <button onClick={saveQual} disabled={saving || !qualForm.title} className="flex-1 bg-app-primary hover:opacity-90 text-white rounded-xl py-2 text-sm font-medium disabled:opacity-50">
               {saving ? 'Saving...' : editQual ? 'Update' : 'Add Qualification'}
             </button>
           </div>

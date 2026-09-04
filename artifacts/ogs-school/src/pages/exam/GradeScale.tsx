@@ -131,7 +131,7 @@ export default function GradeScale() {
   }
 
   const inputClass =
-    'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+    'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 
   return (
     <div className="p-6">
@@ -139,7 +139,7 @@ export default function GradeScale() {
         <h1 className="text-2xl font-bold text-app-text">Marks Grade</h1>
         <button
           onClick={openAdd}
-          className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors"
+          className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors"
         >
           <Plus size={16} />
           Add Grade Scale
@@ -310,7 +310,7 @@ export default function GradeScale() {
             <button
               onClick={handleSave}
               disabled={saving || !isFormValid()}
-              className="px-4 py-2 text-sm rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors disabled:opacity-50"
+              className="px-4 py-2 text-sm rounded-xl bg-app-primary hover:opacity-90 text-white font-medium transition-colors disabled:opacity-50"
             >
               {saving ? 'Saving...' : editingId ? 'Update' : 'Save'}
             </button>

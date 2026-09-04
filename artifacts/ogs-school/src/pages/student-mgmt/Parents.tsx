@@ -377,7 +377,7 @@ export default function Parents() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Search name, email or phone…"
-            className="w-full border border-app-border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="bg-app-surface text-app-text w-full border border-app-border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
           />
         </div>
         <button
@@ -468,7 +468,7 @@ export default function Parents() {
                         <button
                           onClick={() => handleResetPassword(p)}
                           disabled={resettingId === p.id}
-                          className="inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white disabled:opacity-50"
+                          className="inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1.5 rounded-lg bg-app-primary hover:opacity-90 text-white disabled:opacity-50"
                         >
                           <KeyRound className="w-3.5 h-3.5" /> {resettingId === p.id ? 'Sent' : 'Reset password'}
                         </button>
@@ -537,7 +537,7 @@ export default function Parents() {
                   value={childSearch}
                   onChange={e => setChildSearch(e.target.value)}
                   onKeyDown={e => { if (e.key === 'Enter') searchChildren(); }}
-                  className="flex-1 border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                  className="bg-app-surface text-app-text flex-1 border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
                 />
                 <button
                   onClick={searchChildren}
@@ -573,7 +573,7 @@ export default function Parents() {
                             linkChild(s, rel);
                           }}
                           disabled={linkBusy}
-                          className="text-xs bg-emerald-500 text-white px-3 py-1 rounded font-medium hover:bg-emerald-600 disabled:opacity-50"
+                          className="text-xs bg-app-primary text-white px-3 py-1 rounded font-medium hover:opacity-90 disabled:opacity-50"
                         >
                           Link
                         </button>
@@ -616,7 +616,7 @@ export default function Parents() {
                 <input
                   value={editForm.first_name}
                   onChange={e => setEditForm({ ...editForm, first_name: e.target.value })}
-                  className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                  className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
                 />
               </div>
               <div>
@@ -624,7 +624,7 @@ export default function Parents() {
                 <input
                   value={editForm.last_name}
                   onChange={e => setEditForm({ ...editForm, last_name: e.target.value })}
-                  className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                  className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
                 />
               </div>
             </div>
@@ -633,7 +633,7 @@ export default function Parents() {
               <input
                 value={editForm.phone}
                 onChange={e => setEditForm({ ...editForm, phone: e.target.value })}
-                className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
               />
             </div>
             <div>
@@ -653,7 +653,7 @@ export default function Parents() {
               <button
                 onClick={saveEdit}
                 disabled={savingEdit}
-                className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 flex items-center justify-center gap-2"
+                className="flex-1 px-4 py-2 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 {savingEdit ? 'Saving…' : <><Save className="w-4 h-4" /> Save Changes</>}
               </button>

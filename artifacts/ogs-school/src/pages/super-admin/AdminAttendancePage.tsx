@@ -173,10 +173,10 @@ export default function AdminAttendancePage() {
             </div>
             <div className="flex-1 min-w-[160px]">
               <label className="block text-xs font-medium text-app-text-muted mb-1">Date</label>
-              <input type="date" value={selectedDate} onChange={e => setSelectedDate(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30" />
+              <input type="date" value={selectedDate} onChange={e => setSelectedDate(e.target.value)} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30" />
             </div>
             {students.length > 0 && (
-              <button onClick={saveAttendance} disabled={saving} className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-60">
+              <button onClick={saveAttendance} disabled={saving} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-60">
                 <Save className="w-4 h-4" />
                 {saving ? 'Saving...' : 'Save Attendance'}
               </button>
@@ -255,7 +255,7 @@ export default function AdminAttendancePage() {
                 </div>
                 {students.length > 0 && (
                   <div className="px-4 py-3 border-t border-app-border flex justify-end">
-                    <button onClick={saveAttendance} disabled={saving} className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-60">
+                    <button onClick={saveAttendance} disabled={saving} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-60">
                       <Save className="w-4 h-4" />
                       {saving ? 'Saving...' : 'Save Attendance'}
                     </button>

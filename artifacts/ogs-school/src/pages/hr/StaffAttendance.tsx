@@ -227,7 +227,7 @@ export default function StaffAttendance() {
     on_leave: staffList.filter(s => isHoliday || attendance[s.id] === 'on_leave' || (attendance[s.id] as string) === 'holiday').length,
   };
 
-  const inputCls = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
+  const inputCls = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface';
 
   return (
     <div className="p-6">
@@ -240,7 +240,7 @@ export default function StaffAttendance() {
             <Zap size={15} /> Bulk Fill
           </button>
           <button onClick={handleSave} disabled={saving || staffList.length === 0}
-            className="bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors disabled:opacity-60">
+            className="bg-app-primary hover:opacity-90 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors disabled:opacity-60">
             {saving ? 'Saving…' : saved ? '✓ Saved!' : 'Save Attendance'}
           </button>
         </div>
@@ -274,7 +274,7 @@ export default function StaffAttendance() {
             </button>
             <input type="date" value={selectedDate} max={today}
               onChange={e => setSelectedDate(e.target.value)}
-              className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
             <button onClick={() => setSelectedDate(nextWeekday(selectedDate))} disabled={selectedDate >= today} title="Next weekday"
               className="p-2 rounded-xl border border-app-border hover:bg-slate-100 transition-colors text-app-text-muted disabled:opacity-30 disabled:cursor-not-allowed">
               <ChevronRight className="w-4 h-4" />
@@ -376,7 +376,7 @@ export default function StaffAttendance() {
             <div className="flex items-center gap-2">
               <button onClick={doBulkFill}
                 disabled={bulkSaving || bulkDays.length === 0 || staffList.length === 0}
-                className="flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+                className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
                 <Zap size={14} />
                 {bulkSaving ? 'Filling…' : `Fill ${bulkDays.length > 0 ? bulkDays.length : ''} Day${bulkDays.length !== 1 ? 's' : ''}`}
               </button>

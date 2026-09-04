@@ -168,7 +168,7 @@ export default function MarkSheetReport() {
   return (
     <div className="space-y-6">
       {showToast && (
-        <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-emerald-600 text-white px-4 py-3 rounded-lg shadow-lg">
+        <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-app-primary text-white px-4 py-3 rounded-lg shadow-lg">
           <CheckCircle className="h-5 w-5" />
           <span>Report exported successfully!</span>
         </div>
@@ -187,7 +187,7 @@ export default function MarkSheetReport() {
           {subjectResults.length > 0 && (
             <button
               onClick={() => window.print()}
-              className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+              className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
             >
               <Printer className="h-4 w-4" />
               Print
@@ -201,7 +201,7 @@ export default function MarkSheetReport() {
           <select
             value={filters.academic_year_id}
             onChange={e => setFilters(f => ({ ...f, academic_year_id: e.target.value, exam_id: '', class_id: '', student_id: '' }))}
-            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
           >
             <option value="">Select Academic Year *</option>
             {academicYears.map(y => (
@@ -213,7 +213,7 @@ export default function MarkSheetReport() {
             value={filters.exam_id}
             onChange={e => setFilters(f => ({ ...f, exam_id: e.target.value }))}
             disabled={!filters.academic_year_id}
-            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+            className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary disabled:opacity-50"
           >
             <option value="">Select Exam *</option>
             {exams.map(e => (
@@ -225,7 +225,7 @@ export default function MarkSheetReport() {
             value={filters.class_id}
             onChange={e => setFilters(f => ({ ...f, class_id: e.target.value, student_id: '' }))}
             disabled={!filters.exam_id}
-            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+            className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary disabled:opacity-50"
           >
             <option value="">Select Class *</option>
             {classes.map(c => (
@@ -237,7 +237,7 @@ export default function MarkSheetReport() {
             value={filters.student_id}
             onChange={e => setFilters(f => ({ ...f, student_id: e.target.value }))}
             disabled={!filters.class_id}
-            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+            className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary disabled:opacity-50"
           >
             <option value="">Select Student</option>
             {students.map(s => (
@@ -263,7 +263,7 @@ export default function MarkSheetReport() {
         </div>
       ) : (
         <div className="bg-app-surface rounded-xl shadow-sm border-2 border-app-border overflow-hidden print:shadow-none">
-          <div className="bg-emerald-700 text-white text-center py-6 px-4">
+          <div className="bg-app-primary text-white text-center py-6 px-4">
             <h2 className="text-2xl font-bold">MARK SHEET</h2>
             <p className="text-emerald-200 mt-1">{selectedYear?.name} - {selectedExam?.name}</p>
           </div>

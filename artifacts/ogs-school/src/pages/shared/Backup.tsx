@@ -104,7 +104,7 @@ export default function Backup() {
           </div>
           <button
             onClick={() => triggerFakeDownload(`db_backup_${backupDate}.sql.gz`)}
-            className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium transition-colors"
+            className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-app-primary hover:opacity-90 text-white text-sm font-medium transition-colors"
           >
             <Download size={15} />
             Download Database
@@ -123,7 +123,7 @@ export default function Backup() {
           </div>
           <button
             onClick={() => triggerFakeDownload(`images_backup_${backupDate}.zip`)}
-            className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white text-sm font-medium transition-colors"
+            className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-app-primary hover:opacity-90 text-white text-sm font-medium transition-colors"
           >
             <Download size={15} />
             Download Images
@@ -170,7 +170,7 @@ export default function Backup() {
               type="file"
               accept=".gz,.zip,.tar,.sql,.bak"
               onChange={handleFileChange}
-              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer"
+              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer"
             />
             {restoreFile && (
               <p className="text-xs text-app-text-muted mt-1.5">Selected: <span className="font-medium text-app-text">{restoreFile.name}</span></p>

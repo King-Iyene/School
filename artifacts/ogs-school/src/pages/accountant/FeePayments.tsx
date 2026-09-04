@@ -42,7 +42,7 @@ const PAYMENT_METHODS = ['bank_transfer', 'cash', 'cheque', 'online', 'pos'];
 const STATUS_OPTIONS = ['paid', 'partially_paid', 'unpaid', 'pending'];
 const statusColors: Record<string, string> = { paid: 'success', partially_paid: 'warning', partial: 'warning', pending: 'default', unpaid: 'error', overdue: 'error' };
 
-const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface';
+const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface';
 
 function formatCurrency(amount: number): string {
   return new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(amount);
@@ -379,7 +379,7 @@ export default function FeePayments() {
           <button onClick={exportCSV} className="flex items-center gap-2 border border-app-border hover:bg-app-surface-alt text-app-text px-3 py-2 rounded-xl text-sm font-medium transition-colors">
             <Download className="w-4 h-4" /> Export CSV
           </button>
-          <button onClick={openCreate} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-500/20">
+          <button onClick={openCreate} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-500/20">
             <Plus className="w-4 h-4" /> Record Payment
           </button>
         </div>
@@ -412,7 +412,7 @@ export default function FeePayments() {
           <div className="flex items-center gap-3">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
-              <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by student name or receipt..." className="w-full pl-9 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by student name or receipt..." className="bg-app-surface text-app-text w-full pl-9 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
             </div>
             <button onClick={() => setShowFilters(!showFilters)} className={`flex items-center gap-1.5 px-3 py-2.5 border rounded-xl text-sm font-medium transition-colors ${showFilters ? 'border-emerald-300 bg-emerald-50 text-emerald-700' : 'border-app-border text-app-text-muted hover:bg-app-surface-alt'}`}>
               <Filter className="w-4 h-4" />
@@ -579,7 +579,7 @@ export default function FeePayments() {
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
-            <button onClick={handleSave} disabled={saving || !form.student_id || !form.amount_paid} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50">
+            <button onClick={handleSave} disabled={saving || !form.student_id || !form.amount_paid} className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50">
               {saving ? 'Saving...' : editPayment ? 'Update' : 'Record Payment'}
             </button>
           </div>
@@ -662,7 +662,7 @@ export default function FeePayments() {
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setShowInstallmentModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
-            <button onClick={handleAddInstallment} disabled={saving || !installmentForm.amount_paid || !installmentForm.payment_date} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50">
+            <button onClick={handleAddInstallment} disabled={saving || !installmentForm.amount_paid || !installmentForm.payment_date} className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50">
               {saving ? 'Saving...' : 'Add Installment'}
             </button>
           </div>

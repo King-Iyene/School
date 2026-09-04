@@ -309,14 +309,14 @@ ${rows.map((r, i) => {
         <div className="flex flex-wrap items-end gap-3">
           <div className="flex-1 min-w-[140px]">
             <label className="block text-xs font-medium text-app-text-muted mb-1.5">Role</label>
-            <select className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface" value={filterRole} onChange={e => setFilterRole(e.target.value)}>
+            <select className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface" value={filterRole} onChange={e => setFilterRole(e.target.value)}>
               <option value="">All Roles</option>
               {STAFF_ROLES.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
             </select>
           </div>
           <div className="flex-1 min-w-[120px]">
             <label className="block text-xs font-medium text-app-text-muted mb-1.5">Status</label>
-            <select className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface" value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
+            <select className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface" value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
               <option value="">All</option>
               <option value="pending">Pending</option>
               <option value="paid">Paid</option>
@@ -324,13 +324,13 @@ ${rows.map((r, i) => {
           </div>
           <div className="flex-1 min-w-[120px]">
             <label className="block text-xs font-medium text-app-text-muted mb-1.5">Month</label>
-            <select className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface" value={filterMonth} onChange={e => setFilterMonth(Number(e.target.value))}>
+            <select className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface" value={filterMonth} onChange={e => setFilterMonth(Number(e.target.value))}>
               {MONTHS.map(m => <option key={m.value} value={m.value}>{m.label}</option>)}
             </select>
           </div>
           <div className="flex-1 min-w-[90px]">
             <label className="block text-xs font-medium text-app-text-muted mb-1.5">Year</label>
-            <select className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface" value={filterYear} onChange={e => setFilterYear(Number(e.target.value))}>
+            <select className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface" value={filterYear} onChange={e => setFilterYear(Number(e.target.value))}>
               {yearOptions.map(y => <option key={y} value={y}>{y}</option>)}
             </select>
           </div>
@@ -390,7 +390,7 @@ ${rows.map((r, i) => {
               <div key={k}>
                 <label className="block text-xs font-medium text-app-text-muted mb-1">{label}</label>
                 <input
-                  className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+                  className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full"
                   value={printConfig[k]}
                   onChange={e => pc(k, e.target.value)}
                 />

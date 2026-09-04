@@ -241,7 +241,7 @@ export default function StudentGrades() {
                         Pending
                       </span>
                     ) : (
-                      <span className="text-[10px] uppercase font-bold tracking-wider bg-emerald-600 text-white px-2 py-1 rounded">
+                      <span className="text-[10px] uppercase font-bold tracking-wider bg-app-primary text-white px-2 py-1 rounded">
                         Published
                       </span>
                     )}

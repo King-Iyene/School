@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
+const INPUT = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface';
 
 interface AssetLocation { id: string; name: string; type: string; notes: string; }
 interface AssetRoom { id: string; name: string; location_id: string; notes: string; }
@@ -256,7 +256,7 @@ export default function AssetLocations() {
           {saveError && <p className="text-sm text-red-500 bg-red-50 rounded-xl px-3 py-2">{saveError}</p>}
           <div className="flex justify-end gap-2">
             <button type="button" onClick={() => setLocModal(false)} className="px-4 py-2 rounded-xl border border-app-border text-sm text-app-text-muted hover:bg-app-surface-alt">Cancel</button>
-            <button type="submit" disabled={saving} className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium disabled:opacity-50">{saving ? 'Saving…' : editLocId ? 'Save' : 'Add Building'}</button>
+            <button type="submit" disabled={saving} className="px-5 py-2 rounded-xl bg-app-primary hover:opacity-90 text-white text-sm font-medium disabled:opacity-50">{saving ? 'Saving…' : editLocId ? 'Save' : 'Add Building'}</button>
           </div>
         </form>
       </Modal>
@@ -276,7 +276,7 @@ export default function AssetLocations() {
           {saveError && <p className="text-sm text-red-500 bg-red-50 rounded-xl px-3 py-2">{saveError}</p>}
           <div className="flex justify-end gap-2">
             <button type="button" onClick={() => setRoomModal(false)} className="px-4 py-2 rounded-xl border border-app-border text-sm text-app-text-muted hover:bg-app-surface-alt">Cancel</button>
-            <button type="submit" disabled={saving} className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium disabled:opacity-50">{saving ? 'Saving…' : editRoomId ? 'Save' : 'Add Room'}</button>
+            <button type="submit" disabled={saving} className="px-5 py-2 rounded-xl bg-app-primary hover:opacity-90 text-white text-sm font-medium disabled:opacity-50">{saving ? 'Saving…' : editRoomId ? 'Save' : 'Add Room'}</button>
           </div>
         </form>
       </Modal>

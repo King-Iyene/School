@@ -133,7 +133,7 @@ export default function ParentPortal() {
           <p className="text-sm text-app-text-muted mt-1 mb-4">Go to "My Children" to link your ward using their admission number</p>
           <button
             onClick={() => navigate('/children')}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-500 text-white rounded-xl text-sm font-semibold hover:bg-blue-600 transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-app-primary text-white rounded-xl text-sm font-semibold hover:opacity-90 transition-colors"
           >
             Link a Child →
           </button>
@@ -144,7 +144,7 @@ export default function ParentPortal() {
             <h3 className="font-semibold text-app-text">My Children</h3>
             <button
               onClick={() => navigate('/children')}
-              className="flex items-center gap-1.5 px-4 py-2 bg-blue-500 text-white rounded-xl text-sm font-medium hover:bg-blue-600 transition-colors"
+              className="flex items-center gap-1.5 px-4 py-2 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 transition-colors"
             >
               + Link a Child
             </button>

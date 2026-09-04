@@ -208,7 +208,7 @@ export default function ParentDashboard() {
           </h3>
           <button
             onClick={openModal}
-            className="flex items-center gap-1.5 px-4 py-2 bg-emerald-500 text-white rounded-xl text-sm font-medium hover:bg-emerald-600 transition-colors"
+            className="flex items-center gap-1.5 px-4 py-2 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 transition-colors"
           >
             <Plus className="w-4 h-4" />
             Link a Child
@@ -222,7 +222,7 @@ export default function ParentDashboard() {
             <Users className="w-12 h-12 text-slate-300 mx-auto mb-3" />
             <p className="text-app-text-muted font-medium">No children linked yet</p>
             <p className="text-sm text-app-text-muted mt-1 mb-4">Click "Link a Child" to add your ward using their admission number</p>
-            <button onClick={openModal} className="px-5 py-2 bg-emerald-500 text-white rounded-xl text-sm font-medium hover:bg-emerald-600 transition-colors">
+            <button onClick={openModal} className="px-5 py-2 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 transition-colors">
               Link a Child
             </button>
           </div>
@@ -303,7 +303,7 @@ export default function ParentDashboard() {
                     onChange={e => { setAdmissionInput(e.target.value); setSearchError(''); setFoundStudent(null); setLinkSuccess(''); }}
                     onKeyDown={e => e.key === 'Enter' && handleSearch()}
                     placeholder="e.g. STU/2024/001"
-                    className="flex-1 px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                    className="bg-app-surface text-app-text flex-1 px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary focus:border-transparent"
                   />
                   <button
                     onClick={handleSearch}
@@ -345,7 +345,7 @@ export default function ParentDashboard() {
                     <select
                       value={relationship}
                       onChange={e => setRelationship(e.target.value)}
-                      className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
+                      className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface"
                     >
                       <option value="parent">Parent</option>
                       <option value="father">Father</option>
@@ -357,7 +357,7 @@ export default function ParentDashboard() {
                   <button
                     onClick={handleLink}
                     disabled={linking}
-                    className="w-full py-2.5 bg-emerald-500 text-white rounded-xl text-sm font-semibold hover:bg-emerald-600 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                    className="w-full py-2.5 bg-app-primary text-white rounded-xl text-sm font-semibold hover:opacity-90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                   >
                     {linking ? (
                       <>

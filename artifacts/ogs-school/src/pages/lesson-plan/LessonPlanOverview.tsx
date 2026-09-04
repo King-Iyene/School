@@ -106,7 +106,7 @@ export default function LessonPlanOverview() {
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
+          className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface"
         >
           <option value="">All Statuses</option>
           <option value="draft">Draft</option>

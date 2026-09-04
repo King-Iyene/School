@@ -152,7 +152,7 @@ export default function ExamAttendance() {
   }
 
   const inputClass =
-    'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+    'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 
   const allSelected = selectedExam && selectedClass && selectedSubject && selectedDate;
   const presentCount = students.filter((s) => s.status === 'present').length;

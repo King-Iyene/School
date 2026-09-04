@@ -438,12 +438,12 @@ export default function AttendanceOverview() {
         <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 flex items-center gap-3 flex-wrap">
           <label className="text-xs font-medium text-app-text-muted">From</label>
           <input type="date" value={customFrom} max={customTo} onChange={e => setCustomFrom(e.target.value)}
-            className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
           <label className="text-xs font-medium text-app-text-muted">To</label>
           <input type="date" value={customTo} min={customFrom} max={TODAY} onChange={e => setCustomTo(e.target.value)}
-            className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
           <button onClick={loadAttendance}
-            className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-xl transition-colors">
+            className="px-4 py-2 bg-app-primary hover:opacity-90 text-white text-sm font-medium rounded-xl transition-colors">
             Apply
           </button>
         </div>

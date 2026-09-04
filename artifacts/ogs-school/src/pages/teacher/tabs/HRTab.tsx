@@ -5,7 +5,7 @@ import { useAuth } from '../../../context/AuthContext';
 
 interface Props { profileId: string; schoolId: string; profile: any; onProfileUpdate: (p: any) => void; }
 
-const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+const inputCls = 'bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30';
 const labelCls = 'block text-xs font-semibold text-app-text-muted uppercase tracking-wide mb-1';
 
 function Section({ title, icon: Icon, children }: { title: string; icon: any; children: React.ReactNode }) {
@@ -213,7 +213,7 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
             <div><label className={labelCls}>Bio / Profile Summary</label><textarea value={pForm.bio} onChange={e => setPForm({ ...pForm, bio: e.target.value })} rows={3} className={`${inputCls} resize-none`} /></div>
             <div className="flex gap-2 pt-1">
               <button onClick={() => setEditProfile(false)} className="flex-1 border border-app-border text-app-text rounded-xl py-2 text-sm hover:bg-app-surface-alt">Cancel</button>
-              <button onClick={saveProfile} disabled={saving === 'profile'} className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-2 text-sm font-medium flex items-center justify-center gap-1.5 disabled:opacity-50">
+              <button onClick={saveProfile} disabled={saving === 'profile'} className="flex-1 bg-app-primary hover:opacity-90 text-white rounded-xl py-2 text-sm font-medium flex items-center justify-center gap-1.5 disabled:opacity-50">
                 <Save className="w-3.5 h-3.5" />{saving === 'profile' ? 'Saving...' : 'Save Changes'}
               </button>
             </div>
@@ -272,7 +272,7 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
             {saveHRError && <p className="text-xs text-red-500">{saveHRError}</p>}
             <div className="flex gap-2 pt-1">
               <button onClick={() => setEditHR(false)} className="flex-1 border border-app-border text-app-text rounded-xl py-2 text-sm hover:bg-app-surface-alt">Cancel</button>
-              <button onClick={saveHR} disabled={saving === 'hr'} className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-2 text-sm font-medium flex items-center justify-center gap-1.5 disabled:opacity-50">
+              <button onClick={saveHR} disabled={saving === 'hr'} className="flex-1 bg-app-primary hover:opacity-90 text-white rounded-xl py-2 text-sm font-medium flex items-center justify-center gap-1.5 disabled:opacity-50">
                 <Save className="w-3.5 h-3.5" />{saving === 'hr' ? 'Saving...' : 'Save Changes'}
               </button>
             </div>
@@ -336,7 +336,7 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
               </div>
               <div className="flex gap-2">
                 <button onClick={() => { setEditPayroll(false); setEditHR(false); }} className="flex-1 border border-app-border text-app-text rounded-xl py-2 text-sm hover:bg-app-surface-alt">Cancel</button>
-                <button onClick={async () => { await saveHR(); await savePayroll(); }} disabled={saving !== ''} className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-2 text-sm font-medium flex items-center justify-center gap-1.5 disabled:opacity-50">
+                <button onClick={async () => { await saveHR(); await savePayroll(); }} disabled={saving !== ''} className="flex-1 bg-app-primary hover:opacity-90 text-white rounded-xl py-2 text-sm font-medium flex items-center justify-center gap-1.5 disabled:opacity-50">
                   <Save className="w-3.5 h-3.5" />Save All
                 </button>
               </div>

@@ -108,7 +108,7 @@ export default function GuardianReports() {
   return (
     <div className="space-y-6">
       {showToast && (
-        <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-emerald-600 text-white px-4 py-3 rounded-lg shadow-lg">
+        <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-app-primary text-white px-4 py-3 rounded-lg shadow-lg">
           <CheckCircle className="h-5 w-5" />
           <span>Report exported successfully!</span>
         </div>
@@ -118,7 +118,7 @@ export default function GuardianReports() {
         <h1 className="text-2xl font-bold text-app-text">Guardian Report</h1>
         <button
           onClick={handleExport}
-          className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+          className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
         >
           <Download className="h-4 w-4" />
           Export
@@ -130,7 +130,7 @@ export default function GuardianReports() {
           <select
             value={filters.class_id}
             onChange={e => setFilters(f => ({ ...f, class_id: e.target.value, section_id: '' }))}
-            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
           >
             <option value="">All Classes</option>
             {classes.map(c => (
@@ -142,7 +142,7 @@ export default function GuardianReports() {
             value={filters.section_id}
             onChange={e => setFilters(f => ({ ...f, section_id: e.target.value }))}
             disabled={!filters.class_id}
-            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+            className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary disabled:opacity-50"
           >
             <option value="">All Sections</option>
             {sections.map(s => (

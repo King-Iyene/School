@@ -294,7 +294,7 @@ export default function StudentPromote() {
             <select
               value={fromYearId}
               onChange={(e) => { setFromYearId(e.target.value); setStudents([]); setSuccessCount(null); }}
-              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+              className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full"
             >
               <option value="">Select year...</option>
               {academicYears.map((y) => (
@@ -307,7 +307,7 @@ export default function StudentPromote() {
             <select
               value={fromClassId}
               onChange={(e) => { setFromClassId(e.target.value); setStudents([]); setSuccessCount(null); }}
-              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+              className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full"
             >
               <option value="">Select class...</option>
               {classes.map((c) => (
@@ -334,7 +334,7 @@ export default function StudentPromote() {
               <select
                 value={toYearId}
                 onChange={(e) => setToYearId(e.target.value)}
-                className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+                className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full"
               >
                 <option value="">Select year...</option>
                 {academicYears.map((y) => (
@@ -349,7 +349,7 @@ export default function StudentPromote() {
                   value={toClassId}
                   onChange={(e) => setToClassId(e.target.value)}
                   disabled={isGraduating}
-                  className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full disabled:bg-app-surface-alt"
+                  className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full disabled:bg-app-surface-alt"
                 >
                   <option value="">Select class...</option>
                   {classes.map((c) => (
@@ -398,7 +398,7 @@ export default function StudentPromote() {
             <button
               onClick={handlePromote}
               disabled={!canPromote || promoting}
-              className="flex items-center gap-2 px-5 py-2 text-sm font-medium bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl transition-colors disabled:opacity-50"
+              className="flex items-center gap-2 px-5 py-2 text-sm font-medium bg-app-primary hover:opacity-90 text-white rounded-xl transition-colors disabled:opacity-50"
             >
               <ArrowUpCircle size={15} />
               {promoting ? 'Promoting...' : `Promote Selected (${selectedCount})`}
