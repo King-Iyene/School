@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT = 'w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+const INPUT = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
 
 const TARGET_OPTIONS = [
   { label: 'All', value: 'all' },
@@ -17,7 +17,7 @@ const roleColors: Record<string, string> = {
   all: 'bg-emerald-100 text-emerald-700',
   teachers: 'bg-blue-100 text-blue-700',
   students: 'bg-amber-100 text-amber-700',
-  parents: 'bg-slate-100 text-slate-600',
+  parents: 'bg-slate-100 text-app-text-muted',
 };
 
 interface NoticeItem {
@@ -132,8 +132,8 @@ export default function NoticeBoard() {
             <Megaphone className="w-5 h-5 text-emerald-600" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-slate-800">Notice Board</h2>
-            <p className="text-slate-500 text-sm">Post and manage school notices</p>
+            <h2 className="text-xl font-bold text-app-text">Notice Board</h2>
+            <p className="text-app-text-muted text-sm">Post and manage school notices</p>
           </div>
         </div>
         {canManage && (
@@ -147,27 +147,27 @@ export default function NoticeBoard() {
       </div>
 
       {loading ? (
-        <div className="text-center py-12 text-slate-400">Loading...</div>
+        <div className="text-center py-12 text-app-text-muted">Loading...</div>
       ) : notices.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border p-12 text-center">
           <Megaphone className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">No notices yet</p>
-          <p className="text-slate-400 text-sm mt-1">Click "Add Notice" to post one</p>
+          <p className="text-app-text-muted font-medium">No notices yet</p>
+          <p className="text-app-text-muted text-sm mt-1">Click "Add Notice" to post one</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {notices.map(n => {
             const role = getRole(n.target_roles ?? []);
             return (
-              <div key={n.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
+              <div key={n.id} className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-6 flex flex-col">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
                     {canManage && (
-                      <span className={`px-2.5 py-1 rounded-lg text-xs font-semibold capitalize ${roleColors[role] ?? 'bg-slate-100 text-slate-600'}`}>
+                      <span className={`px-2.5 py-1 rounded-lg text-xs font-semibold capitalize ${roleColors[role] ?? 'bg-slate-100 text-app-text-muted'}`}>
                         {role === 'all' ? 'Everyone' : role}
                       </span>
                     )}
-                    <div className="flex items-center gap-1.5 text-slate-400 text-xs font-medium">
+                    <div className="flex items-center gap-1.5 text-app-text-muted text-xs font-medium">
                       <Calendar className="w-3.5 h-3.5" />
                       {n.notice_date ? new Date(n.notice_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '—'}
                     </div>
@@ -175,10 +175,10 @@ export default function NoticeBoard() {
                   
                   {canManage && (
                     <div className="flex items-center gap-0.5 -mt-1.5 -mr-1.5">
-                      <button onClick={() => openEdit(n)} className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
+                      <button onClick={() => openEdit(n)} className="p-1.5 text-app-text-muted hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
                         <Pencil className="w-4 h-4" />
                       </button>
-                      <button onClick={() => handleDelete(n.id)} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
+                      <button onClick={() => handleDelete(n.id)} className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
@@ -186,9 +186,9 @@ export default function NoticeBoard() {
                 </div>
 
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold text-slate-800 mb-2 leading-tight">{n.title}</h3>
+                  <h3 className="text-lg font-bold text-app-text mb-2 leading-tight">{n.title}</h3>
                   {n.description && (
-                    <p className="text-slate-600 text-sm leading-relaxed whitespace-pre-wrap">
+                    <p className="text-app-text-muted text-sm leading-relaxed whitespace-pre-wrap">
                       {n.description}
                     </p>
                   )}
@@ -204,7 +204,7 @@ export default function NoticeBoard() {
           {error && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{error}</div>}
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Title <span className="text-red-500">*</span></label>
+            <label className="block text-sm font-medium text-app-text mb-1">Title <span className="text-red-500">*</span></label>
             <input
               value={form.title}
               onChange={e => setForm({ ...form, title: e.target.value })}
@@ -214,7 +214,7 @@ export default function NoticeBoard() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Message <span className="text-red-500">*</span></label>
+            <label className="block text-sm font-medium text-app-text mb-1">Message <span className="text-red-500">*</span></label>
             <textarea
               value={form.message}
               onChange={e => setForm({ ...form, message: e.target.value })}
@@ -225,11 +225,11 @@ export default function NoticeBoard() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Target Role</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Target Role</label>
             <select
               value={form.target_role}
               onChange={e => setForm({ ...form, target_role: e.target.value })}
-              className={`${INPUT} bg-white`}
+              className={`${INPUT} bg-app-surface`}
             >
               {TARGET_OPTIONS.map(opt => (
                 <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -238,7 +238,7 @@ export default function NoticeBoard() {
           </div>
 
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">
+            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">
               Cancel
             </button>
             <button

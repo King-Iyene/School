@@ -13,7 +13,7 @@ interface FeesDiscount {
 }
 
 const INPUT_CLASS =
-  'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 const EMPTY_FORM: Omit<FeesDiscount, 'id'> = {
   name: '',
@@ -111,7 +111,7 @@ export default function FeesDiscount() {
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-slate-800">Fees Discount</h1>
+        <h1 className="text-2xl font-bold text-app-text">Fees Discount</h1>
         <button
           onClick={openCreate}
           className="bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
@@ -120,18 +120,18 @@ export default function FeesDiscount() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {loading ? (
-          <div className="flex items-center justify-center py-16 text-slate-400 text-sm">Loading...</div>
+          <div className="flex items-center justify-center py-16 text-app-text-muted text-sm">Loading...</div>
         ) : discounts.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-slate-400">
+          <div className="flex flex-col items-center justify-center py-16 text-app-text-muted">
             <span className="text-4xl mb-3">🏷️</span>
             <p className="text-sm">No discounts found. Add your first discount.</p>
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
+              <tr className="bg-app-surface-alt text-app-text-muted text-xs uppercase tracking-wider">
                 <th className="px-4 py-3 text-left font-medium">Name</th>
                 <th className="px-4 py-3 text-left font-medium">Code</th>
                 <th className="px-4 py-3 text-left font-medium">Type</th>
@@ -140,11 +140,11 @@ export default function FeesDiscount() {
                 <th className="px-4 py-3 text-right font-medium">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {discounts.map((d) => (
-                <tr key={d.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-4 py-3 font-medium text-slate-800">{d.name}</td>
-                  <td className="px-4 py-3 font-mono text-xs text-slate-600">{d.discount_code}</td>
+                <tr key={d.id} className="hover:bg-app-surface-alt transition-colors">
+                  <td className="px-4 py-3 font-medium text-app-text">{d.name}</td>
+                  <td className="px-4 py-3 font-mono text-xs text-app-text-muted">{d.discount_code}</td>
                   <td className="px-4 py-3">
                     <span
                       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${
@@ -157,7 +157,7 @@ export default function FeesDiscount() {
                     </span>
                   </td>
                   <td className="px-4 py-3 font-medium text-emerald-600">{formatValue(d)}</td>
-                  <td className="px-4 py-3 text-slate-500 max-w-xs truncate">{d.description}</td>
+                  <td className="px-4 py-3 text-app-text-muted max-w-xs truncate">{d.description}</td>
                   <td className="px-4 py-3 text-right space-x-2">
                     <button
                       onClick={() => openEdit(d)}
@@ -183,7 +183,7 @@ export default function FeesDiscount() {
         <div className="space-y-4">
           {error && <p className="text-red-500 text-sm bg-red-50 rounded-xl px-3 py-2">{error}</p>}
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Name</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Name</label>
             <input
               className={INPUT_CLASS}
               value={form.name}
@@ -193,7 +193,7 @@ export default function FeesDiscount() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Discount Code</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Discount Code</label>
               <input
                 className={INPUT_CLASS}
                 value={form.discount_code}
@@ -202,7 +202,7 @@ export default function FeesDiscount() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Discount Type</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Discount Type</label>
               <select
                 className={INPUT_CLASS}
                 value={form.discount_type}
@@ -214,7 +214,7 @@ export default function FeesDiscount() {
             </div>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">
+            <label className="block text-xs font-medium text-app-text-muted mb-1">
               Discount Value {form.discount_type === 'percentage' ? '(%)' : '(₦)'}
             </label>
             <input
@@ -228,7 +228,7 @@ export default function FeesDiscount() {
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Description</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Description</label>
             <textarea
               className={INPUT_CLASS}
               rows={3}
@@ -240,7 +240,7 @@ export default function FeesDiscount() {
           <div className="flex justify-end gap-2 pt-2">
             <button
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2.5 text-sm text-slate-600 hover:text-slate-800 font-medium rounded-xl hover:bg-slate-100 transition-colors"
+              className="px-4 py-2.5 text-sm text-app-text-muted hover:text-app-text font-medium rounded-xl hover:bg-slate-100 transition-colors"
             >
               Cancel
             </button>
@@ -257,13 +257,13 @@ export default function FeesDiscount() {
 
       <Modal isOpen={deleteModalOpen} onClose={() => setDeleteModalOpen(false)} title="Delete Discount">
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">
-            Are you sure you want to delete <span className="font-semibold text-slate-800">{deleteTarget?.name}</span>? This action cannot be undone.
+          <p className="text-sm text-app-text-muted">
+            Are you sure you want to delete <span className="font-semibold text-app-text">{deleteTarget?.name}</span>? This action cannot be undone.
           </p>
           <div className="flex justify-end gap-2">
             <button
               onClick={() => setDeleteModalOpen(false)}
-              className="px-4 py-2.5 text-sm text-slate-600 hover:text-slate-800 font-medium rounded-xl hover:bg-slate-100 transition-colors"
+              className="px-4 py-2.5 text-sm text-app-text-muted hover:text-app-text font-medium rounded-xl hover:bg-slate-100 transition-colors"
             >
               Cancel
             </button>

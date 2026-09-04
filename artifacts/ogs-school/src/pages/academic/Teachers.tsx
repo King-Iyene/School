@@ -147,25 +147,25 @@ export default function Teachers() {
     <div className="space-y-5">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Teachers</h2>
-          <p className="text-slate-500 text-sm">{totalCount || teachers.length} teacher{(totalCount || teachers.length) !== 1 ? 's' : ''} on staff</p>
+          <h2 className="text-xl font-bold text-app-text">Teachers</h2>
+          <p className="text-app-text-muted text-sm">{totalCount || teachers.length} teacher{(totalCount || teachers.length) !== 1 ? 's' : ''} on staff</p>
         </div>
         <button
           onClick={handlePrintAll}
-          className="flex items-center gap-2 border border-slate-200 text-slate-600 hover:bg-slate-50 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors"
+          className="flex items-center gap-2 border border-app-border text-app-text-muted hover:bg-app-surface-alt px-4 py-2.5 rounded-xl text-sm font-medium transition-colors"
         >
           <Printer className="w-4 h-4" /> Print ID Cards ({filtered.length})
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 flex flex-wrap gap-3 items-center">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 flex flex-wrap gap-3 items-center">
         <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
           <input
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Search by name, staff ID, or email..."
-            className="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="w-full pl-9 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
           />
         </div>
         {departments.length > 0 && (
@@ -173,25 +173,25 @@ export default function Teachers() {
             <select
               value={deptFilter}
               onChange={e => setDeptFilter(e.target.value)}
-              className="appearance-none border border-slate-200 rounded-xl px-3 py-2.5 pr-8 text-sm focus:outline-none bg-white text-slate-700"
+              className="appearance-none border border-app-border rounded-xl px-3 py-2.5 pr-8 text-sm focus:outline-none bg-app-surface text-app-text"
             >
               <option value="">All Departments</option>
               {departments.map(d => <option key={d} value={d}>{d}</option>)}
             </select>
-            <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+            <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted pointer-events-none" />
           </div>
         )}
       </div>
 
       {loading ? (
-        <div className="text-center py-16 text-slate-400">Loading teachers...</div>
+        <div className="text-center py-16 text-app-text-muted">Loading teachers...</div>
       ) : filtered.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-12 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-12 text-center">
           <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Users className="w-8 h-8 text-slate-400" />
+            <Users className="w-8 h-8 text-app-text-muted" />
           </div>
-          <p className="text-slate-600 font-medium">{search || deptFilter ? 'No teachers match your filters' : 'No teachers found'}</p>
-          <p className="text-slate-400 text-sm mt-1">Teachers are managed through the Users section</p>
+          <p className="text-app-text-muted font-medium">{search || deptFilter ? 'No teachers match your filters' : 'No teachers found'}</p>
+          <p className="text-app-text-muted text-sm mt-1">Teachers are managed through the Users section</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -208,25 +208,25 @@ export default function Teachers() {
 
       {/* Pagination UI */}
       {!loading && totalCount > pageSize && (
-        <div className="flex items-center justify-between bg-white px-4 py-3 rounded-2xl border border-slate-200 shadow-sm mt-6">
-          <div className="text-sm text-slate-500">
+        <div className="flex items-center justify-between bg-app-surface px-4 py-3 rounded-2xl border border-app-border shadow-sm mt-6">
+          <div className="text-sm text-app-text-muted">
             Showing {(currentPage - 1) * pageSize + 1} to {Math.min(currentPage * pageSize, totalCount)} of {totalCount} teacher{totalCount !== 1 ? 's' : ''}
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="px-4 py-2 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 disabled:opacity-50 transition-colors"
+              className="px-4 py-2 border border-app-border rounded-xl text-sm font-medium text-app-text-muted hover:bg-app-surface-alt disabled:opacity-50 transition-colors"
             >
               Previous
             </button>
-            <div className="text-sm font-medium text-slate-600 px-2">
+            <div className="text-sm font-medium text-app-text-muted px-2">
               Page {currentPage} of {Math.ceil(totalCount / pageSize)}
             </div>
             <button
               onClick={() => setCurrentPage(p => Math.min(Math.ceil(totalCount / pageSize), p + 1))}
               disabled={currentPage === Math.ceil(totalCount / pageSize)}
-              className="px-4 py-2 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 disabled:opacity-50 transition-colors"
+              className="px-4 py-2 border border-app-border rounded-xl text-sm font-medium text-app-text-muted hover:bg-app-surface-alt disabled:opacity-50 transition-colors"
             >
               Next
             </button>
@@ -241,15 +241,15 @@ function TeacherCard({ teacher: t, onView, onPrint }: { teacher: Teacher; onView
   const initials = `${t.first_name?.[0] ?? ''}${t.last_name?.[0] ?? ''}`.toUpperCase();
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow group">
+    <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden hover:shadow-md transition-shadow group">
       <div className="h-2 bg-gradient-to-r from-emerald-600 to-teal-500" />
       <div className="p-5">
         <div className="flex items-start gap-4">
           <div className="shrink-0">
             {t.avatar_url ? (
-              <img src={t.avatar_url} alt={`${t.first_name} ${t.last_name}`} className="w-16 h-16 rounded-xl object-cover border-2 border-slate-100" />
+              <img src={t.avatar_url} alt={`${t.first_name} ${t.last_name}`} className="w-16 h-16 rounded-xl object-cover border-2 border-app-border" />
             ) : (
-              <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-emerald-100 to-teal-100 flex items-center justify-center border-2 border-slate-100">
+              <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-emerald-100 to-teal-100 flex items-center justify-center border-2 border-app-border">
                 <span className="text-xl font-bold text-emerald-700">{initials}</span>
               </div>
             )}
@@ -257,59 +257,59 @@ function TeacherCard({ teacher: t, onView, onPrint }: { teacher: Teacher; onView
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-2">
               <div>
-                <h3 className="font-semibold text-slate-800 leading-snug">{t.first_name} {t.last_name}</h3>
+                <h3 className="font-semibold text-app-text leading-snug">{t.first_name} {t.last_name}</h3>
                 {t.staff_id && (
                   <div className="flex items-center gap-1 mt-0.5">
                     <BadgeCheck className="w-3.5 h-3.5 text-emerald-500" />
-                    <span className="text-xs font-mono text-slate-500">{t.staff_id}</span>
+                    <span className="text-xs font-mono text-app-text-muted">{t.staff_id}</span>
                   </div>
                 )}
               </div>
-              <span className={`text-xs font-medium px-2 py-0.5 rounded-full shrink-0 ${t.is_active !== false ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500'}`}>
+              <span className={`text-xs font-medium px-2 py-0.5 rounded-full shrink-0 ${t.is_active !== false ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-app-text-muted'}`}>
                 {t.is_active !== false ? 'Active' : 'Inactive'}
               </span>
             </div>
             {t.department && (
-              <p className="text-xs text-slate-500 mt-1 font-medium">{t.department}</p>
+              <p className="text-xs text-app-text-muted mt-1 font-medium">{t.department}</p>
             )}
             {t.employment_type && (
-              <p className="text-xs text-slate-400 capitalize">{t.employment_type.replace('_', ' ')}</p>
+              <p className="text-xs text-app-text-muted capitalize">{t.employment_type.replace('_', ' ')}</p>
             )}
           </div>
         </div>
 
         <div className="mt-4 space-y-1.5">
           {t.email && (
-            <div className="flex items-center gap-2 text-xs text-slate-500">
-              <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            <div className="flex items-center gap-2 text-xs text-app-text-muted">
+              <Mail className="w-3.5 h-3.5 text-app-text-muted shrink-0" />
               <span className="truncate">{t.email}</span>
             </div>
           )}
           {t.phone && (
-            <div className="flex items-center gap-2 text-xs text-slate-500">
-              <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            <div className="flex items-center gap-2 text-xs text-app-text-muted">
+              <Phone className="w-3.5 h-3.5 text-app-text-muted shrink-0" />
               <span>{t.phone}</span>
             </div>
           )}
         </div>
 
         {(t.subject_count !== undefined || t.class_count !== undefined) && (
-          <div className="mt-4 pt-4 border-t border-slate-100 flex items-center gap-4">
+          <div className="mt-4 pt-4 border-t border-app-border flex items-center gap-4">
             <div className="text-center">
-              <p className="text-lg font-bold text-slate-800">{t.subject_count ?? 0}</p>
-              <p className="text-xs text-slate-400">Subjects</p>
+              <p className="text-lg font-bold text-app-text">{t.subject_count ?? 0}</p>
+              <p className="text-xs text-app-text-muted">Subjects</p>
             </div>
             <div className="h-8 w-px bg-slate-100" />
             <div className="text-center">
-              <p className="text-lg font-bold text-slate-800">{t.class_count ?? 0}</p>
-              <p className="text-xs text-slate-400">Classes</p>
+              <p className="text-lg font-bold text-app-text">{t.class_count ?? 0}</p>
+              <p className="text-xs text-app-text-muted">Classes</p>
             </div>
             {t.join_date && (
               <>
                 <div className="h-8 w-px bg-slate-100" />
                 <div className="text-center">
-                  <p className="text-xs font-semibold text-slate-700">{new Date(t.join_date).getFullYear()}</p>
-                  <p className="text-xs text-slate-400">Joined</p>
+                  <p className="text-xs font-semibold text-app-text">{new Date(t.join_date).getFullYear()}</p>
+                  <p className="text-xs text-app-text-muted">Joined</p>
                 </div>
               </>
             )}
@@ -319,13 +319,13 @@ function TeacherCard({ teacher: t, onView, onPrint }: { teacher: Teacher; onView
         <div className="mt-4 flex gap-2">
           <button
             onClick={onView}
-            className="flex-1 flex items-center justify-center gap-1.5 text-sm text-slate-600 border border-slate-200 hover:bg-slate-50 py-2 rounded-xl transition-colors font-medium"
+            className="flex-1 flex items-center justify-center gap-1.5 text-sm text-app-text-muted border border-app-border hover:bg-app-surface-alt py-2 rounded-xl transition-colors font-medium"
           >
             <Eye className="w-4 h-4" /> View Profile
           </button>
           <button
             onClick={onPrint}
-            className="flex items-center justify-center gap-1.5 text-sm text-slate-600 border border-slate-200 hover:bg-slate-50 px-3 py-2 rounded-xl transition-colors"
+            className="flex items-center justify-center gap-1.5 text-sm text-app-text-muted border border-app-border hover:bg-app-surface-alt px-3 py-2 rounded-xl transition-colors"
             title="Print ID Card"
           >
             <Printer className="w-4 h-4" />

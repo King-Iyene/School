@@ -39,7 +39,7 @@ interface Holiday {
 }
 
 const INPUT_CLASS =
-  'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 const EMPTY_FORM = {
   name: '',
@@ -53,7 +53,7 @@ const TYPE_COLORS: Record<string, string> = {
   Public: 'bg-blue-100 text-blue-700',
   Religious: 'bg-purple-100 text-purple-700',
   School: 'bg-emerald-100 text-emerald-700',
-  Other: 'bg-slate-100 text-slate-700',
+  Other: 'bg-slate-100 text-app-text',
 };
 
 function daysBetween(start: string, end: string | null): number {
@@ -210,7 +210,7 @@ export default function Holiday() {
           <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
             <CalendarDays className="w-5 h-5 text-emerald-600" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-800">Holiday Calendar</h1>
+          <h1 className="text-2xl font-bold text-app-text">Holiday Calendar</h1>
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -239,9 +239,9 @@ export default function Holiday() {
         </div>
       )}
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4">
         <div className="flex items-center gap-3">
-          <label className="text-xs font-medium text-slate-600 whitespace-nowrap">Academic Year</label>
+          <label className="text-xs font-medium text-app-text-muted whitespace-nowrap">Academic Year</label>
           <select
             className={`${INPUT_CLASS} max-w-xs`}
             value={selectedYear}
@@ -255,18 +255,18 @@ export default function Holiday() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {loading ? (
-          <div className="flex items-center justify-center py-16 text-slate-400 text-sm">Loading holidays...</div>
+          <div className="flex items-center justify-center py-16 text-app-text-muted text-sm">Loading holidays...</div>
         ) : holidays.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-slate-400">
+          <div className="flex flex-col items-center justify-center py-16 text-app-text-muted">
             <CalendarDays className="w-10 h-10 mb-3 opacity-30" />
             <p className="text-sm">No holidays found for this academic year.</p>
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
+              <tr className="bg-app-surface-alt text-app-text-muted text-xs uppercase tracking-wider">
                 <th className="px-4 py-3 text-left font-medium">Name</th>
                 <th className="px-4 py-3 text-left font-medium">Date Range</th>
                 <th className="px-4 py-3 text-left font-medium">Type</th>
@@ -275,14 +275,14 @@ export default function Holiday() {
                 <th className="px-4 py-3 text-right font-medium">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {holidays.map((h) => (
-                <tr key={h.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-4 py-3 font-medium text-slate-800">{h.name}</td>
-                  <td className="px-4 py-3 text-slate-600">
+                <tr key={h.id} className="hover:bg-app-surface-alt transition-colors">
+                  <td className="px-4 py-3 font-medium text-app-text">{h.name}</td>
+                  <td className="px-4 py-3 text-app-text-muted">
                     {h.holiday_date}
                     {h.end_date && h.end_date !== h.holiday_date && (
-                      <span className="text-slate-400"> — {h.end_date}</span>
+                      <span className="text-app-text-muted"> — {h.end_date}</span>
                     )}
                   </td>
                   <td className="px-4 py-3">
@@ -290,10 +290,10 @@ export default function Holiday() {
                       {h.holiday_type}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-slate-600">
+                  <td className="px-4 py-3 text-app-text-muted">
                     {daysBetween(h.holiday_date, h.end_date)} {daysBetween(h.holiday_date, h.end_date) === 1 ? 'day' : 'days'}
                   </td>
-                  <td className="px-4 py-3 text-slate-500 max-w-xs truncate">{h.description || '—'}</td>
+                  <td className="px-4 py-3 text-app-text-muted max-w-xs truncate">{h.description || '—'}</td>
                   <td className="px-4 py-3 text-right space-x-2">
                     <button
                       onClick={() => openEdit(h)}
@@ -321,7 +321,7 @@ export default function Holiday() {
         <div className="space-y-4">
           {error && <p className="text-red-500 text-sm bg-red-50 rounded-xl px-3 py-2">{error}</p>}
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Holiday Name</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Holiday Name</label>
             <input
               className={INPUT_CLASS}
               value={form.name}
@@ -331,7 +331,7 @@ export default function Holiday() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Start Date</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Start Date</label>
               <input
                 type="date"
                 className={INPUT_CLASS}
@@ -340,7 +340,7 @@ export default function Holiday() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">End Date (optional)</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">End Date (optional)</label>
               <input
                 type="date"
                 className={INPUT_CLASS}
@@ -350,7 +350,7 @@ export default function Holiday() {
             </div>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Holiday Type</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Holiday Type</label>
             <select
               className={INPUT_CLASS}
               value={form.holiday_type}
@@ -363,7 +363,7 @@ export default function Holiday() {
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Description</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Description</label>
             <textarea
               className={INPUT_CLASS}
               rows={3}
@@ -375,7 +375,7 @@ export default function Holiday() {
           <div className="flex justify-end gap-2 pt-2">
             <button
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2.5 text-sm text-slate-600 hover:text-slate-800 font-medium rounded-xl hover:bg-slate-100 transition-colors"
+              className="px-4 py-2.5 text-sm text-app-text-muted hover:text-app-text font-medium rounded-xl hover:bg-slate-100 transition-colors"
             >
               Cancel
             </button>
@@ -392,14 +392,14 @@ export default function Holiday() {
 
       <Modal isOpen={deleteModalOpen} onClose={() => setDeleteModalOpen(false)} title="Delete Holiday">
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-app-text-muted">
             Are you sure you want to delete{' '}
-            <span className="font-semibold text-slate-800">{deleteTarget?.name}</span>? This action cannot be undone.
+            <span className="font-semibold text-app-text">{deleteTarget?.name}</span>? This action cannot be undone.
           </p>
           <div className="flex justify-end gap-2">
             <button
               onClick={() => setDeleteModalOpen(false)}
-              className="px-4 py-2.5 text-sm text-slate-600 hover:text-slate-800 font-medium rounded-xl hover:bg-slate-100 transition-colors"
+              className="px-4 py-2.5 text-sm text-app-text-muted hover:text-app-text font-medium rounded-xl hover:bg-slate-100 transition-colors"
             >
               Cancel
             </button>

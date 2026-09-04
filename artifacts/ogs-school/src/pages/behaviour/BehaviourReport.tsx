@@ -106,28 +106,28 @@ export default function BehaviourReport() {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-xl font-bold text-slate-800">Behaviour Report</h2>
-        <p className="text-sm text-slate-500 hidden sm:block">Overview of behaviour incidents across the school</p>
+        <h2 className="text-xl font-bold text-app-text">Behaviour Report</h2>
+        <p className="text-sm text-app-text-muted hidden sm:block">Overview of behaviour incidents across the school</p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+      <div className="bg-app-surface rounded-2xl shadow-sm border border-app-border p-5">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-end gap-3">
           <div className="flex-1">
-            <label className="block text-sm font-medium text-slate-700 mb-1">From Date</label>
+            <label className="block text-sm font-medium text-app-text mb-1">From Date</label>
             <input
               type="date"
               value={dateFrom}
               onChange={e => setDateFrom(e.target.value)}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+              className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
             />
           </div>
           <div className="flex-1">
-            <label className="block text-sm font-medium text-slate-700 mb-1">To Date</label>
+            <label className="block text-sm font-medium text-app-text mb-1">To Date</label>
             <input
               type="date"
               value={dateTo}
               onChange={e => setDateTo(e.target.value)}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+              className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
             />
           </div>
           <button
@@ -147,38 +147,38 @@ export default function BehaviourReport() {
       ) : (
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
+            <div className="bg-app-surface rounded-2xl shadow-sm border border-app-border p-4">
               <div className="flex items-center gap-2 mb-2">
                 <div className="p-1.5 bg-emerald-100 rounded-lg"><FileBarChart size={16} className="text-emerald-600" /></div>
-                <span className="text-xs font-medium text-slate-600">Total Incidents</span>
+                <span className="text-xs font-medium text-app-text-muted">Total Incidents</span>
               </div>
-              <p className="text-3xl font-bold text-slate-800">{stats.total}</p>
+              <p className="text-3xl font-bold text-app-text">{stats.total}</p>
             </div>
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
+            <div className="bg-app-surface rounded-2xl shadow-sm border border-app-border p-4">
               <div className="flex items-center gap-2 mb-2">
                 <div className="p-1.5 bg-amber-100 rounded-lg"><Clock size={16} className="text-amber-600" /></div>
-                <span className="text-xs font-medium text-slate-600">Pending</span>
+                <span className="text-xs font-medium text-app-text-muted">Pending</span>
               </div>
               <p className="text-3xl font-bold text-amber-700">{stats.pending}</p>
             </div>
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
+            <div className="bg-app-surface rounded-2xl shadow-sm border border-app-border p-4">
               <div className="flex items-center gap-2 mb-2">
                 <div className="p-1.5 bg-emerald-100 rounded-lg"><CheckCircle size={16} className="text-emerald-600" /></div>
-                <span className="text-xs font-medium text-slate-600">Resolved</span>
+                <span className="text-xs font-medium text-app-text-muted">Resolved</span>
               </div>
               <p className="text-3xl font-bold text-emerald-700">{stats.resolved}</p>
             </div>
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
+            <div className="bg-app-surface rounded-2xl shadow-sm border border-app-border p-4">
               <div className="flex items-center gap-2 mb-2">
                 <div className="p-1.5 bg-red-100 rounded-lg"><ArrowUpCircle size={16} className="text-red-600" /></div>
-                <span className="text-xs font-medium text-slate-600">Escalated</span>
+                <span className="text-xs font-medium text-app-text-muted">Escalated</span>
               </div>
               <p className="text-3xl font-bold text-red-700">{stats.escalated}</p>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
-            <h3 className="text-base font-semibold text-slate-800 mb-4 flex items-center gap-2">
+          <div className="bg-app-surface rounded-2xl shadow-sm border border-app-border p-5">
+            <h3 className="text-base font-semibold text-app-text mb-4 flex items-center gap-2">
               <BarChart2 size={18} className="text-emerald-600" /> Incidents by Severity
             </h3>
             <div className="space-y-3">
@@ -194,7 +194,7 @@ export default function BehaviourReport() {
                     {stats.minor > 0 && <span className="text-xs text-white font-medium">{stats.minor}</span>}
                   </div>
                 </div>
-                <span className="w-7 text-right text-sm text-slate-600 font-medium shrink-0">{stats.minor}</span>
+                <span className="w-7 text-right text-sm text-app-text-muted font-medium shrink-0">{stats.minor}</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-20 flex items-center gap-1 text-xs text-amber-700 font-medium shrink-0">
@@ -208,7 +208,7 @@ export default function BehaviourReport() {
                     {stats.moderate > 0 && <span className="text-xs text-white font-medium">{stats.moderate}</span>}
                   </div>
                 </div>
-                <span className="w-7 text-right text-sm text-slate-600 font-medium shrink-0">{stats.moderate}</span>
+                <span className="w-7 text-right text-sm text-app-text-muted font-medium shrink-0">{stats.moderate}</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-20 flex items-center gap-1 text-xs text-red-700 font-medium shrink-0">
@@ -222,46 +222,46 @@ export default function BehaviourReport() {
                     {stats.major > 0 && <span className="text-xs text-white font-medium">{stats.major}</span>}
                   </div>
                 </div>
-                <span className="w-7 text-right text-sm text-slate-600 font-medium shrink-0">{stats.major}</span>
+                <span className="w-7 text-right text-sm text-app-text-muted font-medium shrink-0">{stats.major}</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-            <div className="px-5 py-4 border-b border-slate-100">
-              <h3 className="text-base font-semibold text-slate-800">Student Incident Summary</h3>
+          <div className="bg-app-surface rounded-2xl shadow-sm border border-app-border overflow-hidden">
+            <div className="px-5 py-4 border-b border-app-border">
+              <h3 className="text-base font-semibold text-app-text">Student Incident Summary</h3>
             </div>
             {studentRows.length === 0 ? (
-              <div className="text-center py-12 text-slate-400">
+              <div className="text-center py-12 text-app-text-muted">
                 <FileBarChart size={36} className="mx-auto mb-2 text-slate-300" />
                 <p>No incident data for the selected date range</p>
               </div>
             ) : (
               <div className="overflow-x-auto">
-                <table className="w-full divide-y divide-slate-100 min-w-[480px]">
-                  <thead className="bg-slate-50">
+                <table className="w-full divide-y divide-app-border min-w-[480px]">
+                  <thead className="bg-app-surface-alt">
                     <tr>
-                      <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Student</th>
-                      <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Class</th>
-                      <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Incidents</th>
-                      <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Last Incident</th>
-                      <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Status</th>
+                      <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase">Student</th>
+                      <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase">Class</th>
+                      <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase">Incidents</th>
+                      <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase">Last Incident</th>
+                      <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase">Status</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-app-border">
                     {studentRows.map((row, idx) => (
-                      <tr key={idx} className="hover:bg-slate-50 transition-colors">
+                      <tr key={idx} className="hover:bg-app-surface-alt transition-colors">
                         <td className="px-5 py-3.5">
-                          <p className="text-sm font-medium text-slate-800">{row.student_name}</p>
-                          <p className="text-xs text-slate-400">{row.student_id}</p>
+                          <p className="text-sm font-medium text-app-text">{row.student_name}</p>
+                          <p className="text-xs text-app-text-muted">{row.student_id}</p>
                         </td>
-                        <td className="px-5 py-3.5 text-sm text-slate-600">{row.class_name}</td>
+                        <td className="px-5 py-3.5 text-sm text-app-text-muted">{row.class_name}</td>
                         <td className="px-5 py-3.5">
                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">
                             {row.incident_count}
                           </span>
                         </td>
-                        <td className="px-5 py-3.5 text-sm text-slate-600">{new Date(row.last_incident).toLocaleDateString()}</td>
+                        <td className="px-5 py-3.5 text-sm text-app-text-muted">{new Date(row.last_incident).toLocaleDateString()}</td>
                         <td className="px-5 py-3.5">{statusBadge(row.latest_status)}</td>
                       </tr>
                     ))}

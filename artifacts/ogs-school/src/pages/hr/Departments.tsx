@@ -21,7 +21,7 @@ CREATE POLICY "school_access" ON departments
 -- Add department column to staff profiles:
 ALTER TABLE profiles ADD COLUMN IF NOT EXISTS department text;`;
 
-const ic = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white';
+const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
 
 interface Department {
   id: string; name: string; description: string | null; hod_id: string | null;
@@ -141,8 +141,8 @@ export default function Departments() {
     <div className="p-6 space-y-5 max-w-5xl mx-auto">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold text-slate-800">Departments</h1>
-          <p className="text-sm text-slate-500 mt-0.5">
+          <h1 className="text-xl font-bold text-app-text">Departments</h1>
+          <p className="text-sm text-app-text-muted mt-0.5">
             {isAdmin ? 'Manage school departments, assign HODs, and organise staff' : 'View your department and team'}
           </p>
         </div>
@@ -169,38 +169,38 @@ export default function Departments() {
 
       {/* Staff: My Department card */}
       {!isAdmin && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3">
-          <h2 className="font-semibold text-slate-700 flex items-center gap-2 text-sm"><Building2 size={15} className="text-emerald-600" /> My Department</h2>
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5 space-y-3">
+          <h2 className="font-semibold text-app-text flex items-center gap-2 text-sm"><Building2 size={15} className="text-emerald-600" /> My Department</h2>
           {!myDept ? (
-            <p className="text-sm text-slate-400">You have not been assigned to a department yet. Contact your administrator.</p>
+            <p className="text-sm text-app-text-muted">You have not been assigned to a department yet. Contact your administrator.</p>
           ) : (
             <>
               <div>
-                <p className="text-lg font-bold text-slate-800">{myDept.name}</p>
-                {myDept.description && <p className="text-sm text-slate-500">{myDept.description}</p>}
+                <p className="text-lg font-bold text-app-text">{myDept.name}</p>
+                {myDept.description && <p className="text-sm text-app-text-muted">{myDept.description}</p>}
                 {myDept.hod && (
                   <div className="flex items-center gap-2 mt-2">
                     <Crown size={14} className="text-amber-500" />
-                    <span className="text-sm text-slate-600 font-medium">
+                    <span className="text-sm text-app-text-muted font-medium">
                       HOD: {myDept.hod.first_name} {myDept.hod.last_name}
                     </span>
                   </div>
                 )}
               </div>
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Department Members ({myDeptMembers.length})</p>
+                <p className="text-xs font-semibold text-app-text-muted uppercase tracking-wide mb-2">Department Members ({myDeptMembers.length})</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {myDeptMembers.map(s => (
-                    <div key={s.id} className="flex items-center gap-2 p-2 rounded-xl bg-slate-50">
+                    <div key={s.id} className="flex items-center gap-2 p-2 rounded-xl bg-app-surface-alt">
                       <div className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center text-xs font-bold text-emerald-700 flex-shrink-0">
                         {s.first_name[0]}{s.last_name[0]}
                       </div>
                       <div className="min-w-0">
-                        <p className="text-sm font-medium text-slate-700 truncate">
+                        <p className="text-sm font-medium text-app-text truncate">
                           {s.first_name} {s.last_name}
                           {myDept.hod_id === s.id && <Crown size={11} className="inline ml-1 text-amber-500" />}
                         </p>
-                        <p className="text-xs text-slate-400 capitalize">{s.role.replace('_', ' ')}</p>
+                        <p className="text-xs text-app-text-muted capitalize">{s.role.replace('_', ' ')}</p>
                       </div>
                     </div>
                   ))}
@@ -212,11 +212,11 @@ export default function Departments() {
       )}
 
       {loading ? (
-        <div className="flex items-center gap-2 text-slate-500 py-8">
+        <div className="flex items-center gap-2 text-app-text-muted py-8">
           <div className="w-5 h-5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" /> Loading…
         </div>
       ) : departments.length === 0 && !showSql ? (
-        <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center text-slate-400">
+        <div className="bg-app-surface rounded-2xl border border-app-border p-12 text-center text-app-text-muted">
           <Building2 size={32} className="mx-auto mb-3 opacity-30" />
           <p className="text-sm">No departments yet.</p>
           {isAdmin && <p className="text-xs mt-1">Create your first department above.</p>}
@@ -227,15 +227,15 @@ export default function Departments() {
             const dMembers = getDeptMembers(d.name);
             const isExpanded = expandedId === d.id;
             return (
-              <div key={d.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+              <div key={d.id} className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
                 <div className="flex items-center gap-4 p-4 cursor-pointer" onClick={() => setExpandedId(isExpanded ? null : d.id)}>
                   <div className="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
                     <Building2 size={16} className="text-emerald-600" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-semibold text-slate-800">{d.name}</span>
-                      <span className="text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">{dMembers.length} staff</span>
+                      <span className="font-semibold text-app-text">{d.name}</span>
+                      <span className="text-xs text-app-text-muted bg-slate-100 px-2 py-0.5 rounded-full">{dMembers.length} staff</span>
                     </div>
                     <div className="flex items-center gap-3 mt-0.5 flex-wrap">
                       {d.hod ? (
@@ -243,16 +243,16 @@ export default function Departments() {
                           <Crown size={11} /> HOD: {d.hod.first_name} {d.hod.last_name}
                         </span>
                       ) : (
-                        <span className="text-xs text-slate-400">No HOD assigned</span>
+                        <span className="text-xs text-app-text-muted">No HOD assigned</span>
                       )}
-                      {d.description && <span className="text-xs text-slate-400 truncate max-w-xs">{d.description}</span>}
+                      {d.description && <span className="text-xs text-app-text-muted truncate max-w-xs">{d.description}</span>}
                     </div>
                   </div>
                   <div className="flex items-center gap-1 flex-shrink-0" onClick={e => e.stopPropagation()}>
                     <button onClick={() => openEdit(d)}
-                      className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg"><Edit2 size={14} /></button>
+                      className="p-1.5 text-app-text-muted hover:text-app-text hover:bg-slate-100 rounded-lg"><Edit2 size={14} /></button>
                     <button onClick={() => { setStaffSearch(''); setAssignStaffModal(d); }}
-                      className="flex items-center gap-1 px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium">
+                      className="flex items-center gap-1 px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-app-text rounded-lg text-xs font-medium">
                       <Users size={12} /> Assign Staff
                     </button>
                     <button onClick={() => deleteDepartment(d.id)}
@@ -262,22 +262,22 @@ export default function Departments() {
                 </div>
 
                 {isExpanded && (
-                  <div className="border-t border-slate-100 p-4">
+                  <div className="border-t border-app-border p-4">
                     {dMembers.length === 0 ? (
-                      <p className="text-xs text-slate-400">No staff assigned. Click "Assign Staff" to add members.</p>
+                      <p className="text-xs text-app-text-muted">No staff assigned. Click "Assign Staff" to add members.</p>
                     ) : (
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                         {dMembers.map(s => (
-                          <div key={s.id} className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 group">
+                          <div key={s.id} className="flex items-center gap-2 p-2.5 rounded-xl bg-app-surface-alt group">
                             <div className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center text-xs font-bold text-emerald-700 flex-shrink-0">
                               {s.first_name[0]}{s.last_name[0]}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-slate-700 truncate">
+                              <p className="text-sm font-medium text-app-text truncate">
                                 {s.first_name} {s.last_name}
                                 {d.hod_id === s.id && <Crown size={11} className="inline ml-1 text-amber-500" title="HOD" />}
                               </p>
-                              <p className="text-xs text-slate-400 capitalize">{s.role.replace('_', ' ')}</p>
+                              <p className="text-xs text-app-text-muted capitalize">{s.role.replace('_', ' ')}</p>
                             </div>
                             <button onClick={() => removeFromDept(s.id)}
                               className="p-1 text-red-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity rounded">
@@ -299,15 +299,15 @@ export default function Departments() {
       <Modal isOpen={createModal || !!editModal} onClose={() => { setCreateModal(false); setEditModal(null); }} title={editModal ? 'Edit Department' : 'Create Department'}>
         <div className="space-y-4 p-1">
           <div>
-            <label className="text-xs text-slate-500 mb-1 block">Department Name *</label>
+            <label className="text-xs text-app-text-muted mb-1 block">Department Name *</label>
             <input className={ic} value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="e.g. Mathematics, English Language, Science" />
           </div>
           <div>
-            <label className="text-xs text-slate-500 mb-1 block">Description</label>
+            <label className="text-xs text-app-text-muted mb-1 block">Description</label>
             <textarea className={ic} rows={2} value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} placeholder="Brief description (optional)" />
           </div>
           <div>
-            <label className="text-xs text-slate-500 mb-1 block">Head of Department (HOD)</label>
+            <label className="text-xs text-app-text-muted mb-1 block">Head of Department (HOD)</label>
             {form.hod_id ? (
               <div className="flex items-center gap-2 px-3 py-2 bg-emerald-50 border border-emerald-200 rounded-xl text-sm text-emerald-800">
                 <Crown size={13} className="text-amber-500 flex-shrink-0" />
@@ -316,33 +316,33 @@ export default function Departments() {
                   {staff.find(s => s.id === form.hod_id)?.last_name}
                 </span>
                 <button type="button" onClick={() => { setForm(f => ({ ...f, hod_id: '' })); setHodSearch(''); }}
-                  className="text-slate-400 hover:text-red-500 transition-colors"><X size={14} /></button>
+                  className="text-app-text-muted hover:text-red-500 transition-colors"><X size={14} /></button>
               </div>
             ) : (
               <>
                 <input className={ic} value={hodSearch} onChange={e => setHodSearch(e.target.value)}
                   placeholder="Search by name or role…" />
-                <div className="mt-1 max-h-40 overflow-y-auto border border-slate-200 rounded-xl divide-y divide-slate-50 bg-white">
+                <div className="mt-1 max-h-40 overflow-y-auto border border-app-border rounded-xl divide-y divide-slate-50 bg-app-surface">
                   {staff
                     .filter(s => !hodSearch || `${s.first_name} ${s.last_name}`.toLowerCase().includes(hodSearch.toLowerCase()) || s.role.toLowerCase().includes(hodSearch.toLowerCase()))
                     .map(s => (
                       <button key={s.id} type="button"
                         onClick={() => { setForm(f => ({ ...f, hod_id: s.id })); setHodSearch(''); }}
-                        className="w-full text-left px-3 py-2 text-sm hover:bg-slate-50 flex items-center gap-2 text-slate-700">
+                        className="w-full text-left px-3 py-2 text-sm hover:bg-app-surface-alt flex items-center gap-2 text-app-text">
                         <span className="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center text-xs font-semibold flex-shrink-0">
                           {s.first_name[0]}{s.last_name[0]}
                         </span>
                         <span className="flex-1">{s.first_name} {s.last_name}</span>
-                        <span className="text-xs text-slate-400 capitalize">{s.role.replace(/_/g, ' ')}</span>
+                        <span className="text-xs text-app-text-muted capitalize">{s.role.replace(/_/g, ' ')}</span>
                       </button>
                     ))}
                   {staff.filter(s => !hodSearch || `${s.first_name} ${s.last_name}`.toLowerCase().includes(hodSearch.toLowerCase()) || s.role.toLowerCase().includes(hodSearch.toLowerCase())).length === 0 && (
-                    <p className="p-3 text-xs text-slate-400">No staff match your search.</p>
+                    <p className="p-3 text-xs text-app-text-muted">No staff match your search.</p>
                   )}
                 </div>
               </>
             )}
-            <p className="text-xs text-slate-400 mt-1">The HOD will be the supervisor/manager for all staff in this department.</p>
+            <p className="text-xs text-app-text-muted mt-1">The HOD will be the supervisor/manager for all staff in this department.</p>
           </div>
           {saveError && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle size={13} />{saveError}</p>}
           <div className="flex gap-3 pt-1">
@@ -350,7 +350,7 @@ export default function Departments() {
               className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-60">
               {saving ? 'Saving…' : editModal ? 'Save Changes' : 'Create Department'}
             </button>
-            <button onClick={() => { setCreateModal(false); setEditModal(null); }} className="px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl text-sm font-medium">Cancel</button>
+            <button onClick={() => { setCreateModal(false); setEditModal(null); }} className="px-4 py-2.5 bg-slate-100 text-app-text rounded-xl text-sm font-medium">Cancel</button>
           </div>
         </div>
       </Modal>
@@ -361,17 +361,17 @@ export default function Departments() {
           <div>
             <input className={ic} value={staffSearch} onChange={e => setStaffSearch(e.target.value)} placeholder="Search staff by name or role…" />
           </div>
-          <div className="max-h-80 overflow-y-auto border border-slate-200 rounded-xl divide-y divide-slate-50">
+          <div className="max-h-80 overflow-y-auto border border-app-border rounded-xl divide-y divide-slate-50">
             {assignStaffModal && filteredStaff(assignStaffModal.name).length === 0 ? (
-              <p className="p-3 text-xs text-slate-400">All staff are already in this department, or no staff found.</p>
+              <p className="p-3 text-xs text-app-text-muted">All staff are already in this department, or no staff found.</p>
             ) : assignStaffModal && filteredStaff(assignStaffModal.name).map(s => (
-              <div key={s.id} className="flex items-center gap-3 px-3 py-2.5 hover:bg-slate-50">
+              <div key={s.id} className="flex items-center gap-3 px-3 py-2.5 hover:bg-app-surface-alt">
                 <div className="w-7 h-7 rounded-full bg-slate-200 flex items-center justify-center text-xs font-semibold flex-shrink-0">
                   {s.first_name[0]}{s.last_name[0]}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-slate-700">{s.first_name} {s.last_name}</p>
-                  <p className="text-xs text-slate-400 capitalize">
+                  <p className="text-sm font-medium text-app-text">{s.first_name} {s.last_name}</p>
+                  <p className="text-xs text-app-text-muted capitalize">
                     {s.role.replace('_', ' ')}
                     {s.department && <span className="ml-1 text-amber-600">• Currently: {s.department}</span>}
                   </p>
@@ -384,7 +384,7 @@ export default function Departments() {
               </div>
             ))}
           </div>
-          <button onClick={() => setAssignStaffModal(null)} className="w-full py-2.5 bg-slate-100 text-slate-700 rounded-xl text-sm font-medium mt-2">Close</button>
+          <button onClick={() => setAssignStaffModal(null)} className="w-full py-2.5 bg-slate-100 text-app-text rounded-xl text-sm font-medium mt-2">Close</button>
         </div>
       </Modal>
     </div>

@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 interface ClassOption {
   id: string;
@@ -204,19 +204,19 @@ export default function TransportAssignment() {
         <div className="bg-emerald-500 text-white p-2 rounded-xl">
           <MapPin size={20} />
         </div>
-        <h1 className="text-2xl font-bold text-slate-800">Transport Assignment</h1>
+        <h1 className="text-2xl font-bold text-app-text">Transport Assignment</h1>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4">
         <div className="flex items-center gap-2 mb-3">
-          <Filter size={16} className="text-slate-500" />
-          <span className="text-sm font-medium text-slate-600">Filter Students</span>
+          <Filter size={16} className="text-app-text-muted" />
+          <span className="text-sm font-medium text-app-text-muted">Filter Students</span>
         </div>
         <div className="flex flex-wrap gap-3">
           <select
             value={filterClass}
             onChange={e => { setFilterClass(e.target.value); setFilterSection(''); }}
-            className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
           >
             <option value="">Select Class</option>
             {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -224,7 +224,7 @@ export default function TransportAssignment() {
           <select
             value={filterSection}
             onChange={e => setFilterSection(e.target.value)}
-            className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
           >
             <option value="">All Sections</option>
             {filteredSections.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
@@ -232,7 +232,7 @@ export default function TransportAssignment() {
           {(filterClass || filterSection) && (
             <button
               onClick={() => { setFilterClass(''); setFilterSection(''); }}
-              className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700"
+              className="flex items-center gap-1 text-sm text-app-text-muted hover:text-app-text"
             >
               <X size={14} /> Clear
             </button>
@@ -240,50 +240,50 @@ export default function TransportAssignment() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {!filterClass && !filterSection ? (
           <div className="p-12 text-center">
             <MapPin size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-500">Select a class or section to view students.</p>
+            <p className="text-app-text-muted">Select a class or section to view students.</p>
           </div>
         ) : loading ? (
-          <div className="p-12 text-center text-slate-400">Loading...</div>
+          <div className="p-12 text-center text-app-text-muted">Loading...</div>
         ) : enrollments.length === 0 ? (
           <div className="p-12 text-center">
             <MapPin size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-500">No students found for the selected class/section.</p>
+            <p className="text-app-text-muted">No students found for the selected class/section.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Student Name</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Route</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Vehicle</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Stop</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Fare</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Action</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Student Name</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Route</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Vehicle</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Stop</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Fare</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {enrollments.map(enr => {
                   const assignment = enr.transport_assignments?.[0];
                   return (
-                    <tr key={enr.id} className="hover:bg-slate-50/50">
-                      <td className="px-4 py-3 font-medium text-slate-800">
+                    <tr key={enr.id} className="hover:bg-app-surface-alt/50">
+                      <td className="px-4 py-3 font-medium text-app-text">
                         {enr.students ? `${enr.students.first_name} ${enr.students.last_name}` : '-'}
                       </td>
-                      <td className="px-4 py-3 text-slate-600">
+                      <td className="px-4 py-3 text-app-text-muted">
                         {assignment?.transport_routes?.route_name || (
-                          <span className="text-slate-400 text-xs">Not assigned</span>
+                          <span className="text-app-text-muted text-xs">Not assigned</span>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-slate-600">
+                      <td className="px-4 py-3 text-app-text-muted">
                         {assignment?.transport_vehicles?.vehicle_no || '-'}
                       </td>
-                      <td className="px-4 py-3 text-slate-500">{assignment?.stop_name || '-'}</td>
-                      <td className="px-4 py-3 text-slate-700">
+                      <td className="px-4 py-3 text-app-text-muted">{assignment?.stop_name || '-'}</td>
+                      <td className="px-4 py-3 text-app-text">
                         {assignment?.fare != null ? `₦${Number(assignment.fare).toLocaleString()}` : '-'}
                       </td>
                       <td className="px-4 py-3">
@@ -307,7 +307,7 @@ export default function TransportAssignment() {
       <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} title={`Assign Transport - ${selectedStudentName}`}>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Academic Year</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Academic Year</label>
             <select
               required
               className={INPUT_CLASS}
@@ -319,7 +319,7 @@ export default function TransportAssignment() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Route</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Route</label>
             <select
               className={INPUT_CLASS}
               value={form.route_id}
@@ -330,7 +330,7 @@ export default function TransportAssignment() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Vehicle</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Vehicle</label>
             <select
               className={INPUT_CLASS}
               value={form.vehicle_id}
@@ -342,7 +342,7 @@ export default function TransportAssignment() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Stop Name</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Stop Name</label>
               <input
                 className={INPUT_CLASS}
                 value={form.stop_name}
@@ -351,7 +351,7 @@ export default function TransportAssignment() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Fare (₦)</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Fare (₦)</label>
               <input
                 type="number"
                 min="0"
@@ -367,7 +367,7 @@ export default function TransportAssignment() {
             <button
               type="button"
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-slate-200 text-slate-600 hover:bg-slate-50"
+              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-app-border text-app-text-muted hover:bg-app-surface-alt"
             >
               Cancel
             </button>

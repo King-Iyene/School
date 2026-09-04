@@ -4,8 +4,8 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
-const SELECT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white';
+const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const SELECT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
 
 interface Profile {
   id: string;
@@ -197,7 +197,7 @@ export default function AddMember() {
   function statusBadge(status: string) {
     if (status === 'active') return 'bg-emerald-100 text-emerald-700';
     if (status === 'suspended') return 'bg-red-100 text-red-700';
-    return 'bg-slate-100 text-slate-600';
+    return 'bg-slate-100 text-app-text-muted';
   }
 
   function typeBadge(type: string) {
@@ -212,7 +212,7 @@ export default function AddMember() {
           <div className="bg-emerald-500 text-white p-2 rounded-xl">
             <Users size={20} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-800">Library Members</h1>
+          <h1 className="text-2xl font-bold text-app-text">Library Members</h1>
         </div>
         <button
           onClick={openAdd}
@@ -223,22 +223,22 @@ export default function AddMember() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4">
         <div className="flex flex-wrap gap-3">
           <div className="relative flex-1 min-w-[200px]">
-            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted" />
             <input
               type="text"
               placeholder="Search by name or membership number..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="border border-slate-200 rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+              className="border border-app-border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
             />
           </div>
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white"
+            className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface"
           >
             <option value="">All Types</option>
             <option value="student">Student</option>
@@ -247,7 +247,7 @@ export default function AddMember() {
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white"
+            className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface"
           >
             <option value="">All Statuses</option>
             <option value="active">Active</option>
@@ -257,33 +257,33 @@ export default function AddMember() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {loading ? (
-          <div className="p-12 text-center text-slate-400">Loading...</div>
+          <div className="p-12 text-center text-app-text-muted">Loading...</div>
         ) : members.length === 0 ? (
           <div className="p-12 text-center">
             <Users size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-500">No members found.</p>
+            <p className="text-app-text-muted">No members found.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Membership #</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Name</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Type</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Join Date</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Expiry Date</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Status</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Actions</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Membership #</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Name</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Type</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Join Date</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Expiry Date</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Status</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {members.map((member) => (
-                  <tr key={member.id} className="hover:bg-slate-50/50">
-                    <td className="px-4 py-3 font-mono text-xs text-slate-600">{member.membership_number}</td>
-                    <td className="px-5 py-2 font-medium text-slate-800">
+                  <tr key={member.id} className="hover:bg-app-surface-alt/50">
+                    <td className="px-4 py-3 font-mono text-xs text-app-text-muted">{member.membership_number}</td>
+                    <td className="px-5 py-2 font-medium text-app-text">
                       {(() => {
                         if (member.member_type === 'student') {
                           const s = Array.isArray((member as any).students) ? (member as any).students[0] : (member as any).students;
@@ -297,8 +297,8 @@ export default function AddMember() {
                         {member.member_type}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-slate-600">{member.join_date || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600">{member.expiry_date || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{member.join_date || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{member.expiry_date || '-'}</td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-1 rounded-lg text-xs font-medium capitalize ${statusBadge(member.status)}`}>
                         {member.status}
@@ -308,13 +308,13 @@ export default function AddMember() {
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => openEdit(member)}
-                          className="text-slate-400 hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors"
+                          className="text-app-text-muted hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors"
                         >
                           <Pencil size={15} />
                         </button>
                         <button
                           onClick={() => handleDelete(member.id)}
-                          className="text-slate-400 hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors"
+                          className="text-app-text-muted hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors"
                         >
                           <Trash2 size={15} />
                         </button>
@@ -332,7 +332,7 @@ export default function AddMember() {
         <form onSubmit={handleSubmit} className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div className="relative">
-            <label className="block text-sm font-medium text-slate-700 mb-1">Member (Profile)</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Member (Profile)</label>
             <input
               required={!form.profile_id}
               className={INPUT_CLASS}
@@ -345,7 +345,7 @@ export default function AddMember() {
               placeholder="Search by name..."
             />
             {showProfileDropdown && filteredProfiles.length > 0 && (
-              <div className="absolute z-10 mt-1 w-full bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden">
+              <div className="absolute z-10 mt-1 w-full bg-app-surface border border-app-border rounded-xl shadow-lg overflow-hidden">
                 {filteredProfiles.map((p) => (
                   <button
                     key={p.id}
@@ -353,8 +353,8 @@ export default function AddMember() {
                     onClick={() => selectProfile(p)}
                     className="w-full text-left px-4 py-2.5 text-sm hover:bg-emerald-50 flex items-center justify-between"
                   >
-                    <span className="font-medium text-slate-800">{p.full_name}</span>
-                    <span className="text-xs text-slate-500 capitalize">{p.role}</span>
+                    <span className="font-medium text-app-text">{p.full_name}</span>
+                    <span className="text-xs text-app-text-muted capitalize">{p.role}</span>
                   </button>
                 ))}
               </div>
@@ -366,7 +366,7 @@ export default function AddMember() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Member Type</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Member Type</label>
               <select
                 className={SELECT_CLASS}
                 value={form.member_type}
@@ -377,7 +377,7 @@ export default function AddMember() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Membership Number</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Membership Number</label>
               <input
                 required
                 className={INPUT_CLASS}
@@ -390,7 +390,7 @@ export default function AddMember() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Join Date</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Join Date</label>
               <input
                 type="date"
                 required
@@ -400,7 +400,7 @@ export default function AddMember() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Expiry Date</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Expiry Date</label>
               <input
                 type="date"
                 required
@@ -412,7 +412,7 @@ export default function AddMember() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Status</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Status</label>
             <select
               className={SELECT_CLASS}
               value={form.status}
@@ -428,7 +428,7 @@ export default function AddMember() {
             <button
               type="button"
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-slate-200 text-slate-600 hover:bg-slate-50"
+              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-app-border text-app-text-muted hover:bg-app-surface-alt"
             >
               Cancel
             </button>

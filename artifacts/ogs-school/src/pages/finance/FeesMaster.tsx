@@ -27,7 +27,7 @@ interface FeesMasterRecord {
   terms?: { name: string };
 }
 
-const INPUT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 const EMPTY_FORM = {
   fees_group_id: '',
@@ -187,7 +187,7 @@ export default function FeesMaster() {
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-slate-800">Fees Master</h1>
+        <h1 className="text-2xl font-bold text-app-text">Fees Master</h1>
         <div className="flex items-center gap-2">
           <button onClick={() => setShowBuilder(true)} className="bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors">
             + Setup Fee Structure
@@ -199,24 +199,24 @@ export default function FeesMaster() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-4 mb-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4 mb-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Term</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Term</label>
             <select className={INPUT_CLASS} value={filterTerm} onChange={e => setFilterTerm(e.target.value)}>
               <option value="">All Terms</option>
               {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Class</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Class</label>
             <select className={INPUT_CLASS} value={filterClass} onChange={e => setFilterClass(e.target.value)}>
               <option value="">All Classes</option>
               {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Academic Year</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Academic Year</label>
             <select className={INPUT_CLASS} value={filterYear} onChange={e => setFilterYear(e.target.value)}>
               <option value="">All Years</option>
               {visibleYears.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
@@ -226,7 +226,7 @@ export default function FeesMaster() {
             <button
               onClick={() => setShowFuture(!showFuture)}
               className={`flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium border transition-colors w-full justify-center ${
-                showFuture ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
+                showFuture ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-app-surface-alt border-app-border text-app-text-muted hover:bg-slate-100'
               }`}
             >
               {showFuture ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
@@ -236,17 +236,17 @@ export default function FeesMaster() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {loading ? (
-          <div className="flex items-center justify-center py-16 text-slate-400 text-sm">Loading...</div>
+          <div className="flex items-center justify-center py-16 text-app-text-muted text-sm">Loading...</div>
         ) : filteredRecords.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-slate-400">
+          <div className="flex flex-col items-center justify-center py-16 text-app-text-muted">
             <p className="text-sm">No fees master records found. Add your first entry.</p>
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
+              <tr className="bg-app-surface-alt text-app-text-muted text-xs uppercase tracking-wider">
                 <th className="px-4 py-3 text-left font-medium">Fees Type</th>
                 <th className="px-4 py-3 text-left font-medium">Class</th>
                 <th className="px-4 py-3 text-left font-medium">Term</th>
@@ -257,30 +257,30 @@ export default function FeesMaster() {
                 <th className="px-4 py-3 text-right font-medium">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {filteredRecords.map((rec) => {
                 const isFuture = futureYearIds.has(rec.academic_year_id);
                 return (
-                  <tr key={rec.id} className={`hover:bg-slate-50 transition-colors ${isFuture ? 'bg-slate-50/50' : ''}`}>
-                    <td className="px-4 py-3 font-medium text-slate-800">{rec.fees_types?.name}</td>
-                    <td className="px-4 py-3 text-slate-600">{rec.classes?.name}{rec.classes?.level ? ` (${rec.classes.level})` : ''}</td>
+                  <tr key={rec.id} className={`hover:bg-app-surface-alt transition-colors ${isFuture ? 'bg-app-surface-alt/50' : ''}`}>
+                    <td className="px-4 py-3 font-medium text-app-text">{rec.fees_types?.name}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{rec.classes?.name}{rec.classes?.level ? ` (${rec.classes.level})` : ''}</td>
                     <td className="px-4 py-3">
                       <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">
                         {rec.terms?.name || '--'}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-slate-500">
+                    <td className="px-4 py-3 text-app-text-muted">
                       <span className="flex items-center gap-1.5">
                         {rec.academic_years?.name}
                         {isFuture && (
-                          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-slate-200 text-slate-500">Future</span>
+                          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-slate-200 text-app-text-muted">Future</span>
                         )}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-emerald-600 font-medium">{formatCurrency(rec.amount)}</td>
-                    <td className="px-4 py-3 text-slate-500">{rec.due_date || '--'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{rec.due_date || '--'}</td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${rec.is_mandatory ? 'bg-red-100 text-red-700' : 'bg-slate-100 text-slate-500'}`}>
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${rec.is_mandatory ? 'bg-red-100 text-red-700' : 'bg-slate-100 text-app-text-muted'}`}>
                         {rec.is_mandatory ? 'Mandatory' : 'Optional'}
                       </span>
                     </td>
@@ -301,14 +301,14 @@ export default function FeesMaster() {
           {error && <p className="text-red-500 text-sm bg-red-50 rounded-xl px-3 py-2">{error}</p>}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Fees Group</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Fees Group</label>
               <select className={INPUT_CLASS} value={form.fees_group_id} onChange={(e) => setForm({ ...form, fees_group_id: e.target.value, fees_type_id: '' })}>
                 <option value="">Select group</option>
                 {groups.map((g) => <option key={g.id} value={g.id}>{g.name}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Fees Type</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Fees Type</label>
               <select className={INPUT_CLASS} value={form.fees_type_id} onChange={(e) => setForm({ ...form, fees_type_id: e.target.value })}>
                 <option value="">Select type</option>
                 {filteredTypes.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
@@ -317,14 +317,14 @@ export default function FeesMaster() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Class</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Class</label>
               <select className={INPUT_CLASS} value={form.class_id} onChange={(e) => setForm({ ...form, class_id: e.target.value })}>
                 <option value="">Select class</option>
                 {classes.map((c) => <option key={c.id} value={c.id}>{c.name}{c.level ? ` (${c.level})` : ''}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Academic Year</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Academic Year</label>
               <select className={INPUT_CLASS} value={form.academic_year_id} onChange={(e) => setForm({ ...form, academic_year_id: e.target.value })}>
                 <option value="">Select year</option>
                 {academicYears.map((y) => <option key={y.id} value={y.id}>{y.name}</option>)}
@@ -332,7 +332,7 @@ export default function FeesMaster() {
             </div>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Term</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Term</label>
             <select className={INPUT_CLASS} value={form.term_id} onChange={(e) => setForm({ ...form, term_id: e.target.value })}>
               <option value="">Select term</option>
               {terms.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
@@ -340,22 +340,22 @@ export default function FeesMaster() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Amount (N)</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Amount (N)</label>
               <input type="number" min="0" className={INPUT_CLASS} value={form.amount} onChange={(e) => setForm({ ...form, amount: parseFloat(e.target.value) || 0 })} placeholder="0.00" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Due Date</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Due Date</label>
               <input type="date" className={INPUT_CLASS} value={form.due_date} onChange={(e) => setForm({ ...form, due_date: e.target.value })} />
             </div>
           </div>
           <div className="flex items-center gap-3">
             <button type="button" onClick={() => setForm({ ...form, is_mandatory: !form.is_mandatory })} className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${form.is_mandatory ? 'bg-emerald-500' : 'bg-slate-200'}`}>
-              <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${form.is_mandatory ? 'translate-x-6' : 'translate-x-1'}`} />
+              <span className={`inline-block h-4 w-4 transform rounded-full bg-app-surface shadow transition-transform ${form.is_mandatory ? 'translate-x-6' : 'translate-x-1'}`} />
             </button>
-            <span className="text-sm text-slate-600">Mandatory</span>
+            <span className="text-sm text-app-text-muted">Mandatory</span>
           </div>
           <div className="flex justify-end gap-2 pt-2">
-            <button onClick={() => setModalOpen(false)} className="px-4 py-2.5 text-sm text-slate-600 hover:text-slate-800 font-medium rounded-xl hover:bg-slate-100 transition-colors">Cancel</button>
+            <button onClick={() => setModalOpen(false)} className="px-4 py-2.5 text-sm text-app-text-muted hover:text-app-text font-medium rounded-xl hover:bg-slate-100 transition-colors">Cancel</button>
             <button onClick={handleSave} disabled={saving} className="px-5 py-2.5 text-sm bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-xl transition-colors disabled:opacity-60">
               {saving ? 'Saving...' : editId ? 'Update' : 'Create'}
             </button>
@@ -365,9 +365,9 @@ export default function FeesMaster() {
 
       <Modal isOpen={deleteModalOpen} onClose={() => setDeleteModalOpen(false)} title="Delete Fees Master">
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">Are you sure you want to delete this fees master record? This action cannot be undone.</p>
+          <p className="text-sm text-app-text-muted">Are you sure you want to delete this fees master record? This action cannot be undone.</p>
           <div className="flex justify-end gap-2">
-            <button onClick={() => setDeleteModalOpen(false)} className="px-4 py-2.5 text-sm text-slate-600 hover:text-slate-800 font-medium rounded-xl hover:bg-slate-100 transition-colors">Cancel</button>
+            <button onClick={() => setDeleteModalOpen(false)} className="px-4 py-2.5 text-sm text-app-text-muted hover:text-app-text font-medium rounded-xl hover:bg-slate-100 transition-colors">Cancel</button>
             <button onClick={handleDelete} disabled={saving} className="px-5 py-2.5 text-sm bg-red-500 hover:bg-red-600 text-white font-medium rounded-xl transition-colors disabled:opacity-60">
               {saving ? 'Deleting...' : 'Delete'}
             </button>

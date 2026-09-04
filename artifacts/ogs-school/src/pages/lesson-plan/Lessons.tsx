@@ -53,7 +53,7 @@ const initialForm: FormData = {
 };
 
 const statusConfig = {
-  draft: { label: 'Draft', className: 'bg-slate-100 text-slate-600' },
+  draft: { label: 'Draft', className: 'bg-slate-100 text-app-text-muted' },
   active: { label: 'Active', className: 'bg-blue-100 text-blue-700' },
   completed: { label: 'Completed', className: 'bg-emerald-100 text-emerald-700' },
 };
@@ -175,8 +175,8 @@ export default function Lessons() {
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Lessons</h1>
-          <p className="text-sm text-slate-500 mt-1">Manage lesson units for your classes</p>
+          <h1 className="text-2xl font-bold text-app-text">Lessons</h1>
+          <p className="text-sm text-app-text-muted mt-1">Manage lesson units for your classes</p>
         </div>
         <button
           onClick={openAdd}
@@ -191,7 +191,7 @@ export default function Lessons() {
         <select
           value={filterClass}
           onChange={(e) => setFilterClass(e.target.value)}
-          className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
+          className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
         >
           <option value="">All Classes</option>
           {classes.map((cls) => (
@@ -201,7 +201,7 @@ export default function Lessons() {
         <select
           value={filterSubject}
           onChange={(e) => setFilterSubject(e.target.value)}
-          className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
+          className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
         >
           <option value="">All Subjects</option>
           {subjects.map((sub) => (
@@ -211,40 +211,40 @@ export default function Lessons() {
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center h-40 text-slate-400">Loading...</div>
+        <div className="flex items-center justify-center h-40 text-app-text-muted">Loading...</div>
       ) : (
-        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+        <div className="bg-app-surface rounded-xl border border-app-border overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 font-medium text-slate-600">#</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Title</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Subject</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Class</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Duration</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Status</th>
-                <th className="text-right px-4 py-3 font-medium text-slate-600">Actions</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">#</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Title</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Subject</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Class</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Duration</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Status</th>
+                <th className="text-right px-4 py-3 font-medium text-app-text-muted">Actions</th>
               </tr>
             </thead>
             <tbody>
               {lessons.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-10 text-slate-400">No lessons found</td>
+                  <td colSpan={7} className="text-center py-10 text-app-text-muted">No lessons found</td>
                 </tr>
               ) : (
                 lessons.map((lesson) => {
                   const status = statusConfig[lesson.status] || statusConfig.draft;
                   return (
-                    <tr key={lesson.id} className="border-b border-slate-100 hover:bg-slate-50">
-                      <td className="px-4 py-3 text-slate-500 font-mono">{lesson.lesson_number}</td>
-                      <td className="px-4 py-3 font-medium text-slate-800">{lesson.title}</td>
-                      <td className="px-4 py-3 text-slate-600">
+                    <tr key={lesson.id} className="border-b border-app-border hover:bg-app-surface-alt">
+                      <td className="px-4 py-3 text-app-text-muted font-mono">{lesson.lesson_number}</td>
+                      <td className="px-4 py-3 font-medium text-app-text">{lesson.title}</td>
+                      <td className="px-4 py-3 text-app-text-muted">
                         {lesson.subjects ? lesson.subjects.name : '-'}
                       </td>
-                      <td className="px-4 py-3 text-slate-600">
+                      <td className="px-4 py-3 text-app-text-muted">
                         {lesson.classes ? getClassName(lesson.classes) : '-'}
                       </td>
-                      <td className="px-4 py-3 text-slate-600">
+                      <td className="px-4 py-3 text-app-text-muted">
                         {lesson.duration_minutes ? `${lesson.duration_minutes} min` : '-'}
                       </td>
                       <td className="px-4 py-3">
@@ -256,14 +256,14 @@ export default function Lessons() {
                         <div className="flex items-center justify-end gap-1">
                           <button
                             onClick={() => openEdit(lesson)}
-                            className="p-1.5 text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors"
+                            className="p-1.5 text-app-text-muted hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors"
                             title="Edit lesson"
                           >
                             <Edit2 size={15} />
                           </button>
                           <button
                             onClick={() => handleDelete(lesson.id)}
-                            className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                            className="p-1.5 text-app-text-muted hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                             title="Delete lesson"
                           >
                             <Trash2 size={15} />
@@ -289,11 +289,11 @@ export default function Lessons() {
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Class</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Class</label>
               <select
                 value={form.class_id}
                 onChange={(e) => setForm({ ...form, class_id: e.target.value })}
-                className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               >
                 <option value="">Select class</option>
                 {classes.map((cls) => (
@@ -302,11 +302,11 @@ export default function Lessons() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Subject</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Subject</label>
               <select
                 value={form.subject_id}
                 onChange={(e) => setForm({ ...form, subject_id: e.target.value })}
-                className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               >
                 <option value="">Select subject</option>
                 {subjects.map((sub) => (
@@ -316,54 +316,54 @@ export default function Lessons() {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Title</label>
             <input
               type="text"
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
               placeholder="Lesson title"
-              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Description</label>
             <textarea
               value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
               placeholder="Brief description of the lesson"
               rows={3}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
             />
           </div>
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Lesson Number</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Lesson Number</label>
               <input
                 type="number"
                 value={form.lesson_number}
                 onChange={(e) => setForm({ ...form, lesson_number: e.target.value })}
                 placeholder="1"
                 min="1"
-                className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Duration (min)</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Duration (min)</label>
               <input
                 type="number"
                 value={form.duration_minutes}
                 onChange={(e) => setForm({ ...form, duration_minutes: e.target.value })}
                 placeholder="60"
                 min="0"
-                className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Status</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Status</label>
               <select
                 value={form.status}
                 onChange={(e) => setForm({ ...form, status: e.target.value as FormData['status'] })}
-                className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               >
                 <option value="draft">Draft</option>
                 <option value="active">Active</option>
@@ -374,7 +374,7 @@ export default function Lessons() {
           <div className="flex justify-end gap-2 pt-2">
             <button
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2 text-sm rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm rounded-lg border border-app-border text-app-text-muted hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>

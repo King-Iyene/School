@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 
 const INPUT_CLASS =
-  'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 const EMPTY_FORM = {
   sms_gateway: 'Twilio',
@@ -79,7 +79,7 @@ export default function SmsSetting() {
           <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
             <MessageSquare className="w-5 h-5 text-emerald-600" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-800">SMS Settings</h1>
+          <h1 className="text-2xl font-bold text-app-text">SMS Settings</h1>
         </div>
         <button
           onClick={handleSave}
@@ -98,13 +98,13 @@ export default function SmsSetting() {
       )}
 
       {loading ? (
-        <div className="flex items-center justify-center py-16 text-slate-400 text-sm">Loading settings...</div>
+        <div className="flex items-center justify-center py-16 text-app-text-muted text-sm">Loading settings...</div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6">
-          <h2 className="text-base font-semibold text-slate-700 mb-5">SMS Gateway Configuration</h2>
+        <div className="bg-app-surface rounded-2xl border border-app-border p-6">
+          <h2 className="text-base font-semibold text-app-text mb-5">SMS Gateway Configuration</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">SMS Gateway</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">SMS Gateway</label>
               <select
                 className={INPUT_CLASS}
                 value={form.sms_gateway}
@@ -117,7 +117,7 @@ export default function SmsSetting() {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Sender ID</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Sender ID</label>
               <input
                 className={INPUT_CLASS}
                 value={form.sender_id}
@@ -127,7 +127,7 @@ export default function SmsSetting() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">API Key</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">API Key</label>
               <input
                 type="password"
                 className={INPUT_CLASS}
@@ -137,7 +137,7 @@ export default function SmsSetting() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">API Secret</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">API Secret</label>
               <input
                 type="password"
                 className={INPUT_CLASS}
@@ -147,18 +147,18 @@ export default function SmsSetting() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">SMS Balance</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">SMS Balance</label>
               <div className="relative">
                 <input
-                  className={`${INPUT_CLASS} bg-slate-50 text-slate-500 cursor-not-allowed`}
+                  className={`${INPUT_CLASS} bg-app-surface-alt text-app-text-muted cursor-not-allowed`}
                   value={form.sms_balance || 'N/A'}
                   readOnly
                 />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded-lg">
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-app-text-muted bg-slate-100 px-2 py-0.5 rounded-lg">
                   Read-only
                 </span>
               </div>
-              <p className="text-xs text-slate-400 mt-1">Balance is fetched from the gateway automatically.</p>
+              <p className="text-xs text-app-text-muted mt-1">Balance is fetched from the gateway automatically.</p>
             </div>
           </div>
         </div>

@@ -103,34 +103,34 @@ export default function ParentPortal() {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
           <Users className="w-8 h-8 text-blue-500 mx-auto mb-2" />
-          <p className="text-2xl font-bold text-slate-800">{children.length}</p>
-          <p className="text-xs text-slate-500 mt-0.5">Children</p>
+          <p className="text-2xl font-bold text-app-text">{children.length}</p>
+          <p className="text-xs text-app-text-muted mt-0.5">Children</p>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
           <Bell className="w-8 h-8 text-amber-500 mx-auto mb-2" />
-          <p className="text-2xl font-bold text-slate-800">{announcements.length}</p>
-          <p className="text-xs text-slate-500 mt-0.5">Announcements</p>
+          <p className="text-2xl font-bold text-app-text">{announcements.length}</p>
+          <p className="text-xs text-app-text-muted mt-0.5">Announcements</p>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
           <CreditCard className="w-8 h-8 text-red-400 mx-auto mb-2" />
           <p className="text-2xl font-bold text-red-600">
             ₦{Object.values(childData).reduce((s, d) => s + (d.feeBalance || 0), 0).toLocaleString()}
           </p>
-          <p className="text-xs text-slate-500 mt-0.5">Total Due</p>
+          <p className="text-xs text-app-text-muted mt-0.5">Total Due</p>
         </div>
       </div>
 
       <DashboardCalendar />
 
       {loading ? (
-        <div className="text-center py-8 text-slate-400">Loading...</div>
+        <div className="text-center py-8 text-app-text-muted">Loading...</div>
       ) : children.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-10 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-10 text-center">
           <Users className="w-12 h-12 text-slate-200 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">No children linked yet</p>
-          <p className="text-sm text-slate-400 mt-1 mb-4">Go to "My Children" to link your ward using their admission number</p>
+          <p className="text-app-text-muted font-medium">No children linked yet</p>
+          <p className="text-sm text-app-text-muted mt-1 mb-4">Go to "My Children" to link your ward using their admission number</p>
           <button
             onClick={() => navigate('/children')}
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-500 text-white rounded-xl text-sm font-semibold hover:bg-blue-600 transition-colors"
@@ -141,7 +141,7 @@ export default function ParentPortal() {
       ) : (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-slate-800">My Children</h3>
+            <h3 className="font-semibold text-app-text">My Children</h3>
             <button
               onClick={() => navigate('/children')}
               className="flex items-center gap-1.5 px-4 py-2 bg-blue-500 text-white rounded-xl text-sm font-medium hover:bg-blue-600 transition-colors"
@@ -153,18 +153,18 @@ export default function ParentPortal() {
             const d = childData[child.id];
             if (!d) return null;
             return (
-              <div key={child.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                <div className="p-5 border-b border-slate-100">
+              <div key={child.id} className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+                <div className="p-5 border-b border-app-border">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center text-base font-bold text-blue-700 flex-shrink-0">
                         {child.first_name?.[0]}{child.last_name?.[0]}
                       </div>
                       <div>
-                        <h3 className="font-semibold text-slate-800 text-lg">{child.first_name} {child.last_name}</h3>
+                        <h3 className="font-semibold text-app-text text-lg">{child.first_name} {child.last_name}</h3>
                         <div className="flex items-center gap-3 mt-0.5">
-                          <span className="text-sm text-slate-500">{d.className}</span>
-                          {child.student_id && <span className="text-xs text-slate-400 font-mono">ID: {child.student_id}</span>}
+                          <span className="text-sm text-app-text-muted">{d.className}</span>
+                          {child.student_id && <span className="text-xs text-app-text-muted font-mono">ID: {child.student_id}</span>}
                         </div>
                       </div>
                     </div>
@@ -172,32 +172,32 @@ export default function ParentPortal() {
                 </div>
 
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-slate-100">
-                  <div className="bg-white p-4 text-center">
+                  <div className="bg-app-surface p-4 text-center">
                     <p className={`text-xl font-bold ${d.attRate >= 75 ? 'text-emerald-600' : d.attRate >= 50 ? 'text-amber-500' : 'text-red-500'}`}>{d.attRate}%</p>
-                    <p className="text-xs text-slate-500 mt-1">Attendance</p>
+                    <p className="text-xs text-app-text-muted mt-1">Attendance</p>
                     <div className="flex justify-center gap-2 mt-1.5 text-xs">
                       <span className="text-emerald-600">{d.present}P</span>
                       <span className="text-red-500">{d.absent}A</span>
                       <span className="text-amber-500">{d.late}L</span>
                     </div>
                   </div>
-                  <div className="bg-white p-4 text-center">
+                  <div className="bg-app-surface p-4 text-center">
                     <p className={`text-xl font-bold ${d.avgScore >= 70 ? 'text-emerald-600' : d.avgScore >= 50 ? 'text-amber-500' : 'text-red-500'}`}>{d.avgScore}</p>
-                    <p className="text-xs text-slate-500 mt-1">Avg Score</p>
+                    <p className="text-xs text-app-text-muted mt-1">Avg Score</p>
                     <p className="text-xs font-medium mt-1.5">
                       <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${d.avgScore >= 70 ? 'bg-emerald-100 text-emerald-700' : d.avgScore >= 50 ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-600'}`}>
                         {waecOf(d.avgScore).grade}
                       </span>
                     </p>
                   </div>
-                  <div className="bg-white p-4 text-center">
+                  <div className="bg-app-surface p-4 text-center">
                     <p className="text-xl font-bold text-blue-600">{d.subjectsCount}</p>
-                    <p className="text-xs text-slate-500 mt-1">Subjects</p>
+                    <p className="text-xs text-app-text-muted mt-1">Subjects</p>
                     <button onClick={() => navigate('/grades')} className="text-xs text-blue-500 hover:underline mt-1.5">View results</button>
                   </div>
-                  <div className="bg-white p-4 text-center">
+                  <div className="bg-app-surface p-4 text-center">
                     <p className={`text-xl font-bold ${d.feeBalance > 0 ? 'text-red-500' : 'text-emerald-600'}`}>₦{d.feeBalance.toLocaleString()}</p>
-                    <p className="text-xs text-slate-500 mt-1">{d.feeBalance > 0 ? 'Fee Balance' : 'Fully Paid'}</p>
+                    <p className="text-xs text-app-text-muted mt-1">{d.feeBalance > 0 ? 'Fee Balance' : 'Fully Paid'}</p>
                     <button onClick={() => navigate('/fees')} className="text-xs text-blue-500 hover:underline mt-1.5">Pay fees</button>
                   </div>
                 </div>
@@ -209,7 +209,7 @@ export default function ParentPortal() {
                     { label: 'Fees', path: '/fees' },
                     { label: 'Subjects', path: '/parent/subjects' },
                   ].map(({ label, path }) => (
-                    <button key={path} onClick={() => navigate(path)} className="flex items-center gap-1 text-xs px-3 py-1.5 bg-slate-100 hover:bg-blue-100 text-slate-600 hover:text-blue-700 rounded-lg transition-colors font-medium">
+                    <button key={path} onClick={() => navigate(path)} className="flex items-center gap-1 text-xs px-3 py-1.5 bg-slate-100 hover:bg-blue-100 text-app-text-muted hover:text-blue-700 rounded-lg transition-colors font-medium">
                       {label} <ChevronRight className="w-3 h-3" />
                     </button>
                   ))}
@@ -220,26 +220,26 @@ export default function ParentPortal() {
         </div>
       )}
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-        <div className="p-4 border-b border-slate-100 flex items-center justify-between">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+        <div className="p-4 border-b border-app-border flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Bell className="w-4 h-4 text-slate-400" />
-            <h3 className="font-semibold text-slate-800">School Announcements</h3>
+            <Bell className="w-4 h-4 text-app-text-muted" />
+            <h3 className="font-semibold text-app-text">School Announcements</h3>
           </div>
           <button onClick={() => navigate('/announcements')} className="text-xs text-blue-500 hover:text-blue-700 font-medium">View all</button>
         </div>
         {announcements.length === 0 ? (
-          <div className="p-8 text-center text-slate-400 text-sm">No announcements</div>
+          <div className="p-8 text-center text-app-text-muted text-sm">No announcements</div>
         ) : (
-          <div className="divide-y divide-slate-100">
+          <div className="divide-y divide-app-border">
             {announcements.map(a => (
               <div key={a.id} className="px-4 py-3">
                 <div className="flex items-start gap-2">
                   {a.is_pinned && <span className="mt-0.5 text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded font-medium flex-shrink-0">Pinned</span>}
                   <div>
-                    <p className="text-sm font-medium text-slate-800">{a.title}</p>
-                    <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">{a.content}</p>
-                    <p className="text-xs text-slate-400 mt-1">{new Date(a.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</p>
+                    <p className="text-sm font-medium text-app-text">{a.title}</p>
+                    <p className="text-xs text-app-text-muted mt-0.5 line-clamp-2">{a.content}</p>
+                    <p className="text-xs text-app-text-muted mt-1">{new Date(a.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</p>
                   </div>
                 </div>
               </div>

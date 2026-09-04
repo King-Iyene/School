@@ -11,7 +11,7 @@ const variants = {
   warning: 'bg-amber-50 text-amber-700 border-amber-200',
   error: 'bg-red-50 text-red-700 border-red-200',
   info: 'bg-blue-50 text-blue-700 border-blue-200',
-  default: 'bg-slate-50 text-slate-700 border-slate-200',
+  default: 'bg-app-surface-alt text-app-text border-app-border',
 };
 
 export default function Badge({ label, variant = 'default', icon: Icon }: BadgeProps) {

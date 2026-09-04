@@ -25,15 +25,15 @@ export default function AccountLockout() {
   const isCanceled = tenant?.status === 'canceled';
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center p-4 py-10">
+    <div className="min-h-screen bg-app-surface-alt flex flex-col items-center p-4 py-10">
       <div className="w-full max-w-md text-center mb-8">
         <div className="w-14 h-14 rounded-2xl bg-red-100 flex items-center justify-center mx-auto mb-4">
           <Lock className="w-6 h-6 text-red-600" />
         </div>
-        <h1 className="text-xl font-bold text-slate-900 mb-2">
+        <h1 className="text-xl font-bold text-app-text mb-2">
           {isCanceled ? `${settings.school_name || 'Your school'}'s account has been canceled` : `${settings.school_name || 'Your school'}'s account is suspended`}
         </h1>
-        <p className="text-slate-500 text-sm">
+        <p className="text-app-text-muted text-sm">
           {isCanceled
             ? 'Get in touch to reactivate your subscription.'
             : isAdmin
@@ -54,7 +54,7 @@ export default function AccountLockout() {
           <Billing />
         </div>
       ) : (
-        <button onClick={signOut} className="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-200 transition-colors">
+        <button onClick={signOut} className="px-4 py-2 bg-slate-100 text-app-text rounded-xl text-sm font-medium hover:bg-slate-200 transition-colors">
           Sign Out
         </button>
       )}

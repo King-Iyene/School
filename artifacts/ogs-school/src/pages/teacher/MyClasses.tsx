@@ -80,47 +80,47 @@ export default function TeacherMyClasses() {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-xl font-bold text-slate-800">My Classes</h2>
-        <p className="text-slate-500 text-sm">Classes and subjects assigned to you</p>
+        <h2 className="text-xl font-bold text-app-text">My Classes</h2>
+        <p className="text-app-text-muted text-sm">Classes and subjects assigned to you</p>
       </div>
 
       {loading ? (
-        <div className="text-center py-12 text-slate-400">Loading...</div>
+        <div className="text-center py-12 text-app-text-muted">Loading...</div>
       ) : classData.length === 0 ? (
         <div className="text-center py-12">
           <BookOpen className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <p className="text-slate-400">No classes assigned yet</p>
+          <p className="text-app-text-muted">No classes assigned yet</p>
         </div>
       ) : (
         <div className="space-y-3">
           {classData.map(cls => (
-            <div key={cls.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div key={cls.id} className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
               <button
                 onClick={() => toggleExpand(cls.id)}
-                className="w-full flex items-center justify-between p-5 hover:bg-slate-50 transition-colors"
+                className="w-full flex items-center justify-between p-5 hover:bg-app-surface-alt transition-colors"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center font-bold text-lg">
                     {cls.level}
                   </div>
                   <div className="text-left">
-                    <p className="font-semibold text-slate-800">{cls.name || `${cls.level}${cls.section}`}</p>
-                    <div className="flex items-center gap-3 text-xs text-slate-500 mt-0.5">
+                    <p className="font-semibold text-app-text">{cls.name || `${cls.level}${cls.section}`}</p>
+                    <div className="flex items-center gap-3 text-xs text-app-text-muted mt-0.5">
                       <span className="flex items-center gap-1"><Users className="w-3 h-3" />{cls.studentCount} students</span>
                       <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" />{cls.subjects.length} subjects</span>
                     </div>
                   </div>
                 </div>
-                {expanded.has(cls.id) ? <ChevronDown className="w-4 h-4 text-slate-400" /> : <ChevronRight className="w-4 h-4 text-slate-400" />}
+                {expanded.has(cls.id) ? <ChevronDown className="w-4 h-4 text-app-text-muted" /> : <ChevronRight className="w-4 h-4 text-app-text-muted" />}
               </button>
 
               {expanded.has(cls.id) && (
-                <div className="border-t border-slate-100 px-5 py-3">
-                  <p className="text-xs font-semibold text-slate-500 uppercase mb-2">Subjects I Teach</p>
+                <div className="border-t border-app-border px-5 py-3">
+                  <p className="text-xs font-semibold text-app-text-muted uppercase mb-2">Subjects I Teach</p>
                   <div className="flex flex-wrap gap-2">
                     {cls.subjects.map((s: any) => (
-                      <span key={s.id} className="bg-slate-100 text-slate-700 text-sm px-3 py-1.5 rounded-lg font-medium">
-                        {s.name} <span className="text-slate-400 text-xs">{s.code}</span>
+                      <span key={s.id} className="bg-slate-100 text-app-text text-sm px-3 py-1.5 rounded-lg font-medium">
+                        {s.name} <span className="text-app-text-muted text-xs">{s.code}</span>
                       </span>
                     ))}
                   </div>

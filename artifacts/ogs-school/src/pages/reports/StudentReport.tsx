@@ -124,7 +124,7 @@ export default function StudentReport() {
       )}
 
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Student Report</h1>
+        <h1 className="text-2xl font-bold text-app-text">Student Report</h1>
         <button
           onClick={handleExport}
           className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
@@ -134,12 +134,12 @@ export default function StudentReport() {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           <select
             value={filters.academic_year_id}
             onChange={e => setFilters(f => ({ ...f, academic_year_id: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">All Academic Years</option>
             {academicYears.map(y => (
@@ -150,7 +150,7 @@ export default function StudentReport() {
           <select
             value={filters.class_id}
             onChange={e => setFilters(f => ({ ...f, class_id: e.target.value, section_id: '' }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">All Classes</option>
             {classes.map(c => (
@@ -162,7 +162,7 @@ export default function StudentReport() {
             value={filters.section_id}
             onChange={e => setFilters(f => ({ ...f, section_id: e.target.value }))}
             disabled={!filters.class_id}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
           >
             <option value="">All Sections</option>
             {sections.map(s => (
@@ -173,7 +173,7 @@ export default function StudentReport() {
           <select
             value={filters.gender}
             onChange={e => setFilters(f => ({ ...f, gender: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">All Genders</option>
             <option value="male">Male</option>
@@ -184,7 +184,7 @@ export default function StudentReport() {
           <select
             value={filters.status}
             onChange={e => setFilters(f => ({ ...f, status: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">All Status</option>
             <option value="active">Active</option>
@@ -194,11 +194,11 @@ export default function StudentReport() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Total Students</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{students.length}</p>
+              <p className="text-sm text-app-text-muted">Total Students</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{students.length}</p>
             </div>
             <div className="bg-emerald-100 p-3 rounded-lg">
               <Users className="h-6 w-6 text-emerald-600" />
@@ -206,11 +206,11 @@ export default function StudentReport() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Male</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{maleCount}</p>
+              <p className="text-sm text-app-text-muted">Male</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{maleCount}</p>
             </div>
             <div className="bg-blue-100 p-3 rounded-lg">
               <UserCheck className="h-6 w-6 text-blue-600" />
@@ -218,11 +218,11 @@ export default function StudentReport() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Female</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{femaleCount}</p>
+              <p className="text-sm text-app-text-muted">Female</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{femaleCount}</p>
             </div>
             <div className="bg-pink-100 p-3 rounded-lg">
               <UserX className="h-6 w-6 text-pink-600" />
@@ -230,11 +230,11 @@ export default function StudentReport() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">New Admissions</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{newAdmissions}</p>
+              <p className="text-sm text-app-text-muted">New Admissions</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{newAdmissions}</p>
             </div>
             <div className="bg-amber-100 p-3 rounded-lg">
               <UserPlus className="h-6 w-6 text-amber-600" />
@@ -243,46 +243,46 @@ export default function StudentReport() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">#</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Student Name</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Admission No</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Class</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Section</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Gender</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">DOB</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Guardian</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Phone</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Status</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">#</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Student Name</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Admission No</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Class</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Section</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Gender</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">DOB</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Guardian</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Phone</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Status</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={10} className="text-center py-10 text-slate-400">Loading...</td>
+                  <td colSpan={10} className="text-center py-10 text-app-text-muted">Loading...</td>
                 </tr>
               ) : students.length === 0 ? (
                 <tr>
-                  <td colSpan={10} className="text-center py-10 text-slate-400">No students found</td>
+                  <td colSpan={10} className="text-center py-10 text-app-text-muted">No students found</td>
                 </tr>
               ) : (
                 students.map((student, index) => (
-                  <tr key={student.id} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="px-4 py-3 text-slate-500">{index + 1}</td>
-                    <td className="px-4 py-3 font-medium text-slate-800">{student.first_name} {student.last_name}</td>
-                    <td className="px-4 py-3 text-slate-600">{student.admission_number || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600">{student.classes?.name || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600">-</td>
-                    <td className="px-4 py-3 text-slate-600 capitalize">{student.gender || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600">
+                  <tr key={student.id} className="border-b border-app-border hover:bg-app-surface-alt">
+                    <td className="px-4 py-3 text-app-text-muted">{index + 1}</td>
+                    <td className="px-4 py-3 font-medium text-app-text">{student.first_name} {student.last_name}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{student.admission_number || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{student.classes?.name || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">-</td>
+                    <td className="px-4 py-3 text-app-text-muted capitalize">{student.gender || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">
                       {student.date_of_birth ? new Date(student.date_of_birth).toLocaleDateString() : '-'}
                     </td>
-                    <td className="px-4 py-3 text-slate-600">{student.guardian_name || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600">{student.guardian_phone || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{student.guardian_name || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{student.guardian_phone || '-'}</td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${student.status === 'active' ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'}`}>
                         {student.status || 'active'}

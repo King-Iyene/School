@@ -260,20 +260,20 @@ export default function QuestionBank() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Question Bank</h1>
-          <p className="text-slate-500 text-sm mt-1">Upload documents or paste text — AI extracts and classifies questions automatically</p>
+          <h1 className="text-2xl font-bold text-app-text">Question Bank</h1>
+          <p className="text-app-text-muted text-sm mt-1">Upload documents or paste text — AI extracts and classifies questions automatically</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-200">
+      <div className="flex border-b border-app-border">
         {([['add', 'Add Questions', Plus], ['bank', 'Question Bank', BookOpen]] as const).map(([key, label, Icon]) => (
           <button key={key} onClick={() => setActiveTab(key)}
             className={`flex items-center gap-2 px-5 py-3 text-sm font-medium border-b-2 transition-colors ${
-              activeTab === key ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-700'}`}>
+              activeTab === key ? 'border-blue-600 text-blue-600' : 'border-transparent text-app-text-muted hover:text-app-text'}`}>
             <Icon className="w-4 h-4" />{label}
             {key === 'bank' && bankItems.length > 0 && (
-              <span className="bg-slate-100 text-slate-600 text-xs px-2 py-0.5 rounded-full">{bankItems.length}</span>
+              <span className="bg-slate-100 text-app-text-muted text-xs px-2 py-0.5 rounded-full">{bankItems.length}</span>
             )}
           </button>
         ))}
@@ -283,16 +283,16 @@ export default function QuestionBank() {
       {activeTab === 'add' && (
         <div className="space-y-6">
           {/* Input mode toggle */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+          <div className="bg-app-surface rounded-2xl border border-app-border p-6 shadow-sm">
             <div className="flex gap-3 mb-5">
               <button onClick={() => setInputMode('upload')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                  inputMode === 'upload' ? 'bg-blue-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                  inputMode === 'upload' ? 'bg-blue-600 text-white shadow-sm' : 'bg-slate-100 text-app-text-muted hover:bg-slate-200'}`}>
                 <Upload className="w-4 h-4" /> Upload File
               </button>
               <button onClick={() => setInputMode('paste')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                  inputMode === 'paste' ? 'bg-blue-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                  inputMode === 'paste' ? 'bg-blue-600 text-white shadow-sm' : 'bg-slate-100 text-app-text-muted hover:bg-slate-200'}`}>
                 <ClipboardPaste className="w-4 h-4" /> Paste Text
               </button>
             </div>
@@ -301,39 +301,39 @@ export default function QuestionBank() {
               <div ref={dropRef} onDragOver={onDragOver} onDrop={onDrop}
                 onClick={() => fileInputRef.current?.click()}
                 className={`border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-all ${
-                  selectedFile ? 'border-blue-400 bg-blue-50' : 'border-slate-300 hover:border-blue-400 hover:bg-slate-50'}`}>
+                  selectedFile ? 'border-blue-400 bg-blue-50' : 'border-app-border hover:border-blue-400 hover:bg-app-surface-alt'}`}>
                 <input ref={fileInputRef} type="file" accept=".pdf,.docx,.doc" className="hidden"
                   onChange={e => setSelectedFile(e.target.files?.[0] ?? null)} />
                 {selectedFile ? (
                   <div className="flex items-center justify-center gap-3">
                     <FileText className="w-8 h-8 text-blue-500" />
                     <div className="text-left">
-                      <p className="font-semibold text-slate-800">{selectedFile.name}</p>
-                      <p className="text-slate-500 text-sm">{(selectedFile.size / 1024).toFixed(1)} KB</p>
+                      <p className="font-semibold text-app-text">{selectedFile.name}</p>
+                      <p className="text-app-text-muted text-sm">{(selectedFile.size / 1024).toFixed(1)} KB</p>
                     </div>
                     <button onClick={e => { e.stopPropagation(); setSelectedFile(null); }}
-                      className="ml-4 text-slate-400 hover:text-red-500 transition-colors">
+                      className="ml-4 text-app-text-muted hover:text-red-500 transition-colors">
                       <X className="w-5 h-5" />
                     </button>
                   </div>
                 ) : (
                   <>
-                    <Upload className="w-10 h-10 text-slate-400 mx-auto mb-3" />
-                    <p className="text-slate-600 font-medium">Drop a file here or click to browse</p>
-                    <p className="text-slate-400 text-sm mt-1">Supports PDF and Word documents (.docx)</p>
+                    <Upload className="w-10 h-10 text-app-text-muted mx-auto mb-3" />
+                    <p className="text-app-text-muted font-medium">Drop a file here or click to browse</p>
+                    <p className="text-app-text-muted text-sm mt-1">Supports PDF and Word documents (.docx)</p>
                   </>
                 )}
               </div>
             ) : (
               <textarea value={pasteText} onChange={e => setPasteText(e.target.value)}
                 placeholder="Paste your questions here — from a textbook, past exam paper, notes, or any source. The AI will identify and extract all questions automatically."
-                className="w-full h-52 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 placeholder-slate-400 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                className="w-full h-52 rounded-xl border border-app-border bg-app-surface-alt px-4 py-3 text-sm text-app-text placeholder-slate-400 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
             )}
 
             {/* Subject + Extract */}
             <div className="flex items-center gap-3 mt-4 flex-wrap">
               <select value={subjectId} onChange={e => setSubjectId(e.target.value)}
-                className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                className="rounded-lg border border-app-border bg-app-surface px-3 py-2 text-sm text-app-text focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="">— Subject (optional) —</option>
                 {subjects.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
               </select>
@@ -359,17 +359,17 @@ export default function QuestionBank() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-base font-semibold text-slate-800">
+                  <h2 className="text-base font-semibold text-app-text">
                     {drafts.length} questions extracted
                   </h2>
-                  <p className="text-slate-500 text-sm">Review, edit, then save selected questions to the bank</p>
+                  <p className="text-app-text-muted text-sm">Review, edit, then save selected questions to the bank</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <button onClick={() => setDrafts(ds => ds.map(d => ({ ...d, selected: true })))}
                     className="text-sm text-blue-600 hover:underline">Select all</button>
                   <span className="text-slate-300">|</span>
                   <button onClick={() => setDrafts(ds => ds.map(d => ({ ...d, selected: false })))}
-                    className="text-sm text-slate-500 hover:underline">Deselect all</button>
+                    className="text-sm text-app-text-muted hover:underline">Deselect all</button>
                   <button onClick={handleSave} disabled={saving || selectedCount === 0}
                     className="flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm hover:bg-emerald-700 transition-all disabled:opacity-50">
                     {saving ? <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
@@ -386,13 +386,13 @@ export default function QuestionBank() {
               )}
 
               {drafts.map((d, i) => (
-                <div key={d.id} className={`bg-white rounded-xl border transition-all shadow-sm ${d.selected ? 'border-blue-200' : 'border-slate-200 opacity-60'}`}>
+                <div key={d.id} className={`bg-app-surface rounded-xl border transition-all shadow-sm ${d.selected ? 'border-blue-200' : 'border-app-border opacity-60'}`}>
                   <div className="flex items-start gap-3 p-4">
                     <input type="checkbox" checked={d.selected} onChange={e => updateDraft(d.id, 'selected', e.target.checked)}
                       className="mt-1 w-4 h-4 rounded accent-blue-600 flex-shrink-0" />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap mb-2">
-                        <span className="text-xs font-bold text-slate-400">Q{i + 1}</span>
+                        <span className="text-xs font-bold text-app-text-muted">Q{i + 1}</span>
                         <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full ${
                           d.question_type === 'objective' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700'}`}>
                           {d.question_type === 'objective' ? <Target className="w-3 h-3" /> : <BookOpen className="w-3 h-3" />}
@@ -401,15 +401,15 @@ export default function QuestionBank() {
                         <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${DIFF_COLORS[d.difficulty]}`}>
                           {d.difficulty}
                         </span>
-                        <span className="text-xs text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">{d.marks} mark{d.marks !== 1 ? 's' : ''}</span>
-                        {d.topic && <span className="text-xs text-slate-500">📌 {d.topic}</span>}
+                        <span className="text-xs text-app-text-muted bg-slate-100 px-2 py-0.5 rounded-full">{d.marks} mark{d.marks !== 1 ? 's' : ''}</span>
+                        {d.topic && <span className="text-xs text-app-text-muted">📌 {d.topic}</span>}
                       </div>
-                      <p className="text-sm text-slate-800 leading-relaxed">{d.question_text}</p>
+                      <p className="text-sm text-app-text leading-relaxed">{d.question_text}</p>
                       {d.question_type === 'objective' && (
                         <div className="mt-2 grid grid-cols-2 gap-1">
                           {(['a', 'b', 'c', 'd'] as const).map(opt => (
                             <div key={opt} className={`text-xs px-2 py-1 rounded ${
-                              d.correct_answer?.toLowerCase() === opt ? 'bg-green-100 text-green-700 font-semibold' : 'bg-slate-50 text-slate-600'}`}>
+                              d.correct_answer?.toLowerCase() === opt ? 'bg-green-100 text-green-700 font-semibold' : 'bg-app-surface-alt text-app-text-muted'}`}>
                               <span className="font-bold uppercase">{opt}.</span> {(d as Record<string, unknown>)[`option_${opt}`] as string || '—'}
                             </div>
                           ))}
@@ -417,49 +417,49 @@ export default function QuestionBank() {
                       )}
                     </div>
                     <button onClick={() => setExpandedDraft(expandedDraft === d.id ? null : d.id)}
-                      className="text-slate-400 hover:text-slate-600 transition-colors flex-shrink-0">
+                      className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
                       {expandedDraft === d.id ? <ChevronUp className="w-4 h-4" /> : <Edit2 className="w-4 h-4" />}
                     </button>
                   </div>
 
                   {/* Inline edit panel */}
                   {expandedDraft === d.id && (
-                    <div className="border-t border-slate-100 p-4 bg-slate-50 rounded-b-xl space-y-3">
+                    <div className="border-t border-app-border p-4 bg-app-surface-alt rounded-b-xl space-y-3">
                       <textarea value={d.question_text} onChange={e => updateDraft(d.id, 'question_text', e.target.value)}
-                        className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500" rows={3} placeholder="Question text" />
+                        className="w-full rounded-lg border border-app-border bg-app-surface px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500" rows={3} placeholder="Question text" />
                       <div className="flex gap-3 flex-wrap">
                         <select value={d.question_type} onChange={e => updateDraft(d.id, 'question_type', e.target.value)}
-                          className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          className="rounded-lg border border-app-border bg-app-surface px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                           <option value="objective">Objective</option>
                           <option value="theory">Theory</option>
                         </select>
                         <select value={d.difficulty} onChange={e => updateDraft(d.id, 'difficulty', e.target.value)}
-                          className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          className="rounded-lg border border-app-border bg-app-surface px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                           <option value="easy">Easy</option>
                           <option value="medium">Medium</option>
                           <option value="hard">Hard</option>
                         </select>
                         <input type="number" value={d.marks} onChange={e => updateDraft(d.id, 'marks', Number(e.target.value))}
-                          className="w-20 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Marks" min={1} />
+                          className="w-20 rounded-lg border border-app-border bg-app-surface px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Marks" min={1} />
                         <input value={d.topic} onChange={e => updateDraft(d.id, 'topic', e.target.value)}
-                          className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 flex-1 min-w-0" placeholder="Topic" />
+                          className="rounded-lg border border-app-border bg-app-surface px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 flex-1 min-w-0" placeholder="Topic" />
                       </div>
                       {d.question_type === 'objective' && (
                         <div className="grid grid-cols-2 gap-2">
                           {(['a', 'b', 'c', 'd'] as const).map(opt => (
                             <div key={opt} className="flex items-center gap-2">
-                              <span className="text-xs font-bold text-slate-500 w-4 uppercase">{opt}.</span>
+                              <span className="text-xs font-bold text-app-text-muted w-4 uppercase">{opt}.</span>
                               <input value={(d as Record<string, unknown>)[`option_${opt}`] as string}
                                 onChange={e => updateDraft(d.id, `option_${opt}` as keyof DraftQuestion, e.target.value)}
-                                className="flex-1 rounded-lg border border-slate-200 bg-white px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                className="flex-1 rounded-lg border border-app-border bg-app-surface px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
                             </div>
                           ))}
                           <div className="col-span-2 flex items-center gap-2">
-                            <span className="text-xs text-slate-500">Correct answer:</span>
+                            <span className="text-xs text-app-text-muted">Correct answer:</span>
                             {['A','B','C','D'].map(c => (
                               <button key={c} onClick={() => updateDraft(d.id, 'correct_answer', c)}
                                 className={`w-8 h-8 rounded-lg text-sm font-bold transition-all ${
-                                  d.correct_answer?.toUpperCase() === c ? 'bg-green-500 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                                  d.correct_answer?.toUpperCase() === c ? 'bg-green-500 text-white' : 'bg-slate-100 text-app-text-muted hover:bg-slate-200'}`}>
                                 {c}
                               </button>
                             ))}
@@ -481,7 +481,7 @@ export default function QuestionBank() {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4">
             {[
-              { label: 'Total', value: bankItems.length, color: 'bg-slate-100 text-slate-700' },
+              { label: 'Total', value: bankItems.length, color: 'bg-slate-100 text-app-text' },
               { label: 'Objective', value: objCount, color: 'bg-blue-50 text-blue-700' },
               { label: 'Theory', value: theoryCount, color: 'bg-purple-50 text-purple-700' },
             ].map(s => (
@@ -495,22 +495,22 @@ export default function QuestionBank() {
           {/* Filters */}
           <div className="flex gap-3 flex-wrap items-center">
             <div className="relative flex-1 min-w-0 max-w-xs">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
               <input value={bankSearch} onChange={e => setBankSearch(e.target.value)}
                 placeholder="Search questions or topics…"
-                className="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                className="w-full pl-9 pr-3 py-2 rounded-lg border border-app-border text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
             <div className="flex gap-1 bg-slate-100 rounded-lg p-1">
               {(['all', 'objective', 'theory'] as const).map(t => (
                 <button key={t} onClick={() => setBankType(t)}
                   className={`px-3 py-1 rounded-md text-xs font-medium capitalize transition-all ${
-                    bankType === t ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}>
+                    bankType === t ? 'bg-app-surface text-app-text shadow-sm' : 'text-app-text-muted hover:text-app-text'}`}>
                   {t}
                 </button>
               ))}
             </div>
             <select value={bankSubject} onChange={e => setBankSubject(e.target.value)}
-              className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+              className="rounded-lg border border-app-border bg-app-surface px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="">All subjects</option>
               {subjects.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
             </select>
@@ -519,10 +519,10 @@ export default function QuestionBank() {
           {/* Questions list */}
           {bankLoading ? (
             <div className="flex items-center justify-center h-40">
-              <span className="w-8 h-8 border-3 border-slate-200 border-t-blue-600 rounded-full animate-spin" />
+              <span className="w-8 h-8 border-3 border-app-border border-t-blue-600 rounded-full animate-spin" />
             </div>
           ) : filteredBank.length === 0 ? (
-            <div className="text-center py-16 text-slate-400">
+            <div className="text-center py-16 text-app-text-muted">
               <BookOpen className="w-12 h-12 mx-auto mb-3 opacity-30" />
               <p className="font-medium">{bankItems.length === 0 ? 'Your question bank is empty' : 'No questions match your filters'}</p>
               {bankItems.length === 0 && <p className="text-sm mt-1">Use the "Add Questions" tab to get started</p>}
@@ -530,9 +530,9 @@ export default function QuestionBank() {
           ) : (
             <div className="space-y-3">
               {filteredBank.map((q, i) => (
-                <div key={q.id} className="bg-white rounded-xl border border-slate-200 shadow-sm">
+                <div key={q.id} className="bg-app-surface rounded-xl border border-app-border shadow-sm">
                   <div className="flex items-start gap-3 p-4">
-                    <span className="text-xs font-bold text-slate-400 mt-0.5 w-6 flex-shrink-0">{i + 1}</span>
+                    <span className="text-xs font-bold text-app-text-muted mt-0.5 w-6 flex-shrink-0">{i + 1}</span>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap mb-1.5">
                         <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full ${
@@ -541,18 +541,18 @@ export default function QuestionBank() {
                           {q.question_type === 'objective' ? 'Objective' : 'Theory'}
                         </span>
                         <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${DIFF_COLORS[q.difficulty]}`}>{q.difficulty}</span>
-                        <span className="text-xs text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">{q.marks}mk</span>
+                        <span className="text-xs text-app-text-muted bg-slate-100 px-2 py-0.5 rounded-full">{q.marks}mk</span>
                         {(q.subjects as { name: string } | undefined)?.name && (
-                          <span className="text-xs text-slate-500">📘 {(q.subjects as { name: string }).name}</span>
+                          <span className="text-xs text-app-text-muted">📘 {(q.subjects as { name: string }).name}</span>
                         )}
-                        {q.topic && <span className="text-xs text-slate-400">📌 {q.topic}</span>}
+                        {q.topic && <span className="text-xs text-app-text-muted">📌 {q.topic}</span>}
                       </div>
-                      <p className="text-sm text-slate-800 leading-relaxed">{q.question_text}</p>
+                      <p className="text-sm text-app-text leading-relaxed">{q.question_text}</p>
                       {q.question_type === 'objective' && expandedBank === q.id && (
                         <div className="mt-2 grid grid-cols-2 gap-1">
                           {(['a','b','c','d'] as const).map(opt => (
                             <div key={opt} className={`text-xs px-2 py-1 rounded ${
-                              q.correct_answer?.toLowerCase() === opt ? 'bg-green-100 text-green-700 font-semibold' : 'bg-slate-50 text-slate-600'}`}>
+                              q.correct_answer?.toLowerCase() === opt ? 'bg-green-100 text-green-700 font-semibold' : 'bg-app-surface-alt text-app-text-muted'}`}>
                               <span className="font-bold uppercase">{opt}.</span> {q[`option_${opt}` as keyof QuestionBankItem] as string || '—'}
                             </div>
                           ))}
@@ -562,12 +562,12 @@ export default function QuestionBank() {
                     <div className="flex items-center gap-1 flex-shrink-0">
                       {q.question_type === 'objective' && (
                         <button onClick={() => setExpandedBank(expandedBank === q.id ? null : q.id)}
-                          className="text-slate-400 hover:text-slate-600 p-1 rounded transition-colors">
+                          className="text-app-text-muted hover:text-app-text p-1 rounded transition-colors">
                           {expandedBank === q.id ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                         </button>
                       )}
                       <button onClick={() => handleDelete(q.id)} disabled={deletingId === q.id}
-                        className="text-slate-400 hover:text-red-500 p-1 rounded transition-colors disabled:opacity-40">
+                        className="text-app-text-muted hover:text-red-500 p-1 rounded transition-colors disabled:opacity-40">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>

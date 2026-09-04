@@ -102,7 +102,7 @@ export default function Alumni() {
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
   if (!authorized) {
-    return <div className="p-6 text-sm text-slate-500">You do not have permission to view this page.</div>;
+    return <div className="p-6 text-sm text-app-text-muted">You do not have permission to view this page.</div>;
   }
 
   return (
@@ -111,24 +111,24 @@ export default function Alumni() {
         <div className="bg-blue-50 p-2 rounded-lg">
           <GraduationCap size={22} className="text-blue-600" />
         </div>
-        <h1 className="text-2xl font-bold text-slate-800">Alumni</h1>
+        <h1 className="text-2xl font-bold text-app-text">Alumni</h1>
       </div>
-      <p className="text-sm text-slate-500 mb-6">
+      <p className="text-sm text-app-text-muted mb-6">
         Graduated students. Their full records — results, fees, attendance — remain available on their profile.
       </p>
 
       <div className="flex items-center gap-3 mb-4">
         <div className="relative flex-1 max-w-md">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-app-text-muted absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             value={search}
             onChange={e => setSearch(e.target.value)}
             onKeyDown={e => { if (e.key === 'Enter') { setPage(1); setQuery(search.trim()); } }}
             placeholder="Search name or admission number…"
-            className="w-full border border-slate-200 rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+            className="w-full border border-app-border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30"
           />
         </div>
-        <span className="text-sm text-slate-500">{total} alumni</span>
+        <span className="text-sm text-app-text-muted">{total} alumni</span>
       </div>
 
       {loadError && (
@@ -137,18 +137,18 @@ export default function Alumni() {
         </div>
       )}
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
         {loading ? (
-          <div className="py-16 text-center text-slate-400 text-sm">Loading…</div>
+          <div className="py-16 text-center text-app-text-muted text-sm">Loading…</div>
         ) : rows.length === 0 ? (
-          <div className="py-16 text-center text-slate-400 text-sm">
+          <div className="py-16 text-center text-app-text-muted text-sm">
             {query ? 'No alumni match your search' : 'No graduated students yet. Students appear here after graduation via Student Promote.'}
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-50 text-left text-xs text-slate-500 uppercase">
+                <tr className="bg-app-surface-alt text-left text-xs text-app-text-muted uppercase">
                   <th className="px-5 py-3 font-semibold">Name</th>
                   <th className="px-5 py-3 font-semibold">Admission No.</th>
                   <th className="px-5 py-3 font-semibold">Final Class</th>
@@ -156,9 +156,9 @@ export default function Alumni() {
                   <th className="px-5 py-3 font-semibold text-right">Profile</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {rows.map(s => (
-                  <tr key={s.id} className="hover:bg-slate-50">
+                  <tr key={s.id} className="hover:bg-app-surface-alt">
                     <td className="px-5 py-3">
                       <div className="flex items-center gap-3">
                         {s.avatar_url ? (
@@ -168,11 +168,11 @@ export default function Alumni() {
                             {s.first_name?.[0]}{s.last_name?.[0]}
                           </div>
                         )}
-                        <span className="font-medium text-slate-800">{s.first_name} {s.last_name}</span>
+                        <span className="font-medium text-app-text">{s.first_name} {s.last_name}</span>
                       </div>
                     </td>
-                    <td className="px-5 py-3 text-slate-600">{s.admission_number || '—'}</td>
-                    <td className="px-5 py-3 text-slate-600">{s.last_class || '—'}</td>
+                    <td className="px-5 py-3 text-app-text-muted">{s.admission_number || '—'}</td>
+                    <td className="px-5 py-3 text-app-text-muted">{s.last_class || '—'}</td>
                     <td className="px-5 py-3">
                       <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 font-medium">
                         {s.graduated_year || 'Graduated'}
@@ -196,9 +196,9 @@ export default function Alumni() {
 
       {totalPages > 1 && (
         <div className="flex items-center justify-end gap-2 mt-4">
-          <button disabled={page <= 1} onClick={() => setPage(p => p - 1)} className="p-2 rounded-lg border border-slate-200 disabled:opacity-40"><ChevronLeft className="w-4 h-4" /></button>
-          <span className="text-sm text-slate-600">Page {page} of {totalPages}</span>
-          <button disabled={page >= totalPages} onClick={() => setPage(p => p + 1)} className="p-2 rounded-lg border border-slate-200 disabled:opacity-40"><ChevronRight className="w-4 h-4" /></button>
+          <button disabled={page <= 1} onClick={() => setPage(p => p - 1)} className="p-2 rounded-lg border border-app-border disabled:opacity-40"><ChevronLeft className="w-4 h-4" /></button>
+          <span className="text-sm text-app-text-muted">Page {page} of {totalPages}</span>
+          <button disabled={page >= totalPages} onClick={() => setPage(p => p + 1)} className="p-2 rounded-lg border border-app-border disabled:opacity-40"><ChevronRight className="w-4 h-4" /></button>
         </div>
       )}
     </div>

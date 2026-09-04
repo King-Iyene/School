@@ -121,7 +121,7 @@ export default function DormitoryReport() {
 
   function statusBadge(status: string) {
     if (status === 'active') return 'bg-emerald-100 text-emerald-700';
-    if (status === 'inactive') return 'bg-slate-100 text-slate-600';
+    if (status === 'inactive') return 'bg-slate-100 text-app-text-muted';
     return 'bg-red-100 text-red-700';
   }
 
@@ -131,53 +131,53 @@ export default function DormitoryReport() {
         <div className="bg-emerald-500 text-white p-2 rounded-xl">
           <ClipboardList size={20} />
         </div>
-        <h1 className="text-2xl font-bold text-slate-800">Dormitory Report</h1>
+        <h1 className="text-2xl font-bold text-app-text">Dormitory Report</h1>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white rounded-2xl border border-slate-200 p-4 flex items-center gap-4">
+        <div className="bg-app-surface rounded-2xl border border-app-border p-4 flex items-center gap-4">
           <div className="bg-blue-100 text-blue-600 p-3 rounded-xl">
             <BedDouble size={20} />
           </div>
           <div>
-            <p className="text-xs text-slate-500">Total Rooms</p>
-            <p className="text-2xl font-bold text-slate-800">{summary.totalRooms}</p>
+            <p className="text-xs text-app-text-muted">Total Rooms</p>
+            <p className="text-2xl font-bold text-app-text">{summary.totalRooms}</p>
           </div>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 p-4 flex items-center gap-4">
+        <div className="bg-app-surface rounded-2xl border border-app-border p-4 flex items-center gap-4">
           <div className="bg-amber-100 text-amber-600 p-3 rounded-xl">
             <DoorOpen size={20} />
           </div>
           <div>
-            <p className="text-xs text-slate-500">Occupied Rooms</p>
-            <p className="text-2xl font-bold text-slate-800">{summary.occupiedRooms}</p>
+            <p className="text-xs text-app-text-muted">Occupied Rooms</p>
+            <p className="text-2xl font-bold text-app-text">{summary.occupiedRooms}</p>
           </div>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 p-4 flex items-center gap-4">
+        <div className="bg-app-surface rounded-2xl border border-app-border p-4 flex items-center gap-4">
           <div className="bg-emerald-100 text-emerald-600 p-3 rounded-xl">
             <BedDouble size={20} />
           </div>
           <div>
-            <p className="text-xs text-slate-500">Available Capacity</p>
-            <p className="text-2xl font-bold text-slate-800">{summary.availableCapacity}</p>
+            <p className="text-xs text-app-text-muted">Available Capacity</p>
+            <p className="text-2xl font-bold text-app-text">{summary.availableCapacity}</p>
           </div>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 p-4 flex items-center gap-4">
+        <div className="bg-app-surface rounded-2xl border border-app-border p-4 flex items-center gap-4">
           <div className="bg-purple-100 text-purple-600 p-3 rounded-xl">
             <UserCheck size={20} />
           </div>
           <div>
-            <p className="text-xs text-slate-500">Total Students</p>
-            <p className="text-2xl font-bold text-slate-800">{summary.totalStudents}</p>
+            <p className="text-xs text-app-text-muted">Total Students</p>
+            <p className="text-2xl font-bold text-app-text">{summary.totalStudents}</p>
           </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4">
         <div className="max-w-xs">
-          <label className="block text-sm font-medium text-slate-700 mb-1">Filter by Building</label>
+          <label className="block text-sm font-medium text-app-text mb-1">Filter by Building</label>
           <select
-            className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+            className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
             value={filterBuilding}
             onChange={e => setFilterBuilding(e.target.value)}
           >
@@ -189,43 +189,43 @@ export default function DormitoryReport() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {loading ? (
-          <div className="p-12 text-center text-slate-400">Loading...</div>
+          <div className="p-12 text-center text-app-text-muted">Loading...</div>
         ) : assignments.length === 0 ? (
           <div className="p-12 text-center">
             <Users size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-500">No assignments found.</p>
+            <p className="text-app-text-muted">No assignments found.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Student Name</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Room Number</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Building</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Room Type</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Check-in Date</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Status</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Student Name</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Room Number</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Building</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Room Type</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Check-in Date</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {assignments.map(a => (
-                  <tr key={a.id} className="hover:bg-slate-50/50">
-                    <td className="px-4 py-3 font-medium text-slate-800">
+                  <tr key={a.id} className="hover:bg-app-surface-alt/50">
+                    <td className="px-4 py-3 font-medium text-app-text">
                       {a.students ? `${a.students.first_name} ${a.students.last_name}` : '-'}
                     </td>
-                    <td className="px-4 py-3 text-slate-600">
+                    <td className="px-4 py-3 text-app-text-muted">
                       {a.dormitory_rooms?.room_number || '-'}
                     </td>
-                    <td className="px-4 py-3 text-slate-600">
+                    <td className="px-4 py-3 text-app-text-muted">
                       {a.dormitory_rooms?.dormitory_buildings?.name || '-'}
                     </td>
-                    <td className="px-4 py-3 text-slate-600">
+                    <td className="px-4 py-3 text-app-text-muted">
                       {a.dormitory_rooms?.room_types?.name || '-'}
                     </td>
-                    <td className="px-4 py-3 text-slate-600">
+                    <td className="px-4 py-3 text-app-text-muted">
                       {a.check_in_date ? new Date(a.check_in_date).toLocaleDateString() : '-'}
                     </td>
                     <td className="px-4 py-3">

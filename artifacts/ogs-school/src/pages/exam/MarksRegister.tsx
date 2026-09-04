@@ -531,8 +531,8 @@ export default function MarksRegister() {
     win.document.close();
   }
 
-  const inputClass = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
-  const cellInputClass = 'border border-slate-200 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 text-center font-bold';
+  const inputClass = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  const cellInputClass = 'border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 text-center font-bold';
   const allSelected = selectedExam && selectedClass && selectedSubject;
   const canGenerate = selectedExam && selectedClass;
 
@@ -540,8 +540,8 @@ export default function MarksRegister() {
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Marks Register</h1>
-          <p className="text-sm text-slate-500 mt-0.5">Enter student marks — CA (10) + Test (30) + Exam (60) = 100</p>
+          <h1 className="text-2xl font-bold text-app-text">Marks Register</h1>
+          <p className="text-sm text-app-text-muted mt-0.5">Enter student marks — CA (10) + Test (30) + Exam (60) = 100</p>
         </div>
         <div className="flex items-center gap-3">
           {showStatus === 'success' && (
@@ -577,24 +577,24 @@ export default function MarksRegister() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-5 mb-8 shadow-sm">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-5 mb-8 shadow-sm">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">Select Exam</label>
+            <label className="block text-xs font-bold text-app-text-muted uppercase tracking-wider mb-1.5 ml-1">Select Exam</label>
             <select className={inputClass} value={selectedExam} onChange={(e) => setSelectedExam(e.target.value)}>
               <option value="">Choose an exam...</option>
               {exams.map((e) => <option key={e.id} value={e.id}>{e.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">Select Class</label>
+            <label className="block text-xs font-bold text-app-text-muted uppercase tracking-wider mb-1.5 ml-1">Select Class</label>
             <select className={inputClass} value={selectedClass} onChange={(e) => setSelectedClass(e.target.value)}>
               <option value="">Choose a class...</option>
               {classes.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">Select Subject</label>
+            <label className="block text-xs font-bold text-app-text-muted uppercase tracking-wider mb-1.5 ml-1">Select Subject</label>
             <select className={inputClass} value={selectedSubject} onChange={(e) => setSelectedSubject(e.target.value)}>
               <option value="">Choose a subject...</option>
               {subjects.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
@@ -608,18 +608,18 @@ export default function MarksRegister() {
           <div className="w-10 h-10 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : !allSelected ? (
-        <div className="text-center py-24 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
+        <div className="text-center py-24 bg-app-surface-alt rounded-2xl border border-dashed border-app-border">
           <Printer size={48} className="mx-auto text-slate-300 mb-4" />
-          <p className="text-lg font-medium text-slate-600">Configuration Required</p>
-          <p className="text-sm text-slate-400 mt-1">Please select an exam, class, and subject to begin mark entry.</p>
+          <p className="text-lg font-medium text-app-text-muted">Configuration Required</p>
+          <p className="text-sm text-app-text-muted mt-1">Please select an exam, class, and subject to begin mark entry.</p>
         </div>
       ) : students.length === 0 ? (
-        <div className="text-center py-24 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
-          <p className="text-lg font-medium text-slate-600">No students enrolled</p>
-          <p className="text-sm text-slate-400 mt-1">No active student enrollments found for the selected class.</p>
+        <div className="text-center py-24 bg-app-surface-alt rounded-2xl border border-dashed border-app-border">
+          <p className="text-lg font-medium text-app-text-muted">No students enrolled</p>
+          <p className="text-sm text-app-text-muted mt-1">No active student enrollments found for the selected class.</p>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+        <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden shadow-sm">
           {resultsLocked && (
             <div className="flex items-center gap-2 px-6 py-3 bg-amber-50 border-b border-amber-200 text-sm text-amber-700 font-medium">
               Results for this class and term have been published — scores are locked. Only the Super Admin or Principal can make changes.
@@ -632,65 +632,65 @@ export default function MarksRegister() {
             const pending = offering.filter(s => s.status === 'pending_exam').length;
             const notStarted = offering.filter(s => s.status === 'not_started').length;
             return (
-              <div className="flex items-center gap-4 px-6 py-3 border-b border-slate-100 bg-slate-50 text-xs font-semibold">
-                <span className="text-slate-500">{offering.length} students</span>
+              <div className="flex items-center gap-4 px-6 py-3 border-b border-app-border bg-app-surface-alt text-xs font-semibold">
+                <span className="text-app-text-muted">{offering.length} students</span>
                 <span className="flex items-center gap-1.5 text-emerald-700"><span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />{complete} Complete</span>
                 <span className="flex items-center gap-1.5 text-amber-700"><span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />{pending} Pending Exam</span>
-                <span className="flex items-center gap-1.5 text-slate-400"><span className="w-2 h-2 rounded-full bg-slate-300 inline-block" />{notStarted} Not Started</span>
+                <span className="flex items-center gap-1.5 text-app-text-muted"><span className="w-2 h-2 rounded-full bg-slate-300 inline-block" />{notStarted} Not Started</span>
               </div>
             );
           })()}
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-6 py-4 font-bold text-slate-700">#</th>
-                  <th className="text-center px-3 py-4 font-bold text-slate-700" title="Tick if student offers this subject">Offers</th>
-                  <th className="text-left px-4 py-4 font-bold text-slate-700">Student Name</th>
-                  <th className="text-center px-3 py-4 font-bold text-slate-700">
+                  <th className="text-left px-6 py-4 font-bold text-app-text">#</th>
+                  <th className="text-center px-3 py-4 font-bold text-app-text" title="Tick if student offers this subject">Offers</th>
+                  <th className="text-left px-4 py-4 font-bold text-app-text">Student Name</th>
+                  <th className="text-center px-3 py-4 font-bold text-app-text">
                     <div>CA</div>
-                    <div className="text-xs font-normal text-slate-400">max 10</div>
+                    <div className="text-xs font-normal text-app-text-muted">max 10</div>
                   </th>
-                  <th className="text-center px-3 py-4 font-bold text-slate-700">
+                  <th className="text-center px-3 py-4 font-bold text-app-text">
                     <div>Test</div>
-                    <div className="text-xs font-normal text-slate-400">max 30</div>
+                    <div className="text-xs font-normal text-app-text-muted">max 30</div>
                   </th>
-                  <th className="text-center px-3 py-4 font-bold text-slate-700">
+                  <th className="text-center px-3 py-4 font-bold text-app-text">
                     <div>Exam</div>
-                    <div className="text-xs font-normal text-slate-400">max 60</div>
+                    <div className="text-xs font-normal text-app-text-muted">max 60</div>
                   </th>
-                  <th className="text-center px-3 py-4 font-bold text-slate-700">Total (100)</th>
-                  <th className="text-center px-3 py-4 font-bold text-slate-700">Grade</th>
-                  <th className="text-center px-3 py-4 font-bold text-slate-700">Status</th>
-                  <th className="text-center px-6 py-4 font-bold text-slate-700">Absent</th>
+                  <th className="text-center px-3 py-4 font-bold text-app-text">Total (100)</th>
+                  <th className="text-center px-3 py-4 font-bold text-app-text">Grade</th>
+                  <th className="text-center px-3 py-4 font-bold text-app-text">Status</th>
+                  <th className="text-center px-6 py-4 font-bold text-app-text">Absent</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {students.map((student, idx) => ({ student, idx })).filter(x => x.student.offers).map(({ student, idx }, displayIdx) => {
                   const total = calcTotal(student);
                   const { grade } = getWAECGrade(total);
                   const gradeColor = grade.startsWith('A') ? 'text-emerald-600 bg-emerald-50' : grade.startsWith('B') ? 'text-blue-600 bg-blue-50' : grade.startsWith('C') ? 'text-amber-600 bg-amber-50' : 'text-red-500 bg-red-50';
                   return (
-                    <tr key={student.student_id} className={`hover:bg-slate-50 transition-colors ${!student.offers ? 'bg-slate-100/60 opacity-60' : student.is_absent ? 'bg-red-50/30' : ''}`}>
-                      <td className="px-6 py-4 text-slate-500 font-medium">{displayIdx + 1}</td>
+                    <tr key={student.student_id} className={`hover:bg-app-surface-alt transition-colors ${!student.offers ? 'bg-slate-100/60 opacity-60' : student.is_absent ? 'bg-red-50/30' : ''}`}>
+                      <td className="px-6 py-4 text-app-text-muted font-medium">{displayIdx + 1}</td>
                       <td className="px-3 py-4 text-center">
                         <input
                           type="checkbox"
                           checked={student.offers}
                           disabled={resultsLocked}
                           onChange={() => toggleOffers(idx)}
-                          className="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500/30 cursor-pointer disabled:cursor-not-allowed"
+                          className="w-4 h-4 rounded border-app-border text-emerald-600 focus:ring-emerald-500/30 cursor-pointer disabled:cursor-not-allowed"
                           title={student.offers ? 'Uncheck to mark: student does not offer this subject' : 'Check to restore: student offers this subject'}
                         />
                       </td>
                       <td className="px-4 py-4">
-                        <div className={`font-semibold ${student.offers ? 'text-slate-800' : 'text-slate-500 line-through'}`}>{student.full_name}</div>
-                        <div className="text-[10px] text-slate-400 font-medium">ADM: {student.admission_number || '\u2014'}</div>
+                        <div className={`font-semibold ${student.offers ? 'text-app-text' : 'text-app-text-muted line-through'}`}>{student.full_name}</div>
+                        <div className="text-[10px] text-app-text-muted font-medium">ADM: {student.admission_number || '\u2014'}</div>
                       </td>
                       <td className="px-3 py-4 text-center">
                         <input
                           type="number"
-                          className={`${cellInputClass} w-16 ${student.is_absent ? 'opacity-30' : 'text-slate-700'}`}
+                          className={`${cellInputClass} w-16 ${student.is_absent ? 'opacity-30' : 'text-app-text'}`}
                           value={student.ca}
                           disabled={student.is_absent || !student.offers || resultsLocked}
                           onChange={(e) => updateStudent(idx, 'ca', e.target.value)}
@@ -702,7 +702,7 @@ export default function MarksRegister() {
                       <td className="px-3 py-4 text-center">
                         <input
                           type="number"
-                          className={`${cellInputClass} w-16 ${student.is_absent ? 'opacity-30' : 'text-slate-700'}`}
+                          className={`${cellInputClass} w-16 ${student.is_absent ? 'opacity-30' : 'text-app-text'}`}
                           value={student.test}
                           disabled={student.is_absent || !student.offers || resultsLocked}
                           onChange={(e) => updateStudent(idx, 'test', e.target.value)}
@@ -714,7 +714,7 @@ export default function MarksRegister() {
                       <td className="px-3 py-4 text-center">
                         <input
                           type="number"
-                          className={`${cellInputClass} w-16 ${student.is_absent ? 'opacity-30' : 'text-slate-700'}`}
+                          className={`${cellInputClass} w-16 ${student.is_absent ? 'opacity-30' : 'text-app-text'}`}
                           value={student.exam}
                           disabled={student.is_absent || !student.offers || resultsLocked}
                           onChange={(e) => updateStudent(idx, 'exam', e.target.value)}
@@ -724,7 +724,7 @@ export default function MarksRegister() {
                         />
                       </td>
                       <td className="px-3 py-4 text-center">
-                        <span className={`text-base font-black ${!student.offers || student.is_absent ? 'text-slate-300' : 'text-slate-900'}`}>
+                        <span className={`text-base font-black ${!student.offers || student.is_absent ? 'text-slate-300' : 'text-app-text'}`}>
                           {!student.offers ? 'N/O' : student.is_absent ? '\u2014' : total}
                         </span>
                       </td>
@@ -735,7 +735,7 @@ export default function MarksRegister() {
                       </td>
                       <td className="px-3 py-4 text-center">
                         {!student.offers ? (
-                          <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-slate-100 text-slate-400">N/O</span>
+                          <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-slate-100 text-app-text-muted">N/O</span>
                         ) : student.is_absent ? (
                           <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-red-100 text-red-500">Absent</span>
                         ) : student.status === 'complete' ? (
@@ -743,7 +743,7 @@ export default function MarksRegister() {
                         ) : student.status === 'pending_exam' ? (
                           <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-amber-100 text-amber-700">⏳ Pending Exam</span>
                         ) : (
-                          <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-slate-100 text-slate-400">Not Started</span>
+                          <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-slate-100 text-app-text-muted">Not Started</span>
                         )}
                       </td>
                       <td className="px-6 py-4 text-center">
@@ -753,7 +753,7 @@ export default function MarksRegister() {
                           className={`text-[10px] font-bold px-3 py-1.5 rounded-full transition-all border ${
                             student.is_absent
                               ? 'bg-red-500 text-white border-red-500 shadow-sm shadow-red-200'
-                              : 'bg-white text-slate-400 border-slate-200 hover:border-red-200 hover:text-red-500'
+                              : 'bg-app-surface text-app-text-muted border-app-border hover:border-red-200 hover:text-red-500'
                           }`}
                         >
                           {student.is_absent ? 'ABSENT' : 'PRESENT'}
@@ -766,13 +766,13 @@ export default function MarksRegister() {
             </table>
           </div>
           {students.some(s => !s.offers) && (
-            <div className="border-t border-slate-200 bg-slate-50 px-6 py-4">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">
+            <div className="border-t border-app-border bg-app-surface-alt px-6 py-4">
+              <p className="text-xs font-bold text-app-text-muted uppercase tracking-wide mb-2">
                 Not offering this subject ({students.filter(s => !s.offers).length})
               </p>
               <div className="flex flex-wrap gap-2">
                 {students.map((student, idx) => !student.offers && (
-                  <span key={student.student_id} className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full pl-3 pr-1.5 py-1 text-xs text-slate-600">
+                  <span key={student.student_id} className="inline-flex items-center gap-2 bg-app-surface border border-app-border rounded-full pl-3 pr-1.5 py-1 text-xs text-app-text-muted">
                     {student.full_name}
                     <button
                       onClick={() => toggleOffers(idx)}

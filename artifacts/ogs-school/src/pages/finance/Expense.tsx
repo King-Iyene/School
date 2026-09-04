@@ -28,7 +28,7 @@ interface ExpenseRecord {
 }
 
 const INPUT_CLASS =
-  'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 const EMPTY_FORM = {
   source_name: '',
@@ -189,7 +189,7 @@ export default function Expense() {
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-slate-800">Expense</h1>
+        <h1 className="text-2xl font-bold text-app-text">Expense</h1>
         <button
           onClick={openCreate}
           className="bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
@@ -198,10 +198,10 @@ export default function Expense() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-4 mb-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4 mb-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Search by Source</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Search by Source</label>
             <input
               className={INPUT_CLASS}
               value={searchSource}
@@ -210,7 +210,7 @@ export default function Expense() {
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Date From</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Date From</label>
             <input
               type="date"
               className={INPUT_CLASS}
@@ -219,7 +219,7 @@ export default function Expense() {
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Date To</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Date To</label>
             <input
               type="date"
               className={INPUT_CLASS}
@@ -230,18 +230,18 @@ export default function Expense() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {loading ? (
-          <div className="flex items-center justify-center py-16 text-slate-400 text-sm">Loading...</div>
+          <div className="flex items-center justify-center py-16 text-app-text-muted text-sm">Loading...</div>
         ) : records.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-slate-400">
+          <div className="flex flex-col items-center justify-center py-16 text-app-text-muted">
             <span className="text-4xl mb-3">📤</span>
             <p className="text-sm">No expense records found.</p>
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
+              <tr className="bg-app-surface-alt text-app-text-muted text-xs uppercase tracking-wider">
                 <th className="px-4 py-3 text-left font-medium">Source</th>
                 <th className="px-4 py-3 text-left font-medium">Account</th>
                 <th className="px-4 py-3 text-left font-medium">Amount</th>
@@ -251,15 +251,15 @@ export default function Expense() {
                 <th className="px-4 py-3 text-right font-medium">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {records.map((rec) => (
-                <tr key={rec.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-4 py-3 font-medium text-slate-800">{rec.source_name}</td>
-                  <td className="px-4 py-3 text-slate-600">{rec.chart_of_accounts?.account_name}</td>
+                <tr key={rec.id} className="hover:bg-app-surface-alt transition-colors">
+                  <td className="px-4 py-3 font-medium text-app-text">{rec.source_name}</td>
+                  <td className="px-4 py-3 text-app-text-muted">{rec.chart_of_accounts?.account_name}</td>
                   <td className="px-4 py-3 text-orange-600 font-medium">{formatCurrency(rec.amount)}</td>
-                  <td className="px-4 py-3 text-slate-500">{rec.payment_methods_list?.name}</td>
-                  <td className="px-4 py-3 text-slate-500">{rec.expense_date}</td>
-                  <td className="px-4 py-3 text-slate-500 font-mono text-xs">{rec.reference_no}</td>
+                  <td className="px-4 py-3 text-app-text-muted">{rec.payment_methods_list?.name}</td>
+                  <td className="px-4 py-3 text-app-text-muted">{rec.expense_date}</td>
+                  <td className="px-4 py-3 text-app-text-muted font-mono text-xs">{rec.reference_no}</td>
                   <td className="px-4 py-3 text-right space-x-2">
                     <button
                       onClick={() => openEdit(rec)}
@@ -285,7 +285,7 @@ export default function Expense() {
         <div className="space-y-4">
           {error && <p className="text-red-500 text-sm bg-red-50 rounded-xl px-3 py-2">{error}</p>}
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Source Name</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Source Name</label>
             <input
               className={INPUT_CLASS}
               value={form.source_name}
@@ -295,7 +295,7 @@ export default function Expense() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Account (Expense)</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Account (Expense)</label>
               <select
                 className={INPUT_CLASS}
                 value={form.account_id}
@@ -308,7 +308,7 @@ export default function Expense() {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Payment Method</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Payment Method</label>
               <select
                 className={INPUT_CLASS}
                 value={form.payment_method_id}
@@ -323,7 +323,7 @@ export default function Expense() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Expense Date</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Expense Date</label>
               <input
                 type="date"
                 className={INPUT_CLASS}
@@ -332,7 +332,7 @@ export default function Expense() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Amount (₦)</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Amount (₦)</label>
               <input
                 type="number"
                 min="0"
@@ -344,7 +344,7 @@ export default function Expense() {
             </div>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Reference No</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Reference No</label>
             <input
               className={INPUT_CLASS}
               value={form.reference_no}
@@ -353,7 +353,7 @@ export default function Expense() {
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Description</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Description</label>
             <textarea
               className={INPUT_CLASS}
               rows={3}
@@ -365,7 +365,7 @@ export default function Expense() {
           <div className="flex justify-end gap-2 pt-2">
             <button
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2.5 text-sm text-slate-600 hover:text-slate-800 font-medium rounded-xl hover:bg-slate-100 transition-colors"
+              className="px-4 py-2.5 text-sm text-app-text-muted hover:text-app-text font-medium rounded-xl hover:bg-slate-100 transition-colors"
             >
               Cancel
             </button>
@@ -382,13 +382,13 @@ export default function Expense() {
 
       <Modal isOpen={deleteModalOpen} onClose={() => setDeleteModalOpen(false)} title="Delete Expense Record">
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">
-            Are you sure you want to delete <span className="font-semibold text-slate-800">{deleteTarget?.source_name}</span>? This action cannot be undone.
+          <p className="text-sm text-app-text-muted">
+            Are you sure you want to delete <span className="font-semibold text-app-text">{deleteTarget?.source_name}</span>? This action cannot be undone.
           </p>
           <div className="flex justify-end gap-2">
             <button
               onClick={() => setDeleteModalOpen(false)}
-              className="px-4 py-2.5 text-sm text-slate-600 hover:text-slate-800 font-medium rounded-xl hover:bg-slate-100 transition-colors"
+              className="px-4 py-2.5 text-sm text-app-text-muted hover:text-app-text font-medium rounded-xl hover:bg-slate-100 transition-colors"
             >
               Cancel
             </button>

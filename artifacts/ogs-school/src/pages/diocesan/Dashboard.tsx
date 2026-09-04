@@ -38,15 +38,15 @@ export default function DiocesanDashboard() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-slate-800">Welcome, {profile?.first_name || 'Diocesan Official'}</h1>
-        <p className="text-slate-500 text-sm mt-1">Diocesan oversight portal — Inventory &amp; Reports</p>
+        <h1 className="text-2xl font-bold text-app-text">Welcome, {profile?.first_name || 'Diocesan Official'}</h1>
+        <p className="text-app-text-muted text-sm mt-1">Diocesan oversight portal — Inventory &amp; Reports</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-5 text-white shadow-lg shadow-emerald-500/20 cursor-pointer hover:shadow-xl hover:shadow-emerald-500/30 transition-all"
           onClick={() => navigate('/inventory/items')}>
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 bg-app-surface/20 rounded-xl flex items-center justify-center">
               <Package className="w-5 h-5" />
             </div>
             <div>
@@ -60,7 +60,7 @@ export default function DiocesanDashboard() {
         <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-5 text-white shadow-lg shadow-blue-500/20 cursor-pointer hover:shadow-xl hover:shadow-blue-500/30 transition-all"
           onClick={() => navigate('/reports/student')}>
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 bg-app-surface/20 rounded-xl flex items-center justify-center">
               <BarChart2 className="w-5 h-5" />
             </div>
             <div>
@@ -73,13 +73,13 @@ export default function DiocesanDashboard() {
       </div>
 
       <div>
-        <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">Inventory</h2>
+        <h2 className="text-sm font-semibold text-app-text-muted uppercase tracking-wider mb-3">Inventory</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {INVENTORY_LINKS.map(item => {
             const Icon = item.icon;
             return (
               <button key={item.path} onClick={() => navigate(item.path)}
-                className="flex items-center gap-3 bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-700 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 transition-all text-left shadow-sm">
+                className="flex items-center gap-3 bg-app-surface border border-app-border rounded-xl px-4 py-3 text-sm font-medium text-app-text hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 transition-all text-left shadow-sm">
                 <Icon className="w-4 h-4 flex-shrink-0 text-emerald-500" />
                 {item.label}
               </button>
@@ -89,13 +89,13 @@ export default function DiocesanDashboard() {
       </div>
 
       <div>
-        <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">Reports</h2>
+        <h2 className="text-sm font-semibold text-app-text-muted uppercase tracking-wider mb-3">Reports</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {REPORT_LINKS.map((item, i) => {
             const Icon = item.icon;
             return (
               <button key={item.path + i} onClick={() => navigate(item.path)}
-                className="flex items-center gap-3 bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-700 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 transition-all text-left shadow-sm">
+                className="flex items-center gap-3 bg-app-surface border border-app-border rounded-xl px-4 py-3 text-sm font-medium text-app-text hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 transition-all text-left shadow-sm">
                 <Icon className="w-4 h-4 flex-shrink-0 text-blue-500" />
                 {item.label}
               </button>

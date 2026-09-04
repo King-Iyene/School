@@ -303,15 +303,15 @@ export default function Attendance() {
   // Count recent school days (excluding today) with missing records
   const missingCount  = recentSchoolDays.filter(d => d !== t && !recordedDates.has(d)).length;
 
-  const inputCls = 'border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white';
+  const inputCls = 'border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface';
 
   return (
     <div className="space-y-5">
       {/* ── Header ── */}
       <div className="flex items-start justify-between">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Attendance</h2>
-          <p className="text-slate-500 text-sm">
+          <h2 className="text-xl font-bold text-app-text">Attendance</h2>
+          <p className="text-app-text-muted text-sm">
             {!metaLoaded ? 'Loading…' : isAdmin ? 'Mark and review attendance for any class' : isFormMaster ? 'Record daily student attendance for your class' : 'Restricted to Form Masters only'}
           </p>
         </div>
@@ -332,62 +332,62 @@ export default function Attendance() {
       </div>
 
       {!metaLoaded ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-16 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-16 text-center">
           <RefreshCw className="w-8 h-8 text-slate-300 animate-spin mx-auto mb-3" />
-          <p className="text-slate-400 text-sm">Loading…</p>
+          <p className="text-app-text-muted text-sm">Loading…</p>
         </div>
       ) : !isFormMaster ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-20 text-center px-6">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-20 text-center px-6">
           <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
             <Lock className="w-8 h-8 text-red-400" />
           </div>
-          <h3 className="text-lg font-bold text-slate-800 mb-2">No Access</h3>
-          <p className="text-slate-500 text-sm max-w-sm mx-auto">
+          <h3 className="text-lg font-bold text-app-text mb-2">No Access</h3>
+          <p className="text-app-text-muted text-sm max-w-sm mx-auto">
             Attendance marking is restricted to Form Masters only. You must be assigned as the Form Master of a class to record attendance.
           </p>
         </div>
       ) : (
         <>
           {/* ── Controls panel ── */}
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4">
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5 space-y-4">
 
             {/* Row 1: class + search */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-slate-500 mb-1">Class</label>
+                <label className="block text-xs font-medium text-app-text-muted mb-1">Class</label>
                 <select value={selectedClass} onChange={e => setSelectedClass(e.target.value)} className={inputCls + ' w-full'}>
                   {classes.map(c => <option key={c?.id} value={c?.id}>{c?.name || `${c?.level}${c?.section}`}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-slate-500 mb-1">Search Student</label>
+                <label className="block text-xs font-medium text-app-text-muted mb-1">Search Student</label>
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-app-text-muted" />
                   <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search…"
-                    className="w-full pl-8 pr-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+                    className="w-full pl-8 pr-3 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
                 </div>
               </div>
             </div>
 
             {/* Row 2: Date navigator */}
             <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1.5">Date</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1.5">Date</label>
               <div className="flex items-center gap-2 flex-wrap">
                 {/* Prev / next arrows */}
                 <button
                   onClick={() => setAttendanceDate(getPrevSchoolDay(attendanceDate))}
                   title="Previous school day"
-                  className="p-2 rounded-xl border border-slate-200 hover:bg-slate-100 transition-colors text-slate-600">
+                  className="p-2 rounded-xl border border-app-border hover:bg-slate-100 transition-colors text-app-text-muted">
                   <ChevronLeft className="w-4 h-4" />
                 </button>
                 <input type="date" value={attendanceDate} max={t}
                   onChange={e => setAttendanceDate(e.target.value)}
-                  className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+                  className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
                 <button
                   onClick={() => setAttendanceDate(getNextSchoolDay(attendanceDate))}
                   disabled={attendanceDate >= t}
                   title="Next school day"
-                  className="p-2 rounded-xl border border-slate-200 hover:bg-slate-100 transition-colors text-slate-600 disabled:opacity-30 disabled:cursor-not-allowed">
+                  className="p-2 rounded-xl border border-app-border hover:bg-slate-100 transition-colors text-app-text-muted disabled:opacity-30 disabled:cursor-not-allowed">
                   <ChevronRight className="w-4 h-4" />
                 </button>
                 {/* Today shortcut */}
@@ -420,7 +420,7 @@ export default function Attendance() {
                           : isRecorded
                             ? 'bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100'
                             : isToday
-                              ? 'bg-slate-100 border-slate-300 text-slate-700 hover:bg-slate-200'
+                              ? 'bg-slate-100 border-app-border text-app-text hover:bg-slate-200'
                               : 'bg-red-50 border-red-200 text-red-600 hover:bg-red-100'
                         }`}>
                       <span className="font-semibold">{dayLabel(d)}</span>
@@ -442,12 +442,12 @@ export default function Attendance() {
             )}
 
             {/* Summary + bulk-fill toggle */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-2 border-t border-slate-100 gap-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-2 border-t border-app-border gap-3">
               {students.length > 0 ? (
                 <div className="flex items-center gap-3 sm:gap-4 text-sm">
                   <span className="text-emerald-600 font-medium">{presentCount} Present</span>
                   <span className="text-red-500 font-medium">{absentCount} Absent</span>
-                  <span className="text-slate-400">{students.length} Total</span>
+                  <span className="text-app-text-muted">{students.length} Total</span>
                 </div>
               ) : <div />}
               <div className="flex items-center gap-2">
@@ -456,7 +456,7 @@ export default function Attendance() {
                   <button onClick={() => markAll('absent')}  className="text-xs text-red-500 hover:text-red-600 font-medium px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 transition-colors">All Absent</button>
                 </>}
                 <button onClick={() => setBulkOpen(o => !o)}
-                  className={`flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg transition-colors ${bulkOpen ? 'bg-violet-100 text-violet-700' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                  className={`flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg transition-colors ${bulkOpen ? 'bg-violet-100 text-violet-700' : 'bg-slate-100 text-app-text-muted hover:bg-slate-200'}`}>
                   <Zap className="w-3 h-3" /> Bulk Fill
                 </button>
               </div>
@@ -473,15 +473,15 @@ export default function Attendance() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-slate-600 mb-1">From</label>
+                    <label className="block text-xs font-medium text-app-text-muted mb-1">From</label>
                     <input type="date" value={bulkFrom} max={t} onChange={e => setBulkFrom(e.target.value)} className={inputCls + ' w-full'} />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-600 mb-1">To</label>
+                    <label className="block text-xs font-medium text-app-text-muted mb-1">To</label>
                     <input type="date" value={bulkTo} min={bulkFrom || undefined} max={t} onChange={e => setBulkTo(e.target.value)} className={inputCls + ' w-full'} />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-600 mb-1">Status for all</label>
+                    <label className="block text-xs font-medium text-app-text-muted mb-1">Status for all</label>
                     <select value={bulkStatus} onChange={e => setBulkStatus(e.target.value as AttStatus)} className={inputCls + ' w-full'}>
                       <option value="present">Present</option>
                       <option value="absent">Absent</option>
@@ -516,7 +516,7 @@ export default function Attendance() {
                     <Zap className="w-4 h-4" />
                     {bulkSaving ? 'Filling…' : `Fill ${bulkSchoolDays.length > 0 ? bulkSchoolDays.length : ''} Day${bulkSchoolDays.length !== 1 ? 's' : ''}`}
                   </button>
-                  <button onClick={() => setBulkOpen(false)} className="text-sm text-slate-500 hover:text-slate-700 px-3 py-2 rounded-xl hover:bg-slate-100 transition-colors">
+                  <button onClick={() => setBulkOpen(false)} className="text-sm text-app-text-muted hover:text-app-text px-3 py-2 rounded-xl hover:bg-slate-100 transition-colors">
                     Cancel
                   </button>
                 </div>
@@ -526,24 +526,24 @@ export default function Attendance() {
 
           {/* ── Student list ── */}
           {students.length === 0 ? (
-            <div className="text-center py-12 text-slate-400">
+            <div className="text-center py-12 text-app-text-muted">
               <UserCheck className="w-12 h-12 mx-auto mb-3 text-slate-300" />
               <p>{isOnline ? 'No students enrolled in this class' : 'No cached data available offline'}</p>
             </div>
           ) : (
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-              <div className="divide-y divide-slate-100">
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+              <div className="divide-y divide-app-border">
                 {filtered.map(s => {
                   const status = attendanceMap[s.id] || 'present';
                   return (
                     <div key={s.id} className="flex items-center justify-between px-3 sm:px-5 py-3 gap-2">
                       <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-100 flex items-center justify-center text-sm font-semibold text-slate-600 shrink-0">
+                        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-100 flex items-center justify-center text-sm font-semibold text-app-text-muted shrink-0">
                           {s.first_name?.[0]}{s.last_name?.[0]}
                         </div>
                         <div className="min-w-0">
-                          <p className="text-sm font-medium text-slate-800 truncate">{s.first_name} {s.last_name}</p>
-                          {s.admission_number && <p className="text-xs text-slate-400 truncate">{s.admission_number}</p>}
+                          <p className="text-sm font-medium text-app-text truncate">{s.first_name} {s.last_name}</p>
+                          {s.admission_number && <p className="text-xs text-app-text-muted truncate">{s.admission_number}</p>}
                         </div>
                       </div>
                       <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
@@ -551,7 +551,7 @@ export default function Attendance() {
                           const Icon = statusConfig[st].icon;
                           return (
                             <button key={st} onClick={() => setStatus(s.id, st)} title={statusConfig[st].label}
-                              className={`flex items-center gap-1 p-1.5 sm:px-3 sm:py-1.5 rounded-lg text-xs font-medium transition-colors ${status === st ? statusConfig[st].color : 'text-slate-400 hover:bg-slate-100'}`}>
+                              className={`flex items-center gap-1 p-1.5 sm:px-3 sm:py-1.5 rounded-lg text-xs font-medium transition-colors ${status === st ? statusConfig[st].color : 'text-app-text-muted hover:bg-slate-100'}`}>
                               <Icon size={13} className="shrink-0" />
                               <span className="hidden sm:inline">{statusConfig[st].label}</span>
                             </button>
@@ -562,7 +562,7 @@ export default function Attendance() {
                   );
                 })}
               </div>
-              <div className="p-4 border-t border-slate-100 flex items-center justify-between">
+              <div className="p-4 border-t border-app-border flex items-center justify-between">
                 {savedOffline
                   ? <div className="flex items-center gap-1.5 text-amber-600 text-sm"><WifiOff className="w-4 h-4" /> Saved offline — will sync when connected</div>
                   : <div />}

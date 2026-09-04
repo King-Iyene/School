@@ -280,8 +280,8 @@ export default function TeacherAssignments() {
     <div className="space-y-5">
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
-          <h2 className="text-lg sm:text-xl font-bold text-slate-800">Assignments</h2>
-          <p className="text-slate-500 text-xs sm:text-sm hidden sm:block">Create and manage student assignments</p>
+          <h2 className="text-lg sm:text-xl font-bold text-app-text">Assignments</h2>
+          <p className="text-app-text-muted text-xs sm:text-sm hidden sm:block">Create and manage student assignments</p>
         </div>
         <button
           onClick={() => { setShowModal(true); setSaveError(''); }}
@@ -293,24 +293,24 @@ export default function TeacherAssignments() {
       </div>
 
       {loading ? (
-        <div className="text-center py-12 text-slate-400">Loading...</div>
+        <div className="text-center py-12 text-app-text-muted">Loading...</div>
       ) : assignments.length === 0 ? (
         <div className="text-center py-12">
           <ClipboardList className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <p className="text-slate-400">No assignments created yet</p>
+          <p className="text-app-text-muted">No assignments created yet</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {assignments.map(a => (
-            <div key={a.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 hover:border-emerald-300 hover:shadow-md transition-all">
+            <div key={a.id} className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5 hover:border-emerald-300 hover:shadow-md transition-all">
               <div className="flex items-start justify-between gap-3 mb-3">
                 <div className="min-w-0">
-                  <h3 className="font-semibold text-slate-800 truncate">{a.title}</h3>
-                  <p className="text-sm text-slate-500 mt-0.5">{(a.classes as any)?.name || `${(a.classes as any)?.level}${(a.classes as any)?.section}`} · {(a.subjects as any)?.name}</p>
+                  <h3 className="font-semibold text-app-text truncate">{a.title}</h3>
+                  <p className="text-sm text-app-text-muted mt-0.5">{(a.classes as any)?.name || `${(a.classes as any)?.level}${(a.classes as any)?.section}`} · {(a.subjects as any)?.name}</p>
                 </div>
                 <Badge label={a.status} variant={statusColors[a.status]} />
               </div>
-              {a.description && <p className="text-sm text-slate-600 mb-3 line-clamp-2">{a.description}</p>}
+              {a.description && <p className="text-sm text-app-text-muted mb-3 line-clamp-2">{a.description}</p>}
               
               {(a.source_url || a.file_url) && (
                 <div className="flex flex-wrap gap-2 mb-4">
@@ -327,21 +327,21 @@ export default function TeacherAssignments() {
                 </div>
               )}
 
-              <div className="flex items-center justify-between gap-4 text-xs text-slate-400">
+              <div className="flex items-center justify-between gap-4 text-xs text-app-text-muted">
                 <div className="flex items-center gap-4">
                   <span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5" />Due: {new Date(a.due_date).toLocaleDateString()}</span>
                   <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" />Max: {a.max_score} pts</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button onClick={() => handleEdit(a)} className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit Assignment">
+                  <button onClick={() => handleEdit(a)} className="p-1.5 text-app-text-muted hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit Assignment">
                     <Pencil className="w-3.5 h-3.5" />
                   </button>
-                  <button onClick={() => handleDelete(a.id)} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete Assignment">
+                  <button onClick={() => handleDelete(a.id)} className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete Assignment">
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
                   <button 
                     onClick={() => loadSubmissions(a)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 text-slate-600 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg font-medium transition-colors border border-slate-100"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-app-surface-alt text-app-text-muted hover:bg-emerald-50 hover:text-emerald-600 rounded-lg font-medium transition-colors border border-app-border"
                   >
                     <Eye className="w-3.5 h-3.5" /> View Submissions
                   </button>
@@ -356,24 +356,24 @@ export default function TeacherAssignments() {
         <div className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
-            <input value={form.title} onChange={e => setForm({...form, title: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            <label className="block text-sm font-medium text-app-text mb-1">Title</label>
+            <input value={form.title} onChange={e => setForm({...form, title: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Description (Optional)</label>
-            <textarea value={form.description} onChange={e => setForm({...form, description: e.target.value})} rows={3} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 resize-none" />
+            <label className="block text-sm font-medium text-app-text mb-1">Description (Optional)</label>
+            <textarea value={form.description} onChange={e => setForm({...form, description: e.target.value})} rows={3} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 resize-none" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Class</label>
-              <select value={form.class_id} onChange={e => { setForm({...form, class_id: e.target.value, subject_id: ''}); loadSubjectsForClass(e.target.value); }} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+              <label className="block text-sm font-medium text-app-text mb-1">Class</label>
+              <select value={form.class_id} onChange={e => { setForm({...form, class_id: e.target.value, subject_id: ''}); loadSubjectsForClass(e.target.value); }} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
                 <option value="">Select class</option>
                 {classes.map(c => <option key={(c as any)?.id} value={(c as any)?.id}>{(c as any)?.name || `${(c as any)?.level}${(c as any)?.section}`}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Subject</label>
-              <select value={form.subject_id} onChange={e => setForm({...form, subject_id: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+              <label className="block text-sm font-medium text-app-text mb-1">Subject</label>
+              <select value={form.subject_id} onChange={e => setForm({...form, subject_id: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
                 <option value="">Select subject</option>
                 {subjects.map(s => <option key={(s as any)?.id} value={(s as any)?.id}>{(s as any)?.name}</option>)}
               </select>
@@ -381,33 +381,33 @@ export default function TeacherAssignments() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Due Date</label>
-              <input type="datetime-local" value={form.due_date} onChange={e => setForm({...form, due_date: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <label className="block text-sm font-medium text-app-text mb-1">Due Date</label>
+              <input type="datetime-local" value={form.due_date} onChange={e => setForm({...form, due_date: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Max Score</label>
-              <input type="number" value={form.max_score} onChange={e => setForm({...form, max_score: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <label className="block text-sm font-medium text-app-text mb-1">Max Score</label>
+              <input type="number" value={form.max_score} onChange={e => setForm({...form, max_score: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
             </div>
           </div>
 
-          <div className="pt-2 border-t border-slate-100">
-            <label className="block text-sm font-medium text-slate-700 mb-2">Additional Resources</label>
+          <div className="pt-2 border-t border-app-border">
+            <label className="block text-sm font-medium text-app-text mb-2">Additional Resources</label>
             <div className="space-y-3">
               <div>
                 <div className="relative">
-                  <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
                   <input 
                     type="url" 
                     value={form.source_url} 
                     onChange={e => setForm({...form, source_url: e.target.value})} 
                     placeholder="Source URL (Optional)"
-                    className="w-full border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" 
+                    className="w-full border border-app-border rounded-xl pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" 
                   />
                 </div>
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <label className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 border-2 border-dashed rounded-xl transition-all cursor-pointer ${form.file_url ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-slate-50 border-slate-200 text-slate-500 hover:bg-slate-100'}`}>
+                  <label className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 border-2 border-dashed rounded-xl transition-all cursor-pointer ${form.file_url ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-app-surface-alt border-app-border text-app-text-muted hover:bg-slate-100'}`}>
                     <Upload className="w-4 h-4" />
                     <span className="text-xs font-medium">{uploading ? 'Uploading...' : form.file_url ? 'Attachment Uploaded' : 'Upload File Attachment (Optional)'}</span>
                     <input type="file" className="hidden" onChange={handleFileUpload} disabled={uploading} />
@@ -423,7 +423,7 @@ export default function TeacherAssignments() {
             </div>
           </div>
           <div className="flex gap-3 pt-2">
-            <button onClick={() => { setShowModal(false); setEditingAssignment(null); }} className="flex-1 px-4 py-2 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50">Cancel</button>
+            <button onClick={() => { setShowModal(false); setEditingAssignment(null); }} className="flex-1 px-4 py-2 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
             <button onClick={handleSave} disabled={saving} className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-all">
               {saving ? 'Saving...' : editingAssignment ? 'Update Assignment' : 'Create Assignment'}
             </button>
@@ -435,14 +435,14 @@ export default function TeacherAssignments() {
       <Modal isOpen={showSubmissionsModal} onClose={() => setShowSubmissionsModal(false)} title={`Submissions: ${selectedForSubmissions?.title}`} size="lg">
         <div className="space-y-4">
           {loadingSubmissions ? (
-            <div className="text-center py-12 text-slate-400">Loading submissions...</div>
+            <div className="text-center py-12 text-app-text-muted">Loading submissions...</div>
           ) : submissions.length === 0 ? (
-            <p className="text-center py-8 text-slate-500 text-sm">No students found in this class.</p>
+            <p className="text-center py-8 text-app-text-muted text-sm">No students found in this class.</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm text-left">
                 <thead>
-                  <tr className="border-b border-slate-100 text-slate-400 uppercase text-[10px] font-bold">
+                  <tr className="border-b border-app-border text-app-text-muted uppercase text-[10px] font-bold">
                     <th className="px-4 py-3">Student</th>
                     <th className="px-4 py-3">Admission No</th>
                     <th className="px-4 py-3 text-center">Grade</th>
@@ -452,9 +452,9 @@ export default function TeacherAssignments() {
                 </thead>
                 <tbody className="divide-y divide-slate-50">
                   {submissions.map(s => (
-                    <tr key={s.id} className="hover:bg-slate-50/50 transition-colors">
-                      <td className="px-4 py-3 font-medium text-slate-700">{s.first_name} {s.last_name}</td>
-                      <td className="px-4 py-3 text-slate-500">{s.admission_number || '—'}</td>
+                    <tr key={s.id} className="hover:bg-app-surface-alt/50 transition-colors">
+                      <td className="px-4 py-3 font-medium text-app-text">{s.first_name} {s.last_name}</td>
+                      <td className="px-4 py-3 text-app-text-muted">{s.admission_number || '—'}</td>
                       <td className="px-4 py-3 text-center">
                         {s.submission?.status === 'graded' ? (
                           <span className="text-sm font-bold text-emerald-600">{s.submission.score}/{selectedForSubmissions.max_score}</span>
@@ -505,32 +505,32 @@ export default function TeacherAssignments() {
       {/* Grading Modal */}
       <Modal isOpen={showGradingModal} onClose={() => setShowGradingModal(false)} title={`Grade Submission: ${selectedSubmission?.first_name}`} size="md">
         <div className="space-y-5">
-          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Student Submission</h4>
+          <div className="p-4 bg-app-surface-alt rounded-2xl border border-app-border">
+            <h4 className="text-xs font-bold text-app-text-muted uppercase tracking-wider mb-2">Student Submission</h4>
             {selectedSubmission?.submission?.submission_text && (
-              <p className="text-sm text-slate-700 whitespace-pre-wrap mb-4">{selectedSubmission.submission.submission_text}</p>
+              <p className="text-sm text-app-text whitespace-pre-wrap mb-4">{selectedSubmission.submission.submission_text}</p>
             )}
             {selectedSubmission?.submission?.file_url ? (
               <a 
                 href={selectedSubmission.submission.file_url} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center gap-2 w-fit px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-50 transition-all shadow-sm"
+                className="flex items-center gap-2 w-fit px-4 py-2 bg-app-surface border border-app-border rounded-xl text-sm font-medium text-app-text hover:bg-app-surface-alt transition-all shadow-sm"
               >
                 <FileText className="w-4 h-4 text-emerald-500" />
                 View/Download Attachment
-                <ExternalLink className="w-3.5 h-3.5 ml-1 text-slate-400" />
+                <ExternalLink className="w-3.5 h-3.5 ml-1 text-app-text-muted" />
               </a>
             ) : (
-              <p className="text-xs text-slate-400 italic">No file attachment provided.</p>
+              <p className="text-xs text-app-text-muted italic">No file attachment provided.</p>
             )}
           </div>
 
           <div className="grid grid-cols-1 gap-4">
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-sm font-medium text-slate-700">Award Score</label>
-                <span className="text-xs text-slate-400 font-medium">Out of {selectedForSubmissions?.max_score} points</span>
+                <label className="text-sm font-medium text-app-text">Award Score</label>
+                <span className="text-xs text-app-text-muted font-medium">Out of {selectedForSubmissions?.max_score} points</span>
               </div>
               <input 
                 type="number" 
@@ -538,24 +538,24 @@ export default function TeacherAssignments() {
                 onChange={e => setGradingForm({...gradingForm, score: e.target.value})}
                 max={selectedForSubmissions?.max_score}
                 placeholder="Enter score"
-                className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                className="w-full border border-app-border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">Feedback / Comments</label>
+              <label className="block text-sm font-medium text-app-text mb-1.5">Feedback / Comments</label>
               <textarea 
                 value={gradingForm.feedback}
                 onChange={e => setGradingForm({...gradingForm, feedback: e.target.value})}
                 rows={4}
                 placeholder="Provide feedback to the student..."
-                className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 resize-none"
+                className="w-full border border-app-border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 resize-none"
               />
             </div>
           </div>
 
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setShowGradingModal(false)} className="flex-1 px-4 py-2 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => setShowGradingModal(false)} className="flex-1 px-4 py-2 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
             <button 
               onClick={handleGrade} 
               disabled={grading || !gradingForm.score}

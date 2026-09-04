@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 const GENDER_BADGE: Record<string, string> = {
   boy:  'bg-blue-100 text-blue-700',
   girl: 'bg-rose-100 text-rose-700',
-  any:  'bg-slate-100 text-slate-600',
+  any:  'bg-slate-100 text-app-text-muted',
 };
 
 const GENDER_LABEL: Record<string, string> = {
@@ -190,19 +190,19 @@ export default function Prefects() {
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">School Prefects</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Assign student prefects for each academic year</p>
+          <h1 className="text-2xl font-bold text-app-text">School Prefects</h1>
+          <p className="text-app-text-muted text-sm mt-0.5">Assign student prefects for each academic year</p>
         </div>
         <div className="flex items-center gap-3 flex-wrap">
           <div className="relative">
             <select
               value={selectedYear}
               onChange={e => setSelectedYear(e.target.value)}
-              className="appearance-none pl-3 pr-8 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
+              className="appearance-none pl-3 pr-8 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
             >
               {years.map(y => <option key={y.id} value={y.id}>{y.name}{y.is_current ? ' (Current)' : ''}</option>)}
             </select>
-            <ChevronDown className="absolute right-2.5 top-2.5 w-4 h-4 text-slate-400 pointer-events-none" />
+            <ChevronDown className="absolute right-2.5 top-2.5 w-4 h-4 text-app-text-muted pointer-events-none" />
           </div>
           {isAdmin && (
             <button onClick={() => { setEditingPos(null); setPosForm({ ...EMPTY_POS }); setShowAddPos(true); }}
@@ -216,38 +216,38 @@ export default function Prefects() {
       {/* Summary */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: 'Total Positions', value: positions.length,   color: 'bg-slate-50',    text: 'text-slate-700' },
+          { label: 'Total Positions', value: positions.length,   color: 'bg-app-surface-alt',    text: 'text-app-text' },
           { label: 'Assigned',        value: assignedCount,      color: 'bg-emerald-50',  text: 'text-emerald-700' },
           { label: 'Vacant',          value: positions.length - assignedCount, color: 'bg-amber-50', text: 'text-amber-700' },
           { label: 'Categories',      value: Object.keys(grouped).length, color: 'bg-blue-50', text: 'text-blue-700' },
         ].map(s => (
           <div key={s.label} className={`${s.color} rounded-xl p-4 text-center`}>
             <p className={`text-3xl font-bold ${s.text}`}>{s.value}</p>
-            <p className="text-xs text-slate-500 mt-1">{s.label}</p>
+            <p className="text-xs text-app-text-muted mt-1">{s.label}</p>
           </div>
         ))}
       </div>
 
       {loading ? (
-        <div className="text-center py-12 text-slate-400">Loading prefect board...</div>
+        <div className="text-center py-12 text-app-text-muted">Loading prefect board...</div>
       ) : (
         <div className="space-y-6">
           {Object.entries(grouped).map(([category, categoryPositions]) => (
             <div key={category}>
-              <h2 className="flex items-center gap-2 text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">
+              <h2 className="flex items-center gap-2 text-sm font-semibold text-app-text-muted uppercase tracking-wide mb-3">
                 <Shield className="w-4 h-4" /> {category}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
                 {categoryPositions.map(pos => {
                   const assignment = getAssignment(pos.id);
                   return (
-                    <div key={pos.id} className={`bg-white border rounded-xl overflow-hidden transition-shadow hover:shadow-md ${assignment ? 'border-emerald-200' : 'border-slate-200 border-dashed'}`}>
+                    <div key={pos.id} className={`bg-app-surface border rounded-xl overflow-hidden transition-shadow hover:shadow-md ${assignment ? 'border-emerald-200' : 'border-app-border border-dashed'}`}>
                       <div className={`h-1 ${assignment ? 'bg-emerald-500' : 'bg-slate-200'}`} />
                       <div className="p-4">
                         <div className="flex items-start justify-between mb-3">
                           <div>
-                            <h3 className="font-semibold text-slate-800">
-                              {pos.title} {GENDER_LABEL[pos.gender] && <span className="font-normal text-slate-500">({GENDER_LABEL[pos.gender]})</span>}
+                            <h3 className="font-semibold text-app-text">
+                              {pos.title} {GENDER_LABEL[pos.gender] && <span className="font-normal text-app-text-muted">({GENDER_LABEL[pos.gender]})</span>}
                             </h3>
                             {pos.gender !== 'any' && (
                               <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${GENDER_BADGE[pos.gender]}`}>
@@ -258,7 +258,7 @@ export default function Prefects() {
                           {isAdmin && (
                             <div className="flex gap-1">
                               <button onClick={() => { setEditingPos(pos); setPosForm({ title: pos.title, gender: pos.gender as any, category: pos.category, sort_order: pos.sort_order }); setShowAddPos(true); }}
-                                className="p-1 text-slate-300 hover:text-slate-600 rounded transition-colors">
+                                className="p-1 text-slate-300 hover:text-app-text-muted rounded transition-colors">
                                 <Edit2 className="w-3.5 h-3.5" />
                               </button>
                             </div>
@@ -269,9 +269,9 @@ export default function Prefects() {
                           <div className="flex items-center gap-3">
                             <Initials name={assignment.student_name} avatarUrl={assignment.avatar_url} />
                             <div className="flex-1 min-w-0">
-                              <p className="font-medium text-slate-800 text-sm truncate">{assignment.student_name}</p>
+                              <p className="font-medium text-app-text text-sm truncate">{assignment.student_name}</p>
                               {assignment.appointed_date && (
-                                <p className="text-xs text-slate-400">
+                                <p className="text-xs text-app-text-muted">
                                   Appointed {new Date(assignment.appointed_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                                 </p>
                               )}
@@ -279,11 +279,11 @@ export default function Prefects() {
                             {isAdmin && (
                               <div className="flex gap-1">
                                 <button onClick={() => { setAssigningPosition(pos); setShowAssignModal(true); }}
-                                  className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded transition-colors" title="Change">
+                                  className="p-1.5 text-app-text-muted hover:text-emerald-600 hover:bg-emerald-50 rounded transition-colors" title="Change">
                                   <Edit2 className="w-3.5 h-3.5" />
                                 </button>
                                 <button onClick={() => removeAssignment(assignment.id)}
-                                  className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors" title="Remove">
+                                  className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded transition-colors" title="Remove">
                                   <Trash2 className="w-3.5 h-3.5" />
                                 </button>
                               </div>
@@ -291,7 +291,7 @@ export default function Prefects() {
                           </div>
                         ) : (
                           <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2 text-sm text-slate-400">
+                            <div className="flex items-center gap-2 text-sm text-app-text-muted">
                               <User className="w-4 h-4" />
                               <span>Vacant</span>
                             </div>
@@ -316,50 +316,50 @@ export default function Prefects() {
       {/* Assign Student Modal */}
       {showAssignModal && assigningPosition && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md">
-            <div className="p-6 border-b border-slate-100">
-              <h2 className="text-lg font-semibold text-slate-800">
+          <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-md">
+            <div className="p-6 border-b border-app-border">
+              <h2 className="text-lg font-semibold text-app-text">
                 Assign {assigningPosition.title}
                 {GENDER_LABEL[assigningPosition.gender] ? ` (${GENDER_LABEL[assigningPosition.gender]})` : ''}
               </h2>
-              <p className="text-sm text-slate-400 mt-1">
+              <p className="text-sm text-app-text-muted mt-1">
                 {years.find(y => y.id === selectedYear)?.name}
               </p>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Appointment Date</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Appointment Date</label>
                 <input type="date" value={appointedDate} onChange={e => setAppointedDate(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Notes (optional)</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Notes (optional)</label>
                 <input type="text" value={assignNotes} onChange={e => setAssignNotes(e.target.value)}
                   placeholder="e.g. Appointed by principal"
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Search Student</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Search Student</label>
                 <div className="relative">
-                  <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+                  <Search className="absolute left-3 top-2.5 w-4 h-4 text-app-text-muted" />
                   <input
                     type="text"
                     placeholder="Type student name..."
                     value={studentSearch}
                     onChange={e => { setStudentSearch(e.target.value); searchStudents(e.target.value); }}
-                    className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full pl-9 pr-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
                 {studentResults.length > 0 && (
-                  <div className="mt-2 border border-slate-200 rounded-lg overflow-hidden max-h-52 overflow-y-auto">
+                  <div className="mt-2 border border-app-border rounded-lg overflow-hidden max-h-52 overflow-y-auto">
                     {studentResults.map(s => (
-                      <button key={s.id} onClick={() => assignStudent(s)} className="w-full text-left px-4 py-3 hover:bg-emerald-50 flex items-center gap-3 transition-colors border-b border-slate-100 last:border-0">
+                      <button key={s.id} onClick={() => assignStudent(s)} className="w-full text-left px-4 py-3 hover:bg-emerald-50 flex items-center gap-3 transition-colors border-b border-app-border last:border-0">
                         <div className="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold shrink-0">
                           {s.first_name[0]}{s.last_name[0]}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-slate-700">{s.first_name} {s.last_name}</p>
-                          {s.admission_number && <p className="text-xs text-slate-400">{s.admission_number}</p>}
+                          <p className="text-sm font-medium text-app-text">{s.first_name} {s.last_name}</p>
+                          {s.admission_number && <p className="text-xs text-app-text-muted">{s.admission_number}</p>}
                         </div>
                         <Star className="w-4 h-4 text-amber-400 ml-auto shrink-0" />
                       </button>
@@ -367,13 +367,13 @@ export default function Prefects() {
                   </div>
                 )}
                 {studentSearch && studentResults.length === 0 && (
-                  <p className="text-sm text-slate-400 mt-2 text-center py-3 bg-slate-50 rounded-lg">No students found.</p>
+                  <p className="text-sm text-app-text-muted mt-2 text-center py-3 bg-app-surface-alt rounded-lg">No students found.</p>
                 )}
               </div>
             </div>
-            <div className="p-6 border-t border-slate-100 flex justify-end">
+            <div className="p-6 border-t border-app-border flex justify-end">
               <button onClick={() => { setShowAssignModal(false); setAssigningPosition(null); setStudentSearch(''); setStudentResults([]); setAssignNotes(''); }}
-                className="px-4 py-2 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors text-sm">
+                className="px-4 py-2 text-app-text-muted hover:bg-app-surface-alt rounded-lg transition-colors text-sm">
                 Close
               </button>
             </div>
@@ -384,40 +384,40 @@ export default function Prefects() {
       {/* Add/Edit Position Modal */}
       {showAddPos && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6">
-            <h2 className="text-lg font-semibold text-slate-800 mb-5">{editingPos ? 'Edit Position' : 'Add New Position'}</h2>
+          <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-sm p-6">
+            <h2 className="text-lg font-semibold text-app-text mb-5">{editingPos ? 'Edit Position' : 'Add New Position'}</h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Title *</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Title *</label>
                 <input type="text" value={posForm.title} onChange={e => setPosForm(p => ({ ...p, title: e.target.value }))}
                   placeholder="e.g. Sports Prefect"
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Gender</label>
+                  <label className="block text-sm font-medium text-app-text mb-1">Gender</label>
                   <select value={posForm.gender} onChange={e => setPosForm(p => ({ ...p, gender: e.target.value as any }))}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
                     <option value="boy">Boy</option>
                     <option value="girl">Girl</option>
                     <option value="any">Any</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Sort Order</label>
+                  <label className="block text-sm font-medium text-app-text mb-1">Sort Order</label>
                   <input type="number" value={posForm.sort_order} onChange={e => setPosForm(p => ({ ...p, sort_order: parseInt(e.target.value) || 0 }))}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                    className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Category</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Category</label>
                 <input type="text" value={posForm.category} onChange={e => setPosForm(p => ({ ...p, category: e.target.value }))}
                   placeholder="e.g. Sports, Hostel, Chapel..."
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
               </div>
             </div>
             <div className="flex gap-3 mt-6">
-              <button onClick={() => { setShowAddPos(false); setEditingPos(null); }} className="flex-1 px-4 py-2 border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 text-sm">Cancel</button>
+              <button onClick={() => { setShowAddPos(false); setEditingPos(null); }} className="flex-1 px-4 py-2 border border-app-border rounded-lg text-app-text-muted hover:bg-app-surface-alt text-sm">Cancel</button>
               <button onClick={savePosition} disabled={savingPos || !posForm.title.trim()} className="flex-1 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 text-sm font-medium">
                 {savingPos ? 'Saving...' : editingPos ? 'Save' : 'Add Position'}
               </button>

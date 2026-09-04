@@ -52,7 +52,7 @@ const TYPE_COLORS: Record<string, string> = {
   assignment: 'bg-amber-100 text-amber-700',
   study_material: 'bg-blue-100 text-blue-700',
   syllabus: 'bg-teal-100 text-teal-700',
-  other: 'bg-slate-100 text-slate-600',
+  other: 'bg-slate-100 text-app-text-muted',
 };
 
 const TYPE_ICONS: Record<string, typeof FileText> = {
@@ -329,17 +329,17 @@ export default function UploadContent() {
     fetchUploads();
   }
 
-  const inputClass = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  const inputClass = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
   const showClassSubject = (type: string) => type !== 'other';
 
   return (
     <div className="p-6">
       <div className="flex items-center gap-3 mb-6">
         <Upload size={24} className="text-emerald-600" />
-        <h1 className="text-2xl font-bold text-slate-800">Upload Content</h1>
+        <h1 className="text-2xl font-bold text-app-text">Upload Content</h1>
       </div>
 
-      <div className="flex gap-1 mb-6 border-b border-slate-200">
+      <div className="flex gap-1 mb-6 border-b border-app-border">
         {(['uploads', 'new'] as const).map((tab) => (
           <button
             key={tab}
@@ -347,7 +347,7 @@ export default function UploadContent() {
             className={`px-5 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px ${
               activeTab === tab
                 ? 'border-emerald-500 text-emerald-600'
-                : 'border-transparent text-slate-500 hover:text-slate-700'
+                : 'border-transparent text-app-text-muted hover:text-app-text'
             }`}
           >
             {tab === 'uploads' ? 'My Uploads' : 'Upload New'}
@@ -356,7 +356,7 @@ export default function UploadContent() {
       </div>
 
       {activeTab === 'new' && (
-        <div className="bg-white border border-slate-200 rounded-xl p-6 max-w-2xl">
+        <div className="bg-app-surface border border-app-border rounded-xl p-6 max-w-2xl">
           {submitSuccess && (
             <div className="mb-4 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl px-4 py-3 text-sm font-medium">
               Content uploaded successfully!
@@ -369,7 +369,7 @@ export default function UploadContent() {
           )}
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
+              <label className="block text-sm font-medium text-app-text mb-1">
                 Content Type
               </label>
               <select
@@ -386,7 +386,7 @@ export default function UploadContent() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
+              <label className="block text-sm font-medium text-app-text mb-1">
                 Title <span className="text-red-500">*</span>
               </label>
               <input
@@ -397,7 +397,7 @@ export default function UploadContent() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
+              <label className="block text-sm font-medium text-app-text mb-1">
                 {form.content_type === 'syllabus' ? 'Content' : 'Description'}
               </label>
               <textarea
@@ -411,7 +411,7 @@ export default function UploadContent() {
             {showClassSubject(form.content_type) && (
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label className="block text-sm font-medium text-app-text mb-1">
                     Class {form.content_type !== 'other' && <span className="text-red-500">*</span>}
                   </label>
                   <select
@@ -429,7 +429,7 @@ export default function UploadContent() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Subject</label>
+                  <label className="block text-sm font-medium text-app-text mb-1">Subject</label>
                   <select
                     className={inputClass}
                     value={form.subject_id}
@@ -445,7 +445,7 @@ export default function UploadContent() {
               </div>
             )}
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">File URL / Link</label>
+              <label className="block text-sm font-medium text-app-text mb-1">File URL / Link</label>
               <input
                 className={inputClass}
                 value={form.file_url}
@@ -455,7 +455,7 @@ export default function UploadContent() {
             </div>
             {form.content_type === 'assignment' && (
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-app-text mb-1">
                   Due Date <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -487,43 +487,43 @@ export default function UploadContent() {
               <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
             </div>
           ) : uploads.length === 0 ? (
-            <div className="text-center py-16 text-slate-400">
+            <div className="text-center py-16 text-app-text-muted">
               <FileText size={40} className="mx-auto mb-3 opacity-30" />
               <p className="text-base font-medium">No uploads yet</p>
               <p className="text-sm mt-1">Switch to "Upload New" tab to add content.</p>
             </div>
           ) : (
-            <div className="overflow-x-auto rounded-xl border border-slate-200">
+            <div className="overflow-x-auto rounded-xl border border-app-border">
               <table className="w-full text-sm">
-                <thead className="bg-slate-50 border-b border-slate-200">
+                <thead className="bg-app-surface-alt border-b border-app-border">
                   <tr>
-                    <th className="text-left px-4 py-3 font-semibold text-slate-600">Title</th>
-                    <th className="text-left px-4 py-3 font-semibold text-slate-600">Type</th>
-                    <th className="text-left px-4 py-3 font-semibold text-slate-600">Class</th>
-                    <th className="text-left px-4 py-3 font-semibold text-slate-600">Subject</th>
-                    <th className="text-left px-4 py-3 font-semibold text-slate-600">Date</th>
-                    <th className="text-right px-4 py-3 font-semibold text-slate-600">Actions</th>
+                    <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Title</th>
+                    <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Type</th>
+                    <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Class</th>
+                    <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Subject</th>
+                    <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Date</th>
+                    <th className="text-right px-4 py-3 font-semibold text-app-text-muted">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-app-border">
                   {uploads.map((item) => {
                     const Icon = TYPE_ICONS[item.content_type] ?? FileText;
                     return (
-                      <tr key={`${item.source_table}-${item.id}`} className="hover:bg-slate-50 transition-colors">
-                        <td className="px-4 py-3 font-medium text-slate-800">
+                      <tr key={`${item.source_table}-${item.id}`} className="hover:bg-app-surface-alt transition-colors">
+                        <td className="px-4 py-3 font-medium text-app-text">
                           <div className="flex items-center gap-2">
-                            <Icon size={14} className="text-slate-400 shrink-0" />
+                            <Icon size={14} className="text-app-text-muted shrink-0" />
                             {item.title}
                           </div>
                         </td>
                         <td className="px-4 py-3">
-                          <span className={`px-2 py-0.5 rounded-full text-xs font-medium capitalize ${TYPE_COLORS[item.content_type] ?? 'bg-slate-100 text-slate-600'}`}>
+                          <span className={`px-2 py-0.5 rounded-full text-xs font-medium capitalize ${TYPE_COLORS[item.content_type] ?? 'bg-slate-100 text-app-text-muted'}`}>
                             {item.content_type.replace('_', ' ')}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-slate-600">{item.classes?.name ?? '—'}</td>
-                        <td className="px-4 py-3 text-slate-600">{item.subjects?.name ?? '—'}</td>
-                        <td className="px-4 py-3 text-slate-500">
+                        <td className="px-4 py-3 text-app-text-muted">{item.classes?.name ?? '—'}</td>
+                        <td className="px-4 py-3 text-app-text-muted">{item.subjects?.name ?? '—'}</td>
+                        <td className="px-4 py-3 text-app-text-muted">
                           {new Date(item.created_at).toLocaleDateString()}
                         </td>
                         <td className="px-4 py-3 text-right">
@@ -561,7 +561,7 @@ export default function UploadContent() {
             </div>
           )}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
+            <label className="block text-sm font-medium text-app-text mb-1">
               Title <span className="text-red-500">*</span>
             </label>
             <input
@@ -571,7 +571,7 @@ export default function UploadContent() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
+            <label className="block text-sm font-medium text-app-text mb-1">
               {editingItem?.source_table === 'syllabus_items' ? 'Content' : 'Description'}
             </label>
             <textarea
@@ -584,7 +584,7 @@ export default function UploadContent() {
           {editingItem?.source_table !== 'other_downloads' && (
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Class</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Class</label>
                 <select
                   className={inputClass}
                   value={form.class_id}
@@ -600,7 +600,7 @@ export default function UploadContent() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Subject</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Subject</label>
                 <select
                   className={inputClass}
                   value={form.subject_id}
@@ -616,7 +616,7 @@ export default function UploadContent() {
             </div>
           )}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">File URL / Link</label>
+            <label className="block text-sm font-medium text-app-text mb-1">File URL / Link</label>
             <input
               className={inputClass}
               value={form.file_url}
@@ -627,7 +627,7 @@ export default function UploadContent() {
           <div className="flex justify-end gap-3 pt-2">
             <button
               onClick={() => { setEditModalOpen(false); setEditingItem(null); }}
-              className="px-4 py-2 text-sm rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm rounded-xl border border-app-border text-app-text-muted hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>
@@ -645,13 +645,13 @@ export default function UploadContent() {
       {/* Delete Modal */}
       <Modal isOpen={deleteModalOpen} onClose={() => { setDeleteModalOpen(false); setDeleteItem(null); }} title="Delete Upload">
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-app-text-muted">
             Are you sure you want to delete <strong>{deleteItem?.title}</strong>? This action cannot be undone.
           </p>
           <div className="flex justify-end gap-3">
             <button
               onClick={() => { setDeleteModalOpen(false); setDeleteItem(null); }}
-              className="px-4 py-2 text-sm rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm rounded-xl border border-app-border text-app-text-muted hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>

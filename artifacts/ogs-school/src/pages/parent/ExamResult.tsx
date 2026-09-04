@@ -134,7 +134,7 @@ export default function ExamResult() {
   }
 
   const gradeColor = (grade: string | null) => {
-    if (!grade) return 'bg-slate-100 text-slate-500';
+    if (!grade) return 'bg-slate-100 text-app-text-muted';
     if (grade.startsWith('A')) return 'bg-emerald-100 text-emerald-700';
     if (grade.startsWith('B')) return 'bg-blue-100 text-blue-700';
     if (grade.startsWith('C')) return 'bg-amber-100 text-amber-700';
@@ -160,7 +160,7 @@ export default function ExamResult() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-slate-800">Exam Results</h1>
+      <h1 className="text-2xl font-bold text-app-text">Exam Results</h1>
 
       {error && (
         <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">
@@ -169,10 +169,10 @@ export default function ExamResult() {
       )}
 
       {children.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-12 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-12 text-center">
           <Users className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">No children linked to your account</p>
-          <p className="text-sm text-slate-400 mt-1">Please contact the school admin to link your ward.</p>
+          <p className="text-app-text-muted font-medium">No children linked to your account</p>
+          <p className="text-sm text-app-text-muted mt-1">Please contact the school admin to link your ward.</p>
         </div>
       ) : (
         <>
@@ -181,35 +181,35 @@ export default function ExamResult() {
               <select
                 value={selectedChild}
                 onChange={e => setSelectedChild(e.target.value)}
-                className="w-full appearance-none border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white pr-9"
+                className="w-full appearance-none border border-app-border rounded-xl px-4 py-2.5 text-sm font-medium text-app-text focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-app-surface pr-9"
               >
                 {children.map((c: any) => (
                   <option key={c.id} value={c.id}>{c.first_name} {c.last_name}</option>
                 ))}
               </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted pointer-events-none" />
             </div>
           )}
 
           {!resultsLoading && publishedGroups.length > 0 && (
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
+              <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
                 <TrendingUp className="w-6 h-6 text-emerald-500 mx-auto mb-2" />
-                <p className="text-2xl font-bold text-slate-800">{overallAvg}%</p>
-                <p className="text-xs text-slate-500 mt-0.5">Average Score</p>
+                <p className="text-2xl font-bold text-app-text">{overallAvg}%</p>
+                <p className="text-xs text-app-text-muted mt-0.5">Average Score</p>
               </div>
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
+              <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
                 <Award className="w-6 h-6 text-amber-500 mx-auto mb-2" />
-                <p className="text-sm font-bold text-slate-800 truncate">
+                <p className="text-sm font-bold text-app-text truncate">
                   {bestGroup ? `${bestGroup.termName} ${bestGroup.yearName}` : '—'}
                 </p>
                 <p className="text-xs text-emerald-600">{bestGroup ? `${bestGroup.avg}%` : ''}</p>
-                <p className="text-xs text-slate-500">Best Term</p>
+                <p className="text-xs text-app-text-muted">Best Term</p>
               </div>
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
+              <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
                 <CheckCircle2 className="w-6 h-6 text-blue-500 mx-auto mb-2" />
-                <p className="text-2xl font-bold text-slate-800">{publishedGroups.length}</p>
-                <p className="text-xs text-slate-500 mt-0.5">Published Terms</p>
+                <p className="text-2xl font-bold text-app-text">{publishedGroups.length}</p>
+                <p className="text-xs text-app-text-muted mt-0.5">Published Terms</p>
               </div>
             </div>
           )}
@@ -219,20 +219,20 @@ export default function ExamResult() {
               <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
             </div>
           ) : publishedGroups.length === 0 ? (
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-12 text-center">
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-12 text-center">
               {unpublishedCount > 0 ? (
                 <>
                   <Clock className="w-12 h-12 text-amber-300 mx-auto mb-3" />
-                  <p className="text-slate-600 font-medium">Results are awaiting publication</p>
-                  <p className="text-sm text-slate-400 mt-1">
+                  <p className="text-app-text-muted font-medium">Results are awaiting publication</p>
+                  <p className="text-sm text-app-text-muted mt-1">
                     {selectedChildObj ? `${(selectedChildObj as any).first_name}'s results have been recorded but not yet released by the school.` : ''}
                   </p>
                 </>
               ) : (
                 <>
                   <Award className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-                  <p className="text-slate-500 font-medium">No exam results available</p>
-                  <p className="text-sm text-slate-400 mt-1">
+                  <p className="text-app-text-muted font-medium">No exam results available</p>
+                  <p className="text-sm text-app-text-muted mt-1">
                     {selectedChildObj ? `${(selectedChildObj as any).first_name} has no recorded results yet` : ''}
                   </p>
                 </>
@@ -246,46 +246,46 @@ export default function ExamResult() {
                 </div>
               )}
               {publishedGroups.map(group => (
-                <div key={group.key} className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                  <div className="p-5 border-b border-slate-100">
+                <div key={group.key} className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+                  <div className="p-5 border-b border-app-border">
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <h3 className="font-semibold text-slate-800 text-lg">{group.termName} {group.yearName && `· ${group.yearName}`}</h3>
-                        <p className="text-sm text-slate-500 mt-0.5">Class: {group.className}</p>
+                        <h3 className="font-semibold text-app-text text-lg">{group.termName} {group.yearName && `· ${group.yearName}`}</h3>
+                        <p className="text-sm text-app-text-muted mt-0.5">Class: {group.className}</p>
                       </div>
                       <span className="flex items-center gap-1 text-xs font-semibold bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full shrink-0">
                         <CheckCircle2 className="w-3 h-3" /> Published
                       </span>
                     </div>
                     <div className="flex items-center gap-4 mt-3">
-                      <span className="text-sm text-slate-500">Subjects: <span className="font-semibold text-slate-800">{group.rows.length}</span></span>
-                      <span className="text-sm text-slate-500">Average: <span className="font-semibold text-emerald-600">{group.avg}%</span></span>
+                      <span className="text-sm text-app-text-muted">Subjects: <span className="font-semibold text-app-text">{group.rows.length}</span></span>
+                      <span className="text-sm text-app-text-muted">Average: <span className="font-semibold text-emerald-600">{group.avg}%</span></span>
                     </div>
                   </div>
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="bg-slate-50">
-                          <th className="text-left px-5 py-3 text-xs font-semibold text-slate-500 uppercase">Subject</th>
-                          <th className="text-center px-3 py-3 text-xs font-semibold text-slate-500 uppercase">CA1</th>
-                          <th className="text-center px-3 py-3 text-xs font-semibold text-slate-500 uppercase">CA2</th>
-                          <th className="text-center px-3 py-3 text-xs font-semibold text-slate-500 uppercase">CA3</th>
-                          <th className="text-center px-3 py-3 text-xs font-semibold text-slate-500 uppercase">Exam</th>
-                          <th className="text-center px-3 py-3 text-xs font-semibold text-slate-500 uppercase">Total</th>
-                          <th className="text-center px-3 py-3 text-xs font-semibold text-slate-500 uppercase">Grade</th>
+                        <tr className="bg-app-surface-alt">
+                          <th className="text-left px-5 py-3 text-xs font-semibold text-app-text-muted uppercase">Subject</th>
+                          <th className="text-center px-3 py-3 text-xs font-semibold text-app-text-muted uppercase">CA1</th>
+                          <th className="text-center px-3 py-3 text-xs font-semibold text-app-text-muted uppercase">CA2</th>
+                          <th className="text-center px-3 py-3 text-xs font-semibold text-app-text-muted uppercase">CA3</th>
+                          <th className="text-center px-3 py-3 text-xs font-semibold text-app-text-muted uppercase">Exam</th>
+                          <th className="text-center px-3 py-3 text-xs font-semibold text-app-text-muted uppercase">Total</th>
+                          <th className="text-center px-3 py-3 text-xs font-semibold text-app-text-muted uppercase">Grade</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-100">
+                      <tbody className="divide-y divide-app-border">
                         {group.rows.map((r: any) => (
-                          <tr key={r.id} className="hover:bg-slate-50 transition-colors">
-                            <td className="px-5 py-3.5 font-medium text-slate-800">
+                          <tr key={r.id} className="hover:bg-app-surface-alt transition-colors">
+                            <td className="px-5 py-3.5 font-medium text-app-text">
                               {(r.subjects as any)?.name || '—'}
                             </td>
-                            <td className="px-3 py-3.5 text-center text-slate-600">{r.ca1_score ?? 0}</td>
-                            <td className="px-3 py-3.5 text-center text-slate-600">{r.ca2_score ?? 0}</td>
-                            <td className="px-3 py-3.5 text-center text-slate-600">{r.ca3_score ?? 0}</td>
-                            <td className="px-3 py-3.5 text-center text-slate-600">{r.exam_score ?? 0}</td>
-                            <td className="px-3 py-3.5 text-center font-semibold text-slate-800">{totalOf(r)}</td>
+                            <td className="px-3 py-3.5 text-center text-app-text-muted">{r.ca1_score ?? 0}</td>
+                            <td className="px-3 py-3.5 text-center text-app-text-muted">{r.ca2_score ?? 0}</td>
+                            <td className="px-3 py-3.5 text-center text-app-text-muted">{r.ca3_score ?? 0}</td>
+                            <td className="px-3 py-3.5 text-center text-app-text-muted">{r.exam_score ?? 0}</td>
+                            <td className="px-3 py-3.5 text-center font-semibold text-app-text">{totalOf(r)}</td>
                             <td className="px-3 py-3.5 text-center">
                               <span className={`text-xs font-bold px-2 py-0.5 rounded-lg ${gradeColor(r.grade)}`}>{r.grade || '—'}</span>
                             </td>

@@ -54,15 +54,15 @@ DROP POLICY IF EXISTS "Users can insert own profile" ON profiles;
 CREATE POLICY "Users can insert own profile" ON profiles
   FOR INSERT WITH CHECK (auth.uid() = id);`;
 
-const ic = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white';
+const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
 
 const SECTION = ({ icon: Icon, title, subtitle, children }: { icon: any; title: string; subtitle?: string; children: React.ReactNode }) => (
-  <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+  <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-6 space-y-4">
     <div>
-      <h2 className="font-semibold text-slate-700 flex items-center gap-2 text-sm">
+      <h2 className="font-semibold text-app-text flex items-center gap-2 text-sm">
         <Icon size={16} className="text-emerald-600" /> {title}
       </h2>
-      {subtitle && <p className="text-xs text-slate-400 mt-0.5 ml-6">{subtitle}</p>}
+      {subtitle && <p className="text-xs text-app-text-muted mt-0.5 ml-6">{subtitle}</p>}
     </div>
     {children}
   </div>
@@ -70,7 +70,7 @@ const SECTION = ({ icon: Icon, title, subtitle, children }: { icon: any; title: 
 
 const Field = ({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) => (
   <div>
-    <label className="text-xs text-slate-500 mb-1 block">
+    <label className="text-xs text-app-text-muted mb-1 block">
       {label}{required && <span className="text-red-400 ml-0.5">*</span>}
     </label>
     {children}
@@ -274,7 +274,7 @@ export default function MyProfile() {
   }
 
   if (loading) return (
-    <div className="p-8 flex items-center gap-3 text-slate-500">
+    <div className="p-8 flex items-center gap-3 text-app-text-muted">
       <div className="w-5 h-5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
       Loading profile…
     </div>
@@ -283,8 +283,8 @@ export default function MyProfile() {
   return (
     <div className="p-6 max-w-3xl mx-auto space-y-5 pb-16">
       <div>
-        <h1 className="text-xl font-bold text-slate-800">My Profile</h1>
-        <p className="text-sm text-slate-500 mt-1">
+        <h1 className="text-xl font-bold text-app-text">My Profile</h1>
+        <p className="text-sm text-app-text-muted mt-1">
           Complete all sections below. <span className="text-amber-600 font-medium">Bank details are required for salary payments. Deadline: end of this week.</span>
         </p>
       </div>

@@ -79,7 +79,7 @@ export default function Subjects() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <h1 className="text-2xl font-bold text-slate-800">Subjects</h1>
+        <h1 className="text-2xl font-bold text-app-text">Subjects</h1>
         {subjects.length > 0 && (
           <span className="bg-emerald-100 text-emerald-700 text-sm font-semibold px-4 py-1.5 rounded-full">
             {subjects.length} {subjects.length === 1 ? 'Subject' : 'Subjects'}
@@ -88,9 +88,9 @@ export default function Subjects() {
       </div>
 
       {children.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-12 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-12 text-center">
           <Users className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">No children linked to your account</p>
+          <p className="text-app-text-muted font-medium">No children linked to your account</p>
         </div>
       ) : (
         <>
@@ -99,13 +99,13 @@ export default function Subjects() {
               <select
                 value={selectedChild}
                 onChange={e => setSelectedChild(e.target.value)}
-                className="w-full appearance-none border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white pr-9"
+                className="w-full appearance-none border border-app-border rounded-xl px-4 py-2.5 text-sm font-medium text-app-text focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-app-surface pr-9"
               >
                 {children.map((c: any) => (
                   <option key={c.id} value={c.id}>{c.first_name} {c.last_name}</option>
                 ))}
               </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted pointer-events-none" />
             </div>
           )}
 
@@ -114,10 +114,10 @@ export default function Subjects() {
               <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
             </div>
           ) : subjects.length === 0 ? (
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-12 text-center">
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-12 text-center">
               <BookOpen className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-              <p className="text-slate-500 font-medium">No subjects assigned</p>
-              <p className="text-sm text-slate-400 mt-1">
+              <p className="text-app-text-muted font-medium">No subjects assigned</p>
+              <p className="text-sm text-app-text-muted mt-1">
                 {selectedChildObj ? `${(selectedChildObj as any).first_name}'s subjects have not been set up yet` : ''}
               </p>
             </div>
@@ -134,24 +134,24 @@ export default function Subjects() {
                         <BookOpen className="w-5 h-5" />
                       </div>
                       {sub?.type && (
-                        <span className={`text-xs font-medium px-2 py-0.5 rounded-full capitalize ${colors.text} bg-white/60`}>
+                        <span className={`text-xs font-medium px-2 py-0.5 rounded-full capitalize ${colors.text} bg-app-surface/60`}>
                           {sub.type}
                         </span>
                       )}
                     </div>
-                    <h3 className="font-semibold text-slate-800 text-sm leading-snug mb-1">{sub?.name || '—'}</h3>
+                    <h3 className="font-semibold text-app-text text-sm leading-snug mb-1">{sub?.name || '—'}</h3>
                     {sub?.code && (
                       <p className={`text-xs font-mono font-semibold ${colors.text} mb-1`}>{sub.code}</p>
                     )}
                     {className && (
-                      <p className="text-xs text-slate-500 mb-1">Class: {className}</p>
+                      <p className="text-xs text-app-text-muted mb-1">Class: {className}</p>
                     )}
                     {teacher && (
                       <div className="flex items-center gap-1.5 mt-3 pt-3 border-t border-white/40">
                         <div className={`w-5 h-5 rounded-full ${colors.icon} flex items-center justify-center text-xs font-bold`}>
                           {teacher.first_name?.[0]}
                         </div>
-                        <p className="text-xs text-slate-600 truncate">{teacher.first_name} {teacher.last_name}</p>
+                        <p className="text-xs text-app-text-muted truncate">{teacher.first_name} {teacher.last_name}</p>
                       </div>
                     )}
                   </div>

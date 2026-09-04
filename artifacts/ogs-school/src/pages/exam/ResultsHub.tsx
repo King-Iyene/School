@@ -308,13 +308,13 @@ export default function ResultsHub() {
     return (
       <div className="space-y-5">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Results Hub</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Browse, manage and publish term results by session, term and class</p>
+          <h1 className="text-2xl font-bold text-app-text">Results Hub</h1>
+          <p className="text-app-text-muted text-sm mt-0.5">Browse, manage and publish term results by session, term and class</p>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-20 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-20 text-center">
           <Lock className="w-14 h-14 text-slate-200 mx-auto mb-4" />
-          <p className="text-slate-600 font-semibold text-lg">Access Restricted</p>
-          <p className="text-slate-400 text-sm mt-1 max-w-sm mx-auto">
+          <p className="text-app-text-muted font-semibold text-lg">Access Restricted</p>
+          <p className="text-app-text-muted text-sm mt-1 max-w-sm mx-auto">
             {isTeacherWithNoClass
               ? 'You are not assigned as a form master for any class. Only form masters can access this section.'
               : 'Only form masters, administrators, and the principal can access the Results Hub.'}
@@ -327,29 +327,29 @@ export default function ResultsHub() {
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="text-2xl font-bold text-slate-800">Results Hub</h1>
-        <p className="text-slate-500 text-sm mt-0.5">Browse, manage and publish term results by session, term and class</p>
+        <h1 className="text-2xl font-bold text-app-text">Results Hub</h1>
+        <p className="text-app-text-muted text-sm mt-0.5">Browse, manage and publish term results by session, term and class</p>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Academic Session</label>
-            <select value={yearId} onChange={e => setYearId(e.target.value)} className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+            <label className="block text-[11px] font-bold text-app-text-muted uppercase tracking-wider mb-1.5">Academic Session</label>
+            <select value={yearId} onChange={e => setYearId(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
               <option value="">Select session...</option>
               {years.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Term</label>
-            <select value={termId} onChange={e => setTermId(e.target.value)} className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+            <label className="block text-[11px] font-bold text-app-text-muted uppercase tracking-wider mb-1.5">Term</label>
+            <select value={termId} onChange={e => setTermId(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
               <option value="">Select term...</option>
               {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Class</label>
-            <select value={classId} onChange={e => setClassId(e.target.value)} className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+            <label className="block text-[11px] font-bold text-app-text-muted uppercase tracking-wider mb-1.5">Class</label>
+            <select value={classId} onChange={e => setClassId(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
               <option value="">Select class...</option>
               {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
@@ -358,36 +358,36 @@ export default function ResultsHub() {
       </div>
 
       {!yearId || !termId || !classId ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-16 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-16 text-center">
           <Filter className="w-12 h-12 text-slate-200 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">Select session, term and class</p>
-          <p className="text-slate-400 text-sm mt-1">Choose all three filters to load results</p>
+          <p className="text-app-text-muted font-medium">Select session, term and class</p>
+          <p className="text-app-text-muted text-sm mt-1">Choose all three filters to load results</p>
         </div>
       ) : loading ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-16 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-16 text-center">
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-slate-400 text-sm">Loading results...</p>
+          <p className="text-app-text-muted text-sm">Loading results...</p>
         </div>
       ) : rows.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-16 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-16 text-center">
           <Award className="w-12 h-12 text-slate-200 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">No results recorded</p>
-          <p className="text-slate-400 text-sm mt-1">No grades have been entered for this class, term and session yet</p>
+          <p className="text-app-text-muted font-medium">No results recorded</p>
+          <p className="text-app-text-muted text-sm mt-1">No grades have been entered for this class, term and session yet</p>
         </div>
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
-              <p className="text-2xl font-black text-slate-800">{rows.length}</p>
-              <p className="text-xs text-slate-500 mt-0.5">Students</p>
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
+              <p className="text-2xl font-black text-app-text">{rows.length}</p>
+              <p className="text-xs text-app-text-muted mt-0.5">Students</p>
             </div>
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
               <p className="text-2xl font-black text-emerald-600">{stats?.classAvg.toFixed(2)}%</p>
-              <p className="text-xs text-slate-500 mt-0.5">Class Average</p>
+              <p className="text-xs text-app-text-muted mt-0.5">Class Average</p>
             </div>
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
               <p className="text-2xl font-black text-blue-600">{stats?.passed}/{rows.length}</p>
-              <p className="text-xs text-slate-500 mt-0.5">Passed (≥50%)</p>
+              <p className="text-xs text-app-text-muted mt-0.5">Passed (≥50%)</p>
             </div>
             <div className={`rounded-2xl border shadow-sm p-4 text-center ${isPublished ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-200'}`}>
               <p className={`text-sm font-bold uppercase ${isPublished ? 'text-emerald-700' : 'text-amber-700'}`}>
@@ -417,9 +417,9 @@ export default function ResultsHub() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-            <div className="px-5 py-3 border-b border-slate-100 flex items-center justify-between gap-3 flex-wrap">
-              <h3 className="font-semibold text-slate-800">Student Results</h3>
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+            <div className="px-5 py-3 border-b border-app-border flex items-center justify-between gap-3 flex-wrap">
+              <h3 className="font-semibold text-app-text">Student Results</h3>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setPrintingAll(true)}
@@ -431,39 +431,39 @@ export default function ResultsHub() {
                   Print All ({filteredRows.length})
                 </button>
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
                   <input
                     type="text"
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                     placeholder="Search name or admission no..."
-                    className="border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-64"
+                    className="border border-app-border rounded-xl pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-64"
                   />
                 </div>
               </div>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead className="bg-slate-50 border-b border-slate-100">
+                <thead className="bg-app-surface-alt border-b border-app-border">
                   <tr>
-                    <th className="text-left px-5 py-3 font-semibold text-slate-600">Pos</th>
-                    <th className="text-left px-4 py-3 font-semibold text-slate-600">Student</th>
-                    <th className="text-left px-4 py-3 font-semibold text-slate-600">ADM No.</th>
-                    <th className="text-center px-4 py-3 font-semibold text-slate-600">Subjects</th>
-                    <th className="text-center px-4 py-3 font-semibold text-slate-600">Total</th>
-                    <th className="text-center px-4 py-3 font-semibold text-slate-600">Average</th>
-                    <th className="text-center px-4 py-3 font-semibold text-slate-600">Remark</th>
-                    <th className="text-right px-5 py-3 font-semibold text-slate-600">Action</th>
+                    <th className="text-left px-5 py-3 font-semibold text-app-text-muted">Pos</th>
+                    <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Student</th>
+                    <th className="text-left px-4 py-3 font-semibold text-app-text-muted">ADM No.</th>
+                    <th className="text-center px-4 py-3 font-semibold text-app-text-muted">Subjects</th>
+                    <th className="text-center px-4 py-3 font-semibold text-app-text-muted">Total</th>
+                    <th className="text-center px-4 py-3 font-semibold text-app-text-muted">Average</th>
+                    <th className="text-center px-4 py-3 font-semibold text-app-text-muted">Remark</th>
+                    <th className="text-right px-5 py-3 font-semibold text-app-text-muted">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-app-border">
                   {filteredRows.map(r => (
-                    <tr key={r.student_id} className="hover:bg-slate-50 transition-colors">
-                      <td className="px-5 py-3 font-bold text-slate-700">{r.position ? getOrdinal(r.position) : '—'}</td>
-                      <td className="px-4 py-3 font-medium text-slate-800">{r.full_name}</td>
-                      <td className="px-4 py-3 text-slate-500 text-xs font-mono">{r.admission_number}</td>
-                      <td className="px-4 py-3 text-center text-slate-600">{r.subject_count}</td>
-                      <td className="px-4 py-3 text-center font-semibold text-slate-700">{r.total}</td>
+                    <tr key={r.student_id} className="hover:bg-app-surface-alt transition-colors">
+                      <td className="px-5 py-3 font-bold text-app-text">{r.position ? getOrdinal(r.position) : '—'}</td>
+                      <td className="px-4 py-3 font-medium text-app-text">{r.full_name}</td>
+                      <td className="px-4 py-3 text-app-text-muted text-xs font-mono">{r.admission_number}</td>
+                      <td className="px-4 py-3 text-center text-app-text-muted">{r.subject_count}</td>
+                      <td className="px-4 py-3 text-center font-semibold text-app-text">{r.total}</td>
                       <td className="px-4 py-3 text-center font-bold text-emerald-600">{r.average.toFixed(2)}%</td>
                       <td className="px-4 py-3 text-center">
                         <span className={`text-xs font-bold px-2.5 py-1 rounded-lg ${remarkBadge(r.remark)}`}>{r.remark}</span>
@@ -473,7 +473,7 @@ export default function ResultsHub() {
                           {(canEditFormTeacherComment || isPrincipal) && (
                             <button
                               onClick={() => setEditingStudent(r)}
-                              className="inline-flex items-center gap-1.5 text-slate-600 hover:text-slate-800 text-sm font-semibold"
+                              className="inline-flex items-center gap-1.5 text-app-text-muted hover:text-app-text text-sm font-semibold"
                             >
                               <MessageSquare className="w-4 h-4" />
                               Comments
@@ -586,33 +586,33 @@ function TermSettingsModal({ schoolId, classId, termId, yearId, onClose }: TermS
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-          <h3 className="font-bold text-slate-800">Class Term Settings</h3>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600"><X className="w-5 h-5" /></button>
+      <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-md">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-app-border">
+          <h3 className="font-bold text-app-text">Class Term Settings</h3>
+          <button onClick={onClose} className="text-app-text-muted hover:text-app-text"><X className="w-5 h-5" /></button>
         </div>
         {loading ? (
           <div className="py-12 text-center"><div className="w-7 h-7 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto" /></div>
         ) : (
           <div className="p-5 space-y-4">
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Next Term Fees (NGN)</label>
-              <input type="number" value={nextTermFees} onChange={e => setNextTermFees(e.target.value)} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" placeholder="0.00" />
+              <label className="block text-xs font-bold text-app-text-muted uppercase mb-1.5">Next Term Fees (NGN)</label>
+              <input type="number" value={nextTermFees} onChange={e => setNextTermFees(e.target.value)} className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" placeholder="0.00" />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Other Fees (NGN)</label>
-              <input type="number" value={otherFees} onChange={e => setOtherFees(e.target.value)} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" placeholder="0.00" />
+              <label className="block text-xs font-bold text-app-text-muted uppercase mb-1.5">Other Fees (NGN)</label>
+              <input type="number" value={otherFees} onChange={e => setOtherFees(e.target.value)} className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" placeholder="0.00" />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Vacation Date</label>
-              <input type="date" value={vacationDate} onChange={e => setVacationDate(e.target.value)} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <label className="block text-xs font-bold text-app-text-muted uppercase mb-1.5">Vacation Date</label>
+              <input type="date" value={vacationDate} onChange={e => setVacationDate(e.target.value)} className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Next Term Begins</label>
-              <input type="date" value={nextTermBegins} onChange={e => setNextTermBegins(e.target.value)} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <label className="block text-xs font-bold text-app-text-muted uppercase mb-1.5">Next Term Begins</label>
+              <input type="date" value={nextTermBegins} onChange={e => setNextTermBegins(e.target.value)} className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
             </div>
             <div className="flex justify-end gap-2 pt-2">
-              <button onClick={onClose} className="px-4 py-2 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg">Cancel</button>
+              <button onClick={onClose} className="px-4 py-2 text-sm font-semibold text-app-text bg-slate-100 hover:bg-slate-200 rounded-lg">Cancel</button>
               <button onClick={save} disabled={saving} className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg disabled:opacity-50">
                 <Save className="w-4 h-4" />
                 {saving ? 'Saving...' : 'Save'}
@@ -701,67 +701,67 @@ function StudentCommentsModal({ schoolId, classId, termId, yearId, studentId, st
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 sticky top-0 bg-white">
+      <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-app-border sticky top-0 bg-app-surface">
           <div>
-            <h3 className="font-bold text-slate-800">Report Comments</h3>
-            <p className="text-xs text-slate-500 mt-0.5">{studentName}</p>
+            <h3 className="font-bold text-app-text">Report Comments</h3>
+            <p className="text-xs text-app-text-muted mt-0.5">{studentName}</p>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600"><X className="w-5 h-5" /></button>
+          <button onClick={onClose} className="text-app-text-muted hover:text-app-text"><X className="w-5 h-5" /></button>
         </div>
         {loading ? (
           <div className="py-12 text-center"><div className="w-7 h-7 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto" /></div>
         ) : (
           <div className="p-5 space-y-4">
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Social Behaviour Remark</label>
+              <label className="block text-xs font-bold text-app-text-muted uppercase mb-1.5">Social Behaviour Remark</label>
               <textarea
                 rows={2}
                 value={behaviour}
                 onChange={e => setBehaviour(e.target.value)}
                 disabled={!canEditFormTeacher}
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:bg-slate-50"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:bg-app-surface-alt"
                 placeholder="e.g. Polite, respectful, cooperates well with peers..."
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Form Teacher's Comment</label>
+              <label className="block text-xs font-bold text-app-text-muted uppercase mb-1.5">Form Teacher's Comment</label>
               <textarea
                 rows={3}
                 value={formTeacherComment}
                 onChange={e => setFormTeacherComment(e.target.value)}
                 disabled={!canEditFormTeacher}
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:bg-slate-50"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:bg-app-surface-alt"
                 placeholder="Form teacher's comments on the student's overall performance..."
               />
-              {!canEditFormTeacher && <p className="text-[11px] text-slate-400 mt-1">Only the form teacher or an admin can edit this.</p>}
+              {!canEditFormTeacher && <p className="text-[11px] text-app-text-muted mt-1">Only the form teacher or an admin can edit this.</p>}
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Principal's Comment</label>
+              <label className="block text-xs font-bold text-app-text-muted uppercase mb-1.5">Principal's Comment</label>
               <textarea
                 rows={3}
                 value={principalComment}
                 onChange={e => setPrincipalComment(e.target.value)}
                 disabled={!canEditPrincipal}
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:bg-slate-50"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:bg-app-surface-alt"
                 placeholder="Principal's comments..."
               />
-              {!canEditPrincipal && <p className="text-[11px] text-slate-400 mt-1">Only the principal or super admin can edit this.</p>}
+              {!canEditPrincipal && <p className="text-[11px] text-app-text-muted mt-1">Only the principal or super admin can edit this.</p>}
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Outstanding Fees Override (NGN)</label>
+              <label className="block text-xs font-bold text-app-text-muted uppercase mb-1.5">Outstanding Fees Override (NGN)</label>
               <input
                 type="number"
                 value={outstandingOverride}
                 onChange={e => setOutstandingOverride(e.target.value)}
                 disabled={!canEditFormTeacher}
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:bg-slate-50"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:bg-app-surface-alt"
                 placeholder="Leave blank to auto-calculate from finance module"
               />
-              <p className="text-[11px] text-slate-400 mt-1">Optional. Leave blank to use the value from the fees module.</p>
+              <p className="text-[11px] text-app-text-muted mt-1">Optional. Leave blank to use the value from the fees module.</p>
             </div>
             <div className="flex justify-end gap-2 pt-2">
-              <button onClick={onClose} className="px-4 py-2 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg">Cancel</button>
+              <button onClick={onClose} className="px-4 py-2 text-sm font-semibold text-app-text bg-slate-100 hover:bg-slate-200 rounded-lg">Cancel</button>
               <button
                 onClick={save}
                 disabled={saving || (!canEditFormTeacher && !canEditPrincipal)}

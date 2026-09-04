@@ -120,7 +120,7 @@ export default function ExamRoutine() {
       )}
 
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Exam Routine</h1>
+        <h1 className="text-2xl font-bold text-app-text">Exam Routine</h1>
         <button
           onClick={handleExport}
           className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
@@ -130,12 +130,12 @@ export default function ExamRoutine() {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <select
             value={filters.academic_year_id}
             onChange={e => setFilters(f => ({ ...f, academic_year_id: e.target.value, exam_id: '' }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">Select Academic Year</option>
             {academicYears.map(y => (
@@ -147,7 +147,7 @@ export default function ExamRoutine() {
             value={filters.exam_id}
             onChange={e => setFilters(f => ({ ...f, exam_id: e.target.value }))}
             disabled={!filters.academic_year_id}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
           >
             <option value="">Select Exam</option>
             {exams.map(e => (
@@ -158,11 +158,11 @@ export default function ExamRoutine() {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Total Exam Days</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{totalDays}</p>
+              <p className="text-sm text-app-text-muted">Total Exam Days</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{totalDays}</p>
             </div>
             <div className="bg-emerald-100 p-3 rounded-lg">
               <Calendar className="h-6 w-6 text-emerald-600" />
@@ -170,11 +170,11 @@ export default function ExamRoutine() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Total Subjects</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{totalSubjects}</p>
+              <p className="text-sm text-app-text-muted">Total Subjects</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{totalSubjects}</p>
             </div>
             <div className="bg-blue-100 p-3 rounded-lg">
               <BookOpen className="h-6 w-6 text-blue-600" />
@@ -183,26 +183,26 @@ export default function ExamRoutine() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">#</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Date</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Day</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Subject</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Start Time</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">End Time</th>
-                <th className="text-center px-4 py-3 text-slate-600 font-medium">Duration (mins)</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Venue</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">#</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Date</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Day</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Subject</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Start Time</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">End Time</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Duration (mins)</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Venue</th>
               </tr>
             </thead>
             <tbody>
               {!filters.exam_id ? (
                 <tr>
                   <td colSpan={8} className="text-center py-10">
-                    <div className="flex flex-col items-center gap-2 text-slate-400">
+                    <div className="flex flex-col items-center gap-2 text-app-text-muted">
                       <Calendar className="h-10 w-10 text-slate-300" />
                       <p>Select an academic year and exam to view the routine</p>
                     </div>
@@ -210,28 +210,28 @@ export default function ExamRoutine() {
                 </tr>
               ) : loading ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-10 text-slate-400">Loading...</td>
+                  <td colSpan={8} className="text-center py-10 text-app-text-muted">Loading...</td>
                 </tr>
               ) : schedule.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-10 text-slate-400">No schedule found for this exam</td>
+                  <td colSpan={8} className="text-center py-10 text-app-text-muted">No schedule found for this exam</td>
                 </tr>
               ) : (
                 schedule.map((item, index) => (
-                  <tr key={item.id} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="px-4 py-3 text-slate-500">{index + 1}</td>
-                    <td className="px-4 py-3 font-medium text-slate-800">{new Date(item.exam_date).toLocaleDateString()}</td>
-                    <td className="px-4 py-3 text-slate-600">{getDayName(item.exam_date)}</td>
-                    <td className="px-4 py-3 text-slate-800">{item.subject_name}</td>
-                    <td className="px-4 py-3 text-slate-600">{item.start_time || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600">{item.end_time || '-'}</td>
+                  <tr key={item.id} className="border-b border-app-border hover:bg-app-surface-alt">
+                    <td className="px-4 py-3 text-app-text-muted">{index + 1}</td>
+                    <td className="px-4 py-3 font-medium text-app-text">{new Date(item.exam_date).toLocaleDateString()}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{getDayName(item.exam_date)}</td>
+                    <td className="px-4 py-3 text-app-text">{item.subject_name}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{item.start_time || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{item.end_time || '-'}</td>
                     <td className="px-4 py-3 text-center">
-                      <div className="flex items-center justify-center gap-1 text-slate-600">
+                      <div className="flex items-center justify-center gap-1 text-app-text-muted">
                         <Clock className="h-3.5 w-3.5" />
                         {item.duration || '-'}
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-slate-600">{item.venue}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{item.venue}</td>
                   </tr>
                 ))
               )}

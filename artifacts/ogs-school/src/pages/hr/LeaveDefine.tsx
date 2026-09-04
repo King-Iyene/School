@@ -26,7 +26,7 @@ interface LeaveAllocation {
 const ROLES = ['super_admin', 'teacher', 'accountant', 'staff'];
 
 const inputClass =
-  'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 export default function LeaveDefine() {
   const { profile } = useAuth();
@@ -130,14 +130,14 @@ export default function LeaveDefine() {
       case 'super_admin': return 'bg-purple-100 text-purple-700';
       case 'teacher': return 'bg-blue-100 text-blue-700';
       case 'accountant': return 'bg-amber-100 text-amber-700';
-      default: return 'bg-slate-100 text-slate-600';
+      default: return 'bg-slate-100 text-app-text-muted';
     }
   };
 
   return (
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-slate-800">Leave Define</h1>
+        <h1 className="text-2xl font-bold text-app-text">Leave Define</h1>
         <button
           onClick={openAdd}
           className="bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
@@ -151,30 +151,30 @@ export default function LeaveDefine() {
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : allocations.length === 0 ? (
-        <div className="text-center py-16 text-slate-400 text-sm">No leave allocations found. Add your first allocation.</div>
+        <div className="text-center py-16 text-app-text-muted text-sm">No leave allocations found. Add your first allocation.</div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+        <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-app-surface-alt border-b border-app-border">
               <tr>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Role</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Leave Type</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Days Allocated</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Academic Year</th>
-                <th className="text-right px-5 py-3.5 font-semibold text-slate-600">Actions</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Role</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Leave Type</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Days Allocated</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Academic Year</th>
+                <th className="text-right px-5 py-3.5 font-semibold text-app-text-muted">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {allocations.map((a) => (
-                <tr key={a.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={a.id} className="hover:bg-app-surface-alt transition-colors">
                   <td className="px-5 py-3.5">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${roleBadgeClass(a.role)}`}>
                       {a.role.replace('_', ' ')}
                     </span>
                   </td>
-                  <td className="px-5 py-3.5 text-slate-700">{a.leave_types?.name || '-'}</td>
-                  <td className="px-5 py-3.5 text-slate-700">{a.days_allocated}</td>
-                  <td className="px-5 py-3.5 text-slate-700">{a.academic_years?.name || '-'}</td>
+                  <td className="px-5 py-3.5 text-app-text">{a.leave_types?.name || '-'}</td>
+                  <td className="px-5 py-3.5 text-app-text">{a.days_allocated}</td>
+                  <td className="px-5 py-3.5 text-app-text">{a.academic_years?.name || '-'}</td>
                   <td className="px-5 py-3.5 text-right space-x-2">
                     <button
                       onClick={() => openEdit(a)}
@@ -202,7 +202,7 @@ export default function LeaveDefine() {
             <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-3 py-2.5 rounded-xl">{error}</div>
           )}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Role</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Role</label>
             <select
               className={inputClass}
               value={form.role}
@@ -215,7 +215,7 @@ export default function LeaveDefine() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Leave Type</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Leave Type</label>
             <select
               className={inputClass}
               value={form.leave_type_id}
@@ -228,7 +228,7 @@ export default function LeaveDefine() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Days Allocated</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Days Allocated</label>
             <input
               type="number"
               className={inputClass}
@@ -238,7 +238,7 @@ export default function LeaveDefine() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Academic Year</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Academic Year</label>
             <select
               className={inputClass}
               value={form.academic_year_id}
@@ -253,7 +253,7 @@ export default function LeaveDefine() {
           <div className="flex justify-end gap-3 pt-2">
             <button
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2.5 text-sm font-medium text-slate-600 hover:text-slate-800 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
+              className="px-4 py-2.5 text-sm font-medium text-app-text-muted hover:text-app-text border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>
@@ -270,13 +270,13 @@ export default function LeaveDefine() {
 
       <Modal isOpen={deleteModalOpen} onClose={() => setDeleteModalOpen(false)} title="Delete Allocation">
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-app-text-muted">
             Are you sure you want to delete this leave allocation? This action cannot be undone.
           </p>
           <div className="flex justify-end gap-3">
             <button
               onClick={() => setDeleteModalOpen(false)}
-              className="px-4 py-2.5 text-sm font-medium text-slate-600 hover:text-slate-800 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
+              className="px-4 py-2.5 text-sm font-medium text-app-text-muted hover:text-app-text border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>

@@ -37,13 +37,13 @@ const emptyForm = {
   guardian_name: '', guardian_phone: '', guardian_email: '', status: 'active',
 };
 
-const inputCls = 'w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-colors';
+const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-colors';
 
 const statusColors: Record<string, string> = {
   active: 'bg-emerald-100 text-emerald-700',
   inactive: 'bg-amber-100 text-amber-700',
   graduated: 'bg-blue-100 text-blue-700',
-  transferred: 'bg-slate-100 text-slate-600',
+  transferred: 'bg-slate-100 text-app-text-muted',
 };
 
 export default function StudentsPage() {
@@ -260,8 +260,8 @@ export default function StudentsPage() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Students</h2>
-          <p className="text-slate-500 text-sm">Manage student records and enrollment</p>
+          <h2 className="text-xl font-bold text-app-text">Students</h2>
+          <p className="text-app-text-muted text-sm">Manage student records and enrollment</p>
         </div>
         <button onClick={openAdd} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm">
           <Plus className="w-4 h-4" /> Add Student
@@ -274,59 +274,59 @@ export default function StudentsPage() {
         </div>
       )}
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 flex flex-wrap gap-3">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 flex flex-wrap gap-3">
         <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <input value={search} onChange={e => { setSearch(e.target.value); setCurrentPage(1); }} placeholder="Search by name, admission number..." className="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
+          <input value={search} onChange={e => { setSearch(e.target.value); setCurrentPage(1); }} placeholder="Search by name, admission number..." className="w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
         </div>
-        <select value={filterClass} onChange={e => { setFilterClass(e.target.value); setCurrentPage(1); }} className="border border-slate-200 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none">
+        <select value={filterClass} onChange={e => { setFilterClass(e.target.value); setCurrentPage(1); }} className="border border-app-border rounded-xl px-3 py-2 text-sm bg-app-surface focus:outline-none">
           <option value="">All Classes</option>
           {classes.map(c => <option key={c.id} value={c.id}>{c.name || `${c.level}${c.section}`}</option>)}
         </select>
-        <select value={filterStatus} onChange={e => { setFilterStatus(e.target.value); setCurrentPage(1); }} className="border border-slate-200 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none">
+        <select value={filterStatus} onChange={e => { setFilterStatus(e.target.value); setCurrentPage(1); }} className="border border-app-border rounded-xl px-3 py-2 text-sm bg-app-surface focus:outline-none">
           <option value="">All Status</option>
           {STATUSES.map(s => <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>)}
         </select>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-slate-100 bg-slate-50">
+              <tr className="border-b border-app-border bg-app-surface-alt">
                 {['SL', 'Admission No.', 'Full Name', 'Class', 'Section', 'Gender', 'Guardian Name', 'Phone', 'Status', 'Actions'].map(h => (
-                  <th key={h} className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">{h}</th>
+                  <th key={h} className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">{h}</th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {loading ? (
-                <tr><td colSpan={10} className="text-center py-10 text-slate-400">Loading...</td></tr>
+                <tr><td colSpan={10} className="text-center py-10 text-app-text-muted">Loading...</td></tr>
               ) : students.length === 0 ? (
                 <tr><td colSpan={10} className="text-center py-10">
                   <Users className="w-10 h-10 text-slate-200 mx-auto mb-2" />
-                  <p className="text-slate-400 text-sm">{totalCount === 0 ? 'No students yet. Click Add Student to begin.' : 'No students match the filter.'}</p>
+                  <p className="text-app-text-muted text-sm">{totalCount === 0 ? 'No students yet. Click Add Student to begin.' : 'No students match the filter.'}</p>
                 </td></tr>
               ) : students.map((s, idx) => (
-                <tr key={s.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-4 py-3 text-sm text-slate-500">{(currentPage - 1) * pageSize + idx + 1}</td>
-                  <td className="px-4 py-3 text-sm font-mono text-slate-700">{s.admission_number}</td>
-                  <td className="px-4 py-3 text-sm font-medium text-slate-800">{s.first_name} {s.last_name}</td>
-                  <td className="px-4 py-3 text-sm text-slate-600">{s.classes ? `${s.classes.level}` : '—'}</td>
-                  <td className="px-4 py-3 text-sm text-slate-600">{s.section || '—'}</td>
-                  <td className="px-4 py-3 text-sm text-slate-600 capitalize">{s.gender || '—'}</td>
-                  <td className="px-4 py-3 text-sm text-slate-600">{s.guardian_name || '—'}</td>
-                  <td className="px-4 py-3 text-sm text-slate-600">{s.guardian_phone || '—'}</td>
+                <tr key={s.id} className="hover:bg-app-surface-alt transition-colors">
+                  <td className="px-4 py-3 text-sm text-app-text-muted">{(currentPage - 1) * pageSize + idx + 1}</td>
+                  <td className="px-4 py-3 text-sm font-mono text-app-text">{s.admission_number}</td>
+                  <td className="px-4 py-3 text-sm font-medium text-app-text">{s.first_name} {s.last_name}</td>
+                  <td className="px-4 py-3 text-sm text-app-text-muted">{s.classes ? `${s.classes.level}` : '—'}</td>
+                  <td className="px-4 py-3 text-sm text-app-text-muted">{s.section || '—'}</td>
+                  <td className="px-4 py-3 text-sm text-app-text-muted capitalize">{s.gender || '—'}</td>
+                  <td className="px-4 py-3 text-sm text-app-text-muted">{s.guardian_name || '—'}</td>
+                  <td className="px-4 py-3 text-sm text-app-text-muted">{s.guardian_phone || '—'}</td>
                   <td className="px-4 py-3">
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[s.status] ?? 'bg-slate-100 text-slate-600'}`}>
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[s.status] ?? 'bg-slate-100 text-app-text-muted'}`}>
                       {s.status.charAt(0).toUpperCase() + s.status.slice(1)}
                     </span>
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-1">
-                      <button onClick={() => navigate(`/student-profile?id=${s.id}`)} className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors" title="View Profile"><Eye className="w-4 h-4" /></button>
-                      <button onClick={() => openEdit(s)} className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"><Edit2 className="w-4 h-4" /></button>
-                      <button onClick={() => handleDelete(s.id)} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><Trash2 className="w-4 h-4" /></button>
+                      <button onClick={() => navigate(`/student-profile?id=${s.id}`)} className="p-1.5 text-app-text-muted hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors" title="View Profile"><Eye className="w-4 h-4" /></button>
+                      <button onClick={() => openEdit(s)} className="p-1.5 text-app-text-muted hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"><Edit2 className="w-4 h-4" /></button>
+                      <button onClick={() => handleDelete(s.id)} className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><Trash2 className="w-4 h-4" /></button>
                     </div>
                   </td>
                 </tr>
@@ -334,8 +334,8 @@ export default function StudentsPage() {
             </tbody>
           </table>
         </div>
-        <div className="px-4 py-3 border-t border-slate-100 flex items-center justify-between">
-          <div className="text-sm text-slate-500">
+        <div className="px-4 py-3 border-t border-app-border flex items-center justify-between">
+          <div className="text-sm text-app-text-muted">
             Showing {(currentPage - 1) * pageSize + 1} to {Math.min(currentPage * pageSize, totalCount)} of {totalCount} students
           </div>
           {totalPages > 1 && (
@@ -343,17 +343,17 @@ export default function StudentsPage() {
               <button
                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="px-3 py-1.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 disabled:opacity-50 transition-colors"
+                className="px-3 py-1.5 border border-app-border rounded-xl text-sm font-medium text-app-text-muted hover:bg-app-surface-alt disabled:opacity-50 transition-colors"
               >
                 Previous
               </button>
-              <div className="text-sm font-medium text-slate-600 px-2">
+              <div className="text-sm font-medium text-app-text-muted px-2">
                 Page {currentPage} of {totalPages}
               </div>
               <button
                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                 disabled={currentPage === totalPages}
-                className="px-3 py-1.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 disabled:opacity-50 transition-colors"
+                className="px-3 py-1.5 border border-app-border rounded-xl text-sm font-medium text-app-text-muted hover:bg-app-surface-alt disabled:opacity-50 transition-colors"
               >
                 Next
               </button>
@@ -367,27 +367,27 @@ export default function StudentsPage() {
           {error && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{error}</div>}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">First Name <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1">First Name <span className="text-red-500">*</span></label>
               <input value={form.first_name} onChange={e => setForm({ ...form, first_name: e.target.value })} className={inputCls} placeholder="First name" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Last Name <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1">Last Name <span className="text-red-500">*</span></label>
               <input value={form.last_name} onChange={e => setForm({ ...form, last_name: e.target.value })} className={inputCls} placeholder="Last name" />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Admission Number</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Admission Number</label>
               <input value={form.admission_number} onChange={e => setForm({ ...form, admission_number: e.target.value })} className={`${inputCls} font-mono`} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Date of Birth</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Date of Birth</label>
               <input type="date" value={form.date_of_birth} onChange={e => setForm({ ...form, date_of_birth: e.target.value })} className={inputCls} />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Class</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Class</label>
               <select
                 value={formLevel}
                 onChange={e => {
@@ -395,7 +395,7 @@ export default function StudentsPage() {
                   setFormLevel(level);
                   setForm(f => ({ ...f, class_id: '', section: '' }));
                 }}
-                className={`${inputCls} bg-white`}
+                className={`${inputCls} bg-app-surface`}
               >
                 <option value="">Select class</option>
                 {[...new Set(classes.map(c => c.level))].map(level => (
@@ -404,7 +404,7 @@ export default function StudentsPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Section</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Section</label>
               <select
                 value={form.section}
                 onChange={e => {
@@ -412,7 +412,7 @@ export default function StudentsPage() {
                   const matched = classes.find(c => c.level === formLevel && c.section === section);
                   setForm(f => ({ ...f, section, class_id: matched?.id ?? '' }));
                 }}
-                className={`${inputCls} bg-white`}
+                className={`${inputCls} bg-app-surface`}
                 disabled={!formLevel}
               >
                 <option value="">Select section</option>
@@ -427,41 +427,41 @@ export default function StudentsPage() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Gender</label>
-              <select value={form.gender} onChange={e => setForm({ ...form, gender: e.target.value })} className={`${inputCls} bg-white`}>
+              <label className="block text-sm font-medium text-app-text mb-1">Gender</label>
+              <select value={form.gender} onChange={e => setForm({ ...form, gender: e.target.value })} className={`${inputCls} bg-app-surface`}>
                 {GENDERS.map(g => <option key={g} value={g}>{g.charAt(0).toUpperCase() + g.slice(1)}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Status</label>
-              <select value={form.status} onChange={e => setForm({ ...form, status: e.target.value })} className={`${inputCls} bg-white`}>
+              <label className="block text-sm font-medium text-app-text mb-1">Status</label>
+              <select value={form.status} onChange={e => setForm({ ...form, status: e.target.value })} className={`${inputCls} bg-app-surface`}>
                 {STATUSES.map(s => <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>)}
               </select>
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Address</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Address</label>
             <input value={form.address} onChange={e => setForm({ ...form, address: e.target.value })} className={inputCls} placeholder="Home address" />
           </div>
-          <div className="pt-1 border-t border-slate-100">
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Guardian Information</p>
+          <div className="pt-1 border-t border-app-border">
+            <p className="text-xs font-semibold text-app-text-muted uppercase tracking-wide mb-3">Guardian Information</p>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Guardian Name</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Guardian Name</label>
                 <input value={form.guardian_name} onChange={e => setForm({ ...form, guardian_name: e.target.value })} className={inputCls} placeholder="Parent / guardian full name" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Guardian Phone</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Guardian Phone</label>
                 <input value={form.guardian_phone} onChange={e => setForm({ ...form, guardian_phone: e.target.value })} className={inputCls} placeholder="Phone number" />
               </div>
             </div>
             <div className="mt-3">
-              <label className="block text-sm font-medium text-slate-700 mb-1">Guardian Email</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Guardian Email</label>
               <input type="email" value={form.guardian_email} onChange={e => setForm({ ...form, guardian_email: e.target.value })} className={inputCls} placeholder="guardian@email.com" />
             </div>
           </div>
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
             <button onClick={handleSave} disabled={saving || !form.first_name.trim() || !form.last_name.trim()} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
               {saving ? 'Saving...' : editItem ? 'Update Student' : 'Add Student'}
             </button>

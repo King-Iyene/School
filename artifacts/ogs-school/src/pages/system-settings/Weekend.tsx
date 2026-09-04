@@ -79,7 +79,7 @@ export default function Weekend() {
           <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
             <CalendarCheck className="w-5 h-5 text-emerald-600" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-800">Weekend Settings</h1>
+          <h1 className="text-2xl font-bold text-app-text">Weekend Settings</h1>
         </div>
         <button
           onClick={handleSave}
@@ -97,12 +97,12 @@ export default function Weekend() {
         </div>
       )}
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-4 text-sm text-slate-500">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4 text-sm text-app-text-muted">
         Select the days that are considered weekends. These days will be excluded from attendance and scheduling.
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center py-16 text-slate-400 text-sm">Loading settings...</div>
+        <div className="flex items-center justify-center py-16 text-app-text-muted text-sm">Loading settings...</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {DAYS.map((day) => {
@@ -114,12 +114,12 @@ export default function Weekend() {
                 className={`cursor-pointer rounded-2xl border-2 p-5 flex items-center gap-4 transition-all select-none ${
                   isWeekend
                     ? 'border-emerald-400 bg-emerald-50'
-                    : 'border-slate-200 bg-white hover:border-slate-300'
+                    : 'border-app-border bg-app-surface hover:border-app-border'
                 }`}
               >
                 <div
                   className={`w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
-                    isWeekend ? 'bg-emerald-500 border-emerald-500' : 'border-slate-300'
+                    isWeekend ? 'bg-emerald-500 border-emerald-500' : 'border-app-border'
                   }`}
                 >
                   {isWeekend && (
@@ -129,10 +129,10 @@ export default function Weekend() {
                   )}
                 </div>
                 <div>
-                  <p className={`font-semibold text-sm ${isWeekend ? 'text-emerald-700' : 'text-slate-700'}`}>
+                  <p className={`font-semibold text-sm ${isWeekend ? 'text-emerald-700' : 'text-app-text'}`}>
                     {day.name}
                   </p>
-                  <p className="text-xs text-slate-400 mt-0.5">Day {day.index}</p>
+                  <p className="text-xs text-app-text-muted mt-0.5">Day {day.index}</p>
                 </div>
                 {isWeekend && (
                   <span className="ml-auto text-xs font-medium text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-full">
@@ -146,8 +146,8 @@ export default function Weekend() {
       )}
 
       {!loading && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-4 text-sm text-slate-500">
-          <span className="font-medium text-slate-700">{selectedDays.size}</span> day{selectedDays.size !== 1 ? 's' : ''} selected as weekend.
+        <div className="bg-app-surface rounded-2xl border border-app-border p-4 text-sm text-app-text-muted">
+          <span className="font-medium text-app-text">{selectedDays.size}</span> day{selectedDays.size !== 1 ? 's' : ''} selected as weekend.
           {selectedDays.size > 0 && (
             <span className="ml-2">
               ({DAYS.filter((d) => selectedDays.has(d.index)).map((d) => d.name).join(', ')})

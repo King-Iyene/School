@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT = 'w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+const INPUT = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
 
 const EVENT_TYPES = [
   { value: 'academic', label: 'Academic', color: 'bg-blue-100 text-blue-700' },
@@ -12,10 +12,10 @@ const EVENT_TYPES = [
   { value: 'cultural', label: 'Cultural', color: 'bg-amber-100 text-amber-700' },
   { value: 'holiday', label: 'Holiday', color: 'bg-rose-100 text-rose-700' },
   { value: 'examination', label: 'Examination', color: 'bg-orange-100 text-orange-700' },
-  { value: 'general', label: 'General', color: 'bg-slate-100 text-slate-600' },
+  { value: 'general', label: 'General', color: 'bg-slate-100 text-app-text-muted' },
 ];
 
-const typeColor = (type: string) => EVENT_TYPES.find(t => t.value === type)?.color ?? 'bg-slate-100 text-slate-600';
+const typeColor = (type: string) => EVENT_TYPES.find(t => t.value === type)?.color ?? 'bg-slate-100 text-app-text-muted';
 
 interface EventItem {
   id: string;
@@ -108,8 +108,8 @@ export default function Events() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">School Events</h2>
-          <p className="text-slate-500 text-sm">Calendar of academic and school activities</p>
+          <h2 className="text-xl font-bold text-app-text">School Events</h2>
+          <p className="text-app-text-muted text-sm">Calendar of academic and school activities</p>
         </div>
         {canCreate && (
           <button
@@ -122,23 +122,23 @@ export default function Events() {
       </div>
 
       {loading ? (
-        <div className="text-center py-12 text-slate-400">Loading events...</div>
+        <div className="text-center py-12 text-app-text-muted">Loading events...</div>
       ) : events.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border p-12 text-center">
           <CalIcon className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">No events yet</p>
-          {canCreate && <p className="text-slate-400 text-sm mt-1">Click "Add Event" to create one</p>}
+          <p className="text-app-text-muted font-medium">No events yet</p>
+          {canCreate && <p className="text-app-text-muted text-sm mt-1">Click "Add Event" to create one</p>}
         </div>
       ) : (
         <div className="space-y-5">
           {upcoming.length > 0 && (
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-              <div className="p-4 border-b border-slate-100 flex items-center gap-2">
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+              <div className="p-4 border-b border-app-border flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                <h3 className="font-semibold text-slate-800">Upcoming Events</h3>
-                <span className="text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">{upcoming.length}</span>
+                <h3 className="font-semibold text-app-text">Upcoming Events</h3>
+                <span className="text-xs text-app-text-muted bg-slate-100 px-2 py-0.5 rounded-full">{upcoming.length}</span>
               </div>
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-app-border">
                 {upcoming.map(ev => (
                   <EventRow key={ev.id} ev={ev} canDelete={canCreate} onDelete={() => handleDelete(ev.id)} />
                 ))}
@@ -147,13 +147,13 @@ export default function Events() {
           )}
 
           {past.length > 0 && (
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm opacity-75">
-              <div className="p-4 border-b border-slate-100 flex items-center gap-2">
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm opacity-75">
+              <div className="p-4 border-b border-app-border flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-slate-300" />
-                <h3 className="font-semibold text-slate-600">Past Events</h3>
-                <span className="text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">{past.length}</span>
+                <h3 className="font-semibold text-app-text-muted">Past Events</h3>
+                <span className="text-xs text-app-text-muted bg-slate-100 px-2 py-0.5 rounded-full">{past.length}</span>
               </div>
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-app-border">
                 {past.slice(0, 5).map(ev => (
                   <EventRow key={ev.id} ev={ev} canDelete={canCreate} onDelete={() => handleDelete(ev.id)} />
                 ))}
@@ -168,7 +168,7 @@ export default function Events() {
           {error && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{error}</div>}
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Title <span className="text-red-500">*</span></label>
+            <label className="block text-sm font-medium text-app-text mb-1">Title <span className="text-red-500">*</span></label>
             <input
               value={form.title}
               onChange={e => setForm({ ...form, title: e.target.value })}
@@ -178,7 +178,7 @@ export default function Events() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Description</label>
             <textarea
               value={form.description}
               onChange={e => setForm({ ...form, description: e.target.value })}
@@ -190,7 +190,7 @@ export default function Events() {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Event Date <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1">Event Date <span className="text-red-500">*</span></label>
               <input
                 type="date"
                 value={form.event_date}
@@ -199,11 +199,11 @@ export default function Events() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Event Type</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Event Type</label>
               <select
                 value={form.event_type}
                 onChange={e => setForm({ ...form, event_type: e.target.value })}
-                className={`${INPUT} bg-white`}
+                className={`${INPUT} bg-app-surface`}
               >
                 {EVENT_TYPES.map(t => (
                   <option key={t.value} value={t.value}>{t.label}</option>
@@ -212,35 +212,35 @@ export default function Events() {
             </div>
           </div>
 
-          <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
+          <div className="flex items-center justify-between p-3 bg-app-surface-alt rounded-xl border border-app-border">
             <div>
-              <p className="text-sm font-medium text-slate-700">All Day Event</p>
-              <p className="text-xs text-slate-400">Turn off to set specific start/end times</p>
+              <p className="text-sm font-medium text-app-text">All Day Event</p>
+              <p className="text-xs text-app-text-muted">Turn off to set specific start/end times</p>
             </div>
             <button
               type="button"
               onClick={() => setForm({ ...form, all_day: !form.all_day })}
               className={`relative w-11 h-6 rounded-full transition-colors ${form.all_day ? 'bg-emerald-500' : 'bg-slate-200'}`}
             >
-              <span className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${form.all_day ? 'translate-x-5' : ''}`} />
+              <span className={`absolute top-1 left-1 w-4 h-4 bg-app-surface rounded-full shadow transition-transform ${form.all_day ? 'translate-x-5' : ''}`} />
             </button>
           </div>
 
           {!form.all_day && (
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Start Time</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Start Time</label>
                 <input type="time" value={form.start_time} onChange={e => setForm({ ...form, start_time: e.target.value })} className={INPUT} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">End Time</label>
+                <label className="block text-sm font-medium text-app-text mb-1">End Time</label>
                 <input type="time" value={form.end_time} onChange={e => setForm({ ...form, end_time: e.target.value })} className={INPUT} />
               </div>
             </div>
           )}
 
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">
+            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">
               Cancel
             </button>
             <button
@@ -259,22 +259,22 @@ export default function Events() {
 
 function EventRow({ ev, canDelete, onDelete }: { ev: EventItem; canDelete: boolean; onDelete: () => void }) {
   const d = new Date(ev.event_date);
-  const color = EVENT_TYPES.find(t => t.value === ev.event_type)?.color ?? 'bg-slate-100 text-slate-600';
+  const color = EVENT_TYPES.find(t => t.value === ev.event_type)?.color ?? 'bg-slate-100 text-app-text-muted';
   return (
     <div className="p-4 flex items-center gap-4">
-      <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 text-center min-w-[56px]">
-        <p className="text-xl font-bold text-slate-800 leading-none">{d.getDate()}</p>
-        <p className="text-xs font-medium text-slate-500">{d.toLocaleString('default', { month: 'short' })}</p>
+      <div className="bg-app-surface-alt border border-app-border rounded-xl p-3 text-center min-w-[56px]">
+        <p className="text-xl font-bold text-app-text leading-none">{d.getDate()}</p>
+        <p className="text-xs font-medium text-app-text-muted">{d.toLocaleString('default', { month: 'short' })}</p>
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
-          <p className="font-medium text-slate-800">{ev.title}</p>
+          <p className="font-medium text-app-text">{ev.title}</p>
           <span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${color}`}>{ev.event_type}</span>
           {ev.all_day && <span className="text-xs px-2 py-0.5 bg-blue-50 text-blue-600 rounded-full font-medium">All Day</span>}
         </div>
-        {ev.description && <p className="text-sm text-slate-500 mt-0.5 truncate">{ev.description}</p>}
+        {ev.description && <p className="text-sm text-app-text-muted mt-0.5 truncate">{ev.description}</p>}
         {!ev.all_day && ev.start_time && (
-          <p className="text-xs text-slate-400 mt-0.5">{ev.start_time}{ev.end_time ? ` — ${ev.end_time}` : ''}</p>
+          <p className="text-xs text-app-text-muted mt-0.5">{ev.start_time}{ev.end_time ? ` — ${ev.end_time}` : ''}</p>
         )}
       </div>
       {canDelete && (

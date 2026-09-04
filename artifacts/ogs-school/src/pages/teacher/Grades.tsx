@@ -212,33 +212,33 @@ export default function TeacherGrades() {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-xl font-bold text-slate-800">Grade Entry</h2>
-        <p className="text-slate-500 text-sm">Enter and manage student assessment scores</p>
+        <h2 className="text-xl font-bold text-app-text">Grade Entry</h2>
+        <p className="text-app-text-muted text-sm">Enter and manage student assessment scores</p>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           <div>
-            <label className="block text-xs font-medium text-slate-500 mb-1">Class</label>
-            <select value={selectedClass} onChange={e => setSelectedClass(e.target.value)} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Class</label>
+            <select value={selectedClass} onChange={e => setSelectedClass(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
               {classes.map(c => <option key={(c as any)?.id} value={(c as any)?.id}>{(c as any)?.name || `${(c as any)?.level}${(c as any)?.section}`}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-500 mb-1">Subject</label>
-            <select value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Subject</label>
+            <select value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
               {subjects.map(s => <option key={(s as any)?.id} value={(s as any)?.id}>{(s as any)?.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-500 mb-1">Term</label>
-            <select value={selectedTerm} onChange={e => setSelectedTerm(e.target.value)} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Term</label>
+            <select value={selectedTerm} onChange={e => setSelectedTerm(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
               {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-500 mb-1">Academic Year</label>
-            <select value={selectedYear} onChange={e => setSelectedYear(e.target.value)} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Academic Year</label>
+            <select value={selectedYear} onChange={e => setSelectedYear(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
               {academicYears.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
             </select>
           </div>
@@ -246,34 +246,34 @@ export default function TeacherGrades() {
       </div>
 
       {loading ? (
-        <div className="text-center py-12 text-slate-400">Loading students...</div>
+        <div className="text-center py-12 text-app-text-muted">Loading students...</div>
       ) : students.length === 0 ? (
-        <div className="text-center py-12 text-slate-400">No students enrolled in this class</div>
+        <div className="text-center py-12 text-app-text-muted">No students enrolled in this class</div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-slate-100 bg-slate-50">
-                  <th className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">Student</th>
-                  <th className="text-center text-xs font-semibold text-slate-500 uppercase px-2 py-3">CA /20</th>
-                  <th className="text-center text-xs font-semibold text-slate-500 uppercase px-2 py-3">Test /20</th>
-                  <th className="text-center text-xs font-semibold text-slate-500 uppercase px-2 py-3">Exam /60</th>
-                  <th className="text-center text-xs font-semibold text-slate-500 uppercase px-2 py-3">Total</th>
-                  <th className="text-center text-xs font-semibold text-slate-500 uppercase px-2 py-3">Grade</th>
+                <tr className="border-b border-app-border bg-app-surface-alt">
+                  <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">Student</th>
+                  <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-2 py-3">CA /20</th>
+                  <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-2 py-3">Test /20</th>
+                  <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-2 py-3">Exam /60</th>
+                  <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-2 py-3">Total</th>
+                  <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-2 py-3">Grade</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {students.map(s => {
                   const total = getTotal(s.id);
                   const grade = getGrade(total);
                   const gradeColor = grade.startsWith('A') ? 'text-emerald-600' : grade.startsWith('B') ? 'text-blue-600' : grade.startsWith('C') ? 'text-amber-600' : 'text-red-500';
                   return (
-                    <tr key={s.id} className="hover:bg-slate-50 transition-colors">
+                    <tr key={s.id} className="hover:bg-app-surface-alt transition-colors">
                       <td className="px-4 py-2">
                         <button onClick={() => navigate(`/student-profile?id=${s.id}`)} className="text-left group">
-                          <p className="text-sm font-medium text-slate-800 group-hover:text-emerald-600 transition-colors">{s.first_name} {s.last_name}</p>
-                          {s.admission_number && <p className="text-xs text-slate-400">{s.admission_number}</p>}
+                          <p className="text-sm font-medium text-app-text group-hover:text-emerald-600 transition-colors">{s.first_name} {s.last_name}</p>
+                          {s.admission_number && <p className="text-xs text-app-text-muted">{s.admission_number}</p>}
                         </button>
                       </td>
                       {([['ca1_score', 20], ['ca3_score', 20], ['exam_score', 60]] as [string, number][]).map(([field, max]) => (
@@ -285,11 +285,11 @@ export default function TeacherGrades() {
                             value={grades[s.id]?.[field] ?? ''}
                             disabled={locked}
                             onChange={e => updateGrade(s.id, field, e.target.value)}
-                            className="w-16 text-center border border-slate-200 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:bg-slate-50 disabled:text-slate-400"
+                            className="w-16 text-center border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:bg-app-surface-alt disabled:text-app-text-muted"
                           />
                         </td>
                       ))}
-                      <td className="px-2 py-2 text-center font-semibold text-slate-800">{total}</td>
+                      <td className="px-2 py-2 text-center font-semibold text-app-text">{total}</td>
                       <td className={`px-2 py-2 text-center font-bold ${gradeColor}`}>{grade}</td>
                     </tr>
                   );
@@ -309,7 +309,7 @@ export default function TeacherGrades() {
               <span>{saveError}</span>
             </div>
           )}
-          <div className="p-4 border-t border-slate-100 flex justify-end">
+          <div className="p-4 border-t border-app-border flex justify-end">
             <button onClick={saveGrades} disabled={saving || locked} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
               {saved ? <><CheckCircle className="w-4 h-4" /> Saved!</> : <><Save className="w-4 h-4" />{saving ? 'Saving...' : 'Save Grades'}</>}
             </button>

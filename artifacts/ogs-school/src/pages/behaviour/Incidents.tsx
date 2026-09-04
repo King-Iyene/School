@@ -128,8 +128,8 @@ export default function Incidents() {
     <div className="p-6 max-w-5xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Behaviour Incident Types</h1>
-          <p className="text-sm text-gray-500 mt-1">Manage the types of behaviour incidents for your school</p>
+          <h1 className="text-2xl font-bold text-app-text">Behaviour Incident Types</h1>
+          <p className="text-sm text-app-text-muted mt-1">Manage the types of behaviour incidents for your school</p>
         </div>
         <button
           onClick={openAdd}
@@ -139,46 +139,46 @@ export default function Incidents() {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-16">
             <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : incidents.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-gray-400">
+          <div className="flex flex-col items-center justify-center py-16 text-app-text-muted">
             <ShieldAlert size={40} className="mb-3 text-gray-300" />
             <p className="text-base font-medium">No incident types defined</p>
             <p className="text-sm mt-1">Click "Add Incident Type" to get started</p>
           </div>
         ) : (
-          <table className="min-w-full divide-y divide-gray-100">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-app-border">
+            <thead className="bg-app-surface-alt">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Description</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Severity</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Points Deducted</th>
-                <th className="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Name</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Description</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Severity</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Points Deducted</th>
+                <th className="px-6 py-3 text-right text-xs font-semibold text-app-text-muted uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-app-border">
               {incidents.map(incident => (
-                <tr key={incident.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-6 py-4 text-sm font-medium text-gray-800">{incident.name}</td>
-                  <td className="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">{incident.description || '—'}</td>
+                <tr key={incident.id} className="hover:bg-app-surface-alt transition-colors">
+                  <td className="px-6 py-4 text-sm font-medium text-app-text">{incident.name}</td>
+                  <td className="px-6 py-4 text-sm text-app-text-muted max-w-xs truncate">{incident.description || '—'}</td>
                   <td className="px-6 py-4">{severityBadge(incident.severity)}</td>
-                  <td className="px-6 py-4 text-sm text-gray-700 font-medium">{incident.points_deducted}</td>
+                  <td className="px-6 py-4 text-sm text-app-text font-medium">{incident.points_deducted}</td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => openEdit(incident)}
-                        className="p-1.5 text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-md transition-colors"
+                        className="p-1.5 text-app-text-muted hover:text-emerald-600 hover:bg-emerald-50 rounded-md transition-colors"
                       >
                         <Pencil size={15} />
                       </button>
                       <button
                         onClick={() => setDeleteId(incident.id)}
-                        className="p-1.5 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                        className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
                       >
                         <Trash2 size={15} />
                       </button>
@@ -193,12 +193,12 @@ export default function Incidents() {
 
       {modal.open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md mx-4 p-6">
+          <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-md mx-4 p-6">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-lg font-semibold text-gray-800">
+              <h2 className="text-lg font-semibold text-app-text">
                 {modal.mode === 'add' ? 'Add Incident Type' : 'Edit Incident Type'}
               </h2>
-              <button onClick={closeModal} className="text-gray-400 hover:text-gray-600">
+              <button onClick={closeModal} className="text-app-text-muted hover:text-app-text">
                 <X size={20} />
               </button>
             </div>
@@ -209,31 +209,31 @@ export default function Incidents() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Name <span className="text-red-500">*</span></label>
+                <label className="block text-sm font-medium text-app-text mb-1">Name <span className="text-red-500">*</span></label>
                 <input
                   type="text"
                   value={modal.incident.name || ''}
                   onChange={e => handleChange('name', e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   placeholder="e.g. Classroom Disruption"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Description</label>
                 <textarea
                   value={modal.incident.description || ''}
                   onChange={e => handleChange('description', e.target.value)}
                   rows={3}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                  className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
                   placeholder="Brief description of this incident type"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Severity <span className="text-red-500">*</span></label>
+                <label className="block text-sm font-medium text-app-text mb-1">Severity <span className="text-red-500">*</span></label>
                 <select
                   value={modal.incident.severity || 'minor'}
                   onChange={e => handleChange('severity', e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
                   <option value="minor">Minor</option>
                   <option value="moderate">Moderate</option>
@@ -241,13 +241,13 @@ export default function Incidents() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Points Deducted</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Points Deducted</label>
                 <input
                   type="number"
                   min={0}
                   value={modal.incident.points_deducted ?? 0}
                   onChange={e => handleChange('points_deducted', parseInt(e.target.value) || 0)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
             </div>
@@ -255,7 +255,7 @@ export default function Incidents() {
             <div className="flex items-center justify-end gap-3 mt-6">
               <button
                 onClick={closeModal}
-                className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                className="px-4 py-2 text-sm text-app-text-muted hover:text-app-text border border-app-border rounded-lg hover:bg-app-surface-alt transition-colors"
               >
                 Cancel
               </button>
@@ -273,18 +273,18 @@ export default function Incidents() {
 
       {deleteId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm mx-4 p-6">
+          <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-sm mx-4 p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 bg-red-100 rounded-full">
                 <Trash2 size={20} className="text-red-600" />
               </div>
-              <h2 className="text-lg font-semibold text-gray-800">Delete Incident Type</h2>
+              <h2 className="text-lg font-semibold text-app-text">Delete Incident Type</h2>
             </div>
-            <p className="text-sm text-gray-500 mb-6">Are you sure you want to delete this incident type? This action cannot be undone.</p>
+            <p className="text-sm text-app-text-muted mb-6">Are you sure you want to delete this incident type? This action cannot be undone.</p>
             <div className="flex items-center justify-end gap-3">
               <button
                 onClick={() => setDeleteId(null)}
-                className="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                className="px-4 py-2 text-sm text-app-text-muted border border-app-border rounded-lg hover:bg-app-surface-alt transition-colors"
               >
                 Cancel
               </button>

@@ -38,7 +38,7 @@ function calcDays(from: string, to: string): number {
 }
 
 const inputClass =
-  'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 function statusBadge(status: string) {
   switch (status) {
@@ -53,7 +53,7 @@ function roleBadge(role: string) {
     case 'super_admin': return 'bg-purple-100 text-purple-700';
     case 'teacher': return 'bg-blue-100 text-blue-700';
     case 'accountant': return 'bg-amber-100 text-amber-700';
-    default: return 'bg-slate-100 text-slate-600';
+    default: return 'bg-slate-100 text-app-text-muted';
   }
 }
 
@@ -165,10 +165,10 @@ export default function ApproveLeave() {
   return (
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-slate-800">Approve Leave Request</h1>
+        <h1 className="text-2xl font-bold text-app-text">Approve Leave Request</h1>
         <div className="flex items-center gap-3">
           <select
-            className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
           >
@@ -185,37 +185,37 @@ export default function ApproveLeave() {
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : applications.length === 0 ? (
-        <div className="text-center py-16 text-slate-400 text-sm">No leave applications found.</div>
+        <div className="text-center py-16 text-app-text-muted text-sm">No leave applications found.</div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
+        <div className="bg-app-surface rounded-2xl border border-app-border overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-app-surface-alt border-b border-app-border">
               <tr>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Staff</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Role</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Leave Type</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">From</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">To</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Days</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Reason</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Status</th>
-                <th className="text-right px-5 py-3.5 font-semibold text-slate-600">Actions</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Staff</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Role</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Leave Type</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">From</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">To</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Days</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Reason</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Status</th>
+                <th className="text-right px-5 py-3.5 font-semibold text-app-text-muted">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {applications.map((a) => (
-                <tr key={a.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-5 py-3.5 font-medium text-slate-800 whitespace-nowrap">{staffName(a)}</td>
+                <tr key={a.id} className="hover:bg-app-surface-alt transition-colors">
+                  <td className="px-5 py-3.5 font-medium text-app-text whitespace-nowrap">{staffName(a)}</td>
                   <td className="px-5 py-3.5">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${roleBadge(a.profiles?.role || '')}`}>
                       {(a.profiles?.role || '-').replace('_', ' ')}
                     </span>
                   </td>
-                  <td className="px-5 py-3.5 text-slate-700 whitespace-nowrap">{a.leave_types?.name || '-'}</td>
-                  <td className="px-5 py-3.5 text-slate-600 whitespace-nowrap">{a.from_date}</td>
-                  <td className="px-5 py-3.5 text-slate-600 whitespace-nowrap">{a.to_date}</td>
-                  <td className="px-5 py-3.5 text-slate-600">{a.days}</td>
-                  <td className="px-5 py-3.5 text-slate-500 max-w-xs truncate">{a.reason}</td>
+                  <td className="px-5 py-3.5 text-app-text whitespace-nowrap">{a.leave_types?.name || '-'}</td>
+                  <td className="px-5 py-3.5 text-app-text-muted whitespace-nowrap">{a.from_date}</td>
+                  <td className="px-5 py-3.5 text-app-text-muted whitespace-nowrap">{a.to_date}</td>
+                  <td className="px-5 py-3.5 text-app-text-muted">{a.days}</td>
+                  <td className="px-5 py-3.5 text-app-text-muted max-w-xs truncate">{a.reason}</td>
                   <td className="px-5 py-3.5">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${statusBadge(a.status)}`}>
                       {a.status}
@@ -248,16 +248,16 @@ export default function ApproveLeave() {
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-3 py-2.5 rounded-xl">{error}</div>
             )}
-            <div className="bg-slate-50 rounded-xl p-4 space-y-2 text-sm">
+            <div className="bg-app-surface-alt rounded-xl p-4 space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-slate-500">Staff Member</span>
-                <span className="font-medium text-slate-800">{staffName(selected)}</span>
+                <span className="text-app-text-muted">Staff Member</span>
+                <span className="font-medium text-app-text">{staffName(selected)}</span>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">Leave Type</label>
+                <label className="block text-sm font-medium text-app-text mb-1.5">Leave Type</label>
                 <select
                   className={inputClass}
                   value={actionForm.leave_type_id}
@@ -275,7 +275,7 @@ export default function ApproveLeave() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">From Date</label>
+                <label className="block text-sm font-medium text-app-text mb-1.5">From Date</label>
                 <input
                   type="date"
                   className={inputClass}
@@ -284,7 +284,7 @@ export default function ApproveLeave() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">To Date</label>
+                <label className="block text-sm font-medium text-app-text mb-1.5">To Date</label>
                 <input
                   type="date"
                   className={inputClass}
@@ -295,7 +295,7 @@ export default function ApproveLeave() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">Reason</label>
+              <label className="block text-sm font-medium text-app-text mb-1.5">Reason</label>
               <textarea
                 className={inputClass}
                 rows={2}
@@ -304,8 +304,8 @@ export default function ApproveLeave() {
               />
             </div>
 
-            <div className="border-t border-slate-100 pt-4 mt-2">
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">Administrative Status</label>
+            <div className="border-t border-app-border pt-4 mt-2">
+              <label className="block text-sm font-medium text-app-text mb-1.5">Administrative Status</label>
               <div className="grid grid-cols-3 gap-2">
                 {['pending', 'approved', 'rejected'].map(s => (
                   <button
@@ -314,7 +314,7 @@ export default function ApproveLeave() {
                     className={`px-3 py-2 rounded-lg text-xs font-semibold capitalize border transition-all ${
                       actionForm.status === s 
                         ? 'bg-slate-800 border-slate-800 text-white shadow-sm' 
-                        : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                        : 'bg-app-surface border-app-border text-app-text-muted hover:bg-app-surface-alt'
                     }`}
                   >
                     {s}
@@ -324,7 +324,7 @@ export default function ApproveLeave() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">Admin Remarks</label>
+              <label className="block text-sm font-medium text-app-text mb-1.5">Admin Remarks</label>
               <textarea
                 className={inputClass}
                 placeholder="Add remarks for the staff member..."
@@ -337,7 +337,7 @@ export default function ApproveLeave() {
             <div className="flex justify-end gap-3 pt-2">
               <button
                 onClick={() => setModalOpen(false)}
-                className="px-4 py-2.5 text-sm font-medium text-slate-600 hover:text-slate-800 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
+                className="px-4 py-2.5 text-sm font-medium text-app-text-muted hover:text-app-text border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors"
               >
                 Cancel
               </button>
@@ -355,11 +355,11 @@ export default function ApproveLeave() {
 
       <Modal isOpen={deleteModalOpen} onClose={() => setDeleteModalOpen(false)} title="Delete Application">
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">Are you sure you want to delete this leave application? This action cannot be undone.</p>
+          <p className="text-sm text-app-text-muted">Are you sure you want to delete this leave application? This action cannot be undone.</p>
           <div className="flex justify-end gap-3">
             <button
               onClick={() => setDeleteModalOpen(false)}
-              className="px-4 py-2.5 text-sm font-medium text-slate-600 hover:text-slate-800 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
+              className="px-4 py-2.5 text-sm font-medium text-app-text-muted hover:text-app-text border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>

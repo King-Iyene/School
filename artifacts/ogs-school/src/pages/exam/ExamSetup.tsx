@@ -147,20 +147,20 @@ export default function ExamSetup() {
   }
 
   const inputClass =
-    'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+    'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
   const cellInputClass =
-    'border border-slate-200 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-20';
+    'border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-20';
 
   return (
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-slate-800">Exam Setup</h1>
+        <h1 className="text-2xl font-bold text-app-text">Exam Setup</h1>
       </div>
 
-      <div className="bg-white rounded-xl border border-slate-200 p-4 mb-6">
+      <div className="bg-app-surface rounded-xl border border-app-border p-4 mb-6">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Exam</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Exam</label>
             <select
               className={inputClass}
               value={selectedExam}
@@ -175,7 +175,7 @@ export default function ExamSetup() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Class</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Class</label>
             <select
               className={inputClass}
               value={selectedClass}
@@ -217,33 +217,33 @@ export default function ExamSetup() {
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : !selectedExam || !selectedClass ? (
-        <div className="text-center py-16 text-slate-500 bg-white rounded-xl border border-slate-200">
+        <div className="text-center py-16 text-app-text-muted bg-app-surface rounded-xl border border-app-border">
           <p className="text-lg font-medium">Select exam and class to continue</p>
           <p className="text-sm mt-1">Choose an exam and class from the filters above.</p>
         </div>
       ) : rows.length === 0 ? (
-        <div className="text-center py-16 text-slate-500 bg-white rounded-xl border border-slate-200">
+        <div className="text-center py-16 text-app-text-muted bg-app-surface rounded-xl border border-app-border">
           <p className="text-lg font-medium">No subjects configured</p>
           <p className="text-sm mt-1">Click "Add Subject Row" to add subjects for this exam.</p>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-slate-200">
+        <div className="overflow-x-auto rounded-xl border border-app-border">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-app-surface-alt border-b border-app-border">
               <tr>
-                <th className="text-left px-4 py-3 font-semibold text-slate-600">Subject</th>
-                <th className="text-center px-3 py-3 font-semibold text-slate-600">CA1 Marks</th>
-                <th className="text-center px-3 py-3 font-semibold text-slate-600">CA2 Marks</th>
-                <th className="text-center px-3 py-3 font-semibold text-slate-600">CA3 Marks</th>
-                <th className="text-center px-3 py-3 font-semibold text-slate-600">Exam Marks</th>
-                <th className="text-center px-3 py-3 font-semibold text-slate-600">Full Marks</th>
-                <th className="text-center px-3 py-3 font-semibold text-slate-600">Pass Marks</th>
+                <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Subject</th>
+                <th className="text-center px-3 py-3 font-semibold text-app-text-muted">CA1 Marks</th>
+                <th className="text-center px-3 py-3 font-semibold text-app-text-muted">CA2 Marks</th>
+                <th className="text-center px-3 py-3 font-semibold text-app-text-muted">CA3 Marks</th>
+                <th className="text-center px-3 py-3 font-semibold text-app-text-muted">Exam Marks</th>
+                <th className="text-center px-3 py-3 font-semibold text-app-text-muted">Full Marks</th>
+                <th className="text-center px-3 py-3 font-semibold text-app-text-muted">Pass Marks</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {rows.map((row, idx) => (
-                <tr key={row.subject_id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-4 py-3 font-medium text-slate-800">
+                <tr key={row.subject_id} className="hover:bg-app-surface-alt transition-colors">
+                  <td className="px-4 py-3 font-medium text-app-text">
                     {row.subject_name}
                     {row.isNew && (
                       <span className="ml-2 bg-amber-100 text-amber-700 text-xs px-1.5 py-0.5 rounded-full">
@@ -278,7 +278,7 @@ export default function ExamSetup() {
       >
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Subject</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Subject</label>
             <select
               className={inputClass}
               value={newSubjectId}
@@ -297,7 +297,7 @@ export default function ExamSetup() {
           <div className="flex justify-end gap-3 pt-2">
             <button
               onClick={() => setAddSubjectModalOpen(false)}
-              className="px-4 py-2 text-sm rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm rounded-xl border border-app-border text-app-text-muted hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>

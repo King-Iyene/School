@@ -176,7 +176,7 @@ export default function TransactionReport() {
       case 'expense':
         return <span className="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">Expense</span>;
       default:
-        return <span className="px-2 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700">{type}</span>;
+        return <span className="px-2 py-1 rounded-full text-xs font-medium bg-slate-100 text-app-text">{type}</span>;
     }
   }
 
@@ -190,7 +190,7 @@ export default function TransactionReport() {
       )}
 
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Transaction Report</h1>
+        <h1 className="text-2xl font-bold text-app-text">Transaction Report</h1>
         <button
           onClick={handleExport}
           className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
@@ -200,32 +200,32 @@ export default function TransactionReport() {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
-            <label className="block text-xs text-slate-500 mb-1">From Date</label>
+            <label className="block text-xs text-app-text-muted mb-1">From Date</label>
             <input
               type="date"
               value={filters.date_from}
               onChange={e => setFilters(f => ({ ...f, date_from: e.target.value }))}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
 
           <div>
-            <label className="block text-xs text-slate-500 mb-1">To Date</label>
+            <label className="block text-xs text-app-text-muted mb-1">To Date</label>
             <input
               type="date"
               value={filters.date_to}
               onChange={e => setFilters(f => ({ ...f, date_to: e.target.value }))}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
 
           <select
             value={filters.type}
             onChange={e => setFilters(f => ({ ...f, type: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 self-end"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 self-end"
           >
             <option value="">All Types</option>
             <option value="fees">Fees</option>
@@ -236,7 +236,7 @@ export default function TransactionReport() {
           <select
             value={filters.payment_method_id}
             onChange={e => setFilters(f => ({ ...f, payment_method_id: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 self-end"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 self-end"
           >
             <option value="">All Payment Methods</option>
             {paymentMethods.map(m => (
@@ -247,10 +247,10 @@ export default function TransactionReport() {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Total Income</p>
+              <p className="text-sm text-app-text-muted">Total Income</p>
               <p className="text-2xl font-bold text-emerald-600 mt-1">₦{totalIncome.toLocaleString()}</p>
             </div>
             <div className="bg-emerald-100 p-3 rounded-lg">
@@ -259,10 +259,10 @@ export default function TransactionReport() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Total Expense</p>
+              <p className="text-sm text-app-text-muted">Total Expense</p>
               <p className="text-2xl font-bold text-red-600 mt-1">₦{totalExpense.toLocaleString()}</p>
             </div>
             <div className="bg-red-100 p-3 rounded-lg">
@@ -271,10 +271,10 @@ export default function TransactionReport() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Net Balance</p>
+              <p className="text-sm text-app-text-muted">Net Balance</p>
               <p className={`text-2xl font-bold mt-1 ${netBalance >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
                 ₦{netBalance.toLocaleString()}
               </p>
@@ -286,43 +286,43 @@ export default function TransactionReport() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">#</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Date</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Reference</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Description</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Type</th>
-                <th className="text-right px-4 py-3 text-slate-600 font-medium">Amount</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Payment Method</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Created By</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">#</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Date</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Reference</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Description</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Type</th>
+                <th className="text-right px-4 py-3 text-app-text-muted font-medium">Amount</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Payment Method</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Created By</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-10 text-slate-400">Loading...</td>
+                  <td colSpan={8} className="text-center py-10 text-app-text-muted">Loading...</td>
                 </tr>
               ) : transactions.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-10 text-slate-400">No transactions found</td>
+                  <td colSpan={8} className="text-center py-10 text-app-text-muted">No transactions found</td>
                 </tr>
               ) : (
                 transactions.map((txn, index) => (
-                  <tr key={`${txn.type}-${txn.id}`} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="px-4 py-3 text-slate-500">{index + 1}</td>
-                    <td className="px-4 py-3 text-slate-600">{new Date(txn.date).toLocaleDateString()}</td>
-                    <td className="px-4 py-3 text-slate-600">{txn.reference}</td>
-                    <td className="px-4 py-3 text-slate-800">{txn.description}</td>
+                  <tr key={`${txn.type}-${txn.id}`} className="border-b border-app-border hover:bg-app-surface-alt">
+                    <td className="px-4 py-3 text-app-text-muted">{index + 1}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{new Date(txn.date).toLocaleDateString()}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{txn.reference}</td>
+                    <td className="px-4 py-3 text-app-text">{txn.description}</td>
                     <td className="px-4 py-3">{getTypeBadge(txn.type)}</td>
                     <td className={`px-4 py-3 text-right font-medium ${txn.type === 'expense' ? 'text-red-600' : 'text-emerald-600'}`}>
                       ₦{txn.amount.toLocaleString()}
                     </td>
-                    <td className="px-4 py-3 text-slate-600">{txn.payment_method}</td>
-                    <td className="px-4 py-3 text-slate-600">{txn.created_by}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{txn.payment_method}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{txn.created_by}</td>
                   </tr>
                 ))
               )}

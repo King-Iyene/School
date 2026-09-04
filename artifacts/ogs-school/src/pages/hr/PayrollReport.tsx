@@ -292,7 +292,7 @@ ${rows.map((r, i) => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Payroll Report</h1>
+        <h1 className="text-2xl font-bold text-app-text">Payroll Report</h1>
         {rows.length > 0 && (
           <button
             onClick={handlePrint}
@@ -305,38 +305,38 @@ ${rows.map((r, i) => {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4">
         <div className="flex flex-wrap items-end gap-3">
           <div className="flex-1 min-w-[140px]">
-            <label className="block text-xs font-medium text-slate-500 mb-1.5">Role</label>
-            <select className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white" value={filterRole} onChange={e => setFilterRole(e.target.value)}>
+            <label className="block text-xs font-medium text-app-text-muted mb-1.5">Role</label>
+            <select className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface" value={filterRole} onChange={e => setFilterRole(e.target.value)}>
               <option value="">All Roles</option>
               {STAFF_ROLES.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
             </select>
           </div>
           <div className="flex-1 min-w-[120px]">
-            <label className="block text-xs font-medium text-slate-500 mb-1.5">Status</label>
-            <select className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white" value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
+            <label className="block text-xs font-medium text-app-text-muted mb-1.5">Status</label>
+            <select className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface" value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
               <option value="">All</option>
               <option value="pending">Pending</option>
               <option value="paid">Paid</option>
             </select>
           </div>
           <div className="flex-1 min-w-[120px]">
-            <label className="block text-xs font-medium text-slate-500 mb-1.5">Month</label>
-            <select className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white" value={filterMonth} onChange={e => setFilterMonth(Number(e.target.value))}>
+            <label className="block text-xs font-medium text-app-text-muted mb-1.5">Month</label>
+            <select className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface" value={filterMonth} onChange={e => setFilterMonth(Number(e.target.value))}>
               {MONTHS.map(m => <option key={m.value} value={m.value}>{m.label}</option>)}
             </select>
           </div>
           <div className="flex-1 min-w-[90px]">
-            <label className="block text-xs font-medium text-slate-500 mb-1.5">Year</label>
-            <select className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white" value={filterYear} onChange={e => setFilterYear(Number(e.target.value))}>
+            <label className="block text-xs font-medium text-app-text-muted mb-1.5">Year</label>
+            <select className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface" value={filterYear} onChange={e => setFilterYear(Number(e.target.value))}>
               {yearOptions.map(y => <option key={y} value={y}>{y}</option>)}
             </select>
           </div>
           {/* Toggle filters */}
           <div className="flex flex-col gap-2 justify-end pb-0.5">
-            <label className="block text-xs font-medium text-slate-500">Exclude</label>
+            <label className="block text-xs font-medium text-app-text-muted">Exclude</label>
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
@@ -344,7 +344,7 @@ ${rows.map((r, i) => {
                 className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium border transition-colors ${
                   hideNoAccount
                     ? 'bg-red-50 border-red-200 text-red-700'
-                    : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'
+                    : 'bg-app-surface border-app-border text-app-text-muted hover:border-app-border'
                 }`}
               >
                 <span className={`w-2 h-2 rounded-full ${hideNoAccount ? 'bg-red-500' : 'bg-slate-300'}`} />
@@ -356,7 +356,7 @@ ${rows.map((r, i) => {
                 className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium border transition-colors ${
                   hideAdmins
                     ? 'bg-red-50 border-red-200 text-red-700'
-                    : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'
+                    : 'bg-app-surface border-app-border text-app-text-muted hover:border-app-border'
                 }`}
               >
                 <span className={`w-2 h-2 rounded-full ${hideAdmins ? 'bg-red-500' : 'bg-slate-300'}`} />
@@ -368,16 +368,16 @@ ${rows.map((r, i) => {
       </div>
 
       {/* Letter / print config */}
-      <div className="bg-white rounded-2xl border border-slate-200">
+      <div className="bg-app-surface rounded-2xl border border-app-border">
         <button
           onClick={() => setShowPrintConfig(v => !v)}
-          className="w-full flex items-center justify-between px-5 py-3.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 rounded-2xl transition-colors"
+          className="w-full flex items-center justify-between px-5 py-3.5 text-sm font-semibold text-app-text hover:bg-app-surface-alt rounded-2xl transition-colors"
         >
           <span>✉ Letter Settings (Salary Voucher)</span>
-          <svg className={`w-4 h-4 transition-transform text-slate-400 ${showPrintConfig ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+          <svg className={`w-4 h-4 transition-transform text-app-text-muted ${showPrintConfig ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
         </button>
         {showPrintConfig && (
-          <div className="px-5 pb-5 pt-1 grid grid-cols-1 sm:grid-cols-2 gap-3 border-t border-slate-100">
+          <div className="px-5 pb-5 pt-1 grid grid-cols-1 sm:grid-cols-2 gap-3 border-t border-app-border">
             {([
               { k: 'recipientTitle', label: 'Recipient (e.g. The Manager)' },
               { k: 'bankName',       label: 'Bank Name' },
@@ -388,9 +388,9 @@ ${rows.map((r, i) => {
               { k: 'principalName',  label: 'Principal Name' },
             ] as { k: keyof typeof printConfig; label: string }[]).map(({ k, label }) => (
               <div key={k}>
-                <label className="block text-xs font-medium text-slate-500 mb-1">{label}</label>
+                <label className="block text-xs font-medium text-app-text-muted mb-1">{label}</label>
                 <input
-                  className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+                  className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
                   value={printConfig[k]}
                   onChange={e => pc(k, e.target.value)}
                 />
@@ -404,14 +404,14 @@ ${rows.map((r, i) => {
       {rows.length > 0 && (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { label: 'Total Basic', value: fmt(totals.basic_salary), color: 'text-slate-800' },
+            { label: 'Total Basic', value: fmt(totals.basic_salary), color: 'text-app-text' },
             { label: 'Total Allowances', value: fmt(totals.allowances), color: 'text-emerald-600' },
             { label: 'Total Deductions', value: fmt(totals.deductions), color: 'text-red-500' },
             { label: 'Total Net Salary', value: fmt(totals.net_salary), color: 'text-emerald-700' },
           ].map(c => (
-            <div key={c.label} className="bg-white rounded-2xl border border-slate-200 p-4 text-center">
+            <div key={c.label} className="bg-app-surface rounded-2xl border border-app-border p-4 text-center">
               <p className={`text-lg font-bold ${c.color}`}>{c.value}</p>
-              <p className="text-xs text-slate-400 mt-0.5">{c.label}</p>
+              <p className="text-xs text-app-text-muted mt-0.5">{c.label}</p>
             </div>
           ))}
         </div>
@@ -422,42 +422,42 @@ ${rows.map((r, i) => {
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : rows.length === 0 ? (
-        <div className="text-center py-16 text-slate-400 text-sm bg-white rounded-2xl border border-slate-200">
+        <div className="text-center py-16 text-app-text-muted text-sm bg-app-surface rounded-2xl border border-app-border">
           No payroll records found for the selected filters.
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
+        <div className="bg-app-surface rounded-2xl border border-app-border overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-app-surface-alt border-b border-app-border">
               <tr>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Staff</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Role</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Bank</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Account No.</th>
-                <th className="text-right px-5 py-3.5 font-semibold text-slate-600">Basic</th>
-                <th className="text-right px-5 py-3.5 font-semibold text-slate-600">Allowances</th>
-                <th className="text-right px-5 py-3.5 font-semibold text-slate-600">Deductions</th>
-                <th className="text-right px-5 py-3.5 font-semibold text-slate-600">Net</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Status</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Staff</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Role</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Bank</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Account No.</th>
+                <th className="text-right px-5 py-3.5 font-semibold text-app-text-muted">Basic</th>
+                <th className="text-right px-5 py-3.5 font-semibold text-app-text-muted">Allowances</th>
+                <th className="text-right px-5 py-3.5 font-semibold text-app-text-muted">Deductions</th>
+                <th className="text-right px-5 py-3.5 font-semibold text-app-text-muted">Net</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {rows.map(r => {
                 const bank = getBankDetails(r.notes);
                 return (
-                  <tr key={r.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-5 py-3.5 font-medium text-slate-800">{staffName(r)}</td>
+                  <tr key={r.id} className="hover:bg-app-surface-alt transition-colors">
+                    <td className="px-5 py-3.5 font-medium text-app-text">{staffName(r)}</td>
                     <td className="px-5 py-3.5">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-app-text-muted">
                         {ROLE_LABEL[r.profiles?.role ?? ''] ?? (r.profiles?.role ?? '—').replace(/_/g, ' ')}
                       </span>
                     </td>
-                    <td className="px-5 py-3.5 text-slate-500 text-xs">{bank.bank_name || '—'}</td>
-                    <td className="px-5 py-3.5 text-slate-500 text-xs font-mono">{bank.account_number || '—'}</td>
-                    <td className="px-5 py-3.5 text-right text-slate-700">{fmt(r.basic_salary)}</td>
+                    <td className="px-5 py-3.5 text-app-text-muted text-xs">{bank.bank_name || '—'}</td>
+                    <td className="px-5 py-3.5 text-app-text-muted text-xs font-mono">{bank.account_number || '—'}</td>
+                    <td className="px-5 py-3.5 text-right text-app-text">{fmt(r.basic_salary)}</td>
                     <td className="px-5 py-3.5 text-right text-emerald-600">{fmt(r.allowances)}</td>
                     <td className="px-5 py-3.5 text-right text-red-500">{fmt(r.deductions)}</td>
-                    <td className="px-5 py-3.5 text-right font-semibold text-slate-800">{fmt((r.basic_salary || 0) + (r.allowances || 0) - (r.deductions || 0))}</td>
+                    <td className="px-5 py-3.5 text-right font-semibold text-app-text">{fmt((r.basic_salary || 0) + (r.allowances || 0) - (r.deductions || 0))}</td>
                     <td className="px-5 py-3.5">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${r.status === 'paid' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
                         {r.status === 'paid' ? 'Paid' : 'Pending'}
@@ -467,10 +467,10 @@ ${rows.map((r, i) => {
                 );
               })}
             </tbody>
-            <tfoot className="border-t-2 border-slate-200 bg-slate-50">
+            <tfoot className="border-t-2 border-app-border bg-app-surface-alt">
               <tr>
-                <td className="px-5 py-3.5 font-bold text-slate-800" colSpan={4}>Grand Total ({rows.length} staff)</td>
-                <td className="px-5 py-3.5 text-right font-bold text-slate-800">{fmt(totals.basic_salary)}</td>
+                <td className="px-5 py-3.5 font-bold text-app-text" colSpan={4}>Grand Total ({rows.length} staff)</td>
+                <td className="px-5 py-3.5 text-right font-bold text-app-text">{fmt(totals.basic_salary)}</td>
                 <td className="px-5 py-3.5 text-right font-bold text-emerald-600">{fmt(totals.allowances)}</td>
                 <td className="px-5 py-3.5 text-right font-bold text-red-500">{fmt(totals.deductions)}</td>
                 <td className="px-5 py-3.5 text-right font-bold text-emerald-700">{fmt(totals.net_salary)}</td>

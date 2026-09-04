@@ -129,18 +129,18 @@ export default function ClassSectionReport() {
 
 
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Class Behaviour Report</h1>
-        <p className="text-sm text-gray-500 mt-1">Behaviour incident summary organized by class</p>
+        <h1 className="text-2xl font-bold text-app-text">Class Behaviour Report</h1>
+        <p className="text-sm text-app-text-muted mt-1">Behaviour incident summary organized by class</p>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 mb-6">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5 mb-6">
         <div className="flex items-end gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Filter by Class</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Filter by Class</label>
             <select
               value={selectedClass}
               onChange={e => handleClassFilter(e.target.value)}
-              className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 min-w-48"
+              className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 min-w-48"
             >
               <option value="">All Classes</option>
               {classes.map(c => (
@@ -163,7 +163,7 @@ export default function ClassSectionReport() {
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : displaySummaries.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-16 text-gray-400 bg-white rounded-xl border border-gray-200">
+        <div className="flex flex-col items-center justify-center py-16 text-app-text-muted bg-app-surface rounded-xl border border-app-border">
           <BookOpen size={40} className="mb-3 text-gray-300" />
           <p className="text-base font-medium">No incident data found</p>
           {selectedClass && <p className="text-sm mt-1">No incidents recorded for the selected class</p>}
@@ -171,56 +171,56 @@ export default function ClassSectionReport() {
       ) : (
         <div className="space-y-6">
           {displaySummaries.map(cls => (
-            <div key={cls.class_id} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div key={cls.class_id} className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
               <div className="px-5 py-4 bg-emerald-50 border-b border-emerald-100 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-emerald-100 rounded-lg">
                     <BookOpen size={18} className="text-emerald-700" />
                   </div>
                   <div>
-                    <h3 className="text-base font-semibold text-gray-800">{cls.class_name}</h3>
+                    <h3 className="text-base font-semibold text-app-text">{cls.class_name}</h3>
                   </div>
                 </div>
                 <div className="flex items-center gap-6">
                   <div className="text-center">
                     <p className="text-2xl font-bold text-emerald-700">{cls.total_incidents}</p>
-                    <p className="text-xs text-gray-500">Total Incidents</p>
+                    <p className="text-xs text-app-text-muted">Total Incidents</p>
                   </div>
                   <div className="text-center">
                     <div className="flex items-center gap-1">
-                      <Users size={16} className="text-gray-500" />
-                      <p className="text-2xl font-bold text-gray-700">{cls.students_affected}</p>
+                      <Users size={16} className="text-app-text-muted" />
+                      <p className="text-2xl font-bold text-app-text">{cls.students_affected}</p>
                     </div>
-                    <p className="text-xs text-gray-500">Students Affected</p>
+                    <p className="text-xs text-app-text-muted">Students Affected</p>
                   </div>
                 </div>
               </div>
 
               {cls.students.length > 0 ? (
                 <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-gray-100">
-                    <thead className="bg-gray-50">
+                  <table className="min-w-full divide-y divide-app-border">
+                    <thead className="bg-app-surface-alt">
                       <tr>
-                        <th className="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Student</th>
-                        <th className="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Total</th>
-                        <th className="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Student</th>
+                        <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Total</th>
+                        <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">
                           <span className="flex items-center gap-1 text-blue-600"><Shield size={12} /> Minor</span>
                         </th>
-                        <th className="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">
                           <span className="flex items-center gap-1 text-amber-600"><AlertTriangle size={12} /> Moderate</span>
                         </th>
-                        <th className="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">
                           <span className="flex items-center gap-1 text-red-600"><ShieldAlert size={12} /> Major</span>
                         </th>
-                        <th className="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Last Incident</th>
+                        <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Last Incident</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100">
+                    <tbody className="divide-y divide-app-border">
                       {cls.students.map((s, idx) => (
-                        <tr key={idx} className="hover:bg-gray-50 transition-colors">
+                        <tr key={idx} className="hover:bg-app-surface-alt transition-colors">
                           <td className="px-5 py-3.5">
-                            <p className="text-sm font-medium text-gray-800">{s.student_name}</p>
-                            <p className="text-xs text-gray-400">{s.student_id}</p>
+                            <p className="text-sm font-medium text-app-text">{s.student_name}</p>
+                            <p className="text-xs text-app-text-muted">{s.student_id}</p>
                           </td>
                           <td className="px-5 py-3.5">
                             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">{s.total}</span>
@@ -228,26 +228,26 @@ export default function ClassSectionReport() {
                           <td className="px-5 py-3.5">
                             {s.minor > 0 ? (
                               <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700">{s.minor}</span>
-                            ) : <span className="text-sm text-gray-400">—</span>}
+                            ) : <span className="text-sm text-app-text-muted">—</span>}
                           </td>
                           <td className="px-5 py-3.5">
                             {s.moderate > 0 ? (
                               <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700">{s.moderate}</span>
-                            ) : <span className="text-sm text-gray-400">—</span>}
+                            ) : <span className="text-sm text-app-text-muted">—</span>}
                           </td>
                           <td className="px-5 py-3.5">
                             {s.major > 0 ? (
                               <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700">{s.major}</span>
-                            ) : <span className="text-sm text-gray-400">—</span>}
+                            ) : <span className="text-sm text-app-text-muted">—</span>}
                           </td>
-                          <td className="px-5 py-3.5 text-sm text-gray-600">{new Date(s.last_incident).toLocaleDateString()}</td>
+                          <td className="px-5 py-3.5 text-sm text-app-text-muted">{new Date(s.last_incident).toLocaleDateString()}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
               ) : (
-                <div className="text-center py-8 text-gray-400 text-sm">No student incidents recorded for this class</div>
+                <div className="text-center py-8 text-app-text-muted text-sm">No student incidents recorded for this class</div>
               )}
             </div>
           ))}

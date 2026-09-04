@@ -135,30 +135,30 @@ export default function AllIssuedBooks() {
           <div className="bg-emerald-500 text-white p-2 rounded-xl">
             <BookOpen size={20} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-800">All Issued Books</h1>
+          <h1 className="text-2xl font-bold text-app-text">All Issued Books</h1>
         </div>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {summaryCards.map((card) => (
-          <div key={card.label} className="bg-white rounded-2xl border border-slate-200 p-4 flex items-center gap-4">
+          <div key={card.label} className="bg-app-surface rounded-2xl border border-app-border p-4 flex items-center gap-4">
             <div className={`p-3 rounded-xl ${card.cls}`}>
               <card.icon size={20} />
             </div>
             <div>
-              <p className="text-2xl font-bold text-slate-800">{card.value}</p>
-              <p className="text-xs text-slate-500 mt-0.5">{card.label}</p>
+              <p className="text-2xl font-bold text-app-text">{card.value}</p>
+              <p className="text-xs text-app-text-muted mt-0.5">{card.label}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4">
         <div className="flex flex-wrap gap-3">
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white"
+            className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface"
           >
             <option value="all">All Statuses</option>
             <option value="issued">Issued</option>
@@ -166,27 +166,27 @@ export default function AllIssuedBooks() {
             <option value="overdue">Overdue</option>
           </select>
           <div className="flex items-center gap-2">
-            <label className="text-sm text-slate-600">From</label>
+            <label className="text-sm text-app-text-muted">From</label>
             <input
               type="date"
               value={dateFrom}
               onChange={(e) => setDateFrom(e.target.value)}
-              className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
             />
           </div>
           <div className="flex items-center gap-2">
-            <label className="text-sm text-slate-600">To</label>
+            <label className="text-sm text-app-text-muted">To</label>
             <input
               type="date"
               value={dateTo}
               onChange={(e) => setDateTo(e.target.value)}
-              className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
             />
           </div>
           {(dateFrom || dateTo || filterStatus !== 'all') && (
             <button
               onClick={() => { setFilterStatus('all'); setDateFrom(''); setDateTo(''); }}
-              className="text-sm text-slate-500 hover:text-slate-700 px-3 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50"
+              className="text-sm text-app-text-muted hover:text-app-text px-3 py-2.5 rounded-xl border border-app-border hover:bg-app-surface-alt"
             >
               Clear Filters
             </button>
@@ -194,40 +194,40 @@ export default function AllIssuedBooks() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {loading ? (
-          <div className="p-12 text-center text-slate-400">Loading...</div>
+          <div className="p-12 text-center text-app-text-muted">Loading...</div>
         ) : issues.length === 0 ? (
           <div className="p-12 text-center">
             <BookOpen size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-500">No issued books found.</p>
+            <p className="text-app-text-muted">No issued books found.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Issue Date</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Due Date</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Book Title</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Author</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Borrower</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Return Date</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Status</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Fine (₦)</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Issue Date</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Due Date</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Book Title</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Author</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Borrower</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Return Date</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Status</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Fine (₦)</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {issues.map((issue) => {
                   const { label, cls } = statusLabel(issue);
                   const fine = computeFine(issue);
                   return (
-                    <tr key={issue.id} className="hover:bg-slate-50/50">
-                      <td className="px-4 py-3 text-slate-600">{issue.issue_date || '-'}</td>
-                      <td className="px-4 py-3 text-slate-600">{issue.return_date || '-'}</td>
-                      <td className="px-4 py-3 font-medium text-slate-800">{issue.books?.title || '-'}</td>
-                      <td className="px-4 py-3 text-slate-600">{issue.books?.author || '-'}</td>
-                      <td className="px-4 py-3 text-slate-700">
+                    <tr key={issue.id} className="hover:bg-app-surface-alt/50">
+                      <td className="px-4 py-3 text-app-text-muted">{issue.issue_date || '-'}</td>
+                      <td className="px-4 py-3 text-app-text-muted">{issue.return_date || '-'}</td>
+                      <td className="px-4 py-3 font-medium text-app-text">{issue.books?.title || '-'}</td>
+                      <td className="px-4 py-3 text-app-text-muted">{issue.books?.author || '-'}</td>
+                      <td className="px-4 py-3 text-app-text">
                         {(() => {
                           const i = issue as any;
                           if (i.member_type === 'student') {
@@ -238,7 +238,7 @@ export default function AllIssuedBooks() {
                           return p ? `${p.first_name} ${p.last_name}` : '—';
                         })()}
                       </td>
-                      <td className="px-4 py-3 text-slate-600">{issue.actual_return_date || '-'}</td>
+                      <td className="px-4 py-3 text-app-text-muted">{issue.actual_return_date || '-'}</td>
                       <td className="px-4 py-3">
                         <span className={`px-2 py-1 rounded-lg text-xs font-medium ${cls}`}>{label}</span>
                       </td>
@@ -246,7 +246,7 @@ export default function AllIssuedBooks() {
                         {fine > 0 ? (
                           <span className="text-red-600 font-medium">₦{fine.toLocaleString()}</span>
                         ) : (
-                          <span className="text-slate-400">-</span>
+                          <span className="text-app-text-muted">-</span>
                         )}
                       </td>
                     </tr>

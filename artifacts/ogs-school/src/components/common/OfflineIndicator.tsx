@@ -16,7 +16,7 @@ export default function OfflineIndicator() {
             {pendingCount} attendance record{pendingCount !== 1 ? 's' : ''} pending sync
           </p>
           {lastSyncTime && (
-            <p className="text-slate-400">Last synced: {lastSyncTime.toLocaleTimeString()}</p>
+            <p className="text-app-text-muted">Last synced: {lastSyncTime.toLocaleTimeString()}</p>
           )}
           {isOnline && (
             <button

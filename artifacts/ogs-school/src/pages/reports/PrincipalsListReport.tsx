@@ -171,11 +171,11 @@ export default function PrincipalsListReport() {
       {/* Header */}
       <div className="flex items-center justify-between no-print">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-app-text flex items-center gap-2">
             <GraduationCap className="h-7 w-7 text-emerald-600" />
             Principal's List
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-app-text-muted mt-1">
             Top {LIST_SIZE} students for the term — top {SCHOLARSHIP_SLOTS} receive scholarship next term
           </p>
         </div>
@@ -191,7 +191,7 @@ export default function PrincipalsListReport() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 no-print">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4 no-print">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <select
             value={selectedYear}
@@ -200,7 +200,7 @@ export default function PrincipalsListReport() {
               const y = academicYears.find(a => a.id === e.target.value);
               if (y) setYearLabel(y.name);
             }}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">Select Academic Year *</option>
             {academicYears.map(y => (
@@ -212,7 +212,7 @@ export default function PrincipalsListReport() {
             value={selectedExam}
             onChange={e => setSelectedExam(e.target.value)}
             disabled={!selectedYear}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
           >
             <option value="">Select Term / Exam *</option>
             {exams.map(e => (
@@ -225,11 +225,11 @@ export default function PrincipalsListReport() {
       {/* Stats */}
       {records.length > 0 && (
         <div className="grid grid-cols-3 gap-4 no-print">
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+          <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-500">School Champion</p>
-                <p className="text-base font-bold text-slate-800 mt-1 truncate">{records[0]?.student_name}</p>
+                <p className="text-sm text-app-text-muted">School Champion</p>
+                <p className="text-base font-bold text-app-text mt-1 truncate">{records[0]?.student_name}</p>
                 <p className="text-sm text-emerald-600">{records[0]?.percentage}% · {records[0]?.class_name}</p>
               </div>
               <div className="bg-amber-100 p-3 rounded-lg">
@@ -238,12 +238,12 @@ export default function PrincipalsListReport() {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+          <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-500">On Principal's List</p>
-                <p className="text-2xl font-bold text-slate-800 mt-1">{records.length}</p>
-                <p className="text-sm text-slate-400">of all students</p>
+                <p className="text-sm text-app-text-muted">On Principal's List</p>
+                <p className="text-2xl font-bold text-app-text mt-1">{records.length}</p>
+                <p className="text-sm text-app-text-muted">of all students</p>
               </div>
               <div className="bg-blue-100 p-3 rounded-lg">
                 <Star className="h-6 w-6 text-blue-600" />
@@ -251,12 +251,12 @@ export default function PrincipalsListReport() {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+          <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-500">Scholarships Next Term</p>
+                <p className="text-sm text-app-text-muted">Scholarships Next Term</p>
                 <p className="text-2xl font-bold text-emerald-600 mt-1">{scholarshipCount}</p>
-                <p className="text-sm text-slate-400">students awarded</p>
+                <p className="text-sm text-app-text-muted">students awarded</p>
               </div>
               <div className="bg-emerald-100 p-3 rounded-lg">
                 <Award className="h-6 w-6 text-emerald-600" />
@@ -267,35 +267,35 @@ export default function PrincipalsListReport() {
       )}
 
       {/* Table (screen view) */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden no-print">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden no-print">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 text-slate-600 font-medium w-14">Rank</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Student Name</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Class</th>
-                <th className="text-right px-4 py-3 text-slate-600 font-medium">Obtained</th>
-                <th className="text-right px-4 py-3 text-slate-600 font-medium">Total</th>
-                <th className="text-right px-4 py-3 text-slate-600 font-medium">%</th>
-                <th className="text-center px-4 py-3 text-slate-600 font-medium">Grade</th>
-                <th className="text-center px-4 py-3 text-slate-600 font-medium">Scholarship</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium w-14">Rank</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Student Name</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Class</th>
+                <th className="text-right px-4 py-3 text-app-text-muted font-medium">Obtained</th>
+                <th className="text-right px-4 py-3 text-app-text-muted font-medium">Total</th>
+                <th className="text-right px-4 py-3 text-app-text-muted font-medium">%</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Grade</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Scholarship</th>
               </tr>
             </thead>
             <tbody>
               {!selectedExam ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-12 text-slate-400">
+                  <td colSpan={8} className="text-center py-12 text-app-text-muted">
                     Select an academic year and term to generate the Principal's List
                   </td>
                 </tr>
               ) : loading ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-12 text-slate-400">Loading results…</td>
+                  <td colSpan={8} className="text-center py-12 text-app-text-muted">Loading results…</td>
                 </tr>
               ) : records.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-12 text-slate-400">No results found for this term</td>
+                  <td colSpan={8} className="text-center py-12 text-app-text-muted">No results found for this term</td>
                 </tr>
               ) : (
                 records.map(r => (
@@ -305,7 +305,7 @@ export default function PrincipalsListReport() {
                       r.rank === 1
                         ? 'bg-amber-50'
                         : r.rank === 2
-                        ? 'bg-slate-50'
+                        ? 'bg-app-surface-alt'
                         : r.rank === 3
                         ? 'bg-orange-50'
                         : r.scholarship
@@ -319,18 +319,18 @@ export default function PrincipalsListReport() {
                           <Trophy className="h-3 w-3" />1st
                         </span>
                       ) : r.rank === 2 ? (
-                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold bg-slate-200 text-slate-700">2nd</span>
+                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold bg-slate-200 text-app-text">2nd</span>
                       ) : r.rank === 3 ? (
                         <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold bg-orange-100 text-orange-700">3rd</span>
                       ) : (
-                        <span className="text-slate-600 font-medium">{r.rank}th</span>
+                        <span className="text-app-text-muted font-medium">{r.rank}th</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 font-semibold text-slate-800">{r.student_name}</td>
-                    <td className="px-4 py-3 text-slate-600">{r.class_name}</td>
-                    <td className="px-4 py-3 text-right text-slate-700">{r.obtained_marks}</td>
-                    <td className="px-4 py-3 text-right text-slate-500">{r.total_marks}</td>
-                    <td className="px-4 py-3 text-right font-bold text-slate-800">{r.percentage}%</td>
+                    <td className="px-4 py-3 font-semibold text-app-text">{r.student_name}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{r.class_name}</td>
+                    <td className="px-4 py-3 text-right text-app-text">{r.obtained_marks}</td>
+                    <td className="px-4 py-3 text-right text-app-text-muted">{r.total_marks}</td>
+                    <td className="px-4 py-3 text-right font-bold text-app-text">{r.percentage}%</td>
                     <td className="px-4 py-3 text-center">
                       <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
                         r.percentage >= 70 ? 'bg-emerald-100 text-emerald-800'
@@ -358,7 +358,7 @@ export default function PrincipalsListReport() {
 
       {/* ── Print View ── */}
       {records.length > 0 && (
-        <div id="principals-list-print" ref={printRef} className="hidden print:block bg-white p-10 text-black" style={{ display: 'none' }}>
+        <div id="principals-list-print" ref={printRef} className="hidden print:block bg-app-surface p-10 text-black" style={{ display: 'none' }}>
           {/* School Header */}
           <div className="text-center mb-8 border-b-2 border-black pb-6">
             <h1 className="text-2xl font-extrabold uppercase tracking-wide">{settings.school_name || 'School Portal'}</h1>
@@ -371,7 +371,7 @@ export default function PrincipalsListReport() {
             <p className="mt-3 text-sm font-medium">
               Academic Year: <strong>{yearLabel}</strong> &nbsp;|&nbsp; Term: <strong>{examLabel}</strong>
             </p>
-            <p className="text-xs text-gray-600 mt-1">
+            <p className="text-xs text-app-text-muted mt-1">
               Top {LIST_SIZE} students by overall academic performance · Top {SCHOLARSHIP_SLOTS} awarded scholarship for the following term
             </p>
           </div>
@@ -392,17 +392,17 @@ export default function PrincipalsListReport() {
             </thead>
             <tbody>
               {records.map(r => (
-                <tr key={r.student_id} className={r.scholarship ? 'bg-gray-50 font-medium' : ''}>
-                  <td className="border border-gray-300 px-3 py-2 text-center font-bold">
+                <tr key={r.student_id} className={r.scholarship ? 'bg-app-surface-alt font-medium' : ''}>
+                  <td className="border border-app-border px-3 py-2 text-center font-bold">
                     {r.rank === 1 ? '1st' : r.rank === 2 ? '2nd' : r.rank === 3 ? '3rd' : `${r.rank}th`}
                   </td>
-                  <td className="border border-gray-300 px-3 py-2">{r.student_name}</td>
-                  <td className="border border-gray-300 px-3 py-2">{r.class_name}</td>
-                  <td className="border border-gray-300 px-3 py-2 text-center">{r.obtained_marks}</td>
-                  <td className="border border-gray-300 px-3 py-2 text-center">{r.total_marks}</td>
-                  <td className="border border-gray-300 px-3 py-2 text-center font-bold">{r.percentage}%</td>
-                  <td className="border border-gray-300 px-3 py-2 text-center">{r.grade}</td>
-                  <td className="border border-gray-300 px-3 py-2 text-center">
+                  <td className="border border-app-border px-3 py-2">{r.student_name}</td>
+                  <td className="border border-app-border px-3 py-2">{r.class_name}</td>
+                  <td className="border border-app-border px-3 py-2 text-center">{r.obtained_marks}</td>
+                  <td className="border border-app-border px-3 py-2 text-center">{r.total_marks}</td>
+                  <td className="border border-app-border px-3 py-2 text-center font-bold">{r.percentage}%</td>
+                  <td className="border border-app-border px-3 py-2 text-center">{r.grade}</td>
+                  <td className="border border-app-border px-3 py-2 text-center">
                     {r.scholarship ? '✓ Awarded' : '—'}
                   </td>
                 </tr>
@@ -411,7 +411,7 @@ export default function PrincipalsListReport() {
           </table>
 
           {/* Scholarship Note */}
-          <div className="mt-6 border border-gray-400 rounded p-4 bg-gray-50">
+          <div className="mt-6 border border-gray-400 rounded p-4 bg-app-surface-alt">
             <p className="font-bold text-sm mb-1">Scholarship Award Note:</p>
             <p className="text-sm">
               The following {SCHOLARSHIP_SLOTS} students ranked 1st–{SCHOLARSHIP_SLOTS} on this list are hereby awarded scholarship for the next term:
@@ -435,14 +435,14 @@ export default function PrincipalsListReport() {
             <div className="text-center">
               <div className="border-t-2 border-black pt-2">
                 <p className="font-bold text-sm">Date</p>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-app-text-muted mt-1">
                   {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
                 </p>
               </div>
             </div>
           </div>
 
-          <p className="text-center text-xs text-gray-400 mt-8">
+          <p className="text-center text-xs text-app-text-muted mt-8">
             This document is an official record of {settings.school_name || 'School Portal'} — generated from the school management portal.
           </p>
         </div>

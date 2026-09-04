@@ -340,15 +340,15 @@ export default function ProgressCardReport() {
     win.document.close();
   }
 
-  const inputClass = 'w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+  const inputClass = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
   const hasResults = selectedStudent && selectedExam && marks.length > 0;
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Report Cards</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Search any student and view their exam result card</p>
+          <h1 className="text-2xl font-bold text-app-text">Report Cards</h1>
+          <p className="text-app-text-muted text-sm mt-0.5">Search any student and view their exam result card</p>
         </div>
         {hasResults && (
           <button
@@ -361,12 +361,12 @@ export default function ProgressCardReport() {
         )}
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Student Search</label>
+            <label className="block text-xs font-bold text-app-text-muted uppercase tracking-wider mb-1.5">Student Search</label>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
               <input
                 type="text"
                 value={searchQuery}
@@ -377,26 +377,26 @@ export default function ProgressCardReport() {
                 }}
                 onFocus={() => setShowDropdown(true)}
                 placeholder="Search by name or admission number..."
-                className="w-full border border-slate-200 rounded-xl pl-9 pr-9 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                className="w-full border border-app-border rounded-xl pl-9 pr-9 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
               />
               {selectedStudent && (
-                <button onClick={clearStudent} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                <button onClick={clearStudent} className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-muted hover:text-app-text">
                   <X className="w-4 h-4" />
                 </button>
               )}
               {showDropdown && searchResults.length > 0 && (
-                <div className="absolute z-20 w-full mt-1 bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden">
+                <div className="absolute z-20 w-full mt-1 bg-app-surface border border-app-border rounded-xl shadow-lg overflow-hidden">
                   {loadingSearch ? (
-                    <div className="px-4 py-3 text-sm text-slate-400">Searching...</div>
+                    <div className="px-4 py-3 text-sm text-app-text-muted">Searching...</div>
                   ) : (
                     searchResults.map(student => (
                       <button
                         key={student.id}
                         onClick={() => selectStudent(student)}
-                        className="w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-0"
+                        className="w-full text-left px-4 py-3 hover:bg-app-surface-alt transition-colors border-b border-app-border last:border-0"
                       >
-                        <div className="font-medium text-slate-800 text-sm">{student.full_name}</div>
-                        <div className="text-xs text-slate-400 mt-0.5">
+                        <div className="font-medium text-app-text text-sm">{student.full_name}</div>
+                        <div className="text-xs text-app-text-muted mt-0.5">
                           ADM: {student.admission_number || '—'} · {student.class_name}
                         </div>
                       </button>
@@ -408,7 +408,7 @@ export default function ProgressCardReport() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Select Exam / Term</label>
+            <label className="block text-xs font-bold text-app-text-muted uppercase tracking-wider mb-1.5">Select Exam / Term</label>
             <select
               value={selectedExam}
               onChange={(e) => setSelectedExam(e.target.value)}
@@ -436,28 +436,28 @@ export default function ProgressCardReport() {
       </div>
 
       {!selectedStudent || !selectedExam ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-20 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-20 text-center">
           <BookOpen className="w-12 h-12 text-slate-200 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">Search for a student and select an exam</p>
-          <p className="text-slate-400 text-sm mt-1">Results will appear here</p>
+          <p className="text-app-text-muted font-medium">Search for a student and select an exam</p>
+          <p className="text-app-text-muted text-sm mt-1">Results will appear here</p>
         </div>
       ) : loadingMarks ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-20 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-20 text-center">
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-slate-400 text-sm">Loading results...</p>
+          <p className="text-app-text-muted text-sm">Loading results...</p>
         </div>
       ) : marks.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-20 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-20 text-center">
           <Award className="w-12 h-12 text-slate-200 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">No results found</p>
-          <p className="text-slate-400 text-sm mt-1">No marks recorded for this student in the selected exam</p>
+          <p className="text-app-text-muted font-medium">No results found</p>
+          <p className="text-app-text-muted text-sm mt-1">No marks recorded for this student in the selected exam</p>
         </div>
       ) : (
         <>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { label: 'Subjects Sat', value: String(presentMarks.length), color: 'text-slate-800' },
-              { label: 'Aggregate', value: String(aggregate), color: 'text-slate-800' },
+              { label: 'Subjects Sat', value: String(presentMarks.length), color: 'text-app-text' },
+              { label: 'Aggregate', value: String(aggregate), color: 'text-app-text' },
               { label: 'Average', value: average, color: 'text-emerald-600' },
               {
                 label: 'Overall Grade',
@@ -465,43 +465,43 @@ export default function ProgressCardReport() {
                 color: parseFloat(average) >= 50 ? 'text-emerald-600' : 'text-red-600',
               },
             ].map(stat => (
-              <div key={stat.label} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
+              <div key={stat.label} className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
                 <p className={`text-2xl font-black ${stat.color}`}>{stat.value}</p>
-                <p className="text-xs text-slate-500 mt-0.5">{stat.label}</p>
+                <p className="text-xs text-app-text-muted mt-0.5">{stat.label}</p>
               </div>
             ))}
           </div>
 
-          <div className="bg-white rounded-2xl border-2 border-slate-300 shadow-sm overflow-hidden">
-            <div className="px-5 py-3 border-b border-slate-200 bg-slate-50">
-              <h3 className="font-bold text-slate-800 uppercase tracking-wider text-sm text-center">Overall Performance Summary</h3>
+          <div className="bg-app-surface rounded-2xl border-2 border-app-border shadow-sm overflow-hidden">
+            <div className="px-5 py-3 border-b border-app-border bg-app-surface-alt">
+              <h3 className="font-bold text-app-text uppercase tracking-wider text-sm text-center">Overall Performance Summary</h3>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-5 divide-x divide-slate-100">
+            <div className="grid grid-cols-2 md:grid-cols-5 divide-x divide-app-border">
               <div className="p-4 text-center">
-                <p className="text-[10px] uppercase font-semibold text-slate-500 tracking-wide">Total Score</p>
-                <p className="text-2xl font-black text-slate-800 mt-1">{aggregate}</p>
+                <p className="text-[10px] uppercase font-semibold text-app-text-muted tracking-wide">Total Score</p>
+                <p className="text-2xl font-black text-app-text mt-1">{aggregate}</p>
               </div>
               <div className="p-4 text-center">
-                <p className="text-[10px] uppercase font-semibold text-slate-500 tracking-wide">Overall Average</p>
+                <p className="text-[10px] uppercase font-semibold text-app-text-muted tracking-wide">Overall Average</p>
                 <p className="text-2xl font-black text-emerald-600 mt-1">
                   {(presentMarks.length > 0 ? aggregate / presentMarks.length : 0).toFixed(2)}%
                 </p>
               </div>
               <div className="p-4 text-center">
-                <p className="text-[10px] uppercase font-semibold text-slate-500 tracking-wide">Class Average</p>
-                <p className="text-2xl font-black text-slate-800 mt-1">
+                <p className="text-[10px] uppercase font-semibold text-app-text-muted tracking-wide">Class Average</p>
+                <p className="text-2xl font-black text-app-text mt-1">
                   {classOverallAverage != null ? classOverallAverage.toFixed(2) + '%' : '—'}
                 </p>
               </div>
               <div className="p-4 text-center">
-                <p className="text-[10px] uppercase font-semibold text-slate-500 tracking-wide">Overall Position</p>
+                <p className="text-[10px] uppercase font-semibold text-app-text-muted tracking-wide">Overall Position</p>
                 <p className="text-2xl font-black text-blue-600 mt-1">
                   {overallRank ? getOrdinal(overallRank.pos) : '—'}
                 </p>
-                {overallRank && <p className="text-[10px] text-slate-400 mt-0.5">of {overallRank.size}</p>}
+                {overallRank && <p className="text-[10px] text-app-text-muted mt-0.5">of {overallRank.size}</p>}
               </div>
               <div className="p-4 text-center">
-                <p className="text-[10px] uppercase font-semibold text-slate-500 tracking-wide">Remark</p>
+                <p className="text-[10px] uppercase font-semibold text-app-text-muted tracking-wide">Remark</p>
                 {(() => {
                   const avgNum = presentMarks.length > 0 ? aggregate / presentMarks.length : 0;
                   const r = getOverallRemark(avgNum);
@@ -512,48 +512,48 @@ export default function ProgressCardReport() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-            <div className="px-5 py-4 border-b border-slate-100">
-              <h3 className="font-semibold text-slate-800">{selectedStudent.full_name} — {examName}</h3>
-              <p className="text-xs text-slate-400 mt-0.5">Class: {selectedStudent.class_name} · ADM: {selectedStudent.admission_number || '—'}</p>
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-app-border">
+              <h3 className="font-semibold text-app-text">{selectedStudent.full_name} — {examName}</h3>
+              <p className="text-xs text-app-text-muted mt-0.5">Class: {selectedStudent.class_name} · ADM: {selectedStudent.admission_number || '—'}</p>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead className="bg-slate-50 border-b border-slate-100">
+                <thead className="bg-app-surface-alt border-b border-app-border">
                   <tr>
-                    <th className="text-left px-5 py-3 font-semibold text-slate-600">Subject</th>
-                    <th className="text-center px-4 py-3 font-semibold text-slate-600">
-                      <div>CA</div><div className="text-xs font-normal text-slate-400">max 10</div>
+                    <th className="text-left px-5 py-3 font-semibold text-app-text-muted">Subject</th>
+                    <th className="text-center px-4 py-3 font-semibold text-app-text-muted">
+                      <div>CA</div><div className="text-xs font-normal text-app-text-muted">max 10</div>
                     </th>
-                    <th className="text-center px-4 py-3 font-semibold text-slate-600">
-                      <div>Test</div><div className="text-xs font-normal text-slate-400">max 30</div>
+                    <th className="text-center px-4 py-3 font-semibold text-app-text-muted">
+                      <div>Test</div><div className="text-xs font-normal text-app-text-muted">max 30</div>
                     </th>
-                    <th className="text-center px-4 py-3 font-semibold text-slate-600">
-                      <div>Exam</div><div className="text-xs font-normal text-slate-400">max 60</div>
+                    <th className="text-center px-4 py-3 font-semibold text-app-text-muted">
+                      <div>Exam</div><div className="text-xs font-normal text-app-text-muted">max 60</div>
                     </th>
-                    <th className="text-center px-4 py-3 font-semibold text-slate-600">Total (100)</th>
-                    <th className="text-center px-4 py-3 font-semibold text-slate-600">Class Avg</th>
-                    <th className="text-center px-4 py-3 font-semibold text-slate-600">Position</th>
-                    <th className="text-center px-4 py-3 font-semibold text-slate-600">Grade</th>
-                    <th className="text-left px-4 py-3 font-semibold text-slate-600">Remark</th>
+                    <th className="text-center px-4 py-3 font-semibold text-app-text-muted">Total (100)</th>
+                    <th className="text-center px-4 py-3 font-semibold text-app-text-muted">Class Avg</th>
+                    <th className="text-center px-4 py-3 font-semibold text-app-text-muted">Position</th>
+                    <th className="text-center px-4 py-3 font-semibold text-app-text-muted">Grade</th>
+                    <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Remark</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-app-border">
                   {marks.map(m => (
-                    <tr key={m.subject_id} className={`hover:bg-slate-50 transition-colors ${m.is_absent ? 'bg-red-50/30' : ''}`}>
-                      <td className="px-5 py-3 font-medium text-slate-800">{m.subject_name}</td>
-                      <td className="px-4 py-3 text-center text-slate-600">{m.is_absent ? '—' : m.ca}</td>
-                      <td className="px-4 py-3 text-center text-slate-600">{m.is_absent ? '—' : m.test}</td>
-                      <td className="px-4 py-3 text-center text-slate-600">{m.is_absent ? '—' : m.exam}</td>
+                    <tr key={m.subject_id} className={`hover:bg-app-surface-alt transition-colors ${m.is_absent ? 'bg-red-50/30' : ''}`}>
+                      <td className="px-5 py-3 font-medium text-app-text">{m.subject_name}</td>
+                      <td className="px-4 py-3 text-center text-app-text-muted">{m.is_absent ? '—' : m.ca}</td>
+                      <td className="px-4 py-3 text-center text-app-text-muted">{m.is_absent ? '—' : m.test}</td>
+                      <td className="px-4 py-3 text-center text-app-text-muted">{m.is_absent ? '—' : m.exam}</td>
                       <td className="px-4 py-3 text-center">
-                        <span className={`font-black text-base ${m.is_absent ? 'text-slate-300' : 'text-slate-800'}`}>
+                        <span className={`font-black text-base ${m.is_absent ? 'text-slate-300' : 'text-app-text'}`}>
                           {m.is_absent ? 'ABS' : m.total}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-center text-slate-600">
+                      <td className="px-4 py-3 text-center text-app-text-muted">
                         {m.subject_average != null ? m.subject_average.toFixed(1) : '—'}
                       </td>
-                      <td className="px-4 py-3 text-center font-semibold text-slate-700">
+                      <td className="px-4 py-3 text-center font-semibold text-app-text">
                         {m.subject_position ? getOrdinal(m.subject_position) : '—'}
                       </td>
                       <td className="px-4 py-3 text-center">
@@ -563,17 +563,17 @@ export default function ProgressCardReport() {
                           </span>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-slate-500 text-sm">{m.remark}</td>
+                      <td className="px-4 py-3 text-app-text-muted text-sm">{m.remark}</td>
                     </tr>
                   ))}
                 </tbody>
-                <tfoot className="bg-slate-50 border-t border-slate-200">
+                <tfoot className="bg-app-surface-alt border-t border-app-border">
                   <tr>
-                    <td className="px-5 py-3 font-bold text-slate-700">Total / Average</td>
+                    <td className="px-5 py-3 font-bold text-app-text">Total / Average</td>
                     <td colSpan={3} />
-                    <td className="px-4 py-3 text-center font-black text-slate-800">{aggregate}</td>
-                    <td colSpan={4} className="px-4 py-3 text-center text-sm text-slate-500">
-                      Avg: <strong className="text-slate-700">{average}</strong>
+                    <td className="px-4 py-3 text-center font-black text-app-text">{aggregate}</td>
+                    <td colSpan={4} className="px-4 py-3 text-center text-sm text-app-text-muted">
+                      Avg: <strong className="text-app-text">{average}</strong>
                     </td>
                   </tr>
                 </tfoot>

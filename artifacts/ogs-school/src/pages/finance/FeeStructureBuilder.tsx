@@ -16,7 +16,7 @@ interface CellData {
 
 type GridData = Record<string, Record<string, CellData>>;
 
-const INPUT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 const STEPS = ['Select Year', 'Boarding Fees', 'Day Fees', 'Review & Confirm'];
 
 function formatCurrency(amount: number): string {
@@ -257,29 +257,29 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
       <div className="overflow-x-auto">
         <table className="w-full text-sm border-collapse">
           <thead>
-            <tr className="bg-slate-50">
-              <th className="px-3 py-2 text-left text-xs font-medium text-slate-600 border border-slate-200 w-36">Class</th>
+            <tr className="bg-app-surface-alt">
+              <th className="px-3 py-2 text-left text-xs font-medium text-app-text-muted border border-app-border w-36">Class</th>
               {terms.map(term => (
-                <th key={term.id} className="px-3 py-2 text-center text-xs font-medium text-slate-600 border border-slate-200" colSpan={2}>
+                <th key={term.id} className="px-3 py-2 text-center text-xs font-medium text-app-text-muted border border-app-border" colSpan={2}>
                   {term.name}
                 </th>
               ))}
             </tr>
-            <tr className="bg-slate-50/50">
-              <th className="px-3 py-1.5 text-left text-xs text-slate-500 border border-slate-200 font-normal">Apply to all</th>
+            <tr className="bg-app-surface-alt/50">
+              <th className="px-3 py-1.5 text-left text-xs text-app-text-muted border border-app-border font-normal">Apply to all</th>
               {terms.map(term => (
-                <td key={term.id} className="border border-slate-200 p-0" colSpan={2}>
+                <td key={term.id} className="border border-app-border p-0" colSpan={2}>
                   <div className="flex gap-1 p-1.5">
                     <input
                       type="number"
                       placeholder="Amount"
-                      className="border border-slate-200 rounded-lg px-2 py-1.5 text-xs w-24 focus:outline-none focus:ring-1 focus:ring-emerald-400"
+                      className="border border-app-border rounded-lg px-2 py-1.5 text-xs w-24 focus:outline-none focus:ring-1 focus:ring-emerald-400"
                       value={bulkAmount[term.id] || ''}
                       onChange={e => setBulkAmount({ ...bulkAmount, [term.id]: e.target.value })}
                     />
                     <input
                       type="date"
-                      className="border border-slate-200 rounded-lg px-2 py-1.5 text-xs w-32 focus:outline-none focus:ring-1 focus:ring-emerald-400"
+                      className="border border-app-border rounded-lg px-2 py-1.5 text-xs w-32 focus:outline-none focus:ring-1 focus:ring-emerald-400"
                       value={bulkDate[term.id] || ''}
                       onChange={e => setBulkDate({ ...bulkDate, [term.id]: e.target.value })}
                     />
@@ -293,11 +293,11 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
                 </td>
               ))}
             </tr>
-            <tr className="bg-slate-50/30">
-              <th className="px-3 py-1 border border-slate-200"></th>
+            <tr className="bg-app-surface-alt/30">
+              <th className="px-3 py-1 border border-app-border"></th>
               {terms.map(term => (
-                <td key={term.id} className="border border-slate-200 p-0" colSpan={2}>
-                  <div className="flex text-xs text-slate-400 px-1.5">
+                <td key={term.id} className="border border-app-border p-0" colSpan={2}>
+                  <div className="flex text-xs text-app-text-muted px-1.5">
                     <span className="w-24 text-center">Amount (N)</span>
                     <span className="flex-1 text-center">Due Date</span>
                   </div>
@@ -307,21 +307,21 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
           </thead>
           <tbody>
             {classes.map(cls => (
-              <tr key={cls.id} className="hover:bg-slate-50/50">
-                <td className="px-3 py-2 text-xs font-medium text-slate-700 border border-slate-200 whitespace-nowrap">{cls.name}</td>
+              <tr key={cls.id} className="hover:bg-app-surface-alt/50">
+                <td className="px-3 py-2 text-xs font-medium text-app-text border border-app-border whitespace-nowrap">{cls.name}</td>
                 {terms.map(term => (
-                  <td key={term.id} className="border border-slate-200 p-0" colSpan={2}>
+                  <td key={term.id} className="border border-app-border p-0" colSpan={2}>
                     <div className="flex gap-1 p-1">
                       <input
                         type="number"
                         min="0"
-                        className="border border-slate-200 rounded-lg px-2 py-1.5 text-xs w-24 focus:outline-none focus:ring-1 focus:ring-emerald-400"
+                        className="border border-app-border rounded-lg px-2 py-1.5 text-xs w-24 focus:outline-none focus:ring-1 focus:ring-emerald-400"
                         value={grid[cls.id]?.[term.id]?.amount || ''}
                         onChange={e => updateCell(grid, setGrid, cls.id, term.id, 'amount', e.target.value)}
                       />
                       <input
                         type="date"
-                        className="border border-slate-200 rounded-lg px-2 py-1.5 text-xs w-32 focus:outline-none focus:ring-1 focus:ring-emerald-400"
+                        className="border border-app-border rounded-lg px-2 py-1.5 text-xs w-32 focus:outline-none focus:ring-1 focus:ring-emerald-400"
                         value={grid[cls.id]?.[term.id]?.due_date || ''}
                         onChange={e => updateCell(grid, setGrid, cls.id, term.id, 'due_date', e.target.value)}
                       />
@@ -339,12 +339,12 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
   if (success) {
     return (
       <div className="p-6 max-w-3xl mx-auto">
-        <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border p-12 text-center">
           <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <Check className="w-8 h-8 text-emerald-600" />
           </div>
-          <h2 className="text-xl font-bold text-slate-800 mb-2">Fee Structure Created Successfully</h2>
-          <p className="text-slate-500 mb-6">{boardingEntries + dayEntries} fee records have been created for {academicYears.find(y => y.id === selectedYear)?.name}.</p>
+          <h2 className="text-xl font-bold text-app-text mb-2">Fee Structure Created Successfully</h2>
+          <p className="text-app-text-muted mb-6">{boardingEntries + dayEntries} fee records have been created for {academicYears.find(y => y.id === selectedYear)?.name}.</p>
           <button onClick={onClose} className="bg-emerald-500 hover:bg-emerald-600 text-white font-medium px-6 py-2.5 rounded-xl transition-colors">
             Back to Fees Master
           </button>
@@ -358,25 +358,25 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
         <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-xl transition-colors">
-          <ArrowLeft className="w-5 h-5 text-slate-600" />
+          <ArrowLeft className="w-5 h-5 text-app-text-muted" />
         </button>
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Fee Structure Builder</h1>
-          <p className="text-sm text-slate-500">Set up fees for an entire academic year in one workflow</p>
+          <h1 className="text-2xl font-bold text-app-text">Fee Structure Builder</h1>
+          <p className="text-sm text-app-text-muted">Set up fees for an entire academic year in one workflow</p>
         </div>
       </div>
 
       {/* Steps indicator */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-4 mb-6">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4 mb-6">
         <div className="flex items-center justify-between">
           {STEPS.map((label, i) => (
             <div key={i} className="flex items-center gap-2">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
-                i < step ? 'bg-emerald-500 text-white' : i === step ? 'bg-emerald-500 text-white ring-4 ring-emerald-100' : 'bg-slate-100 text-slate-400'
+                i < step ? 'bg-emerald-500 text-white' : i === step ? 'bg-emerald-500 text-white ring-4 ring-emerald-100' : 'bg-slate-100 text-app-text-muted'
               }`}>
                 {i < step ? <Check className="w-4 h-4" /> : i + 1}
               </div>
-              <span className={`text-sm font-medium hidden md:inline ${i <= step ? 'text-slate-800' : 'text-slate-400'}`}>{label}</span>
+              <span className={`text-sm font-medium hidden md:inline ${i <= step ? 'text-app-text' : 'text-app-text-muted'}`}>{label}</span>
               {i < STEPS.length - 1 && <div className={`w-8 lg:w-16 h-0.5 ${i < step ? 'bg-emerald-500' : 'bg-slate-200'}`} />}
             </div>
           ))}
@@ -386,11 +386,11 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
       {error && <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 mb-4 text-sm text-red-600">{error}</div>}
 
       {/* Step content */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-6">
         {step === 0 && (
           <div className="space-y-6 max-w-lg">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Academic Year</label>
+              <label className="block text-sm font-medium text-app-text mb-2">Academic Year</label>
               <select className={INPUT_CLASS} value={selectedYear} onChange={e => handleYearSelect(e.target.value)}>
                 <option value="">Select academic year</option>
                 {academicYears.map(y => (
@@ -398,9 +398,9 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
                 ))}
               </select>
             </div>
-            <div className="border-t border-slate-100 pt-5">
-              <label className="block text-sm font-medium text-slate-700 mb-2 flex items-center gap-2">
-                <Copy className="w-4 h-4 text-slate-400" /> Copy from previous year (optional)
+            <div className="border-t border-app-border pt-5">
+              <label className="block text-sm font-medium text-app-text mb-2 flex items-center gap-2">
+                <Copy className="w-4 h-4 text-app-text-muted" /> Copy from previous year (optional)
               </label>
               <div className="flex gap-2">
                 <select className={INPUT_CLASS} value={copyFromYear} onChange={e => setCopyFromYear(e.target.value)}>
@@ -412,12 +412,12 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
                 <button
                   onClick={handleCopyFromYear}
                   disabled={!copyFromYear || !selectedYear}
-                  className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium rounded-xl transition-colors disabled:opacity-40 whitespace-nowrap"
+                  className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-app-text text-sm font-medium rounded-xl transition-colors disabled:opacity-40 whitespace-nowrap"
                 >
                   Copy
                 </button>
               </div>
-              <p className="text-xs text-slate-400 mt-2">This will pre-fill amounts from the selected year. You can adjust them in the next steps.</p>
+              <p className="text-xs text-app-text-muted mt-2">This will pre-fill amounts from the selected year. You can adjust them in the next steps.</p>
             </div>
           </div>
         )}
@@ -426,12 +426,12 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
           <div className="space-y-4">
             <div className="flex items-center gap-2 mb-2">
               <Layers className="w-5 h-5 text-blue-500" />
-              <h3 className="text-lg font-semibold text-slate-800">Boarding Fees</h3>
-              <span className="text-xs text-slate-400 ml-2">{boardingEntries} entries configured</span>
+              <h3 className="text-lg font-semibold text-app-text">Boarding Fees</h3>
+              <span className="text-xs text-app-text-muted ml-2">{boardingEntries} entries configured</span>
             </div>
-            <p className="text-sm text-slate-500 mb-4">Enter boarding fee amounts for each class per term. Use "Apply" to bulk-fill a column.</p>
+            <p className="text-sm text-app-text-muted mb-4">Enter boarding fee amounts for each class per term. Use "Apply" to bulk-fill a column.</p>
             <div className="max-w-xs">
-              <label className="block text-xs font-medium text-slate-600 mb-1">Fee Type</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Fee Type</label>
               <select
                 className={INPUT_CLASS}
                 value={selectedBoardingTypeId}
@@ -451,12 +451,12 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
           <div className="space-y-4">
             <div className="flex items-center gap-2 mb-2">
               <Layers className="w-5 h-5 text-teal-500" />
-              <h3 className="text-lg font-semibold text-slate-800">Day Student Fees</h3>
-              <span className="text-xs text-slate-400 ml-2">{dayEntries} entries configured</span>
+              <h3 className="text-lg font-semibold text-app-text">Day Student Fees</h3>
+              <span className="text-xs text-app-text-muted ml-2">{dayEntries} entries configured</span>
             </div>
-            <p className="text-sm text-slate-500 mb-4">Enter day student fee amounts for each class per term. Use "Apply" to bulk-fill a column.</p>
+            <p className="text-sm text-app-text-muted mb-4">Enter day student fee amounts for each class per term. Use "Apply" to bulk-fill a column.</p>
             <div className="max-w-xs">
-              <label className="block text-xs font-medium text-slate-600 mb-1">Fee Type</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Fee Type</label>
               <select
                 className={INPUT_CLASS}
                 value={selectedDayTypeId}
@@ -474,23 +474,23 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
 
         {step === 3 && (
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-slate-800">Review & Confirm</h3>
+            <h3 className="text-lg font-semibold text-app-text">Review & Confirm</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-slate-50 rounded-xl p-4 text-center">
-                <p className="text-sm text-slate-500">Academic Year</p>
-                <p className="text-lg font-bold text-slate-800">{academicYears.find(y => y.id === selectedYear)?.name}</p>
+              <div className="bg-app-surface-alt rounded-xl p-4 text-center">
+                <p className="text-sm text-app-text-muted">Academic Year</p>
+                <p className="text-lg font-bold text-app-text">{academicYears.find(y => y.id === selectedYear)?.name}</p>
               </div>
               <div className="bg-emerald-50 rounded-xl p-4 text-center">
-                <p className="text-sm text-slate-500">Boarding Entries</p>
+                <p className="text-sm text-app-text-muted">Boarding Entries</p>
                 <p className="text-lg font-bold text-emerald-700">{boardingEntries} records</p>
-                <p className="text-xs text-slate-400 mt-1">Type: {types.find(t => t.id === selectedBoardingTypeId)?.name || '--'}</p>
-                <p className="text-xs text-slate-400">Total: {formatCurrency(totalAmount(boardingGrid))}</p>
+                <p className="text-xs text-app-text-muted mt-1">Type: {types.find(t => t.id === selectedBoardingTypeId)?.name || '--'}</p>
+                <p className="text-xs text-app-text-muted">Total: {formatCurrency(totalAmount(boardingGrid))}</p>
               </div>
               <div className="bg-teal-50 rounded-xl p-4 text-center">
-                <p className="text-sm text-slate-500">Day Entries</p>
+                <p className="text-sm text-app-text-muted">Day Entries</p>
                 <p className="text-lg font-bold text-teal-700">{dayEntries} records</p>
-                <p className="text-xs text-slate-400 mt-1">Type: {types.find(t => t.id === selectedDayTypeId)?.name || '--'}</p>
-                <p className="text-xs text-slate-400">Total: {formatCurrency(totalAmount(dayGrid))}</p>
+                <p className="text-xs text-app-text-muted mt-1">Type: {types.find(t => t.id === selectedDayTypeId)?.name || '--'}</p>
+                <p className="text-xs text-app-text-muted">Total: {formatCurrency(totalAmount(dayGrid))}</p>
               </div>
             </div>
 
@@ -501,31 +501,31 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
 
             <div className="flex items-center gap-3">
               <button type="button" onClick={() => setIsMandatory(!isMandatory)} className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${isMandatory ? 'bg-emerald-500' : 'bg-slate-200'}`}>
-                <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${isMandatory ? 'translate-x-6' : 'translate-x-1'}`} />
+                <span className={`inline-block h-4 w-4 transform rounded-full bg-app-surface shadow transition-transform ${isMandatory ? 'translate-x-6' : 'translate-x-1'}`} />
               </button>
-              <span className="text-sm text-slate-600">Mark all entries as mandatory</span>
+              <span className="text-sm text-app-text-muted">Mark all entries as mandatory</span>
             </div>
 
             {/* Summary tables */}
             <div className="space-y-4">
-              <h4 className="text-sm font-semibold text-slate-700">Boarding Fees Summary</h4>
-              <div className="overflow-x-auto border border-slate-200 rounded-xl">
+              <h4 className="text-sm font-semibold text-app-text">Boarding Fees Summary</h4>
+              <div className="overflow-x-auto border border-app-border rounded-xl">
                 <table className="w-full text-xs">
                   <thead>
-                    <tr className="bg-slate-50">
-                      <th className="px-3 py-2 text-left font-medium text-slate-600">Class</th>
-                      {terms.map(t => <th key={t.id} className="px-3 py-2 text-center font-medium text-slate-600">{t.name}</th>)}
+                    <tr className="bg-app-surface-alt">
+                      <th className="px-3 py-2 text-left font-medium text-app-text-muted">Class</th>
+                      {terms.map(t => <th key={t.id} className="px-3 py-2 text-center font-medium text-app-text-muted">{t.name}</th>)}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-app-border">
                     {classes.map(cls => {
                       const hasData = terms.some(t => boardingGrid[cls.id]?.[t.id]?.amount > 0);
                       if (!hasData) return null;
                       return (
                         <tr key={cls.id}>
-                          <td className="px-3 py-2 font-medium text-slate-700">{cls.name}</td>
+                          <td className="px-3 py-2 font-medium text-app-text">{cls.name}</td>
                           {terms.map(t => (
-                            <td key={t.id} className="px-3 py-2 text-center text-slate-600">
+                            <td key={t.id} className="px-3 py-2 text-center text-app-text-muted">
                               {boardingGrid[cls.id]?.[t.id]?.amount > 0 ? formatCurrency(boardingGrid[cls.id][t.id].amount) : '--'}
                             </td>
                           ))}
@@ -536,24 +536,24 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
                 </table>
               </div>
 
-              <h4 className="text-sm font-semibold text-slate-700">Day Fees Summary</h4>
-              <div className="overflow-x-auto border border-slate-200 rounded-xl">
+              <h4 className="text-sm font-semibold text-app-text">Day Fees Summary</h4>
+              <div className="overflow-x-auto border border-app-border rounded-xl">
                 <table className="w-full text-xs">
                   <thead>
-                    <tr className="bg-slate-50">
-                      <th className="px-3 py-2 text-left font-medium text-slate-600">Class</th>
-                      {terms.map(t => <th key={t.id} className="px-3 py-2 text-center font-medium text-slate-600">{t.name}</th>)}
+                    <tr className="bg-app-surface-alt">
+                      <th className="px-3 py-2 text-left font-medium text-app-text-muted">Class</th>
+                      {terms.map(t => <th key={t.id} className="px-3 py-2 text-center font-medium text-app-text-muted">{t.name}</th>)}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-app-border">
                     {classes.map(cls => {
                       const hasData = terms.some(t => dayGrid[cls.id]?.[t.id]?.amount > 0);
                       if (!hasData) return null;
                       return (
                         <tr key={cls.id}>
-                          <td className="px-3 py-2 font-medium text-slate-700">{cls.name}</td>
+                          <td className="px-3 py-2 font-medium text-app-text">{cls.name}</td>
                           {terms.map(t => (
-                            <td key={t.id} className="px-3 py-2 text-center text-slate-600">
+                            <td key={t.id} className="px-3 py-2 text-center text-app-text-muted">
                               {dayGrid[cls.id]?.[t.id]?.amount > 0 ? formatCurrency(dayGrid[cls.id][t.id].amount) : '--'}
                             </td>
                           ))}
@@ -572,7 +572,7 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
       <div className="flex items-center justify-between mt-6">
         <button
           onClick={() => step === 0 ? onClose() : setStep(step - 1)}
-          className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-600 hover:text-slate-800 font-medium rounded-xl hover:bg-slate-100 transition-colors"
+          className="flex items-center gap-2 px-4 py-2.5 text-sm text-app-text-muted hover:text-app-text font-medium rounded-xl hover:bg-slate-100 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" /> {step === 0 ? 'Cancel' : 'Back'}
         </button>

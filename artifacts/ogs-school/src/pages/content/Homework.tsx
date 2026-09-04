@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 interface HomeworkRecord {
   id: string;
@@ -166,7 +166,7 @@ export default function Homework() {
           <div className="bg-emerald-500 text-white p-1.5 sm:p-2 rounded-xl shrink-0">
             <ClipboardList size={18} />
           </div>
-          <h1 className="text-lg sm:text-2xl font-bold text-slate-800 truncate">Homework</h1>
+          <h1 className="text-lg sm:text-2xl font-bold text-app-text truncate">Homework</h1>
         </div>
         <button
           onClick={openAdd}
@@ -177,16 +177,16 @@ export default function Homework() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4">
         <div className="flex items-center gap-2 mb-3">
-          <Filter size={16} className="text-slate-500" />
-          <span className="text-sm font-medium text-slate-600">Filters</span>
+          <Filter size={16} className="text-app-text-muted" />
+          <span className="text-sm font-medium text-app-text-muted">Filters</span>
         </div>
         <div className="flex flex-wrap gap-3">
           <select
             value={filterClass}
             onChange={e => setFilterClass(e.target.value)}
-            className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
           >
             <option value="">All Classes</option>
             {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -194,7 +194,7 @@ export default function Homework() {
           {filterClass && (
             <button
               onClick={() => setFilterClass('')}
-              className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700"
+              className="flex items-center gap-1 text-sm text-app-text-muted hover:text-app-text"
             >
               <X size={14} /> Clear
             </button>
@@ -202,52 +202,52 @@ export default function Homework() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {loading ? (
-          <div className="p-12 text-center text-slate-400">Loading...</div>
+          <div className="p-12 text-center text-app-text-muted">Loading...</div>
         ) : records.length === 0 ? (
           <div className="p-12 text-center">
             <ClipboardList size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-500">No homework records found.</p>
+            <p className="text-app-text-muted">No homework records found.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Title</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Class</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Subject</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Homework Date</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Submission Date</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Marks</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Actions</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Title</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Class</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Subject</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Homework Date</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Submission Date</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Marks</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {records.map(r => (
-                  <tr key={r.id} className="hover:bg-slate-50/50">
-                    <td className="px-4 py-3 font-medium text-slate-800">{r.title}</td>
-                    <td className="px-4 py-3 text-slate-600">{r.classes?.name || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600">{r.subjects?.name || '-'}</td>
-                    <td className="px-4 py-3 text-slate-500">
+                  <tr key={r.id} className="hover:bg-app-surface-alt/50">
+                    <td className="px-4 py-3 font-medium text-app-text">{r.title}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{r.classes?.name || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{r.subjects?.name || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">
                       {r.homework_date ? new Date(r.homework_date).toLocaleDateString() : '-'}
                     </td>
-                    <td className="px-4 py-3 text-slate-500">
+                    <td className="px-4 py-3 text-app-text-muted">
                       {r.submission_date ? new Date(r.submission_date).toLocaleDateString() : '-'}
                     </td>
-                    <td className="px-4 py-3 text-slate-600">{r.marks ?? '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{r.marks ?? '-'}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => openEdit(r)}
-                          className="text-slate-400 hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors"
+                          className="text-app-text-muted hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors"
                         >
                           <Pencil size={15} />
                         </button>
                         <button
                           onClick={() => handleDelete(r.id)}
-                          className="text-slate-400 hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors"
+                          className="text-app-text-muted hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors"
                         >
                           <Trash2 size={15} />
                         </button>
@@ -266,7 +266,7 @@ export default function Homework() {
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Class</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Class</label>
               <select
                 className={INPUT_CLASS}
                 value={form.class_id}
@@ -277,7 +277,7 @@ export default function Homework() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Subject</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Subject</label>
               <select
                 className={INPUT_CLASS}
                 value={form.subject_id}
@@ -289,7 +289,7 @@ export default function Homework() {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Title</label>
             <input
               required
               className={INPUT_CLASS}
@@ -299,7 +299,7 @@ export default function Homework() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Description</label>
             <textarea
               className={INPUT_CLASS}
               rows={3}
@@ -310,7 +310,7 @@ export default function Homework() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Homework Date</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Homework Date</label>
               <input
                 type="date"
                 className={INPUT_CLASS}
@@ -319,7 +319,7 @@ export default function Homework() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Submission Date</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Submission Date</label>
               <input
                 type="date"
                 className={INPUT_CLASS}
@@ -330,7 +330,7 @@ export default function Homework() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Marks</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Marks</label>
               <input
                 type="number"
                 min="0"
@@ -341,7 +341,7 @@ export default function Homework() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Attachment URL</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Attachment URL</label>
               <input
                 className={INPUT_CLASS}
                 value={form.attachment_url}
@@ -354,7 +354,7 @@ export default function Homework() {
             <button
               type="button"
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-slate-200 text-slate-600 hover:bg-slate-50"
+              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-app-border text-app-text-muted hover:bg-app-surface-alt"
             >
               Cancel
             </button>

@@ -32,7 +32,7 @@ const STATUS_COLORS: Record<string, string> = {
 const PAY_COLORS: Record<string, string> = {
   unpaid: 'bg-red-100 text-red-700',
   paid: 'bg-green-100 text-green-700',
-  refunded: 'bg-slate-100 text-slate-600',
+  refunded: 'bg-slate-100 text-app-text-muted',
 };
 
 const STATUS_MSG: Record<string, string> = {
@@ -79,8 +79,8 @@ export default function MyOrders() {
   return (
     <div className="p-6 space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-800">My Orders</h1>
-        <p className="text-slate-500 text-sm mt-1">Track your store orders and payment status</p>
+        <h1 className="text-2xl font-bold text-app-text">My Orders</h1>
+        <p className="text-app-text-muted text-sm mt-1">Track your store orders and payment status</p>
       </div>
 
       {loading ? (
@@ -88,7 +88,7 @@ export default function MyOrders() {
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : orders.length === 0 ? (
-        <div className="text-center py-20 text-slate-400">
+        <div className="text-center py-20 text-app-text-muted">
           <ShoppingBag className="w-12 h-12 mx-auto mb-3 opacity-30" />
           <p className="font-medium">No orders yet</p>
           <p className="text-sm mt-1">Visit the School Store to place your first order</p>
@@ -99,7 +99,7 @@ export default function MyOrders() {
             <button
               key={order.id}
               onClick={() => viewOrder(order)}
-              className="w-full bg-white rounded-2xl border border-slate-200 p-4 text-left hover:shadow-md hover:border-slate-300 transition-all"
+              className="w-full bg-app-surface rounded-2xl border border-app-border p-4 text-left hover:shadow-md hover:border-app-border transition-all"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3">
@@ -107,14 +107,14 @@ export default function MyOrders() {
                     <ShoppingBag className="w-5 h-5 text-emerald-600" />
                   </div>
                   <div>
-                    <p className="font-medium text-slate-800 text-sm">Order #{order.id.slice(0, 8).toUpperCase()}</p>
-                    <p className="text-xs text-slate-500">{new Date(order.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                    <p className="font-medium text-app-text text-sm">Order #{order.id.slice(0, 8).toUpperCase()}</p>
+                    <p className="text-xs text-app-text-muted">{new Date(order.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
                   </div>
                 </div>
                 <div className="text-right space-y-1.5">
-                  <p className="font-bold text-slate-900">₦{Number(order.total_amount).toLocaleString()}</p>
+                  <p className="font-bold text-app-text">₦{Number(order.total_amount).toLocaleString()}</p>
                   <div className="flex gap-1.5 justify-end flex-wrap">
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${STATUS_COLORS[order.status] ?? 'bg-slate-100 text-slate-600'}`}>
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${STATUS_COLORS[order.status] ?? 'bg-slate-100 text-app-text-muted'}`}>
                       {order.status}
                     </span>
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${PAY_COLORS[order.payment_status ?? 'unpaid']}`}>
@@ -138,8 +138,8 @@ export default function MyOrders() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-semibold text-slate-800">#{selected.id.slice(0, 8).toUpperCase()}</p>
-                <p className="text-sm text-slate-500">{new Date(selected.created_at).toLocaleString()}</p>
+                <p className="font-semibold text-app-text">#{selected.id.slice(0, 8).toUpperCase()}</p>
+                <p className="text-sm text-app-text-muted">{new Date(selected.created_at).toLocaleString()}</p>
               </div>
               <div className="flex gap-2 flex-wrap justify-end">
                 <span className={`text-xs px-3 py-1.5 rounded-full font-medium ${STATUS_COLORS[selected.status] ?? ''}`}>{selected.status}</span>
@@ -147,20 +147,20 @@ export default function MyOrders() {
               </div>
             </div>
 
-            <div className="bg-slate-50 rounded-xl p-4 text-sm text-slate-700">
+            <div className="bg-app-surface-alt rounded-xl p-4 text-sm text-app-text">
               {STATUS_MSG[selected.status] ?? 'Order in progress.'}
             </div>
 
-            {selected.notes && <p className="text-sm text-slate-600 bg-amber-50 border border-amber-100 rounded-xl p-3">{selected.notes}</p>}
+            {selected.notes && <p className="text-sm text-app-text-muted bg-amber-50 border border-amber-100 rounded-xl p-3">{selected.notes}</p>}
 
             <div>
-              <p className="text-sm font-semibold text-slate-700 mb-3">Items</p>
+              <p className="text-sm font-semibold text-app-text mb-3">Items</p>
               {loadingItems ? (
                 <div className="flex justify-center py-4"><div className="w-5 h-5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" /></div>
               ) : (
                 <div className="space-y-3">
                   {items.map(item => (
-                    <div key={item.id} className="flex items-center gap-3 py-2 border-b border-slate-100 last:border-0">
+                    <div key={item.id} className="flex items-center gap-3 py-2 border-b border-app-border last:border-0">
                       <div className="w-10 h-10 bg-slate-100 rounded-lg overflow-hidden flex-shrink-0 flex items-center justify-center">
                         {item.store_products?.image_url ? (
                           <img src={item.store_products.image_url} alt={item.store_products.name} className="w-full h-full object-cover" />
@@ -169,13 +169,13 @@ export default function MyOrders() {
                         )}
                       </div>
                       <div className="flex-1">
-                        <p className="text-sm font-medium text-slate-700">{item.store_products?.name}</p>
-                        <p className="text-xs text-slate-400">Qty: {item.quantity} × ₦{Number(item.unit_price).toLocaleString()}</p>
+                        <p className="text-sm font-medium text-app-text">{item.store_products?.name}</p>
+                        <p className="text-xs text-app-text-muted">Qty: {item.quantity} × ₦{Number(item.unit_price).toLocaleString()}</p>
                       </div>
-                      <span className="font-semibold text-sm text-slate-800">₦{(Number(item.unit_price) * item.quantity).toLocaleString()}</span>
+                      <span className="font-semibold text-sm text-app-text">₦{(Number(item.unit_price) * item.quantity).toLocaleString()}</span>
                     </div>
                   ))}
-                  <div className="flex justify-between font-bold text-slate-900 pt-2">
+                  <div className="flex justify-between font-bold text-app-text pt-2">
                     <span>Total</span>
                     <span>₦{Number(selected.total_amount).toLocaleString()}</span>
                   </div>

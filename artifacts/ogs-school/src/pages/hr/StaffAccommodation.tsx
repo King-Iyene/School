@@ -30,7 +30,7 @@ ALTER TABLE staff_accommodation_assignments DROP COLUMN IF EXISTS room_id;
 ALTER TABLE staff_accommodation_assignments
   ADD COLUMN IF NOT EXISTS room_id uuid REFERENCES asset_rooms(id) ON DELETE SET NULL;`;
 
-const ic = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white';
+const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
 
 interface Assignment {
   id: string;
@@ -52,7 +52,7 @@ interface LocationOption { id: string; name: string; type: string }
 
 const STATUS_COLORS: Record<string, string> = {
   active: 'bg-emerald-100 text-emerald-700',
-  vacated: 'bg-slate-100 text-slate-600',
+  vacated: 'bg-slate-100 text-app-text-muted',
 };
 
 const TYPE_LABELS: Record<string, string> = {
@@ -235,10 +235,10 @@ export default function StaffAccommodation() {
     <div className="p-6 space-y-5 max-w-5xl mx-auto">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold text-slate-800">Staff Accommodation</h1>
-          <p className="text-sm text-slate-500 mt-0.5">
+          <h1 className="text-xl font-bold text-app-text">Staff Accommodation</h1>
+          <p className="text-sm text-app-text-muted mt-0.5">
             Assign staff to quarters, rooms, or offices.
-            <span className="text-slate-400"> Buildings and rooms are managed under <strong>Inventory → Locations & Rooms</strong>.</span>
+            <span className="text-app-text-muted"> Buildings and rooms are managed under <strong>Inventory → Locations & Rooms</strong>.</span>
           </p>
         </div>
         {isAdmin && (
@@ -299,51 +299,51 @@ export default function StaffAccommodation() {
       <div className="flex gap-2">
         {['active', 'vacated', 'all'].map(s => (
           <button key={s} onClick={() => setFilterStatus(s)}
-            className={`px-4 py-1.5 rounded-full text-xs font-medium capitalize transition-colors ${filterStatus === s ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+            className={`px-4 py-1.5 rounded-full text-xs font-medium capitalize transition-colors ${filterStatus === s ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-app-text-muted hover:bg-slate-200'}`}>
             {s === 'all' ? 'All' : s.charAt(0).toUpperCase() + s.slice(1)}
           </button>
         ))}
-        <span className="ml-auto text-xs text-slate-400 self-center">{filtered.length} assignment{filtered.length !== 1 ? 's' : ''}</span>
+        <span className="ml-auto text-xs text-app-text-muted self-center">{filtered.length} assignment{filtered.length !== 1 ? 's' : ''}</span>
       </div>
 
       {loading ? (
-        <div className="flex items-center gap-2 text-slate-500 py-8">
+        <div className="flex items-center gap-2 text-app-text-muted py-8">
           <div className="w-5 h-5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" /> Loading…
         </div>
       ) : filtered.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center text-slate-400">
+        <div className="bg-app-surface rounded-2xl border border-app-border p-12 text-center text-app-text-muted">
           <Home size={32} className="mx-auto mb-3 opacity-30" />
           <p className="text-sm">No {filterStatus === 'all' ? '' : filterStatus} assignments found.</p>
           {isAdmin && <p className="text-xs mt-1">Click "New Assignment" to get started.</p>}
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 border-b border-slate-100">
+            <thead className="bg-app-surface-alt border-b border-app-border">
               <tr>
                 {['Staff Member', 'Type', 'Building / Room', 'Assigned', 'Status', 'Notes', isAdmin ? 'Action' : ''].filter(Boolean).map(h => (
-                  <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">{h}</th>
+                  <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide">{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
               {filtered.map(a => (
-                <tr key={a.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={a.id} className="hover:bg-app-surface-alt transition-colors">
                   <td className="px-4 py-3">
-                    <div className="font-medium text-slate-800">
+                    <div className="font-medium text-app-text">
                       {a.profiles ? `${a.profiles.first_name} ${a.profiles.last_name}` : '—'}
                     </div>
-                    <div className="text-xs text-slate-400 capitalize">{a.profiles?.role?.replace(/_/g, ' ')}</div>
+                    <div className="text-xs text-app-text-muted capitalize">{a.profiles?.role?.replace(/_/g, ' ')}</div>
                   </td>
-                  <td className="px-4 py-3 text-slate-600">{TYPE_LABELS[a.location_type] || a.location_type}</td>
-                  <td className="px-4 py-3 text-slate-600">{getLocationLabel(a)}</td>
-                  <td className="px-4 py-3 text-slate-600 whitespace-nowrap">{a.assigned_date}</td>
+                  <td className="px-4 py-3 text-app-text-muted">{TYPE_LABELS[a.location_type] || a.location_type}</td>
+                  <td className="px-4 py-3 text-app-text-muted">{getLocationLabel(a)}</td>
+                  <td className="px-4 py-3 text-app-text-muted whitespace-nowrap">{a.assigned_date}</td>
                   <td className="px-4 py-3">
-                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium capitalize ${STATUS_COLORS[a.status] || 'bg-slate-100 text-slate-600'}`}>
+                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium capitalize ${STATUS_COLORS[a.status] || 'bg-slate-100 text-app-text-muted'}`}>
                       {a.status}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-slate-500 max-w-[160px] truncate">{a.notes || '—'}</td>
+                  <td className="px-4 py-3 text-app-text-muted max-w-[160px] truncate">{a.notes || '—'}</td>
                   {isAdmin && (
                     <td className="px-4 py-3">
                       {a.status === 'active' && (
@@ -365,7 +365,7 @@ export default function StaffAccommodation() {
       <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} title="New Staff Accommodation Assignment">
         <div className="space-y-4 p-1">
           <div>
-            <label className="text-xs text-slate-500 mb-1 block">Staff Member *</label>
+            <label className="text-xs text-app-text-muted mb-1 block">Staff Member *</label>
             <select className={ic} value={form.staff_id} onChange={e => setForm(f => ({ ...f, staff_id: e.target.value }))}>
               <option value="">Select staff member</option>
               {staff.map(s => <option key={s.id} value={s.id}>{s.first_name} {s.last_name} ({s.role?.replace(/_/g, ' ')})</option>)}
@@ -373,7 +373,7 @@ export default function StaffAccommodation() {
           </div>
 
           <div>
-            <label className="text-xs text-slate-500 mb-1 block">Location Type *</label>
+            <label className="text-xs text-app-text-muted mb-1 block">Location Type *</label>
             <select className={ic} value={form.location_type} onChange={e => setForm(f => ({ ...f, location_type: e.target.value }))}>
               <option value="staff_quarter">Staff Quarter / Accommodation</option>
               <option value="office">Office</option>
@@ -384,7 +384,7 @@ export default function StaffAccommodation() {
           {locations.length > 0 ? (
             <>
               <div>
-                <label className="text-xs text-slate-500 mb-1 block">Building / Block</label>
+                <label className="text-xs text-app-text-muted mb-1 block">Building / Block</label>
                 <select className={ic} value={form.location_id}
                   onChange={e => setForm(f => ({ ...f, location_id: e.target.value, room_id: '' }))}>
                   <option value="">— All buildings —</option>
@@ -392,7 +392,7 @@ export default function StaffAccommodation() {
                 </select>
               </div>
               <div>
-                <label className="text-xs text-slate-500 mb-1 block">Room / Office</label>
+                <label className="text-xs text-app-text-muted mb-1 block">Room / Office</label>
                 <select className={ic} value={form.room_id} onChange={e => setForm(f => ({ ...f, room_id: e.target.value, room_label: '' }))}>
                   <option value="">— Select a room —</option>
                   {roomsForLocation.map(r => (
@@ -410,8 +410,8 @@ export default function StaffAccommodation() {
           )}
 
           <div>
-            <label className="text-xs text-slate-500 mb-1 block">
-              Custom Label <span className="text-slate-400">{rooms.length > 0 ? '(use if not in the list above)' : '(enter location manually)'}</span>
+            <label className="text-xs text-app-text-muted mb-1 block">
+              Custom Label <span className="text-app-text-muted">{rooms.length > 0 ? '(use if not in the list above)' : '(enter location manually)'}</span>
             </label>
             <input className={ic} value={form.room_label}
               onChange={e => setForm(f => ({ ...f, room_label: e.target.value, room_id: e.target.value ? '' : f.room_id }))}
@@ -419,11 +419,11 @@ export default function StaffAccommodation() {
           </div>
 
           <div>
-            <label className="text-xs text-slate-500 mb-1 block">Assigned Date *</label>
+            <label className="text-xs text-app-text-muted mb-1 block">Assigned Date *</label>
             <input type="date" className={ic} value={form.assigned_date} onChange={e => setForm(f => ({ ...f, assigned_date: e.target.value }))} />
           </div>
           <div>
-            <label className="text-xs text-slate-500 mb-1 block">Notes</label>
+            <label className="text-xs text-app-text-muted mb-1 block">Notes</label>
             <textarea className={ic} rows={2} value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} placeholder="Optional notes" />
           </div>
 
@@ -433,7 +433,7 @@ export default function StaffAccommodation() {
               className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-60">
               {saving ? 'Saving…' : 'Save Assignment'}
             </button>
-            <button onClick={() => setModalOpen(false)} className="px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl text-sm font-medium">Cancel</button>
+            <button onClick={() => setModalOpen(false)} className="px-4 py-2.5 bg-slate-100 text-app-text rounded-xl text-sm font-medium">Cancel</button>
           </div>
         </div>
       </Modal>
@@ -441,13 +441,13 @@ export default function StaffAccommodation() {
       {/* ── Vacate Confirm ──────────────────────────────────────── */}
       <Modal isOpen={!!vacateId} onClose={() => setVacateId(null)} title="Confirm Vacate">
         <div className="space-y-4 p-1">
-          <p className="text-sm text-slate-600">Mark this staff accommodation assignment as vacated?</p>
+          <p className="text-sm text-app-text-muted">Mark this staff accommodation assignment as vacated?</p>
           <div className="flex gap-3">
             <button onClick={() => vacate(vacateId!)}
               className="flex-1 py-2.5 bg-amber-500 text-white rounded-xl text-sm font-medium hover:bg-amber-600">
               Yes, Vacate
             </button>
-            <button onClick={() => setVacateId(null)} className="px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl text-sm font-medium">Cancel</button>
+            <button onClick={() => setVacateId(null)} className="px-4 py-2.5 bg-slate-100 text-app-text rounded-xl text-sm font-medium">Cancel</button>
           </div>
         </div>
       </Modal>

@@ -42,7 +42,7 @@ const PAYMENT_METHODS = ['bank_transfer', 'cash', 'cheque', 'online', 'pos'];
 const STATUS_OPTIONS = ['paid', 'partially_paid', 'unpaid', 'pending'];
 const statusColors: Record<string, string> = { paid: 'success', partially_paid: 'warning', partial: 'warning', pending: 'default', unpaid: 'error', overdue: 'error' };
 
-const inputCls = 'w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white';
+const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface';
 
 function formatCurrency(amount: number): string {
   return new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(amount);
@@ -372,11 +372,11 @@ export default function FeePayments() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Fee Payments</h2>
-          <p className="text-slate-500 text-sm">Record and track student fee payments</p>
+          <h2 className="text-xl font-bold text-app-text">Fee Payments</h2>
+          <p className="text-app-text-muted text-sm">Record and track student fee payments</p>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={exportCSV} className="flex items-center gap-2 border border-slate-200 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-xl text-sm font-medium transition-colors">
+          <button onClick={exportCSV} className="flex items-center gap-2 border border-app-border hover:bg-app-surface-alt text-app-text px-3 py-2 rounded-xl text-sm font-medium transition-colors">
             <Download className="w-4 h-4" /> Export CSV
           </button>
           <button onClick={openCreate} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-500/20">
@@ -386,42 +386,42 @@ export default function FeePayments() {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
           <div className="flex items-center gap-3">
             <div className="bg-emerald-500 p-3 rounded-xl"><TrendingUp className="w-5 h-5 text-white" /></div>
             <div>
-              <p className="text-sm text-slate-500">Total Collected</p>
-              <p className="text-2xl font-bold text-slate-800">{formatCurrency(totalCollected)}</p>
+              <p className="text-sm text-app-text-muted">Total Collected</p>
+              <p className="text-2xl font-bold text-app-text">{formatCurrency(totalCollected)}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
           <div className="flex items-center gap-3">
             <div className="bg-blue-500 p-3 rounded-xl"><Receipt className="w-5 h-5 text-white" /></div>
             <div>
-              <p className="text-sm text-slate-500">Total Transactions</p>
-              <p className="text-2xl font-bold text-slate-800">{filtered.length}</p>
+              <p className="text-sm text-app-text-muted">Total Transactions</p>
+              <p className="text-2xl font-bold text-app-text">{filtered.length}</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-        <div className="p-4 border-b border-slate-100">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+        <div className="p-4 border-b border-app-border">
           <div className="flex items-center gap-3">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by student name or receipt..." className="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
+              <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by student name or receipt..." className="w-full pl-9 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
             </div>
-            <button onClick={() => setShowFilters(!showFilters)} className={`flex items-center gap-1.5 px-3 py-2.5 border rounded-xl text-sm font-medium transition-colors ${showFilters ? 'border-emerald-300 bg-emerald-50 text-emerald-700' : 'border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+            <button onClick={() => setShowFilters(!showFilters)} className={`flex items-center gap-1.5 px-3 py-2.5 border rounded-xl text-sm font-medium transition-colors ${showFilters ? 'border-emerald-300 bg-emerald-50 text-emerald-700' : 'border-app-border text-app-text-muted hover:bg-app-surface-alt'}`}>
               <Filter className="w-4 h-4" />
               Filters
               {showFilters ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
             </button>
           </div>
           {showFilters && (
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mt-3 pt-3 border-t border-slate-100">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mt-3 pt-3 border-t border-app-border">
               <select value={filterTerm} onChange={e => setFilterTerm(e.target.value)} className={inputCls}>
                 <option value="">All Terms</option>
                 {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
@@ -444,37 +444,37 @@ export default function FeePayments() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-slate-100 bg-slate-50">
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Student</th>
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Fee Item</th>
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Amount Paid</th>
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Balance</th>
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Method</th>
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Status</th>
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Date</th>
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Receipt</th>
-                {isAdmin && <th className="text-right text-xs font-semibold text-slate-500 uppercase px-5 py-3">Actions</th>}
+              <tr className="border-b border-app-border bg-app-surface-alt">
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Student</th>
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Fee Item</th>
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Amount Paid</th>
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Balance</th>
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Method</th>
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Status</th>
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Date</th>
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Receipt</th>
+                {isAdmin && <th className="text-right text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Actions</th>}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {loading ? (
-                <tr><td colSpan={9} className="text-center py-8 text-slate-400">Loading...</td></tr>
+                <tr><td colSpan={9} className="text-center py-8 text-app-text-muted">Loading...</td></tr>
               ) : filtered.length === 0 ? (
-                <tr><td colSpan={9} className="text-center py-8 text-slate-400">No payments found</td></tr>
+                <tr><td colSpan={9} className="text-center py-8 text-app-text-muted">No payments found</td></tr>
               ) : filtered.map(p => (
-                <tr key={p.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={p.id} className="hover:bg-app-surface-alt transition-colors">
                   <td className="px-5 py-3">
-                    <p className="text-sm font-medium text-slate-800">{p.students?.first_name} {p.students?.last_name}</p>
-                    {p.students?.admission_number && <p className="text-xs text-slate-500">{p.students.admission_number}</p>}
+                    <p className="text-sm font-medium text-app-text">{p.students?.first_name} {p.students?.last_name}</p>
+                    {p.students?.admission_number && <p className="text-xs text-app-text-muted">{p.students.admission_number}</p>}
                   </td>
-                  <td className="px-5 py-3 text-sm text-slate-600 font-medium">{p.fee_name}</td>
+                  <td className="px-5 py-3 text-sm text-app-text-muted font-medium">{p.fee_name}</td>
                   <td className="px-5 py-3 text-sm font-semibold text-emerald-600">{formatCurrency(Number(p.amount_paid))}</td>
-                  <td className="px-5 py-3 text-sm text-slate-600">
-                    {p.balance_remaining > 0 ? <span className="text-orange-600 font-medium">{formatCurrency(p.balance_remaining)}</span> : <span className="text-slate-400">--</span>}
+                  <td className="px-5 py-3 text-sm text-app-text-muted">
+                    {p.balance_remaining > 0 ? <span className="text-orange-600 font-medium">{formatCurrency(p.balance_remaining)}</span> : <span className="text-app-text-muted">--</span>}
                   </td>
-                  <td className="px-5 py-3 text-sm text-slate-500 capitalize">{(p.payment_method || '').replace('_', ' ')}</td>
+                  <td className="px-5 py-3 text-sm text-app-text-muted capitalize">{(p.payment_method || '').replace('_', ' ')}</td>
                   <td className="px-5 py-3"><Badge label={(p.status || 'paid').replace('_', ' ')} variant={statusColors[p.status] || 'default'} /></td>
-                  <td className="px-5 py-3 text-sm text-slate-500">{new Date(p.payment_date).toLocaleDateString()}</td>
+                  <td className="px-5 py-3 text-sm text-app-text-muted">{new Date(p.payment_date).toLocaleDateString()}</td>
                   <td className="px-5 py-3">
                     {p.receipt_number ? (
                       <button onClick={() => printReceipt(p)} className="text-xs text-emerald-600 hover:text-emerald-700 font-mono flex items-center gap-1 hover:underline">
@@ -486,15 +486,15 @@ export default function FeePayments() {
                     <td className="px-5 py-3">
                       <div className="flex items-center justify-end gap-1">
                         {(p.status === 'partially_paid' || p.balance_remaining > 0) && (
-                          <button onClick={() => openInstallments(p)} className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Add Installment">
+                          <button onClick={() => openInstallments(p)} className="p-1.5 text-app-text-muted hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Add Installment">
                             <Plus className="w-4 h-4" />
                           </button>
                         )}
-                        <button onClick={() => openEdit(p)} className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors" title="Edit">
+                        <button onClick={() => openEdit(p)} className="p-1.5 text-app-text-muted hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors" title="Edit">
                           <Edit2 className="w-4 h-4" />
                         </button>
                         {isSuperAdmin && (
-                          <button onClick={() => openDelete(p)} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
+                          <button onClick={() => openDelete(p)} className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
                             <Trash2 className="w-4 h-4" />
                           </button>
                         )}
@@ -513,35 +513,35 @@ export default function FeePayments() {
         <div className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{saveError}</div>}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Student</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Student</label>
             <select value={form.student_id} onChange={e => setForm({...form, student_id: e.target.value})} className={inputCls}>
               <option value="">Select student</option>
               {students.map((s: any) => <option key={s.id} value={s.id}>{s.first_name} {s.last_name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Fee Item</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Fee Item</label>
             <select value={form.fee_structure_id} onChange={e => { const fee = feeStructures.find(f => f.id === e.target.value); setForm({...form, fee_structure_id: e.target.value, amount_paid: fee ? String(fee.amount) : form.amount_paid}); }} className={inputCls}>
               <option value="">Select fee</option>
               {feeStructures.map(f => <option key={f.id} value={f.id}>{f.name} - {formatCurrency(f.amount)}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Term</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Term</label>
             <select value={form.term_id} onChange={e => setForm({...form, term_id: e.target.value})} className={inputCls}>
               <option value="">Select term</option>
               {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
             </select>
           </div>
           {form.fee_structure_id && (
-            <div className="bg-slate-50 rounded-xl p-3 text-sm">
+            <div className="bg-app-surface-alt rounded-xl p-3 text-sm">
               <div className="flex justify-between">
-                <span className="text-slate-500">Amount Due:</span>
+                <span className="text-app-text-muted">Amount Due:</span>
                 <span className="font-semibold">{formatCurrency(feeStructures.find(f => f.id === form.fee_structure_id)?.amount || 0)}</span>
               </div>
               {form.amount_paid && (
                 <div className="flex justify-between mt-1">
-                  <span className="text-slate-500">Balance after payment:</span>
+                  <span className="text-app-text-muted">Balance after payment:</span>
                   <span className="font-semibold text-orange-600">
                     {formatCurrency(Math.max(0, (feeStructures.find(f => f.id === form.fee_structure_id)?.amount || 0) - parseFloat(form.amount_paid || '0')))}
                   </span>
@@ -551,11 +551,11 @@ export default function FeePayments() {
           )}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Amount Paid (N)</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Amount Paid (N)</label>
               <input type="number" value={form.amount_paid} onChange={e => setForm({...form, amount_paid: e.target.value})} className={inputCls} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Payment Method</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Payment Method</label>
               <select value={form.payment_method} onChange={e => setForm({...form, payment_method: e.target.value})} className={inputCls}>
                 {PAYMENT_METHODS.map(m => <option key={m} value={m}>{m.replace('_', ' ')}</option>)}
               </select>
@@ -563,22 +563,22 @@ export default function FeePayments() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Receipt Number</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Receipt Number</label>
               <input value={form.receipt_number} onChange={e => setForm({...form, receipt_number: e.target.value})} placeholder="Auto-generated if blank" className={inputCls} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Status</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Status</label>
               <select value={form.status} onChange={e => setForm({...form, status: e.target.value})} className={inputCls}>
                 {STATUS_OPTIONS.map(s => <option key={s} value={s}>{s.replace('_', ' ')}</option>)}
               </select>
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Notes</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Notes</label>
             <input value={form.notes} onChange={e => setForm({...form, notes: e.target.value})} className={inputCls} />
           </div>
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50">Cancel</button>
+            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
             <button onClick={handleSave} disabled={saving || !form.student_id || !form.amount_paid} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50">
               {saving ? 'Saving...' : editPayment ? 'Update' : 'Record Payment'}
             </button>
@@ -589,14 +589,14 @@ export default function FeePayments() {
       {/* Delete Confirmation */}
       <Modal isOpen={showDeleteModal} onClose={() => setShowDeleteModal(false)} title="Delete Payment">
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-app-text-muted">
             Are you sure you want to delete this payment record for{' '}
-            <span className="font-semibold text-slate-800">
+            <span className="font-semibold text-app-text">
               {deletePayment?.students?.first_name} {deletePayment?.students?.last_name}
             </span>? This action cannot be undone.
           </p>
           <div className="flex gap-3">
-            <button onClick={() => setShowDeleteModal(false)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50">Cancel</button>
+            <button onClick={() => setShowDeleteModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
             <button onClick={handleDelete} disabled={saving} className="flex-1 px-4 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-xl text-sm font-medium disabled:opacity-50">
               {saving ? 'Deleting...' : 'Delete'}
             </button>
@@ -609,25 +609,25 @@ export default function FeePayments() {
         <div className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{saveError}</div>}
           {installmentTarget && (
-            <div className="bg-slate-50 rounded-xl p-3 text-sm space-y-1">
-              <div className="flex justify-between"><span className="text-slate-500">Fee Item:</span><span className="font-medium">{installmentTarget.fee_name}</span></div>
-              <div className="flex justify-between"><span className="text-slate-500">Total Due:</span><span className="font-medium">{formatCurrency(installmentTarget.total_fee_amount)}</span></div>
-              <div className="flex justify-between"><span className="text-slate-500">Already Paid:</span><span className="font-medium text-emerald-600">{formatCurrency(Number(installmentTarget.amount_paid))}</span></div>
-              <div className="flex justify-between border-t border-slate-200 pt-1 mt-1"><span className="text-slate-700 font-semibold">Remaining Balance:</span><span className="font-bold text-orange-600">{formatCurrency(installmentTarget.balance_remaining)}</span></div>
+            <div className="bg-app-surface-alt rounded-xl p-3 text-sm space-y-1">
+              <div className="flex justify-between"><span className="text-app-text-muted">Fee Item:</span><span className="font-medium">{installmentTarget.fee_name}</span></div>
+              <div className="flex justify-between"><span className="text-app-text-muted">Total Due:</span><span className="font-medium">{formatCurrency(installmentTarget.total_fee_amount)}</span></div>
+              <div className="flex justify-between"><span className="text-app-text-muted">Already Paid:</span><span className="font-medium text-emerald-600">{formatCurrency(Number(installmentTarget.amount_paid))}</span></div>
+              <div className="flex justify-between border-t border-app-border pt-1 mt-1"><span className="text-app-text font-semibold">Remaining Balance:</span><span className="font-bold text-orange-600">{formatCurrency(installmentTarget.balance_remaining)}</span></div>
             </div>
           )}
 
           {installments.length > 0 && (
             <div>
-              <p className="text-xs font-semibold text-slate-500 uppercase mb-2">Payment History</p>
+              <p className="text-xs font-semibold text-app-text-muted uppercase mb-2">Payment History</p>
               <div className="space-y-2 max-h-40 overflow-y-auto">
                 {installments.map(inst => (
-                  <div key={inst.id} className="flex items-center justify-between bg-slate-50 rounded-lg p-2.5 text-xs">
+                  <div key={inst.id} className="flex items-center justify-between bg-app-surface-alt rounded-lg p-2.5 text-xs">
                     <div>
-                      <span className="font-medium text-slate-700">{formatCurrency(inst.amount_paid)}</span>
-                      <span className="text-slate-400 ml-2">{inst.payment_method.replace('_', ' ')}</span>
+                      <span className="font-medium text-app-text">{formatCurrency(inst.amount_paid)}</span>
+                      <span className="text-app-text-muted ml-2">{inst.payment_method.replace('_', ' ')}</span>
                     </div>
-                    <span className="text-slate-400">{new Date(inst.payment_date).toLocaleDateString()}</span>
+                    <span className="text-app-text-muted">{new Date(inst.payment_date).toLocaleDateString()}</span>
                   </div>
                 ))}
               </div>
@@ -636,32 +636,32 @@ export default function FeePayments() {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Amount (N)</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Amount (N)</label>
               <input type="number" max={installmentTarget?.balance_remaining || 0} value={installmentForm.amount_paid} onChange={e => setInstallmentForm({...installmentForm, amount_paid: e.target.value})} className={inputCls} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Payment Date</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Payment Date</label>
               <input type="date" value={installmentForm.payment_date} onChange={e => setInstallmentForm({...installmentForm, payment_date: e.target.value})} className={inputCls} />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Method</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Method</label>
               <select value={installmentForm.payment_method} onChange={e => setInstallmentForm({...installmentForm, payment_method: e.target.value})} className={inputCls}>
                 {PAYMENT_METHODS.map(m => <option key={m} value={m}>{m.replace('_', ' ')}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Receipt No.</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Receipt No.</label>
               <input value={installmentForm.receipt_number} onChange={e => setInstallmentForm({...installmentForm, receipt_number: e.target.value})} placeholder="Auto-generated" className={inputCls} />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Notes</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Notes</label>
             <input value={installmentForm.notes} onChange={e => setInstallmentForm({...installmentForm, notes: e.target.value})} className={inputCls} />
           </div>
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setShowInstallmentModal(false)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50">Cancel</button>
+            <button onClick={() => setShowInstallmentModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
             <button onClick={handleAddInstallment} disabled={saving || !installmentForm.amount_paid || !installmentForm.payment_date} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50">
               {saving ? 'Saving...' : 'Add Installment'}
             </button>

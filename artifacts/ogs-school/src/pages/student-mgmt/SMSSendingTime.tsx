@@ -121,7 +121,7 @@ const SMSSendingTime: React.FC = () => {
   const configuredCount = Object.values(settings).filter((s) => s.enabled).length;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-app-surface-alt p-6">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
@@ -129,8 +129,8 @@ const SMSSendingTime: React.FC = () => {
               <MessageSquare className="text-emerald-600" size={24} />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-800">SMS Sending Time</h1>
-              <p className="text-gray-500 text-sm">Configure scheduled SMS alert times</p>
+              <h1 className="text-2xl font-bold text-app-text">SMS Sending Time</h1>
+              <p className="text-app-text-muted text-sm">Configure scheduled SMS alert times</p>
             </div>
           </div>
           <button
@@ -143,17 +143,17 @@ const SMSSendingTime: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-3 gap-4 mb-6">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 text-center">
+          <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4 text-center">
             <p className="text-3xl font-bold text-emerald-600">{configuredCount}</p>
-            <p className="text-sm text-gray-500 mt-1">Active Alerts</p>
+            <p className="text-sm text-app-text-muted mt-1">Active Alerts</p>
           </div>
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 text-center">
-            <p className="text-3xl font-bold text-gray-400">{SMS_TYPES.length - configuredCount}</p>
-            <p className="text-sm text-gray-500 mt-1">Inactive Alerts</p>
+          <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4 text-center">
+            <p className="text-3xl font-bold text-app-text-muted">{SMS_TYPES.length - configuredCount}</p>
+            <p className="text-sm text-app-text-muted mt-1">Inactive Alerts</p>
           </div>
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 text-center">
-            <p className="text-sm font-medium text-gray-700 mt-1">Last Saved</p>
-            <p className="text-xs text-gray-400 mt-1">
+          <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4 text-center">
+            <p className="text-sm font-medium text-app-text mt-1">Last Saved</p>
+            <p className="text-xs text-app-text-muted mt-1">
               {lastSaved
                 ? new Date(lastSaved).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
                 : 'Never'}
@@ -170,8 +170,8 @@ const SMSSendingTime: React.FC = () => {
             return (
               <div
                 key={smsType.key}
-                className={`bg-white rounded-xl shadow-sm border ${
-                  config.enabled ? `border-l-4 ${colors.border} border-r border-t border-b border-gray-200` : 'border-gray-200'
+                className={`bg-app-surface rounded-xl shadow-sm border ${
+                  config.enabled ? `border-l-4 ${colors.border} border-r border-t border-b border-app-border` : 'border-app-border'
                 } overflow-hidden`}
               >
                 <div className="p-5">
@@ -181,8 +181,8 @@ const SMSSendingTime: React.FC = () => {
                         <Icon className={colors.text} size={20} />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-gray-800">{smsType.label}</h3>
-                        <p className="text-xs text-gray-500 mt-0.5">{smsType.description}</p>
+                        <h3 className="font-semibold text-app-text">{smsType.label}</h3>
+                        <p className="text-xs text-app-text-muted mt-0.5">{smsType.description}</p>
                       </div>
                     </div>
                     <button
@@ -192,7 +192,7 @@ const SMSSendingTime: React.FC = () => {
                       }`}
                     >
                       <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${
+                        className={`inline-block h-4 w-4 transform rounded-full bg-app-surface shadow transition-transform ${
                           config.enabled ? 'translate-x-6' : 'translate-x-1'
                         }`}
                       />
@@ -200,20 +200,20 @@ const SMSSendingTime: React.FC = () => {
                   </div>
 
                   <div className={`transition-all ${config.enabled ? 'opacity-100' : 'opacity-40 pointer-events-none'}`}>
-                    <div className="flex items-center gap-4 bg-gray-50 rounded-lg p-3">
-                      <Clock size={16} className="text-gray-400 flex-shrink-0" />
+                    <div className="flex items-center gap-4 bg-app-surface-alt rounded-lg p-3">
+                      <Clock size={16} className="text-app-text-muted flex-shrink-0" />
                       <div className="flex-1">
-                        <label className="block text-xs font-medium text-gray-600 mb-1">Scheduled Send Time</label>
+                        <label className="block text-xs font-medium text-app-text-muted mb-1">Scheduled Send Time</label>
                         <input
                           type="time"
                           value={config.time}
                           onChange={(e) => handleTimeChange(smsType.key, e.target.value)}
-                          className={`border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:ring-2 outline-none ${colors.ring}`}
+                          className={`border border-app-border rounded-lg px-3 py-1.5 text-sm focus:ring-2 outline-none ${colors.ring}`}
                         />
                       </div>
                       <div className="text-right">
-                        <p className="text-xs text-gray-500 mb-1">Formatted</p>
-                        <p className="text-sm font-semibold text-gray-700">{formatTime(config.time)}</p>
+                        <p className="text-xs text-app-text-muted mb-1">Formatted</p>
+                        <p className="text-sm font-semibold text-app-text">{formatTime(config.time)}</p>
                       </div>
                     </div>
                   </div>
@@ -225,7 +225,7 @@ const SMSSendingTime: React.FC = () => {
                         Configured - sends at {formatTime(config.time)}
                       </span>
                     ) : (
-                      <span className="flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full bg-gray-100 text-gray-500">
+                      <span className="flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full bg-gray-100 text-app-text-muted">
                         <AlertCircle size={12} />
                         Not Configured
                       </span>

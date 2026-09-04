@@ -4,8 +4,8 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
-const SELECT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white';
+const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const SELECT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
 
 interface BookCategory {
   id: string;
@@ -172,7 +172,7 @@ export default function BookList() {
           <div className="bg-emerald-500 text-white p-2 rounded-xl">
             <BookOpen size={20} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-800">Book List</h1>
+          <h1 className="text-2xl font-bold text-app-text">Book List</h1>
         </div>
         <button
           onClick={openAdd}
@@ -183,22 +183,22 @@ export default function BookList() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4">
         <div className="flex flex-wrap gap-3">
           <div className="relative flex-1 min-w-[200px]">
-            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted" />
             <input
               type="text"
               placeholder="Search by title, author or ISBN..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="border border-slate-200 rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+              className="border border-app-border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
             />
           </div>
           <select
             value={filterCategoryId}
             onChange={(e) => setFilterCategoryId(e.target.value)}
-            className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white"
+            className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface"
           >
             <option value="">All Categories</option>
             {categories.map((cat) => (
@@ -208,37 +208,37 @@ export default function BookList() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {loading ? (
-          <div className="p-12 text-center text-slate-400">Loading...</div>
+          <div className="p-12 text-center text-app-text-muted">Loading...</div>
         ) : books.length === 0 ? (
           <div className="p-12 text-center">
             <BookOpen size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-500">No books found.</p>
+            <p className="text-app-text-muted">No books found.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Title</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Author</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">ISBN</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Category</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Qty</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Available</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Shelf</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Actions</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Title</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Author</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">ISBN</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Category</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Qty</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Available</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Shelf</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {books.map((book) => (
-                  <tr key={book.id} className="hover:bg-slate-50/50">
-                    <td className="px-4 py-3 font-medium text-slate-800">{book.title}</td>
-                    <td className="px-4 py-3 text-slate-600">{book.author || '-'}</td>
-                    <td className="px-4 py-3 text-slate-500 font-mono text-xs">{book.isbn || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600">{categoryName(book)}</td>
-                    <td className="px-4 py-3 text-slate-600">{book.quantity ?? '-'}</td>
+                  <tr key={book.id} className="hover:bg-app-surface-alt/50">
+                    <td className="px-4 py-3 font-medium text-app-text">{book.title}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{book.author || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted font-mono text-xs">{book.isbn || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{categoryName(book)}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{book.quantity ?? '-'}</td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-1 rounded-lg text-xs font-medium ${
                         (book.available_quantity ?? 0) > 0
@@ -248,18 +248,18 @@ export default function BookList() {
                         {book.available_quantity ?? 0}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-slate-600">{book.shelf_location || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{book.shelf_location || '-'}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => openEdit(book)}
-                          className="text-slate-400 hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors"
+                          className="text-app-text-muted hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors"
                         >
                           <Pencil size={15} />
                         </button>
                         <button
                           onClick={() => handleDelete(book.id)}
-                          className="text-slate-400 hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors"
+                          className="text-app-text-muted hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors"
                         >
                           <Trash2 size={15} />
                         </button>
@@ -277,7 +277,7 @@ export default function BookList() {
         <form onSubmit={handleSubmit} className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Title</label>
             <input
               required
               className={INPUT_CLASS}
@@ -288,7 +288,7 @@ export default function BookList() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Author</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Author</label>
               <input
                 className={INPUT_CLASS}
                 value={form.author}
@@ -297,7 +297,7 @@ export default function BookList() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">ISBN</label>
+              <label className="block text-sm font-medium text-app-text mb-1">ISBN</label>
               <input
                 className={INPUT_CLASS}
                 value={form.isbn}
@@ -308,7 +308,7 @@ export default function BookList() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Category</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Category</label>
               <select
                 className={SELECT_CLASS}
                 value={form.category_id}
@@ -328,7 +328,7 @@ export default function BookList() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Publisher</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Publisher</label>
               <input
                 className={INPUT_CLASS}
                 value={form.publisher}
@@ -339,7 +339,7 @@ export default function BookList() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Edition</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Edition</label>
               <input
                 className={INPUT_CLASS}
                 value={form.edition}
@@ -348,7 +348,7 @@ export default function BookList() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Quantity</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Quantity</label>
               <input
                 type="number"
                 min="0"
@@ -360,7 +360,7 @@ export default function BookList() {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Shelf Location</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Shelf Location</label>
             <input
               className={INPUT_CLASS}
               value={form.shelf_location}
@@ -369,7 +369,7 @@ export default function BookList() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Description</label>
             <textarea
               className={INPUT_CLASS}
               rows={3}
@@ -382,7 +382,7 @@ export default function BookList() {
             <button
               type="button"
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-slate-200 text-slate-600 hover:bg-slate-50"
+              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-app-border text-app-text-muted hover:bg-app-surface-alt"
             >
               Cancel
             </button>

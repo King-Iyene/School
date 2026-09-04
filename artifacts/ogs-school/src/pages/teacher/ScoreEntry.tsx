@@ -332,38 +332,38 @@ export default function ScoreEntry() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Score Entry</h2>
-          <p className="text-slate-500 text-sm">
+          <h2 className="text-xl font-bold text-app-text">Score Entry</h2>
+          <p className="text-app-text-muted text-sm">
             {isAdmin ? 'Enter and manage student scores for any class and subject' : 'Record student scores for your assigned subjects'}
           </p>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           <div>
-            <label className="block text-xs font-medium text-slate-500 mb-1">Class</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Class</label>
             <select value={selectedClass} onChange={e => { setSelectedClass(e.target.value); setSelectedSubject(''); }}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+              className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
               {classes.map(c => <option key={(c as any)?.id} value={(c as any)?.id}>{(c as any)?.name || `${(c as any)?.level}${(c as any)?.section}`}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-500 mb-1">Term</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Term</label>
             <select value={selectedTerm} onChange={e => setSelectedTerm(e.target.value)}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+              className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
               {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-500 mb-1">Academic Year</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Academic Year</label>
             <select value={selectedYear} onChange={e => setSelectedYear(e.target.value)}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+              className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
               {academicYears.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
             </select>
           </div>
           <div className="flex items-end">
-            <div className="text-xs text-slate-400 pb-2">
+            <div className="text-xs text-app-text-muted pb-2">
               {loadingStatuses ? 'Loading subjects...' : `${subjectStatuses.length} subject${subjectStatuses.length !== 1 ? 's' : ''} found`}
             </div>
           </div>
@@ -372,7 +372,7 @@ export default function ScoreEntry() {
 
       {subjectStatuses.length > 0 && (
         <div>
-          <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+          <h3 className="text-xs font-semibold text-app-text-muted uppercase tracking-wider mb-2">
             {isAdmin ? `All Subjects — ${classLabel}` : `Your Subjects — ${classLabel}`}
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
@@ -382,9 +382,9 @@ export default function ScoreEntry() {
               const isSelected = sub.id === selectedSubject;
               return (
                 <button key={sub.id} onClick={() => setSelectedSubject(sub.id)}
-                  className={`text-left p-3 rounded-xl border-2 transition-all ${isSelected ? 'border-emerald-500 bg-emerald-50' : 'border-slate-200 bg-white hover:border-slate-300'}`}>
+                  className={`text-left p-3 rounded-xl border-2 transition-all ${isSelected ? 'border-emerald-500 bg-emerald-50' : 'border-app-border bg-app-surface hover:border-app-border'}`}>
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-xs font-semibold text-slate-700 truncate">{sub.name}</span>
+                    <span className="text-xs font-semibold text-app-text truncate">{sub.name}</span>
                     {isComplete
                       ? <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />
                       : sub.entered > 0
@@ -394,7 +394,7 @@ export default function ScoreEntry() {
                   <div className="w-full bg-slate-100 rounded-full h-1.5 mb-1">
                     <div className={`h-1.5 rounded-full transition-all ${isComplete ? 'bg-emerald-500' : 'bg-amber-400'}`} style={{ width: `${pct}%` }} />
                   </div>
-                  <p className="text-xs text-slate-400">{sub.entered}/{sub.enrolled} students</p>
+                  <p className="text-xs text-app-text-muted">{sub.entered}/{sub.enrolled} students</p>
                 </button>
               );
             })}
@@ -403,75 +403,75 @@ export default function ScoreEntry() {
       )}
 
       {selectedSubject && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-          <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-app-border flex items-center justify-between">
             <div>
-              <h3 className="font-semibold text-slate-800">{selectedSubjectInfo?.name}</h3>
-              <p className="text-xs text-slate-400">{classLabel} · Untick a student to mark them as not offering this subject</p>
+              <h3 className="font-semibold text-app-text">{selectedSubjectInfo?.name}</h3>
+              <p className="text-xs text-app-text-muted">{classLabel} · Untick a student to mark them as not offering this subject</p>
             </div>
             {selectedSubjectInfo && (
-              <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${selectedSubjectInfo.entered >= selectedSubjectInfo.enrolled && selectedSubjectInfo.enrolled > 0 ? 'bg-emerald-100 text-emerald-700' : selectedSubjectInfo.entered > 0 ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-500'}`}>
+              <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${selectedSubjectInfo.entered >= selectedSubjectInfo.enrolled && selectedSubjectInfo.enrolled > 0 ? 'bg-emerald-100 text-emerald-700' : selectedSubjectInfo.entered > 0 ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-app-text-muted'}`}>
                 {selectedSubjectInfo.entered >= selectedSubjectInfo.enrolled && selectedSubjectInfo.enrolled > 0 ? 'Complete' : selectedSubjectInfo.entered > 0 ? 'In Progress' : 'Not Started'}
               </span>
             )}
           </div>
 
           {loadingStudents ? (
-            <div className="py-12 text-center text-slate-400 text-sm">Loading students...</div>
+            <div className="py-12 text-center text-app-text-muted text-sm">Loading students...</div>
           ) : students.length === 0 ? (
-            <div className="py-12 text-center text-slate-400 text-sm">No active students in this class</div>
+            <div className="py-12 text-center text-app-text-muted text-sm">No active students in this class</div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="bg-slate-50 border-b border-slate-100">
-                    <th className="text-center text-xs font-semibold text-slate-500 uppercase px-3 py-3 w-16" title="Tick = offers this subject">Offers</th>
-                    <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Student</th>
-                    <th className="text-center text-xs font-semibold text-slate-500 uppercase px-3 py-3 w-20">CA /10</th>
-                    <th className="text-center text-xs font-semibold text-slate-500 uppercase px-3 py-3 w-20">Test /30</th>
-                    <th className="text-center text-xs font-semibold text-slate-500 uppercase px-3 py-3 w-20">Exam /60</th>
-                    <th className="text-center text-xs font-semibold text-slate-500 uppercase px-3 py-3 w-20">Total</th>
-                    <th className="text-center text-xs font-semibold text-slate-500 uppercase px-3 py-3 w-16">Grade</th>
+                  <tr className="bg-app-surface-alt border-b border-app-border">
+                    <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-3 py-3 w-16" title="Tick = offers this subject">Offers</th>
+                    <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Student</th>
+                    <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-3 py-3 w-20">CA /10</th>
+                    <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-3 py-3 w-20">Test /30</th>
+                    <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-3 py-3 w-20">Exam /60</th>
+                    <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-3 py-3 w-20">Total</th>
+                    <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-3 py-3 w-16">Grade</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-app-border">
                   {students.map((s, idx) => {
                     const isOut = !!excluded[s.id];
                     const total = getTotal(s.id);
                     const { grade, color } = getGrade(total);
                     return (
-                      <tr key={s.id} className={`transition-colors ${isOut ? 'bg-slate-50/80 opacity-60' : `hover:bg-slate-50/60 ${idx % 2 === 0 ? '' : 'bg-slate-50/30'}`}`}>
+                      <tr key={s.id} className={`transition-colors ${isOut ? 'bg-app-surface-alt/80 opacity-60' : `hover:bg-app-surface-alt/60 ${idx % 2 === 0 ? '' : 'bg-app-surface-alt/30'}`}`}>
                         <td className="px-3 py-2.5 text-center">
                           <input type="checkbox" checked={!isOut} onChange={() => toggleExclude(s.id)}
-                            className="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500/30 cursor-pointer"
+                            className="w-4 h-4 rounded border-app-border text-emerald-600 focus:ring-emerald-500/30 cursor-pointer"
                             title={isOut ? 'Check to restore: student offers this subject' : 'Uncheck to mark: student does not offer this subject'} />
                         </td>
                         <td className="px-5 py-2.5">
                           <button onClick={() => navigate(`/student-profile?id=${s.id}`)} className="text-left hover:text-emerald-600 transition-colors group">
-                            <p className={`text-sm font-medium ${isOut ? 'text-slate-500 line-through' : 'text-slate-800 group-hover:text-emerald-600'}`}>{s.last_name}, {s.first_name}</p>
-                            {s.admission_number && <p className="text-xs text-slate-400">{s.admission_number}</p>}
+                            <p className={`text-sm font-medium ${isOut ? 'text-app-text-muted line-through' : 'text-app-text group-hover:text-emerald-600'}`}>{s.last_name}, {s.first_name}</p>
+                            {s.admission_number && <p className="text-xs text-app-text-muted">{s.admission_number}</p>}
                           </button>
                         </td>
                         <td className="px-3 py-2 text-center">
                           <input type="number" min="0" max="10" disabled={isOut}
                             value={isOut ? '' : (grades[s.id]?.['ca1_score'] ?? '')}
                             onChange={e => updateGrade(s.id, 'ca1_score', e.target.value)}
-                            className="w-16 text-center border border-slate-200 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white disabled:bg-slate-100 disabled:text-slate-300" />
+                            className="w-16 text-center border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface disabled:bg-slate-100 disabled:text-slate-300" />
                         </td>
                         <td className="px-3 py-2 text-center">
                           <input type="number" min="0" max="30" disabled={isOut}
                             value={isOut ? '' : (grades[s.id]?.['ca3_score'] ?? '')}
                             onChange={e => updateGrade(s.id, 'ca3_score', e.target.value)}
-                            className="w-16 text-center border border-slate-200 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white disabled:bg-slate-100 disabled:text-slate-300" />
+                            className="w-16 text-center border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface disabled:bg-slate-100 disabled:text-slate-300" />
                         </td>
                         <td className="px-3 py-2 text-center">
                           <input type="number" min="0" max="60" disabled={isOut}
                             value={isOut ? '' : (grades[s.id]?.['exam_score'] ?? '')}
                             onChange={e => updateGrade(s.id, 'exam_score', e.target.value)}
-                            className="w-16 text-center border border-slate-200 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white disabled:bg-slate-100 disabled:text-slate-300" />
+                            className="w-16 text-center border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface disabled:bg-slate-100 disabled:text-slate-300" />
                         </td>
                         <td className="px-3 py-2 text-center">
-                          <span className={`text-sm font-bold ${isOut ? 'text-slate-300' : 'text-slate-800'}`}>{isOut ? '—' : total}</span>
+                          <span className={`text-sm font-bold ${isOut ? 'text-slate-300' : 'text-app-text'}`}>{isOut ? '—' : total}</span>
                         </td>
                         <td className={`px-3 py-2 text-center font-bold text-sm ${isOut ? 'text-slate-300' : color}`}>{isOut ? '—' : grade}</td>
                       </tr>
@@ -489,8 +489,8 @@ export default function ScoreEntry() {
             </div>
           )}
 
-          <div className="px-5 py-4 border-t border-slate-100 flex items-center justify-between">
-            <p className="text-xs text-slate-400">
+          <div className="px-5 py-4 border-t border-app-border flex items-center justify-between">
+            <p className="text-xs text-app-text-muted">
               You can update CA, Test and Exam scores at any time. Save often to avoid losing progress.
             </p>
             <button onClick={saveScores} disabled={saving || students.length === 0}
@@ -504,10 +504,10 @@ export default function ScoreEntry() {
       )}
 
       {!selectedSubject && subjectStatuses.length === 0 && !loadingStatuses && selectedClass && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-12 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-12 text-center">
           <BookOpen className="w-10 h-10 text-slate-200 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">No subjects assigned</p>
-          <p className="text-slate-400 text-sm mt-1">
+          <p className="text-app-text-muted font-medium">No subjects assigned</p>
+          <p className="text-app-text-muted text-sm mt-1">
             {isAdmin ? 'No subjects have been assigned to this class yet.' : 'Contact your administrator to assign subjects to you for this class.'}
           </p>
         </div>

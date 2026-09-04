@@ -161,8 +161,8 @@ export default function TeacherDashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-800">Good day, {profile?.first_name}!</h2>
-        <p className="text-slate-500 text-sm mt-0.5">
+        <h2 className="text-xl sm:text-2xl font-bold text-app-text">Good day, {profile?.first_name}!</h2>
+        <p className="text-app-text-muted text-sm mt-0.5">
           {myClass ? `Form Master — ${classLabel}${stats.subjects > 0 ? ' · Subject Teacher' : ''}` : 'Subject Teacher'}
         </p>
       </div>
@@ -183,15 +183,15 @@ export default function TeacherDashboard() {
       )}
 
       {myClass && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 bg-gradient-to-r from-emerald-50 to-white">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-app-border bg-gradient-to-r from-emerald-50 to-white">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center">
                 <GraduationCap className="w-5 h-5 text-emerald-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-slate-800">My Class — {classLabel}</h3>
-                <p className="text-xs text-slate-400">{classStudentCount} students enrolled</p>
+                <h3 className="font-semibold text-app-text">My Class — {classLabel}</h3>
+                <p className="text-xs text-app-text-muted">{classStudentCount} students enrolled</p>
               </div>
             </div>
             <button onClick={() => navigate('/teacher/class-results')}
@@ -205,27 +205,27 @@ export default function TeacherDashboard() {
               <span>All subject teachers have entered scores for the current term</span>
             </div>
           ) : (
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y divide-app-border">
               <div className="px-5 py-3 flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 text-amber-500 flex-shrink-0" />
                 <span className="text-xs font-medium text-amber-700">{classPendingSubjects.length} subject{classPendingSubjects.length > 1 ? 's' : ''} pending score entry</span>
               </div>
               {classPendingSubjects.slice(0, 4).map((s, i) => (
                 <div key={i} className="px-5 py-2.5 flex items-center justify-between">
-                  <span className="text-sm text-slate-700">{s.subjectName}</span>
-                  <span className="text-xs text-slate-400">{s.teacherName}</span>
+                  <span className="text-sm text-app-text">{s.subjectName}</span>
+                  <span className="text-xs text-app-text-muted">{s.teacherName}</span>
                 </div>
               ))}
               {classPendingSubjects.length > 4 && (
-                <div className="px-5 py-2 text-xs text-slate-400">+{classPendingSubjects.length - 4} more</div>
+                <div className="px-5 py-2 text-xs text-app-text-muted">+{classPendingSubjects.length - 4} more</div>
               )}
             </div>
           )}
         </div>
       )}
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-        <h3 className="font-semibold text-slate-800 mb-4">Quick Actions</h3>
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
+        <h3 className="font-semibold text-app-text mb-4">Quick Actions</h3>
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
           {[
             { label: 'Score Entry', path: '/teacher/score-entry', icon: CheckCircle, color: 'bg-blue-50 text-blue-600 hover:bg-blue-100' },
@@ -233,7 +233,7 @@ export default function TeacherDashboard() {
             { label: 'Class Results', path: '/teacher/class-results', icon: BarChart2, color: 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100' },
             { label: 'Take Attendance', path: '/attendance', icon: UserCheck, color: 'bg-teal-50 text-teal-600 hover:bg-teal-100' },
             { label: 'New Assignment', path: '/assignments', icon: ClipboardList, color: 'bg-amber-50 text-amber-600 hover:bg-amber-100' },
-            { label: 'My Classes', path: '/my-classes', icon: BookOpen, color: 'bg-slate-50 text-slate-600 hover:bg-slate-100' },
+            { label: 'My Classes', path: '/my-classes', icon: BookOpen, color: 'bg-app-surface-alt text-app-text-muted hover:bg-slate-100' },
           ].map(action => (
             <button key={action.path} onClick={() => navigate(action.path)} className={`flex flex-col items-center gap-2 p-3 rounded-xl transition-colors ${action.color}`}>
               <action.icon className="w-5 h-5" />

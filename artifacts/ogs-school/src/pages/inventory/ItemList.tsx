@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 interface Category {
   id: string;
@@ -155,7 +155,7 @@ export default function ItemList() {
           <div className="bg-emerald-500 text-white p-2 rounded-xl">
             <Package size={20} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-800">Inventory Items</h1>
+          <h1 className="text-2xl font-bold text-app-text">Inventory Items</h1>
         </div>
         <button
           onClick={openAdd}
@@ -166,11 +166,11 @@ export default function ItemList() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4">
         <div className="max-w-xs">
-          <label className="block text-sm font-medium text-slate-700 mb-1">Filter by Category</label>
+          <label className="block text-sm font-medium text-app-text mb-1">Filter by Category</label>
           <select
-            className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+            className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
             value={filterCategory}
             onChange={e => setFilterCategory(e.target.value)}
           >
@@ -182,35 +182,35 @@ export default function ItemList() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {loading ? (
-          <div className="p-12 text-center text-slate-400">Loading...</div>
+          <div className="p-12 text-center text-app-text-muted">Loading...</div>
         ) : items.length === 0 ? (
           <div className="p-12 text-center">
             <Package size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-500">No items found.</p>
+            <p className="text-app-text-muted">No items found.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Name</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Item Code</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Category</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Store</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Unit</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Stock</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Unit Price</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Actions</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Name</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Item Code</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Category</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Store</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Unit</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Stock</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Unit Price</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {items.map(item => {
                   const isLow = item.current_stock <= item.reorder_level;
                   return (
-                    <tr key={item.id} className="hover:bg-slate-50/50">
-                      <td className="px-4 py-3 font-medium text-slate-800">
+                    <tr key={item.id} className="hover:bg-app-surface-alt/50">
+                      <td className="px-4 py-3 font-medium text-app-text">
                         <div className="flex items-center gap-2">
                           {item.name}
                           {isLow && (
@@ -221,27 +221,27 @@ export default function ItemList() {
                           )}
                         </div>
                       </td>
-                      <td className="px-4 py-3 text-slate-500 font-mono text-xs">{item.item_code || '-'}</td>
-                      <td className="px-4 py-3 text-slate-600">{item.inventory_categories?.name || '-'}</td>
-                      <td className="px-4 py-3 text-slate-600">{item.inventory_stores?.name || '-'}</td>
-                      <td className="px-4 py-3 text-slate-600">{item.unit || '-'}</td>
+                      <td className="px-4 py-3 text-app-text-muted font-mono text-xs">{item.item_code || '-'}</td>
+                      <td className="px-4 py-3 text-app-text-muted">{item.inventory_categories?.name || '-'}</td>
+                      <td className="px-4 py-3 text-app-text-muted">{item.inventory_stores?.name || '-'}</td>
+                      <td className="px-4 py-3 text-app-text-muted">{item.unit || '-'}</td>
                       <td className="px-4 py-3">
                         <span className={`px-2 py-1 rounded-lg text-xs font-medium ${isLow ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-700'}`}>
                           {item.current_stock}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-slate-700 font-medium">₦{Number(item.unit_price).toLocaleString()}</td>
+                      <td className="px-4 py-3 text-app-text font-medium">₦{Number(item.unit_price).toLocaleString()}</td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => openEdit(item)}
-                            className="text-slate-400 hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors"
+                            className="text-app-text-muted hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors"
                           >
                             <Pencil size={15} />
                           </button>
                           <button
                             onClick={() => handleDelete(item.id)}
-                            className="text-slate-400 hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors"
+                            className="text-app-text-muted hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors"
                           >
                             <Trash2 size={15} />
                           </button>
@@ -261,7 +261,7 @@ export default function ItemList() {
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Name</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Name</label>
               <input
                 required
                 className={INPUT_CLASS}
@@ -271,7 +271,7 @@ export default function ItemList() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Item Code</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Item Code</label>
               <input
                 className={INPUT_CLASS}
                 value={form.item_code}
@@ -282,7 +282,7 @@ export default function ItemList() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Category</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Category</label>
               <select
                 className={INPUT_CLASS}
                 value={form.category_id}
@@ -295,7 +295,7 @@ export default function ItemList() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Store</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Store</label>
               <select
                 className={INPUT_CLASS}
                 value={form.store_id}
@@ -310,7 +310,7 @@ export default function ItemList() {
           </div>
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Unit</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Unit</label>
               <input
                 className={INPUT_CLASS}
                 value={form.unit}
@@ -319,7 +319,7 @@ export default function ItemList() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Current Stock</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Current Stock</label>
               <input
                 type="number"
                 min="0"
@@ -330,7 +330,7 @@ export default function ItemList() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Reorder Level</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Reorder Level</label>
               <input
                 type="number"
                 min="0"
@@ -342,7 +342,7 @@ export default function ItemList() {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Unit Price (₦)</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Unit Price (₦)</label>
             <input
               type="number"
               min="0"
@@ -357,7 +357,7 @@ export default function ItemList() {
             <button
               type="button"
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-slate-200 text-slate-600 hover:bg-slate-50"
+              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-app-border text-app-text-muted hover:bg-app-surface-alt"
             >
               Cancel
             </button>

@@ -68,15 +68,15 @@ export default function PhotoUpload({ currentUrl, name, folder, onUploaded, size
           </>
         ) : (
           <>
-            <span className="text-xl font-bold text-slate-600 group-hover:hidden">{initials}</span>
+            <span className="text-xl font-bold text-app-text-muted group-hover:hidden">{initials}</span>
             <div className="hidden group-hover:flex flex-col items-center gap-1">
-              <Upload className="w-5 h-5 text-slate-500" />
-              <span className="text-xs text-slate-500">Upload</span>
+              <Upload className="w-5 h-5 text-app-text-muted" />
+              <span className="text-xs text-app-text-muted">Upload</span>
             </div>
           </>
         )}
         {uploading && (
-          <div className="absolute inset-0 bg-white/70 flex items-center justify-center rounded-xl">
+          <div className="absolute inset-0 bg-app-surface/70 flex items-center justify-center rounded-xl">
             <div className="w-5 h-5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
           </div>
         )}

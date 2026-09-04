@@ -155,7 +155,7 @@ export default function GroupTimetable() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64 text-slate-400">
+      <div className="flex items-center justify-center h-64 text-app-text-muted">
         <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
@@ -165,14 +165,14 @@ export default function GroupTimetable() {
     <div className="space-y-5">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Group Timetable</h1>
-          <p className="text-slate-500 text-sm mt-0.5">
+          <h1 className="text-2xl font-bold text-app-text">Group Timetable</h1>
+          <p className="text-app-text-muted text-sm mt-0.5">
             All classes — {activeYear?.name ?? 'Current Year'}
           </p>
         </div>
         <button
           onClick={() => window.print()}
-          className="flex items-center gap-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-xl text-sm font-medium transition-colors print:hidden"
+          className="flex items-center gap-2 bg-app-surface border border-app-border hover:bg-app-surface-alt text-app-text px-4 py-2 rounded-xl text-sm font-medium transition-colors print:hidden"
         >
           <Printer className="w-4 h-4" /> Print
         </button>
@@ -187,18 +187,18 @@ export default function GroupTimetable() {
         ].map(s => (
           <div key={s.label} className={`rounded-xl p-4 ${s.color.split(' ')[0]} text-center`}>
             <p className={`text-3xl font-bold ${s.color.split(' ')[1]}`}>{s.value}</p>
-            <p className="text-xs text-slate-500 mt-1">{s.label}</p>
+            <p className="text-xs text-app-text-muted mt-1">{s.label}</p>
           </div>
         ))}
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-4 print:hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4 print:hidden">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-1">
             <button
               onClick={prevDay}
               disabled={selectedDayIndex <= 0}
-              className="p-2 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-30 transition-colors"
+              className="p-2 rounded-lg border border-app-border text-app-text-muted hover:bg-app-surface-alt disabled:opacity-30 transition-colors"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
@@ -211,7 +211,7 @@ export default function GroupTimetable() {
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     selectedDayId === day.id
                       ? 'bg-emerald-600 text-white shadow-sm'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      : 'bg-slate-100 text-app-text-muted hover:bg-slate-200'
                   }`}
                 >
                   {day.name}
@@ -222,72 +222,72 @@ export default function GroupTimetable() {
             <button
               onClick={nextDay}
               disabled={selectedDayIndex >= weekDays.length - 1}
-              className="p-2 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-30 transition-colors"
+              className="p-2 rounded-lg border border-app-border text-app-text-muted hover:bg-app-surface-alt disabled:opacity-30 transition-colors"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
 
-          <div className="flex items-center gap-3 text-xs text-slate-500">
+          <div className="flex items-center gap-3 text-xs text-app-text-muted">
             <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-emerald-100 border border-emerald-200 inline-block" /> Class</span>
             <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-amber-100 border border-amber-200 inline-block" /> Break</span>
-            <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-slate-100 border border-slate-200 inline-block" /> Empty</span>
+            <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-slate-100 border border-app-border inline-block" /> Empty</span>
           </div>
         </div>
       </div>
 
       {classes.length === 0 || timeSlots.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 flex flex-col items-center justify-center h-48 text-slate-400 gap-3">
+        <div className="bg-app-surface rounded-2xl border border-app-border flex flex-col items-center justify-center h-48 text-app-text-muted gap-3">
           <Calendar className="w-12 h-12 opacity-10" />
           <p className="font-medium">
             {classes.length === 0 ? 'No classes found' : 'No time slots defined'}
           </p>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-          <div className="px-5 py-3 border-b border-slate-100 bg-slate-50 flex items-center gap-2 print:hidden">
-            <LayoutGrid className="w-4 h-4 text-slate-400" />
-            <span className="text-sm font-semibold text-slate-700">{selectedDay?.name ?? ''} Schedule</span>
-            {loadingRoutines && <span className="text-xs text-slate-400 ml-2">Refreshing...</span>}
+        <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden shadow-sm">
+          <div className="px-5 py-3 border-b border-app-border bg-app-surface-alt flex items-center gap-2 print:hidden">
+            <LayoutGrid className="w-4 h-4 text-app-text-muted" />
+            <span className="text-sm font-semibold text-app-text">{selectedDay?.name ?? ''} Schedule</span>
+            {loadingRoutines && <span className="text-xs text-app-text-muted ml-2">Refreshing...</span>}
           </div>
 
           <div ref={tableRef} className="overflow-x-auto">
             <table className="text-xs border-collapse" style={{ minWidth: `${220 + classes.length * 130}px` }}>
               <thead>
-                <tr className="bg-slate-50 border-b-2 border-slate-200">
-                  <th className="sticky left-0 z-10 bg-slate-50 text-left px-4 py-3 font-semibold text-slate-600 border-r-2 border-slate-200 whitespace-nowrap w-[220px]">
+                <tr className="bg-app-surface-alt border-b-2 border-app-border">
+                  <th className="sticky left-0 z-10 bg-app-surface-alt text-left px-4 py-3 font-semibold text-app-text-muted border-r-2 border-app-border whitespace-nowrap w-[220px]">
                     Period / Time
                   </th>
                   {classes.map(cls => (
                     <th
                       key={cls.id}
-                      className="text-center px-2 py-3 font-semibold text-slate-700 border-r border-slate-200 last:border-r-0 whitespace-nowrap min-w-[130px]"
+                      className="text-center px-2 py-3 font-semibold text-app-text border-r border-app-border last:border-r-0 whitespace-nowrap min-w-[130px]"
                     >
-                      <div className="text-[11px] font-bold text-slate-800">
+                      <div className="text-[11px] font-bold text-app-text">
                         {cls.name || `${cls.level}${cls.section ?? ''}`}
                       </div>
                     </th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {timeSlots.map((slot, rowIdx) => {
                   const isBreakRow = slot.time_type === 'break';
                   return (
                     <tr
                       key={slot.id}
-                      className={`${isBreakRow ? 'bg-amber-50/60' : rowIdx % 2 === 0 ? 'bg-white' : 'bg-slate-50/30'}`}
+                      className={`${isBreakRow ? 'bg-amber-50/60' : rowIdx % 2 === 0 ? 'bg-app-surface' : 'bg-app-surface-alt/30'}`}
                     >
-                      <td className={`sticky left-0 z-10 px-4 py-2.5 border-r-2 border-slate-200 whitespace-nowrap ${isBreakRow ? 'bg-amber-50' : rowIdx % 2 === 0 ? 'bg-white' : 'bg-slate-50/60'}`}>
+                      <td className={`sticky left-0 z-10 px-4 py-2.5 border-r-2 border-app-border whitespace-nowrap ${isBreakRow ? 'bg-amber-50' : rowIdx % 2 === 0 ? 'bg-app-surface' : 'bg-app-surface-alt/60'}`}>
                         <div className="flex items-center gap-2">
                           {isBreakRow && (
                             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
                           )}
                           <div>
-                            <p className={`font-semibold ${isBreakRow ? 'text-amber-700' : 'text-slate-800'}`}>
+                            <p className={`font-semibold ${isBreakRow ? 'text-amber-700' : 'text-app-text'}`}>
                               {slot.period_name}
                             </p>
-                            <p className="text-[10px] text-slate-400">
+                            <p className="text-[10px] text-app-text-muted">
                               {fmtTime(slot.start_time)} – {fmtTime(slot.end_time)}
                             </p>
                           </div>
@@ -309,7 +309,7 @@ export default function GroupTimetable() {
 
                         if (!entry) {
                           return (
-                            <td key={cls.id} className="px-2 py-2 text-center border-r border-slate-100 last:border-r-0">
+                            <td key={cls.id} className="px-2 py-2 text-center border-r border-app-border last:border-r-0">
                               <span className="text-slate-200 text-[10px]">—</span>
                             </td>
                           );
@@ -317,7 +317,7 @@ export default function GroupTimetable() {
 
                         if (entry.is_break) {
                           return (
-                            <td key={cls.id} className="px-2 py-2 text-center border-r border-slate-100 last:border-r-0">
+                            <td key={cls.id} className="px-2 py-2 text-center border-r border-app-border last:border-r-0">
                               <div className="inline-flex items-center justify-center px-2 py-1 rounded-md bg-amber-100 text-amber-600 text-[10px] font-semibold uppercase tracking-wider">
                                 Break
                               </div>
@@ -326,7 +326,7 @@ export default function GroupTimetable() {
                         }
 
                         return (
-                          <td key={cls.id} className="px-1.5 py-1.5 border-r border-slate-100 last:border-r-0">
+                          <td key={cls.id} className="px-1.5 py-1.5 border-r border-app-border last:border-r-0">
                             <div className="bg-emerald-50 border border-emerald-100 rounded-lg px-2 py-1.5 text-center">
                               <p className="font-bold text-emerald-900 leading-tight text-[11px] mb-0.5 truncate max-w-[110px] mx-auto" title={entry.subject_name}>
                                 {entry.subject_name ?? 'TBD'}

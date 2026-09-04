@@ -174,7 +174,7 @@ const SubjectWiseAttendance: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-app-surface-alt p-6">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
@@ -182,8 +182,8 @@ const SubjectWiseAttendance: React.FC = () => {
               <BookOpen className="text-emerald-600" size={24} />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-800">Subject-wise Attendance</h1>
-              <p className="text-gray-500 text-sm">View attendance grouped by student for a class and date range</p>
+              <h1 className="text-2xl font-bold text-app-text">Subject-wise Attendance</h1>
+              <p className="text-app-text-muted text-sm">View attendance grouped by student for a class and date range</p>
             </div>
           </div>
           {fetched && summaries.length > 0 && (
@@ -197,18 +197,18 @@ const SubjectWiseAttendance: React.FC = () => {
           )}
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 mb-6">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5 mb-6">
           <div className="flex items-center gap-2 mb-4">
             <Filter size={18} className="text-emerald-600" />
-            <h2 className="font-semibold text-gray-700">Filters</h2>
+            <h2 className="font-semibold text-app-text">Filters</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">Class</label>
+              <label className="block text-sm font-medium text-app-text-muted mb-1">Class</label>
               <select
                 value={selectedClass}
                 onChange={(e) => setSelectedClass(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
               >
                 <option value="">Select Class</option>
                 {classes.map((c) => (
@@ -217,11 +217,11 @@ const SubjectWiseAttendance: React.FC = () => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">Subject (Optional)</label>
+              <label className="block text-sm font-medium text-app-text-muted mb-1">Subject (Optional)</label>
               <select
                 value={selectedSubject}
                 onChange={(e) => setSelectedSubject(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
               >
                 <option value="">All Subjects</option>
                 {subjects.map((s) => (
@@ -230,21 +230,21 @@ const SubjectWiseAttendance: React.FC = () => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">From Date</label>
+              <label className="block text-sm font-medium text-app-text-muted mb-1">From Date</label>
               <input
                 type="date"
                 value={dateFrom}
                 onChange={(e) => setDateFrom(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">To Date</label>
+              <label className="block text-sm font-medium text-app-text-muted mb-1">To Date</label>
               <input
                 type="date"
                 value={dateTo}
                 onChange={(e) => setDateTo(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
               />
             </div>
           </div>
@@ -267,42 +267,42 @@ const SubjectWiseAttendance: React.FC = () => {
         )}
 
         {!loading && fetched && summaries.length === 0 && (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+          <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-12 text-center">
             <BookOpen size={48} className="mx-auto mb-3 text-gray-300" />
-            <p className="text-gray-500">No attendance records found for the selected filters.</p>
+            <p className="text-app-text-muted">No attendance records found for the selected filters.</p>
           </div>
         )}
 
         {!loading && summaries.length > 0 && (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-              <span className="font-semibold text-gray-700">{summaries.length} Students</span>
-              <span className="text-xs text-gray-500">
+          <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
+            <div className="px-5 py-4 border-b border-app-border flex items-center justify-between">
+              <span className="font-semibold text-app-text">{summaries.length} Students</span>
+              <span className="text-xs text-app-text-muted">
                 Period: {dateFrom} to {dateTo}
               </span>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="bg-gray-50 text-left">
-                    <th className="px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">#</th>
-                    <th className="px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Student</th>
-                    <th className="px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide text-center">Total</th>
-                    <th className="px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide text-center">Present</th>
-                    <th className="px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide text-center">Absent</th>
-                    <th className="px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide text-center">Late</th>
-                    <th className="px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide text-center">Attendance %</th>
+                  <tr className="bg-app-surface-alt text-left">
+                    <th className="px-5 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide">#</th>
+                    <th className="px-5 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide">Student</th>
+                    <th className="px-5 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide text-center">Total</th>
+                    <th className="px-5 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide text-center">Present</th>
+                    <th className="px-5 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide text-center">Absent</th>
+                    <th className="px-5 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide text-center">Late</th>
+                    <th className="px-5 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide text-center">Attendance %</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50">
                   {summaries.map((s, idx) => (
-                    <tr key={s.id} className="hover:bg-gray-50">
-                      <td className="px-5 py-3 text-sm text-gray-400">{idx + 1}</td>
+                    <tr key={s.id} className="hover:bg-app-surface-alt">
+                      <td className="px-5 py-3 text-sm text-app-text-muted">{idx + 1}</td>
                       <td className="px-5 py-3">
-                        <p className="font-medium text-gray-800">{s.first_name} {s.last_name}</p>
-                        <p className="text-xs text-gray-400">{s.student_id}</p>
+                        <p className="font-medium text-app-text">{s.first_name} {s.last_name}</p>
+                        <p className="text-xs text-app-text-muted">{s.student_id}</p>
                       </td>
-                      <td className="px-5 py-3 text-sm text-center text-gray-600">{s.total}</td>
+                      <td className="px-5 py-3 text-sm text-center text-app-text-muted">{s.total}</td>
                       <td className="px-5 py-3 text-center">
                         <span className="text-sm font-medium text-emerald-600">{s.present}</span>
                       </td>

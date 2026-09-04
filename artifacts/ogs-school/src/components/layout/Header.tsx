@@ -384,7 +384,7 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
               <div className="absolute right-0 top-full mt-2 w-64 bg-app-surface rounded-xl shadow-lg border border-app-border z-50 overflow-hidden">
                 <div className="px-4 py-3 bg-app-primary text-white">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold">
+                    <div className="w-10 h-10 rounded-full bg-app-surface/20 flex items-center justify-center text-sm font-bold">
                       {initials}
                     </div>
                     <div>

@@ -3,7 +3,7 @@ import { ArrowRightLeft, Search, RotateCcw } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 
-const INPUT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 interface InventoryItem {
   id: string;
@@ -215,15 +215,15 @@ export default function IssueItem() {
         <div className="bg-emerald-500 text-white p-2 rounded-xl">
           <ArrowRightLeft size={20} />
         </div>
-        <h1 className="text-2xl font-bold text-slate-800">Issue Items</h1>
+        <h1 className="text-2xl font-bold text-app-text">Issue Items</h1>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-6">
-        <h2 className="text-base font-semibold text-slate-700 mb-4">New Issue</h2>
+      <div className="bg-app-surface rounded-2xl border border-app-border p-6">
+        <h2 className="text-base font-semibold text-app-text mb-4">New Issue</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Item</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Item</label>
             <select
               required
               className={INPUT_CLASS}
@@ -238,11 +238,11 @@ export default function IssueItem() {
           </div>
 
           <div className="relative">
-            <label className="block text-sm font-medium text-slate-700 mb-1">Issue To</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Issue To</label>
             <div className="relative">
-              <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted" />
               <input
-                className="border border-slate-200 rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+                className="border border-app-border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
                 placeholder="Search student or staff by name..."
                 value={profileSearch}
                 onChange={e => { setProfileSearch(e.target.value); setShowProfileDropdown(true); setSelectedProfile(null); setForm(p => ({ ...p, issued_to: '' })); }}
@@ -250,9 +250,9 @@ export default function IssueItem() {
               />
             </div>
             {showProfileDropdown && profileSearch.length >= 2 && (
-              <div className="absolute z-10 mt-1 w-full bg-white border border-slate-200 rounded-xl shadow-lg max-h-48 overflow-y-auto">
+              <div className="absolute z-10 mt-1 w-full bg-app-surface border border-app-border rounded-xl shadow-lg max-h-48 overflow-y-auto">
                 {profileResults.length === 0 ? (
-                  <div className="px-4 py-3 text-sm text-slate-500">No results found</div>
+                  <div className="px-4 py-3 text-sm text-app-text-muted">No results found</div>
                 ) : (
                   profileResults.map(p => (
                     <button
@@ -261,8 +261,8 @@ export default function IssueItem() {
                       onClick={() => selectProfile(p)}
                       className="w-full text-left px-4 py-2.5 text-sm hover:bg-emerald-50 transition-colors"
                     >
-                      <span className="font-medium text-slate-800">{p.full_name}</span>
-                      <span className="ml-2 capitalize text-slate-500 text-xs">{p.role}</span>
+                      <span className="font-medium text-app-text">{p.full_name}</span>
+                      <span className="ml-2 capitalize text-app-text-muted text-xs">{p.role}</span>
                     </button>
                   ))
                 )}
@@ -272,7 +272,7 @@ export default function IssueItem() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Issued To Type</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Issued To Type</label>
               <select
                 className={INPUT_CLASS}
                 value={form.issued_to_type}
@@ -283,7 +283,7 @@ export default function IssueItem() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Quantity</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Quantity</label>
               <input
                 type="number"
                 min="1"
@@ -298,7 +298,7 @@ export default function IssueItem() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Issue Date</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Issue Date</label>
             <input
               type="date"
               required
@@ -309,7 +309,7 @@ export default function IssueItem() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Purpose</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Purpose</label>
             <input
               className={INPUT_CLASS}
               value={form.purpose}
@@ -319,7 +319,7 @@ export default function IssueItem() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Notes</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Notes</label>
             <textarea
               className={INPUT_CLASS}
               rows={2}
@@ -341,38 +341,38 @@ export default function IssueItem() {
         </form>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-        <div className="px-4 py-3 border-b border-slate-200">
-          <h2 className="text-base font-semibold text-slate-700">Issued Items</h2>
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
+        <div className="px-4 py-3 border-b border-app-border">
+          <h2 className="text-base font-semibold text-app-text">Issued Items</h2>
         </div>
         {loading ? (
-          <div className="p-12 text-center text-slate-400">Loading...</div>
+          <div className="p-12 text-center text-app-text-muted">Loading...</div>
         ) : issues.length === 0 ? (
           <div className="p-12 text-center">
             <ArrowRightLeft size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-500">No issued items yet.</p>
+            <p className="text-app-text-muted">No issued items yet.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Date</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Item</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Issued To</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Type</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Qty</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Purpose</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Status</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Actions</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Date</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Item</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Issued To</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Type</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Qty</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Purpose</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Status</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {issues.map(issue => (
-                  <tr key={issue.id} className="hover:bg-slate-50/50">
-                    <td className="px-4 py-3 text-slate-600">{issue.issue_date ? new Date(issue.issue_date).toLocaleDateString() : '-'}</td>
-                    <td className="px-4 py-3 font-medium text-slate-800">{issue.inventory_items?.name || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600">
+                  <tr key={issue.id} className="hover:bg-app-surface-alt/50">
+                    <td className="px-4 py-3 text-app-text-muted">{issue.issue_date ? new Date(issue.issue_date).toLocaleDateString() : '-'}</td>
+                    <td className="px-4 py-3 font-medium text-app-text">{issue.inventory_items?.name || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">
                       {(() => {
                         const i = issue as any;
                         if (i.issued_to_type === 'student') {
@@ -388,8 +388,8 @@ export default function IssueItem() {
                         {issue.issued_to_type}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-slate-700">{issue.quantity}</td>
-                    <td className="px-4 py-3 text-slate-600">{issue.purpose || '-'}</td>
+                    <td className="px-4 py-3 text-app-text">{issue.quantity}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{issue.purpose || '-'}</td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-1 rounded-lg text-xs font-medium capitalize ${statusBadge(issue.status)}`}>
                         {issue.status}
@@ -399,7 +399,7 @@ export default function IssueItem() {
                       {issue.status === 'issued' && (
                         <button
                           onClick={() => handleReturn(issue)}
-                          className="flex items-center gap-1 text-slate-400 hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors text-xs"
+                          className="flex items-center gap-1 text-app-text-muted hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors text-xs"
                         >
                           <RotateCcw size={14} />
                           Return

@@ -60,7 +60,7 @@ export default function ParentGrades() {
   }
 
   function getGradeColor(grade: string) {
-    if (!grade) return 'text-slate-400 bg-slate-50';
+    if (!grade) return 'text-app-text-muted bg-app-surface-alt';
     if (grade.startsWith('A')) return 'text-emerald-600 bg-emerald-50';
     if (grade.startsWith('B')) return 'text-blue-600 bg-blue-50';
     if (grade.startsWith('C')) return 'text-amber-600 bg-amber-50';
@@ -72,15 +72,15 @@ export default function ParentGrades() {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-xl font-bold text-slate-800">Grades Overview</h2>
-        <p className="text-slate-500 text-sm">View your children's academic results</p>
+        <h2 className="text-xl font-bold text-app-text">Grades Overview</h2>
+        <p className="text-app-text-muted text-sm">View your children's academic results</p>
       </div>
 
       <div className="flex gap-3">
-        <select value={selectedChild} onChange={e => setSelectedChild(e.target.value)} className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+        <select value={selectedChild} onChange={e => setSelectedChild(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
           {children.map(c => <option key={(c as any).id} value={(c as any).id}>{(c as any).first_name} {(c as any).last_name}</option>)}
         </select>
-        <select value={selectedTerm} onChange={e => setSelectedTerm(e.target.value)} className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+        <select value={selectedTerm} onChange={e => setSelectedTerm(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
           {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
         </select>
       </div>
@@ -91,34 +91,34 @@ export default function ParentGrades() {
         </div>
       )}
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-slate-100 bg-slate-50">
-              <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Subject</th>
-              <th className="text-center text-xs font-semibold text-slate-500 uppercase px-3 py-3">CA1</th>
-              <th className="text-center text-xs font-semibold text-slate-500 uppercase px-3 py-3">CA2</th>
-              <th className="text-center text-xs font-semibold text-slate-500 uppercase px-3 py-3">CA3</th>
-              <th className="text-center text-xs font-semibold text-slate-500 uppercase px-3 py-3">Exam</th>
-              <th className="text-center text-xs font-semibold text-slate-500 uppercase px-3 py-3">Total</th>
-              <th className="text-center text-xs font-semibold text-slate-500 uppercase px-3 py-3">Grade</th>
+            <tr className="border-b border-app-border bg-app-surface-alt">
+              <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Subject</th>
+              <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-3 py-3">CA1</th>
+              <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-3 py-3">CA2</th>
+              <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-3 py-3">CA3</th>
+              <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-3 py-3">Exam</th>
+              <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-3 py-3">Total</th>
+              <th className="text-center text-xs font-semibold text-app-text-muted uppercase px-3 py-3">Grade</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-app-border">
             {loading ? (
-              <tr><td colSpan={7} className="text-center py-8 text-slate-400">Loading...</td></tr>
+              <tr><td colSpan={7} className="text-center py-8 text-app-text-muted">Loading...</td></tr>
             ) : grades.length === 0 ? (
-              <tr><td colSpan={7} className="text-center py-8 text-slate-400">No grades for this term</td></tr>
+              <tr><td colSpan={7} className="text-center py-8 text-app-text-muted">No grades for this term</td></tr>
             ) : grades.map(g => (
-              <tr key={g.id} className="hover:bg-slate-50 transition-colors">
-                <td className="px-5 py-3 text-sm font-medium text-slate-800">
+              <tr key={g.id} className="hover:bg-app-surface-alt transition-colors">
+                <td className="px-5 py-3 text-sm font-medium text-app-text">
                   {(g.subjects as any)?.name}
                 </td>
-                <td className="px-3 py-3 text-center text-sm text-slate-600">{g.ca1_score || 0}</td>
-                <td className="px-3 py-3 text-center text-sm text-slate-600">{g.ca2_score || 0}</td>
-                <td className="px-3 py-3 text-center text-sm text-slate-600">{g.ca3_score || 0}</td>
-                <td className="px-3 py-3 text-center text-sm text-slate-600">{g.exam_score || 0}</td>
-                <td className="px-3 py-3 text-center text-sm font-semibold text-slate-800">{g.total_score || 0}</td>
+                <td className="px-3 py-3 text-center text-sm text-app-text-muted">{g.ca1_score || 0}</td>
+                <td className="px-3 py-3 text-center text-sm text-app-text-muted">{g.ca2_score || 0}</td>
+                <td className="px-3 py-3 text-center text-sm text-app-text-muted">{g.ca3_score || 0}</td>
+                <td className="px-3 py-3 text-center text-sm text-app-text-muted">{g.exam_score || 0}</td>
+                <td className="px-3 py-3 text-center text-sm font-semibold text-app-text">{g.total_score || 0}</td>
                 <td className="px-3 py-3 text-center">
                   <span className={`text-sm font-bold px-2.5 py-1 rounded-lg ${getGradeColor(g.grade)}`}>{g.grade || '—'}</span>
                 </td>

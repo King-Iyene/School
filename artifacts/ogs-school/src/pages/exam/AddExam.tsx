@@ -169,10 +169,10 @@ export default function AddExam() {
       return <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-xs font-medium">Active</span>;
     if (status === 'completed')
       return <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs font-medium">Completed</span>;
-    return <span className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full text-xs font-medium">Draft</span>;
+    return <span className="bg-slate-100 text-app-text-muted px-2 py-0.5 rounded-full text-xs font-medium">Draft</span>;
   }
 
-  const inputClass = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  const inputClass = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
   return (
     <div className="p-6">
@@ -180,8 +180,8 @@ export default function AddExam() {
         <div className="flex items-center gap-3">
           <BookOpen size={24} className="text-emerald-600" />
           <div>
-            <h1 className="text-2xl font-bold text-slate-800">Add Exam</h1>
-            <p className="text-sm text-slate-500 mt-0.5">Create and manage exams per session and term</p>
+            <h1 className="text-2xl font-bold text-app-text">Add Exam</h1>
+            <p className="text-sm text-app-text-muted mt-0.5">Create and manage exams per session and term</p>
           </div>
         </div>
         <button
@@ -198,38 +198,38 @@ export default function AddExam() {
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : exams.length === 0 ? (
-        <div className="text-center py-16 text-slate-500">
+        <div className="text-center py-16 text-app-text-muted">
           <p className="text-lg font-medium">No exams found</p>
           <p className="text-sm mt-1">Click "Add Exam" to create one for a session and term.</p>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-slate-200">
+        <div className="overflow-x-auto rounded-xl border border-app-border">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-app-surface-alt border-b border-app-border">
               <tr>
-                <th className="text-left px-4 py-3 font-semibold text-slate-600">Name</th>
-                <th className="text-left px-4 py-3 font-semibold text-slate-600">Type</th>
-                <th className="text-left px-4 py-3 font-semibold text-slate-600">Session</th>
-                <th className="text-left px-4 py-3 font-semibold text-slate-600">Term</th>
-                <th className="text-left px-4 py-3 font-semibold text-slate-600">Start Date</th>
-                <th className="text-left px-4 py-3 font-semibold text-slate-600">End Date</th>
-                <th className="text-left px-4 py-3 font-semibold text-slate-600">Status</th>
-                <th className="text-right px-4 py-3 font-semibold text-slate-600">Actions</th>
+                <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Name</th>
+                <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Type</th>
+                <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Session</th>
+                <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Term</th>
+                <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Start Date</th>
+                <th className="text-left px-4 py-3 font-semibold text-app-text-muted">End Date</th>
+                <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Status</th>
+                <th className="text-right px-4 py-3 font-semibold text-app-text-muted">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {exams.map((exam) => (
-                <tr key={exam.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-4 py-3 font-medium text-slate-800">{exam.name}</td>
-                  <td className="px-4 py-3 text-slate-600 capitalize">{exam.exam_type.replace('-', ' ')}</td>
-                  <td className="px-4 py-3 text-slate-600">{exam.academic_years?.name ?? '—'}</td>
+                <tr key={exam.id} className="hover:bg-app-surface-alt transition-colors">
+                  <td className="px-4 py-3 font-medium text-app-text">{exam.name}</td>
+                  <td className="px-4 py-3 text-app-text-muted capitalize">{exam.exam_type.replace('-', ' ')}</td>
+                  <td className="px-4 py-3 text-app-text-muted">{exam.academic_years?.name ?? '—'}</td>
                   <td className="px-4 py-3">
                     <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">
                       {exam.terms?.name ?? '—'}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-slate-600">{exam.start_date ? new Date(exam.start_date).toLocaleDateString() : '—'}</td>
-                  <td className="px-4 py-3 text-slate-600">{exam.end_date ? new Date(exam.end_date).toLocaleDateString() : '—'}</td>
+                  <td className="px-4 py-3 text-app-text-muted">{exam.start_date ? new Date(exam.start_date).toLocaleDateString() : '—'}</td>
+                  <td className="px-4 py-3 text-app-text-muted">{exam.end_date ? new Date(exam.end_date).toLocaleDateString() : '—'}</td>
                   <td className="px-4 py-3">{statusBadge(exam.status)}</td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-2">
@@ -268,7 +268,7 @@ export default function AddExam() {
         <div className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{saveError}</div>}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Exam Name <span className="text-red-500">*</span></label>
+            <label className="block text-sm font-medium text-app-text mb-1">Exam Name <span className="text-red-500">*</span></label>
             <input
               className={inputClass}
               value={form.name}
@@ -277,14 +277,14 @@ export default function AddExam() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Exam Type</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Exam Type</label>
             <select className={inputClass} value={form.exam_type} onChange={(e) => setForm({ ...form, exam_type: e.target.value })}>
               {EXAM_TYPES.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}
             </select>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Session <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1">Session <span className="text-red-500">*</span></label>
               <select
                 className={inputClass}
                 value={form.academic_year_id}
@@ -295,7 +295,7 @@ export default function AddExam() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Term <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1">Term <span className="text-red-500">*</span></label>
               <select
                 className={inputClass}
                 value={form.term_id}
@@ -309,16 +309,16 @@ export default function AddExam() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Start Date <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1">Start Date <span className="text-red-500">*</span></label>
               <input type="date" className={inputClass} value={form.start_date} onChange={(e) => setForm({ ...form, start_date: e.target.value })} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">End Date <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1">End Date <span className="text-red-500">*</span></label>
               <input type="date" className={inputClass} value={form.end_date} onChange={(e) => setForm({ ...form, end_date: e.target.value })} />
             </div>
           </div>
           <div className="flex justify-end gap-3 pt-2">
-            <button onClick={() => setModalOpen(false)} className="px-4 py-2 text-sm rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors">
+            <button onClick={() => setModalOpen(false)} className="px-4 py-2 text-sm rounded-xl border border-app-border text-app-text-muted hover:bg-app-surface-alt transition-colors">
               Cancel
             </button>
             <button
@@ -334,9 +334,9 @@ export default function AddExam() {
 
       <Modal isOpen={deleteModalOpen} onClose={() => setDeleteModalOpen(false)} title="Delete Exam">
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">Are you sure you want to delete this exam? This action cannot be undone.</p>
+          <p className="text-sm text-app-text-muted">Are you sure you want to delete this exam? This action cannot be undone.</p>
           <div className="flex justify-end gap-3">
-            <button onClick={() => setDeleteModalOpen(false)} className="px-4 py-2 text-sm rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors">
+            <button onClick={() => setDeleteModalOpen(false)} className="px-4 py-2 text-sm rounded-xl border border-app-border text-app-text-muted hover:bg-app-surface-alt transition-colors">
               Cancel
             </button>
             <button onClick={handleDelete} className="px-4 py-2 text-sm rounded-xl bg-red-500 hover:bg-red-600 text-white font-medium transition-colors">

@@ -53,8 +53,8 @@ export default function StoreDashboard() {
   return (
     <div className="p-6 space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-800">School Store</h1>
-        <p className="text-slate-500 text-sm mt-1">Sell uniforms, books, stationery and more</p>
+        <h1 className="text-2xl font-bold text-app-text">School Store</h1>
+        <p className="text-app-text-muted text-sm mt-1">Sell uniforms, books, stationery and more</p>
       </div>
 
       {loading ? (
@@ -75,38 +75,38 @@ export default function StoreDashboard() {
               <button
                 key={card.label}
                 onClick={() => navigate(card.action)}
-                className="bg-white rounded-2xl border border-slate-200 p-4 text-left hover:shadow-md hover:border-slate-300 transition-all"
+                className="bg-app-surface rounded-2xl border border-app-border p-4 text-left hover:shadow-md hover:border-app-border transition-all"
               >
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${card.color}`}>
                   <card.icon className="w-5 h-5" />
                 </div>
-                <p className="text-2xl font-bold text-slate-800">{card.value}</p>
-                <p className="text-xs text-slate-500 mt-0.5">{card.label}</p>
+                <p className="text-2xl font-bold text-app-text">{card.value}</p>
+                <p className="text-xs text-app-text-muted mt-0.5">{card.label}</p>
               </button>
             ))}
           </div>
 
           <div className="grid lg:grid-cols-2 gap-6">
-            <div className="bg-white rounded-2xl border border-slate-200 p-5">
+            <div className="bg-app-surface rounded-2xl border border-app-border p-5">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="font-semibold text-slate-800">Recent Orders</h2>
+                <h2 className="font-semibold text-app-text">Recent Orders</h2>
                 <button onClick={() => navigate('/store/orders')} className="text-xs text-emerald-600 hover:text-emerald-700 font-medium">View all</button>
               </div>
               {recentOrders.length === 0 ? (
-                <p className="text-slate-400 text-sm text-center py-8">No orders yet</p>
+                <p className="text-app-text-muted text-sm text-center py-8">No orders yet</p>
               ) : (
                 <div className="space-y-3">
                   {recentOrders.map((order: any) => (
-                    <div key={order.id} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
+                    <div key={order.id} className="flex items-center justify-between py-2 border-b border-app-border last:border-0">
                       <div>
-                        <p className="text-sm font-medium text-slate-700">
+                        <p className="text-sm font-medium text-app-text">
                           {order.profiles?.first_name} {order.profiles?.last_name}
                         </p>
-                        <p className="text-xs text-slate-400">{new Date(order.created_at).toLocaleDateString()}</p>
+                        <p className="text-xs text-app-text-muted">{new Date(order.created_at).toLocaleDateString()}</p>
                       </div>
                       <div className="flex items-center gap-3">
-                        <span className="text-sm font-semibold text-slate-800">₦{Number(order.total_amount).toLocaleString()}</span>
-                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[order.status] ?? 'bg-slate-100 text-slate-600'}`}>
+                        <span className="text-sm font-semibold text-app-text">₦{Number(order.total_amount).toLocaleString()}</span>
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[order.status] ?? 'bg-slate-100 text-app-text-muted'}`}>
                           {order.status}
                         </span>
                       </div>
@@ -116,8 +116,8 @@ export default function StoreDashboard() {
               )}
             </div>
 
-            <div className="bg-white rounded-2xl border border-slate-200 p-5">
-              <h2 className="font-semibold text-slate-800 mb-4">Quick Actions</h2>
+            <div className="bg-app-surface rounded-2xl border border-app-border p-5">
+              <h2 className="font-semibold text-app-text mb-4">Quick Actions</h2>
               <div className="grid grid-cols-2 gap-3">
                 {[
                   { label: 'Add Product', icon: Package, path: '/store/products', color: 'bg-blue-50 text-blue-700 hover:bg-blue-100' },

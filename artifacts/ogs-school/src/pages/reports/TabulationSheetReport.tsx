@@ -187,7 +187,7 @@ export default function TabulationSheetReport() {
       )}
 
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Tabulation Sheet</h1>
+        <h1 className="text-2xl font-bold text-app-text">Tabulation Sheet</h1>
         <button
           onClick={handleExport}
           className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
@@ -197,12 +197,12 @@ export default function TabulationSheetReport() {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <select
             value={filters.academic_year_id}
             onChange={e => setFilters(f => ({ ...f, academic_year_id: e.target.value, exam_id: '', class_id: '' }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">Select Academic Year</option>
             {academicYears.map(y => (
@@ -214,7 +214,7 @@ export default function TabulationSheetReport() {
             value={filters.exam_id}
             onChange={e => setFilters(f => ({ ...f, exam_id: e.target.value }))}
             disabled={!filters.academic_year_id}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
           >
             <option value="">Select Exam</option>
             {exams.map(e => (
@@ -226,7 +226,7 @@ export default function TabulationSheetReport() {
             value={filters.class_id}
             onChange={e => setFilters(f => ({ ...f, class_id: e.target.value }))}
             disabled={!filters.exam_id}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
           >
             <option value="">Select Class</option>
             {classes.map(c => (
@@ -237,55 +237,55 @@ export default function TabulationSheetReport() {
       </div>
 
       {!filters.class_id ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 flex flex-col items-center gap-3 text-slate-400">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-12 flex flex-col items-center gap-3 text-app-text-muted">
           <Table2 className="h-12 w-12 text-slate-300" />
           <p className="text-lg font-medium">Select filters to view tabulation sheet</p>
         </div>
       ) : loading ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center text-slate-400">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-12 text-center text-app-text-muted">
           Loading...
         </div>
       ) : rows.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center text-slate-400">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-12 text-center text-app-text-muted">
           No results found
         </div>
       ) : (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-50 border-b border-slate-200">
-                  <th className="text-center px-3 py-3 text-slate-600 font-medium sticky left-0 bg-slate-50">Roll</th>
-                  <th className="text-left px-4 py-3 text-slate-600 font-medium min-w-40 sticky left-12 bg-slate-50">Student Name</th>
+                <tr className="bg-app-surface-alt border-b border-app-border">
+                  <th className="text-center px-3 py-3 text-app-text-muted font-medium sticky left-0 bg-app-surface-alt">Roll</th>
+                  <th className="text-left px-4 py-3 text-app-text-muted font-medium min-w-40 sticky left-12 bg-app-surface-alt">Student Name</th>
                   {subjects.map(sub => (
-                    <th key={sub} className="text-center px-3 py-3 text-slate-600 font-medium min-w-24">{sub}</th>
+                    <th key={sub} className="text-center px-3 py-3 text-app-text-muted font-medium min-w-24">{sub}</th>
                   ))}
-                  <th className="text-center px-3 py-3 text-slate-600 font-medium">Total</th>
-                  <th className="text-center px-3 py-3 text-slate-600 font-medium">Average</th>
-                  <th className="text-center px-3 py-3 text-slate-600 font-medium">Grade</th>
-                  <th className="text-center px-3 py-3 text-slate-600 font-medium">Rank</th>
+                  <th className="text-center px-3 py-3 text-app-text-muted font-medium">Total</th>
+                  <th className="text-center px-3 py-3 text-app-text-muted font-medium">Average</th>
+                  <th className="text-center px-3 py-3 text-app-text-muted font-medium">Grade</th>
+                  <th className="text-center px-3 py-3 text-app-text-muted font-medium">Rank</th>
                 </tr>
               </thead>
               <tbody>
                 {rows.map(row => (
-                  <tr key={row.student_id} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="px-3 py-3 text-center text-slate-500 sticky left-0 bg-white">{row.roll_number}</td>
-                    <td className="px-4 py-3 font-medium text-slate-800 sticky left-12 bg-white min-w-40">{row.student_name}</td>
+                  <tr key={row.student_id} className="border-b border-app-border hover:bg-app-surface-alt">
+                    <td className="px-3 py-3 text-center text-app-text-muted sticky left-0 bg-app-surface">{row.roll_number}</td>
+                    <td className="px-4 py-3 font-medium text-app-text sticky left-12 bg-app-surface min-w-40">{row.student_name}</td>
                     {subjects.map(sub => {
                       const marks = row.marks[sub] ?? '-';
                       const isTopper = typeof marks === 'number' && marks === subjectToppers[sub] && marks > 0;
                       return (
-                        <td key={sub} className={`px-3 py-3 text-center font-medium ${isTopper ? 'bg-emerald-50 text-emerald-700' : 'text-slate-700'}`}>
+                        <td key={sub} className={`px-3 py-3 text-center font-medium ${isTopper ? 'bg-emerald-50 text-emerald-700' : 'text-app-text'}`}>
                           {marks}
                         </td>
                       );
                     })}
-                    <td className="px-3 py-3 text-center font-bold text-slate-800">{row.total}</td>
-                    <td className="px-3 py-3 text-center text-slate-600">{row.average}</td>
+                    <td className="px-3 py-3 text-center font-bold text-app-text">{row.total}</td>
+                    <td className="px-3 py-3 text-center text-app-text-muted">{row.average}</td>
                     <td className="px-3 py-3 text-center">
                       <span className="px-2 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">{row.grade}</span>
                     </td>
-                    <td className="px-3 py-3 text-center font-bold text-slate-700">{row.rank}</td>
+                    <td className="px-3 py-3 text-center font-bold text-app-text">{row.rank}</td>
                   </tr>
                 ))}
               </tbody>

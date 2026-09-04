@@ -167,8 +167,8 @@ export default function ParentDashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-slate-800">Welcome, {profile?.first_name}!</h2>
-        <p className="text-slate-500 mt-1">Monitor your children's academic progress</p>
+        <h2 className="text-2xl font-bold text-app-text">Welcome, {profile?.first_name}!</h2>
+        <p className="text-app-text-muted mt-1">Monitor your children's academic progress</p>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
@@ -181,19 +181,19 @@ export default function ParentDashboard() {
           <DashboardCalendar />
         </div>
 
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-          <div className="flex items-center justify-between p-5 border-b border-slate-100">
-            <h3 className="font-semibold text-slate-800">Announcements</h3>
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+          <div className="flex items-center justify-between p-5 border-b border-app-border">
+            <h3 className="font-semibold text-app-text">Announcements</h3>
             <button onClick={() => navigate('/announcements')} className="text-sm text-emerald-600 hover:text-emerald-700 font-medium">View all</button>
           </div>
-          <div className="divide-y divide-slate-100">
+          <div className="divide-y divide-app-border">
             {announcements.length === 0 ? (
-              <div className="p-5 text-center text-slate-400 text-sm">No announcements</div>
+              <div className="p-5 text-center text-app-text-muted text-sm">No announcements</div>
             ) : announcements.map(a => (
               <div key={a.id} className="p-4">
-                <p className="text-sm font-medium text-slate-800">{a.title}</p>
-                <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">{a.content}</p>
-                <p className="text-xs text-slate-400 mt-1">{new Date(a.created_at).toLocaleDateString()}</p>
+                <p className="text-sm font-medium text-app-text">{a.title}</p>
+                <p className="text-xs text-app-text-muted mt-0.5 line-clamp-2">{a.content}</p>
+                <p className="text-xs text-app-text-muted mt-1">{new Date(a.created_at).toLocaleDateString()}</p>
               </div>
             ))}
           </div>
@@ -202,7 +202,7 @@ export default function ParentDashboard() {
 
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+          <h3 className="text-lg font-bold text-app-text flex items-center gap-2">
             <Users className="w-5 h-5 text-emerald-600" />
             My Children
           </h3>
@@ -216,12 +216,12 @@ export default function ParentDashboard() {
         </div>
 
         {loading ? (
-          <div className="text-center py-8 text-slate-400">Loading...</div>
+          <div className="text-center py-8 text-app-text-muted">Loading...</div>
         ) : children.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 text-center">
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-8 text-center">
             <Users className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-            <p className="text-slate-500 font-medium">No children linked yet</p>
-            <p className="text-sm text-slate-400 mt-1 mb-4">Click "Link a Child" to add your ward using their admission number</p>
+            <p className="text-app-text-muted font-medium">No children linked yet</p>
+            <p className="text-sm text-app-text-muted mt-1 mb-4">Click "Link a Child" to add your ward using their admission number</p>
             <button onClick={openModal} className="px-5 py-2 bg-emerald-500 text-white rounded-xl text-sm font-medium hover:bg-emerald-600 transition-colors">
               Link a Child
             </button>
@@ -231,20 +231,20 @@ export default function ParentDashboard() {
             {children.map(child => {
               const link = links.find(l => l.student_id === child.id);
               return (
-                <div key={child.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-                  <div className="flex items-center gap-4 mb-4 pb-4 border-b border-slate-100">
+                <div key={child.id} className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
+                  <div className="flex items-center gap-4 mb-4 pb-4 border-b border-app-border">
                     <div className="w-14 h-14 rounded-2xl bg-emerald-100 flex items-center justify-center text-xl font-bold text-emerald-700 flex-shrink-0">
                       {child.first_name?.[0]}{child.last_name?.[0]}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-slate-800 text-lg truncate">{child.first_name} {child.last_name}</h3>
-                      <p className="text-sm text-slate-500">{stats[child.id]?.className || 'Class not assigned'}</p>
-                      {child.admission_number && <p className="text-xs text-slate-400 font-mono">Adm: {child.admission_number}</p>}
+                      <h3 className="font-semibold text-app-text text-lg truncate">{child.first_name} {child.last_name}</h3>
+                      <p className="text-sm text-app-text-muted">{stats[child.id]?.className || 'Class not assigned'}</p>
+                      {child.admission_number && <p className="text-xs text-app-text-muted font-mono">Adm: {child.admission_number}</p>}
                     </div>
                     <button
                       onClick={() => link && handleUnlink(link.id, `${child.first_name} ${child.last_name}`)}
                       disabled={unlinking === link?.id}
-                      className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-40"
+                      className="p-1.5 text-app-text-muted hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-40"
                       title="Remove link"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -261,9 +261,9 @@ export default function ParentDashboard() {
                     </div>
                   </div>
                   <div className="flex gap-2 mt-3">
-                    <button onClick={() => navigate('/grades')} className="flex-1 py-2 text-xs font-medium text-slate-600 bg-slate-50 hover:bg-slate-100 rounded-lg transition-colors">Grades</button>
-                    <button onClick={() => navigate('/fees')} className="flex-1 py-2 text-xs font-medium text-slate-600 bg-slate-50 hover:bg-slate-100 rounded-lg transition-colors">Fees</button>
-                    <button onClick={() => navigate('/attendance')} className="flex-1 py-2 text-xs font-medium text-slate-600 bg-slate-50 hover:bg-slate-100 rounded-lg transition-colors">Attendance</button>
+                    <button onClick={() => navigate('/grades')} className="flex-1 py-2 text-xs font-medium text-app-text-muted bg-app-surface-alt hover:bg-slate-100 rounded-lg transition-colors">Grades</button>
+                    <button onClick={() => navigate('/fees')} className="flex-1 py-2 text-xs font-medium text-app-text-muted bg-app-surface-alt hover:bg-slate-100 rounded-lg transition-colors">Fees</button>
+                    <button onClick={() => navigate('/attendance')} className="flex-1 py-2 text-xs font-medium text-app-text-muted bg-app-surface-alt hover:bg-slate-100 rounded-lg transition-colors">Attendance</button>
                   </div>
                 </div>
               );
@@ -275,13 +275,13 @@ export default function ParentDashboard() {
       {/* Link Child Modal */}
       {showLinkModal && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md">
-            <div className="flex items-center justify-between p-5 border-b border-slate-100">
+          <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-md">
+            <div className="flex items-center justify-between p-5 border-b border-app-border">
               <div>
-                <h3 className="font-bold text-slate-800 text-lg">Link a Child</h3>
-                <p className="text-sm text-slate-500 mt-0.5">Enter your child's admission number</p>
+                <h3 className="font-bold text-app-text text-lg">Link a Child</h3>
+                <p className="text-sm text-app-text-muted mt-0.5">Enter your child's admission number</p>
               </div>
-              <button onClick={closeModal} className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-colors">
+              <button onClick={closeModal} className="p-2 text-app-text-muted hover:text-app-text hover:bg-slate-100 rounded-xl transition-colors">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -295,7 +295,7 @@ export default function ParentDashboard() {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">Admission Number</label>
+                <label className="block text-sm font-medium text-app-text mb-1.5">Admission Number</label>
                 <div className="flex gap-2">
                   <input
                     type="text"
@@ -303,12 +303,12 @@ export default function ParentDashboard() {
                     onChange={e => { setAdmissionInput(e.target.value); setSearchError(''); setFoundStudent(null); setLinkSuccess(''); }}
                     onKeyDown={e => e.key === 'Enter' && handleSearch()}
                     placeholder="e.g. STU/2024/001"
-                    className="flex-1 px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                    className="flex-1 px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                   />
                   <button
                     onClick={handleSearch}
                     disabled={searching || !admissionInput.trim()}
-                    className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-1.5"
+                    className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-app-text rounded-xl text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-1.5"
                   >
                     {searching ? (
                       <div className="w-4 h-4 border-2 border-slate-400 border-t-transparent rounded-full animate-spin" />
@@ -334,18 +334,18 @@ export default function ParentDashboard() {
                       {foundStudent.first_name?.[0]}{foundStudent.last_name?.[0]}
                     </div>
                     <div>
-                      <p className="font-semibold text-slate-800">{foundStudent.first_name} {foundStudent.last_name}</p>
-                      <p className="text-sm text-slate-500">Admission: {foundStudent.admission_number}</p>
-                      {foundStudent.student_id && <p className="text-xs text-slate-400">Student ID: {foundStudent.student_id}</p>}
+                      <p className="font-semibold text-app-text">{foundStudent.first_name} {foundStudent.last_name}</p>
+                      <p className="text-sm text-app-text-muted">Admission: {foundStudent.admission_number}</p>
+                      {foundStudent.student_id && <p className="text-xs text-app-text-muted">Student ID: {foundStudent.student_id}</p>}
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1.5">Your Relationship</label>
+                    <label className="block text-sm font-medium text-app-text mb-1.5">Your Relationship</label>
                     <select
                       value={relationship}
                       onChange={e => setRelationship(e.target.value)}
-                      className="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
+                      className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
                     >
                       <option value="parent">Parent</option>
                       <option value="father">Father</option>
@@ -374,13 +374,13 @@ export default function ParentDashboard() {
                 </div>
               )}
 
-              <p className="text-xs text-slate-400 text-center">
+              <p className="text-xs text-app-text-muted text-center">
                 The admission number is on your child's school documents or ID card.
               </p>
             </div>
 
             <div className="px-5 pb-5">
-              <button onClick={closeModal} className="w-full py-2.5 border border-slate-200 text-slate-600 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">
+              <button onClick={closeModal} className="w-full py-2.5 border border-app-border text-app-text-muted rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">
                 Close
               </button>
             </div>

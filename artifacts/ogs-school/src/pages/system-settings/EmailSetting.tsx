@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 
 const INPUT_CLASS =
-  'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 const EMPTY_FORM = {
   smtp_host: '',
@@ -89,12 +89,12 @@ export default function EmailSetting() {
           <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
             <Mail className="w-5 h-5 text-emerald-600" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-800">Email Settings</h1>
+          <h1 className="text-2xl font-bold text-app-text">Email Settings</h1>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={handleTestEmail}
-            className="flex items-center gap-2 border border-slate-200 hover:bg-slate-50 text-slate-600 text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
+            className="flex items-center gap-2 border border-app-border hover:bg-app-surface-alt text-app-text-muted text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
           >
             <Send className="w-4 h-4" />
             Send Test Email
@@ -123,13 +123,13 @@ export default function EmailSetting() {
       )}
 
       {loading ? (
-        <div className="flex items-center justify-center py-16 text-slate-400 text-sm">Loading settings...</div>
+        <div className="flex items-center justify-center py-16 text-app-text-muted text-sm">Loading settings...</div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6">
-          <h2 className="text-base font-semibold text-slate-700 mb-5">SMTP Configuration</h2>
+        <div className="bg-app-surface rounded-2xl border border-app-border p-6">
+          <h2 className="text-base font-semibold text-app-text mb-5">SMTP Configuration</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">SMTP Host</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">SMTP Host</label>
               <input
                 className={INPUT_CLASS}
                 value={form.smtp_host}
@@ -138,7 +138,7 @@ export default function EmailSetting() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">SMTP Port</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">SMTP Port</label>
               <input
                 type="number"
                 className={INPUT_CLASS}
@@ -148,7 +148,7 @@ export default function EmailSetting() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">SMTP Username</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">SMTP Username</label>
               <input
                 className={INPUT_CLASS}
                 value={form.smtp_username}
@@ -157,7 +157,7 @@ export default function EmailSetting() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">SMTP Password</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">SMTP Password</label>
               <input
                 type="password"
                 className={INPUT_CLASS}
@@ -167,7 +167,7 @@ export default function EmailSetting() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">From Email</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">From Email</label>
               <input
                 type="email"
                 className={INPUT_CLASS}
@@ -177,7 +177,7 @@ export default function EmailSetting() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">From Name</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">From Name</label>
               <input
                 className={INPUT_CLASS}
                 value={form.from_name}
@@ -186,7 +186,7 @@ export default function EmailSetting() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Encryption</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Encryption</label>
               <select
                 className={INPUT_CLASS}
                 value={form.encryption}

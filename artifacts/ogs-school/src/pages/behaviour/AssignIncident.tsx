@@ -177,11 +177,11 @@ export default function AssignIncident() {
 
 
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Assign Behaviour Incident</h1>
-        <p className="text-sm text-gray-500 mt-1">Record a behaviour incident for a student</p>
+        <h1 className="text-2xl font-bold text-app-text">Assign Behaviour Incident</h1>
+        <p className="text-sm text-app-text-muted mt-1">Record a behaviour incident for a student</p>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-6 mb-8">
         {successMsg && (
           <div className="mb-4 px-3 py-2 bg-emerald-50 border border-emerald-200 rounded-lg text-sm text-emerald-700 flex items-center gap-2">
             <CheckCircle size={16} /> {successMsg}
@@ -194,11 +194,11 @@ export default function AssignIncident() {
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Class <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1">Class <span className="text-red-500">*</span></label>
               <select
                 value={form.class_id}
                 onChange={e => handleClassChange(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               >
                 <option value="">Select Class</option>
                 {classes.map(c => (
@@ -208,12 +208,12 @@ export default function AssignIncident() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Student <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1">Student <span className="text-red-500">*</span></label>
               <select
                 value={form.student_id}
                 onChange={e => setForm(prev => ({ ...prev, student_id: e.target.value }))}
                 disabled={!form.class_id || loadingStudents}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:bg-gray-50 disabled:text-gray-400"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:bg-app-surface-alt disabled:text-app-text-muted"
               >
                 <option value="">{loadingStudents ? 'Loading...' : 'Select Student'}</option>
                 {students.map(s => (
@@ -223,11 +223,11 @@ export default function AssignIncident() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Incident Type <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1">Incident Type <span className="text-red-500">*</span></label>
               <select
                 value={form.incident_id}
                 onChange={e => setForm(prev => ({ ...prev, incident_id: e.target.value }))}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               >
                 <option value="">Select Incident Type</option>
                 {incidentTypes.map(i => (
@@ -237,45 +237,45 @@ export default function AssignIncident() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Incident Date <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1">Incident Date <span className="text-red-500">*</span></label>
               <input
                 type="date"
                 value={form.incident_date}
                 onChange={e => setForm(prev => ({ ...prev, incident_date: e.target.value }))}
                 max={new Date().toISOString().slice(0, 10)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Description of Incident</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Description of Incident</label>
             <textarea
               value={form.description}
               onChange={e => setForm(prev => ({ ...prev, description: e.target.value }))}
               rows={3}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
               placeholder="Describe what happened..."
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Action Taken</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Action Taken</label>
             <textarea
               value={form.action_taken}
               onChange={e => setForm(prev => ({ ...prev, action_taken: e.target.value }))}
               rows={2}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
               placeholder="Describe the action taken..."
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Status</label>
             <select
               value={form.status}
               onChange={e => setForm(prev => ({ ...prev, status: e.target.value as any }))}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             >
               <option value="pending">Pending</option>
               <option value="resolved">Resolved</option>
@@ -297,39 +297,39 @@ export default function AssignIncident() {
       </div>
 
       <div>
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">Recent Incidents</h2>
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <h2 className="text-lg font-semibold text-app-text mb-4">Recent Incidents</h2>
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
           {recentRecords.length === 0 ? (
-            <div className="text-center py-10 text-gray-400 text-sm">No recent incident records found</div>
+            <div className="text-center py-10 text-app-text-muted text-sm">No recent incident records found</div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-100">
-                <thead className="bg-gray-50">
+              <table className="min-w-full divide-y divide-app-border">
+                <thead className="bg-app-surface-alt">
                   <tr>
-                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Student</th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Class</th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Incident</th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Severity</th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Date</th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Student</th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Class</th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Incident</th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Severity</th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Date</th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-app-border">
                   {recentRecords.map(record => {
                     const student = Array.isArray(record.student) ? record.student[0] : record.student;
                     const incident = Array.isArray(record.incident) ? record.incident[0] : record.incident;
                     const cls = Array.isArray(record.class) ? record.class[0] : record.class;
 
                     return (
-                      <tr key={record.id} className="hover:bg-gray-50 transition-colors">
-                        <td className="px-4 py-3 text-sm font-medium text-gray-800">
+                      <tr key={record.id} className="hover:bg-app-surface-alt transition-colors">
+                        <td className="px-4 py-3 text-sm font-medium text-app-text">
                           {student ? `${student.first_name} ${student.last_name}` : '—'}
-                          {student?.admission_number && <span className="block text-xs text-gray-400">{student.admission_number}</span>}
+                          {student?.admission_number && <span className="block text-xs text-app-text-muted">{student.admission_number}</span>}
                         </td>
-                        <td className="px-4 py-3 text-sm text-gray-600">{cls?.name || '—'}</td>
-                        <td className="px-4 py-3 text-sm text-gray-700">{incident?.name || '—'}</td>
+                        <td className="px-4 py-3 text-sm text-app-text-muted">{cls?.name || '—'}</td>
+                        <td className="px-4 py-3 text-sm text-app-text">{incident?.name || '—'}</td>
                         <td className="px-4 py-3">{incident ? severityBadge(incident.severity) : '—'}</td>
-                        <td className="px-4 py-3 text-sm text-gray-600">{new Date(record.incident_date).toLocaleDateString()}</td>
+                        <td className="px-4 py-3 text-sm text-app-text-muted">{new Date(record.incident_date).toLocaleDateString()}</td>
                         <td className="px-4 py-3">{statusBadge(record.status)}</td>
                       </tr>
                     );

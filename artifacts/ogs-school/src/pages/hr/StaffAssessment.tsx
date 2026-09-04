@@ -158,7 +158,7 @@ const OPEN_QUESTIONS = [
 const RATING_LABELS = ['', 'Needs support', 'Developing', 'Competent', 'Strong', 'Exemplary'];
 
 const STATUS_CONFIG: Record<AssessmentStatus, { label: string; color: string; icon: React.ElementType }> = {
-  draft:          { label: 'Draft',       color: 'bg-slate-100 text-slate-600',   icon: Clock },
+  draft:          { label: 'Draft',       color: 'bg-slate-100 text-app-text-muted',   icon: Clock },
   self_submitted: { label: 'Submitted',   color: 'bg-blue-100 text-blue-700',     icon: Send },
   reviewed:       { label: 'Reviewed',    color: 'bg-amber-100 text-amber-700',   icon: Eye },
   completed:      { label: 'Completed',   color: 'bg-emerald-100 text-emerald-700', icon: CheckCircle },
@@ -174,7 +174,7 @@ const DETERMINATION_OPTIONS: { value: Determination; label: string; desc: string
 const TERM_LABELS: Record<number, string> = { 1: 'First Term', 2: 'Second Term', 3: 'Third Term' };
 const TERM_SHORT: Record<number, string>  = { 1: '1st Term', 2: '2nd Term', 3: '3rd Term' };
 
-const INPUT  = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT  = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 const TEXTAREA = INPUT + ' resize-y min-h-[90px]';
 
 const SETUP_SQL = `create table if not exists public.staff_assessments (
@@ -257,7 +257,7 @@ function RatingPicker({ value, onChange, disabled }: { value: number; onChange: 
           onClick={() => onChange(v)}
           title={RATING_LABELS[v]}
           className={`w-8 h-8 rounded-lg border text-xs font-bold transition-all disabled:opacity-50 ${
-            value === v ? colors[v] + ' border-current shadow-sm' : 'border-slate-200 text-slate-400 hover:border-slate-400'
+            value === v ? colors[v] + ' border-current shadow-sm' : 'border-app-border text-app-text-muted hover:border-slate-400'
           }`}
         >{v}</button>
       ))}
@@ -279,36 +279,36 @@ function SectionCard({ section, ratings, onChange, readOnly }: {
   const [open, setOpen] = useState(true);
   const avg = sectionAvg(ratings);
   return (
-    <div className="border border-slate-200 rounded-2xl overflow-hidden">
+    <div className="border border-app-border rounded-2xl overflow-hidden">
       <button
         type="button"
-        className="w-full flex items-center justify-between px-5 py-4 bg-slate-50 hover:bg-slate-100 transition-colors text-left"
+        className="w-full flex items-center justify-between px-5 py-4 bg-app-surface-alt hover:bg-slate-100 transition-colors text-left"
         onClick={() => setOpen(p => !p)}
       >
         <div className="flex items-center gap-3">
           <span className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 text-sm font-bold flex items-center justify-center shrink-0">{section.id}</span>
-          <span className="font-semibold text-slate-800 text-sm">{section.title}</span>
+          <span className="font-semibold text-app-text text-sm">{section.title}</span>
         </div>
         <div className="flex items-center gap-3">
           {avg !== null && (
-            <span className="text-xs font-medium text-slate-500">Avg <ScoreBadge score={avg} /></span>
+            <span className="text-xs font-medium text-app-text-muted">Avg <ScoreBadge score={avg} /></span>
           )}
-          {open ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+          {open ? <ChevronUp className="w-4 h-4 text-app-text-muted" /> : <ChevronDown className="w-4 h-4 text-app-text-muted" />}
         </div>
       </button>
       {open && (
-        <div className="divide-y divide-slate-100">
+        <div className="divide-y divide-app-border">
           <div className="px-5 py-2 grid grid-cols-[1fr_auto] gap-4 items-center">
-            <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">Competency Statement</span>
-            <div className="flex gap-1 text-xs text-slate-400 font-medium">
+            <span className="text-xs font-medium text-app-text-muted uppercase tracking-wide">Competency Statement</span>
+            <div className="flex gap-1 text-xs text-app-text-muted font-medium">
               {[1,2,3,4,5].map(v => (
                 <span key={v} className="w-8 text-center" title={RATING_LABELS[v]}>{v}</span>
               ))}
             </div>
           </div>
           {section.items.map((item, idx) => (
-            <div key={idx} className="px-5 py-3.5 grid grid-cols-[1fr_auto] gap-4 items-center hover:bg-slate-50/50">
-              <p className="text-sm text-slate-700 leading-relaxed">{item}</p>
+            <div key={idx} className="px-5 py-3.5 grid grid-cols-[1fr_auto] gap-4 items-center hover:bg-app-surface-alt/50">
+              <p className="text-sm text-app-text leading-relaxed">{item}</p>
               <RatingPicker value={ratings[idx] ?? 0} onChange={v => onChange(idx, v)} disabled={readOnly} />
             </div>
           ))}
@@ -656,7 +656,7 @@ export default function StaffAssessment() {
         <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
           <AlertTriangle className="w-5 h-5 text-amber-600" />
         </div>
-        <h1 className="text-2xl font-bold text-slate-800">Staff Assessment</h1>
+        <h1 className="text-2xl font-bold text-app-text">Staff Assessment</h1>
       </div>
       <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 space-y-3">
         <p className="font-semibold text-amber-800">Database table not set up yet</p>
@@ -688,8 +688,8 @@ export default function StaffAssessment() {
             <ClipboardList className="w-5 h-5 text-emerald-600" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-slate-800">Staff Assessment</h1>
-            <p className="text-sm text-slate-500">
+            <h1 className="text-2xl font-bold text-app-text">Staff Assessment</h1>
+            <p className="text-sm text-app-text-muted">
               {filterTerm && currentYearName
                 ? `${TERM_LABELS[Number(filterTerm)]} · ${currentYearName}`
                 : filterTerm
@@ -713,15 +713,15 @@ export default function StaffAssessment() {
       {isAdmin && (
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
           {[
-            { label: 'Total',     val: stats.total,     color: 'text-slate-700', bg: 'bg-slate-50' },
-            { label: 'Draft',     val: stats.draft,     color: 'text-slate-600', bg: 'bg-slate-50' },
+            { label: 'Total',     val: stats.total,     color: 'text-app-text', bg: 'bg-app-surface-alt' },
+            { label: 'Draft',     val: stats.draft,     color: 'text-app-text-muted', bg: 'bg-app-surface-alt' },
             { label: 'Submitted', val: stats.submitted, color: 'text-blue-700',  bg: 'bg-blue-50' },
             { label: 'Reviewed',  val: stats.reviewed,  color: 'text-amber-700', bg: 'bg-amber-50' },
             { label: 'Completed', val: stats.completed, color: 'text-emerald-700', bg: 'bg-emerald-50' },
           ].map(c => (
-            <div key={c.label} className={`${c.bg} rounded-2xl p-4 text-center border border-slate-100`}>
+            <div key={c.label} className={`${c.bg} rounded-2xl p-4 text-center border border-app-border`}>
               <p className={`text-2xl font-bold ${c.color}`}>{c.val}</p>
-              <p className="text-xs text-slate-500 mt-0.5">{c.label}</p>
+              <p className="text-xs text-app-text-muted mt-0.5">{c.label}</p>
             </div>
           ))}
         </div>
@@ -756,7 +756,7 @@ export default function StaffAssessment() {
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${tab === t ? 'bg-white shadow-sm text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${tab === t ? 'bg-app-surface shadow-sm text-app-text' : 'text-app-text-muted hover:text-app-text'}`}
             >
               {t === 'list' ? 'All Assessments' : 'My Assessment'}
             </button>
@@ -765,30 +765,30 @@ export default function StaffAssessment() {
       )}
 
       {loading ? (
-        <div className="bg-white rounded-2xl border border-slate-200 py-16 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border py-16 text-center">
           <RefreshCw className="w-8 h-8 text-slate-300 animate-spin mx-auto mb-3" />
-          <p className="text-slate-400 text-sm">Loading assessments…</p>
+          <p className="text-app-text-muted text-sm">Loading assessments…</p>
         </div>
       ) : tab === 'list' && isAdmin ? (
 
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-          <div className="p-4 border-b border-slate-100 flex flex-wrap gap-3">
+        <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
+          <div className="p-4 border-b border-app-border flex flex-wrap gap-3">
             <input
               value={search} onChange={e => setSearch(e.target.value)}
               placeholder="Search by name…"
-              className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-44"
+              className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-44"
             />
-            <select value={filterTerm} onChange={e => setFilterTerm(e.target.value)} className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+            <select value={filterTerm} onChange={e => setFilterTerm(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
               <option value="">All Terms</option>
               <option value="1">First Term</option>
               <option value="2">Second Term</option>
               <option value="3">Third Term</option>
             </select>
-            <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+            <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
               <option value="">All Statuses</option>
               {Object.entries(STATUS_CONFIG).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
             </select>
-            <select value={filterType} onChange={e => setFilterType(e.target.value)} className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+            <select value={filterType} onChange={e => setFilterType(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
               <option value="">All Staff Types</option>
               <option value="teaching">Teaching</option>
               <option value="non_teaching">Non-Teaching</option>
@@ -797,16 +797,16 @@ export default function StaffAssessment() {
           {filtered.length === 0 ? (
             <div className="py-16 text-center">
               <Users className="w-12 h-12 text-slate-200 mx-auto mb-3" />
-              <p className="text-slate-400 text-sm">No assessments found</p>
+              <p className="text-app-text-muted text-sm">No assessments found</p>
               <p className="text-slate-300 text-xs mt-1">Click "Initiate Assessment Round" to create assessments for all active staff.</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead className="bg-slate-50 border-b border-slate-100">
+                <thead className="bg-app-surface-alt border-b border-app-border">
                   <tr>
                     {['Staff Member','Term · Session','Type','Status','Self Score','Reviewer Score','Actions'].map(h => (
-                      <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">{h}</th>
+                      <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide">{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -816,23 +816,23 @@ export default function StaffAssessment() {
                     const selfAvg = overallSelfAvg(a.self_data);
                     const revAvg = overallReviewerAvg(a.reviewer_data);
                     return (
-                      <tr key={a.id} className="hover:bg-slate-50/60 transition-colors">
+                      <tr key={a.id} className="hover:bg-app-surface-alt/60 transition-colors">
                         <td className="px-4 py-3">
-                          <div className="font-medium text-slate-800">{sp ? fullName(sp) : a.staff_id.slice(0,8)}</div>
-                          <div className="text-xs text-slate-400 capitalize">{sp?.role?.replace(/_/g, ' ')}</div>
+                          <div className="font-medium text-app-text">{sp ? fullName(sp) : a.staff_id.slice(0,8)}</div>
+                          <div className="text-xs text-app-text-muted capitalize">{sp?.role?.replace(/_/g, ' ')}</div>
                         </td>
                         <td className="px-4 py-3">
                           {a.term ? (
                             <div>
                               <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-indigo-50 text-indigo-700">{TERM_SHORT[a.term]}</span>
-                              {currentYearName && <div className="text-[11px] text-slate-400 mt-0.5">{currentYearName}</div>}
+                              {currentYearName && <div className="text-[11px] text-app-text-muted mt-0.5">{currentYearName}</div>}
                             </div>
                           ) : (
                             <span className="text-slate-300 text-xs">—</span>
                           )}
                         </td>
                         <td className="px-4 py-3">
-                          <span className={`px-2 py-0.5 rounded-md text-xs font-medium ${a.staff_type === 'teaching' ? 'bg-blue-50 text-blue-700' : 'bg-slate-100 text-slate-600'}`}>
+                          <span className={`px-2 py-0.5 rounded-md text-xs font-medium ${a.staff_type === 'teaching' ? 'bg-blue-50 text-blue-700' : 'bg-slate-100 text-app-text-muted'}`}>
                             {a.staff_type === 'teaching' ? 'Teaching' : 'Non-Teaching'}
                           </span>
                         </td>
@@ -852,7 +852,7 @@ export default function StaffAssessment() {
                               </button>
                             )}
                             {a.status !== 'draft' && !canReviewSection5(a) && !canReviewSection6(a) && (
-                              <button onClick={() => openReview(a)} className="flex items-center gap-1.5 text-xs font-medium text-slate-600 hover:text-slate-700 px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors">
+                              <button onClick={() => openReview(a)} className="flex items-center gap-1.5 text-xs font-medium text-app-text-muted hover:text-app-text px-3 py-1.5 rounded-lg bg-app-surface-alt hover:bg-slate-100 transition-colors">
                                 <Eye className="w-3.5 h-3.5" /> View
                               </button>
                             )}
@@ -870,12 +870,12 @@ export default function StaffAssessment() {
       ) : (
 
         myAssessment === null ? (
-          <div className="bg-white rounded-2xl border border-slate-200 py-20 text-center px-6">
+          <div className="bg-app-surface rounded-2xl border border-app-border py-20 text-center px-6">
             <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4">
               <ClipboardList className="w-8 h-8 text-emerald-400" />
             </div>
-            <h3 className="text-lg font-bold text-slate-800 mb-2">No Assessment Started</h3>
-            <p className="text-slate-500 text-sm max-w-sm mx-auto mb-5">Your Professional Development Assessment for 2026 hasn't been created yet. Click below to begin.</p>
+            <h3 className="text-lg font-bold text-app-text mb-2">No Assessment Started</h3>
+            <p className="text-app-text-muted text-sm max-w-sm mx-auto mb-5">Your Professional Development Assessment for 2026 hasn't been created yet. Click below to begin.</p>
             <button onClick={createMyAssessment} className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors">
               Start My Assessment
             </button>
@@ -885,7 +885,7 @@ export default function StaffAssessment() {
             <div className="flex items-center justify-between flex-wrap gap-3">
               <div className="flex items-center gap-3">
                 <StatusBadge status={myAssessment.status} />
-                <span className="text-sm text-slate-500 capitalize">{myAssessment.staff_type === 'teaching' ? 'Teaching Staff Assessment' : 'Non-Teaching Staff Assessment'}</span>
+                <span className="text-sm text-app-text-muted capitalize">{myAssessment.staff_type === 'teaching' ? 'Teaching Staff Assessment' : 'Non-Teaching Staff Assessment'}</span>
               </div>
               {!myCanEdit && myAssessment.status !== 'completed' && (
                 <div className="flex items-center gap-2 text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2">
@@ -895,51 +895,51 @@ export default function StaffAssessment() {
               )}
             </div>
 
-            <div className="bg-white rounded-2xl border border-slate-200 p-5">
-              <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2">
-                <span className="w-6 h-6 bg-slate-100 rounded-md text-xs font-bold text-slate-600 flex items-center justify-center">1</span>
+            <div className="bg-app-surface rounded-2xl border border-app-border p-5">
+              <h3 className="font-semibold text-app-text mb-4 flex items-center gap-2">
+                <span className="w-6 h-6 bg-slate-100 rounded-md text-xs font-bold text-app-text-muted flex items-center justify-center">1</span>
                 Your Details
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {myAssessment.staff_type === 'teaching' ? (
                   <>
                     <div>
-                      <label className="block text-xs font-medium text-slate-500 mb-1">Subject(s) Taught</label>
+                      <label className="block text-xs font-medium text-app-text-muted mb-1">Subject(s) Taught</label>
                       <input className={INPUT} disabled={!myCanEdit} value={selfData.section1.subjects ?? ''} onChange={e => setSelfData(p => ({ ...p, section1: { ...p.section1, subjects: e.target.value } }))} placeholder="e.g. Mathematics, Physics" />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-slate-500 mb-1">Class(es) / Level</label>
+                      <label className="block text-xs font-medium text-app-text-muted mb-1">Class(es) / Level</label>
                       <input className={INPUT} disabled={!myCanEdit} value={selfData.section1.classes ?? ''} onChange={e => setSelfData(p => ({ ...p, section1: { ...p.section1, classes: e.target.value } }))} placeholder="e.g. SS1A, SS2B" />
                     </div>
                   </>
                 ) : (
                   <>
                     <div>
-                      <label className="block text-xs font-medium text-slate-500 mb-1">Role / Department</label>
+                      <label className="block text-xs font-medium text-app-text-muted mb-1">Role / Department</label>
                       <input className={INPUT} disabled={!myCanEdit} value={selfData.section1.role ?? ''} onChange={e => setSelfData(p => ({ ...p, section1: { ...p.section1, role: e.target.value } }))} placeholder="e.g. School Secretary" />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-slate-500 mb-1">Reports To</label>
+                      <label className="block text-xs font-medium text-app-text-muted mb-1">Reports To</label>
                       <input className={INPUT} disabled={!myCanEdit} value={selfData.section1.reports_to ?? ''} onChange={e => setSelfData(p => ({ ...p, section1: { ...p.section1, reports_to: e.target.value } }))} placeholder="e.g. Vice Principal (Admin)" />
                     </div>
                   </>
                 )}
                 <div>
-                  <label className="block text-xs font-medium text-slate-500 mb-1">Years of Service</label>
+                  <label className="block text-xs font-medium text-app-text-muted mb-1">Years of Service</label>
                   <input className={INPUT} disabled={!myCanEdit} value={selfData.section1.years_at_ogs ?? ''} onChange={e => setSelfData(p => ({ ...p, section1: { ...p.section1, years_at_ogs: e.target.value } }))} placeholder="e.g. 7" />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-500 mb-1">Date</label>
+                  <label className="block text-xs font-medium text-app-text-muted mb-1">Date</label>
                   <input type="date" className={INPUT} disabled={!myCanEdit} value={selfData.section1.date ?? ''} onChange={e => setSelfData(p => ({ ...p, section1: { ...p.section1, date: e.target.value } }))} />
                 </div>
               </div>
             </div>
 
             <div className="space-y-3">
-              <h3 className="font-semibold text-slate-800 flex items-center gap-2">
-                <span className="w-6 h-6 bg-slate-100 rounded-md text-xs font-bold text-slate-600 flex items-center justify-center">2</span>
+              <h3 className="font-semibold text-app-text flex items-center gap-2">
+                <span className="w-6 h-6 bg-slate-100 rounded-md text-xs font-bold text-app-text-muted flex items-center justify-center">2</span>
                 Self-Rating
-                <span className="text-xs text-slate-400 font-normal">1 = Needs support · 5 = Exemplary</span>
+                <span className="text-xs text-app-text-muted font-normal">1 = Needs support · 5 = Exemplary</span>
               </h3>
               {currentSections.map(section => (
                 <SectionCard
@@ -952,14 +952,14 @@ export default function StaffAssessment() {
               ))}
             </div>
 
-            <div className="bg-white rounded-2xl border border-slate-200 p-5 space-y-4">
-              <h3 className="font-semibold text-slate-800 flex items-center gap-2">
-                <span className="w-6 h-6 bg-slate-100 rounded-md text-xs font-bold text-slate-600 flex items-center justify-center">3</span>
+            <div className="bg-app-surface rounded-2xl border border-app-border p-5 space-y-4">
+              <h3 className="font-semibold text-app-text flex items-center gap-2">
+                <span className="w-6 h-6 bg-slate-100 rounded-md text-xs font-bold text-app-text-muted flex items-center justify-center">3</span>
                 In Your Own Words
               </h3>
               {OPEN_QUESTIONS.map((q, i) => (
                 <div key={i}>
-                  <label className="block text-sm font-medium text-slate-700 mb-1.5">{i+1}. {q}</label>
+                  <label className="block text-sm font-medium text-app-text mb-1.5">{i+1}. {q}</label>
                   <textarea
                     className={TEXTAREA}
                     disabled={!myCanEdit}
@@ -979,7 +979,7 @@ export default function StaffAssessment() {
 
             {myCanEdit && (
               <div className="flex items-center justify-end gap-3">
-                <button onClick={() => saveSelf(false)} disabled={selfSaving} className="px-5 py-2.5 rounded-xl border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors disabled:opacity-50">
+                <button onClick={() => saveSelf(false)} disabled={selfSaving} className="px-5 py-2.5 rounded-xl border border-app-border text-sm font-medium text-app-text-muted hover:bg-app-surface-alt transition-colors disabled:opacity-50">
                   {selfSaving ? 'Saving…' : 'Save Draft'}
                 </button>
                 <button onClick={() => saveSelf(true)} disabled={selfSaving} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
@@ -998,7 +998,7 @@ export default function StaffAssessment() {
                     </h3>
                     <div className="grid grid-cols-5 gap-2">
                       {['A','B','C','D','E'].map(k => (
-                        <div key={k} className="text-center bg-white rounded-xl p-3 border border-amber-100">
+                        <div key={k} className="text-center bg-app-surface rounded-xl p-3 border border-amber-100">
                           <p className="text-xs font-semibold text-amber-700 mb-1">Section {k}</p>
                           <ScoreBadge score={myAssessment.reviewer_data!.ratings[k] ?? null} />
                         </div>
@@ -1026,25 +1026,25 @@ export default function StaffAssessment() {
 
       {initiateModalOpen && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-5">
+          <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-5">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="font-bold text-slate-800 text-lg">Initiate Assessment Round</h2>
-                <p className="text-xs text-slate-400 mt-0.5">Creates a draft assessment for every active staff member</p>
+                <h2 className="font-bold text-app-text text-lg">Initiate Assessment Round</h2>
+                <p className="text-xs text-app-text-muted mt-0.5">Creates a draft assessment for every active staff member</p>
               </div>
               <button onClick={() => setInitiateModalOpen(false)} className="p-2 hover:bg-slate-100 rounded-xl transition-colors">
-                <X className="w-5 h-5 text-slate-400" />
+                <X className="w-5 h-5 text-app-text-muted" />
               </button>
             </div>
 
-            <div className="bg-slate-50 rounded-xl p-4 space-y-1">
-              <p className="text-xs font-medium text-slate-500">Academic Session</p>
-              <p className="font-semibold text-slate-800">{currentYearName || 'Current Academic Year'}</p>
-              <p className="text-xs text-slate-400">To change the year, update the current year in System Settings → Academic Years.</p>
+            <div className="bg-app-surface-alt rounded-xl p-4 space-y-1">
+              <p className="text-xs font-medium text-app-text-muted">Academic Session</p>
+              <p className="font-semibold text-app-text">{currentYearName || 'Current Academic Year'}</p>
+              <p className="text-xs text-app-text-muted">To change the year, update the current year in System Settings → Academic Years.</p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Select Term</label>
+              <label className="block text-sm font-medium text-app-text mb-2">Select Term</label>
               <div className="grid grid-cols-3 gap-2">
                 {([1, 2, 3] as const).map(t => (
                   <button
@@ -1054,7 +1054,7 @@ export default function StaffAssessment() {
                     className={`py-3 rounded-xl border-2 text-sm font-semibold transition-all ${
                       initiateForm.term === String(t)
                         ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
-                        : 'border-slate-200 text-slate-500 hover:border-slate-300'
+                        : 'border-app-border text-app-text-muted hover:border-app-border'
                     }`}
                   >
                     {TERM_LABELS[t]}
@@ -1072,7 +1072,7 @@ export default function StaffAssessment() {
             <div className="flex items-center justify-end gap-3 pt-1">
               <button
                 onClick={() => setInitiateModalOpen(false)}
-                className="px-5 py-2.5 rounded-xl border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors"
+                className="px-5 py-2.5 rounded-xl border border-app-border text-sm font-medium text-app-text-muted hover:bg-app-surface-alt transition-colors"
               >
                 Cancel
               </button>
@@ -1091,14 +1091,14 @@ export default function StaffAssessment() {
 
       {reviewTarget && (
         <div className="fixed inset-0 bg-black/50 z-50 overflow-y-auto flex justify-end">
-          <div className="bg-white w-full max-w-2xl min-h-full shadow-2xl flex flex-col">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 sticky top-0 bg-white z-10">
+          <div className="bg-app-surface w-full max-w-2xl min-h-full shadow-2xl flex flex-col">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-app-border sticky top-0 bg-app-surface z-10">
               <div>
-                <h2 className="font-bold text-slate-800">{staffMap[reviewTarget.staff_id] ? fullName(staffMap[reviewTarget.staff_id]) : 'Assessment'}</h2>
-                <p className="text-xs text-slate-500 capitalize">{reviewTarget.staff_type === 'teaching' ? 'Teaching Staff' : 'Non-Teaching Staff'} · <StatusBadge status={reviewTarget.status} /></p>
+                <h2 className="font-bold text-app-text">{staffMap[reviewTarget.staff_id] ? fullName(staffMap[reviewTarget.staff_id]) : 'Assessment'}</h2>
+                <p className="text-xs text-app-text-muted capitalize">{reviewTarget.staff_type === 'teaching' ? 'Teaching Staff' : 'Non-Teaching Staff'} · <StatusBadge status={reviewTarget.status} /></p>
               </div>
               <button onClick={() => { setReviewTarget(null); setDataEntryMode(false); setDataEntryMsg(''); }} className="p-2 hover:bg-slate-100 rounded-xl transition-colors">
-                <X className="w-5 h-5 text-slate-400" />
+                <X className="w-5 h-5 text-app-text-muted" />
               </button>
             </div>
 
@@ -1113,41 +1113,41 @@ export default function StaffAssessment() {
                   </div>
 
                   {/* Section 1 */}
-                  <div className="bg-white rounded-2xl border border-slate-200 p-5">
-                    <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2">
-                      <span className="w-6 h-6 bg-slate-100 rounded-md text-xs font-bold text-slate-600 flex items-center justify-center">1</span>
+                  <div className="bg-app-surface rounded-2xl border border-app-border p-5">
+                    <h3 className="font-semibold text-app-text mb-4 flex items-center gap-2">
+                      <span className="w-6 h-6 bg-slate-100 rounded-md text-xs font-bold text-app-text-muted flex items-center justify-center">1</span>
                       Staff Details
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {reviewTarget.staff_type === 'teaching' ? (
                         <>
                           <div>
-                            <label className="block text-xs font-medium text-slate-500 mb-1">Subject(s) Taught</label>
+                            <label className="block text-xs font-medium text-app-text-muted mb-1">Subject(s) Taught</label>
                             <input className={INPUT} value={dataEntrySelfData.section1.subjects ?? ''} onChange={e => setDataEntrySelfData(p => ({ ...p, section1: { ...p.section1, subjects: e.target.value } }))} placeholder="e.g. Mathematics, Physics" />
                           </div>
                           <div>
-                            <label className="block text-xs font-medium text-slate-500 mb-1">Class(es) / Level</label>
+                            <label className="block text-xs font-medium text-app-text-muted mb-1">Class(es) / Level</label>
                             <input className={INPUT} value={dataEntrySelfData.section1.classes ?? ''} onChange={e => setDataEntrySelfData(p => ({ ...p, section1: { ...p.section1, classes: e.target.value } }))} placeholder="e.g. SS1A, SS2B" />
                           </div>
                         </>
                       ) : (
                         <>
                           <div>
-                            <label className="block text-xs font-medium text-slate-500 mb-1">Role / Department</label>
+                            <label className="block text-xs font-medium text-app-text-muted mb-1">Role / Department</label>
                             <input className={INPUT} value={dataEntrySelfData.section1.role ?? ''} onChange={e => setDataEntrySelfData(p => ({ ...p, section1: { ...p.section1, role: e.target.value } }))} placeholder="e.g. School Secretary" />
                           </div>
                           <div>
-                            <label className="block text-xs font-medium text-slate-500 mb-1">Reports To</label>
+                            <label className="block text-xs font-medium text-app-text-muted mb-1">Reports To</label>
                             <input className={INPUT} value={dataEntrySelfData.section1.reports_to ?? ''} onChange={e => setDataEntrySelfData(p => ({ ...p, section1: { ...p.section1, reports_to: e.target.value } }))} placeholder="e.g. Vice Principal (Admin)" />
                           </div>
                         </>
                       )}
                       <div>
-                        <label className="block text-xs font-medium text-slate-500 mb-1">Years of Service</label>
+                        <label className="block text-xs font-medium text-app-text-muted mb-1">Years of Service</label>
                         <input className={INPUT} value={dataEntrySelfData.section1.years_at_ogs ?? ''} onChange={e => setDataEntrySelfData(p => ({ ...p, section1: { ...p.section1, years_at_ogs: e.target.value } }))} placeholder="e.g. 7" />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-slate-500 mb-1">Date</label>
+                        <label className="block text-xs font-medium text-app-text-muted mb-1">Date</label>
                         <input type="date" className={INPUT} value={dataEntrySelfData.section1.date ?? ''} onChange={e => setDataEntrySelfData(p => ({ ...p, section1: { ...p.section1, date: e.target.value } }))} />
                       </div>
                     </div>
@@ -1155,10 +1155,10 @@ export default function StaffAssessment() {
 
                   {/* Section 2 */}
                   <div className="space-y-3">
-                    <h3 className="font-semibold text-slate-800 flex items-center gap-2">
-                      <span className="w-6 h-6 bg-slate-100 rounded-md text-xs font-bold text-slate-600 flex items-center justify-center">2</span>
+                    <h3 className="font-semibold text-app-text flex items-center gap-2">
+                      <span className="w-6 h-6 bg-slate-100 rounded-md text-xs font-bold text-app-text-muted flex items-center justify-center">2</span>
                       Self-Rating
-                      <span className="text-xs text-slate-400 font-normal">1 = Needs support · 5 = Exemplary</span>
+                      <span className="text-xs text-app-text-muted font-normal">1 = Needs support · 5 = Exemplary</span>
                     </h3>
                     {getSections(reviewTarget.staff_type).map(section => (
                       <SectionCard
@@ -1172,14 +1172,14 @@ export default function StaffAssessment() {
                   </div>
 
                   {/* Section 3 */}
-                  <div className="bg-white rounded-2xl border border-slate-200 p-5 space-y-4">
-                    <h3 className="font-semibold text-slate-800 flex items-center gap-2">
-                      <span className="w-6 h-6 bg-slate-100 rounded-md text-xs font-bold text-slate-600 flex items-center justify-center">3</span>
+                  <div className="bg-app-surface rounded-2xl border border-app-border p-5 space-y-4">
+                    <h3 className="font-semibold text-app-text flex items-center gap-2">
+                      <span className="w-6 h-6 bg-slate-100 rounded-md text-xs font-bold text-app-text-muted flex items-center justify-center">3</span>
                       In Their Own Words
                     </h3>
                     {OPEN_QUESTIONS.map((q, i) => (
                       <div key={i}>
-                        <label className="block text-sm font-medium text-slate-700 mb-1.5">{i+1}. {q}</label>
+                        <label className="block text-sm font-medium text-app-text mb-1.5">{i+1}. {q}</label>
                         <textarea
                           className={TEXTAREA}
                           value={dataEntrySelfData.questions[`q${i+1}`] ?? ''}
@@ -1201,13 +1201,13 @@ export default function StaffAssessment() {
               /* ── NORMAL REVIEW MODE ─────────────────────────────────────── */
               reviewTarget.self_data && (
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-slate-700 text-sm uppercase tracking-wide">Staff Self-Assessment</h3>
+                  <h3 className="font-semibold text-app-text text-sm uppercase tracking-wide">Staff Self-Assessment</h3>
                   {reviewTarget.self_data.section1 && Object.keys(reviewTarget.self_data.section1).length > 0 && (
                     <div className="grid grid-cols-2 gap-3">
                       {Object.entries(reviewTarget.self_data.section1).map(([k, v]) => v ? (
-                        <div key={k} className="bg-slate-50 rounded-xl p-3">
-                          <p className="text-xs text-slate-400 capitalize">{k.replace(/_/g, ' ')}</p>
-                          <p className="text-sm font-medium text-slate-700">{v}</p>
+                        <div key={k} className="bg-app-surface-alt rounded-xl p-3">
+                          <p className="text-xs text-app-text-muted capitalize">{k.replace(/_/g, ' ')}</p>
+                          <p className="text-sm font-medium text-app-text">{v}</p>
                         </div>
                       ) : null)}
                     </div>
@@ -1217,10 +1217,10 @@ export default function StaffAssessment() {
                       const ratings = reviewTarget.self_data?.ratings[s.id] ?? [];
                       const avg = sectionAvg(ratings);
                       return (
-                        <div key={s.id} className="text-center bg-slate-50 rounded-xl p-3 border border-slate-100">
-                          <p className="text-xs font-semibold text-slate-600 mb-1">{s.id}</p>
+                        <div key={s.id} className="text-center bg-app-surface-alt rounded-xl p-3 border border-app-border">
+                          <p className="text-xs font-semibold text-app-text-muted mb-1">{s.id}</p>
                           <ScoreBadge score={avg} />
-                          <p className="text-[10px] text-slate-400 mt-0.5 leading-tight">{s.title.split(' ').slice(0,2).join(' ')}</p>
+                          <p className="text-[10px] text-app-text-muted mt-0.5 leading-tight">{s.title.split(' ').slice(0,2).join(' ')}</p>
                         </div>
                       );
                     })}
@@ -1231,9 +1231,9 @@ export default function StaffAssessment() {
                         const ans = reviewTarget.self_data?.questions[`q${i+1}`];
                         if (!ans) return null;
                         return (
-                          <div key={i} className="bg-slate-50 rounded-xl p-4">
-                            <p className="text-xs font-medium text-slate-500 mb-1.5">{q}</p>
-                            <p className="text-sm text-slate-700 whitespace-pre-wrap">{ans}</p>
+                          <div key={i} className="bg-app-surface-alt rounded-xl p-4">
+                            <p className="text-xs font-medium text-app-text-muted mb-1.5">{q}</p>
+                            <p className="text-sm text-app-text whitespace-pre-wrap">{ans}</p>
                           </div>
                         );
                       })}
@@ -1245,31 +1245,31 @@ export default function StaffAssessment() {
 
               {canReviewSection5(reviewTarget) && (
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-slate-800 flex items-center gap-2">
+                  <h3 className="font-semibold text-app-text flex items-center gap-2">
                     <span className="text-amber-600">Section 5</span> — {reviewTarget.staff_type === 'teaching' ? 'HOD' : 'Supervisor'} Review
                   </h3>
-                  <p className="text-xs text-slate-400">1 = Needs support · 2 = Developing · 3 = Competent · 4 = Strong · 5 = Exemplary</p>
+                  <p className="text-xs text-app-text-muted">1 = Needs support · 2 = Developing · 3 = Competent · 4 = Strong · 5 = Exemplary</p>
                   {getSections(reviewTarget.staff_type).map(s => (
-                    <div key={s.id} className="flex items-center justify-between gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <div key={s.id} className="flex items-center justify-between gap-4 p-4 bg-app-surface-alt rounded-xl border border-app-border">
                       <div>
-                        <p className="text-sm font-medium text-slate-700">{s.id}. {s.title}</p>
+                        <p className="text-sm font-medium text-app-text">{s.id}. {s.title}</p>
                         {reviewTarget.self_data?.ratings[s.id] && (
-                          <p className="text-xs text-slate-400">Self avg: {sectionAvg(reviewTarget.self_data.ratings[s.id]) ?? '—'}</p>
+                          <p className="text-xs text-app-text-muted">Self avg: {sectionAvg(reviewTarget.self_data.ratings[s.id]) ?? '—'}</p>
                         )}
                       </div>
                       <RatingPicker value={reviewData.ratings[s.id] ?? 0} onChange={v => setReviewData(p => ({ ...p, ratings: { ...p.ratings, [s.id]: v } }))} />
                     </div>
                   ))}
                   <div>
-                    <label className="block text-xs font-medium text-slate-500 mb-1">Key strengths observed</label>
+                    <label className="block text-xs font-medium text-app-text-muted mb-1">Key strengths observed</label>
                     <textarea className={TEXTAREA} value={reviewData.strengths} onChange={e => setReviewData(p => ({ ...p, strengths: e.target.value }))} placeholder="Note the staff member's strongest areas…" />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-500 mb-1">Areas for development and recommended support / training</label>
+                    <label className="block text-xs font-medium text-app-text-muted mb-1">Areas for development and recommended support / training</label>
                     <textarea className={TEXTAREA} value={reviewData.development_areas} onChange={e => setReviewData(p => ({ ...p, development_areas: e.target.value }))} placeholder="Note where improvement or training is needed…" />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-500 mb-1">Any concerns requiring the Principal's attention</label>
+                    <label className="block text-xs font-medium text-app-text-muted mb-1">Any concerns requiring the Principal's attention</label>
                     <textarea className={TEXTAREA} value={reviewData.concerns} onChange={e => setReviewData(p => ({ ...p, concerns: e.target.value }))} placeholder="Leave blank if none…" />
                   </div>
                 </div>
@@ -1280,7 +1280,7 @@ export default function StaffAssessment() {
                   <h3 className="font-semibold text-amber-800">Section 5 — Reviewer's Assessment</h3>
                   <div className="grid grid-cols-5 gap-2">
                     {['A','B','C','D','E'].map(k => (
-                      <div key={k} className="text-center bg-white rounded-xl p-2 border border-amber-100">
+                      <div key={k} className="text-center bg-app-surface rounded-xl p-2 border border-amber-100">
                         <p className="text-xs font-semibold text-amber-700">{k}</p>
                         <ScoreBadge score={reviewTarget.reviewer_data!.ratings[k] ?? null} />
                       </div>
@@ -1293,23 +1293,23 @@ export default function StaffAssessment() {
               )}
 
               {canReviewSection6(reviewTarget) && (
-                <div className="space-y-4 border-t border-slate-100 pt-5">
-                  <h3 className="font-semibold text-slate-800 flex items-center gap-2">
+                <div className="space-y-4 border-t border-app-border pt-5">
+                  <h3 className="font-semibold text-app-text flex items-center gap-2">
                     <Award className="w-4 h-4 text-purple-500" />
                     <span className="text-purple-700">Section 6</span> — Principal's Determination
                   </h3>
                   <div>
-                    <label className="block text-xs font-medium text-slate-500 mb-1">Overall assessment</label>
+                    <label className="block text-xs font-medium text-app-text-muted mb-1">Overall assessment</label>
                     <textarea className={TEXTAREA} value={principalData.overall_assessment} onChange={e => setPrincipalData(p => ({ ...p, overall_assessment: e.target.value }))} placeholder="Summarise your overall assessment of this staff member…" />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-500 mb-2">Development determination</label>
+                    <label className="block text-xs font-medium text-app-text-muted mb-2">Development determination</label>
                     <div className="grid grid-cols-2 gap-2">
                       {DETERMINATION_OPTIONS.map(opt => (
                         <button
                           key={opt.value} type="button"
                           onClick={() => setPrincipalData(p => ({ ...p, determination: opt.value }))}
-                          className={`text-left border-2 rounded-xl p-3 transition-all ${principalData.determination === opt.value ? opt.color + ' border-current' : 'border-slate-200 hover:border-slate-300'}`}
+                          className={`text-left border-2 rounded-xl p-3 transition-all ${principalData.determination === opt.value ? opt.color + ' border-current' : 'border-app-border hover:border-app-primary/40'}`}
                         >
                           <p className="font-bold text-sm">{opt.label}</p>
                           <p className="text-xs mt-0.5 opacity-80">{opt.desc}</p>
@@ -1318,11 +1318,11 @@ export default function StaffAssessment() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-500 mb-1">Priority development actions (for PDP)</label>
+                    <label className="block text-xs font-medium text-app-text-muted mb-1">Priority development actions (for PDP)</label>
                     <textarea className={TEXTAREA} value={principalData.priority_actions} onChange={e => setPrincipalData(p => ({ ...p, priority_actions: e.target.value }))} placeholder="List the key development actions for this staff member…" />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-500 mb-1">Target review date</label>
+                    <label className="block text-xs font-medium text-app-text-muted mb-1">Target review date</label>
                     <input type="date" className={INPUT} value={principalData.target_review_date} onChange={e => setPrincipalData(p => ({ ...p, target_review_date: e.target.value }))} />
                   </div>
                 </div>
@@ -1336,8 +1336,8 @@ export default function StaffAssessment() {
             </div>
 
             {dataEntryMode ? (
-              <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-end gap-3 sticky bottom-0 bg-white">
-                <button onClick={() => saveDataEntry(false)} disabled={dataEntrySaving} className="px-5 py-2.5 rounded-xl border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors disabled:opacity-50">
+              <div className="px-6 py-4 border-t border-app-border flex items-center justify-end gap-3 sticky bottom-0 bg-app-surface">
+                <button onClick={() => saveDataEntry(false)} disabled={dataEntrySaving} className="px-5 py-2.5 rounded-xl border border-app-border text-sm font-medium text-app-text-muted hover:bg-app-surface-alt transition-colors disabled:opacity-50">
                   {dataEntrySaving ? 'Saving…' : 'Save Draft'}
                 </button>
                 <button onClick={() => saveDataEntry(true)} disabled={dataEntrySaving} className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
@@ -1346,8 +1346,8 @@ export default function StaffAssessment() {
                 </button>
               </div>
             ) : (canReviewSection5(reviewTarget) || canReviewSection6(reviewTarget)) && (
-              <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-end gap-3 sticky bottom-0 bg-white">
-                <button onClick={() => saveReview(false)} disabled={reviewSaving} className="px-5 py-2.5 rounded-xl border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors disabled:opacity-50">
+              <div className="px-6 py-4 border-t border-app-border flex items-center justify-end gap-3 sticky bottom-0 bg-app-surface">
+                <button onClick={() => saveReview(false)} disabled={reviewSaving} className="px-5 py-2.5 rounded-xl border border-app-border text-sm font-medium text-app-text-muted hover:bg-app-surface-alt transition-colors disabled:opacity-50">
                   {reviewSaving ? 'Saving…' : 'Save Draft'}
                 </button>
                 <button onClick={() => saveReview(true)} disabled={reviewSaving} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">

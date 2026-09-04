@@ -122,8 +122,8 @@ export default function TimeSlots() {
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Time Slots</h1>
-          <p className="text-sm text-slate-500 mt-1">Manage periods, breaks, and exam slots</p>
+          <h1 className="text-2xl font-bold text-app-text">Time Slots</h1>
+          <p className="text-sm text-app-text-muted mt-1">Manage periods, breaks, and exam slots</p>
         </div>
         <button
           onClick={openAdd}
@@ -135,48 +135,48 @@ export default function TimeSlots() {
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center h-40 text-slate-400">Loading...</div>
+        <div className="flex items-center justify-center h-40 text-app-text-muted">Loading...</div>
       ) : (
-        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+        <div className="bg-app-surface rounded-xl border border-app-border overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Period Name</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Type</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Start Time</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">End Time</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Order</th>
-                <th className="text-right px-4 py-3 font-medium text-slate-600">Actions</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Period Name</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Type</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Start Time</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">End Time</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Order</th>
+                <th className="text-right px-4 py-3 font-medium text-app-text-muted">Actions</th>
               </tr>
             </thead>
             <tbody>
               {timeSlots.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="text-center py-10 text-slate-400">No time slots found</td>
+                  <td colSpan={6} className="text-center py-10 text-app-text-muted">No time slots found</td>
                 </tr>
               ) : (
                 timeSlots.map((slot) => (
-                  <tr key={slot.id} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="px-4 py-3 font-medium text-slate-800">{slot.period_name}</td>
+                  <tr key={slot.id} className="border-b border-app-border hover:bg-app-surface-alt">
+                    <td className="px-4 py-3 font-medium text-app-text">{slot.period_name}</td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${typeColors[slot.time_type] || 'bg-slate-100 text-slate-700'}`}>
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${typeColors[slot.time_type] || 'bg-slate-100 text-app-text'}`}>
                         {slot.time_type}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-slate-600">{formatTime(slot.start_time)}</td>
-                    <td className="px-4 py-3 text-slate-600">{formatTime(slot.end_time)}</td>
-                    <td className="px-4 py-3 text-slate-600">{slot.sort_order}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{formatTime(slot.start_time)}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{formatTime(slot.end_time)}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{slot.sort_order}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => openEdit(slot)}
-                          className="p-1.5 text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors"
+                          className="p-1.5 text-app-text-muted hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors"
                         >
                           <Edit2 size={15} />
                         </button>
                         <button
                           onClick={() => handleDelete(slot.id)}
-                          className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-1.5 text-app-text-muted hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                         >
                           <Trash2 size={15} />
                         </button>
@@ -198,21 +198,21 @@ export default function TimeSlots() {
         <div className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Period Name</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Period Name</label>
             <input
               type="text"
               value={form.period_name}
               onChange={(e) => setForm({ ...form, period_name: e.target.value })}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               placeholder="e.g. Period 1, Lunch Break"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Type</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Type</label>
             <select
               value={form.time_type}
               onChange={(e) => setForm({ ...form, time_type: e.target.value as FormData['time_type'] })}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             >
               <option value="class">Class</option>
               <option value="exam">Exam</option>
@@ -221,31 +221,31 @@ export default function TimeSlots() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Start Time</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Start Time</label>
               <input
                 type="time"
                 value={form.start_time}
                 onChange={(e) => setForm({ ...form, start_time: e.target.value })}
-                className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">End Time</label>
+              <label className="block text-sm font-medium text-app-text mb-1">End Time</label>
               <input
                 type="time"
                 value={form.end_time}
                 onChange={(e) => setForm({ ...form, end_time: e.target.value })}
-                className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Sort Order</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Sort Order</label>
             <input
               type="number"
               value={form.sort_order}
               onChange={(e) => setForm({ ...form, sort_order: e.target.value })}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               placeholder="e.g. 1, 2, 3"
               min={0}
             />
@@ -253,7 +253,7 @@ export default function TimeSlots() {
           <div className="flex justify-end gap-2 pt-2">
             <button
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2 text-sm rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm rounded-lg border border-app-border text-app-text-muted hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>

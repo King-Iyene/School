@@ -5,13 +5,13 @@ import { useAuth } from '../../../context/AuthContext';
 
 interface Props { profileId: string; schoolId: string; profile: any; onProfileUpdate: (p: any) => void; }
 
-const inputCls = 'w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
-const labelCls = 'block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1';
+const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+const labelCls = 'block text-xs font-semibold text-app-text-muted uppercase tracking-wide mb-1';
 
 function Section({ title, icon: Icon, children }: { title: string; icon: any; children: React.ReactNode }) {
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-      <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2 text-sm"><Icon className="w-4 h-4 text-emerald-600" />{title}</h4>
+    <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
+      <h4 className="font-bold text-app-text mb-4 flex items-center gap-2 text-sm"><Icon className="w-4 h-4 text-emerald-600" />{title}</h4>
       {children}
     </div>
   );
@@ -189,7 +189,7 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
             <div className="grid grid-cols-2 gap-3">
               <div><label className={labelCls}>Department</label><input value={pForm.department} onChange={e => setPForm({ ...pForm, department: e.target.value })} className={inputCls} /></div>
               <div><label className={labelCls}>Employment Type</label>
-                <select value={pForm.employment_type} onChange={e => setPForm({ ...pForm, employment_type: e.target.value })} className={`${inputCls} bg-white`}>
+                <select value={pForm.employment_type} onChange={e => setPForm({ ...pForm, employment_type: e.target.value })} className={`${inputCls} bg-app-surface`}>
                   <option value="full_time">Full Time</option><option value="part_time">Part Time</option><option value="contract">Contract</option><option value="intern">Intern</option>
                 </select>
               </div>
@@ -197,7 +197,7 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
             <div className="grid grid-cols-2 gap-3">
               <div><label className={labelCls}>Join Date</label><input type="date" value={pForm.join_date} onChange={e => setPForm({ ...pForm, join_date: e.target.value })} className={inputCls} /></div>
               <div><label className={labelCls}>Marital Status</label>
-                <select value={pForm.marital_status} onChange={e => setPForm({ ...pForm, marital_status: e.target.value })} className={`${inputCls} bg-white`}>
+                <select value={pForm.marital_status} onChange={e => setPForm({ ...pForm, marital_status: e.target.value })} className={`${inputCls} bg-app-surface`}>
                   <option value="">Select...</option><option value="single">Single</option><option value="married">Married</option><option value="divorced">Divorced</option><option value="widowed">Widowed</option>
                 </select>
               </div>
@@ -212,7 +212,7 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
             </div>
             <div><label className={labelCls}>Bio / Profile Summary</label><textarea value={pForm.bio} onChange={e => setPForm({ ...pForm, bio: e.target.value })} rows={3} className={`${inputCls} resize-none`} /></div>
             <div className="flex gap-2 pt-1">
-              <button onClick={() => setEditProfile(false)} className="flex-1 border border-slate-200 text-slate-700 rounded-xl py-2 text-sm hover:bg-slate-50">Cancel</button>
+              <button onClick={() => setEditProfile(false)} className="flex-1 border border-app-border text-app-text rounded-xl py-2 text-sm hover:bg-app-surface-alt">Cancel</button>
               <button onClick={saveProfile} disabled={saving === 'profile'} className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-2 text-sm font-medium flex items-center justify-center gap-1.5 disabled:opacity-50">
                 <Save className="w-3.5 h-3.5" />{saving === 'profile' ? 'Saving...' : 'Save Changes'}
               </button>
@@ -230,9 +230,9 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
               { l: 'LGA', v: profile?.lga || '—' },
               { l: 'Religion', v: profile?.religion || '—' },
             ].map(({ l, v }) => (
-              <div key={l}><dt className={labelCls}>{l}</dt><dd className="text-sm font-semibold text-slate-800 capitalize">{v}</dd></div>
+              <div key={l}><dt className={labelCls}>{l}</dt><dd className="text-sm font-semibold text-app-text capitalize">{v}</dd></div>
             ))}
-            {profile?.bio && <div className="col-span-full"><dt className={labelCls}>Bio</dt><dd className="text-sm text-slate-700">{profile.bio}</dd></div>}
+            {profile?.bio && <div className="col-span-full"><dt className={labelCls}>Bio</dt><dd className="text-sm text-app-text">{profile.bio}</dd></div>}
           </dl>
         )}
       </Section>
@@ -244,7 +244,7 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
         </div>
         {editHR ? (
           <div className="space-y-3">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">Next of Kin</p>
+            <p className="text-xs font-bold text-app-text-muted uppercase tracking-wide">Next of Kin</p>
             <div className="grid grid-cols-2 gap-3">
               <div><label className={labelCls}>Full Name</label><input value={hrForm.nok_name} onChange={e => setHrForm({ ...hrForm, nok_name: e.target.value })} className={inputCls} /></div>
               <div><label className={labelCls}>Relationship</label><input value={hrForm.nok_relationship} onChange={e => setHrForm({ ...hrForm, nok_relationship: e.target.value })} className={inputCls} /></div>
@@ -252,26 +252,26 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
               <div><label className={labelCls}>Email</label><input type="email" value={hrForm.nok_email} onChange={e => setHrForm({ ...hrForm, nok_email: e.target.value })} className={inputCls} /></div>
             </div>
             <div><label className={labelCls}>Address</label><input value={hrForm.nok_address} onChange={e => setHrForm({ ...hrForm, nok_address: e.target.value })} className={inputCls} /></div>
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mt-2">Emergency Contact</p>
+            <p className="text-xs font-bold text-app-text-muted uppercase tracking-wide mt-2">Emergency Contact</p>
             <div className="grid grid-cols-3 gap-3">
               <div><label className={labelCls}>Name</label><input value={hrForm.emergency_contact_name} onChange={e => setHrForm({ ...hrForm, emergency_contact_name: e.target.value })} className={inputCls} /></div>
               <div><label className={labelCls}>Phone</label><input value={hrForm.emergency_contact_phone} onChange={e => setHrForm({ ...hrForm, emergency_contact_phone: e.target.value })} className={inputCls} /></div>
               <div><label className={labelCls}>Relationship</label><input value={hrForm.emergency_contact_relationship} onChange={e => setHrForm({ ...hrForm, emergency_contact_relationship: e.target.value })} className={inputCls} /></div>
             </div>
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mt-2">Professional Background</p>
+            <p className="text-xs font-bold text-app-text-muted uppercase tracking-wide mt-2">Professional Background</p>
             <div className="grid grid-cols-2 gap-3">
               <div><label className={labelCls}>Previous Employer</label><input value={hrForm.previous_employer} onChange={e => setHrForm({ ...hrForm, previous_employer: e.target.value })} className={inputCls} /></div>
               <div><label className={labelCls}>Years of Experience</label><input type="number" min={0} value={hrForm.years_of_experience} onChange={e => setHrForm({ ...hrForm, years_of_experience: parseInt(e.target.value) || 0 })} className={inputCls} /></div>
               <div><label className={labelCls}>Specialization</label><input value={hrForm.specialization} onChange={e => setHrForm({ ...hrForm, specialization: e.target.value })} className={inputCls} /></div>
               <div><label className={labelCls}>Staff Category</label>
-                <select value={hrForm.staff_category} onChange={e => setHrForm({ ...hrForm, staff_category: e.target.value })} className={`${inputCls} bg-white`}>
+                <select value={hrForm.staff_category} onChange={e => setHrForm({ ...hrForm, staff_category: e.target.value })} className={`${inputCls} bg-app-surface`}>
                   <option value="teaching">Teaching</option><option value="non_teaching">Non-Teaching</option><option value="support">Support</option>
                 </select>
               </div>
             </div>
             {saveHRError && <p className="text-xs text-red-500">{saveHRError}</p>}
             <div className="flex gap-2 pt-1">
-              <button onClick={() => setEditHR(false)} className="flex-1 border border-slate-200 text-slate-700 rounded-xl py-2 text-sm hover:bg-slate-50">Cancel</button>
+              <button onClick={() => setEditHR(false)} className="flex-1 border border-app-border text-app-text rounded-xl py-2 text-sm hover:bg-app-surface-alt">Cancel</button>
               <button onClick={saveHR} disabled={saving === 'hr'} className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-2 text-sm font-medium flex items-center justify-center gap-1.5 disabled:opacity-50">
                 <Save className="w-3.5 h-3.5" />{saving === 'hr' ? 'Saving...' : 'Save Changes'}
               </button>
@@ -280,7 +280,7 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
         ) : (
           <div className="space-y-4">
             <div>
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Next of Kin</p>
+              <p className="text-xs font-bold text-app-text-muted uppercase tracking-wide mb-2">Next of Kin</p>
               <dl className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2">
                 {[
                   { l: 'Name', v: displayNokName },
@@ -288,17 +288,17 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
                   { l: 'Phone', v: displayNokPhone },
                   { l: 'Email', v: hr?.nok_email || '—' },
                   { l: 'Address', v: displayNokAddr },
-                ].map(({ l, v }) => <div key={l}><dt className={labelCls}>{l}</dt><dd className="text-sm font-semibold text-slate-800">{v}</dd></div>)}
+                ].map(({ l, v }) => <div key={l}><dt className={labelCls}>{l}</dt><dd className="text-sm font-semibold text-app-text">{v}</dd></div>)}
               </dl>
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Emergency Contact</p>
+              <p className="text-xs font-bold text-app-text-muted uppercase tracking-wide mb-2">Emergency Contact</p>
               <dl className="grid grid-cols-3 gap-x-4 gap-y-2">
                 {[
                   { l: 'Name', v: hr?.emergency_contact_name || '—' },
                   { l: 'Phone', v: hr?.emergency_contact_phone || '—' },
                   { l: 'Relationship', v: hr?.emergency_contact_relationship || '—' },
-                ].map(({ l, v }) => <div key={l}><dt className={labelCls}>{l}</dt><dd className="text-sm font-semibold text-slate-800">{v}</dd></div>)}
+                ].map(({ l, v }) => <div key={l}><dt className={labelCls}>{l}</dt><dd className="text-sm font-semibold text-app-text">{v}</dd></div>)}
               </dl>
             </div>
           </div>
@@ -313,7 +313,7 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
           </div>
           {editPayroll ? (
             <div className="space-y-3">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">Bank Details</p>
+              <p className="text-xs font-bold text-app-text-muted uppercase tracking-wide">Bank Details</p>
               <div className="grid grid-cols-2 gap-3">
                 <div><label className={labelCls}>Bank Name</label><input value={hrForm.bank_name} onChange={e => setHrForm({ ...hrForm, bank_name: e.target.value })} className={inputCls} /></div>
                 <div><label className={labelCls}>Account Number</label><input value={hrForm.account_number} onChange={e => setHrForm({ ...hrForm, account_number: e.target.value })} className={inputCls} /></div>
@@ -322,7 +322,7 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
                 <div><label className={labelCls}>PFA Name</label><input value={hrForm.pfa_name} onChange={e => setHrForm({ ...hrForm, pfa_name: e.target.value })} className={inputCls} /></div>
                 <div><label className={labelCls}>PFA Number</label><input value={hrForm.pfa_number} onChange={e => setHrForm({ ...hrForm, pfa_number: e.target.value })} className={inputCls} /></div>
               </div>
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mt-2">Salary Structure (₦)</p>
+              <p className="text-xs font-bold text-app-text-muted uppercase tracking-wide mt-2">Salary Structure (₦)</p>
               <div className="grid grid-cols-2 gap-3">
                 <div><label className={labelCls}>Basic Salary</label><input type="number" min={0} value={payrollForm.basic_salary} onChange={e => setPayrollForm({ ...payrollForm, basic_salary: parseFloat(e.target.value) || 0 })} className={inputCls} /></div>
                 <div><label className={labelCls}>Housing Allowance</label><input type="number" min={0} value={payrollForm.housing_allowance} onChange={e => setPayrollForm({ ...payrollForm, housing_allowance: parseFloat(e.target.value) || 0 })} className={inputCls} /></div>
@@ -335,7 +335,7 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
                 <span className="text-lg font-bold text-emerald-800">₦{net.toLocaleString('en-NG', { minimumFractionDigits: 2 })}</span>
               </div>
               <div className="flex gap-2">
-                <button onClick={() => { setEditPayroll(false); setEditHR(false); }} className="flex-1 border border-slate-200 text-slate-700 rounded-xl py-2 text-sm hover:bg-slate-50">Cancel</button>
+                <button onClick={() => { setEditPayroll(false); setEditHR(false); }} className="flex-1 border border-app-border text-app-text rounded-xl py-2 text-sm hover:bg-app-surface-alt">Cancel</button>
                 <button onClick={async () => { await saveHR(); await savePayroll(); }} disabled={saving !== ''} className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-2 text-sm font-medium flex items-center justify-center gap-1.5 disabled:opacity-50">
                   <Save className="w-3.5 h-3.5" />Save All
                 </button>
@@ -344,7 +344,7 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
           ) : (
             <div className="space-y-4">
               <div>
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Bank Details</p>
+                <p className="text-xs font-bold text-app-text-muted uppercase tracking-wide mb-2">Bank Details</p>
                 <dl className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2">
                   {[
                     { l: 'Bank', v: displayBankName },
@@ -352,11 +352,11 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
                     { l: 'Account Name', v: displayAccName },
                     { l: 'PFA', v: hr?.pfa_name || '—' },
                     { l: 'PFA Number', v: hr?.pfa_number || '—' },
-                  ].map(({ l, v }) => <div key={l}><dt className={labelCls}>{l}</dt><dd className="text-sm font-semibold text-slate-800">{v}</dd></div>)}
+                  ].map(({ l, v }) => <div key={l}><dt className={labelCls}>{l}</dt><dd className="text-sm font-semibold text-app-text">{v}</dd></div>)}
                 </dl>
               </div>
               <div>
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Salary</p>
+                <p className="text-xs font-bold text-app-text-muted uppercase tracking-wide mb-2">Salary</p>
                 <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                   {[
                     { l: 'Basic', v: profile?.basic_salary },
@@ -365,9 +365,9 @@ export default function HRTab({ profileId, schoolId, profile, onProfileUpdate }:
                     { l: 'Other', v: profile?.other_allowances },
                     { l: 'Deductions', v: profile?.deductions },
                   ].map(({ l, v }) => (
-                    <div key={l} className="bg-slate-50 rounded-xl p-2.5 text-center">
-                      <p className="text-xs text-slate-500 mb-0.5">{l}</p>
-                      <p className="text-sm font-bold text-slate-800">₦{Number(v ?? 0).toLocaleString()}</p>
+                    <div key={l} className="bg-app-surface-alt rounded-xl p-2.5 text-center">
+                      <p className="text-xs text-app-text-muted mb-0.5">{l}</p>
+                      <p className="text-sm font-bold text-app-text">₦{Number(v ?? 0).toLocaleString()}</p>
                     </div>
                   ))}
                 </div>

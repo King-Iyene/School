@@ -227,16 +227,16 @@ export default function StaffAttendance() {
     on_leave: staffList.filter(s => isHoliday || attendance[s.id] === 'on_leave' || (attendance[s.id] as string) === 'holiday').length,
   };
 
-  const inputCls = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white';
+  const inputCls = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
 
   return (
     <div className="p-6">
       {/* ── Header ── */}
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-slate-800">Staff Attendance</h1>
+        <h1 className="text-2xl font-bold text-app-text">Staff Attendance</h1>
         <div className="flex items-center gap-2">
           <button onClick={() => setBulkOpen(o => !o)}
-            className={`flex items-center gap-1.5 text-sm font-medium px-4 py-2.5 rounded-xl transition-colors ${bulkOpen ? 'bg-violet-100 text-violet-700 border border-violet-200' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200'}`}>
+            className={`flex items-center gap-1.5 text-sm font-medium px-4 py-2.5 rounded-xl transition-colors ${bulkOpen ? 'bg-violet-100 text-violet-700 border border-violet-200' : 'bg-slate-100 text-app-text-muted hover:bg-slate-200 border border-app-border'}`}>
             <Zap size={15} /> Bulk Fill
           </button>
           <button onClick={handleSave} disabled={saving || staffList.length === 0}
@@ -247,12 +247,12 @@ export default function StaffAttendance() {
       </div>
 
       {/* ── Controls ── */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-5 mb-6 space-y-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-5 mb-6 space-y-4">
 
         {/* Role + holiday row */}
         <div className="flex flex-wrap items-end gap-4">
           <div className="flex-1 min-w-[160px]">
-            <label className="block text-xs font-medium text-slate-500 mb-1.5">Role</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1.5">Role</label>
             <select className={inputCls} value={selectedRole} onChange={e => setSelectedRole(e.target.value)}>
               {ROLES.map(r => <option key={r} value={r}>{r.replace('_', ' ')}</option>)}
             </select>
@@ -260,23 +260,23 @@ export default function StaffAttendance() {
           <div className="flex items-center gap-2 pb-2.5">
             <input id="is_holiday" type="checkbox" className="w-4 h-4 accent-emerald-500"
               checked={isHoliday} onChange={e => setIsHoliday(e.target.checked)} />
-            <label htmlFor="is_holiday" className="text-sm font-medium text-slate-700 cursor-pointer">Mark as Holiday</label>
+            <label htmlFor="is_holiday" className="text-sm font-medium text-app-text cursor-pointer">Mark as Holiday</label>
           </div>
         </div>
 
         {/* Date navigator */}
         <div>
-          <label className="block text-xs font-medium text-slate-500 mb-1.5">Date</label>
+          <label className="block text-xs font-medium text-app-text-muted mb-1.5">Date</label>
           <div className="flex items-center gap-2 flex-wrap">
             <button onClick={() => setSelectedDate(prevWeekday(selectedDate))} title="Previous weekday"
-              className="p-2 rounded-xl border border-slate-200 hover:bg-slate-100 transition-colors text-slate-600">
+              className="p-2 rounded-xl border border-app-border hover:bg-slate-100 transition-colors text-app-text-muted">
               <ChevronLeft className="w-4 h-4" />
             </button>
             <input type="date" value={selectedDate} max={today}
               onChange={e => setSelectedDate(e.target.value)}
-              className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
             <button onClick={() => setSelectedDate(nextWeekday(selectedDate))} disabled={selectedDate >= today} title="Next weekday"
-              className="p-2 rounded-xl border border-slate-200 hover:bg-slate-100 transition-colors text-slate-600 disabled:opacity-30 disabled:cursor-not-allowed">
+              className="p-2 rounded-xl border border-app-border hover:bg-slate-100 transition-colors text-app-text-muted disabled:opacity-30 disabled:cursor-not-allowed">
               <ChevronRight className="w-4 h-4" />
             </button>
             {selectedDate !== today && (
@@ -306,7 +306,7 @@ export default function StaffAttendance() {
                       : isRecorded
                         ? 'bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100'
                         : isTdy
-                          ? 'bg-slate-100 border-slate-300 text-slate-700 hover:bg-slate-200'
+                          ? 'bg-slate-100 border-app-border text-app-text hover:bg-slate-200'
                           : 'bg-red-50 border-red-200 text-red-600 hover:bg-red-100'
                     }`}>
                   <span className="font-semibold">{dayLabel(d)}</span>
@@ -321,11 +321,11 @@ export default function StaffAttendance() {
 
         {/* Mark-all quick buttons */}
         {staffList.length > 0 && !isHoliday && (
-          <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100">
-            <span className="text-xs text-slate-500 font-medium mr-1">Mark all:</span>
+          <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-app-border">
+            <span className="text-xs text-app-text-muted font-medium mr-1">Mark all:</span>
             {STATUS_OPTIONS.map(opt => (
               <button key={opt.value} onClick={() => markAll(opt.value)}
-                className={`text-xs font-medium px-3 py-1.5 rounded-lg transition-colors ${statusColor[opt.value]} bg-slate-50 hover:bg-slate-100 border border-slate-200`}>
+                className={`text-xs font-medium px-3 py-1.5 rounded-lg transition-colors ${statusColor[opt.value]} bg-app-surface-alt hover:bg-slate-100 border border-app-border`}>
                 {opt.label}
               </button>
             ))}
@@ -343,15 +343,15 @@ export default function StaffAttendance() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
-                <label className="block text-xs font-medium text-slate-600 mb-1">From</label>
+                <label className="block text-xs font-medium text-app-text-muted mb-1">From</label>
                 <input type="date" value={bulkFrom} max={today} onChange={e => setBulkFrom(e.target.value)} className={inputCls} />
               </div>
               <div>
-                <label className="block text-xs font-medium text-slate-600 mb-1">To</label>
+                <label className="block text-xs font-medium text-app-text-muted mb-1">To</label>
                 <input type="date" value={bulkTo} min={bulkFrom || undefined} max={today} onChange={e => setBulkTo(e.target.value)} className={inputCls} />
               </div>
               <div>
-                <label className="block text-xs font-medium text-slate-600 mb-1">Status for all</label>
+                <label className="block text-xs font-medium text-app-text-muted mb-1">Status for all</label>
                 <select value={bulkStatus} onChange={e => setBulkStatus(e.target.value as AttendanceStatus)} className={inputCls}>
                   {STATUS_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
                 </select>
@@ -381,7 +381,7 @@ export default function StaffAttendance() {
                 {bulkSaving ? 'Filling…' : `Fill ${bulkDays.length > 0 ? bulkDays.length : ''} Day${bulkDays.length !== 1 ? 's' : ''}`}
               </button>
               <button onClick={() => setBulkOpen(false)}
-                className="text-sm text-slate-500 hover:text-slate-700 px-3 py-2 rounded-xl hover:bg-slate-100 transition-colors">
+                className="text-sm text-app-text-muted hover:text-app-text px-3 py-2 rounded-xl hover:bg-slate-100 transition-colors">
                 Cancel
               </button>
             </div>
@@ -419,27 +419,27 @@ export default function StaffAttendance() {
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : staffList.length === 0 ? (
-        <div className="text-center py-16 text-slate-400 text-sm">No staff found for selected role.</div>
+        <div className="text-center py-16 text-app-text-muted text-sm">No staff found for selected role.</div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+        <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-app-surface-alt border-b border-app-border">
               <tr>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Staff</th>
-                <th className="px-5 py-3.5 font-semibold text-slate-600 text-center" colSpan={5}>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Staff</th>
+                <th className="px-5 py-3.5 font-semibold text-app-text-muted text-center" colSpan={5}>
                   {isHoliday ? 'Holiday (All On Leave)' : 'Attendance Status'}
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {staffList.map(s => (
-                <tr key={s.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={s.id} className="hover:bg-app-surface-alt transition-colors">
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold flex-shrink-0">
                         {getInitials(s)}
                       </div>
-                      <span className="font-medium text-slate-800">
+                      <span className="font-medium text-app-text">
                         {`${s.first_name || ''} ${s.last_name || ''}`.trim()}
                       </span>
                     </div>

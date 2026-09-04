@@ -76,48 +76,48 @@ export default function TeacherInfo() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">My Teachers</h1>
+        <h1 className="text-2xl font-bold text-app-text">My Teachers</h1>
         <span className="bg-emerald-100 text-emerald-700 text-sm font-semibold px-4 py-1.5 rounded-full">
           {teachers.length} Teachers
         </span>
       </div>
 
       <div className="relative">
-        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
         <input
           type="text"
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder="Search by name or subject..."
-          className="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white"
+          className="w-full pl-10 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-app-surface"
         />
       </div>
 
       {filtered.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-12 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-12 text-center">
           <Users className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">{search ? 'No teachers match your search' : 'No teachers assigned'}</p>
+          <p className="text-app-text-muted font-medium">{search ? 'No teachers match your search' : 'No teachers assigned'}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filtered.map((teacher, i) => {
             const color = avatarColors[i % avatarColors.length];
             return (
-              <div key={teacher.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 hover:shadow-md transition-shadow">
+              <div key={teacher.id} className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5 hover:shadow-md transition-shadow">
                 <div className="flex items-start gap-4 mb-4">
                   <div className={`w-12 h-12 rounded-xl ${color} flex items-center justify-center text-base font-bold shrink-0`}>
                     {initials(teacher)}
                   </div>
                   <div className="min-w-0">
-                    <h3 className="font-semibold text-slate-800 truncate">{teacher.first_name} {teacher.last_name}</h3>
-                    <p className="text-xs text-slate-500 mt-0.5">Teacher</p>
+                    <h3 className="font-semibold text-app-text truncate">{teacher.first_name} {teacher.last_name}</h3>
+                    <p className="text-xs text-app-text-muted mt-0.5">Teacher</p>
                   </div>
                 </div>
                 {teacher.subjects.length > 0 && (
                   <div className="mb-3">
                     <div className="flex items-center gap-1.5 mb-2">
-                      <BookOpen className="w-3.5 h-3.5 text-slate-400" />
-                      <span className="text-xs text-slate-500 font-medium">Subjects</span>
+                      <BookOpen className="w-3.5 h-3.5 text-app-text-muted" />
+                      <span className="text-xs text-app-text-muted font-medium">Subjects</span>
                     </div>
                     <div className="flex flex-wrap gap-1.5">
                       {teacher.subjects.map((s: string, j: number) => (
@@ -128,17 +128,17 @@ export default function TeacherInfo() {
                     </div>
                   </div>
                 )}
-                <div className="space-y-1.5 pt-3 border-t border-slate-100">
+                <div className="space-y-1.5 pt-3 border-t border-app-border">
                   {teacher.email && (
                     <div className="flex items-center gap-2">
-                      <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                      <p className="text-xs text-slate-600 truncate">{teacher.email}</p>
+                      <Mail className="w-3.5 h-3.5 text-app-text-muted shrink-0" />
+                      <p className="text-xs text-app-text-muted truncate">{teacher.email}</p>
                     </div>
                   )}
                   {teacher.phone && (
                     <div className="flex items-center gap-2">
-                      <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                      <p className="text-xs text-slate-600">{teacher.phone}</p>
+                      <Phone className="w-3.5 h-3.5 text-app-text-muted shrink-0" />
+                      <p className="text-xs text-app-text-muted">{teacher.phone}</p>
                     </div>
                   )}
                 </div>

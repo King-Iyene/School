@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 interface BookIssue {
   id: string;
@@ -181,7 +181,7 @@ export default function BookIssues() {
           <div className="bg-emerald-500 text-white p-2 rounded-xl">
             <BookMarked size={20} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-800">Book Issues</h1>
+          <h1 className="text-2xl font-bold text-app-text">Book Issues</h1>
         </div>
         <button
           onClick={openAdd}
@@ -192,16 +192,16 @@ export default function BookIssues() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4">
         <div className="flex items-center gap-2 mb-3">
-          <Filter size={16} className="text-slate-500" />
-          <span className="text-sm font-medium text-slate-600">Filter by Status</span>
+          <Filter size={16} className="text-app-text-muted" />
+          <span className="text-sm font-medium text-app-text-muted">Filter by Status</span>
         </div>
         <div className="flex flex-wrap gap-3">
           <select
             value={filterStatus}
             onChange={e => setFilterStatus(e.target.value)}
-            className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
           >
             <option value="">All Statuses</option>
             {STATUSES.map(s => (
@@ -211,7 +211,7 @@ export default function BookIssues() {
           {filterStatus && (
             <button
               onClick={() => setFilterStatus('')}
-              className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700"
+              className="flex items-center gap-1 text-sm text-app-text-muted hover:text-app-text"
             >
               <X size={14} /> Clear
             </button>
@@ -219,34 +219,34 @@ export default function BookIssues() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {loading ? (
-          <div className="p-12 text-center text-slate-400">Loading...</div>
+          <div className="p-12 text-center text-app-text-muted">Loading...</div>
         ) : issues.length === 0 ? (
           <div className="p-12 text-center">
             <BookMarked size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-500">No book issues found.</p>
+            <p className="text-app-text-muted">No book issues found.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Book</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Member</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Type</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Issue Date</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Due Date</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Return Date</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Status</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Actions</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Book</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Member</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Type</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Issue Date</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Due Date</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Return Date</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Status</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {issues.map(issue => (
-                  <tr key={issue.id} className="hover:bg-slate-50/50">
-                    <td className="px-4 py-3 font-medium text-slate-800">{issue.books?.title || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600">
+                  <tr key={issue.id} className="hover:bg-app-surface-alt/50">
+                    <td className="px-4 py-3 font-medium text-app-text">{issue.books?.title || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">
                       {(() => {
                         if (issue.member_type === 'student') {
                           const s = Array.isArray((issue as any).students) ? (issue as any).students[0] : (issue as any).students;
@@ -255,18 +255,18 @@ export default function BookIssues() {
                         return issue.profiles?.full_name || '—';
                       })()}
                     </td>
-                    <td className="px-4 py-3 text-slate-500 capitalize">{issue.member_type}</td>
-                    <td className="px-4 py-3 text-slate-500">
+                    <td className="px-4 py-3 text-app-text-muted capitalize">{issue.member_type}</td>
+                    <td className="px-4 py-3 text-app-text-muted">
                       {issue.issue_date ? new Date(issue.issue_date).toLocaleDateString() : '-'}
                     </td>
-                    <td className="px-4 py-3 text-slate-500">
+                    <td className="px-4 py-3 text-app-text-muted">
                       {issue.due_date ? new Date(issue.due_date).toLocaleDateString() : '-'}
                     </td>
-                    <td className="px-4 py-3 text-slate-500">
+                    <td className="px-4 py-3 text-app-text-muted">
                       {issue.return_date ? new Date(issue.return_date).toLocaleDateString() : '-'}
                     </td>
                     <td className="px-4 py-3">
-                      <span className={`px-2 py-1 rounded-lg text-xs font-medium ${STATUS_COLORS[issue.status] || 'bg-slate-100 text-slate-700'}`}>
+                      <span className={`px-2 py-1 rounded-lg text-xs font-medium ${STATUS_COLORS[issue.status] || 'bg-slate-100 text-app-text'}`}>
                         {issue.status}
                       </span>
                     </td>
@@ -276,20 +276,20 @@ export default function BookIssues() {
                           <button
                             onClick={() => handleReturn(issue.id)}
                             title="Mark as Returned"
-                            className="text-slate-400 hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors"
+                            className="text-app-text-muted hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors"
                           >
                             <RotateCcw size={15} />
                           </button>
                         )}
                         <button
                           onClick={() => openEdit(issue)}
-                          className="text-slate-400 hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors"
+                          className="text-app-text-muted hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors"
                         >
                           <Pencil size={15} />
                         </button>
                         <button
                           onClick={() => handleDelete(issue.id)}
-                          className="text-slate-400 hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors"
+                          className="text-app-text-muted hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors"
                         >
                           <Trash2 size={15} />
                         </button>
@@ -307,7 +307,7 @@ export default function BookIssues() {
         <form onSubmit={handleSubmit} className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Book</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Book</label>
             <select
               required
               className={INPUT_CLASS}
@@ -323,7 +323,7 @@ export default function BookIssues() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Search Member</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Search Member</label>
             <input
               className={INPUT_CLASS}
               value={memberSearch}
@@ -332,7 +332,7 @@ export default function BookIssues() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Member</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Member</label>
             <select
               required
               className={INPUT_CLASS}
@@ -348,7 +348,7 @@ export default function BookIssues() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Member Type</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Member Type</label>
             <select
               className={INPUT_CLASS}
               value={form.member_type}
@@ -361,7 +361,7 @@ export default function BookIssues() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Issue Date</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Issue Date</label>
               <input
                 required
                 type="date"
@@ -371,7 +371,7 @@ export default function BookIssues() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Due Date</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Due Date</label>
               <input
                 required
                 type="date"
@@ -385,7 +385,7 @@ export default function BookIssues() {
             <button
               type="button"
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-slate-200 text-slate-600 hover:bg-slate-50"
+              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-app-border text-app-text-muted hover:bg-app-surface-alt"
             >
               Cancel
             </button>

@@ -46,7 +46,7 @@ const initialForm: FormData = {
 };
 
 const statusConfig = {
-  draft: { label: 'Draft', className: 'bg-slate-100 text-slate-600' },
+  draft: { label: 'Draft', className: 'bg-slate-100 text-app-text-muted' },
   active: { label: 'Active', className: 'bg-blue-100 text-blue-700' },
   completed: { label: 'Completed', className: 'bg-emerald-100 text-emerald-700' },
 };
@@ -156,8 +156,8 @@ export default function Topics() {
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Topics</h1>
-          <p className="text-sm text-slate-500 mt-1">Manage topics within each lesson</p>
+          <h1 className="text-2xl font-bold text-app-text">Topics</h1>
+          <p className="text-sm text-app-text-muted mt-1">Manage topics within each lesson</p>
         </div>
         <button
           onClick={openAdd}
@@ -172,7 +172,7 @@ export default function Topics() {
         <select
           value={filterLesson}
           onChange={(e) => setFilterLesson(e.target.value)}
-          className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
+          className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
         >
           <option value="">All Lessons</option>
           {lessons.map((lesson) => (
@@ -184,38 +184,38 @@ export default function Topics() {
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center h-40 text-slate-400">Loading...</div>
+        <div className="flex items-center justify-center h-40 text-app-text-muted">Loading...</div>
       ) : (
-        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+        <div className="bg-app-surface rounded-xl border border-app-border overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 font-medium text-slate-600">#</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Title</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Lesson</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Duration</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Status</th>
-                <th className="text-right px-4 py-3 font-medium text-slate-600">Actions</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">#</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Title</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Lesson</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Duration</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Status</th>
+                <th className="text-right px-4 py-3 font-medium text-app-text-muted">Actions</th>
               </tr>
             </thead>
             <tbody>
               {topics.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="text-center py-10 text-slate-400">No topics found</td>
+                  <td colSpan={6} className="text-center py-10 text-app-text-muted">No topics found</td>
                 </tr>
               ) : (
                 topics.map((topic) => {
                   const status = statusConfig[topic.status] || statusConfig.draft;
                   return (
-                    <tr key={topic.id} className="border-b border-slate-100 hover:bg-slate-50">
-                      <td className="px-4 py-3 text-slate-500 font-mono">{topic.topic_number}</td>
-                      <td className="px-4 py-3 font-medium text-slate-800">{topic.title}</td>
-                      <td className="px-4 py-3 text-slate-600">
+                    <tr key={topic.id} className="border-b border-app-border hover:bg-app-surface-alt">
+                      <td className="px-4 py-3 text-app-text-muted font-mono">{topic.topic_number}</td>
+                      <td className="px-4 py-3 font-medium text-app-text">{topic.title}</td>
+                      <td className="px-4 py-3 text-app-text-muted">
                         {topic.lessons
                           ? `Lesson ${topic.lessons.lesson_number}: ${topic.lessons.title}`
                           : '-'}
                       </td>
-                      <td className="px-4 py-3 text-slate-600">
+                      <td className="px-4 py-3 text-app-text-muted">
                         {topic.duration_minutes ? `${topic.duration_minutes} min` : '-'}
                       </td>
                       <td className="px-4 py-3">
@@ -227,7 +227,7 @@ export default function Topics() {
                         <div className="flex items-center justify-end gap-1">
                           <button
                             onClick={() => openEdit(topic)}
-                            className="p-1.5 text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors"
+                            className="p-1.5 text-app-text-muted hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors"
                             title="Edit topic"
                           >
                             <Edit2 size={15} />
@@ -252,11 +252,11 @@ export default function Topics() {
         <div className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Lesson</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Lesson</label>
             <select
               value={form.lesson_id}
               onChange={(e) => setForm({ ...form, lesson_id: e.target.value })}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             >
               <option value="">Select lesson</option>
               {lessons.map((lesson) => (
@@ -267,74 +267,74 @@ export default function Topics() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Title</label>
             <input
               type="text"
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
               placeholder="Topic title"
-              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Overview</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Overview</label>
             <textarea
               value={form.overview}
               onChange={(e) => setForm({ ...form, overview: e.target.value })}
               placeholder="Topic overview"
               rows={3}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Objectives</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Objectives</label>
             <textarea
               value={form.objectives}
               onChange={(e) => setForm({ ...form, objectives: e.target.value })}
               placeholder="Learning objectives (one per line)"
               rows={3}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Resources</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Resources</label>
             <textarea
               value={form.resources}
               onChange={(e) => setForm({ ...form, resources: e.target.value })}
               placeholder="Materials and resources"
               rows={2}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
             />
           </div>
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Topic Number</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Topic Number</label>
               <input
                 type="number"
                 value={form.topic_number}
                 onChange={(e) => setForm({ ...form, topic_number: e.target.value })}
                 placeholder="1"
                 min="1"
-                className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Duration (min)</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Duration (min)</label>
               <input
                 type="number"
                 value={form.duration_minutes}
                 onChange={(e) => setForm({ ...form, duration_minutes: e.target.value })}
                 placeholder="45"
                 min="0"
-                className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Status</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Status</label>
               <select
                 value={form.status}
                 onChange={(e) => setForm({ ...form, status: e.target.value as FormData['status'] })}
-                className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               >
                 <option value="draft">Draft</option>
                 <option value="active">Active</option>
@@ -345,7 +345,7 @@ export default function Topics() {
           <div className="flex justify-end gap-2 pt-2">
             <button
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2 text-sm rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm rounded-lg border border-app-border text-app-text-muted hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>

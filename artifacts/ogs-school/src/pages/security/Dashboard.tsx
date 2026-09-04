@@ -129,29 +129,29 @@ export default function SecurityDashboard() {
     { label: 'Assign Incident', icon: Flag, path: '/behaviour/assign', color: 'bg-amber-50 text-amber-600' },
     { label: 'Behaviour Report', icon: BarChart2, path: '/behaviour/reports', color: 'bg-orange-50 text-orange-600' },
     { label: 'Staff Attendance', icon: UserCheck, path: '/hr/staff-attendance', color: 'bg-purple-50 text-purple-600' },
-    { label: 'Dormitory Report', icon: Building, path: '/dormitory/report', color: 'bg-slate-100 text-slate-600' },
+    { label: 'Dormitory Report', icon: Building, path: '/dormitory/report', color: 'bg-slate-100 text-app-text-muted' },
     { label: 'Transport', icon: Truck, path: '/transport/assignments', color: 'bg-cyan-50 text-cyan-600' },
     { label: 'School Prefects', icon: Shield, path: '/student-mgmt/prefects', color: 'bg-emerald-50 text-emerald-600' },
   ];
 
   return (
-    <div className="md:p-6 space-y-8 bg-gray-50 min-h-screen -m-6 p-6">
+    <div className="md:p-6 space-y-8 bg-app-surface-alt min-h-screen -m-6 p-6">
       {/* Welcome Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">
+          <h1 className="text-2xl font-bold text-app-text">
             Welcome back, {profile?.first_name || 'Officer'}
           </h1>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-app-text-muted mt-1">
             {displayDate} • Security Command Centre
           </p>
         </div>
         <button 
           onClick={() => loadStats(true)}
           disabled={loading}
-          className="p-2.5 bg-white rounded-xl shadow-sm border border-gray-100 hover:bg-gray-50 transition-all active:scale-95 disabled:opacity-50"
+          className="p-2.5 bg-app-surface rounded-xl shadow-sm border border-app-border hover:bg-app-surface-alt transition-all active:scale-95 disabled:opacity-50"
         >
-          <RefreshCw className={`w-5 h-5 text-gray-400 ${loading ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`w-5 h-5 text-app-text-muted ${loading ? 'animate-spin' : ''}`} />
         </button>
       </div>
 
@@ -162,7 +162,7 @@ export default function SecurityDashboard() {
           return (
             <div 
               key={stat.label}
-              className="bg-white rounded-xl shadow-sm p-6 flex items-center gap-4 relative overflow-hidden group cursor-pointer hover:shadow-md transition-all border border-transparent hover:border-gray-100"
+              className="bg-app-surface rounded-xl shadow-sm p-6 flex items-center gap-4 relative overflow-hidden group cursor-pointer hover:shadow-md transition-all border border-transparent hover:border-app-border"
               onClick={() => navigate(stat.path)}
             >
               <div className="absolute right-4 top-4 opacity-10 group-hover:scale-110 transition-transform">
@@ -172,7 +172,7 @@ export default function SecurityDashboard() {
                 <div className={`text-4xl font-bold ${stat.color}`}>
                   {loading ? "\u2014" : stat.value.toLocaleString()}
                 </div>
-                <div className="text-sm text-gray-500 mt-1">{stat.label}</div>
+                <div className="text-sm text-app-text-muted mt-1">{stat.label}</div>
               </div>
             </div>
           );
@@ -181,8 +181,8 @@ export default function SecurityDashboard() {
 
       {/* Main Content */}
       <div className="space-y-6">
-        <div className="bg-white rounded-xl shadow-sm p-6">
-          <h2 className="text-lg font-semibold text-gray-800 mb-6 flex items-center gap-2">
+        <div className="bg-app-surface rounded-xl shadow-sm p-6">
+          <h2 className="text-lg font-semibold text-app-text mb-6 flex items-center gap-2">
             <ShieldCheck className="w-5 h-5 text-emerald-600" /> Security Operations
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -203,11 +203,11 @@ export default function SecurityDashboard() {
         </div>
 
         {/* Security Advisory Widget */}
-        <div className="bg-white rounded-xl shadow-sm p-6 border-l-4 border-amber-500">
+        <div className="bg-app-surface rounded-xl shadow-sm p-6 border-l-4 border-amber-500">
           <h2 className="text-sm font-bold text-amber-700 uppercase tracking-wider mb-3 flex items-center gap-2">
             <AlertCircle className="w-4 h-4" /> Security Advisory
           </h2>
-          <p className="text-gray-600 text-sm leading-relaxed italic">
+          <p className="text-app-text-muted text-sm leading-relaxed italic">
             "Ensure all entrance logs are verified against student admission records. 
             Report any suspicious activity directly to the Super Admin via the Complaint log. 
             Regular patrols of dormitories and transport bays are mandatory."

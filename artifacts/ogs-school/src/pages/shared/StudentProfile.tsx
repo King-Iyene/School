@@ -59,7 +59,7 @@ function remarkBadge(r: string): string {
 }
 
 function gradeColor(grade: string) {
-  if (!grade) return 'text-slate-400';
+  if (!grade) return 'text-app-text-muted';
   if (grade.startsWith('A')) return 'text-emerald-600 font-bold';
   if (grade.startsWith('B')) return 'text-blue-600 font-bold';
   if (grade.startsWith('C')) return 'text-amber-600 font-semibold';
@@ -70,7 +70,7 @@ function attColor(status: string) {
   if (status === 'present') return 'bg-emerald-100 text-emerald-700';
   if (status === 'absent') return 'bg-red-100 text-red-700';
   if (status === 'late') return 'bg-amber-100 text-amber-700';
-  return 'bg-slate-100 text-slate-600';
+  return 'bg-slate-100 text-app-text-muted';
 }
 
 const TABS = [
@@ -715,7 +715,7 @@ export default function StudentProfile() {
 
   if (!student) {
     return (
-      <div className="text-center py-20 text-slate-400">
+      <div className="text-center py-20 text-app-text-muted">
         <p className="font-medium">Student not found</p>
         <button onClick={() => window.history.back()} className="mt-3 text-sm text-emerald-600 hover:underline">Go back</button>
       </div>
@@ -741,15 +741,15 @@ export default function StudentProfile() {
     <div className="space-y-5">
       <div className="flex items-center gap-3">
         <button onClick={() => window.history.back()} className="p-2 hover:bg-slate-100 rounded-xl transition-colors">
-          <ArrowLeft className="w-5 h-5 text-slate-600" />
+          <ArrowLeft className="w-5 h-5 text-app-text-muted" />
         </button>
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Student Profile</h2>
-          <p className="text-slate-500 text-sm">{classLabel} — {enrollment?.academic_years?.name ?? ''}</p>
+          <h2 className="text-xl font-bold text-app-text">Student Profile</h2>
+          <p className="text-app-text-muted text-sm">{classLabel} — {enrollment?.academic_years?.name ?? ''}</p>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
         <div className="h-20 bg-gradient-to-r from-emerald-500 to-teal-500" />
         <div className="px-5 pb-5">
           <div className="flex items-end justify-between -mt-10 mb-4 flex-wrap gap-3">
@@ -759,7 +759,7 @@ export default function StudentProfile() {
                   {student.avatar_url ? (
                     <img src={student.avatar_url} alt={student.first_name} className="w-full h-full object-cover" />
                   ) : (
-                    <span className="text-2xl font-bold text-slate-400">{initials}</span>
+                    <span className="text-2xl font-bold text-app-text-muted">{initials}</span>
                   )}
                 </div>
               ) : (
@@ -773,16 +773,16 @@ export default function StudentProfile() {
               )}
               <div className="pb-1">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <h3 className="text-xl font-bold text-slate-800">{student.first_name} {student.last_name}</h3>
+                  <h3 className="text-xl font-bold text-app-text">{student.first_name} {student.last_name}</h3>
                   <StudentTypeBadge type={student.student_type} />
                 </div>
-                <p className="text-sm text-slate-500">{student.admission_number || student.email}</p>
+                <p className="text-sm text-app-text-muted">{student.admission_number || student.email}</p>
               </div>
             </div>
             <div className="flex items-center gap-2 pb-1 flex-wrap">
               <span className="bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1.5 rounded-full">{classLabel}</span>
               {isClassTeacher && <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1.5 rounded-full flex items-center gap-1"><GraduationCap className="w-3 h-3" /> Form Master</span>}
-              {!isAdmin && !isClassTeacher && role === 'teacher' && <span className="bg-slate-100 text-slate-600 text-xs font-semibold px-3 py-1.5 rounded-full">Subject Teacher View</span>}
+              {!isAdmin && !isClassTeacher && role === 'teacher' && <span className="bg-slate-100 text-app-text-muted text-xs font-semibold px-3 py-1.5 rounded-full">Subject Teacher View</span>}
               {(isAdmin || viewer?.id === studentId) && (
                 <button onClick={openEdit} className="flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-semibold px-4 py-1.5 rounded-full transition-colors">
                   <Edit2 className="w-3 h-3" /> Edit Profile
@@ -801,11 +801,11 @@ export default function StudentProfile() {
             </div>
           </div>
 
-          <div className="border-b border-slate-100 -mx-5">
+          <div className="border-b border-app-border -mx-5">
             <div className="flex gap-0.5 px-5 overflow-x-auto scrollbar-hide">
               {visibleTabs.map(t => (
                 <button key={t.key} onClick={() => { setTab(t.key); loadTab(t.key); }}
-                  className={`flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${tab === t.key ? 'border-emerald-500 text-emerald-600' : 'border-transparent text-slate-500 hover:text-slate-700'}`}>
+                  className={`flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${tab === t.key ? 'border-emerald-500 text-emerald-600' : 'border-transparent text-app-text-muted hover:text-app-text'}`}>
                   <t.icon className="w-3.5 h-3.5" />
                   {t.label}
                 </button>
@@ -820,8 +820,8 @@ export default function StudentProfile() {
       <div className="pb-6">
         {tab === 'bio' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-              <h4 className="font-semibold text-slate-700 mb-4 flex items-center gap-2"><User className="w-4 h-4 text-emerald-500" /> Personal Information</h4>
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
+              <h4 className="font-semibold text-app-text mb-4 flex items-center gap-2"><User className="w-4 h-4 text-emerald-500" /> Personal Information</h4>
               <dl className="grid grid-cols-2 gap-3">
                 {[
                   { label: 'Admission No.', value: student.admission_number || '—' },
@@ -834,24 +834,24 @@ export default function StudentProfile() {
                   { label: 'Student Type', value: student.student_type ? (student.student_type === 'boarding' ? 'Boarding' : 'Day') : '—', cap: true },
                   { label: 'Status', value: student.is_active ? 'Active' : 'Inactive' },
                 ].filter(item => !isSecurity || !item.restrictSecurity).map(item => (
-                  <div key={item.label} className="bg-slate-50 rounded-xl p-3">
-                    <dt className="text-xs text-slate-500 mb-0.5">{item.label}</dt>
-                    <dd className={`text-sm font-semibold text-slate-800 ${item.cap ? 'capitalize' : ''}`}>{item.value}</dd>
+                  <div key={item.label} className="bg-app-surface-alt rounded-xl p-3">
+                    <dt className="text-xs text-app-text-muted mb-0.5">{item.label}</dt>
+                    <dd className={`text-sm font-semibold text-app-text ${item.cap ? 'capitalize' : ''}`}>{item.value}</dd>
                   </div>
                 ))}
               </dl>
               <div className="mt-3 space-y-2">
-                {student.email && <div className="flex items-center gap-2 text-sm text-slate-600"><Mail className="w-4 h-4 text-slate-400" />{student.email}</div>}
-                {student.phone && <div className="flex items-center gap-2 text-sm text-slate-600"><Phone className="w-4 h-4 text-slate-400" />{student.phone}</div>}
-                {student.address && <div className="flex items-start gap-2 text-sm text-slate-600"><MapPin className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />{student.address}</div>}
+                {student.email && <div className="flex items-center gap-2 text-sm text-app-text-muted"><Mail className="w-4 h-4 text-app-text-muted" />{student.email}</div>}
+                {student.phone && <div className="flex items-center gap-2 text-sm text-app-text-muted"><Phone className="w-4 h-4 text-app-text-muted" />{student.phone}</div>}
+                {student.address && <div className="flex items-start gap-2 text-sm text-app-text-muted"><MapPin className="w-4 h-4 text-app-text-muted mt-0.5 flex-shrink-0" />{student.address}</div>}
               </div>
             </div>
 
             <div className="space-y-5">
               {canView.parentInfo && (
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+                <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
                   <div className="flex items-center justify-between mb-4">
-                    <h4 className="font-semibold text-slate-700 flex items-center gap-2"><Users className="w-4 h-4 text-emerald-500" /> Parent / Guardian</h4>
+                    <h4 className="font-semibold text-app-text flex items-center gap-2"><Users className="w-4 h-4 text-emerald-500" /> Parent / Guardian</h4>
                     {isAdmin && (
                       <button 
                         onClick={() => setShowManageParents(true)}
@@ -864,30 +864,30 @@ export default function StudentProfile() {
                   {parents.length === 0 ? (
                     <div>
                       <dl className="space-y-2">
-                        {student.guardian_name && <div className="bg-slate-50 rounded-xl p-3"><dt className="text-xs text-slate-500 mb-0.5">Guardian Name</dt><dd className="text-sm font-semibold text-slate-800">{student.guardian_name}</dd></div>}
-                        {student.guardian_phone && <div className="bg-slate-50 rounded-xl p-3"><dt className="text-xs text-slate-500 mb-0.5">Phone</dt><dd className="text-sm font-semibold text-slate-800">{student.guardian_phone}</dd></div>}
-                        {student.guardian_email && <div className="bg-slate-50 rounded-xl p-3"><dt className="text-xs text-slate-500 mb-0.5">Email</dt><dd className="text-sm font-semibold text-slate-800">{student.guardian_email}</dd></div>}
+                        {student.guardian_name && <div className="bg-app-surface-alt rounded-xl p-3"><dt className="text-xs text-app-text-muted mb-0.5">Guardian Name</dt><dd className="text-sm font-semibold text-app-text">{student.guardian_name}</dd></div>}
+                        {student.guardian_phone && <div className="bg-app-surface-alt rounded-xl p-3"><dt className="text-xs text-app-text-muted mb-0.5">Phone</dt><dd className="text-sm font-semibold text-app-text">{student.guardian_phone}</dd></div>}
+                        {student.guardian_email && <div className="bg-app-surface-alt rounded-xl p-3"><dt className="text-xs text-app-text-muted mb-0.5">Email</dt><dd className="text-sm font-semibold text-app-text">{student.guardian_email}</dd></div>}
                       </dl>
-                      {!student.guardian_name && <p className="text-sm text-slate-400">No guardian info on record</p>}
+                      {!student.guardian_name && <p className="text-sm text-app-text-muted">No guardian info on record</p>}
                     </div>
                   ) : parents.map((p, i) => {
                     const pr = p.profiles as any;
                     return (
-                      <div key={p.id} className="border border-slate-100 rounded-xl p-3 space-y-2 mb-3 last:mb-0">
+                      <div key={p.id} className="border border-app-border rounded-xl p-3 space-y-2 mb-3 last:mb-0">
                         <div className="flex items-center justify-between">
-                          <p className="font-semibold text-slate-800 text-sm">{pr?.first_name} {pr?.last_name}</p>
-                          <span className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full capitalize">{p.relationship}</span>
+                          <p className="font-semibold text-app-text text-sm">{pr?.first_name} {pr?.last_name}</p>
+                          <span className="text-xs bg-slate-100 text-app-text-muted px-2 py-0.5 rounded-full capitalize">{p.relationship}</span>
                         </div>
-                        {pr?.phone && <p className="text-xs text-slate-500 flex items-center gap-1.5"><Phone className="w-3 h-3" />{pr.phone}</p>}
-                        {pr?.email && <p className="text-xs text-slate-500 flex items-center gap-1.5"><Mail className="w-3 h-3" />{pr.email}</p>}
+                        {pr?.phone && <p className="text-xs text-app-text-muted flex items-center gap-1.5"><Phone className="w-3 h-3" />{pr.phone}</p>}
+                        {pr?.email && <p className="text-xs text-app-text-muted flex items-center gap-1.5"><Mail className="w-3 h-3" />{pr.email}</p>}
                       </div>
                     );
                   })}
                 </div>
               )}
 
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-                <h4 className="font-semibold text-slate-700 mb-4 flex items-center gap-2"><Calendar className="w-4 h-4 text-emerald-500" /> Enrollment</h4>
+              <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
+                <h4 className="font-semibold text-app-text mb-4 flex items-center gap-2"><Calendar className="w-4 h-4 text-emerald-500" /> Enrollment</h4>
                 <dl className="space-y-2">
                   {[
                     { label: 'Class', value: classLabel },
@@ -897,8 +897,8 @@ export default function StudentProfile() {
                     { label: 'Status', value: enrollment?.status ?? '—', cap: true },
                   ].map(item => (
                     <div key={item.label} className="flex items-center justify-between py-1.5 border-b border-slate-50 last:border-0">
-                      <span className="text-sm text-slate-500">{item.label}</span>
-                      <span className={`text-sm font-semibold text-slate-800 ${item.cap ? 'capitalize' : ''}`}>{item.value}</span>
+                      <span className="text-sm text-app-text-muted">{item.label}</span>
+                      <span className={`text-sm font-semibold text-app-text ${item.cap ? 'capitalize' : ''}`}>{item.value}</span>
                     </div>
                   ))}
                 </dl>
@@ -911,16 +911,16 @@ export default function StudentProfile() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h4 className="font-semibold text-slate-800">Academic Results</h4>
-                <p className="text-xs text-slate-500 mt-0.5">Term-by-term performance history</p>
+                <h4 className="font-semibold text-app-text">Academic Results</h4>
+                <p className="text-xs text-app-text-muted mt-0.5">Term-by-term performance history</p>
               </div>
             </div>
 
             {termResults.length === 0 ? (
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-16 text-center">
+              <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-16 text-center">
                 <Award className="w-12 h-12 text-slate-200 mx-auto mb-3" />
-                <p className="text-slate-500 font-medium">No results recorded yet</p>
-                <p className="text-slate-400 text-sm mt-1">Term results will appear here once recorded</p>
+                <p className="text-app-text-muted font-medium">No results recorded yet</p>
+                <p className="text-app-text-muted text-sm mt-1">Term results will appear here once recorded</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -929,23 +929,23 @@ export default function StudentProfile() {
                   return (
                     <div
                       key={`${r.term_id}-${r.academic_year_id}`}
-                      className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+                      className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden hover:shadow-md transition-shadow"
                     >
-                      <div className="px-5 py-4 border-b border-slate-100 bg-gradient-to-r from-emerald-50 to-blue-50">
+                      <div className="px-5 py-4 border-b border-app-border bg-gradient-to-r from-emerald-50 to-blue-50">
                         <div className="flex items-center justify-between">
                           <div>
-                            <h3 className="font-bold text-slate-800 flex items-center gap-2">
+                            <h3 className="font-bold text-app-text flex items-center gap-2">
                               <Calendar className="w-4 h-4 text-emerald-600" />
                               {r.term_name} — {r.academic_year_name}
                             </h3>
-                            <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
+                            <p className="text-xs text-app-text-muted mt-1 flex items-center gap-1">
                               <GraduationCap className="w-3.5 h-3.5" />
                               Class: {r.class_name}
                             </p>
                           </div>
                           <span
                             className={`text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded ${
-                              r.published ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-600'
+                              r.published ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-app-text-muted'
                             }`}
                           >
                             {r.published ? 'Published' : 'Pending'}
@@ -953,30 +953,30 @@ export default function StudentProfile() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-3 divide-x divide-slate-100">
+                      <div className="grid grid-cols-3 divide-x divide-app-border">
                         <div className="p-4 text-center">
-                          <p className="text-[10px] uppercase font-semibold text-slate-500 tracking-wide">Average</p>
+                          <p className="text-[10px] uppercase font-semibold text-app-text-muted tracking-wide">Average</p>
                           <p className="text-2xl font-black text-emerald-600 mt-1">{r.average.toFixed(2)}%</p>
-                          <p className="text-[10px] text-slate-400 mt-0.5">{r.subject_count} subjects</p>
+                          <p className="text-[10px] text-app-text-muted mt-0.5">{r.subject_count} subjects</p>
                         </div>
                         <div className="p-4 text-center">
-                          <p className="text-[10px] uppercase font-semibold text-slate-500 tracking-wide">Position</p>
+                          <p className="text-[10px] uppercase font-semibold text-app-text-muted tracking-wide">Position</p>
                           <p className="text-2xl font-black text-blue-600 mt-1">
                             {r.position ? ordinal(r.position) : '—'}
                           </p>
-                          {r.class_size && <p className="text-[10px] text-slate-400 mt-0.5">of {r.class_size}</p>}
+                          {r.class_size && <p className="text-[10px] text-app-text-muted mt-0.5">of {r.class_size}</p>}
                         </div>
                         <div className="p-4 text-center">
-                          <p className="text-[10px] uppercase font-semibold text-slate-500 tracking-wide">Remark</p>
+                          <p className="text-[10px] uppercase font-semibold text-app-text-muted tracking-wide">Remark</p>
                           <span className={`inline-block mt-1 text-sm font-bold px-3 py-1 rounded-lg border ${remarkBadge(r.remark)}`}>
                             {r.remark}
                           </span>
                         </div>
                       </div>
 
-                      <div className="px-5 py-3 border-t border-slate-100 bg-slate-50">
+                      <div className="px-5 py-3 border-t border-app-border bg-app-surface-alt">
                         {locked ? (
-                          <p className="text-xs text-slate-500 text-center italic">
+                          <p className="text-xs text-app-text-muted text-center italic">
                             Results not yet published. Full report will be available once your class teacher publishes.
                           </p>
                         ) : (
@@ -1022,31 +1022,31 @@ export default function StudentProfile() {
                 </div>
               ))}
             </div>
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-              <div className="px-5 py-4 border-b border-slate-100">
-                <h4 className="font-semibold text-slate-800">Attendance Records</h4>
-                <p className="text-xs text-slate-400">Last {attendance.length} records</p>
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+              <div className="px-5 py-4 border-b border-app-border">
+                <h4 className="font-semibold text-app-text">Attendance Records</h4>
+                <p className="text-xs text-app-text-muted">Last {attendance.length} records</p>
               </div>
               {attendance.length === 0 ? (
-                <div className="py-12 text-center text-slate-400 text-sm">No attendance records found</div>
+                <div className="py-12 text-center text-app-text-muted text-sm">No attendance records found</div>
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-slate-50 border-b border-slate-100">
-                        <th className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">Date</th>
-                        <th className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">Status</th>
-                        <th className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">Notes</th>
+                      <tr className="bg-app-surface-alt border-b border-app-border">
+                        <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">Date</th>
+                        <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">Status</th>
+                        <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">Notes</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-app-border">
                       {attendance.map(a => (
-                        <tr key={a.id} className="hover:bg-slate-50/60">
-                          <td className="px-4 py-2.5 text-slate-700">{new Date(a.date).toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' })}</td>
+                        <tr key={a.id} className="hover:bg-app-surface-alt/60">
+                          <td className="px-4 py-2.5 text-app-text">{new Date(a.date).toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' })}</td>
                           <td className="px-4 py-2.5">
                             <span className={`text-xs px-2.5 py-1 rounded-full font-medium capitalize ${attColor(a.status)}`}>{a.status}</span>
                           </td>
-                          <td className="px-4 py-2.5 text-slate-500">{a.notes || '—'}</td>
+                          <td className="px-4 py-2.5 text-app-text-muted">{a.notes || '—'}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -1058,12 +1058,12 @@ export default function StudentProfile() {
         )}
 
         {tab === 'subjects' && (
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
             <div className="flex items-start justify-between mb-4 gap-3 flex-wrap">
               <div>
-                <h4 className="font-semibold text-slate-800">Enrolled Subjects — {classLabel}</h4>
+                <h4 className="font-semibold text-app-text">Enrolled Subjects — {classLabel}</h4>
                 {isAdmin && (
-                  <p className="text-xs text-slate-500 mt-0.5">
+                  <p className="text-xs text-app-text-muted mt-0.5">
                     {isSeniorClass()
                       ? `Senior class — must offer 8–9 subjects. Currently offering ${subjects.length - Object.keys(subjectExclusions).length} of ${subjects.length}.`
                       : `Tick subjects this student offers. Currently ${subjects.length - Object.keys(subjectExclusions).length} of ${subjects.length} selected.`}
@@ -1078,7 +1078,7 @@ export default function StudentProfile() {
               )}
             </div>
             {subjects.length === 0 ? (
-              <p className="text-sm text-slate-400">No subjects assigned to this class</p>
+              <p className="text-sm text-app-text-muted">No subjects assigned to this class</p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {subjects.map(s => {
@@ -1090,22 +1090,22 @@ export default function StudentProfile() {
                     <div
                       key={s.id}
                       onClick={() => isAdmin && toggleSubject(sub?.id)}
-                      className={`border rounded-xl p-4 transition-all ${isAdmin ? 'cursor-pointer select-none' : ''} ${isExcluded ? 'border-slate-100 bg-slate-50 opacity-60' : 'border-slate-200 bg-white'} ${isAdmin && !subjectSaving ? 'hover:border-emerald-300' : ''}`}
+                      className={`border rounded-xl p-4 transition-all ${isAdmin ? 'cursor-pointer select-none' : ''} ${isExcluded ? 'border-app-border bg-app-surface-alt opacity-60' : 'border-app-border bg-app-surface'} ${isAdmin && !subjectSaving ? 'hover:border-emerald-300' : ''}`}
                     >
                       <div className="flex items-start justify-between gap-2 mb-2">
                         <div className="flex items-center gap-2 min-w-0">
                           {isAdmin && (
-                            <div className={`w-4 h-4 flex-shrink-0 rounded border-2 flex items-center justify-center transition-colors ${isOffered ? 'bg-emerald-500 border-emerald-500' : 'border-slate-300 bg-white'}`}>
+                            <div className={`w-4 h-4 flex-shrink-0 rounded border-2 flex items-center justify-center transition-colors ${isOffered ? 'bg-emerald-500 border-emerald-500' : 'border-app-border bg-app-surface'}`}>
                               {isOffered && <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
                             </div>
                           )}
-                          <p className={`font-semibold text-sm ${isExcluded ? 'text-slate-400 line-through' : 'text-slate-800'}`}>{sub?.name}</p>
+                          <p className={`font-semibold text-sm ${isExcluded ? 'text-app-text-muted line-through' : 'text-app-text'}`}>{sub?.name}</p>
                         </div>
-                        {sub?.code && <span className="text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full flex-shrink-0">{sub.code}</span>}
+                        {sub?.code && <span className="text-xs bg-slate-100 text-app-text-muted px-2 py-0.5 rounded-full flex-shrink-0">{sub.code}</span>}
                       </div>
-                      <p className="text-xs text-slate-500 capitalize">{sub?.category}</p>
+                      <p className="text-xs text-app-text-muted capitalize">{sub?.category}</p>
                       {teacher && <p className="text-xs text-emerald-600 mt-1.5 font-medium">{teacher.first_name} {teacher.last_name}</p>}
-                      {isExcluded && isAdmin && <p className="text-xs text-slate-400 mt-1 italic">Not offered</p>}
+                      {isExcluded && isAdmin && <p className="text-xs text-app-text-muted mt-1 italic">Not offered</p>}
                     </div>
                   );
                 })}
@@ -1118,7 +1118,7 @@ export default function StudentProfile() {
           <div className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { label: 'Total Fees', value: `₦${totalFees.toLocaleString()}`, color: 'bg-slate-50 border-slate-200 text-slate-800' },
+                { label: 'Total Fees', value: `₦${totalFees.toLocaleString()}`, color: 'bg-app-surface-alt border-app-border text-app-text' },
                 { label: 'Total Paid', value: `₦${totalPaid.toLocaleString()}`, color: 'bg-emerald-50 border-emerald-200 text-emerald-700' },
                 { label: 'Balance', value: `₦${(totalFees - totalPaid).toLocaleString()}`, color: totalFees - totalPaid > 0 ? 'bg-red-50 border-red-200 text-red-700' : 'bg-emerald-50 border-emerald-200 text-emerald-700' },
               ].map(s => (
@@ -1128,25 +1128,25 @@ export default function StudentProfile() {
                 </div>
               ))}
             </div>
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-              <div className="px-5 py-4 border-b border-slate-100"><h4 className="font-semibold text-slate-800">Payment History</h4></div>
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+              <div className="px-5 py-4 border-b border-app-border"><h4 className="font-semibold text-app-text">Payment History</h4></div>
               {feePayments.length === 0 ? (
-                <div className="py-12 text-center text-slate-400 text-sm">No payments recorded</div>
+                <div className="py-12 text-center text-app-text-muted text-sm">No payments recorded</div>
               ) : (
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="bg-slate-50 border-b border-slate-100">
-                      {['Fee', 'Amount Paid', 'Date', 'Method', 'Receipt'].map(h => <th key={h} className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">{h}</th>)}
+                    <tr className="bg-app-surface-alt border-b border-app-border">
+                      {['Fee', 'Amount Paid', 'Date', 'Method', 'Receipt'].map(h => <th key={h} className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">{h}</th>)}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-app-border">
                     {feePayments.map(p => (
-                      <tr key={p.id} className="hover:bg-slate-50/60">
-                        <td className="px-4 py-2.5 text-slate-700">{p.fee_name || '—'}</td>
+                      <tr key={p.id} className="hover:bg-app-surface-alt/60">
+                        <td className="px-4 py-2.5 text-app-text">{p.fee_name || '—'}</td>
                         <td className="px-4 py-2.5 font-semibold text-emerald-700">₦{(p.amount_paid || 0).toLocaleString()}</td>
-                        <td className="px-4 py-2.5 text-slate-500">{new Date(p.payment_date).toLocaleDateString()}</td>
-                        <td className="px-4 py-2.5 text-slate-500 capitalize">{p.payment_method || '—'}</td>
-                        <td className="px-4 py-2.5 font-mono text-xs text-slate-500">{p.receipt_number || '—'}</td>
+                        <td className="px-4 py-2.5 text-app-text-muted">{new Date(p.payment_date).toLocaleDateString()}</td>
+                        <td className="px-4 py-2.5 text-app-text-muted capitalize">{p.payment_method || '—'}</td>
+                        <td className="px-4 py-2.5 font-mono text-xs text-app-text-muted">{p.receipt_number || '—'}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -1157,31 +1157,31 @@ export default function StudentProfile() {
         )}
 
         {tab === 'behaviour' && canView.behaviour && (
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-            <div className="px-5 py-4 border-b border-slate-100"><h4 className="font-semibold text-slate-800">Behaviour Records</h4></div>
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-app-border"><h4 className="font-semibold text-app-text">Behaviour Records</h4></div>
             {behaviours.length === 0 ? (
-              <div className="py-12 text-center text-slate-400 text-sm">No behaviour incidents recorded</div>
+              <div className="py-12 text-center text-app-text-muted text-sm">No behaviour incidents recorded</div>
             ) : (
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-slate-50 border-b border-slate-100">
-                    {['Date', 'Incident', 'Severity', 'Assigned By', 'Notes'].map(h => <th key={h} className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">{h}</th>)}
+                  <tr className="bg-app-surface-alt border-b border-app-border">
+                    {['Date', 'Incident', 'Severity', 'Assigned By', 'Notes'].map(h => <th key={h} className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">{h}</th>)}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-app-border">
                   {behaviours.map(b => (
-                    <tr key={b.id} className="hover:bg-slate-50/60">
-                      <td className="px-4 py-2.5 text-slate-500">{new Date(b.created_at).toLocaleDateString()}</td>
-                      <td className="px-4 py-2.5 font-medium text-slate-800">{(b.behaviour_incidents as any)?.name ?? b.incident_name ?? '—'}</td>
+                    <tr key={b.id} className="hover:bg-app-surface-alt/60">
+                      <td className="px-4 py-2.5 text-app-text-muted">{new Date(b.created_at).toLocaleDateString()}</td>
+                      <td className="px-4 py-2.5 font-medium text-app-text">{(b.behaviour_incidents as any)?.name ?? b.incident_name ?? '—'}</td>
                       <td className="px-4 py-2.5">
                         {(b.behaviour_incidents as any)?.severity && (
-                          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${(b.behaviour_incidents as any).severity === 'high' ? 'bg-red-100 text-red-700' : (b.behaviour_incidents as any).severity === 'medium' ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-600'}`}>
+                          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${(b.behaviour_incidents as any).severity === 'high' ? 'bg-red-100 text-red-700' : (b.behaviour_incidents as any).severity === 'medium' ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-app-text-muted'}`}>
                             {(b.behaviour_incidents as any).severity}
                           </span>
                         )}
                       </td>
-                      <td className="px-4 py-2.5 text-slate-500">{b.profiles ? `${(b.profiles as any).first_name} ${(b.profiles as any).last_name}` : '—'}</td>
-                      <td className="px-4 py-2.5 text-slate-500 max-w-[200px] truncate">{b.description || b.notes || '—'}</td>
+                      <td className="px-4 py-2.5 text-app-text-muted">{b.profiles ? `${(b.profiles as any).first_name} ${(b.profiles as any).last_name}` : '—'}</td>
+                      <td className="px-4 py-2.5 text-app-text-muted max-w-[200px] truncate">{b.description || b.notes || '—'}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -1191,10 +1191,10 @@ export default function StudentProfile() {
         )}
 
         {tab === 'dormitory' && canView.dormitory && (
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-            <h4 className="font-semibold text-slate-800 mb-4 flex items-center gap-2"><Building2 className="w-4 h-4 text-emerald-500" /> Dormitory Assignment</h4>
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
+            <h4 className="font-semibold text-app-text mb-4 flex items-center gap-2"><Building2 className="w-4 h-4 text-emerald-500" /> Dormitory Assignment</h4>
             {!dormitory ? (
-              <div className="py-8 text-center text-slate-400 text-sm">Student is not assigned to any dormitory</div>
+              <div className="py-8 text-center text-app-text-muted text-sm">Student is not assigned to any dormitory</div>
             ) : (
               <dl className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {[
@@ -1205,9 +1205,9 @@ export default function StudentProfile() {
                   { label: 'From', value: dormitory.start_date ? new Date(dormitory.start_date).toLocaleDateString() : '—' },
                   { label: 'Status', value: dormitory.status ?? '—', cap: true },
                 ].map(item => (
-                  <div key={item.label} className="bg-slate-50 rounded-xl p-3">
-                    <dt className="text-xs text-slate-500 mb-0.5">{item.label}</dt>
-                    <dd className={`text-sm font-semibold text-slate-800 ${item.cap ? 'capitalize' : ''}`}>{item.value}</dd>
+                  <div key={item.label} className="bg-app-surface-alt rounded-xl p-3">
+                    <dt className="text-xs text-app-text-muted mb-0.5">{item.label}</dt>
+                    <dd className={`text-sm font-semibold text-app-text ${item.cap ? 'capitalize' : ''}`}>{item.value}</dd>
                   </div>
                 ))}
               </dl>
@@ -1216,30 +1216,30 @@ export default function StudentProfile() {
         )}
 
         {tab === 'purchases' && canView.purchases && (
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-            <div className="px-5 py-4 border-b border-slate-100">
-              <h4 className="font-semibold text-slate-800">Purchase History</h4>
-              <p className="text-xs text-slate-400 mt-0.5">School store orders</p>
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-app-border">
+              <h4 className="font-semibold text-app-text">Purchase History</h4>
+              <p className="text-xs text-app-text-muted mt-0.5">School store orders</p>
             </div>
             {orders.length === 0 ? (
-              <div className="py-12 text-center text-slate-400 text-sm">No purchases found</div>
+              <div className="py-12 text-center text-app-text-muted text-sm">No purchases found</div>
             ) : (
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-app-border">
                 {orders.map(o => (
                   <div key={o.id} className="px-5 py-3">
                     <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-sm font-medium text-slate-800">Order #{o.id.slice(-6).toUpperCase()}</span>
+                      <span className="text-sm font-medium text-app-text">Order #{o.id.slice(-6).toUpperCase()}</span>
                       <div className="flex items-center gap-2">
-                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${o.status === 'completed' ? 'bg-emerald-100 text-emerald-700' : o.status === 'pending' ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-600'}`}>{o.status}</span>
-                        <span className="text-sm font-bold text-slate-700">₦{(o.total_amount || 0).toLocaleString()}</span>
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${o.status === 'completed' ? 'bg-emerald-100 text-emerald-700' : o.status === 'pending' ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-app-text-muted'}`}>{o.status}</span>
+                        <span className="text-sm font-bold text-app-text">₦{(o.total_amount || 0).toLocaleString()}</span>
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-1.5">
                       {(o.order_items ?? []).slice(0, 4).map((item: any, i: number) => (
-                        <span key={i} className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">{item.store_products?.name ?? 'Item'} ×{item.quantity}</span>
+                        <span key={i} className="text-xs bg-slate-100 text-app-text-muted px-2 py-0.5 rounded-full">{item.store_products?.name ?? 'Item'} ×{item.quantity}</span>
                       ))}
                     </div>
-                    <p className="text-xs text-slate-400 mt-1">{new Date(o.created_at).toLocaleDateString()}</p>
+                    <p className="text-xs text-app-text-muted mt-1">{new Date(o.created_at).toLocaleDateString()}</p>
                   </div>
                 ))}
               </div>
@@ -1249,44 +1249,44 @@ export default function StudentProfile() {
 
         {tab === 'history' && canView.history && (
           <>
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6">
-            <div className="px-5 py-4 border-b border-slate-100"><h4 className="font-semibold text-slate-800">Activity History</h4></div>
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden mb-6">
+            <div className="px-5 py-4 border-b border-app-border"><h4 className="font-semibold text-app-text">Activity History</h4></div>
             {activityItems.length === 0 ? (
-              <div className="py-8 text-center text-slate-400 text-sm">No recorded activity yet</div>
+              <div className="py-8 text-center text-app-text-muted text-sm">No recorded activity yet</div>
             ) : (
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-app-border">
                 {activityItems.map(item => (
                   <div key={item.id} className="px-5 py-3 flex items-start justify-between gap-4">
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold text-slate-800">{item.title}</p>
-                      {item.detail && <p className="text-xs text-slate-500 mt-0.5 capitalize">{item.detail}</p>}
+                      <p className="text-sm font-semibold text-app-text">{item.title}</p>
+                      {item.detail && <p className="text-xs text-app-text-muted mt-0.5 capitalize">{item.detail}</p>}
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-xs text-slate-400">{new Date(item.at).toLocaleDateString()} {new Date(item.at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                      {item.by && <p className="text-xs text-slate-500 mt-0.5">by {item.by}</p>}
+                      <p className="text-xs text-app-text-muted">{new Date(item.at).toLocaleDateString()} {new Date(item.at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                      {item.by && <p className="text-xs text-app-text-muted mt-0.5">by {item.by}</p>}
                     </div>
                   </div>
                 ))}
               </div>
             )}
           </div>
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-            <div className="px-5 py-4 border-b border-slate-100"><h4 className="font-semibold text-slate-800">Enrollment History</h4></div>
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-app-border"><h4 className="font-semibold text-app-text">Enrollment History</h4></div>
             {enrollHistory.length === 0 ? (
-              <div className="py-12 text-center text-slate-400 text-sm">No enrollment history found</div>
+              <div className="py-12 text-center text-app-text-muted text-sm">No enrollment history found</div>
             ) : (
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-app-border">
                 {enrollHistory.map(h => {
                   const c = h.classes as any;
                   return (
                     <div key={h.id} className="px-5 py-3 flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-semibold text-slate-800">{c ? (c.name || `${c.level}${c.section}`) : '—'}</p>
-                        <p className="text-xs text-slate-500">{(h.academic_years as any)?.name} · {(h.terms as any)?.name ?? 'All Terms'}</p>
+                        <p className="text-sm font-semibold text-app-text">{c ? (c.name || `${c.level}${c.section}`) : '—'}</p>
+                        <p className="text-xs text-app-text-muted">{(h.academic_years as any)?.name} · {(h.terms as any)?.name ?? 'All Terms'}</p>
                       </div>
                       <div className="text-right">
-                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${h.status === 'active' ? 'bg-emerald-100 text-emerald-700' : h.status === 'graduated' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-600'}`}>{h.status}</span>
-                        <p className="text-xs text-slate-400 mt-1">{new Date(h.enrollment_date).toLocaleDateString()}</p>
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${h.status === 'active' ? 'bg-emerald-100 text-emerald-700' : h.status === 'graduated' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-app-text-muted'}`}>{h.status}</span>
+                        <p className="text-xs text-app-text-muted mt-1">{new Date(h.enrollment_date).toLocaleDateString()}</p>
                       </div>
                     </div>
                   );
@@ -1304,27 +1304,27 @@ export default function StudentProfile() {
             {isAdmin && (
               <>
                 <div>
-                  <label className="block text-xs font-medium text-slate-500 mb-1">First Name</label>
-                  <input value={editForm.first_name} onChange={e => setEditForm({...editForm, first_name: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+                  <label className="block text-xs font-medium text-app-text-muted mb-1">First Name</label>
+                  <input value={editForm.first_name} onChange={e => setEditForm({...editForm, first_name: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-500 mb-1">Last Name</label>
-                  <input value={editForm.last_name} onChange={e => setEditForm({...editForm, last_name: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+                  <label className="block text-xs font-medium text-app-text-muted mb-1">Last Name</label>
+                  <input value={editForm.last_name} onChange={e => setEditForm({...editForm, last_name: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-medium text-slate-500 mb-1">Email</label>
-                  <input type="email" value={editForm.email} onChange={e => setEditForm({...editForm, email: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+                  <label className="block text-xs font-medium text-app-text-muted mb-1">Email</label>
+                  <input type="email" value={editForm.email} onChange={e => setEditForm({...editForm, email: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
                 </div>
               </>
             )}
             <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1">Phone Number</label>
-              <input value={editForm.phone} onChange={e => setEditForm({...editForm, phone: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Phone Number</label>
+              <input value={editForm.phone} onChange={e => setEditForm({...editForm, phone: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
             </div>
             {isAdmin && (
               <div>
-                <label className="block text-xs font-medium text-slate-500 mb-1">Gender</label>
-                <select value={editForm.gender} onChange={e => setEditForm({...editForm, gender: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+                <label className="block text-xs font-medium text-app-text-muted mb-1">Gender</label>
+                <select value={editForm.gender} onChange={e => setEditForm({...editForm, gender: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
                   <option value="">Select</option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
@@ -1333,22 +1333,22 @@ export default function StudentProfile() {
               </div>
             )}
             <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1">Date of Birth</label>
-              <input type="date" value={editForm.date_of_birth} onChange={e => setEditForm({...editForm, date_of_birth: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Date of Birth</label>
+              <input type="date" value={editForm.date_of_birth} onChange={e => setEditForm({...editForm, date_of_birth: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
             </div>
             {isAdmin && (
               <>
                 <div>
-                  <label className="block text-xs font-medium text-slate-500 mb-1">State of Origin</label>
-                  <input type="text" value={editForm.state_of_origin || ''} onChange={e => setEditForm({...editForm, state_of_origin: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+                  <label className="block text-xs font-medium text-app-text-muted mb-1">State of Origin</label>
+                  <input type="text" value={editForm.state_of_origin || ''} onChange={e => setEditForm({...editForm, state_of_origin: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-500 mb-1">Local Government Area (LGA)</label>
-                  <input type="text" value={editForm.lga || ''} onChange={e => setEditForm({...editForm, lga: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+                  <label className="block text-xs font-medium text-app-text-muted mb-1">Local Government Area (LGA)</label>
+                  <input type="text" value={editForm.lga || ''} onChange={e => setEditForm({...editForm, lga: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-500 mb-1">Blood Group</label>
-                  <select value={editForm.blood_group} onChange={e => setEditForm({...editForm, blood_group: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+                  <label className="block text-xs font-medium text-app-text-muted mb-1">Blood Group</label>
+                  <select value={editForm.blood_group} onChange={e => setEditForm({...editForm, blood_group: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
                     <option value="">Select</option>
                     {['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].map(bg => <option key={bg} value={bg}>{bg}</option>)}
                   </select>
@@ -1356,20 +1356,20 @@ export default function StudentProfile() {
               </>
             )}
             <div className="sm:col-span-2">
-              <label className="block text-xs font-medium text-slate-500 mb-1">Address</label>
-              <textarea value={editForm.address || ''} onChange={e => setEditForm({...editForm, address: e.target.value})} rows={2} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Address</label>
+              <textarea value={editForm.address || ''} onChange={e => setEditForm({...editForm, address: e.target.value})} rows={2} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
             </div>
             {isAdmin && (
               <div className="sm:col-span-2">
-                <label className="block text-xs font-medium text-slate-500 mb-1">Class (Admin Only)</label>
-                <select value={editForm.class_id} onChange={e => setEditForm({...editForm, class_id: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+                <label className="block text-xs font-medium text-app-text-muted mb-1">Class (Admin Only)</label>
+                <select value={editForm.class_id} onChange={e => setEditForm({...editForm, class_id: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
                   {classList.map(c => <option key={c.id} value={c.id}>{c.name || `${c.level}${c.section}`}</option>)}
                 </select>
               </div>
             )}
           </div>
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setShowEdit(false)} className="flex-1 px-4 py-2 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50">Cancel</button>
+            <button onClick={() => setShowEdit(false)} className="flex-1 px-4 py-2 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
             <button onClick={handleSaveProfile} disabled={saving} className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 flex items-center justify-center gap-2">
               {saving ? 'Saving...' : <><Save className="w-4 h-4" /> Save Changes</>}
             </button>
@@ -1389,7 +1389,7 @@ export default function StudentProfile() {
             </div>
           </div>
           <div className="flex gap-3">
-            <button onClick={() => setShowDeleteModal(false)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50">
+            <button onClick={() => setShowDeleteModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">
               Cancel
             </button>
             <button onClick={handleDeleteStudent} disabled={deleting} className="flex-1 px-4 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-xl text-sm font-medium disabled:opacity-50">
@@ -1407,18 +1407,18 @@ export default function StudentProfile() {
       >
         <div className="space-y-6">
           <div>
-            <h5 className="text-sm font-semibold text-slate-800 mb-3">Linked Parents</h5>
+            <h5 className="text-sm font-semibold text-app-text mb-3">Linked Parents</h5>
             {parents.length === 0 ? (
-              <p className="text-sm text-slate-400 italic">No accounts linked to this student.</p>
+              <p className="text-sm text-app-text-muted italic">No accounts linked to this student.</p>
             ) : (
               <div className="space-y-2">
                 {parents.map(link => {
                   const p = link.profiles as any;
                   return (
-                    <div key={link.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
+                    <div key={link.id} className="flex items-center justify-between p-3 bg-app-surface-alt rounded-xl border border-app-border">
                       <div>
-                        <p className="text-sm font-semibold text-slate-800">{p?.first_name} {p?.last_name}</p>
-                        <p className="text-xs text-slate-500 capitalize">{link.relationship}</p>
+                        <p className="text-sm font-semibold text-app-text">{p?.first_name} {p?.last_name}</p>
+                        <p className="text-xs text-app-text-muted capitalize">{link.relationship}</p>
                       </div>
                       <button 
                         onClick={() => handleUnlinkParent(link.id)}
@@ -1433,15 +1433,15 @@ export default function StudentProfile() {
             )}
           </div>
 
-          <div className="pt-4 border-t border-slate-100">
-            <h5 className="text-sm font-semibold text-slate-800 mb-3">Link Existing Parent</h5>
+          <div className="pt-4 border-t border-app-border">
+            <h5 className="text-sm font-semibold text-app-text mb-3">Link Existing Parent</h5>
             <div className="flex gap-2 mb-4">
               <input 
                 type="text"
                 placeholder="Search by name, email or phone..."
                 value={parentSearchQuery}
                 onChange={e => setParentSearchQuery(e.target.value)}
-                className="flex-1 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                className="flex-1 border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
               />
               <button 
                 onClick={searchParents}
@@ -1453,17 +1453,17 @@ export default function StudentProfile() {
             </div>
 
             {parentSearchResults.length > 0 && (
-              <div className="space-y-2 border border-slate-100 rounded-xl p-3 bg-slate-50/50">
+              <div className="space-y-2 border border-app-border rounded-xl p-3 bg-app-surface-alt/50">
                 {parentSearchResults.map(p => (
-                  <div key={p.id} className="flex items-center justify-between p-2 bg-white rounded-lg border border-slate-100">
+                  <div key={p.id} className="flex items-center justify-between p-2 bg-app-surface rounded-lg border border-app-border">
                     <div>
-                      <p className="text-sm font-medium text-slate-800">{p.first_name} {p.last_name}</p>
-                      <p className="text-xs text-slate-500">{p.email || p.phone}</p>
+                      <p className="text-sm font-medium text-app-text">{p.first_name} {p.last_name}</p>
+                      <p className="text-xs text-app-text-muted">{p.email || p.phone}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <select 
                         id={`rel-${p.id}`}
-                        className="text-xs border border-slate-200 rounded px-2 py-1 bg-white"
+                        className="text-xs border border-app-border rounded px-2 py-1 bg-app-surface"
                         defaultValue="Father"
                       >
                         <option value="Father">Father</option>
@@ -1490,7 +1490,7 @@ export default function StudentProfile() {
           <div className="flex justify-end pt-2">
             <button 
               onClick={() => setShowManageParents(false)}
-              className="px-6 py-2 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50"
+              className="px-6 py-2 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt"
             >
               Done
             </button>

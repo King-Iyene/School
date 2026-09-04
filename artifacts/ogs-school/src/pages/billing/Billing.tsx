@@ -141,7 +141,7 @@ export default function Billing() {
   }
 
   if (!tenant) {
-    return <div className="flex justify-center py-20"><Loader2 className="w-6 h-6 animate-spin text-slate-400" /></div>;
+    return <div className="flex justify-center py-20"><Loader2 className="w-6 h-6 animate-spin text-app-text-muted" /></div>;
   }
 
   const trialDaysLeft = tenant.status === 'trial' ? daysUntil(tenant.trial_ends_at) : null;
@@ -150,8 +150,8 @@ export default function Billing() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Billing &amp; Subscription</h1>
-        <p className="text-slate-500 text-sm mt-1">Manage your plan, payment method and billing history.</p>
+        <h1 className="text-2xl font-bold text-app-text">Billing &amp; Subscription</h1>
+        <p className="text-app-text-muted text-sm mt-1">Manage your plan, payment method and billing history.</p>
       </div>
 
       {message && (
@@ -187,9 +187,9 @@ export default function Billing() {
       )}
 
       {/* Payment method */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-        <h2 className="font-semibold text-slate-900 flex items-center gap-2 mb-1"><CreditCard className="w-4 h-4" /> Payment Method</h2>
-        <p className="text-sm text-slate-500 mb-4">{hasCard ? 'A card is saved on file for automatic billing.' : 'No card on file yet.'}</p>
+      <div className="bg-app-surface border border-app-border rounded-2xl p-6 shadow-sm">
+        <h2 className="font-semibold text-app-text flex items-center gap-2 mb-1"><CreditCard className="w-4 h-4" /> Payment Method</h2>
+        <p className="text-sm text-app-text-muted mb-4">{hasCard ? 'A card is saved on file for automatic billing.' : 'No card on file yet.'}</p>
         <button
           onClick={updateCard}
           disabled={cardBusy}
@@ -200,8 +200,8 @@ export default function Billing() {
       </div>
 
       {/* Plans */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-        <h2 className="font-semibold text-slate-900 mb-4">Plan</h2>
+      <div className="bg-app-surface border border-app-border rounded-2xl p-6 shadow-sm">
+        <h2 className="font-semibold text-app-text mb-4">Plan</h2>
         <div className="grid sm:grid-cols-3 gap-4">
           {PLAN_ORDER.map((tier) => {
             const isCurrent = tier === tenant.plan_tier;
@@ -209,12 +209,12 @@ export default function Billing() {
             return (
               <div
                 key={tier}
-                className={`rounded-xl border p-4 flex flex-col ${isCurrent ? 'border-brand-indigo ring-2 ring-brand-indigo/20' : 'border-slate-200'}`}
+                className={`rounded-xl border p-4 flex flex-col ${isCurrent ? 'border-brand-indigo ring-2 ring-brand-indigo/20' : 'border-app-border'}`}
               >
-                <p className="font-bold text-slate-900">{PLAN_LABELS[tier]}</p>
-                <p className="text-2xl font-bold text-slate-900 mt-1">{formatNaira(PLAN_PRICES_NGN[tier])}<span className="text-sm font-normal text-slate-400">/mo</span></p>
-                <p className="text-xs text-slate-500 mt-2 flex-1">{PLAN_BLURBS[tier]}</p>
-                <p className="text-xs text-slate-400 mt-2">
+                <p className="font-bold text-app-text">{PLAN_LABELS[tier]}</p>
+                <p className="text-2xl font-bold text-app-text mt-1">{formatNaira(PLAN_PRICES_NGN[tier])}<span className="text-sm font-normal text-app-text-muted">/mo</span></p>
+                <p className="text-xs text-app-text-muted mt-2 flex-1">{PLAN_BLURBS[tier]}</p>
+                <p className="text-xs text-app-text-muted mt-2">
                   Up to {PLAN_STUDENT_LIMITS[tier] === null ? 'unlimited' : PLAN_STUDENT_LIMITS[tier]} students
                 </p>
                 {isCurrent ? (
@@ -227,7 +227,7 @@ export default function Billing() {
                   <button
                     onClick={() => changePlan(tier)}
                     disabled={busyPlan !== null}
-                    className="mt-4 px-4 py-2 border border-slate-300 hover:border-brand-indigo hover:text-brand-indigo disabled:opacity-50 text-slate-700 text-sm font-semibold rounded-lg transition-colors"
+                    className="mt-4 px-4 py-2 border border-app-border hover:border-brand-indigo hover:text-brand-indigo disabled:opacity-50 text-app-text text-sm font-semibold rounded-lg transition-colors"
                   >
                     {busyPlan === tier ? 'Updating…' : PLAN_ORDER.indexOf(tier) > PLAN_ORDER.indexOf(tenant.plan_tier) ? 'Upgrade' : 'Downgrade'}
                   </button>
@@ -239,17 +239,17 @@ export default function Billing() {
       </div>
 
       {/* Transactions */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-        <h2 className="font-semibold text-slate-900 flex items-center gap-2 mb-4"><Receipt className="w-4 h-4" /> Billing History</h2>
+      <div className="bg-app-surface border border-app-border rounded-2xl p-6 shadow-sm">
+        <h2 className="font-semibold text-app-text flex items-center gap-2 mb-4"><Receipt className="w-4 h-4" /> Billing History</h2>
         {loadingEvents ? (
-          <div className="flex justify-center py-6"><Loader2 className="w-5 h-5 animate-spin text-slate-400" /></div>
+          <div className="flex justify-center py-6"><Loader2 className="w-5 h-5 animate-spin text-app-text-muted" /></div>
         ) : events.length === 0 ? (
-          <p className="text-sm text-slate-400">No transactions yet.</p>
+          <p className="text-sm text-app-text-muted">No transactions yet.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-slate-400 border-b border-slate-100">
+                <tr className="text-left text-app-text-muted border-b border-app-border">
                   <th className="font-medium py-2 pr-4">Date</th>
                   <th className="font-medium py-2 pr-4">Plan</th>
                   <th className="font-medium py-2 pr-4">Amount</th>
@@ -259,11 +259,11 @@ export default function Billing() {
               <tbody>
                 {events.map((ev) => (
                   <tr key={ev.id} className="border-b border-slate-50 last:border-0">
-                    <td className="py-2 pr-4 text-slate-600">{new Date(ev.created_at).toLocaleDateString()}</td>
-                    <td className="py-2 pr-4 text-slate-600">{PLAN_LABELS[ev.plan_tier]}</td>
-                    <td className="py-2 pr-4 text-slate-600">{ev.currency === 'NGN' ? formatNaira(ev.amount) : `${ev.currency} ${ev.amount}`}</td>
+                    <td className="py-2 pr-4 text-app-text-muted">{new Date(ev.created_at).toLocaleDateString()}</td>
+                    <td className="py-2 pr-4 text-app-text-muted">{PLAN_LABELS[ev.plan_tier]}</td>
+                    <td className="py-2 pr-4 text-app-text-muted">{ev.currency === 'NGN' ? formatNaira(ev.amount) : `${ev.currency} ${ev.amount}`}</td>
                     <td className="py-2">
-                      <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${ev.status === 'success' ? 'bg-emerald-50 text-emerald-600' : ev.status === 'failed' ? 'bg-red-50 text-red-600' : 'bg-slate-100 text-slate-500'}`}>
+                      <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${ev.status === 'success' ? 'bg-emerald-50 text-emerald-600' : ev.status === 'failed' ? 'bg-red-50 text-red-600' : 'bg-slate-100 text-app-text-muted'}`}>
                         {ev.status}
                       </span>
                     </td>

@@ -149,8 +149,8 @@ export default function AssignClassTeacher() {
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Assign Form Master / Mistress</h1>
-          <p className="text-sm text-slate-500 mt-1">Assign form masters and mistresses to classes for {activeYear?.name}</p>
+          <h1 className="text-2xl font-bold text-app-text">Assign Form Master / Mistress</h1>
+          <p className="text-sm text-app-text-muted mt-1">Assign form masters and mistresses to classes for {activeYear?.name}</p>
         </div>
         <button
           onClick={openAdd}
@@ -162,42 +162,42 @@ export default function AssignClassTeacher() {
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center h-40 text-slate-400">Loading...</div>
+        <div className="flex items-center justify-center h-40 text-app-text-muted">Loading...</div>
       ) : (
-        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+        <div className="bg-app-surface rounded-xl border border-app-border overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Class</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Teacher</th>
-                <th className="text-right px-4 py-3 font-medium text-slate-600">Actions</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Class</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Teacher</th>
+                <th className="text-right px-4 py-3 font-medium text-app-text-muted">Actions</th>
               </tr>
             </thead>
             <tbody>
               {classTeachers.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="text-center py-10 text-slate-400">No class teacher assignments found</td>
+                  <td colSpan={4} className="text-center py-10 text-app-text-muted">No class teacher assignments found</td>
                 </tr>
               ) : (
                 classTeachers.map((ct) => (
-                  <tr key={ct.id} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="px-4 py-3 font-medium text-slate-800">
+                  <tr key={ct.id} className="border-b border-app-border hover:bg-app-surface-alt">
+                    <td className="px-4 py-3 font-medium text-app-text">
                       {ct.classes ? getClassName(ct.classes) : getClassDisplayName(ct.class_id)}
                     </td>
-                    <td className="px-4 py-3 text-slate-600">
+                    <td className="px-4 py-3 text-app-text-muted">
                       {ct.profiles ? `${ct.profiles.first_name} ${ct.profiles.last_name}` : '-'}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => openEdit(ct)}
-                          className="p-1.5 text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors"
+                          className="p-1.5 text-app-text-muted hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors"
                         >
                           <Edit2 size={15} />
                         </button>
                         <button
                           onClick={() => handleDelete(ct.id)}
-                          className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-1.5 text-app-text-muted hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                         >
                           <Trash2 size={15} />
                         </button>
@@ -219,11 +219,11 @@ export default function AssignClassTeacher() {
         <div className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Class</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Class</label>
             <select
               value={form.class_id}
               onChange={(e) => setForm({ ...form, class_id: e.target.value })}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             >
               <option value="">Select class</option>
               {classes.map((cls) => (
@@ -232,11 +232,11 @@ export default function AssignClassTeacher() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Teacher</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Teacher</label>
             <select
               value={form.teacher_id}
               onChange={(e) => setForm({ ...form, teacher_id: e.target.value })}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             >
               <option value="">Select teacher</option>
               {teachers.map((teacher) => (
@@ -245,13 +245,13 @@ export default function AssignClassTeacher() {
             </select>
           </div>
           <div className="hidden">
-            <label className="block text-sm font-medium text-slate-700 mb-1">Academic Year</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Academic Year</label>
             <input type="hidden" value={form.academic_year_id} />
           </div>
           <div className="flex justify-end gap-2 pt-2">
             <button
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2 text-sm rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm rounded-lg border border-app-border text-app-text-muted hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>
