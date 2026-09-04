@@ -6,6 +6,7 @@ import Reveal from '../../components/shared/Reveal';
 import { PLAN_LABELS, PLAN_PRICES_NGN, PLAN_ORDER } from '../../lib/planFeatures';
 import type { PlanTier, TenantStatus } from '../../lib/types';
 import SupportTicketsAdmin from './SupportTicketsAdmin';
+import { verifyCustomDomainDns } from '../../lib/dnsVerify';
 
 interface TenantRow {
   tenant_id: string;
@@ -21,6 +22,8 @@ interface TenantRow {
   primary_color: string;
   secondary_color: string;
   custom_domain: string | null;
+  custom_domain_verified: boolean;
+  custom_domain_verification_token: string;
   student_count: number;
   staff_count: number;
 }
@@ -251,6 +254,7 @@ export default function SaasAdminDashboard() {
           saving={saving}
           onClose={() => setEditing(null)}
           onSave={patch => updateTenant(editing.tenant_id, patch)}
+          onVerified={load}
         />
       )}
     </div>
@@ -258,15 +262,38 @@ export default function SaasAdminDashboard() {
 }
 
 function TenantEditModal({
-  tenant, saving, onClose, onSave,
+  tenant, saving, onClose, onSave, onVerified,
 }: {
   tenant: TenantRow;
   saving: boolean;
   onClose: () => void;
   onSave: (patch: Partial<TenantRow>) => void;
+  onVerified: () => void;
 }) {
   const [form, setForm] = useState<TenantRow>({ ...tenant });
+  const [checkingDns, setCheckingDns] = useState(false);
+  const [dnsError, setDnsError] = useState('');
   const fieldClass = 'bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-violet/30 focus:border-brand-violet/40 transition-colors';
+
+  async function checkDns() {
+    if (!form.custom_domain) return;
+    setCheckingDns(true);
+    setDnsError('');
+    try {
+      const verified = await verifyCustomDomainDns(form.custom_domain, form.custom_domain_verification_token);
+      if (!verified) {
+        setDnsError('TXT record not found yet. DNS changes can take a few minutes to propagate — try again shortly.');
+        return;
+      }
+      await supabase.from('tenant_settings').update({ custom_domain_verified: true }).eq('tenant_id', tenant.tenant_id);
+      setForm(f => ({ ...f, custom_domain_verified: true }));
+      onVerified();
+    } catch (err) {
+      setDnsError(err instanceof Error ? err.message : 'DNS lookup failed.');
+    } finally {
+      setCheckingDns(false);
+    }
+  }
 
   return (
     <Modal isOpen title={`Manage ${tenant.school_name || tenant.slug}`} onClose={onClose} size="lg">
@@ -364,6 +391,36 @@ function TenantEditModal({
                 disabled={form.plan_tier !== 'enterprise'}
                 className={`${fieldClass} disabled:bg-app-surface-alt disabled:text-app-text-muted`}
               />
+
+              {form.custom_domain && form.custom_domain === tenant.custom_domain && (
+                form.custom_domain_verified ? (
+                  <p className="mt-2 text-xs text-emerald-600 font-medium flex items-center gap-1.5">
+                    ✓ Domain ownership verified
+                  </p>
+                ) : (
+                  <div className="mt-2 bg-app-surface-alt border border-app-border rounded-lg p-3 text-xs text-app-text-muted space-y-2">
+                    <p>
+                      To confirm this school controls <strong>{form.custom_domain}</strong>, add this DNS TXT record, then check:
+                    </p>
+                    <div className="bg-app-surface rounded border border-app-border p-2 font-mono text-[11px] break-all">
+                      <div>Host: <span className="text-app-text">_ogs-verify.{form.custom_domain}</span></div>
+                      <div>Value: <span className="text-app-text">{form.custom_domain_verification_token}</span></div>
+                    </div>
+                    {dnsError && <p className="text-red-600">{dnsError}</p>}
+                    <button
+                      type="button"
+                      onClick={checkDns}
+                      disabled={checkingDns}
+                      className="px-3 py-1.5 bg-brand-indigo hover:brightness-110 text-white rounded-lg text-xs font-medium disabled:opacity-50 transition-all"
+                    >
+                      {checkingDns ? 'Checking...' : 'Check Now'}
+                    </button>
+                  </div>
+                )
+              )}
+              {form.custom_domain && form.custom_domain !== tenant.custom_domain && (
+                <p className="mt-2 text-xs text-app-text-muted">Save this domain first, then verify ownership.</p>
+              )}
             </div>
           </div>
         </section>
