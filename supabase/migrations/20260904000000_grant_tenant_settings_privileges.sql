@@ -1,0 +1,19 @@
+-- ============================================================================
+-- Fix: PATCH on tenant_settings rejected by CORS preflight ("Method PATCH is
+-- not allowed by Access-Control-Allow-Methods").
+-- ============================================================================
+-- PostgREST computes which HTTP methods it advertises for a table (and thus
+-- what it answers an OPTIONS/CORS-preflight request with) from the actual
+-- Postgres GRANTs the connecting role holds on that table — this is a
+-- separate, earlier check than RLS policies, which only decide *which rows*
+-- an already-permitted operation can touch. 20260601000300_saas_multi_tenant.sql
+-- created tenant_settings with RLS enabled and a permissive "for all" policy,
+-- but never issued an explicit GRANT for it, leaving it dependent on
+-- whichever default privileges happened to apply when the table was first
+-- created — which, for this table specifically, ended up missing UPDATE for
+-- `authenticated`. No migration in this repo has ever issued an explicit
+-- GRANT (every other table happens to have picked one up some other way),
+-- so this is likely a one-off gap rather than a systemic one; if the same
+-- CORS/method error shows up on another table later, it's the same root
+-- cause and the fix is the same shape.
+grant select, insert, update, delete on public.tenant_settings to authenticated;
