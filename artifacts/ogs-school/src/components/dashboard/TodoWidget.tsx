@@ -156,7 +156,7 @@ export default function TodoWidget({ userId, schoolId, isSuperAdmin }: TodoWidge
   };
 
   return (
-    <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden h-full flex flex-col">
+    <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden flex flex-col">
       <div className="p-5 border-b border-app-border flex items-center justify-between bg-app-surface-alt/50">
         <div>
           <h3 className="font-semibold text-app-text">Todo List</h3>

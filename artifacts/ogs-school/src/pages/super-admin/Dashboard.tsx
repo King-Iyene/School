@@ -644,7 +644,7 @@ export default function SuperAdminDashboard() {
       </div>
 
       {/* Attendance progress + Staff Authorizations */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
         <div className="lg:col-span-3 bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">
           <h2 className="text-lg font-semibold text-app-text">Today's Staff Attendance</h2>
           <p className="text-sm text-app-text-muted mt-0.5 mb-5">Live check-ins vs. total staff on record today.</p>
