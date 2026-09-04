@@ -28,7 +28,7 @@ const ROLE_COLORS: Record<string, string> = {
   treasurer:           'bg-emerald-100 text-emerald-700',
   pro:                 'bg-rose-100 text-rose-700',
   welfare_officer:     'bg-violet-100 text-violet-700',
-  member:              'bg-slate-100 text-slate-600',
+  member:              'bg-slate-100 text-app-text-muted',
 };
 
 const TEACHER_ROLES = ['patron', 'co-patron', 'advisor'];
@@ -244,13 +244,13 @@ export default function ClubDetail() {
   }
 
   if (loading) {
-    return <div className="flex items-center justify-center h-64 text-slate-400">Loading club...</div>;
+    return <div className="flex items-center justify-center h-64 text-app-text-muted">Loading club...</div>;
   }
 
   if (!club) {
     return (
       <div className="text-center py-16">
-        <p className="text-slate-500 mb-4">Club not found.</p>
+        <p className="text-app-text-muted mb-4">Club not found.</p>
         <button onClick={() => navigate('/clubs')} className="text-emerald-600 hover:underline">Back to Clubs</button>
       </div>
     );
@@ -261,17 +261,17 @@ export default function ClubDetail() {
       {/* Header */}
       <div className="flex items-start gap-4">
         <button onClick={() => navigate('/clubs')} className="p-2 hover:bg-slate-100 rounded-lg transition-colors mt-1">
-          <ArrowLeft className="w-5 h-5 text-slate-600" />
+          <ArrowLeft className="w-5 h-5 text-app-text-muted" />
         </button>
         <div className="flex-1">
           <div className="flex items-center gap-3 flex-wrap">
-            <h1 className="text-2xl font-bold text-slate-800">{club.name}</h1>
-            <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${club.is_active ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500'}`}>
+            <h1 className="text-2xl font-bold text-app-text">{club.name}</h1>
+            <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${club.is_active ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-app-text-muted'}`}>
               {club.is_active ? 'Active' : 'Inactive'}
             </span>
           </div>
-          {club.description && <p className="text-slate-500 text-sm mt-1">{club.description}</p>}
-          <div className="flex flex-wrap gap-4 mt-2 text-xs text-slate-500">
+          {club.description && <p className="text-app-text-muted text-sm mt-1">{club.description}</p>}
+          <div className="flex flex-wrap gap-4 mt-2 text-xs text-app-text-muted">
             {club.meeting_day && (
               <span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5" />{club.meeting_day}{club.meeting_time ? ` · ${club.meeting_time}` : ''}</span>
             )}
@@ -282,29 +282,29 @@ export default function ClubDetail() {
         </div>
         <div className="flex items-center gap-4">
           <div className="w-48 text-left">
-            <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Academic Year</label>
+            <label className="block text-[10px] font-bold text-app-text-muted uppercase mb-1">Academic Year</label>
             <select
               value={selectedYear}
               onChange={e => setSelectedYear(e.target.value)}
-              className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
+              className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
             >
               {years.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
             </select>
           </div>
           <div className="text-right">
-            <div className="text-2xl font-bold text-slate-700">{members.filter(m => m.is_active).length}</div>
-            <div className="text-xs text-slate-400">members</div>
+            <div className="text-2xl font-bold text-app-text">{members.filter(m => m.is_active).length}</div>
+            <div className="text-xs text-app-text-muted">members</div>
           </div>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-200">
+      <div className="flex border-b border-app-border">
         {TABS.map(t => (
           <button
             key={t.key}
             onClick={() => setTab(t.key)}
-            className={`flex items-center gap-2 px-5 py-3 text-sm font-medium border-b-2 transition-colors ${tab === t.key ? 'border-emerald-500 text-emerald-600' : 'border-transparent text-slate-500 hover:text-slate-700'}`}
+            className={`flex items-center gap-2 px-5 py-3 text-sm font-medium border-b-2 transition-colors ${tab === t.key ? 'border-emerald-500 text-emerald-600' : 'border-transparent text-app-text-muted hover:text-app-text'}`}
           >
             <t.icon className="w-4 h-4" /> {t.label}
           </button>
@@ -317,7 +317,7 @@ export default function ClubDetail() {
           {/* Executives */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h2 className="font-semibold text-slate-700 flex items-center gap-2">
+              <h2 className="font-semibold text-app-text flex items-center gap-2">
                 <Star className="w-4 h-4 text-amber-500" /> Student Executives
                 <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">{executives.length}</span>
               </h2>
@@ -328,24 +328,24 @@ export default function ClubDetail() {
               )}
             </div>
             {executives.length === 0 ? (
-              <p className="text-sm text-slate-400 py-4 text-center bg-slate-50 rounded-xl">No executives assigned yet.</p>
+              <p className="text-sm text-app-text-muted py-4 text-center bg-app-surface-alt rounded-xl">No executives assigned yet.</p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
                 {executives.map(m => (
-                  <div key={m.id} className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl hover:shadow-sm transition-shadow">
+                  <div key={m.id} className="flex items-center gap-3 p-3 bg-app-surface border border-app-border rounded-xl hover:shadow-sm transition-shadow">
                     <Initials name={m.student_name} avatarUrl={m.avatar_url} />
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-slate-800 truncate">{m.student_name}</p>
-                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${ROLE_COLORS[m.role] ?? 'bg-slate-100 text-slate-600'}`}>
+                      <p className="text-sm font-medium text-app-text truncate">{m.student_name}</p>
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${ROLE_COLORS[m.role] ?? 'bg-slate-100 text-app-text-muted'}`}>
                         {MEMBER_ROLES.find(r => r.value === m.role)?.label ?? m.role}
                       </span>
                     </div>
                     {canManage && (
                       <div className="flex gap-1">
-                        <button onClick={() => { setEditingMember(m); setEditRole(m.role); }} className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded transition-colors">
+                        <button onClick={() => { setEditingMember(m); setEditRole(m.role); }} className="p-1.5 text-app-text-muted hover:text-emerald-600 hover:bg-emerald-50 rounded transition-colors">
                           <Edit2 className="w-3.5 h-3.5" />
                         </button>
-                        <button onClick={() => removeMember(m.id)} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors">
+                        <button onClick={() => removeMember(m.id)} className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded transition-colors">
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       </div>
@@ -359,9 +359,9 @@ export default function ClubDetail() {
           {/* Regular Members */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h2 className="font-semibold text-slate-700 flex items-center gap-2">
-                <Users className="w-4 h-4 text-slate-400" /> Members
-                <span className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">{regularMembers.length}</span>
+              <h2 className="font-semibold text-app-text flex items-center gap-2">
+                <Users className="w-4 h-4 text-app-text-muted" /> Members
+                <span className="text-xs bg-slate-100 text-app-text-muted px-2 py-0.5 rounded-full">{regularMembers.length}</span>
               </h2>
               {canManage && (
                 <button onClick={() => { setAddMemberRole('member'); setShowAddMember(true); }} className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-700 text-white rounded-lg hover:bg-slate-800 transition-colors text-xs font-medium">
@@ -370,36 +370,36 @@ export default function ClubDetail() {
               )}
             </div>
             {regularMembers.length === 0 ? (
-              <p className="text-sm text-slate-400 py-4 text-center bg-slate-50 rounded-xl">No members yet.</p>
+              <p className="text-sm text-app-text-muted py-4 text-center bg-app-surface-alt rounded-xl">No members yet.</p>
             ) : (
-              <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+              <div className="bg-app-surface border border-app-border rounded-xl overflow-hidden">
                 <table className="w-full text-sm">
-                  <thead className="bg-slate-50 border-b border-slate-200">
+                  <thead className="bg-app-surface-alt border-b border-app-border">
                     <tr>
-                      <th className="text-left px-4 py-3 text-slate-500 font-medium">Student</th>
-                      <th className="text-left px-4 py-3 text-slate-500 font-medium">Joined</th>
+                      <th className="text-left px-4 py-3 text-app-text-muted font-medium">Student</th>
+                      <th className="text-left px-4 py-3 text-app-text-muted font-medium">Joined</th>
                       {canManage && <th className="px-4 py-3" />}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-app-border">
                     {regularMembers.map(m => (
-                      <tr key={m.id} className="hover:bg-slate-50">
+                      <tr key={m.id} className="hover:bg-app-surface-alt">
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-2.5">
                             <Initials name={m.student_name} avatarUrl={m.avatar_url} />
-                            <span className="font-medium text-slate-700">{m.student_name}</span>
+                            <span className="font-medium text-app-text">{m.student_name}</span>
                           </div>
                         </td>
-                        <td className="px-4 py-3 text-slate-500">
+                        <td className="px-4 py-3 text-app-text-muted">
                           {m.joined_at ? new Date(m.joined_at).toLocaleDateString('en-GB') : '—'}
                         </td>
                         {canManage && (
                           <td className="px-4 py-3">
                             <div className="flex gap-1 justify-end">
-                              <button onClick={() => { setEditingMember(m); setEditRole(m.role); }} className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded transition-colors">
+                              <button onClick={() => { setEditingMember(m); setEditRole(m.role); }} className="p-1.5 text-app-text-muted hover:text-emerald-600 hover:bg-emerald-50 rounded transition-colors">
                                 <Edit2 className="w-3.5 h-3.5" />
                               </button>
-                              <button onClick={() => removeMember(m.id)} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors">
+                              <button onClick={() => removeMember(m.id)} className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded transition-colors">
                                 <Trash2 className="w-3.5 h-3.5" />
                               </button>
                             </div>
@@ -414,8 +414,8 @@ export default function ClubDetail() {
           </div>
 
           {inactive.length > 0 && (
-            <details className="text-sm text-slate-400">
-              <summary className="cursor-pointer hover:text-slate-600 py-2">Past members ({inactive.length})</summary>
+            <details className="text-sm text-app-text-muted">
+              <summary className="cursor-pointer hover:text-app-text-muted py-2">Past members ({inactive.length})</summary>
               <div className="mt-2 space-y-1 pl-4">
                 {inactive.map(m => (
                   <span key={m.id} className="block">{m.student_name} — <span className="italic">{MEMBER_ROLES.find(r => r.value === m.role)?.label}</span></span>
@@ -430,7 +430,7 @@ export default function ClubDetail() {
       {tab === 'teachers' && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-semibold text-slate-700">Patrons & Advisors</h2>
+            <h2 className="font-semibold text-app-text">Patrons & Advisors</h2>
             {isAdmin && (
               <button onClick={() => setShowAddTeacher(true)} className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-xs font-medium">
                 <Plus className="w-3.5 h-3.5" /> Assign Teacher
@@ -438,18 +438,18 @@ export default function ClubDetail() {
             )}
           </div>
           {teachers.length === 0 ? (
-            <p className="text-sm text-slate-400 py-8 text-center bg-slate-50 rounded-xl">No patrons assigned yet.</p>
+            <p className="text-sm text-app-text-muted py-8 text-center bg-app-surface-alt rounded-xl">No patrons assigned yet.</p>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {teachers.map(t => (
-                <div key={t.id} className="flex items-center gap-3 p-4 bg-white border border-slate-200 rounded-xl">
+                <div key={t.id} className="flex items-center gap-3 p-4 bg-app-surface border border-app-border rounded-xl">
                   <Initials name={t.teacher_name} avatarUrl={t.avatar_url} />
                   <div className="flex-1">
-                    <p className="font-medium text-slate-800">{t.teacher_name}</p>
+                    <p className="font-medium text-app-text">{t.teacher_name}</p>
                     <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full font-medium capitalize">{t.role}</span>
                   </div>
                   {isAdmin && (
-                    <button onClick={() => removeTeacher(t.id)} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors">
+                    <button onClick={() => removeTeacher(t.id)} className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded transition-colors">
                       <Trash2 className="w-4 h-4" />
                     </button>
                   )}
@@ -463,62 +463,62 @@ export default function ClubDetail() {
       {/* Add Member Modal */}
       {showAddMember && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md">
-            <div className="p-6 border-b border-slate-100">
-              <h2 className="text-lg font-semibold text-slate-800">Add Club Member</h2>
+          <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-md">
+            <div className="p-6 border-b border-app-border">
+              <h2 className="text-lg font-semibold text-app-text">Add Club Member</h2>
             </div>
             <div className="p-6 space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Role</label>
+                  <label className="block text-sm font-medium text-app-text mb-1">Role</label>
                   <select
                     value={addMemberRole}
                     onChange={e => setAddMemberRole(e.target.value)}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   >
                     {MEMBER_ROLES.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Joined Date</label>
+                  <label className="block text-sm font-medium text-app-text mb-1">Joined Date</label>
                   <input type="date" value={addMemberDate} onChange={e => setAddMemberDate(e.target.value)}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                    className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Search Student</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Search Student</label>
                 <div className="relative">
-                  <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+                  <Search className="absolute left-3 top-2.5 w-4 h-4 text-app-text-muted" />
                   <input
                     type="text"
                     placeholder="Type student name..."
                     value={studentSearch}
                     onChange={e => { setStudentSearch(e.target.value); searchStudents(e.target.value); }}
-                    className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full pl-9 pr-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
                 {searchResults.length > 0 && (
-                  <div className="mt-2 border border-slate-200 rounded-lg overflow-hidden max-h-48 overflow-y-auto">
+                  <div className="mt-2 border border-app-border rounded-lg overflow-hidden max-h-48 overflow-y-auto">
                     {searchResults.map(s => (
                       <button key={s.id} onClick={() => addMember(s)} className="w-full text-left px-4 py-2.5 hover:bg-emerald-50 flex items-center gap-2.5 transition-colors">
                         <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold shrink-0">
                           {s.first_name[0]}{s.last_name[0]}
                         </div>
                         <div>
-                          <p className="text-sm text-slate-700">{s.first_name} {s.last_name}</p>
-                          {s.admission_number && <p className="text-xs text-slate-400">{s.admission_number}</p>}
+                          <p className="text-sm text-app-text">{s.first_name} {s.last_name}</p>
+                          {s.admission_number && <p className="text-xs text-app-text-muted">{s.admission_number}</p>}
                         </div>
                       </button>
                     ))}
                   </div>
                 )}
                 {studentSearch && searchResults.length === 0 && (
-                  <p className="text-sm text-slate-400 mt-2 text-center py-3 bg-slate-50 rounded-lg">No students found.</p>
+                  <p className="text-sm text-app-text-muted mt-2 text-center py-3 bg-app-surface-alt rounded-lg">No students found.</p>
                 )}
               </div>
             </div>
-            <div className="p-6 border-t border-slate-100 flex justify-end">
-              <button onClick={() => { setShowAddMember(false); setStudentSearch(''); setSearchResults([]); }} className="px-4 py-2 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors text-sm">Close</button>
+            <div className="p-6 border-t border-app-border flex justify-end">
+              <button onClick={() => { setShowAddMember(false); setStudentSearch(''); setSearchResults([]); }} className="px-4 py-2 text-app-text-muted hover:bg-app-surface-alt rounded-lg transition-colors text-sm">Close</button>
             </div>
           </div>
         </div>
@@ -527,49 +527,49 @@ export default function ClubDetail() {
       {/* Add Teacher Modal */}
       {showAddTeacher && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md">
-            <div className="p-6 border-b border-slate-100">
-              <h2 className="text-lg font-semibold text-slate-800">Assign Patron / Advisor</h2>
+          <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-md">
+            <div className="p-6 border-b border-app-border">
+              <h2 className="text-lg font-semibold text-app-text">Assign Patron / Advisor</h2>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Role</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Role</label>
                 <select
                   value={addTeacherRole}
                   onChange={e => setAddTeacherRole(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
                   {TEACHER_ROLES.map(r => <option key={r} value={r} className="capitalize">{r.charAt(0).toUpperCase() + r.slice(1).replace('-', ' ')}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Search Teacher</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Search Teacher</label>
                 <div className="relative">
-                  <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+                  <Search className="absolute left-3 top-2.5 w-4 h-4 text-app-text-muted" />
                   <input
                     type="text"
                     placeholder="Type teacher name..."
                     value={teacherSearch}
                     onChange={e => { setTeacherSearch(e.target.value); searchTeachers(e.target.value); }}
-                    className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full pl-9 pr-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
                 {teacherResults.length > 0 && (
-                  <div className="mt-2 border border-slate-200 rounded-lg overflow-hidden max-h-48 overflow-y-auto">
+                  <div className="mt-2 border border-app-border rounded-lg overflow-hidden max-h-48 overflow-y-auto">
                     {teacherResults.map(t => (
                       <button key={t.id} onClick={() => addTeacher(t)} className="w-full text-left px-4 py-2.5 hover:bg-blue-50 flex items-center gap-2.5 transition-colors">
                         <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold">
                           {t.first_name[0]}{t.last_name[0]}
                         </div>
-                        <span className="text-sm text-slate-700">{t.first_name} {t.last_name}</span>
+                        <span className="text-sm text-app-text">{t.first_name} {t.last_name}</span>
                       </button>
                     ))}
                   </div>
                 )}
               </div>
             </div>
-            <div className="p-6 border-t border-slate-100 flex justify-end">
-              <button onClick={() => { setShowAddTeacher(false); setTeacherSearch(''); setTeacherResults([]); }} className="px-4 py-2 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors text-sm">Close</button>
+            <div className="p-6 border-t border-app-border flex justify-end">
+              <button onClick={() => { setShowAddTeacher(false); setTeacherSearch(''); setTeacherResults([]); }} className="px-4 py-2 text-app-text-muted hover:bg-app-surface-alt rounded-lg transition-colors text-sm">Close</button>
             </div>
           </div>
         </div>
@@ -578,18 +578,18 @@ export default function ClubDetail() {
       {/* Edit Role Modal */}
       {editingMember && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6">
-            <h2 className="text-lg font-semibold text-slate-800 mb-4">Change Role</h2>
-            <p className="text-sm text-slate-500 mb-4">{editingMember.student_name}</p>
+          <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-sm p-6">
+            <h2 className="text-lg font-semibold text-app-text mb-4">Change Role</h2>
+            <p className="text-sm text-app-text-muted mb-4">{editingMember.student_name}</p>
             <select
               value={editRole}
               onChange={e => setEditRole(e.target.value)}
-              className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-4"
+              className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-4"
             >
               {MEMBER_ROLES.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
             </select>
             <div className="flex gap-3">
-              <button onClick={() => setEditingMember(null)} className="flex-1 px-4 py-2 border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 text-sm">Cancel</button>
+              <button onClick={() => setEditingMember(null)} className="flex-1 px-4 py-2 border border-app-border rounded-lg text-app-text-muted hover:bg-app-surface-alt text-sm">Cancel</button>
               <button onClick={saveEditRole} className="flex-1 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 text-sm font-medium">Save</button>
             </div>
           </div>

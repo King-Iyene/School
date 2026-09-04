@@ -14,7 +14,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   'Academic':      'bg-cyan-100 text-cyan-700',
   'Religious':     'bg-amber-100 text-amber-700',
   'Social':        'bg-violet-100 text-violet-700',
-  'general':       'bg-slate-100 text-slate-600',
+  'general':       'bg-slate-100 text-app-text-muted',
 };
 
 const CATEGORY_ICONS: Record<string, React.ElementType> = {
@@ -167,8 +167,8 @@ export default function Clubs() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">School Clubs & Societies</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Manage clubs, assign patrons and student members</p>
+          <h1 className="text-2xl font-bold text-app-text">School Clubs & Societies</h1>
+          <p className="text-app-text-muted text-sm mt-0.5">Manage clubs, assign patrons and student members</p>
         </div>
         {isAdmin && (
           <button onClick={openAdd} className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">
@@ -182,23 +182,23 @@ export default function Clubs() {
         <div className="flex-1 space-y-3">
           <div className="flex gap-3">
             <div className="w-48">
-              <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Academic Year</label>
+              <label className="block text-[10px] font-bold text-app-text-muted uppercase mb-1">Academic Year</label>
               <select
                 value={selectedYear}
                 onChange={e => setSelectedYear(e.target.value)}
-                className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
+                className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
               >
                 {years.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
               </select>
             </div>
             <div className="flex-1">
-              <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Search Clubs</label>
+              <label className="block text-[10px] font-bold text-app-text-muted uppercase mb-1">Search Clubs</label>
               <input
                 type="text"
                 placeholder="Search by name or description..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
           </div>
@@ -207,7 +207,7 @@ export default function Clubs() {
               <button
                 key={cat}
                 onClick={() => setFilterCat(cat)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${filterCat === cat ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${filterCat === cat ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-app-text-muted hover:bg-slate-200'}`}
               >
                 {cat}
               </button>
@@ -228,7 +228,7 @@ export default function Clubs() {
             <s.icon className={`w-8 h-8 ${s.color.split(' ')[1]}`} />
             <div>
               <p className={`text-2xl font-bold ${s.color.split(' ')[1]}`}>{s.value}</p>
-              <p className="text-xs text-slate-500">{s.label}</p>
+              <p className="text-xs text-app-text-muted">{s.label}</p>
             </div>
           </div>
         ))}
@@ -236,35 +236,35 @@ export default function Clubs() {
 
       {/* Clubs Grid */}
       {loading ? (
-        <div className="text-center py-12 text-slate-400">Loading clubs...</div>
+        <div className="text-center py-12 text-app-text-muted">Loading clubs...</div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-12 text-slate-400">No clubs found.</div>
+        <div className="text-center py-12 text-app-text-muted">No clubs found.</div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
           {filtered.map(club => (
-            <div key={club.id} className={`bg-white rounded-2xl border ${club.is_active ? 'border-slate-200' : 'border-slate-100 opacity-60'} shadow-sm hover:shadow-md transition-shadow overflow-hidden`}>
+            <div key={club.id} className={`bg-app-surface rounded-2xl border ${club.is_active ? 'border-app-border' : 'border-app-border opacity-60'} shadow-sm hover:shadow-md transition-shadow overflow-hidden`}>
               {/* Top stripe */}
               <div className={`h-1.5 ${club.is_active ? 'bg-emerald-500' : 'bg-slate-300'}`} />
 
               <div className="p-5">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${CATEGORY_COLORS[club.category] ?? 'bg-slate-100 text-slate-600'}`}>
+                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${CATEGORY_COLORS[club.category] ?? 'bg-slate-100 text-app-text-muted'}`}>
                       <ClubIcon category={club.category} />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-slate-800 leading-tight">{club.name}</h3>
-                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${CATEGORY_COLORS[club.category] ?? 'bg-slate-100 text-slate-500'}`}>
+                      <h3 className="font-semibold text-app-text leading-tight">{club.name}</h3>
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${CATEGORY_COLORS[club.category] ?? 'bg-slate-100 text-app-text-muted'}`}>
                         {club.category}
                       </span>
                     </div>
                   </div>
                   {isAdmin && (
                     <div className="flex gap-1">
-                      <button onClick={() => openEdit(club)} className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors">
+                      <button onClick={() => openEdit(club)} className="p-1.5 text-app-text-muted hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors">
                         <Edit2 className="w-3.5 h-3.5" />
                       </button>
-                      <button onClick={() => setDeleteTarget(club)} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                      <button onClick={() => setDeleteTarget(club)} className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -272,37 +272,37 @@ export default function Clubs() {
                 </div>
 
                 {club.description && (
-                  <p className="text-sm text-slate-500 mb-4 line-clamp-2">{club.description}</p>
+                  <p className="text-sm text-app-text-muted mb-4 line-clamp-2">{club.description}</p>
                 )}
 
                 <div className="space-y-1.5 mb-4">
                   {club.meeting_day && (
-                    <div className="flex items-center gap-2 text-xs text-slate-500">
-                      <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                    <div className="flex items-center gap-2 text-xs text-app-text-muted">
+                      <Calendar className="w-3.5 h-3.5 text-app-text-muted" />
                       <span>{club.meeting_day}{club.meeting_time ? ` · ${club.meeting_time}` : ''}</span>
                     </div>
                   )}
                   {club.meeting_venue && (
-                    <div className="flex items-center gap-2 text-xs text-slate-500">
-                      <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                    <div className="flex items-center gap-2 text-xs text-app-text-muted">
+                      <MapPin className="w-3.5 h-3.5 text-app-text-muted" />
                       <span>{club.meeting_venue}</span>
                     </div>
                   )}
                   {club.patrons && club.patrons.length > 0 && (
-                    <div className="flex items-center gap-2 text-xs text-slate-500">
-                      <Users className="w-3.5 h-3.5 text-slate-400" />
+                    <div className="flex items-center gap-2 text-xs text-app-text-muted">
+                      <Users className="w-3.5 h-3.5 text-app-text-muted" />
                       <span>Patron: {club.patrons.join(', ')}</span>
                     </div>
                   )}
                 </div>
 
-                <div className="flex items-center justify-between pt-3 border-t border-slate-100">
-                  <span className="text-sm font-semibold text-slate-700">
+                <div className="flex items-center justify-between pt-3 border-t border-app-border">
+                  <span className="text-sm font-semibold text-app-text">
                     {club.member_count} member{club.member_count !== 1 ? 's' : ''}
                   </span>
                   <button
                     onClick={() => navigate(`/club-detail?id=${club.id}&year=${selectedYear}`)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 text-slate-600 rounded-lg hover:bg-emerald-50 hover:text-emerald-700 transition-colors text-xs font-medium"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-app-surface-alt text-app-text-muted rounded-lg hover:bg-emerald-50 hover:text-emerald-700 transition-colors text-xs font-medium"
                   >
                     <Eye className="w-3.5 h-3.5" /> Manage
                   </button>
@@ -316,47 +316,47 @@ export default function Clubs() {
       {/* Add/Edit Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg">
-            <div className="p-6 border-b border-slate-100">
-              <h2 className="text-lg font-semibold text-slate-800">{editing ? 'Edit Club' : 'Add New Club'}</h2>
+          <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-lg">
+            <div className="p-6 border-b border-app-border">
+              <h2 className="text-lg font-semibold text-app-text">{editing ? 'Edit Club' : 'Add New Club'}</h2>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Club Name *</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Club Name *</label>
                 <input
                   type="text"
                   value={form.name}
                   onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   placeholder="e.g. Chess Club"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Description</label>
                 <textarea
                   value={form.description}
                   onChange={e => setForm(p => ({ ...p, description: e.target.value }))}
                   rows={2}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Category</label>
+                  <label className="block text-sm font-medium text-app-text mb-1">Category</label>
                   <select
                     value={form.category}
                     onChange={e => setForm(p => ({ ...p, category: e.target.value }))}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   >
                     {CATEGORIES.filter(c => c !== 'All').map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Meeting Day</label>
+                  <label className="block text-sm font-medium text-app-text mb-1">Meeting Day</label>
                   <select
                     value={form.meeting_day}
                     onChange={e => setForm(p => ({ ...p, meeting_day: e.target.value }))}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   >
                     <option value="">None</option>
                     {DAYS.map(d => <option key={d} value={d}>{d}</option>)}
@@ -365,21 +365,21 @@ export default function Clubs() {
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Meeting Time</label>
+                  <label className="block text-sm font-medium text-app-text mb-1">Meeting Time</label>
                   <input
                     type="time"
                     value={form.meeting_time}
                     onChange={e => setForm(p => ({ ...p, meeting_time: e.target.value }))}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Venue</label>
+                  <label className="block text-sm font-medium text-app-text mb-1">Venue</label>
                   <input
                     type="text"
                     value={form.meeting_venue}
                     onChange={e => setForm(p => ({ ...p, meeting_venue: e.target.value }))}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     placeholder="e.g. Science Lab"
                   />
                 </div>
@@ -391,11 +391,11 @@ export default function Clubs() {
                   onChange={e => setForm(p => ({ ...p, is_active: e.target.checked }))}
                   className="rounded"
                 />
-                <span className="text-sm text-slate-700">Active Club</span>
+                <span className="text-sm text-app-text">Active Club</span>
               </label>
             </div>
-            <div className="p-6 border-t border-slate-100 flex gap-3 justify-end">
-              <button onClick={() => setShowModal(false)} className="px-4 py-2 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors text-sm">Cancel</button>
+            <div className="p-6 border-t border-app-border flex gap-3 justify-end">
+              <button onClick={() => setShowModal(false)} className="px-4 py-2 text-app-text-muted hover:bg-app-surface-alt rounded-lg transition-colors text-sm">Cancel</button>
               <button onClick={handleSave} disabled={saving || !form.name.trim()} className="px-5 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 transition-colors text-sm font-medium">
                 {saving ? 'Saving...' : editing ? 'Save Changes' : 'Create Club'}
               </button>
@@ -407,14 +407,14 @@ export default function Clubs() {
       {/* Delete Confirm */}
       {deleteTarget && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6 text-center">
+          <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-sm p-6 text-center">
             <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <Trash2 className="w-6 h-6 text-red-600" />
             </div>
-            <h3 className="font-semibold text-slate-800 mb-2">Delete Club?</h3>
-            <p className="text-sm text-slate-500 mb-6">This will permanently remove <strong>{deleteTarget.name}</strong> and all its members and assignments.</p>
+            <h3 className="font-semibold text-app-text mb-2">Delete Club?</h3>
+            <p className="text-sm text-app-text-muted mb-6">This will permanently remove <strong>{deleteTarget.name}</strong> and all its members and assignments.</p>
             <div className="flex gap-3">
-              <button onClick={() => setDeleteTarget(null)} className="flex-1 px-4 py-2 border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 text-sm">Cancel</button>
+              <button onClick={() => setDeleteTarget(null)} className="flex-1 px-4 py-2 border border-app-border rounded-lg text-app-text-muted hover:bg-app-surface-alt text-sm">Cancel</button>
               <button onClick={handleDelete} className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-medium">Delete</button>
             </div>
           </div>

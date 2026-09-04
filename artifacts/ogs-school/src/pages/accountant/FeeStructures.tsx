@@ -23,7 +23,7 @@ interface AcademicYear { id: string; name: string; is_current?: boolean; }
 interface Term { id: string; name: string; }
 
 const LEVELS = ['all', 'JSS1', 'JSS2', 'JSS3', 'SS1', 'SS2', 'SS3'];
-const inputCls = 'w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white';
+const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface';
 
 export default function FeeStructures() {
   const { profile } = useAuth();
@@ -116,8 +116,8 @@ export default function FeeStructures() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Fee Structures</h2>
-          <p className="text-slate-500 text-sm">Define and manage school fee categories</p>
+          <h2 className="text-xl font-bold text-app-text">Fee Structures</h2>
+          <p className="text-app-text-muted text-sm">Define and manage school fee categories</p>
         </div>
         <button onClick={openCreate} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-500/20">
           <Plus className="w-4 h-4" /> Add Fee
@@ -126,38 +126,38 @@ export default function FeeStructures() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
           <div className="flex items-center gap-3">
             <div className="bg-emerald-500 p-3 rounded-xl"><DollarSign className="w-5 h-5 text-white" /></div>
             <div>
-              <p className="text-sm text-slate-500">Total Fee Items</p>
-              <p className="text-2xl font-bold text-slate-800">{filteredFees.length}</p>
+              <p className="text-sm text-app-text-muted">Total Fee Items</p>
+              <p className="text-2xl font-bold text-app-text">{filteredFees.length}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
           <div className="flex items-center gap-3">
             <div className="bg-blue-500 p-3 rounded-xl"><DollarSign className="w-5 h-5 text-white" /></div>
             <div>
-              <p className="text-sm text-slate-500">Total Amount (Filtered)</p>
-              <p className="text-2xl font-bold text-slate-800">N{totalAmount.toLocaleString()}</p>
+              <p className="text-sm text-app-text-muted">Total Amount (Filtered)</p>
+              <p className="text-2xl font-bold text-app-text">N{totalAmount.toLocaleString()}</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4">
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Term</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Term</label>
             <select value={filterTerm} onChange={e => setFilterTerm(e.target.value)} className={inputCls}>
               <option value="">All Terms</option>
               {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Academic Year</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Academic Year</label>
             <select value={filterYear} onChange={e => setFilterYear(e.target.value)} className={inputCls}>
               <option value="">All Years</option>
               {years.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
@@ -167,30 +167,30 @@ export default function FeeStructures() {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-slate-100 bg-slate-50">
-              <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Fee Name</th>
-              <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Amount</th>
-              <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Class Level</th>
-              <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Term</th>
-              <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Academic Year</th>
-              <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Mandatory</th>
-              <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Due Date</th>
-              <th className="text-right text-xs font-semibold text-slate-500 uppercase px-5 py-3">Actions</th>
+            <tr className="border-b border-app-border bg-app-surface-alt">
+              <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Fee Name</th>
+              <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Amount</th>
+              <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Class Level</th>
+              <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Term</th>
+              <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Academic Year</th>
+              <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Mandatory</th>
+              <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Due Date</th>
+              <th className="text-right text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-app-border">
             {loading ? (
-              <tr><td colSpan={8} className="text-center py-8 text-slate-400">Loading...</td></tr>
+              <tr><td colSpan={8} className="text-center py-8 text-app-text-muted">Loading...</td></tr>
             ) : filteredFees.length === 0 ? (
-              <tr><td colSpan={8} className="text-center py-8 text-slate-400">No fee structures defined</td></tr>
+              <tr><td colSpan={8} className="text-center py-8 text-app-text-muted">No fee structures defined</td></tr>
             ) : filteredFees.map(fee => (
-              <tr key={fee.id} className="hover:bg-slate-50 transition-colors">
+              <tr key={fee.id} className="hover:bg-app-surface-alt transition-colors">
                 <td className="px-5 py-3">
-                  <p className="text-sm font-medium text-slate-800">{fee.name}</p>
-                  {fee.description && <p className="text-xs text-slate-500">{fee.description}</p>}
+                  <p className="text-sm font-medium text-app-text">{fee.name}</p>
+                  {fee.description && <p className="text-xs text-app-text-muted">{fee.description}</p>}
                 </td>
                 <td className="px-5 py-3 text-sm font-semibold text-emerald-600">N{Number(fee.amount).toLocaleString()}</td>
                 <td className="px-5 py-3"><Badge label={fee.class_level === 'all' ? 'All Classes' : fee.class_level} variant="info" /></td>
@@ -199,16 +199,16 @@ export default function FeeStructures() {
                     {fee.terms?.name || 'All'}
                   </span>
                 </td>
-                <td className="px-5 py-3 text-sm text-slate-500">{fee.academic_years?.name || 'All'}</td>
+                <td className="px-5 py-3 text-sm text-app-text-muted">{fee.academic_years?.name || 'All'}</td>
                 <td className="px-5 py-3"><Badge label={fee.is_mandatory ? 'Mandatory' : 'Optional'} variant={fee.is_mandatory ? 'success' : 'default'} /></td>
-                <td className="px-5 py-3 text-sm text-slate-500">{fee.due_date ? new Date(fee.due_date).toLocaleDateString() : '--'}</td>
+                <td className="px-5 py-3 text-sm text-app-text-muted">{fee.due_date ? new Date(fee.due_date).toLocaleDateString() : '--'}</td>
                 <td className="px-5 py-3">
                   <div className="flex justify-end gap-1">
-                    <button onClick={() => openEdit(fee)} className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                    <button onClick={() => openEdit(fee)} className="p-1.5 text-app-text-muted hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
                       <Edit2 className="w-4 h-4" />
                     </button>
                     {isSuperAdmin && (
-                      <button onClick={() => { setDeleteTarget(fee); setShowDeleteModal(true); }} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                      <button onClick={() => { setDeleteTarget(fee); setShowDeleteModal(true); }} className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     )}
@@ -225,35 +225,35 @@ export default function FeeStructures() {
         <div className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{saveError}</div>}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Fee Name</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Fee Name</label>
             <input value={form.name} onChange={e => setForm({...form, name: e.target.value})} placeholder="e.g. School Fees, Development Levy" className={inputCls} />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Amount (N)</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Amount (N)</label>
             <input type="number" value={form.amount} onChange={e => setForm({...form, amount: e.target.value})} className={inputCls} />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Class Level</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Class Level</label>
               <select value={form.class_level} onChange={e => setForm({...form, class_level: e.target.value})} className={inputCls}>
                 {LEVELS.map(l => <option key={l} value={l}>{l === 'all' ? 'All Classes' : l}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Due Date</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Due Date</label>
               <input type="date" value={form.due_date} onChange={e => setForm({...form, due_date: e.target.value})} className={inputCls} />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Term</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Term</label>
               <select value={form.term_id} onChange={e => setForm({...form, term_id: e.target.value})} className={inputCls}>
                 <option value="">All Terms</option>
                 {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Academic Year</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Academic Year</label>
               <select value={form.academic_year_id} onChange={e => setForm({...form, academic_year_id: e.target.value})} className={inputCls}>
                 <option value="">All Years</option>
                 {years.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
@@ -261,15 +261,15 @@ export default function FeeStructures() {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Description</label>
             <input value={form.description} onChange={e => setForm({...form, description: e.target.value})} className={inputCls} />
           </div>
           <label className="flex items-center gap-3 cursor-pointer">
             <input type="checkbox" checked={form.is_mandatory} onChange={e => setForm({...form, is_mandatory: e.target.checked})} className="w-4 h-4 rounded text-emerald-500" />
-            <span className="text-sm text-slate-700">Mandatory fee</span>
+            <span className="text-sm text-app-text">Mandatory fee</span>
           </label>
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50">Cancel</button>
+            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
             <button onClick={handleSave} disabled={saving} className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50">
               {saving ? 'Saving...' : editFee ? 'Update' : 'Create'}
             </button>
@@ -280,9 +280,9 @@ export default function FeeStructures() {
       {/* Delete Modal */}
       <Modal isOpen={showDeleteModal} onClose={() => setShowDeleteModal(false)} title="Delete Fee Structure">
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">Are you sure you want to delete <span className="font-semibold">{deleteTarget?.name}</span>? This cannot be undone.</p>
+          <p className="text-sm text-app-text-muted">Are you sure you want to delete <span className="font-semibold">{deleteTarget?.name}</span>? This cannot be undone.</p>
           <div className="flex gap-3">
-            <button onClick={() => setShowDeleteModal(false)} className="flex-1 px-4 py-2 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50">Cancel</button>
+            <button onClick={() => setShowDeleteModal(false)} className="flex-1 px-4 py-2 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
             <button onClick={handleDelete} disabled={saving} className="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-xl text-sm font-medium disabled:opacity-50">
               {saving ? 'Deleting...' : 'Delete'}
             </button>

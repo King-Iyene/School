@@ -129,15 +129,15 @@ export default function StaffAttendanceReport() {
   return (
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-slate-800">Staff Attendance Report</h1>
+        <h1 className="text-2xl font-bold text-app-text">Staff Attendance Report</h1>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-5 mb-6">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-5 mb-6">
         <div className="flex flex-wrap items-end gap-4">
           <div className="flex-1 min-w-[140px]">
-            <label className="block text-xs font-medium text-slate-500 mb-1.5">Role</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1.5">Role</label>
             <select
-              className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
               value={filterRole}
               onChange={(e) => setFilterRole(e.target.value)}
             >
@@ -148,9 +148,9 @@ export default function StaffAttendanceReport() {
             </select>
           </div>
           <div className="flex-1 min-w-[140px]">
-            <label className="block text-xs font-medium text-slate-500 mb-1.5">Month</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1.5">Month</label>
             <select
-              className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
               value={filterMonth}
               onChange={(e) => setFilterMonth(Number(e.target.value))}
             >
@@ -160,9 +160,9 @@ export default function StaffAttendanceReport() {
             </select>
           </div>
           <div className="flex-1 min-w-[120px]">
-            <label className="block text-xs font-medium text-slate-500 mb-1.5">Year</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1.5">Year</label>
             <select
-              className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
               value={filterYear}
               onChange={(e) => setFilterYear(Number(e.target.value))}
             >
@@ -179,16 +179,16 @@ export default function StaffAttendanceReport() {
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : staffList.length === 0 ? (
-        <div className="text-center py-16 text-slate-400 text-sm">No staff found for selected filters.</div>
+        <div className="text-center py-16 text-app-text-muted text-sm">No staff found for selected filters.</div>
       ) : (
         <>
-          <div className="bg-white rounded-2xl border border-slate-200 overflow-x-auto mb-6">
+          <div className="bg-app-surface rounded-2xl border border-app-border overflow-x-auto mb-6">
             <table className="text-xs min-w-max">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3.5 font-semibold text-slate-600 sticky left-0 bg-slate-50 min-w-[160px]">Staff</th>
+                  <th className="text-left px-4 py-3.5 font-semibold text-app-text-muted sticky left-0 bg-app-surface-alt min-w-[160px]">Staff</th>
                   {dayColumns.map((d) => (
-                    <th key={d} className="px-2 py-3.5 font-semibold text-slate-500 min-w-[32px] text-center">{d}</th>
+                    <th key={d} className="px-2 py-3.5 font-semibold text-app-text-muted min-w-[32px] text-center">{d}</th>
                   ))}
                   <th className="px-3 py-3.5 font-semibold text-emerald-600 text-center whitespace-nowrap">P</th>
                   <th className="px-3 py-3.5 font-semibold text-red-500 text-center whitespace-nowrap">A</th>
@@ -197,12 +197,12 @@ export default function StaffAttendanceReport() {
                   <th className="px-3 py-3.5 font-semibold text-purple-500 text-center whitespace-nowrap">OL</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {staffList.map((s) => {
                   const summary = getSummary(s.id);
                   return (
-                    <tr key={s.id} className="hover:bg-slate-50 transition-colors">
-                      <td className="px-4 py-3 font-medium text-slate-800 sticky left-0 bg-white">
+                    <tr key={s.id} className="hover:bg-app-surface-alt transition-colors">
+                      <td className="px-4 py-3 font-medium text-app-text sticky left-0 bg-app-surface">
                         {`${s.first_name || ''} ${s.last_name || ''}`.trim() || 'N/A'}
                       </td>
                       {dayColumns.map((d) => {
@@ -225,8 +225,8 @@ export default function StaffAttendanceReport() {
             </table>
           </div>
 
-          <div className="bg-slate-50 rounded-2xl border border-slate-200 p-4">
-            <p className="text-xs font-semibold text-slate-500 mb-2">Legend</p>
+          <div className="bg-app-surface-alt rounded-2xl border border-app-border p-4">
+            <p className="text-xs font-semibold text-app-text-muted mb-2">Legend</p>
             <div className="flex flex-wrap gap-4 text-xs">
               {[
                 { code: 'P', label: 'Present', color: 'text-emerald-600' },
@@ -238,7 +238,7 @@ export default function StaffAttendanceReport() {
               ].map(({ code, label, color }) => (
                 <div key={code} className="flex items-center gap-1.5">
                   <span className={`font-bold ${color}`}>{code}</span>
-                  <span className="text-slate-500">= {label}</span>
+                  <span className="text-app-text-muted">= {label}</span>
                 </div>
               ))}
             </div>

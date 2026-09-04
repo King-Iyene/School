@@ -31,12 +31,12 @@ CREATE POLICY "school_access" ON committee_members
   USING ((SELECT school_id FROM profiles WHERE id = auth.uid()) =
          (SELECT school_id FROM profiles WHERE id = committee_members.staff_id));`;
 
-const ic = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white';
+const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
 const MEMBER_ROLES = ['Chair', 'Member', 'Secretary'];
 const ROLE_BADGE: Record<string, string> = {
   Chair: 'bg-purple-100 text-purple-700',
   Secretary: 'bg-blue-100 text-blue-700',
-  Member: 'bg-slate-100 text-slate-600',
+  Member: 'bg-slate-100 text-app-text-muted',
 };
 
 interface Committee { id: string; name: string; description: string | null; status: string; created_at: string; }
@@ -156,8 +156,8 @@ export default function Committees() {
     <div className="p-6 space-y-5 max-w-5xl mx-auto">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold text-slate-800">Committees</h1>
-          <p className="text-sm text-slate-500 mt-0.5">
+          <h1 className="text-xl font-bold text-app-text">Committees</h1>
+          <p className="text-sm text-app-text-muted mt-0.5">
             {isAdmin ? 'Manage school committees and assign staff members' : 'View your committee assignments'}
           </p>
         </div>
@@ -189,9 +189,9 @@ export default function Committees() {
             {myCommittees.map(c => {
               const myRole = members[c.id]?.find(m => m.staff_id === profile?.id)?.role;
               return (
-                <span key={c.id} className="px-3 py-1.5 bg-white border border-emerald-200 rounded-xl text-sm text-emerald-700 font-medium">
+                <span key={c.id} className="px-3 py-1.5 bg-app-surface border border-emerald-200 rounded-xl text-sm text-emerald-700 font-medium">
                   {c.name}
-                  {myRole && <span className={`ml-2 px-1.5 py-0.5 rounded-full text-xs ${ROLE_BADGE[myRole] || 'bg-slate-100 text-slate-600'}`}>{myRole}</span>}
+                  {myRole && <span className={`ml-2 px-1.5 py-0.5 rounded-full text-xs ${ROLE_BADGE[myRole] || 'bg-slate-100 text-app-text-muted'}`}>{myRole}</span>}
                 </span>
               );
             })}
@@ -200,11 +200,11 @@ export default function Committees() {
       )}
 
       {loading ? (
-        <div className="flex items-center gap-2 text-slate-500 py-8">
+        <div className="flex items-center gap-2 text-app-text-muted py-8">
           <div className="w-5 h-5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" /> Loading…
         </div>
       ) : committees.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center text-slate-400">
+        <div className="bg-app-surface rounded-2xl border border-app-border p-12 text-center text-app-text-muted">
           <Users size={32} className="mx-auto mb-3 opacity-30" />
           <p className="text-sm">No committees yet.</p>
           {isAdmin && <p className="text-xs mt-1">Create your first committee using the button above.</p>}
@@ -215,20 +215,20 @@ export default function Committees() {
             const cMembers = members[c.id] || [];
             const isExpanded = expandedId === c.id;
             return (
-              <div key={c.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+              <div key={c.id} className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
                 <div className="flex items-center gap-4 p-4 cursor-pointer" onClick={() => setExpandedId(isExpanded ? null : c.id)}>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="font-semibold text-slate-800">{c.name}</span>
-                      <span className="text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">{cMembers.length} member{cMembers.length !== 1 ? 's' : ''}</span>
+                      <span className="font-semibold text-app-text">{c.name}</span>
+                      <span className="text-xs text-app-text-muted bg-slate-100 px-2 py-0.5 rounded-full">{cMembers.length} member{cMembers.length !== 1 ? 's' : ''}</span>
                     </div>
-                    {c.description && <p className="text-xs text-slate-500 mt-0.5 truncate">{c.description}</p>}
+                    {c.description && <p className="text-xs text-app-text-muted mt-0.5 truncate">{c.description}</p>}
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
                     {isAdmin && (
                       <>
                         <button onClick={e => { e.stopPropagation(); setMemberForm({ staff_id: '', role: 'Member' }); setSaveError(''); setStaffSearch(''); setAddMemberModal(c.id); }}
-                          className="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium">
+                          className="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-app-text rounded-lg text-xs font-medium">
                           <UserPlus size={12} /> Add Member
                         </button>
                         <button onClick={e => { e.stopPropagation(); deleteCommittee(c.id); }}
@@ -237,14 +237,14 @@ export default function Committees() {
                         </button>
                       </>
                     )}
-                    {isExpanded ? <ChevronUp size={16} className="text-slate-400" /> : <ChevronDown size={16} className="text-slate-400" />}
+                    {isExpanded ? <ChevronUp size={16} className="text-app-text-muted" /> : <ChevronDown size={16} className="text-app-text-muted" />}
                   </div>
                 </div>
 
                 {isExpanded && (
-                  <div className="border-t border-slate-100 px-4 py-3">
+                  <div className="border-t border-app-border px-4 py-3">
                     {cMembers.length === 0 ? (
-                      <p className="text-xs text-slate-400 py-2">No members yet. {isAdmin && 'Click "Add Member" to assign staff.'}</p>
+                      <p className="text-xs text-app-text-muted py-2">No members yet. {isAdmin && 'Click "Add Member" to assign staff.'}</p>
                     ) : (
                       <div className="space-y-2">
                         {cMembers.map(m => (
@@ -253,12 +253,12 @@ export default function Committees() {
                               {m.profiles ? `${m.profiles.first_name[0]}${m.profiles.last_name[0]}` : '?'}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <span className="text-sm text-slate-700 font-medium">
+                              <span className="text-sm text-app-text font-medium">
                                 {m.profiles ? `${m.profiles.first_name} ${m.profiles.last_name}` : m.staff_id}
                               </span>
-                              {m.profiles && <span className="text-xs text-slate-400 ml-2 capitalize">{m.profiles.role.replace('_', ' ')}</span>}
+                              {m.profiles && <span className="text-xs text-app-text-muted ml-2 capitalize">{m.profiles.role.replace('_', ' ')}</span>}
                             </div>
-                            <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${ROLE_BADGE[m.role] || 'bg-slate-100 text-slate-600'}`}>{m.role}</span>
+                            <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${ROLE_BADGE[m.role] || 'bg-slate-100 text-app-text-muted'}`}>{m.role}</span>
                             {isAdmin && (
                               <button onClick={() => removeMember(m.id)} className="p-1 text-red-400 hover:text-red-600 rounded">
                                 <X size={13} />
@@ -280,11 +280,11 @@ export default function Committees() {
       <Modal isOpen={createModal} onClose={() => setCreateModal(false)} title="Create New Committee">
         <div className="space-y-4 p-1">
           <div>
-            <label className="text-xs text-slate-500 mb-1 block">Committee Name *</label>
+            <label className="text-xs text-app-text-muted mb-1 block">Committee Name *</label>
             <input className={ic} value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="e.g. PTA Liaison Committee, Disciplinary Committee" />
           </div>
           <div>
-            <label className="text-xs text-slate-500 mb-1 block">Description / Purpose</label>
+            <label className="text-xs text-app-text-muted mb-1 block">Description / Purpose</label>
             <textarea className={ic} rows={3} value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} placeholder="Brief description of what this committee does" />
           </div>
           {saveError && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle size={13} />{saveError}</p>}
@@ -293,7 +293,7 @@ export default function Committees() {
               className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-60">
               {saving ? 'Creating…' : 'Create Committee'}
             </button>
-            <button onClick={() => setCreateModal(false)} className="px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl text-sm font-medium">Cancel</button>
+            <button onClick={() => setCreateModal(false)} className="px-4 py-2.5 bg-slate-100 text-app-text rounded-xl text-sm font-medium">Cancel</button>
           </div>
         </div>
       </Modal>
@@ -302,25 +302,25 @@ export default function Committees() {
       <Modal isOpen={!!addMemberModal} onClose={() => setAddMemberModal(null)} title="Add Committee Member">
         <div className="space-y-4 p-1">
           <div>
-            <label className="text-xs text-slate-500 mb-1 block">Search Staff</label>
+            <label className="text-xs text-app-text-muted mb-1 block">Search Staff</label>
             <input className={ic} value={staffSearch} onChange={e => setStaffSearch(e.target.value)} placeholder="Type name to filter…" />
-            <div className="mt-2 max-h-48 overflow-y-auto border border-slate-200 rounded-xl divide-y divide-slate-50">
+            <div className="mt-2 max-h-48 overflow-y-auto border border-app-border rounded-xl divide-y divide-slate-50">
               {filteredStaff.length === 0 ? (
-                <p className="p-3 text-xs text-slate-400">No staff found.</p>
+                <p className="p-3 text-xs text-app-text-muted">No staff found.</p>
               ) : filteredStaff.map(s => (
                 <button key={s.id} onClick={() => setMemberForm(f => ({ ...f, staff_id: s.id }))}
-                  className={`w-full text-left px-3 py-2 text-sm hover:bg-slate-50 flex items-center gap-2 ${memberForm.staff_id === s.id ? 'bg-emerald-50 text-emerald-700' : 'text-slate-700'}`}>
+                  className={`w-full text-left px-3 py-2 text-sm hover:bg-app-surface-alt flex items-center gap-2 ${memberForm.staff_id === s.id ? 'bg-emerald-50 text-emerald-700' : 'text-app-text'}`}>
                   <div className="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center text-xs font-semibold flex-shrink-0">
                     {s.first_name[0]}{s.last_name[0]}
                   </div>
                   <span className="flex-1">{s.first_name} {s.last_name}</span>
-                  <span className="text-xs text-slate-400 capitalize">{s.role.replace('_', ' ')}</span>
+                  <span className="text-xs text-app-text-muted capitalize">{s.role.replace('_', ' ')}</span>
                 </button>
               ))}
             </div>
           </div>
           <div>
-            <label className="text-xs text-slate-500 mb-1 block">Role in Committee</label>
+            <label className="text-xs text-app-text-muted mb-1 block">Role in Committee</label>
             <select className={ic} value={memberForm.role} onChange={e => setMemberForm(f => ({ ...f, role: e.target.value }))}>
               {MEMBER_ROLES.map(r => <option key={r}>{r}</option>)}
             </select>
@@ -331,7 +331,7 @@ export default function Committees() {
               className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-60">
               {saving ? 'Adding…' : 'Add Member'}
             </button>
-            <button onClick={() => setAddMemberModal(null)} className="px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl text-sm font-medium">Cancel</button>
+            <button onClick={() => setAddMemberModal(null)} className="px-4 py-2.5 bg-slate-100 text-app-text rounded-xl text-sm font-medium">Cancel</button>
           </div>
         </div>
       </Modal>

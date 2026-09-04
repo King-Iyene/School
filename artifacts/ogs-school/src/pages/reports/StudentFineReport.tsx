@@ -89,7 +89,7 @@ export default function StudentFineReport() {
       case 'discipline':
         return <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700"><AlertTriangle className="h-3 w-3" />Discipline</span>;
       default:
-        return <span className="px-2 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700 capitalize">{type}</span>;
+        return <span className="px-2 py-1 rounded-full text-xs font-medium bg-slate-100 text-app-text capitalize">{type}</span>;
     }
   }
 
@@ -97,15 +97,15 @@ export default function StudentFineReport() {
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-slate-800">Student Fine Report</h1>
+          <h1 className="text-2xl font-bold text-app-text">Student Fine Report</h1>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-16 flex flex-col items-center gap-4 text-center">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-16 flex flex-col items-center gap-4 text-center">
           <div className="bg-slate-100 p-6 rounded-full">
-            <XCircle className="h-16 w-16 text-slate-400" />
+            <XCircle className="h-16 w-16 text-app-text-muted" />
           </div>
-          <h2 className="text-xl font-semibold text-slate-700">Fine Records Not Available</h2>
-          <p className="text-slate-500 max-w-md">
+          <h2 className="text-xl font-semibold text-app-text">Fine Records Not Available</h2>
+          <p className="text-app-text-muted max-w-md">
             The student fines table has not been configured yet. Please set up the fines management module to track library and discipline fines.
           </p>
           <div className="flex items-center gap-2 mt-2 text-amber-600 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
@@ -127,7 +127,7 @@ export default function StudentFineReport() {
       )}
 
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Student Fine Report</h1>
+        <h1 className="text-2xl font-bold text-app-text">Student Fine Report</h1>
         <button
           onClick={handleExport}
           className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
@@ -137,32 +137,32 @@ export default function StudentFineReport() {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
-            <label className="block text-xs text-slate-500 mb-1">From Date</label>
+            <label className="block text-xs text-app-text-muted mb-1">From Date</label>
             <input
               type="date"
               value={filters.date_from}
               onChange={e => setFilters(f => ({ ...f, date_from: e.target.value }))}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
 
           <div>
-            <label className="block text-xs text-slate-500 mb-1">To Date</label>
+            <label className="block text-xs text-app-text-muted mb-1">To Date</label>
             <input
               type="date"
               value={filters.date_to}
               onChange={e => setFilters(f => ({ ...f, date_to: e.target.value }))}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
 
           <select
             value={filters.fine_type}
             onChange={e => setFilters(f => ({ ...f, fine_type: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 self-end"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 self-end"
           >
             <option value="">All Types</option>
             <option value="library">Library</option>
@@ -173,7 +173,7 @@ export default function StudentFineReport() {
           <select
             value={filters.status}
             onChange={e => setFilters(f => ({ ...f, status: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 self-end"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 self-end"
           >
             <option value="">All Status</option>
             <option value="paid">Paid</option>
@@ -183,22 +183,22 @@ export default function StudentFineReport() {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Total Fines</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">₦{totalFines.toLocaleString()}</p>
+              <p className="text-sm text-app-text-muted">Total Fines</p>
+              <p className="text-2xl font-bold text-app-text mt-1">₦{totalFines.toLocaleString()}</p>
             </div>
             <div className="bg-slate-100 p-3 rounded-lg">
-              <DollarSign className="h-6 w-6 text-slate-600" />
+              <DollarSign className="h-6 w-6 text-app-text-muted" />
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Collected</p>
+              <p className="text-sm text-app-text-muted">Collected</p>
               <p className="text-2xl font-bold text-emerald-600 mt-1">₦{collected.toLocaleString()}</p>
             </div>
             <div className="bg-emerald-100 p-3 rounded-lg">
@@ -207,10 +207,10 @@ export default function StudentFineReport() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Outstanding</p>
+              <p className="text-sm text-app-text-muted">Outstanding</p>
               <p className="text-2xl font-bold text-red-600 mt-1">₦{outstanding.toLocaleString()}</p>
             </div>
             <div className="bg-red-100 p-3 rounded-lg">
@@ -220,41 +220,41 @@ export default function StudentFineReport() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">#</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Date</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Student Name</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Class</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Fine Type</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Description</th>
-                <th className="text-right px-4 py-3 text-slate-600 font-medium">Amount</th>
-                <th className="text-center px-4 py-3 text-slate-600 font-medium">Status</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Paid Date</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">#</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Date</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Student Name</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Class</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Fine Type</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Description</th>
+                <th className="text-right px-4 py-3 text-app-text-muted font-medium">Amount</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Status</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Paid Date</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-10 text-slate-400">Loading...</td>
+                  <td colSpan={9} className="text-center py-10 text-app-text-muted">Loading...</td>
                 </tr>
               ) : fines.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-10 text-slate-400">No fine records found</td>
+                  <td colSpan={9} className="text-center py-10 text-app-text-muted">No fine records found</td>
                 </tr>
               ) : (
                 fines.map((fine, index) => (
-                  <tr key={fine.id} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="px-4 py-3 text-slate-500">{index + 1}</td>
-                    <td className="px-4 py-3 text-slate-600">{new Date(fine.date).toLocaleDateString()}</td>
-                    <td className="px-4 py-3 font-medium text-slate-800">{fine.student_name}</td>
-                    <td className="px-4 py-3 text-slate-600">{fine.class_name}</td>
+                  <tr key={fine.id} className="border-b border-app-border hover:bg-app-surface-alt">
+                    <td className="px-4 py-3 text-app-text-muted">{index + 1}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{new Date(fine.date).toLocaleDateString()}</td>
+                    <td className="px-4 py-3 font-medium text-app-text">{fine.student_name}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{fine.class_name}</td>
                     <td className="px-4 py-3">{getFineTypeBadge(fine.fine_type)}</td>
-                    <td className="px-4 py-3 text-slate-600 max-w-xs truncate">{fine.description}</td>
-                    <td className="px-4 py-3 text-right font-medium text-slate-800">₦{fine.amount.toLocaleString()}</td>
+                    <td className="px-4 py-3 text-app-text-muted max-w-xs truncate">{fine.description}</td>
+                    <td className="px-4 py-3 text-right font-medium text-app-text">₦{fine.amount.toLocaleString()}</td>
                     <td className="px-4 py-3 text-center">
                       {fine.status === 'paid' ? (
                         <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
@@ -268,7 +268,7 @@ export default function StudentFineReport() {
                         </span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-slate-600">
+                    <td className="px-4 py-3 text-app-text-muted">
                       {fine.paid_date ? new Date(fine.paid_date).toLocaleDateString() : '-'}
                     </td>
                   </tr>

@@ -50,23 +50,23 @@ export default function LibraryPanel() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-slate-800">Library</h1>
+      <h1 className="text-2xl font-bold text-app-text">Library</h1>
 
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
           <BookOpen className="w-6 h-6 text-emerald-500 mx-auto mb-2" />
-          <p className="text-2xl font-bold text-slate-800">{booksIssued}</p>
-          <p className="text-xs text-slate-500 mt-0.5">Books Issued</p>
+          <p className="text-2xl font-bold text-app-text">{booksIssued}</p>
+          <p className="text-xs text-app-text-muted mt-0.5">Books Issued</p>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
           <Clock className="w-6 h-6 text-amber-500 mx-auto mb-2" />
-          <p className="text-2xl font-bold text-slate-800">{overdue.length}</p>
-          <p className="text-xs text-slate-500 mt-0.5">Books Due</p>
+          <p className="text-2xl font-bold text-app-text">{overdue.length}</p>
+          <p className="text-xs text-app-text-muted mt-0.5">Books Due</p>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
           <AlertCircle className="w-6 h-6 text-rose-500 mx-auto mb-2" />
-          <p className="text-2xl font-bold text-slate-800">₦{fineAmount}</p>
-          <p className="text-xs text-slate-500 mt-0.5">Fine Amount</p>
+          <p className="text-2xl font-bold text-app-text">₦{fineAmount}</p>
+          <p className="text-xs text-app-text-muted mt-0.5">Fine Amount</p>
         </div>
       </div>
 
@@ -81,7 +81,7 @@ export default function LibraryPanel() {
               <h3 className="text-xl font-bold">{profile?.first_name} {profile?.last_name}</h3>
               <p className="text-emerald-100 text-sm mt-0.5">Member No: {membership.membership_number || '—'}</p>
             </div>
-            <span className={`text-xs font-semibold px-3 py-1.5 rounded-full ${membership.status === 'active' ? 'bg-white/20 text-white' : 'bg-rose-200 text-rose-800'}`}>
+            <span className={`text-xs font-semibold px-3 py-1.5 rounded-full ${membership.status === 'active' ? 'bg-app-surface/20 text-white' : 'bg-rose-200 text-rose-800'}`}>
               {membership.status || 'Active'}
             </span>
           </div>
@@ -97,54 +97,54 @@ export default function LibraryPanel() {
           </div>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex items-center gap-4">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-6 flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
-            <Library className="w-6 h-6 text-slate-400" />
+            <Library className="w-6 h-6 text-app-text-muted" />
           </div>
           <div>
-            <p className="font-semibold text-slate-800">Not a Library Member</p>
-            <p className="text-sm text-slate-500 mt-0.5">Contact your school librarian to get a library membership</p>
+            <p className="font-semibold text-app-text">Not a Library Member</p>
+            <p className="text-sm text-app-text-muted mt-0.5">Contact your school librarian to get a library membership</p>
           </div>
         </div>
       )}
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="p-5 border-b border-slate-100 flex items-center gap-2">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+        <div className="p-5 border-b border-app-border flex items-center gap-2">
           <BookOpen className="w-5 h-5 text-emerald-600" />
-          <h2 className="font-semibold text-slate-800">My Issued Books</h2>
-          <span className="ml-auto text-xs bg-slate-100 text-slate-600 font-semibold px-2.5 py-1 rounded-full">{issuedBooks.length}</span>
+          <h2 className="font-semibold text-app-text">My Issued Books</h2>
+          <span className="ml-auto text-xs bg-slate-100 text-app-text-muted font-semibold px-2.5 py-1 rounded-full">{issuedBooks.length}</span>
         </div>
         {issuedBooks.length === 0 ? (
           <div className="p-8 text-center">
             <BookOpen className="w-10 h-10 text-slate-300 mx-auto mb-2" />
-            <p className="text-sm text-slate-400">No books issued</p>
+            <p className="text-sm text-app-text-muted">No books issued</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-50">
-                  <th className="text-left px-5 py-3 text-xs font-semibold text-slate-500 uppercase">Book Title</th>
-                  <th className="text-left px-5 py-3 text-xs font-semibold text-slate-500 uppercase">Issue Date</th>
-                  <th className="text-left px-5 py-3 text-xs font-semibold text-slate-500 uppercase">Due Date</th>
-                  <th className="text-left px-5 py-3 text-xs font-semibold text-slate-500 uppercase">Return Date</th>
-                  <th className="text-left px-5 py-3 text-xs font-semibold text-slate-500 uppercase">Fine</th>
+                <tr className="bg-app-surface-alt">
+                  <th className="text-left px-5 py-3 text-xs font-semibold text-app-text-muted uppercase">Book Title</th>
+                  <th className="text-left px-5 py-3 text-xs font-semibold text-app-text-muted uppercase">Issue Date</th>
+                  <th className="text-left px-5 py-3 text-xs font-semibold text-app-text-muted uppercase">Due Date</th>
+                  <th className="text-left px-5 py-3 text-xs font-semibold text-app-text-muted uppercase">Return Date</th>
+                  <th className="text-left px-5 py-3 text-xs font-semibold text-app-text-muted uppercase">Fine</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {issuedBooks.map(item => {
                   const book = item.books as any;
                   const fine = calcFine(item);
                   const isOverdue = !item.return_date && item.due_date && new Date(item.due_date) < today;
                   return (
-                    <tr key={item.id} className="hover:bg-slate-50 transition-colors">
+                    <tr key={item.id} className="hover:bg-app-surface-alt transition-colors">
                       <td className="px-5 py-3.5">
-                        <p className="font-medium text-slate-800">{book?.title || '—'}</p>
-                        {book?.author && <p className="text-xs text-slate-500">{book.author}</p>}
+                        <p className="font-medium text-app-text">{book?.title || '—'}</p>
+                        {book?.author && <p className="text-xs text-app-text-muted">{book.author}</p>}
                       </td>
-                      <td className="px-5 py-3.5 text-slate-600">{item.issue_date ? new Date(item.issue_date).toLocaleDateString() : '—'}</td>
+                      <td className="px-5 py-3.5 text-app-text-muted">{item.issue_date ? new Date(item.issue_date).toLocaleDateString() : '—'}</td>
                       <td className="px-5 py-3.5">
-                        <span className={isOverdue ? 'text-rose-600 font-medium' : 'text-slate-600'}>
+                        <span className={isOverdue ? 'text-rose-600 font-medium' : 'text-app-text-muted'}>
                           {item.due_date ? new Date(item.due_date).toLocaleDateString() : '—'}
                         </span>
                       </td>
@@ -152,7 +152,7 @@ export default function LibraryPanel() {
                         {item.return_date ? (
                           <div className="flex items-center gap-1.5">
                             <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                            <span className="text-slate-600">{new Date(item.return_date).toLocaleDateString()}</span>
+                            <span className="text-app-text-muted">{new Date(item.return_date).toLocaleDateString()}</span>
                           </div>
                         ) : (
                           <span className="text-xs bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full font-medium">Not Returned</span>
@@ -162,7 +162,7 @@ export default function LibraryPanel() {
                         {fine > 0 ? (
                           <span className="text-rose-600 font-semibold">₦{fine}</span>
                         ) : (
-                          <span className="text-slate-400">—</span>
+                          <span className="text-app-text-muted">—</span>
                         )}
                       </td>
                     </tr>
@@ -174,26 +174,26 @@ export default function LibraryPanel() {
         )}
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="p-5 border-b border-slate-100">
-          <h2 className="font-semibold text-slate-800">Available Books</h2>
-          <p className="text-xs text-slate-500 mt-0.5">Recently added to the library</p>
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+        <div className="p-5 border-b border-app-border">
+          <h2 className="font-semibold text-app-text">Available Books</h2>
+          <p className="text-xs text-app-text-muted mt-0.5">Recently added to the library</p>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 p-5">
           {availableBooks.map(book => (
-            <div key={book.id} className="bg-slate-50 rounded-xl p-3 hover:bg-emerald-50 transition-colors">
+            <div key={book.id} className="bg-app-surface-alt rounded-xl p-3 hover:bg-emerald-50 transition-colors">
               <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center mb-2">
                 <BookOpen className="w-4 h-4 text-emerald-600" />
               </div>
-              <p className="text-xs font-semibold text-slate-800 line-clamp-2 leading-snug">{book.title}</p>
-              {book.author && <p className="text-xs text-slate-500 mt-1 truncate">{book.author}</p>}
+              <p className="text-xs font-semibold text-app-text line-clamp-2 leading-snug">{book.title}</p>
+              {book.author && <p className="text-xs text-app-text-muted mt-1 truncate">{book.author}</p>}
               {book.available_copies != null && (
                 <p className="text-xs mt-1.5 font-medium text-emerald-600">{book.available_copies} available</p>
               )}
             </div>
           ))}
           {availableBooks.length === 0 && (
-            <div className="col-span-full text-center py-6 text-sm text-slate-400">No books in catalog</div>
+            <div className="col-span-full text-center py-6 text-sm text-app-text-muted">No books in catalog</div>
           )}
         </div>
       </div>

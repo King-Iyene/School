@@ -197,8 +197,8 @@ export default function Users() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">User Management</h2>
-          <p className="text-slate-500 text-sm">Manage all school users and their roles</p>
+          <h2 className="text-xl font-bold text-app-text">User Management</h2>
+          <p className="text-app-text-muted text-sm">Manage all school users and their roles</p>
         </div>
         <button onClick={openCreate} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-500/20">
           <Plus className="w-4 h-4" />
@@ -206,21 +206,21 @@ export default function Users() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-        <div className="p-4 border-b border-slate-100 flex flex-col sm:flex-row gap-3">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+        <div className="p-4 border-b border-app-border flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
             <input
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search users..."
-              className="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+              className="w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
             />
           </div>
           <select
             value={roleFilter}
             onChange={e => setRoleFilter(e.target.value)}
-            className="px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white"
+            className="px-3 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface"
           >
             <option value="all">All Roles</option>
             <option value="super_admin">Super Admin</option>
@@ -244,34 +244,34 @@ export default function Users() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-slate-100">
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">Name</th>
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">Email / ID</th>
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">Role</th>
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">Status</th>
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">Joined</th>
-                <th className="text-right text-xs font-semibold text-slate-500 uppercase px-4 py-3">Actions</th>
+              <tr className="border-b border-app-border">
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">Name</th>
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">Email / ID</th>
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">Role</th>
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">Status</th>
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">Joined</th>
+                <th className="text-right text-xs font-semibold text-app-text-muted uppercase px-4 py-3">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {loading ? (
-                <tr><td colSpan={6} className="text-center py-8 text-slate-400">Loading users...</td></tr>
+                <tr><td colSpan={6} className="text-center py-8 text-app-text-muted">Loading users...</td></tr>
               ) : filtered.length === 0 ? (
-                <tr><td colSpan={6} className="text-center py-8 text-slate-400">No users found</td></tr>
+                <tr><td colSpan={6} className="text-center py-8 text-app-text-muted">No users found</td></tr>
               ) : filtered.map(user => (
-                <tr key={user.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={user.id} className="hover:bg-app-surface-alt transition-colors">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-semibold text-slate-600 flex-shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-semibold text-app-text-muted flex-shrink-0">
                         {user.first_name?.[0]}{user.last_name?.[0]}
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-slate-800">{user.first_name} {user.last_name}</p>
-                        <p className="text-xs text-slate-400">{user.phone || '—'}</p>
+                        <p className="text-sm font-medium text-app-text">{user.first_name} {user.last_name}</p>
+                        <p className="text-xs text-app-text-muted">{user.phone || '—'}</p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm font-mono text-slate-600">
+                  <td className="px-4 py-3 text-sm font-mono text-app-text-muted">
                     {user.role === 'student' && user.admission_number ? user.admission_number : user.email}
                   </td>
                   <td className="px-4 py-3">
@@ -280,16 +280,16 @@ export default function Users() {
                   <td className="px-4 py-3">
                     <Badge label={user.is_active ? 'Active' : 'Inactive'} variant={user.is_active ? 'success' : 'error'} />
                   </td>
-                  <td className="px-4 py-3 text-sm text-slate-500">{new Date(user.created_at).toLocaleDateString()}</td>
+                  <td className="px-4 py-3 text-sm text-app-text-muted">{new Date(user.created_at).toLocaleDateString()}</td>
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-end gap-1">
-                      <button onClick={() => openEdit(user)} className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                      <button onClick={() => openEdit(user)} className="p-1.5 text-app-text-muted hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
                         <Edit2 className="w-4 h-4" />
                       </button>
-                      <button onClick={() => toggleActive(user)} className={`p-1.5 rounded-lg transition-colors ${user.is_active ? 'text-slate-400 hover:text-red-600 hover:bg-red-50' : 'text-slate-400 hover:text-emerald-600 hover:bg-emerald-50'}`}>
+                      <button onClick={() => toggleActive(user)} className={`p-1.5 rounded-lg transition-colors ${user.is_active ? 'text-app-text-muted hover:text-red-600 hover:bg-red-50' : 'text-app-text-muted hover:text-emerald-600 hover:bg-emerald-50'}`}>
                         {user.is_active ? <UserX className="w-4 h-4" /> : <UserCheck className="w-4 h-4" />}
                       </button>
-                      <button onClick={() => handleDeleteUser(user)} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete User">
+                      <button onClick={() => handleDeleteUser(user)} className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete User">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
@@ -300,7 +300,7 @@ export default function Users() {
           </table>
         </div>
 
-        <div className="px-4 py-3 border-t border-slate-100 text-sm text-slate-500">
+        <div className="px-4 py-3 border-t border-app-border text-sm text-app-text-muted">
           Showing {filtered.length} of {users.length} users
         </div>
       </div>
@@ -310,35 +310,35 @@ export default function Users() {
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">First Name</label>
-              <input value={form.first_name} onChange={e => setForm({...form, first_name: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <label className="block text-sm font-medium text-app-text mb-1">First Name</label>
+              <input value={form.first_name} onChange={e => setForm({...form, first_name: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Last Name</label>
-              <input value={form.last_name} onChange={e => setForm({...form, last_name: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <label className="block text-sm font-medium text-app-text mb-1">Last Name</label>
+              <input value={form.last_name} onChange={e => setForm({...form, last_name: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
             </div>
           </div>
           {!editUser && (
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
-              <input type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <label className="block text-sm font-medium text-app-text mb-1">Email</label>
+              <input type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
             </div>
           )}
           {!editUser && (
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Password</label>
               <div className="relative">
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={form.password}
                   onChange={e => setForm({...form, password: e.target.value})}
-                  className="w-full border border-slate-200 rounded-xl px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                  className="w-full border border-app-border rounded-xl px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
                   placeholder="Enter password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-muted hover:text-app-text transition-colors"
                 >
                   {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -347,8 +347,8 @@ export default function Users() {
           )}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Role</label>
-              <select value={form.role} onChange={e => setForm({...form, role: e.target.value as UserRole})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+              <label className="block text-sm font-medium text-app-text mb-1">Role</label>
+              <select value={form.role} onChange={e => setForm({...form, role: e.target.value as UserRole})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
                 <option value="teacher">Teacher</option>
                 <option value="nur_prim_teacher">Nur &amp; Prim Teacher</option>
                 <option value="non_teaching_staff">Non-Teaching Staff</option>
@@ -366,8 +366,8 @@ export default function Users() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Gender</label>
-              <select value={form.gender} onChange={e => setForm({...form, gender: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+              <label className="block text-sm font-medium text-app-text mb-1">Gender</label>
+              <select value={form.gender} onChange={e => setForm({...form, gender: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
                 <option value="">Select</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -376,11 +376,11 @@ export default function Users() {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Phone</label>
-            <input value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            <label className="block text-sm font-medium text-app-text mb-1">Phone</label>
+            <input value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
           </div>
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
             <button onClick={handleSave} disabled={saving} className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
               {saving ? 'Saving...' : editUser ? 'Update User' : 'Create User'}
             </button>

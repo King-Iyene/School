@@ -55,7 +55,7 @@ function StarRatingLegend() {
               </svg>
             ))}
           </div>
-          <span className="text-xs font-semibold text-slate-700 uppercase tracking-wide">{RATING_LABELS[n]}: {n}</span>
+          <span className="text-xs font-semibold text-app-text uppercase tracking-wide">{RATING_LABELS[n]}: {n}</span>
         </div>
       ))}
     </div>
@@ -286,13 +286,13 @@ export default function DomainRatingGrid({ domain, title }: Props) {
 
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Rate {title}</h1>
-          <p className="text-sm text-slate-500 mt-0.5">Add Rating from 1 – 5</p>
+          <h1 className="text-2xl font-bold text-app-text">Rate {title}</h1>
+          <p className="text-sm text-app-text-muted mt-0.5">Add Rating from 1 – 5</p>
         </div>
         <div className="flex gap-2">
           <button
             onClick={() => setShowSkillModal(true)}
-            className="flex items-center gap-2 px-3 py-2 border border-slate-300 rounded-lg text-sm text-slate-600 hover:bg-slate-50 transition-colors"
+            className="flex items-center gap-2 px-3 py-2 border border-app-border rounded-lg text-sm text-app-text-muted hover:bg-app-surface-alt transition-colors"
           >
             <Settings className="h-4 w-4" /> Manage Skills
           </button>
@@ -309,36 +309,36 @@ export default function DomainRatingGrid({ domain, title }: Props) {
 
       <StarRatingLegend />
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4">
         <div className="flex flex-wrap gap-3 items-end">
           <div>
-            <label className="block text-xs font-medium text-slate-500 mb-1">Academic Year</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Academic Year</label>
             <select
               value={filters.year_id}
               onChange={e => setFilters(f => ({ ...f, year_id: e.target.value }))}
-              className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             >
               <option value="">Select Year</option>
               {years.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-500 mb-1">Class</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Class</label>
             <select
               value={filters.class_id}
               onChange={e => setFilters(f => ({ ...f, class_id: e.target.value }))}
-              className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             >
               <option value="">Select Class</option>
               {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-500 mb-1">Term (optional)</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Term (optional)</label>
             <select
               value={filters.term_id}
               onChange={e => setFilters(f => ({ ...f, term_id: e.target.value }))}
-              className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             >
               <option value="">All Terms</option>
               {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
@@ -348,13 +348,13 @@ export default function DomainRatingGrid({ domain, title }: Props) {
           <div className="ml-auto flex items-center gap-1 bg-slate-100 rounded-lg p-1">
             <button
               onClick={() => { setViewMode('class'); setSelectedStudent(''); }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${viewMode === 'class' ? 'bg-white shadow text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${viewMode === 'class' ? 'bg-app-surface shadow text-app-text' : 'text-app-text-muted hover:text-app-text'}`}
             >
               <Users className="h-4 w-4" /> Class-wise
             </button>
             <button
               onClick={() => setViewMode('student')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${viewMode === 'student' ? 'bg-white shadow text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${viewMode === 'student' ? 'bg-app-surface shadow text-app-text' : 'text-app-text-muted hover:text-app-text'}`}
             >
               <User className="h-4 w-4" /> Student-wise
             </button>
@@ -366,7 +366,7 @@ export default function DomainRatingGrid({ domain, title }: Props) {
             <select
               value={selectedStudent}
               onChange={e => setSelectedStudent(e.target.value)}
-              className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 w-full max-w-xs"
+              className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 w-full max-w-xs"
             >
               <option value="">Select Student</option>
               {allStudents.map(s => <option key={s.id} value={s.id}>{s.full_name}</option>)}
@@ -376,19 +376,19 @@ export default function DomainRatingGrid({ domain, title }: Props) {
       </div>
 
       {!filters.class_id || !filters.year_id ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 py-16 text-center text-slate-400 text-sm">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border py-16 text-center text-app-text-muted text-sm">
           Select a class and academic year to begin rating
         </div>
       ) : loading ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 py-16 text-center">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border py-16 text-center">
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto" />
         </div>
       ) : displayedStudents.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 py-16 text-center text-slate-400 text-sm">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border py-16 text-center text-app-text-muted text-sm">
           No students found in this class
         </div>
       ) : (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
           {hasUnsaved && (
             <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 text-sm text-amber-700 flex items-center gap-2">
               <AlertCircle className="h-4 w-4" /> You have unsaved changes
@@ -397,14 +397,14 @@ export default function DomainRatingGrid({ domain, title }: Props) {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-200">
-                  <th className="text-left px-4 py-3 text-slate-600 font-medium min-w-[180px] sticky left-0 bg-white z-10 border-r border-slate-100">
+                <tr className="border-b border-app-border">
+                  <th className="text-left px-4 py-3 text-app-text-muted font-medium min-w-[180px] sticky left-0 bg-app-surface z-10 border-r border-app-border">
                     Student Name
                   </th>
                   {skills.map(skill => (
                     <th key={skill.id} className="px-2 py-3 text-center min-w-[90px]">
                       <div className="flex items-end justify-center h-24">
-                        <span className="block text-slate-600 font-medium text-xs" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
+                        <span className="block text-app-text-muted font-medium text-xs" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
                           {skill.name}
                         </span>
                       </div>
@@ -414,11 +414,11 @@ export default function DomainRatingGrid({ domain, title }: Props) {
               </thead>
               <tbody>
                 {displayedStudents.map((student, idx) => (
-                  <tr key={student.id} className={`border-b border-slate-100 ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}`}>
-                    <td className="px-4 py-2 font-medium text-slate-800 sticky left-0 bg-inherit z-10 border-r border-slate-100">
+                  <tr key={student.id} className={`border-b border-app-border ${idx % 2 === 0 ? 'bg-app-surface' : 'bg-app-surface-alt/50'}`}>
+                    <td className="px-4 py-2 font-medium text-app-text sticky left-0 bg-inherit z-10 border-r border-app-border">
                       <div>{student.full_name}</div>
                       {student.admission_number && (
-                        <div className="text-xs text-slate-400">{student.admission_number}</div>
+                        <div className="text-xs text-app-text-muted">{student.admission_number}</div>
                       )}
                     </td>
                     {skills.map(skill => {
@@ -439,7 +439,7 @@ export default function DomainRatingGrid({ domain, title }: Props) {
                               val === 3 ? 'border-sky-300 bg-sky-50 text-sky-700' :
                               val === 2 ? 'border-amber-300 bg-amber-50 text-amber-700' :
                               val === 1 ? 'border-red-300 bg-red-50 text-red-600' :
-                              'border-slate-200'
+                              'border-app-border'
                             }`}
                           />
                         </td>
@@ -450,7 +450,7 @@ export default function DomainRatingGrid({ domain, title }: Props) {
               </tbody>
             </table>
           </div>
-          <div className="px-4 py-3 bg-slate-50 border-t border-slate-200 flex justify-end">
+          <div className="px-4 py-3 bg-app-surface-alt border-t border-app-border flex justify-end">
             <button
               onClick={handleSave}
               disabled={saving || !hasUnsaved}
@@ -465,15 +465,15 @@ export default function DomainRatingGrid({ domain, title }: Props) {
 
       {showSkillModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
-            <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
-              <h2 className="text-base font-semibold text-slate-800">Manage {title} Skills</h2>
-              <button onClick={() => setShowSkillModal(false)} className="text-slate-400 hover:text-slate-600 text-xl leading-none">&times;</button>
+          <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
+            <div className="px-5 py-4 border-b border-app-border flex items-center justify-between">
+              <h2 className="text-base font-semibold text-app-text">Manage {title} Skills</h2>
+              <button onClick={() => setShowSkillModal(false)} className="text-app-text-muted hover:text-app-text text-xl leading-none">&times;</button>
             </div>
             <div className="p-5 space-y-3 max-h-[60vh] overflow-y-auto">
               {skills.map(skill => (
-                <div key={skill.id} className="flex items-center justify-between py-2 px-3 bg-slate-50 rounded-lg border border-slate-200">
-                  <span className="text-sm text-slate-700 font-medium">{skill.name}</span>
+                <div key={skill.id} className="flex items-center justify-between py-2 px-3 bg-app-surface-alt rounded-lg border border-app-border">
+                  <span className="text-sm text-app-text font-medium">{skill.name}</span>
                   <button
                     onClick={() => deleteSkill(skill.id)}
                     className="text-red-400 hover:text-red-600 transition-colors"
@@ -483,7 +483,7 @@ export default function DomainRatingGrid({ domain, title }: Props) {
                 </div>
               ))}
               {skills.length === 0 && (
-                <p className="text-sm text-slate-400 text-center py-4">No skills defined yet</p>
+                <p className="text-sm text-app-text-muted text-center py-4">No skills defined yet</p>
               )}
             </div>
             <div className="px-5 pb-5">
@@ -494,7 +494,7 @@ export default function DomainRatingGrid({ domain, title }: Props) {
                   value={newSkillName}
                   onChange={e => setNewSkillName(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && addSkill()}
-                  className="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="flex-1 border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
                 <button
                   onClick={addSkill}

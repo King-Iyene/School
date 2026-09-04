@@ -22,8 +22,8 @@ const RELATIONSHIPS = ['Aunt','Father','Guardian','Mother','Other','Sibling','Un
 const PLACEHOLDER_EMAIL = 'no-email@pending.local';
 const displayEmail = (e?: string|null) => (!e || e === PLACEHOLDER_EMAIL) ? '' : e;
 
-const inputCls  = 'w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white';
-const labelCls  = 'block text-sm font-medium text-slate-700 mb-1';
+const inputCls  = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface';
+const labelCls  = 'block text-sm font-medium text-app-text mb-1';
 
 /* ─── Stage config ───────────────────────────────────────────────────────── */
 const STAGES = [
@@ -31,7 +31,7 @@ const STAGES = [
   { key: 'exam',         label: 'Exam',           icon: GraduationCap, color: 'text-amber-600',  bg: 'bg-amber-50',   border: 'border-amber-200',   statuses: ['exam_invited','exam_scheduled','exam_done'] },
   { key: 'interview',    label: 'Interview',      icon: Users,         color: 'text-purple-600', bg: 'bg-purple-50',  border: 'border-purple-200',  statuses: ['interview_scheduled','interview_done'] },
   { key: 'admitted',     label: 'Admitted',       icon: CheckCircle,   color: 'text-emerald-600',bg: 'bg-emerald-50', border: 'border-emerald-200', statuses: ['admitted'] },
-  { key: 'rejected',     label: 'Archived',       icon: Archive,       color: 'text-slate-500',  bg: 'bg-slate-50',   border: 'border-slate-200',   statuses: ['rejected'] },
+  { key: 'rejected',     label: 'Archived',       icon: Archive,       color: 'text-app-text-muted',  bg: 'bg-app-surface-alt',   border: 'border-app-border',   statuses: ['rejected'] },
 ] as const;
 
 type StageKey = typeof STAGES[number]['key'];
@@ -108,9 +108,9 @@ const emptyAdmitForm = {
 /* ─── Shared field display ───────────────────────────────────────────────── */
 function Field({ label, value }: { label: string; value?: string|null }) {
   return (
-    <div className="bg-slate-50 rounded-xl p-3">
-      <p className="text-xs text-slate-400 mb-0.5">{label}</p>
-      <p className="text-sm font-semibold text-slate-800 capitalize">{value||'—'}</p>
+    <div className="bg-app-surface-alt rounded-xl p-3">
+      <p className="text-xs text-app-text-muted mb-0.5">{label}</p>
+      <p className="text-sm font-semibold text-app-text capitalize">{value||'—'}</p>
     </div>
   );
 }
@@ -132,7 +132,7 @@ function PipelineBar({ status }: { status: string }) {
             <div className={`flex items-center gap-1.5 px-2 py-1 rounded-lg text-xs font-medium flex-shrink-0 ${
               done    ? 'text-emerald-600 bg-emerald-50'  :
               current ? `${s.color} ${s.bg}`               :
-                        'text-slate-400 bg-slate-50'
+                        'text-app-text-muted bg-app-surface-alt'
             }`}>
               {done ? <CheckCircle className="w-3 h-3"/> : <Icon className="w-3 h-3"/>}
               <span className="hidden sm:inline">{s.label}</span>
@@ -567,50 +567,50 @@ export default function ProspectiveStudents() {
     const es = effectiveStatus(p);
     return (
       <div className="flex items-center gap-1">
-        <button onClick={()=>setViewing(p)} title="View" className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"><Eye className="w-4 h-4"/></button>
+        <button onClick={()=>setViewing(p)} title="View" className="p-1.5 text-app-text-muted hover:text-app-text hover:bg-slate-100 rounded-lg transition-colors"><Eye className="w-4 h-4"/></button>
 
         {/* Application stage */}
         {['pending','exam_invited'].includes(es) && <>
-          <button onClick={()=>openEdit(p)} title="Edit" className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"><Edit2 className="w-4 h-4"/></button>
+          <button onClick={()=>openEdit(p)} title="Edit" className="p-1.5 text-app-text-muted hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"><Edit2 className="w-4 h-4"/></button>
           {es === 'pending' && (
-            <button onClick={()=>inviteToExam(p)} title="Invite to Exam" className="p-1.5 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"><GraduationCap className="w-4 h-4"/></button>
+            <button onClick={()=>inviteToExam(p)} title="Invite to Exam" className="p-1.5 text-app-text-muted hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"><GraduationCap className="w-4 h-4"/></button>
           )}
         </>}
 
         {/* Exam stage — record result */}
         {['exam_invited','exam_scheduled','exam_done'].includes(es) && (
-          <button onClick={()=>openExamModal(p)} title={es==='exam_done' ? 'Update Exam Result' : 'Record Exam Result'} className="p-1.5 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"><FileText className="w-4 h-4"/></button>
+          <button onClick={()=>openExamModal(p)} title={es==='exam_done' ? 'Update Exam Result' : 'Record Exam Result'} className="p-1.5 text-app-text-muted hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"><FileText className="w-4 h-4"/></button>
         )}
         {['exam_invited','exam_scheduled','exam_done'].includes(es) && (
-          <button onClick={()=>openInterviewModal(p)} title="Record Interview" className="p-1.5 text-slate-400 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors"><Users className="w-4 h-4"/></button>
+          <button onClick={()=>openInterviewModal(p)} title="Record Interview" className="p-1.5 text-app-text-muted hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors"><Users className="w-4 h-4"/></button>
         )}
 
         {/* Interview stage — record outcome / admit */}
         {['interview_scheduled','interview_done'].includes(es) && (
-          <button onClick={()=>openInterviewModal(p)} title="Record Interview Outcome" className="p-1.5 text-slate-400 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors"><Star className="w-4 h-4"/></button>
+          <button onClick={()=>openInterviewModal(p)} title="Record Interview Outcome" className="p-1.5 text-app-text-muted hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors"><Star className="w-4 h-4"/></button>
         )}
         {es === 'interview_done' && (
-          <button onClick={()=>openAdmit(p)} title="Admit Student" className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"><UserPlus className="w-4 h-4"/></button>
+          <button onClick={()=>openAdmit(p)} title="Admit Student" className="p-1.5 text-app-text-muted hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"><UserPlus className="w-4 h-4"/></button>
         )}
 
         {/* Print admission letter — admitted only */}
         {es === 'admitted' && (
-          <button onClick={()=>handlePrintLetter(p)} title="Print Admission Letter" className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"><Printer className="w-4 h-4"/></button>
+          <button onClick={()=>handlePrintLetter(p)} title="Print Admission Letter" className="p-1.5 text-app-text-muted hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"><Printer className="w-4 h-4"/></button>
         )}
 
         {/* Reject / archive — all active stages */}
         {!['admitted','rejected'].includes(es) && (
-          <button onClick={()=>rejectProspect(p.id)} title="Reject / Archive" className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><X className="w-4 h-4"/></button>
+          <button onClick={()=>rejectProspect(p.id)} title="Reject / Archive" className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><X className="w-4 h-4"/></button>
         )}
 
-        <button onClick={()=>deleteProspect(p.id)} title="Delete permanently" className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><Trash2 className="w-4 h-4"/></button>
+        <button onClick={()=>deleteProspect(p.id)} title="Delete permanently" className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><Trash2 className="w-4 h-4"/></button>
       </div>
     );
   }
 
   /* ── Exam score display ───────────────────────────────────────────────── */
   function ExamScore({ p }: { p: any }) {
-    if (p.exam_score == null) return <span className="text-slate-400 text-xs">—</span>;
+    if (p.exam_score == null) return <span className="text-app-text-muted text-xs">—</span>;
     const pct = Math.round((p.exam_score / (p.exam_max_score||100)) * 100);
     const color = pct>=70 ? 'text-emerald-600' : pct>=50 ? 'text-amber-600' : 'text-red-600';
     return <span className={`text-sm font-bold ${color}`}>{p.exam_score}/{p.exam_max_score||100} <span className="text-xs font-normal">({pct}%)</span></span>;
@@ -633,8 +633,8 @@ export default function ProspectiveStudents() {
       {/* ── Header ──────────────────────────────────────────────────────── */}
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Prospective Students</h2>
-          <p className="text-slate-500 text-sm">Manage the full admission pipeline: Application → Exam → Interview → Decision</p>
+          <h2 className="text-xl font-bold text-app-text">Prospective Students</h2>
+          <p className="text-app-text-muted text-sm">Manage the full admission pipeline: Application → Exam → Interview → Decision</p>
         </div>
         <button onClick={openAdd} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm">
           <Plus className="w-4 h-4"/> Add Applicant
@@ -651,17 +651,17 @@ export default function ProspectiveStudents() {
             <p className="text-sm font-semibold text-emerald-800 mb-1">Public Admission Form</p>
             <p className="text-xs text-emerald-700 mb-3">Share this link with prospective students and parents. Submissions appear here automatically as pending applications.</p>
             <div className="flex flex-col sm:flex-row gap-2">
-              <div className="flex items-center gap-2 bg-white border border-emerald-200 rounded-xl px-3 py-2 flex-1 min-w-0">
+              <div className="flex items-center gap-2 bg-app-surface border border-emerald-200 rounded-xl px-3 py-2 flex-1 min-w-0">
                 <Link2 className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0"/>
-                <span className="text-xs font-mono text-slate-600 truncate">{applyUrl}</span>
-                <button onClick={()=>copyUrl(applyUrl)} className="ml-auto flex-shrink-0 text-slate-400 hover:text-emerald-600 transition-colors" title="Copy link">
+                <span className="text-xs font-mono text-app-text-muted truncate">{applyUrl}</span>
+                <button onClick={()=>copyUrl(applyUrl)} className="ml-auto flex-shrink-0 text-app-text-muted hover:text-emerald-600 transition-colors" title="Copy link">
                   {copied ? <Check className="w-3.5 h-3.5 text-emerald-500"/> : <Copy className="w-3.5 h-3.5"/>}
                 </button>
               </div>
               <a href={applyUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 px-3 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-medium rounded-xl transition-colors whitespace-nowrap">
                 <Eye className="w-3.5 h-3.5"/> Preview Form
               </a>
-              <a href={statusUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-emerald-200 hover:bg-emerald-50 text-emerald-700 text-xs font-medium rounded-xl transition-colors whitespace-nowrap">
+              <a href={statusUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 px-3 py-2 bg-app-surface border border-emerald-200 hover:bg-emerald-50 text-emerald-700 text-xs font-medium rounded-xl transition-colors whitespace-nowrap">
                 <Search className="w-3.5 h-3.5"/> Status Check Page
               </a>
             </div>
@@ -676,10 +676,10 @@ export default function ProspectiveStudents() {
           const count = stageCounts[s.key] ?? 0;
           return (
             <button key={s.key} onClick={()=>setTab(s.key)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${tab===s.key ? 'bg-white shadow-sm text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}>
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${tab===s.key ? 'bg-app-surface shadow-sm text-app-text' : 'text-app-text-muted hover:text-app-text'}`}>
               <Icon className={`w-4 h-4 ${tab===s.key ? s.color : ''}`}/>
               {s.label}
-              <span className={`text-xs px-1.5 py-0.5 rounded-full font-semibold ${tab===s.key ? `${s.bg} ${s.color}` : 'bg-slate-200 text-slate-500'}`}>{count}</span>
+              <span className={`text-xs px-1.5 py-0.5 rounded-full font-semibold ${tab===s.key ? `${s.bg} ${s.color}` : 'bg-slate-200 text-app-text-muted'}`}>{count}</span>
             </button>
           );
         })}
@@ -707,46 +707,46 @@ export default function ProspectiveStudents() {
 
       {/* ── Search ───────────────────────────────────────────────────────── */}
       <div className="relative max-w-sm">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"/>
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted"/>
         <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search by name, ref, email, phone…"
-          className="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"/>
+          className="w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"/>
       </div>
 
       {/* ── Table ────────────────────────────────────────────────────────── */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-x-auto">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-x-auto">
         <table className="w-full min-w-[700px]">
           <thead>
-            <tr className="bg-slate-50 border-b border-slate-100">
+            <tr className="bg-app-surface-alt border-b border-app-border">
               {['Applicant','Ref','Class','Type','Stage','Score','Applied','Actions'].map(h=>(
-                <th key={h} className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">{h}</th>
+                <th key={h} className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">{h}</th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-app-border">
             {loading ? (
-              <tr><td colSpan={8} className="text-center py-12 text-slate-400">Loading…</td></tr>
+              <tr><td colSpan={8} className="text-center py-12 text-app-text-muted">Loading…</td></tr>
             ) : filtered.length===0 ? (
-              <tr><td colSpan={8} className="text-center py-12 text-slate-400">No applicants in this stage</td></tr>
+              <tr><td colSpan={8} className="text-center py-12 text-app-text-muted">No applicants in this stage</td></tr>
             ) : filtered.map(p=>(
-              <tr key={p.id} className="hover:bg-slate-50 transition-colors">
+              <tr key={p.id} className="hover:bg-app-surface-alt transition-colors">
                 <td className="px-4 py-3">
-                  <p className="text-sm font-semibold text-slate-800">{p.first_name} {p.last_name}</p>
-                  <p className="text-xs text-slate-400">{displayEmail(p.guardian_email)}</p>
+                  <p className="text-sm font-semibold text-app-text">{p.first_name} {p.last_name}</p>
+                  <p className="text-xs text-app-text-muted">{displayEmail(p.guardian_email)}</p>
                 </td>
-                <td className="px-4 py-3 font-mono text-xs text-slate-500">{p.application_ref??'—'}</td>
-                <td className="px-4 py-3 text-sm text-slate-600">{p.class_applying_for||'—'}</td>
+                <td className="px-4 py-3 font-mono text-xs text-app-text-muted">{p.application_ref??'—'}</td>
+                <td className="px-4 py-3 text-sm text-app-text-muted">{p.class_applying_for||'—'}</td>
                 <td className="px-4 py-3">
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${p.student_type==='boarding'?'bg-blue-100 text-blue-700':'bg-slate-100 text-slate-600'}`}>{p.student_type}</span>
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${p.student_type==='boarding'?'bg-blue-100 text-blue-700':'bg-slate-100 text-app-text-muted'}`}>{p.student_type}</span>
                 </td>
                 <td className="px-4 py-3"><StatusBadge status={effectiveStatus(p)}/></td>
                 <td className="px-4 py-3"><ExamScore p={p}/></td>
-                <td className="px-4 py-3 text-xs text-slate-400">{new Date(p.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</td>
+                <td className="px-4 py-3 text-xs text-app-text-muted">{new Date(p.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</td>
                 <td className="px-4 py-3"><RowActions p={p}/></td>
               </tr>
             ))}
           </tbody>
         </table>
-        <div className="px-4 py-3 border-t border-slate-100 text-sm text-slate-500">
+        <div className="px-4 py-3 border-t border-app-border text-sm text-app-text-muted">
           {filtered.length} applicant{filtered.length!==1?'s':''} in this stage
         </div>
       </div>
@@ -758,12 +758,12 @@ export default function ProspectiveStudents() {
       {/* ── Detail view ──────────────────────────────────────────────────── */}
       {viewing && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white border-b border-slate-100 px-5 py-4">
+          <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-app-surface border-b border-app-border px-5 py-4">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <h3 className="font-bold text-slate-800 text-lg">{viewing.first_name} {viewing.last_name}</h3>
-                  <p className="text-xs text-slate-500 font-mono">{viewing.application_ref}</p>
+                  <h3 className="font-bold text-app-text text-lg">{viewing.first_name} {viewing.last_name}</h3>
+                  <p className="text-xs text-app-text-muted font-mono">{viewing.application_ref}</p>
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
                   {(()=>{ const ve=effectiveStatus(viewing); return (<>
@@ -775,7 +775,7 @@ export default function ProspectiveStudents() {
                   {ve === 'admitted' && <button onClick={()=>handlePrintLetter(viewing)} className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors"><Printer className="w-3.5 h-3.5"/>Print Admission Letter</button>}
                   </>); })()}
                   {!['admitted','rejected'].includes(viewing.status) && <button onClick={()=>rejectProspect(viewing.id)} className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"><X className="w-3.5 h-3.5"/>Reject</button>}
-                  <button onClick={()=>setViewing(null)} className="p-2 hover:bg-slate-100 rounded-xl text-slate-400"><X className="w-4 h-4"/></button>
+                  <button onClick={()=>setViewing(null)} className="p-2 hover:bg-slate-100 rounded-xl text-app-text-muted"><X className="w-4 h-4"/></button>
                 </div>
               </div>
               {/* Pipeline bar */}
@@ -785,7 +785,7 @@ export default function ProspectiveStudents() {
             <div className="p-5 space-y-5">
               {/* Personal */}
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase mb-3">Personal Information</p>
+                <p className="text-xs font-semibold text-app-text-muted uppercase mb-3">Personal Information</p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   <Field label="Date of Birth" value={viewing.date_of_birth?new Date(viewing.date_of_birth+'T00:00:00').toLocaleDateString('en-GB'):undefined}/>
                   <Field label="Gender" value={viewing.gender}/>
@@ -797,12 +797,12 @@ export default function ProspectiveStudents() {
                   <Field label="LGA" value={viewing.lga}/>
                   <Field label="City" value={viewing.city}/>
                 </div>
-                {viewing.address && <div className="mt-3 bg-slate-50 rounded-xl p-3"><p className="text-xs text-slate-400 mb-0.5">Address</p><p className="text-sm font-semibold text-slate-800">{viewing.address}</p></div>}
+                {viewing.address && <div className="mt-3 bg-app-surface-alt rounded-xl p-3"><p className="text-xs text-app-text-muted mb-0.5">Address</p><p className="text-sm font-semibold text-app-text">{viewing.address}</p></div>}
               </div>
 
               {/* Academic */}
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase mb-3">Academic Information</p>
+                <p className="text-xs font-semibold text-app-text-muted uppercase mb-3">Academic Information</p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   <Field label="Class Applying For" value={viewing.class_applying_for}/>
                   <Field label="Student Type" value={viewing.student_type}/>
@@ -813,11 +813,11 @@ export default function ProspectiveStudents() {
               {/* Exam results */}
               {(viewing.exam_score != null || viewing.exam_date) && (
                 <div>
-                  <p className="text-xs font-semibold text-slate-500 uppercase mb-3">Entrance Exam Result</p>
+                  <p className="text-xs font-semibold text-app-text-muted uppercase mb-3">Entrance Exam Result</p>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     <Field label="Exam Date" value={viewing.exam_date?new Date(viewing.exam_date+'T00:00:00').toLocaleDateString('en-GB'):undefined}/>
                     <Field label="Score" value={viewing.exam_score!=null?`${viewing.exam_score} / ${viewing.exam_max_score||100} (${Math.round((viewing.exam_score/(viewing.exam_max_score||100))*100)}%)`:undefined}/>
-                    {viewing.exam_notes && <div className="sm:col-span-2 bg-slate-50 rounded-xl p-3"><p className="text-xs text-slate-400 mb-0.5">Exam Notes</p><p className="text-sm text-slate-700">{viewing.exam_notes}</p></div>}
+                    {viewing.exam_notes && <div className="sm:col-span-2 bg-app-surface-alt rounded-xl p-3"><p className="text-xs text-app-text-muted mb-0.5">Exam Notes</p><p className="text-sm text-app-text">{viewing.exam_notes}</p></div>}
                   </div>
                 </div>
               )}
@@ -825,11 +825,11 @@ export default function ProspectiveStudents() {
               {/* Interview */}
               {(viewing.interview_date || viewing.interview_notes) && (
                 <div>
-                  <p className="text-xs font-semibold text-slate-500 uppercase mb-3">Principal's Interview</p>
+                  <p className="text-xs font-semibold text-app-text-muted uppercase mb-3">Principal's Interview</p>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     <Field label="Interview Date" value={viewing.interview_date?new Date(viewing.interview_date+'T00:00:00').toLocaleDateString('en-GB'):undefined}/>
                     <Field label="Outcome" value={viewing.interview_outcome}/>
-                    {viewing.interview_notes && <div className="sm:col-span-2 bg-slate-50 rounded-xl p-3"><p className="text-xs text-slate-400 mb-0.5">Interview Notes</p><p className="text-sm text-slate-700">{viewing.interview_notes}</p></div>}
+                    {viewing.interview_notes && <div className="sm:col-span-2 bg-app-surface-alt rounded-xl p-3"><p className="text-xs text-app-text-muted mb-0.5">Interview Notes</p><p className="text-sm text-app-text">{viewing.interview_notes}</p></div>}
                   </div>
                 </div>
               )}
@@ -843,7 +843,7 @@ export default function ProspectiveStudents() {
 
               {/* Guardian */}
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase mb-3">Guardian / Parent Information</p>
+                <p className="text-xs font-semibold text-app-text-muted uppercase mb-3">Guardian / Parent Information</p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   <Field label="Name" value={viewing.guardian_name}/>
                   <Field label="Relationship" value={viewing.guardian_relationship}/>
@@ -861,13 +861,13 @@ export default function ProspectiveStudents() {
       {/* ── Exam Result Modal ─────────────────────────────────────────────── */}
       {examModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
-            <div className="flex items-center justify-between p-5 border-b border-slate-100">
+          <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-md">
+            <div className="flex items-center justify-between p-5 border-b border-app-border">
               <div>
-                <h3 className="font-bold text-slate-800 flex items-center gap-2"><GraduationCap className="w-5 h-5 text-amber-500"/>Record Exam Result</h3>
-                <p className="text-sm text-slate-500">{examModal.first_name} {examModal.last_name}</p>
+                <h3 className="font-bold text-app-text flex items-center gap-2"><GraduationCap className="w-5 h-5 text-amber-500"/>Record Exam Result</h3>
+                <p className="text-sm text-app-text-muted">{examModal.first_name} {examModal.last_name}</p>
               </div>
-              <button onClick={()=>setExamModal(null)} className="p-2 hover:bg-slate-100 rounded-xl text-slate-400"><X className="w-4 h-4"/></button>
+              <button onClick={()=>setExamModal(null)} className="p-2 hover:bg-slate-100 rounded-xl text-app-text-muted"><X className="w-4 h-4"/></button>
             </div>
             <div className="p-5 space-y-4">
               {examError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{examError}</div>}
@@ -886,8 +886,8 @@ export default function ProspectiveStudents() {
                 </div>
               </div>
               {examForm.exam_score && examForm.exam_max_score && (
-                <div className="bg-slate-50 rounded-xl px-4 py-3 text-sm text-center">
-                  <span className="text-slate-500">Percentage: </span>
+                <div className="bg-app-surface-alt rounded-xl px-4 py-3 text-sm text-center">
+                  <span className="text-app-text-muted">Percentage: </span>
                   <span className={`font-bold text-lg ${Math.round((parseFloat(examForm.exam_score)/parseFloat(examForm.exam_max_score))*100)>=70?'text-emerald-600':Math.round((parseFloat(examForm.exam_score)/parseFloat(examForm.exam_max_score))*100)>=50?'text-amber-600':'text-red-600'}`}>
                     {Math.round((parseFloat(examForm.exam_score)/parseFloat(examForm.exam_max_score))*100)}%
                   </span>
@@ -897,8 +897,8 @@ export default function ProspectiveStudents() {
                 <label className={labelCls}>Notes (optional)</label>
                 <textarea className={`${inputCls} resize-none`} rows={3} value={examForm.exam_notes} onChange={e=>setExamForm(f=>({...f,exam_notes:e.target.value}))} placeholder="Any remarks about the exam performance…"/>
               </div>
-              <div className="flex gap-3 pt-2 border-t border-slate-100">
-                <button onClick={()=>setExamModal(null)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-600 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">Cancel</button>
+              <div className="flex gap-3 pt-2 border-t border-app-border">
+                <button onClick={()=>setExamModal(null)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text-muted rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
                 <button onClick={saveExamResult} disabled={examSaving} className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
                   {examSaving?'Saving…':'Save Exam Result & Move to Interview Stage'}
                 </button>
@@ -911,20 +911,20 @@ export default function ProspectiveStudents() {
       {/* ── Interview Modal ───────────────────────────────────────────────── */}
       {interviewModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
-            <div className="flex items-center justify-between p-5 border-b border-slate-100">
+          <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-md">
+            <div className="flex items-center justify-between p-5 border-b border-app-border">
               <div>
-                <h3 className="font-bold text-slate-800 flex items-center gap-2"><Users className="w-5 h-5 text-purple-500"/>Principal's Interview</h3>
-                <p className="text-sm text-slate-500">{interviewModal.first_name} {interviewModal.last_name}</p>
+                <h3 className="font-bold text-app-text flex items-center gap-2"><Users className="w-5 h-5 text-purple-500"/>Principal's Interview</h3>
+                <p className="text-sm text-app-text-muted">{interviewModal.first_name} {interviewModal.last_name}</p>
               </div>
-              <button onClick={()=>setInterviewModal(null)} className="p-2 hover:bg-slate-100 rounded-xl text-slate-400"><X className="w-4 h-4"/></button>
+              <button onClick={()=>setInterviewModal(null)} className="p-2 hover:bg-slate-100 rounded-xl text-app-text-muted"><X className="w-4 h-4"/></button>
             </div>
             <div className="p-5 space-y-4">
               {interviewError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{interviewError}</div>}
 
               {interviewModal.exam_score != null && (
                 <div className="bg-amber-50 border border-amber-100 rounded-xl px-4 py-3 text-sm">
-                  <span className="text-slate-500">Exam score: </span>
+                  <span className="text-app-text-muted">Exam score: </span>
                   <span className="font-bold text-amber-700">{interviewModal.exam_score}/{interviewModal.exam_max_score||100} ({Math.round((interviewModal.exam_score/(interviewModal.exam_max_score||100))*100)}%)</span>
                 </div>
               )}
@@ -938,7 +938,7 @@ export default function ProspectiveStudents() {
                 <div className="grid grid-cols-3 gap-2">
                   {[{v:'pass',label:'Pass',color:'bg-emerald-50 border-emerald-400 text-emerald-700'},{v:'deferred',label:'Deferred',color:'bg-amber-50 border-amber-400 text-amber-700'},{v:'fail',label:'Fail',color:'bg-red-50 border-red-400 text-red-700'}].map(o=>(
                     <button key={o.v} type="button" onClick={()=>setInterviewForm(f=>({...f,interview_outcome:o.v}))}
-                      className={`py-2.5 border-2 rounded-xl text-sm font-semibold transition-all ${interviewForm.interview_outcome===o.v?o.color:'border-slate-200 text-slate-500 hover:border-slate-300'}`}>
+                      className={`py-2.5 border-2 rounded-xl text-sm font-semibold transition-all ${interviewForm.interview_outcome===o.v?o.color:'border-app-border text-app-text-muted hover:border-app-border'}`}>
                       {o.label}
                     </button>
                   ))}
@@ -958,8 +958,8 @@ export default function ProspectiveStudents() {
                   After saving, use <strong>Reject</strong> to archive this application.
                 </div>
               )}
-              <div className="flex gap-3 pt-2 border-t border-slate-100">
-                <button onClick={()=>setInterviewModal(null)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-600 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">Cancel</button>
+              <div className="flex gap-3 pt-2 border-t border-app-border">
+                <button onClick={()=>setInterviewModal(null)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text-muted rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
                 <button onClick={saveInterview} disabled={interviewSaving} className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-purple-500 hover:bg-purple-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
                   {interviewSaving?'Saving…':'Save Interview Record'}
                 </button>
@@ -972,17 +972,17 @@ export default function ProspectiveStudents() {
       {/* ── Add / Edit Prospect Modal ─────────────────────────────────────── */}
       {showForm && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between p-5 border-b border-slate-100 sticky top-0 bg-white">
-              <h3 className="font-bold text-slate-800">{editingId?'Edit Applicant':'Add New Applicant'}</h3>
-              <button onClick={()=>setShowForm(false)} className="p-2 hover:bg-slate-100 rounded-xl text-slate-400"><X className="w-4 h-4"/></button>
+          <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-5 border-b border-app-border sticky top-0 bg-app-surface">
+              <h3 className="font-bold text-app-text">{editingId?'Edit Applicant':'Add New Applicant'}</h3>
+              <button onClick={()=>setShowForm(false)} className="p-2 hover:bg-slate-100 rounded-xl text-app-text-muted"><X className="w-4 h-4"/></button>
             </div>
             <div className="p-5 space-y-6">
               {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{saveError}</div>}
 
               {/* Personal */}
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase mb-3">Personal Information</p>
+                <p className="text-xs font-semibold text-app-text-muted uppercase mb-3">Personal Information</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div><label className={labelCls}>First Name <span className="text-red-500">*</span></label><input className={inputCls} value={form.first_name} onChange={e=>setForm(f=>({...f,first_name:e.target.value}))} placeholder="First name"/></div>
                   <div><label className={labelCls}>Last Name <span className="text-red-500">*</span></label><input className={inputCls} value={form.last_name} onChange={e=>setForm(f=>({...f,last_name:e.target.value}))} placeholder="Last name"/></div>
@@ -1001,7 +1001,7 @@ export default function ProspectiveStudents() {
 
               {/* Academic */}
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase mb-3">Academic Information</p>
+                <p className="text-xs font-semibold text-app-text-muted uppercase mb-3">Academic Information</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div><label className={labelCls}>Class Applying For</label><input className={inputCls} value={form.class_applying_for} onChange={e=>setForm(f=>({...f,class_applying_for:e.target.value}))} placeholder="e.g. JSS 1"/></div>
                   <div><label className={labelCls}>Student Type</label><select className={inputCls} value={form.student_type} onChange={e=>setForm(f=>({...f,student_type:e.target.value as 'day'|'boarding'}))}><option value="day">Day Student</option><option value="boarding">Boarding Student</option></select></div>
@@ -1012,7 +1012,7 @@ export default function ProspectiveStudents() {
 
               {/* Guardian */}
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase mb-3">Guardian / Parent Information</p>
+                <p className="text-xs font-semibold text-app-text-muted uppercase mb-3">Guardian / Parent Information</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div><label className={labelCls}>Guardian Name</label><input className={inputCls} value={form.guardian_name} onChange={e=>setForm(f=>({...f,guardian_name:e.target.value}))} placeholder="Full name"/></div>
                   <div><label className={labelCls}>Relationship</label><select className={inputCls} value={form.guardian_relationship} onChange={e=>setForm(f=>({...f,guardian_relationship:e.target.value}))}><option value="">Select relationship</option>{RELATIONSHIPS.map(r=><option key={r} value={r}>{r}</option>)}</select></div>
@@ -1023,8 +1023,8 @@ export default function ProspectiveStudents() {
                 </div>
               </div>
 
-              <div className="flex gap-3 pt-2 border-t border-slate-100">
-                <button onClick={()=>setShowForm(false)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-600 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">Cancel</button>
+              <div className="flex gap-3 pt-2 border-t border-app-border">
+                <button onClick={()=>setShowForm(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text-muted rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
                 <button onClick={saveProspect} disabled={saving} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
                   {saving?'Saving…':editingId?'Save Changes':'Add Applicant'}
                 </button>
@@ -1037,10 +1037,10 @@ export default function ProspectiveStudents() {
       {/* ── Admit Student Modal ───────────────────────────────────────────── */}
       {admitting && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between p-5 border-b border-slate-100 sticky top-0 bg-white">
-              <div><h3 className="font-bold text-slate-800">Admit Student</h3><p className="text-sm text-slate-500">{admitting.first_name} {admitting.last_name}</p></div>
-              <button onClick={()=>setAdmitting(null)} className="p-2 hover:bg-slate-100 rounded-xl text-slate-400"><X className="w-4 h-4"/></button>
+          <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-5 border-b border-app-border sticky top-0 bg-app-surface">
+              <div><h3 className="font-bold text-app-text">Admit Student</h3><p className="text-sm text-app-text-muted">{admitting.first_name} {admitting.last_name}</p></div>
+              <button onClick={()=>setAdmitting(null)} className="p-2 hover:bg-slate-100 rounded-xl text-app-text-muted"><X className="w-4 h-4"/></button>
             </div>
             <div className="p-5 space-y-4">
               {admitError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{admitError}</div>}
@@ -1051,14 +1051,14 @@ export default function ProspectiveStudents() {
               </div>
 
               {admitting.exam_score != null && (
-                <div className="bg-slate-50 rounded-xl px-4 py-3 text-sm flex items-center justify-between">
-                  <span className="text-slate-500">Exam score</span>
-                  <span className="font-bold text-slate-800">{admitting.exam_score}/{admitting.exam_max_score||100} ({Math.round((admitting.exam_score/(admitting.exam_max_score||100))*100)}%)</span>
+                <div className="bg-app-surface-alt rounded-xl px-4 py-3 text-sm flex items-center justify-between">
+                  <span className="text-app-text-muted">Exam score</span>
+                  <span className="font-bold text-app-text">{admitting.exam_score}/{admitting.exam_max_score||100} ({Math.round((admitting.exam_score/(admitting.exam_max_score||100))*100)}%)</span>
                 </div>
               )}
               {admitting.interview_outcome && (
-                <div className="bg-slate-50 rounded-xl px-4 py-3 text-sm flex items-center justify-between">
-                  <span className="text-slate-500">Interview outcome</span>
+                <div className="bg-app-surface-alt rounded-xl px-4 py-3 text-sm flex items-center justify-between">
+                  <span className="text-app-text-muted">Interview outcome</span>
                   <span className={`font-bold capitalize ${admitting.interview_outcome==='pass'?'text-emerald-600':admitting.interview_outcome==='fail'?'text-red-600':'text-amber-600'}`}>{admitting.interview_outcome}</span>
                 </div>
               )}
@@ -1067,14 +1067,14 @@ export default function ProspectiveStudents() {
                 <label className={labelCls}>Admission Number <span className="text-red-500">*</span></label>
                 <div className="flex gap-2">
                   <input className={inputCls} value={admitForm.admission_number} onChange={e=>setAdmitForm(f=>({...f,admission_number:e.target.value}))} placeholder={`${schoolCodeFromName(settings.school_name)}-${new Date().getFullYear()}-001`}/>
-                  <button type="button" onClick={async()=>{const n=await getNextAdmissionNumber(profile?.school_id||'', schoolCodeFromName(settings.school_name));setAdmitForm(f=>({...f,admission_number:n}));}} className="px-3 py-2 text-xs rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 whitespace-nowrap transition-colors">Generate</button>
+                  <button type="button" onClick={async()=>{const n=await getNextAdmissionNumber(profile?.school_id||'', schoolCodeFromName(settings.school_name));setAdmitForm(f=>({...f,admission_number:n}));}} className="px-3 py-2 text-xs rounded-xl border border-app-border text-app-text-muted hover:bg-app-surface-alt whitespace-nowrap transition-colors">Generate</button>
                 </div>
               </div>
               <div>
                 <label className={labelCls}>Login Password <span className="text-red-500">*</span></label>
                 <div className="relative">
                   <input type={showPassword?'text':'password'} className={inputCls} value={admitForm.password} onChange={e=>setAdmitForm(f=>({...f,password:e.target.value}))} placeholder="Min. 6 characters"/>
-                  <button type="button" onClick={()=>setShowPassword(v=>!v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                  <button type="button" onClick={()=>setShowPassword(v=>!v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-muted hover:text-app-text">
                     {showPassword?<EyeOff className="w-4 h-4"/>:<Eye className="w-4 h-4"/>}
                   </button>
                 </div>
@@ -1099,8 +1099,8 @@ export default function ProspectiveStudents() {
                 <label className={labelCls}>Admission Date</label>
                 <input type="date" className={inputCls} value={admitForm.admission_date} onChange={e=>setAdmitForm(f=>({...f,admission_date:e.target.value}))}/>
               </div>
-              <div className="flex gap-3 pt-2 border-t border-slate-100">
-                <button onClick={()=>setAdmitting(null)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-600 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">Cancel</button>
+              <div className="flex gap-3 pt-2 border-t border-app-border">
+                <button onClick={()=>setAdmitting(null)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text-muted rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
                 <button onClick={confirmAdmit} disabled={admitSaving} className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
                   <UserPlus className="w-4 h-4"/>
                   {admitSaving?'Admitting…':'Confirm Admission'}

@@ -229,8 +229,8 @@ export default function LessonPlan() {
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Lesson Plan</h1>
-          <p className="text-sm text-slate-500 mt-1">Create and manage detailed lesson plans for each topic</p>
+          <h1 className="text-2xl font-bold text-app-text">Lesson Plan</h1>
+          <p className="text-sm text-app-text-muted mt-1">Create and manage detailed lesson plans for each topic</p>
         </div>
         {selectedTopic && (
           <button
@@ -255,14 +255,14 @@ export default function LessonPlan() {
 
       <div className="grid grid-cols-3 gap-3 mb-6">
         <div>
-          <label className="block text-xs font-medium text-slate-500 mb-1">Class</label>
+          <label className="block text-xs font-medium text-app-text-muted mb-1">Class</label>
           {loading ? (
-            <div className="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-400 bg-white">Loading...</div>
+            <div className="border border-app-border rounded-lg px-3 py-2 text-sm text-app-text-muted bg-app-surface">Loading...</div>
           ) : (
             <select
               value={selectedClass}
               onChange={(e) => setSelectedClass(e.target.value)}
-              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
             >
               <option value="">Select class...</option>
               {classes.map((cls) => (
@@ -272,15 +272,15 @@ export default function LessonPlan() {
           )}
         </div>
         <div>
-          <label className="block text-xs font-medium text-slate-500 mb-1">Lesson</label>
+          <label className="block text-xs font-medium text-app-text-muted mb-1">Lesson</label>
           {loadingLessons ? (
-            <div className="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-400 bg-white">Loading...</div>
+            <div className="border border-app-border rounded-lg px-3 py-2 text-sm text-app-text-muted bg-app-surface">Loading...</div>
           ) : (
             <select
               value={selectedLesson}
               onChange={(e) => setSelectedLesson(e.target.value)}
               disabled={!selectedClass}
-              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <option value="">Select lesson...</option>
               {lessons.map((l) => (
@@ -290,15 +290,15 @@ export default function LessonPlan() {
           )}
         </div>
         <div>
-          <label className="block text-xs font-medium text-slate-500 mb-1">Topic</label>
+          <label className="block text-xs font-medium text-app-text-muted mb-1">Topic</label>
           {loadingTopics ? (
-            <div className="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-400 bg-white">Loading...</div>
+            <div className="border border-app-border rounded-lg px-3 py-2 text-sm text-app-text-muted bg-app-surface">Loading...</div>
           ) : (
             <select
               value={selectedTopic}
               onChange={(e) => setSelectedTopic(e.target.value)}
               disabled={!selectedLesson}
-              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <option value="">Select topic...</option>
               {topics.map((t) => (
@@ -310,14 +310,14 @@ export default function LessonPlan() {
       </div>
 
       {!selectedTopic && (
-        <div className="flex flex-col items-center justify-center h-48 text-slate-400 bg-white rounded-xl border border-slate-200 border-dashed">
+        <div className="flex flex-col items-center justify-center h-48 text-app-text-muted bg-app-surface rounded-xl border border-app-border border-dashed">
           <Save size={32} className="mb-2 opacity-40" />
           <p className="text-sm">Select a class, lesson, and topic to create or view a lesson plan</p>
         </div>
       )}
 
       {selectedTopic && loadingPlan && (
-        <div className="flex items-center justify-center h-40 text-slate-400">Loading plan...</div>
+        <div className="flex items-center justify-center h-40 text-app-text-muted">Loading plan...</div>
       )}
 
       {selectedTopic && !loadingPlan && (
@@ -331,21 +331,21 @@ export default function LessonPlan() {
           )}
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-white rounded-xl border border-slate-200 p-4">
-              <label className="block text-sm font-semibold text-slate-700 mb-2">Plan Date</label>
+            <div className="bg-app-surface rounded-xl border border-app-border p-4">
+              <label className="block text-sm font-semibold text-app-text mb-2">Plan Date</label>
               <input
                 type="date"
                 value={form.plan_date}
                 onChange={(e) => setForm({ ...form, plan_date: e.target.value })}
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
-            <div className="bg-white rounded-xl border border-slate-200 p-4">
-              <label className="block text-sm font-semibold text-slate-700 mb-2">Status</label>
+            <div className="bg-app-surface rounded-xl border border-app-border p-4">
+              <label className="block text-sm font-semibold text-app-text mb-2">Status</label>
               <select
                 value={form.status}
                 onChange={(e) => setForm({ ...form, status: e.target.value as FormData['status'] })}
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               >
                 <option value="draft">Draft</option>
                 <option value="active">Active</option>
@@ -354,8 +354,8 @@ export default function LessonPlan() {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl border border-slate-200 p-4">
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
+          <div className="bg-app-surface rounded-xl border border-app-border p-4">
+            <label className="block text-sm font-semibold text-app-text mb-2">
               Introduction
               <span className="text-red-400 ml-1">*</span>
             </label>
@@ -364,74 +364,74 @@ export default function LessonPlan() {
               onChange={(e) => setForm({ ...form, introduction: e.target.value })}
               placeholder="How will you introduce and engage students with the topic?"
               rows={4}
-              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
             />
           </div>
 
-          <div className="bg-white rounded-xl border border-slate-200 p-4">
-            <label className="block text-sm font-semibold text-slate-700 mb-2">Development</label>
+          <div className="bg-app-surface rounded-xl border border-app-border p-4">
+            <label className="block text-sm font-semibold text-app-text mb-2">Development</label>
             <textarea
               value={form.development}
               onChange={(e) => setForm({ ...form, development: e.target.value })}
               placeholder="Main instructional activities and content delivery..."
               rows={5}
-              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
             />
           </div>
 
-          <div className="bg-white rounded-xl border border-slate-200 p-4">
-            <label className="block text-sm font-semibold text-slate-700 mb-2">Conclusion</label>
+          <div className="bg-app-surface rounded-xl border border-app-border p-4">
+            <label className="block text-sm font-semibold text-app-text mb-2">Conclusion</label>
             <textarea
               value={form.conclusion}
               onChange={(e) => setForm({ ...form, conclusion: e.target.value })}
               placeholder="How will you wrap up the lesson and reinforce learning?"
               rows={3}
-              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-white rounded-xl border border-slate-200 p-4">
-              <label className="block text-sm font-semibold text-slate-700 mb-2">Materials</label>
+            <div className="bg-app-surface rounded-xl border border-app-border p-4">
+              <label className="block text-sm font-semibold text-app-text mb-2">Materials</label>
               <textarea
                 value={form.materials}
                 onChange={(e) => setForm({ ...form, materials: e.target.value })}
                 placeholder="List required materials and resources..."
                 rows={3}
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
               />
             </div>
-            <div className="bg-white rounded-xl border border-slate-200 p-4">
-              <label className="block text-sm font-semibold text-slate-700 mb-2">Evaluation</label>
+            <div className="bg-app-surface rounded-xl border border-app-border p-4">
+              <label className="block text-sm font-semibold text-app-text mb-2">Evaluation</label>
               <textarea
                 value={form.evaluation}
                 onChange={(e) => setForm({ ...form, evaluation: e.target.value })}
                 placeholder="How will you assess student learning?"
                 rows={3}
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-white rounded-xl border border-slate-200 p-4">
-              <label className="block text-sm font-semibold text-slate-700 mb-2">Homework / Assignment Notes</label>
+            <div className="bg-app-surface rounded-xl border border-app-border p-4">
+              <label className="block text-sm font-semibold text-app-text mb-2">Homework / Assignment Notes</label>
               <textarea
                 value={form.homework_notes}
                 onChange={(e) => setForm({ ...form, homework_notes: e.target.value })}
                 placeholder="Any homework or follow-up assignments..."
                 rows={3}
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
               />
             </div>
-            <div className="bg-white rounded-xl border border-slate-200 p-4">
-              <label className="block text-sm font-semibold text-slate-700 mb-2">Additional Notes</label>
+            <div className="bg-app-surface rounded-xl border border-app-border p-4">
+              <label className="block text-sm font-semibold text-app-text mb-2">Additional Notes</label>
               <textarea
                 value={form.notes}
                 onChange={(e) => setForm({ ...form, notes: e.target.value })}
                 placeholder="Any other notes or observations..."
                 rows={3}
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
               />
             </div>
           </div>

@@ -43,13 +43,13 @@ export default function TransportPanel() {
   if (!assignment) {
     return (
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold text-slate-800">Transport</h1>
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-12 text-center">
+        <h1 className="text-2xl font-bold text-app-text">Transport</h1>
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-12 text-center">
           <div className="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <Bus className="w-8 h-8 text-slate-400" />
+            <Bus className="w-8 h-8 text-app-text-muted" />
           </div>
-          <h3 className="font-semibold text-slate-700 text-lg">No Transport Assigned</h3>
-          <p className="text-sm text-slate-400 mt-2 max-w-sm mx-auto">You have not been assigned to any transport route. Contact the school administration for transport arrangements.</p>
+          <h3 className="font-semibold text-app-text text-lg">No Transport Assigned</h3>
+          <p className="text-sm text-app-text-muted mt-2 max-w-sm mx-auto">You have not been assigned to any transport route. Contact the school administration for transport arrangements.</p>
           <div className="mt-4 flex items-center justify-center gap-2 text-amber-600 bg-amber-50 rounded-xl px-4 py-2.5 text-sm w-fit mx-auto">
             <AlertCircle className="w-4 h-4" />
             Contact school administration
@@ -61,11 +61,11 @@ export default function TransportPanel() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-slate-800">Transport</h1>
+      <h1 className="text-2xl font-bold text-app-text">Transport</h1>
 
       <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-6 text-white">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+          <div className="w-10 h-10 bg-app-surface/20 rounded-xl flex items-center justify-center">
             <Bus className="w-5 h-5" />
           </div>
           <div>
@@ -74,19 +74,19 @@ export default function TransportPanel() {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-3">
-          <div className="bg-white/10 rounded-xl p-3">
+          <div className="bg-app-surface/10 rounded-xl p-3">
             <p className="text-emerald-200 text-xs mb-0.5">Vehicle Number</p>
             <p className="font-semibold">{vehicle?.vehicle_number || '—'}</p>
           </div>
-          <div className="bg-white/10 rounded-xl p-3">
+          <div className="bg-app-surface/10 rounded-xl p-3">
             <p className="text-emerald-200 text-xs mb-0.5">Vehicle Type</p>
             <p className="font-semibold capitalize">{vehicle?.type || 'Bus'}</p>
           </div>
-          <div className="bg-white/10 rounded-xl p-3">
+          <div className="bg-app-surface/10 rounded-xl p-3">
             <p className="text-emerald-200 text-xs mb-0.5">Pick-up Point</p>
             <p className="font-semibold">{assignment.pickup_point || route?.start_point || '—'}</p>
           </div>
-          <div className="bg-white/10 rounded-xl p-3">
+          <div className="bg-app-surface/10 rounded-xl p-3">
             <p className="text-emerald-200 text-xs mb-0.5">Drop Point</p>
             <p className="font-semibold">{assignment.drop_point || route?.end_point || '—'}</p>
           </div>
@@ -94,43 +94,43 @@ export default function TransportPanel() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-          <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
+          <h3 className="font-semibold text-app-text mb-4 flex items-center gap-2">
             <Clock className="w-4 h-4 text-emerald-600" />
             Timing Information
           </h3>
           <div className="space-y-3">
-            <div className="flex items-center justify-between py-2.5 border-b border-slate-100">
-              <span className="text-sm text-slate-500">Pick-up Time</span>
-              <span className="text-sm font-semibold text-slate-800">{assignment.pickup_time || '—'}</span>
+            <div className="flex items-center justify-between py-2.5 border-b border-app-border">
+              <span className="text-sm text-app-text-muted">Pick-up Time</span>
+              <span className="text-sm font-semibold text-app-text">{assignment.pickup_time || '—'}</span>
             </div>
-            <div className="flex items-center justify-between py-2.5 border-b border-slate-100">
-              <span className="text-sm text-slate-500">Drop-off Time</span>
-              <span className="text-sm font-semibold text-slate-800">{assignment.drop_time || '—'}</span>
+            <div className="flex items-center justify-between py-2.5 border-b border-app-border">
+              <span className="text-sm text-app-text-muted">Drop-off Time</span>
+              <span className="text-sm font-semibold text-app-text">{assignment.drop_time || '—'}</span>
             </div>
             <div className="flex items-center justify-between py-2.5">
-              <span className="text-sm text-slate-500">Capacity</span>
-              <span className="text-sm font-semibold text-slate-800">{vehicle?.capacity ? `${vehicle.capacity} seats` : '—'}</span>
+              <span className="text-sm text-app-text-muted">Capacity</span>
+              <span className="text-sm font-semibold text-app-text">{vehicle?.capacity ? `${vehicle.capacity} seats` : '—'}</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-          <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
+          <h3 className="font-semibold text-app-text mb-4 flex items-center gap-2">
             <User className="w-4 h-4 text-emerald-600" />
             Driver Information
           </h3>
           <div className="space-y-3">
-            <div className="flex items-center justify-between py-2.5 border-b border-slate-100">
-              <span className="text-sm text-slate-500">Driver Name</span>
-              <span className="text-sm font-semibold text-slate-800">{assignment.driver_name || 'Not specified'}</span>
+            <div className="flex items-center justify-between py-2.5 border-b border-app-border">
+              <span className="text-sm text-app-text-muted">Driver Name</span>
+              <span className="text-sm font-semibold text-app-text">{assignment.driver_name || 'Not specified'}</span>
             </div>
-            <div className="flex items-center justify-between py-2.5 border-b border-slate-100">
-              <span className="text-sm text-slate-500">Driver Phone</span>
-              <span className="text-sm font-semibold text-slate-800">{assignment.driver_phone || '—'}</span>
+            <div className="flex items-center justify-between py-2.5 border-b border-app-border">
+              <span className="text-sm text-app-text-muted">Driver Phone</span>
+              <span className="text-sm font-semibold text-app-text">{assignment.driver_phone || '—'}</span>
             </div>
             <div className="flex items-center justify-between py-2.5">
-              <span className="text-sm text-slate-500">Status</span>
+              <span className="text-sm text-app-text-muted">Status</span>
               <span className="text-xs font-semibold bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full capitalize">{assignment.status || 'Active'}</span>
             </div>
           </div>
@@ -138,8 +138,8 @@ export default function TransportPanel() {
       </div>
 
       {(stops.length > 0 || route) && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-          <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
+          <h3 className="font-semibold text-app-text mb-4 flex items-center gap-2">
             <Navigation className="w-4 h-4 text-emerald-600" />
             Route Stops
           </h3>
@@ -152,10 +152,10 @@ export default function TransportPanel() {
                 const isLast = i === stops.length - 1;
                 return (
                   <div key={i} className="relative flex items-center gap-3 py-2">
-                    <div className={`absolute -left-4 w-3 h-3 rounded-full border-2 ${isFirst || isLast ? 'bg-emerald-500 border-emerald-500' : 'bg-white border-emerald-300'}`} />
-                    <span className={`text-sm ${isFirst || isLast ? 'font-semibold text-slate-800' : 'text-slate-600'}`}>{stopName}</span>
+                    <div className={`absolute -left-4 w-3 h-3 rounded-full border-2 ${isFirst || isLast ? 'bg-emerald-500 border-emerald-500' : 'bg-app-surface border-emerald-300'}`} />
+                    <span className={`text-sm ${isFirst || isLast ? 'font-semibold text-app-text' : 'text-app-text-muted'}`}>{stopName}</span>
                     {typeof stop === 'object' && stop?.time && (
-                      <span className="text-xs text-slate-400 ml-auto">{stop.time}</span>
+                      <span className="text-xs text-app-text-muted ml-auto">{stop.time}</span>
                     )}
                   </div>
                 );
@@ -166,17 +166,17 @@ export default function TransportPanel() {
               {route?.start_point && (
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-emerald-500" />
-                  <span className="text-sm text-slate-600">Start: {route.start_point}</span>
+                  <span className="text-sm text-app-text-muted">Start: {route.start_point}</span>
                 </div>
               )}
               {route?.end_point && (
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-slate-400" />
-                  <span className="text-sm text-slate-600">End: {route.end_point}</span>
+                  <MapPin className="w-4 h-4 text-app-text-muted" />
+                  <span className="text-sm text-app-text-muted">End: {route.end_point}</span>
                 </div>
               )}
               {!route?.start_point && !route?.end_point && (
-                <p className="text-sm text-slate-400">No route stop details available</p>
+                <p className="text-sm text-app-text-muted">No route stop details available</p>
               )}
             </div>
           )}

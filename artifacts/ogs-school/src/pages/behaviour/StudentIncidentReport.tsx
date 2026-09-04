@@ -129,21 +129,21 @@ export default function StudentIncidentReport() {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-xl font-bold text-slate-800">Student Incident Report</h2>
-        <p className="text-sm text-slate-500 hidden sm:block">View behaviour incident history for individual students</p>
+        <h2 className="text-xl font-bold text-app-text">Student Incident Report</h2>
+        <p className="text-sm text-app-text-muted hidden sm:block">View behaviour incident history for individual students</p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+      <div className="bg-app-surface rounded-2xl shadow-sm border border-app-border p-5">
         <div className="flex gap-2 mb-5">
           <button
             onClick={() => { setSearchMode('search'); setSelectedStudent(null); setRecords([]); }}
-            className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${searchMode === 'search' ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+            className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${searchMode === 'search' ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-app-text-muted hover:bg-slate-200'}`}
           >
             Search
           </button>
           <button
             onClick={() => { setSearchMode('class'); setSelectedStudent(null); setRecords([]); }}
-            className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${searchMode === 'class' ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+            className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${searchMode === 'class' ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-app-text-muted hover:bg-slate-200'}`}
           >
             By Class
           </button>
@@ -153,14 +153,14 @@ export default function StudentIncidentReport() {
           <div>
             <div className="flex gap-2 mb-4">
               <div className="flex-1 relative">
-                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && handleSearch()}
                   placeholder="Search by name or admission number..."
-                  className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                  className="w-full pl-9 pr-3 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
                 />
               </div>
               <button
@@ -172,10 +172,10 @@ export default function StudentIncidentReport() {
               </button>
             </div>
             {searched && searchResults.length === 0 && (
-              <p className="text-sm text-slate-400 text-center py-4">No students found matching your search</p>
+              <p className="text-sm text-app-text-muted text-center py-4">No students found matching your search</p>
             )}
             {searchResults.length > 0 && (
-              <div className="border border-slate-200 rounded-xl divide-y divide-slate-100 max-h-56 overflow-y-auto">
+              <div className="border border-app-border rounded-xl divide-y divide-app-border max-h-56 overflow-y-auto">
                 {searchResults.map(s => (
                   <button
                     key={s.id}
@@ -186,8 +186,8 @@ export default function StudentIncidentReport() {
                       <User size={14} className="text-emerald-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-slate-800">{s.first_name} {s.last_name}</p>
-                      <p className="text-xs text-slate-400">ID: {s.admission_number}</p>
+                      <p className="text-sm font-medium text-app-text">{s.first_name} {s.last_name}</p>
+                      <p className="text-xs text-app-text-muted">ID: {s.admission_number}</p>
                     </div>
                   </button>
                 ))}
@@ -197,18 +197,18 @@ export default function StudentIncidentReport() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Select Class</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Select Class</label>
               <select
                 value={selectedClass}
                 onChange={e => handleClassChange(e.target.value)}
-                className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white"
+                className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface"
               >
                 <option value="">-- Choose Class --</option>
                 {classes.map(c => <option key={c.id} value={c.id}>{c.name} {c.section ? `(${c.section})` : ''}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Select Student</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Select Student</label>
               <select
                 value={selectedStudent?.id || ''}
                 onChange={e => {
@@ -216,7 +216,7 @@ export default function StudentIncidentReport() {
                   if (s) selectStudent(s);
                 }}
                 disabled={!selectedClass}
-                className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white disabled:bg-slate-50 disabled:text-slate-400"
+                className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface disabled:bg-app-surface-alt disabled:text-app-text-muted"
               >
                 <option value="">-- Choose Student --</option>
                 {classStudents.map(s => <option key={s.id} value={s.id}>{s.first_name} {s.last_name} ({s.admission_number})</option>)}
@@ -228,20 +228,20 @@ export default function StudentIncidentReport() {
 
       {selectedStudent && (
         <>
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+          <div className="bg-app-surface rounded-2xl shadow-sm border border-app-border p-5">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
                 <User size={20} className="text-emerald-600" />
               </div>
               <div>
-                <h3 className="text-base font-semibold text-slate-800">{selectedStudent.first_name} {selectedStudent.last_name}</h3>
-                <p className="text-sm text-slate-500">Admission No: {selectedStudent.admission_number}</p>
+                <h3 className="text-base font-semibold text-app-text">{selectedStudent.first_name} {selectedStudent.last_name}</h3>
+                <p className="text-sm text-app-text-muted">Admission No: {selectedStudent.admission_number}</p>
               </div>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-              <div className="bg-slate-50 rounded-xl p-3 text-center">
-                <p className="text-2xl font-bold text-slate-800">{totalIncidents}</p>
-                <p className="text-xs text-slate-500 mt-0.5">Total</p>
+              <div className="bg-app-surface-alt rounded-xl p-3 text-center">
+                <p className="text-2xl font-bold text-app-text">{totalIncidents}</p>
+                <p className="text-xs text-app-text-muted mt-0.5">Total</p>
               </div>
               <div className="bg-blue-50 rounded-xl p-3 text-center">
                 <p className="text-2xl font-bold text-blue-700">{minorCount}</p>
@@ -262,45 +262,45 @@ export default function StudentIncidentReport() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-            <div className="px-5 py-4 border-b border-slate-100">
-              <h3 className="text-base font-semibold text-slate-800 flex items-center gap-2"><FileText size={16} className="text-emerald-600" /> Incident History</h3>
+          <div className="bg-app-surface rounded-2xl shadow-sm border border-app-border overflow-hidden">
+            <div className="px-5 py-4 border-b border-app-border">
+              <h3 className="text-base font-semibold text-app-text flex items-center gap-2"><FileText size={16} className="text-emerald-600" /> Incident History</h3>
             </div>
             {loadingRecords ? (
               <div className="flex items-center justify-center py-12">
                 <div className="w-7 h-7 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
               </div>
             ) : records.length === 0 ? (
-              <div className="text-center py-12 text-slate-400">
+              <div className="text-center py-12 text-app-text-muted">
                 <FileText size={36} className="mx-auto mb-2 text-slate-300" />
                 <p>No incidents recorded for this student</p>
               </div>
             ) : (
               <div className="overflow-x-auto">
-                <table className="w-full divide-y divide-slate-100 min-w-[600px]">
-                  <thead className="bg-slate-50">
+                <table className="w-full divide-y divide-app-border min-w-[600px]">
+                  <thead className="bg-app-surface-alt">
                     <tr>
-                      <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Date</th>
-                      <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Incident Type</th>
-                      <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Severity</th>
-                      <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Action Taken</th>
-                      <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Status</th>
-                      <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Assigned By</th>
+                      <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase">Date</th>
+                      <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase">Incident Type</th>
+                      <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase">Severity</th>
+                      <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase">Action Taken</th>
+                      <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase">Status</th>
+                      <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase">Assigned By</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-app-border">
                     {records.map(record => {
                       const incident = Array.isArray(record.incident) ? record.incident[0] : record.incident;
                       const assigner = Array.isArray(record.assigned_by_profile) ? record.assigned_by_profile[0] : record.assigned_by_profile;
 
                       return (
-                        <tr key={record.id} className="hover:bg-slate-50 transition-colors">
-                          <td className="px-5 py-3.5 text-sm text-slate-700">{new Date(record.incident_date).toLocaleDateString()}</td>
-                          <td className="px-5 py-3.5 text-sm font-medium text-slate-800">{incident?.name || '—'}</td>
+                        <tr key={record.id} className="hover:bg-app-surface-alt transition-colors">
+                          <td className="px-5 py-3.5 text-sm text-app-text">{new Date(record.incident_date).toLocaleDateString()}</td>
+                          <td className="px-5 py-3.5 text-sm font-medium text-app-text">{incident?.name || '—'}</td>
                           <td className="px-5 py-3.5">{incident ? severityBadge(incident.severity) : '—'}</td>
-                          <td className="px-5 py-3.5 text-sm text-slate-600 max-w-xs truncate">{record.description || record.action_taken || '—'}</td>
+                          <td className="px-5 py-3.5 text-sm text-app-text-muted max-w-xs truncate">{record.description || record.action_taken || '—'}</td>
                           <td className="px-5 py-3.5">{statusBadge(record.status)}</td>
-                          <td className="px-5 py-3.5 text-sm text-slate-600">
+                          <td className="px-5 py-3.5 text-sm text-app-text-muted">
                             {assigner ? `${assigner.first_name} ${assigner.last_name}` : '—'}
                           </td>
                         </tr>
@@ -315,7 +315,7 @@ export default function StudentIncidentReport() {
       )}
 
       {!selectedStudent && (
-        <div className="flex flex-col items-center justify-center py-16 text-slate-400">
+        <div className="flex flex-col items-center justify-center py-16 text-app-text-muted">
           <User size={48} className="mb-3 text-slate-300" />
           <p className="text-base font-medium">Select a student to view their incident report</p>
           <p className="text-sm mt-1">Use the search or class browser above</p>

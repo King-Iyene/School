@@ -29,7 +29,7 @@ const EVENT_TYPE_COLORS: Record<string, string> = {
   cultural: 'bg-amber-100 text-amber-700 border-amber-200',
   holiday: 'bg-rose-100 text-rose-700 border-rose-200',
   examination: 'bg-orange-100 text-orange-700 border-orange-200',
-  general: 'bg-slate-100 text-slate-600 border-slate-200',
+  general: 'bg-slate-100 text-app-text-muted border-app-border',
 };
 
 export default function DashboardCalendar() {
@@ -124,25 +124,25 @@ export default function DashboardCalendar() {
   const canManage = profile?.role === 'super_admin';
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-      <div className="p-3 sm:p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50 gap-2">
+    <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+      <div className="p-3 sm:p-4 border-b border-app-border flex items-center justify-between bg-app-surface-alt/50 gap-2">
         <div className="flex items-center gap-2 sm:gap-4 min-w-0">
-          <h2 className="text-sm sm:text-lg font-bold text-slate-800 hidden sm:block">
+          <h2 className="text-sm sm:text-lg font-bold text-app-text hidden sm:block">
             School Calendar
           </h2>
-          <div className="flex items-center border border-slate-200 rounded-xl overflow-hidden bg-white">
+          <div className="flex items-center border border-app-border rounded-xl overflow-hidden bg-app-surface">
             <button
               onClick={() => setCurrentDate(new Date(year, month - 1, 1))}
-              className="p-1.5 sm:p-2 hover:bg-slate-50 text-slate-500 transition-colors border-r border-slate-100"
+              className="p-1.5 sm:p-2 hover:bg-app-surface-alt text-app-text-muted transition-colors border-r border-app-border"
             >
               <ChevronLeft size={14} />
             </button>
-            <div className="px-2 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 min-w-[100px] sm:min-w-[140px] text-center">
+            <div className="px-2 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold text-app-text min-w-[100px] sm:min-w-[140px] text-center">
               {MONTH_NAMES[month]} {year}
             </div>
             <button
               onClick={() => setCurrentDate(new Date(year, month + 1, 1))}
-              className="p-1.5 sm:p-2 hover:bg-slate-50 text-slate-500 transition-colors border-l border-slate-100"
+              className="p-1.5 sm:p-2 hover:bg-app-surface-alt text-app-text-muted transition-colors border-l border-app-border"
             >
               <ChevronRight size={14} />
             </button>
@@ -156,9 +156,9 @@ export default function DashboardCalendar() {
         </button>
       </div>
 
-      <div className="grid grid-cols-7 border-b border-slate-100 bg-slate-50/30">
+      <div className="grid grid-cols-7 border-b border-app-border bg-app-surface-alt/30">
         {DAY_NAMES.map(d => (
-          <div key={d} className="py-1.5 sm:py-2 text-center text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-slate-400">
+          <div key={d} className="py-1.5 sm:py-2 text-center text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-app-text-muted">
             <span className="hidden sm:inline">{d}</span>
             <span className="sm:hidden">{d[0]}</span>
           </div>
@@ -175,10 +175,10 @@ export default function DashboardCalendar() {
           return (
             <div
               key={idx}
-              className={`min-h-[48px] sm:min-h-[80px] lg:min-h-[100px] bg-white p-1 sm:p-2 transition-colors hover:bg-slate-50/50 ${!cell.currentMonth ? 'bg-slate-50/30 text-slate-300' : ''}`}
+              className={`min-h-[48px] sm:min-h-[80px] lg:min-h-[100px] bg-app-surface p-1 sm:p-2 transition-colors hover:bg-app-surface-alt/50 ${!cell.currentMonth ? 'bg-app-surface-alt/30 text-slate-300' : ''}`}
             >
               <div className="flex items-center justify-between mb-1">
-                <span className={`text-[10px] sm:text-xs font-bold w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full ${isToday ? 'bg-emerald-500 text-white' : 'text-slate-600'}`}>
+                <span className={`text-[10px] sm:text-xs font-bold w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full ${isToday ? 'bg-emerald-500 text-white' : 'text-app-text-muted'}`}>
                   {cell.day}
                 </span>
                 {dayEvents.length > 0 && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />}
@@ -188,13 +188,13 @@ export default function DashboardCalendar() {
                   <button
                     key={ev.id}
                     onClick={() => setSelectedEvent(ev)}
-                    className={`w-full text-left px-1.5 py-0.5 rounded text-[10px] font-medium truncate border ${EVENT_TYPE_COLORS[ev.event_type] || 'bg-slate-100 text-slate-600 border-slate-200'}`}
+                    className={`w-full text-left px-1.5 py-0.5 rounded text-[10px] font-medium truncate border ${EVENT_TYPE_COLORS[ev.event_type] || 'bg-slate-100 text-app-text-muted border-app-border'}`}
                   >
                     {ev.title}
                   </button>
                 ))}
                 {dayEvents.length > 2 && (
-                  <div className="text-[9px] text-slate-400 px-1 font-medium italic">
+                  <div className="text-[9px] text-app-text-muted px-1 font-medium italic">
                     +{dayEvents.length - 2} more
                   </div>
                 )}
@@ -212,11 +212,11 @@ export default function DashboardCalendar() {
         })}
       </div>
 
-      <div className="p-2 sm:p-3 bg-slate-50 border-t border-slate-100 flex flex-wrap gap-2 sm:gap-4">
+      <div className="p-2 sm:p-3 bg-app-surface-alt border-t border-app-border flex flex-wrap gap-2 sm:gap-4">
         {Object.entries(EVENT_TYPE_COLORS).map(([type, colorCls]) => (
           <div key={type} className="flex items-center gap-1 sm:gap-1.5">
             <span className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full border ${colorCls.split(' ')[0]} ${colorCls.split(' ')[2]}`} />
-            <span className="text-[9px] sm:text-[10px] font-semibold text-slate-500 uppercase tracking-tight">{type}</span>
+            <span className="text-[9px] sm:text-[10px] font-semibold text-app-text-muted uppercase tracking-tight">{type}</span>
           </div>
         ))}
       </div>
@@ -232,17 +232,17 @@ export default function DashboardCalendar() {
               <span className={`text-xs px-2.5 py-1 rounded-full font-bold uppercase tracking-wider border ${EVENT_TYPE_COLORS[selectedEvent.event_type]}`}>
                 {selectedEvent.event_type}
               </span>
-              <span className="text-xs text-slate-500 font-medium italic">
+              <span className="text-xs text-app-text-muted font-medium italic">
                 {new Date(selectedEvent.event_date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
               </span>
             </div>
             
-            <p className="text-sm text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-2xl border border-slate-100">
+            <p className="text-sm text-app-text-muted leading-relaxed bg-app-surface-alt p-4 rounded-2xl border border-app-border">
               {selectedEvent.description || 'No description provided.'}
             </p>
 
             {!selectedEvent.all_day && selectedEvent.start_time && (
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
+              <div className="flex items-center gap-2 text-xs font-semibold text-app-text-muted">
                 <span className="bg-slate-100 px-3 py-1 rounded-lg">Start: {selectedEvent.start_time}</span>
                 {selectedEvent.end_time && <span className="bg-slate-100 px-3 py-1 rounded-lg">End: {selectedEvent.end_time}</span>}
               </div>
@@ -251,7 +251,7 @@ export default function DashboardCalendar() {
             <div className="flex gap-3 pt-4">
               <button 
                 onClick={() => setSelectedEvent(null)}
-                className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors"
+                className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors"
               >
                 Close
               </button>

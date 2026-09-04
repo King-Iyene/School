@@ -225,7 +225,7 @@ const StudentExport: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-app-surface-alt p-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
@@ -233,8 +233,8 @@ const StudentExport: React.FC = () => {
               <FileDown className="text-emerald-600" size={24} />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-800">Student Data Export</h1>
-              <p className="text-gray-500 text-sm">Export student data to CSV format</p>
+              <h1 className="text-2xl font-bold text-app-text">Student Data Export</h1>
+              <p className="text-app-text-muted text-sm">Export student data to CSV format</p>
             </div>
           </div>
           {fetched && previewData.length > 0 && (
@@ -248,14 +248,14 @@ const StudentExport: React.FC = () => {
           )}
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 mb-6">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5 mb-6">
           <div className="flex items-center gap-2 mb-4">
             <Filter size={18} className="text-emerald-600" />
-            <h2 className="font-semibold text-gray-700">Export Options</h2>
+            <h2 className="font-semibold text-app-text">Export Options</h2>
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600 mb-2">Export Type</label>
+            <label className="block text-sm font-medium text-app-text-muted mb-2">Export Type</label>
             <div className="flex flex-wrap gap-3">
               {EXPORT_TYPES.map((t) => (
                 <button
@@ -264,7 +264,7 @@ const StudentExport: React.FC = () => {
                   className={`px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
                     exportType === t.value
                       ? 'bg-emerald-600 text-white border-emerald-600'
-                      : 'border-gray-300 text-gray-600 hover:border-emerald-400 hover:text-emerald-600'
+                      : 'border-app-border text-app-text-muted hover:border-emerald-400 hover:text-emerald-600'
                   }`}
                 >
                   {t.label}
@@ -275,13 +275,13 @@ const StudentExport: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">
+              <label className="block text-sm font-medium text-app-text-muted mb-1">
                 Class {exportType === 'attendance_summary' || exportType === 'exam_results' ? '(Required)' : '(Optional)'}
               </label>
               <select
                 value={selectedClass}
                 onChange={(e) => setSelectedClass(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
               >
                 <option value="">All Classes</option>
                 {classes.map((c) => (
@@ -290,11 +290,11 @@ const StudentExport: React.FC = () => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1">Academic Year (Optional)</label>
+              <label className="block text-sm font-medium text-app-text-muted mb-1">Academic Year (Optional)</label>
               <select
                 value={selectedYear}
                 onChange={(e) => setSelectedYear(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
               >
                 <option value="">All Years</option>
                 {academicYears.map((y) => (
@@ -324,16 +324,16 @@ const StudentExport: React.FC = () => {
         )}
 
         {!loading && fetched && previewData.length === 0 && (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+          <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-12 text-center">
             <Table size={48} className="mx-auto mb-3 text-gray-300" />
-            <p className="text-gray-500">No data found for the selected filters.</p>
+            <p className="text-app-text-muted">No data found for the selected filters.</p>
           </div>
         )}
 
         {!loading && previewData.length > 0 && (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-              <span className="font-semibold text-gray-700">
+          <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
+            <div className="px-5 py-4 border-b border-app-border flex items-center justify-between">
+              <span className="font-semibold text-app-text">
                 Preview: {previewData.length} records
               </span>
               <button
@@ -347,9 +347,9 @@ const StudentExport: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="bg-gray-50 text-left">
+                  <tr className="bg-app-surface-alt text-left">
                     {previewColumns.map((col) => (
-                      <th key={col} className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap">
+                      <th key={col} className="px-4 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide whitespace-nowrap">
                         {col}
                       </th>
                     ))}
@@ -357,9 +357,9 @@ const StudentExport: React.FC = () => {
                 </thead>
                 <tbody className="divide-y divide-gray-50">
                   {previewData.slice(0, 50).map((row, idx) => (
-                    <tr key={idx} className="hover:bg-gray-50">
+                    <tr key={idx} className="hover:bg-app-surface-alt">
                       {previewColumns.map((col) => (
-                        <td key={col} className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">
+                        <td key={col} className="px-4 py-3 text-sm text-app-text whitespace-nowrap">
                           {row[col] ?? '-'}
                         </td>
                       ))}
@@ -368,8 +368,8 @@ const StudentExport: React.FC = () => {
                 </tbody>
               </table>
               {previewData.length > 50 && (
-                <div className="px-5 py-3 bg-gray-50 border-t border-gray-100 text-center">
-                  <p className="text-xs text-gray-500">
+                <div className="px-5 py-3 bg-app-surface-alt border-t border-app-border text-center">
+                  <p className="text-xs text-app-text-muted">
                     Showing first 50 of {previewData.length} records. Download CSV to see all.
                   </p>
                 </div>

@@ -266,8 +266,8 @@ export default function AcademicYears() {
 
   const currentYear = years.find(y => y.is_current);
   const currentAYT = currentYear?.termDates.find(a => a.is_current);
-  const inputClass = 'w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white';
-  const inputErrorClass = 'w-full border border-red-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400/30 bg-white';
+  const inputClass = 'w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface';
+  const inputErrorClass = 'w-full border border-red-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400/30 bg-app-surface';
 
   // ─── Render ───────────────────────────────────────────────────────────────
 
@@ -303,8 +303,8 @@ export default function AcademicYears() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Academic Calendar</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Manage academic years and configure term date ranges</p>
+          <h1 className="text-2xl font-bold text-app-text">Academic Calendar</h1>
+          <p className="text-app-text-muted text-sm mt-0.5">Manage academic years and configure term date ranges</p>
         </div>
         <button
           onClick={() => { setShowYearModal(true); setYearFieldErrors({}); setYearForm({ name: '', start_date: '', end_date: '' }); }}
@@ -316,13 +316,13 @@ export default function AcademicYears() {
       </div>
 
       {/* Fixed terms notice */}
-      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex items-start gap-3">
+      <div className="bg-app-surface-alt border border-app-border rounded-2xl p-4 flex items-start gap-3">
         <div className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-          <Lock className="w-4 h-4 text-slate-500" />
+          <Lock className="w-4 h-4 text-app-text-muted" />
         </div>
         <div>
-          <p className="font-medium text-slate-700 text-sm">3 Fixed Global Terms</p>
-          <p className="text-slate-500 text-xs mt-0.5">
+          <p className="font-medium text-app-text text-sm">3 Fixed Global Terms</p>
+          <p className="text-app-text-muted text-xs mt-0.5">
             The system uses <strong>First Term</strong>, <strong>Second Term</strong>, and <strong>Third Term</strong> across all modules.
             Configure date ranges for each term within every academic year below.
           </p>
@@ -357,31 +357,31 @@ export default function AcademicYears() {
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : years.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-20 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-20 text-center">
           <BookOpen className="w-12 h-12 text-slate-200 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">No academic years yet</p>
-          <p className="text-slate-400 text-sm mt-1">Click "New Academic Year" to get started</p>
+          <p className="text-app-text-muted font-medium">No academic years yet</p>
+          <p className="text-app-text-muted text-sm mt-1">Click "New Academic Year" to get started</p>
         </div>
       ) : (
         <div className="space-y-4">
           {years.map(year => (
-            <div key={year.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div key={year.id} className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
               {/* Year header row */}
-              <div className={`px-5 py-4 border-b border-slate-100 flex items-center justify-between gap-3 flex-wrap ${year.is_current ? 'bg-emerald-50/60' : ''}`}>
+              <div className={`px-5 py-4 border-b border-app-border flex items-center justify-between gap-3 flex-wrap ${year.is_current ? 'bg-emerald-50/60' : ''}`}>
                 <div className="flex items-center gap-3">
                   <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${year.is_current ? 'bg-emerald-100' : 'bg-slate-100'}`}>
-                    <Calendar className={`w-4 h-4 ${year.is_current ? 'text-emerald-600' : 'text-slate-500'}`} />
+                    <Calendar className={`w-4 h-4 ${year.is_current ? 'text-emerald-600' : 'text-app-text-muted'}`} />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <h3 className="font-bold text-slate-800 text-base">{year.name}</h3>
+                      <h3 className="font-bold text-app-text text-base">{year.name}</h3>
                       {year.is_current && (
                         <span className="text-[10px] font-bold bg-emerald-500 text-white px-2 py-0.5 rounded-full uppercase tracking-wide">
                           Current Year
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-slate-500 mt-0.5">
+                    <p className="text-xs text-app-text-muted mt-0.5">
                       {new Date(year.start_date).toLocaleDateString()} – {new Date(year.end_date).toLocaleDateString()}
                     </p>
                   </div>
@@ -402,7 +402,7 @@ export default function AcademicYears() {
 
                   <button
                     onClick={() => openEditYear(year)}
-                    className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-700 font-medium border border-slate-200 hover:border-slate-400 bg-white hover:bg-slate-50 px-3 py-1.5 rounded-lg transition-all"
+                    className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-app-text font-medium border border-app-border hover:border-slate-400 bg-app-surface hover:bg-app-surface-alt px-3 py-1.5 rounded-lg transition-all"
                     title="Edit academic year"
                   >
                     <Pencil className="w-3.5 h-3.5" />
@@ -412,7 +412,7 @@ export default function AcademicYears() {
                   {year.is_current ? (
                     <button
                       disabled
-                      className="flex items-center gap-1.5 text-xs text-slate-300 border border-slate-100 bg-slate-50 px-2.5 py-1.5 rounded-lg cursor-not-allowed"
+                      className="flex items-center gap-1.5 text-xs text-slate-300 border border-app-border bg-app-surface-alt px-2.5 py-1.5 rounded-lg cursor-not-allowed"
                       title="Cannot delete the active academic year — set another year as current first"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -420,7 +420,7 @@ export default function AcademicYears() {
                   ) : (
                     <button
                       onClick={() => openDeleteYear(year)}
-                      className="flex items-center gap-1.5 text-xs text-red-500 hover:text-red-600 border border-red-200 hover:border-red-300 bg-white hover:bg-red-50 px-2.5 py-1.5 rounded-lg transition-all"
+                      className="flex items-center gap-1.5 text-xs text-red-500 hover:text-red-600 border border-red-200 hover:border-red-300 bg-app-surface hover:bg-red-50 px-2.5 py-1.5 rounded-lg transition-all"
                       title="Delete academic year"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -444,16 +444,16 @@ export default function AcademicYears() {
                           className={`relative rounded-xl border p-4 transition-all ${
                             ayt.is_current
                               ? 'border-emerald-300 bg-emerald-50 shadow-sm shadow-emerald-100'
-                              : 'border-slate-200 bg-slate-50/50'
+                              : 'border-app-border bg-app-surface-alt/50'
                           }`}
                         >
                           <div className="flex items-start justify-between mb-2.5">
                             <div className="flex items-center gap-2">
-                              <span className={`text-xs font-black w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0 ${ayt.is_current ? 'bg-emerald-500 text-white' : 'bg-slate-200 text-slate-600'}`}>
+                              <span className={`text-xs font-black w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0 ${ayt.is_current ? 'bg-emerald-500 text-white' : 'bg-slate-200 text-app-text-muted'}`}>
                                 {TERM_SHORT[termName] ?? '—'}
                               </span>
                               <div>
-                                <p className="font-semibold text-slate-800 text-sm">{termName}</p>
+                                <p className="font-semibold text-app-text text-sm">{termName}</p>
                                 {ayt.is_current && (
                                   <p className="text-[9px] font-bold text-emerald-600 uppercase tracking-wider">Active</p>
                                 )}
@@ -461,7 +461,7 @@ export default function AcademicYears() {
                             </div>
                             <button
                               onClick={() => openEditTerm(ayt)}
-                              className="text-slate-400 hover:text-slate-600 transition-colors p-1 rounded-lg hover:bg-slate-100"
+                              className="text-app-text-muted hover:text-app-text transition-colors p-1 rounded-lg hover:bg-slate-100"
                               title="Configure term dates"
                             >
                               <Pencil className="w-3.5 h-3.5" />
@@ -472,12 +472,12 @@ export default function AcademicYears() {
                             {hasDates ? (
                               <>
                                 <div className="flex items-center justify-between">
-                                  <span className="text-slate-400">Start</span>
-                                  <span className="font-medium text-slate-700">{new Date(ayt.start_date!).toLocaleDateString()}</span>
+                                  <span className="text-app-text-muted">Start</span>
+                                  <span className="font-medium text-app-text">{new Date(ayt.start_date!).toLocaleDateString()}</span>
                                 </div>
                                 <div className="flex items-center justify-between">
-                                  <span className="text-slate-400">End</span>
-                                  <span className="font-medium text-slate-700">{new Date(ayt.end_date!).toLocaleDateString()}</span>
+                                  <span className="text-app-text-muted">End</span>
+                                  <span className="font-medium text-app-text">{new Date(ayt.end_date!).toLocaleDateString()}</span>
                                 </div>
                               </>
                             ) : (
@@ -493,7 +493,7 @@ export default function AcademicYears() {
                           ) : (
                             <button
                               onClick={() => setCurrentTerm(ayt)}
-                              className="flex items-center gap-1 text-xs text-slate-500 hover:text-emerald-600 font-medium transition-colors group"
+                              className="flex items-center gap-1 text-xs text-app-text-muted hover:text-emerald-600 font-medium transition-colors group"
                             >
                               <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                               Set as Current
@@ -523,7 +523,7 @@ export default function AcademicYears() {
             Creating a year automatically sets up 3 term slots. Configure their date ranges after creating.
           </p>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Year Name</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Year Name</label>
             <input
               value={yearForm.name}
               onChange={e => { setYearForm({ ...yearForm, name: e.target.value }); setYearFieldErrors(p => ({ ...p, name: undefined })); }}
@@ -533,7 +533,7 @@ export default function AcademicYears() {
             {yearFieldErrors.name && <p className="text-red-500 text-xs mt-1">{yearFieldErrors.name}</p>}
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Start Date</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Start Date</label>
             <input
               type="date"
               value={yearForm.start_date}
@@ -543,7 +543,7 @@ export default function AcademicYears() {
             {yearFieldErrors.start_date && <p className="text-red-500 text-xs mt-1">{yearFieldErrors.start_date}</p>}
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">End Date</label>
+            <label className="block text-sm font-medium text-app-text mb-1">End Date</label>
             <input
               type="date"
               value={yearForm.end_date}
@@ -553,7 +553,7 @@ export default function AcademicYears() {
             {yearFieldErrors.end_date && <p className="text-red-500 text-xs mt-1">{yearFieldErrors.end_date}</p>}
           </div>
           <div className="flex gap-3 pt-1">
-            <button onClick={() => { setShowYearModal(false); setYearFieldErrors({}); }} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => { setShowYearModal(false); setYearFieldErrors({}); }} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
             <button onClick={saveYear} disabled={saving} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
               {saving ? 'Creating...' : 'Create Year'}
             </button>
@@ -570,7 +570,7 @@ export default function AcademicYears() {
       >
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Year Name</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Year Name</label>
             <input
               value={yearEditForm.name}
               onChange={e => { setYearEditForm({ ...yearEditForm, name: e.target.value }); setEditFieldErrors(p => ({ ...p, name: undefined })); }}
@@ -580,7 +580,7 @@ export default function AcademicYears() {
             {editFieldErrors.name && <p className="text-red-500 text-xs mt-1">{editFieldErrors.name}</p>}
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Start Date</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Start Date</label>
             <input
               type="date"
               value={yearEditForm.start_date}
@@ -590,7 +590,7 @@ export default function AcademicYears() {
             {editFieldErrors.start_date && <p className="text-red-500 text-xs mt-1">{editFieldErrors.start_date}</p>}
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">End Date</label>
+            <label className="block text-sm font-medium text-app-text mb-1">End Date</label>
             <input
               type="date"
               value={yearEditForm.end_date}
@@ -602,7 +602,7 @@ export default function AcademicYears() {
           <div className="flex gap-3 pt-1">
             <button
               onClick={() => { setShowEditYearModal(false); setEditingYear(null); setEditFieldErrors({}); }}
-              className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors"
+              className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>
@@ -637,8 +637,8 @@ export default function AcademicYears() {
           </div>
 
           {loadingLinked ? (
-            <div className="flex items-center gap-2 text-sm text-slate-500">
-              <div className="w-4 h-4 border-2 border-slate-300 border-t-transparent rounded-full animate-spin" />
+            <div className="flex items-center gap-2 text-sm text-app-text-muted">
+              <div className="w-4 h-4 border-2 border-app-border border-t-transparent rounded-full animate-spin" />
               Checking linked records…
             </div>
           ) : linkedCount > 0 ? (
@@ -654,7 +654,7 @@ export default function AcademicYears() {
           <div className="flex gap-3 pt-1">
             <button
               onClick={() => { setShowDeleteConfirm(false); setDeletingYear(null); setDeleteError(''); }}
-              className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors"
+              className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>
@@ -681,15 +681,15 @@ export default function AcademicYears() {
             <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{termError}</div>
           )}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Start Date</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Start Date</label>
             <input type="date" value={termForm.start_date} onChange={e => setTermForm({ ...termForm, start_date: e.target.value })} className={inputClass} />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">End Date</label>
+            <label className="block text-sm font-medium text-app-text mb-1">End Date</label>
             <input type="date" value={termForm.end_date} onChange={e => setTermForm({ ...termForm, end_date: e.target.value })} className={inputClass} />
           </div>
           <div className="flex gap-3 pt-1">
-            <button onClick={() => { setShowEditTermModal(false); setEditingAYT(null); setTermError(''); }} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => { setShowEditTermModal(false); setEditingAYT(null); setTermError(''); }} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
             <button onClick={saveTermDates} disabled={saving} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
               {saving ? 'Saving...' : 'Save Dates'}
             </button>

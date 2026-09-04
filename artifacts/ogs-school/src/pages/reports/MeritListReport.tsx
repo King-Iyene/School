@@ -175,16 +175,16 @@ export default function MeritListReport() {
 
   function getRankRowClass(rank: number) {
     if (rank === 1) return 'bg-amber-50 border-amber-200';
-    if (rank === 2) return 'bg-slate-50 border-slate-200';
+    if (rank === 2) return 'bg-app-surface-alt border-app-border';
     if (rank === 3) return 'bg-orange-50 border-orange-200';
     return '';
   }
 
   function getRankBadge(rank: number) {
     if (rank === 1) return <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800"><Star className="h-3 w-3" />1st</span>;
-    if (rank === 2) return <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold bg-slate-200 text-slate-700">2nd</span>;
+    if (rank === 2) return <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold bg-slate-200 text-app-text">2nd</span>;
     if (rank === 3) return <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold bg-orange-100 text-orange-700">3rd</span>;
-    return <span className="text-slate-600 font-medium">{rank}</span>;
+    return <span className="text-app-text-muted font-medium">{rank}</span>;
   }
 
   return (
@@ -197,7 +197,7 @@ export default function MeritListReport() {
       )}
 
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Merit List Report</h1>
+        <h1 className="text-2xl font-bold text-app-text">Merit List Report</h1>
         <button
           onClick={handleExport}
           className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
@@ -207,12 +207,12 @@ export default function MeritListReport() {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <select
             value={filters.academic_year_id}
             onChange={e => setFilters(f => ({ ...f, academic_year_id: e.target.value, exam_id: '' }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">Select Academic Year *</option>
             {academicYears.map(y => (
@@ -224,7 +224,7 @@ export default function MeritListReport() {
             value={filters.exam_id}
             onChange={e => setFilters(f => ({ ...f, exam_id: e.target.value }))}
             disabled={!filters.academic_year_id}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
           >
             <option value="">Select Exam *</option>
             {exams.map(e => (
@@ -235,7 +235,7 @@ export default function MeritListReport() {
           <select
             value={filters.class_id}
             onChange={e => setFilters(f => ({ ...f, class_id: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">All Classes</option>
             {classes.map(c => (
@@ -246,11 +246,11 @@ export default function MeritListReport() {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Class Topper</p>
-              <p className="text-base font-bold text-slate-800 mt-1 truncate">{classTopper?.student_name || '-'}</p>
+              <p className="text-sm text-app-text-muted">Class Topper</p>
+              <p className="text-base font-bold text-app-text mt-1 truncate">{classTopper?.student_name || '-'}</p>
               {classTopper && <p className="text-sm text-emerald-600">{classTopper.percentage}%</p>}
             </div>
             <div className="bg-amber-100 p-3 rounded-lg">
@@ -259,11 +259,11 @@ export default function MeritListReport() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Average Score</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{avgScore}%</p>
+              <p className="text-sm text-app-text-muted">Average Score</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{avgScore}%</p>
             </div>
             <div className="bg-blue-100 p-3 rounded-lg">
               <Target className="h-6 w-6 text-blue-600" />
@@ -271,10 +271,10 @@ export default function MeritListReport() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Pass Rate</p>
+              <p className="text-sm text-app-text-muted">Pass Rate</p>
               <p className="text-2xl font-bold text-emerald-600 mt-1">{passRate}%</p>
             </div>
             <div className="bg-emerald-100 p-3 rounded-lg">
@@ -284,42 +284,42 @@ export default function MeritListReport() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Rank</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Student Name</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Class</th>
-                <th className="text-right px-4 py-3 text-slate-600 font-medium">Total Marks</th>
-                <th className="text-right px-4 py-3 text-slate-600 font-medium">Obtained</th>
-                <th className="text-right px-4 py-3 text-slate-600 font-medium">Percentage</th>
-                <th className="text-center px-4 py-3 text-slate-600 font-medium">Grade</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Rank</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Student Name</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Class</th>
+                <th className="text-right px-4 py-3 text-app-text-muted font-medium">Total Marks</th>
+                <th className="text-right px-4 py-3 text-app-text-muted font-medium">Obtained</th>
+                <th className="text-right px-4 py-3 text-app-text-muted font-medium">Percentage</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Grade</th>
               </tr>
             </thead>
             <tbody>
               {!filters.exam_id ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-10 text-slate-400">Select an academic year and exam to view the merit list</td>
+                  <td colSpan={7} className="text-center py-10 text-app-text-muted">Select an academic year and exam to view the merit list</td>
                 </tr>
               ) : loading ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-10 text-slate-400">Loading...</td>
+                  <td colSpan={7} className="text-center py-10 text-app-text-muted">Loading...</td>
                 </tr>
               ) : records.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-10 text-slate-400">No results found</td>
+                  <td colSpan={7} className="text-center py-10 text-app-text-muted">No results found</td>
                 </tr>
               ) : (
                 records.map(record => (
                   <tr key={record.student_id} className={`border-b ${getRankRowClass(record.rank)} hover:bg-opacity-80`}>
                     <td className="px-4 py-3">{getRankBadge(record.rank)}</td>
-                    <td className="px-4 py-3 font-medium text-slate-800">{record.student_name}</td>
-                    <td className="px-4 py-3 text-slate-600">{record.class_name}</td>
-                    <td className="px-4 py-3 text-right text-slate-600">{record.total_marks}</td>
-                    <td className="px-4 py-3 text-right font-medium text-slate-800">{record.obtained_marks}</td>
-                    <td className="px-4 py-3 text-right font-medium text-slate-800">{record.percentage}%</td>
+                    <td className="px-4 py-3 font-medium text-app-text">{record.student_name}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{record.class_name}</td>
+                    <td className="px-4 py-3 text-right text-app-text-muted">{record.total_marks}</td>
+                    <td className="px-4 py-3 text-right font-medium text-app-text">{record.obtained_marks}</td>
+                    <td className="px-4 py-3 text-right font-medium text-app-text">{record.percentage}%</td>
                     <td className="px-4 py-3 text-center">
                       <span className={`px-2 py-1 rounded-full text-xs font-bold ${getGradeBadgeClass(record.grade)}`}>
                         {record.grade}

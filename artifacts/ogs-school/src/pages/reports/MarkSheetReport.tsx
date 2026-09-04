@@ -175,7 +175,7 @@ export default function MarkSheetReport() {
       )}
 
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Mark Sheet Report</h1>
+        <h1 className="text-2xl font-bold text-app-text">Mark Sheet Report</h1>
         <div className="flex items-center gap-2">
           <button
             onClick={handleExport}
@@ -196,12 +196,12 @@ export default function MarkSheetReport() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <select
             value={filters.academic_year_id}
             onChange={e => setFilters(f => ({ ...f, academic_year_id: e.target.value, exam_id: '', class_id: '', student_id: '' }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">Select Academic Year *</option>
             {academicYears.map(y => (
@@ -213,7 +213,7 @@ export default function MarkSheetReport() {
             value={filters.exam_id}
             onChange={e => setFilters(f => ({ ...f, exam_id: e.target.value }))}
             disabled={!filters.academic_year_id}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
           >
             <option value="">Select Exam *</option>
             {exams.map(e => (
@@ -225,7 +225,7 @@ export default function MarkSheetReport() {
             value={filters.class_id}
             onChange={e => setFilters(f => ({ ...f, class_id: e.target.value, student_id: '' }))}
             disabled={!filters.exam_id}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
           >
             <option value="">Select Class *</option>
             {classes.map(c => (
@@ -237,7 +237,7 @@ export default function MarkSheetReport() {
             value={filters.student_id}
             onChange={e => setFilters(f => ({ ...f, student_id: e.target.value }))}
             disabled={!filters.class_id}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
           >
             <option value="">Select Student</option>
             {students.map(s => (
@@ -248,78 +248,78 @@ export default function MarkSheetReport() {
       </div>
 
       {!filters.student_id ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 flex flex-col items-center gap-3 text-slate-400">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-12 flex flex-col items-center gap-3 text-app-text-muted">
           <FileText className="h-12 w-12 text-slate-300" />
           <p className="text-lg font-medium">Select all filters to view mark sheet</p>
           <p className="text-sm">Academic Year, Exam, Class, and Student are required</p>
         </div>
       ) : loading ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center text-slate-400">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-12 text-center text-app-text-muted">
           Loading...
         </div>
       ) : subjectResults.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center text-slate-400">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-12 text-center text-app-text-muted">
           No results found for this student in the selected exam
         </div>
       ) : (
-        <div className="bg-white rounded-xl shadow-sm border-2 border-slate-300 overflow-hidden print:shadow-none">
+        <div className="bg-app-surface rounded-xl shadow-sm border-2 border-app-border overflow-hidden print:shadow-none">
           <div className="bg-emerald-700 text-white text-center py-6 px-4">
             <h2 className="text-2xl font-bold">MARK SHEET</h2>
             <p className="text-emerald-200 mt-1">{selectedYear?.name} - {selectedExam?.name}</p>
           </div>
 
           <div className="p-6">
-            <div className="grid grid-cols-2 gap-4 bg-slate-50 rounded-xl p-4 border border-slate-200 mb-6">
+            <div className="grid grid-cols-2 gap-4 bg-app-surface-alt rounded-xl p-4 border border-app-border mb-6">
               <div className="space-y-2">
                 <div className="flex gap-2 text-sm">
-                  <span className="font-semibold text-slate-600 w-32">Student Name:</span>
-                  <span className="text-slate-800 font-medium">{selectedStudent?.full_name}</span>
+                  <span className="font-semibold text-app-text-muted w-32">Student Name:</span>
+                  <span className="text-app-text font-medium">{selectedStudent?.full_name}</span>
                 </div>
                 <div className="flex gap-2 text-sm">
-                  <span className="font-semibold text-slate-600 w-32">Admission No:</span>
-                  <span className="text-slate-800">{selectedStudent?.admission_number || '-'}</span>
+                  <span className="font-semibold text-app-text-muted w-32">Admission No:</span>
+                  <span className="text-app-text">{selectedStudent?.admission_number || '-'}</span>
                 </div>
               </div>
               <div className="space-y-2">
                 <div className="flex gap-2 text-sm">
-                  <span className="font-semibold text-slate-600 w-32">Class:</span>
-                  <span className="text-slate-800">{selectedClass?.name}</span>
+                  <span className="font-semibold text-app-text-muted w-32">Class:</span>
+                  <span className="text-app-text">{selectedClass?.name}</span>
                 </div>
                 <div className="flex gap-2 text-sm">
-                  <span className="font-semibold text-slate-600 w-32">Section:</span>
-                  <span className="text-slate-800">{selectedStudent?.section_name || '-'}</span>
+                  <span className="font-semibold text-app-text-muted w-32">Section:</span>
+                  <span className="text-app-text">{selectedStudent?.section_name || '-'}</span>
                 </div>
                 <div className="flex gap-2 text-sm">
-                  <span className="font-semibold text-slate-600 w-32">Roll No:</span>
-                  <span className="text-slate-800">{selectedStudent?.roll_number || '-'}</span>
+                  <span className="font-semibold text-app-text-muted w-32">Roll No:</span>
+                  <span className="text-app-text">{selectedStudent?.roll_number || '-'}</span>
                 </div>
               </div>
             </div>
 
-            <table className="w-full text-sm border border-slate-200 rounded-xl overflow-hidden">
+            <table className="w-full text-sm border border-app-border rounded-xl overflow-hidden">
               <thead>
-                <tr className="bg-slate-100 border-b border-slate-200">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">Subject</th>
-                  <th className="text-center px-4 py-3 font-semibold text-slate-700">Max Marks</th>
-                  <th className="text-center px-4 py-3 font-semibold text-slate-700">Obtained Marks</th>
-                  <th className="text-center px-4 py-3 font-semibold text-slate-700">Grade</th>
+                <tr className="bg-slate-100 border-b border-app-border">
+                  <th className="text-left px-4 py-3 font-semibold text-app-text">Subject</th>
+                  <th className="text-center px-4 py-3 font-semibold text-app-text">Max Marks</th>
+                  <th className="text-center px-4 py-3 font-semibold text-app-text">Obtained Marks</th>
+                  <th className="text-center px-4 py-3 font-semibold text-app-text">Grade</th>
                 </tr>
               </thead>
               <tbody>
                 {subjectResults.map((r, i) => (
-                  <tr key={i} className="border-b border-slate-100">
-                    <td className="px-4 py-3 text-slate-800 font-medium">{r.subject_name}</td>
-                    <td className="px-4 py-3 text-center text-slate-600">{r.max_marks}</td>
-                    <td className="px-4 py-3 text-center font-semibold text-slate-800">{r.obtained_marks}</td>
+                  <tr key={i} className="border-b border-app-border">
+                    <td className="px-4 py-3 text-app-text font-medium">{r.subject_name}</td>
+                    <td className="px-4 py-3 text-center text-app-text-muted">{r.max_marks}</td>
+                    <td className="px-4 py-3 text-center font-semibold text-app-text">{r.obtained_marks}</td>
                     <td className="px-4 py-3 text-center">
                       <span className="px-2 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">{r.grade}</span>
                     </td>
                   </tr>
                 ))}
-                <tr className="bg-slate-100 font-bold border-t-2 border-slate-300">
-                  <td className="px-4 py-3 text-slate-800">Total</td>
-                  <td className="px-4 py-3 text-center text-slate-800">{totalMax}</td>
-                  <td className="px-4 py-3 text-center text-slate-800">{totalObtained}</td>
+                <tr className="bg-slate-100 font-bold border-t-2 border-app-border">
+                  <td className="px-4 py-3 text-app-text">Total</td>
+                  <td className="px-4 py-3 text-center text-app-text">{totalMax}</td>
+                  <td className="px-4 py-3 text-center text-app-text">{totalObtained}</td>
                   <td className="px-4 py-3 text-center">
                     <span className="px-2 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">{overallGrade}</span>
                   </td>
@@ -328,16 +328,16 @@ export default function MarkSheetReport() {
             </table>
 
             <div className="mt-6 grid grid-cols-3 gap-4">
-              <div className="text-center p-4 bg-slate-50 rounded-xl border border-slate-200">
-                <p className="text-sm text-slate-500">Percentage</p>
-                <p className="text-2xl font-bold text-slate-800 mt-1">{overallPct}%</p>
+              <div className="text-center p-4 bg-app-surface-alt rounded-xl border border-app-border">
+                <p className="text-sm text-app-text-muted">Percentage</p>
+                <p className="text-2xl font-bold text-app-text mt-1">{overallPct}%</p>
               </div>
-              <div className="text-center p-4 bg-slate-50 rounded-xl border border-slate-200">
-                <p className="text-sm text-slate-500">Overall Grade</p>
+              <div className="text-center p-4 bg-app-surface-alt rounded-xl border border-app-border">
+                <p className="text-sm text-app-text-muted">Overall Grade</p>
                 <p className="text-2xl font-bold text-emerald-600 mt-1">{overallGrade}</p>
               </div>
               <div className="text-center p-4 rounded-xl border-2">
-                <p className="text-sm text-slate-500">Result</p>
+                <p className="text-sm text-app-text-muted">Result</p>
                 <p className={`text-2xl font-bold mt-1 ${result === 'PASS' ? 'text-emerald-600' : 'text-red-600'}`}>{result}</p>
               </div>
             </div>

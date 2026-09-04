@@ -21,8 +21,8 @@ export default function AIAssistantWidget() {
     <>
       {/* Panel */}
       {open && (
-        <div className="fixed z-50 bottom-20 right-4 sm:bottom-24 sm:right-6 w-[calc(100vw-2rem)] sm:w-[400px] h-[min(560px,calc(100vh-8rem))] bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 bg-gradient-to-r from-indigo-600 to-purple-600">
+        <div className="fixed z-50 bottom-20 right-4 sm:bottom-24 sm:right-6 w-[calc(100vw-2rem)] sm:w-[400px] h-[min(560px,calc(100vh-8rem))] bg-app-surface rounded-2xl shadow-2xl border border-app-border flex flex-col overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-app-border bg-gradient-to-r from-indigo-600 to-purple-600">
             <div className="flex items-center gap-2.5">
               <Sparkles className="w-4 h-4 text-white" />
               <div>
@@ -34,7 +34,7 @@ export default function AIAssistantWidget() {
               {messages.length > 0 && (
                 <button
                   onClick={() => setMessages([])}
-                  className="p-1.5 text-indigo-100 hover:text-white hover:bg-white/10 rounded-lg"
+                  className="p-1.5 text-indigo-100 hover:text-white hover:bg-app-surface/10 rounded-lg"
                   aria-label="Clear chat"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -42,7 +42,7 @@ export default function AIAssistantWidget() {
               )}
               <button
                 onClick={() => setOpen(false)}
-                className="p-1.5 text-indigo-100 hover:text-white hover:bg-white/10 rounded-lg"
+                className="p-1.5 text-indigo-100 hover:text-white hover:bg-app-surface/10 rounded-lg"
                 aria-label="Close"
               >
                 <X className="w-4 h-4" />

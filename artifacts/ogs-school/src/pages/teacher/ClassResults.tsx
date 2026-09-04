@@ -356,8 +356,8 @@ ${studentRows.map((r, i) => `
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Class Results</h2>
-          <p className="text-slate-500 text-sm">
+          <h2 className="text-xl font-bold text-app-text">Class Results</h2>
+          <p className="text-app-text-muted text-sm">
             {!metaLoaded
               ? 'Loading...'
               : isAdmin
@@ -375,26 +375,26 @@ ${studentRows.map((r, i) => `
       </div>
 
       {metaLoaded && isClassTeacher && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
             <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1">Class</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Class</label>
               <select value={selectedClass} onChange={e => setSelectedClass(e.target.value)}
-                className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+                className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
                 {myClasses.map(c => <option key={(c as any)?.id} value={(c as any)?.id}>{(c as any)?.name || `${(c as any)?.level}${(c as any)?.section}`}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1">Term</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Term</label>
               <select value={selectedTerm} onChange={e => setSelectedTerm(e.target.value)}
-                className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+                className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
                 {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1">Academic Year</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Academic Year</label>
               <select value={selectedYear} onChange={e => setSelectedYear(e.target.value)}
-                className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+                className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
                 {academicYears.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
               </select>
             </div>
@@ -410,8 +410,8 @@ ${studentRows.map((r, i) => `
           <span className={compilation.status === 'published' ? 'text-emerald-700 font-medium' : 'text-amber-700 font-medium'}>
             Results {compilation.status === 'published' ? 'Published' : 'Compiled'}
           </span>
-          <span className="text-slate-400 hidden sm:inline">—</span>
-          <span className="text-slate-500 text-xs sm:text-sm">{new Date(compilation.compiled_at).toLocaleString()}</span>
+          <span className="text-app-text-muted hidden sm:inline">—</span>
+          <span className="text-app-text-muted text-xs sm:text-sm">{new Date(compilation.compiled_at).toLocaleString()}</span>
         </div>
       )}
 
@@ -430,37 +430,37 @@ ${studentRows.map((r, i) => `
       )}
 
       {!metaLoaded ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-16 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-16 text-center">
           <RefreshCw className="w-8 h-8 text-slate-300 animate-spin mx-auto mb-3" />
-          <p className="text-slate-400 text-sm">Loading...</p>
+          <p className="text-app-text-muted text-sm">Loading...</p>
         </div>
       ) : !isClassTeacher ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-20 text-center px-6">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-20 text-center px-6">
           <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
             <Lock className="w-8 h-8 text-red-400" />
           </div>
-          <h3 className="text-lg font-bold text-slate-800 mb-2">No Access</h3>
-          <p className="text-slate-500 text-sm max-w-sm mx-auto">
+          <h3 className="text-lg font-bold text-app-text mb-2">No Access</h3>
+          <p className="text-app-text-muted text-sm max-w-sm mx-auto">
             Class Results are restricted to Form Masters only. You must be assigned as the Form Master of a class to view its results broadsheet.
           </p>
         </div>
       ) : loading ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-16 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-16 text-center">
           <RefreshCw className="w-8 h-8 text-slate-300 animate-spin mx-auto mb-3" />
-          <p className="text-slate-400 text-sm">Loading results...</p>
+          <p className="text-app-text-muted text-sm">Loading results...</p>
         </div>
       ) : studentRows.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-16 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-16 text-center">
           <Users className="w-10 h-10 text-slate-200 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">No students enrolled</p>
-          <p className="text-slate-400 text-sm mt-1">No active students found in {classLabel}</p>
+          <p className="text-app-text-muted font-medium">No students enrolled</p>
+          <p className="text-app-text-muted text-sm mt-1">No active students found in {classLabel}</p>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" ref={printRef}>
-          <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between flex-wrap gap-3">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden" ref={printRef}>
+          <div className="px-5 py-4 border-b border-app-border flex items-center justify-between flex-wrap gap-3">
             <div>
-              <h3 className="font-semibold text-slate-800">{classLabel} — Results Broadsheet</h3>
-              <p className="text-xs text-slate-400">{studentRows.length} students · {subjects.length} subjects</p>
+              <h3 className="font-semibold text-app-text">{classLabel} — Results Broadsheet</h3>
+              <p className="text-xs text-app-text-muted">{studentRows.length} students · {subjects.length} subjects</p>
             </div>
             <div className="flex items-center gap-2 flex-shrink-0">
               {isClassTeacher && (
@@ -471,7 +471,7 @@ ${studentRows.map((r, i) => `
                 </button>
               )}
               <button onClick={handlePrint}
-                className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-medium transition-colors">
+                className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-slate-100 hover:bg-slate-200 text-app-text rounded-xl text-sm font-medium transition-colors">
                 <Printer className="w-4 h-4" />
                 <span className="hidden sm:inline">Print Broadsheet</span>
               </button>
@@ -481,30 +481,30 @@ ${studentRows.map((r, i) => `
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-50 border-b border-slate-100">
-                  <th className="text-left text-xs font-semibold text-slate-500 px-4 py-3 sticky left-0 bg-slate-50 z-10 border-r border-slate-100">Student</th>
+                <tr className="bg-app-surface-alt border-b border-app-border">
+                  <th className="text-left text-xs font-semibold text-app-text-muted px-4 py-3 sticky left-0 bg-app-surface-alt z-10 border-r border-app-border">Student</th>
                   {subjects.map(s => (
                     <th key={s.id} className="text-center px-2 py-3 min-w-[70px]">
                       <div className="flex flex-col items-center gap-0.5">
-                        <span className="text-xs font-semibold text-slate-700 truncate max-w-[80px]">{s.name}</span>
+                        <span className="text-xs font-semibold text-app-text truncate max-w-[80px]">{s.name}</span>
                         <span className={`text-xs px-1.5 py-0.5 rounded-full ${s.hasScores ? 'bg-emerald-100 text-emerald-600' : 'bg-amber-100 text-amber-600'}`}>
                           {s.hasScores ? 'Ready' : 'Pending'}
                         </span>
                       </div>
                     </th>
                   ))}
-                  <th className="text-center text-xs font-semibold text-slate-500 px-3 py-3 bg-slate-100 border-l border-slate-200">Aggregate</th>
-                  <th className="text-center text-xs font-semibold text-slate-500 px-3 py-3 bg-slate-100">Average</th>
-                  <th className="text-center text-xs font-semibold text-slate-500 px-3 py-3 bg-slate-100">Position</th>
+                  <th className="text-center text-xs font-semibold text-app-text-muted px-3 py-3 bg-slate-100 border-l border-app-border">Aggregate</th>
+                  <th className="text-center text-xs font-semibold text-app-text-muted px-3 py-3 bg-slate-100">Average</th>
+                  <th className="text-center text-xs font-semibold text-app-text-muted px-3 py-3 bg-slate-100">Position</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {studentRows.map((row, idx) => (
-                  <tr key={row.id} className={`hover:bg-slate-50/60 transition-colors ${idx % 2 === 0 ? '' : 'bg-slate-50/20'}`}>
-                    <td className="px-4 py-2.5 sticky left-0 bg-white border-r border-slate-100 z-10">
+                  <tr key={row.id} className={`hover:bg-app-surface-alt/60 transition-colors ${idx % 2 === 0 ? '' : 'bg-app-surface-alt/20'}`}>
+                    <td className="px-4 py-2.5 sticky left-0 bg-app-surface border-r border-app-border z-10">
                       <button onClick={() => navigate(`/student-profile?id=${row.id}`)} className="text-left hover:text-emerald-600 transition-colors group">
-                        <p className="text-sm font-medium text-slate-800 whitespace-nowrap group-hover:text-emerald-600">{row.lastName}, {row.firstName}</p>
-                        {row.studentId && <p className="text-xs text-slate-400">{row.studentId}</p>}
+                        <p className="text-sm font-medium text-app-text whitespace-nowrap group-hover:text-emerald-600">{row.lastName}, {row.firstName}</p>
+                        {row.studentId && <p className="text-xs text-app-text-muted">{row.studentId}</p>}
                       </button>
                     </td>
                     {subjects.map(s => {
@@ -516,21 +516,21 @@ ${studentRows.map((r, i) => `
                         <td key={s.id} className="px-2 py-2.5 text-center">
                           {hasRow ? (
                             <div className="flex flex-col items-center">
-                              <span className="text-sm font-semibold text-slate-800">{sc.total}</span>
+                              <span className="text-sm font-semibold text-app-text">{sc.total}</span>
                               <span className={`text-xs ${gradeColor(sc.grade)}`}>{sc.grade}</span>
                             </div>
                           ) : <span className="text-slate-300">—</span>}
                         </td>
                       );
                     })}
-                    <td className="px-3 py-2.5 text-center bg-slate-50/50 border-l border-slate-100">
-                      <span className="text-sm font-bold text-slate-800">{row.aggregate}</span>
+                    <td className="px-3 py-2.5 text-center bg-app-surface-alt/50 border-l border-app-border">
+                      <span className="text-sm font-bold text-app-text">{row.aggregate}</span>
                     </td>
-                    <td className="px-3 py-2.5 text-center bg-slate-50/50">
-                      <span className="text-sm text-slate-600">{row.average.toFixed(1)}</span>
+                    <td className="px-3 py-2.5 text-center bg-app-surface-alt/50">
+                      <span className="text-sm text-app-text-muted">{row.average.toFixed(1)}</span>
                     </td>
-                    <td className="px-3 py-2.5 text-center bg-slate-50/50">
-                      <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-xs font-bold ${row.position === 1 ? 'bg-amber-100 text-amber-700' : row.position === 2 ? 'bg-slate-100 text-slate-700' : row.position === 3 ? 'bg-orange-100 text-orange-700' : 'bg-slate-50 text-slate-500'}`}>
+                    <td className="px-3 py-2.5 text-center bg-app-surface-alt/50">
+                      <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-xs font-bold ${row.position === 1 ? 'bg-amber-100 text-amber-700' : row.position === 2 ? 'bg-slate-100 text-app-text' : row.position === 3 ? 'bg-orange-100 text-orange-700' : 'bg-app-surface-alt text-app-text-muted'}`}>
                         {row.position}
                       </span>
                     </td>
@@ -540,13 +540,13 @@ ${studentRows.map((r, i) => `
             </table>
           </div>
 
-          <div className="px-5 py-3 border-t border-slate-100 bg-slate-50/50">
-            <div className="flex flex-wrap gap-4 text-xs text-slate-500">
-              <span>Class Size: <strong className="text-slate-700">{studentRows.length}</strong></span>
-              <span>Subjects: <strong className="text-slate-700">{subjects.length}</strong></span>
+          <div className="px-5 py-3 border-t border-app-border bg-app-surface-alt/50">
+            <div className="flex flex-wrap gap-4 text-xs text-app-text-muted">
+              <span>Class Size: <strong className="text-app-text">{studentRows.length}</strong></span>
+              <span>Subjects: <strong className="text-app-text">{subjects.length}</strong></span>
               <span>Subjects Ready: <strong className="text-emerald-600">{subjects.filter(s => s.hasScores).length}</strong></span>
               {studentRows.length > 0 && (
-                <span>Class Average: <strong className="text-slate-700">
+                <span>Class Average: <strong className="text-app-text">
                   {(studentRows.reduce((sum, r) => sum + r.average, 0) / studentRows.length).toFixed(1)}
                 </strong></span>
               )}
@@ -559,18 +559,18 @@ ${studentRows.map((r, i) => `
       )}
 
       {isClassTeacher && subjects.length > 0 && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-          <h3 className="font-semibold text-slate-800 mb-3 text-sm">Subject Teachers Status</h3>
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
+          <h3 className="font-semibold text-app-text mb-3 text-sm">Subject Teachers Status</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
             {subjects.map(s => (
               <div key={s.id} className={`p-3 rounded-xl border ${s.hasScores ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-200'}`}>
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-semibold text-slate-700 truncate">{s.name}</span>
+                  <span className="text-xs font-semibold text-app-text truncate">{s.name}</span>
                   {s.hasScores
                     ? <CheckCircle className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
                     : <AlertCircle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />}
                 </div>
-                <p className="text-xs text-slate-500 truncate">{s.teacherName}</p>
+                <p className="text-xs text-app-text-muted truncate">{s.teacherName}</p>
                 <p className={`text-xs mt-0.5 font-medium ${s.hasScores ? 'text-emerald-600' : 'text-amber-600'}`}>
                   {s.hasScores ? 'Scores entered' : 'Awaiting scores'}
                 </p>

@@ -57,17 +57,17 @@ export default function SubjectList() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">My Subjects</h1>
+        <h1 className="text-2xl font-bold text-app-text">My Subjects</h1>
         <span className="bg-emerald-100 text-emerald-700 text-sm font-semibold px-4 py-1.5 rounded-full">
           {subjects.length} {subjects.length === 1 ? 'Subject' : 'Subjects'}
         </span>
       </div>
 
       {subjects.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-12 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-12 text-center">
           <BookOpen className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">No subjects assigned</p>
-          <p className="text-sm text-slate-400 mt-1">Your subjects will appear here once assigned</p>
+          <p className="text-app-text-muted font-medium">No subjects assigned</p>
+          <p className="text-sm text-app-text-muted mt-1">Your subjects will appear here once assigned</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -82,24 +82,24 @@ export default function SubjectList() {
                     <BookOpen className="w-5 h-5" />
                   </div>
                   {sub?.type && (
-                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full capitalize ${colors.text} bg-white/60`}>
+                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full capitalize ${colors.text} bg-app-surface/60`}>
                       {sub.type}
                     </span>
                   )}
                 </div>
-                <h3 className="font-semibold text-slate-800 text-sm leading-snug mb-1">{sub?.name || '—'}</h3>
+                <h3 className="font-semibold text-app-text text-sm leading-snug mb-1">{sub?.name || '—'}</h3>
                 {sub?.code && (
                   <p className={`text-xs font-mono font-semibold ${colors.text} mb-2`}>{sub.code}</p>
                 )}
                 {className && (
-                  <p className="text-xs text-slate-500 mb-2">Class: {className}</p>
+                  <p className="text-xs text-app-text-muted mb-2">Class: {className}</p>
                 )}
                 {teacher && (
                   <div className="flex items-center gap-1.5 mt-3 pt-3 border-t border-white/40">
                     <div className={`w-5 h-5 rounded-full ${colors.icon} flex items-center justify-center text-xs font-bold`}>
                       {teacher.first_name?.[0]}
                     </div>
-                    <p className="text-xs text-slate-600 truncate">{teacher.first_name} {teacher.last_name}</p>
+                    <p className="text-xs text-app-text-muted truncate">{teacher.first_name} {teacher.last_name}</p>
                   </div>
                 )}
               </div>

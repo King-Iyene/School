@@ -47,7 +47,7 @@ interface Payment {
   fee_structures?: { name: string };
 }
 
-const inputCls = 'w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-colors';
+const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-colors';
 
 const EMPTY_CAT = { name: '', description: '', amount: '', class_level: '', due_date: '', is_mandatory: true };
 const EMPTY_PAY = { amount_paid: '', payment_method: 'cash', receipt_number: '', notes: '', payment_date: new Date().toISOString().split('T')[0] };
@@ -364,8 +364,8 @@ export default function FeeManagementPage() {
           <DollarSign className="w-5 h-5 text-emerald-600" />
         </div>
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Fee Management</h2>
-          <p className="text-slate-500 text-sm">Manage fee categories, record payments, and print receipts</p>
+          <h2 className="text-xl font-bold text-app-text">Fee Management</h2>
+          <p className="text-app-text-muted text-sm">Manage fee categories, record payments, and print receipts</p>
         </div>
       </div>
 
@@ -375,12 +375,12 @@ export default function FeeManagementPage() {
         </div>
       )}
 
-      <div className="flex gap-2 border-b border-slate-200">
+      <div className="flex gap-2 border-b border-app-border">
         {TABS.map(t => (
           <button
             key={t.key}
             onClick={() => setTab(t.key)}
-            className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${tab === t.key ? 'border-emerald-500 text-emerald-600' : 'border-transparent text-slate-500 hover:text-slate-700'}`}
+            className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${tab === t.key ? 'border-emerald-500 text-emerald-600' : 'border-transparent text-app-text-muted hover:text-app-text'}`}
           >
             {t.label}
           </button>
@@ -392,43 +392,43 @@ export default function FeeManagementPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Clock className="w-5 h-5 text-amber-500" />
-              <h3 className="text-base font-semibold text-slate-800">Pending Fee Payment Approvals</h3>
+              <h3 className="text-base font-semibold text-app-text">Pending Fee Payment Approvals</h3>
             </div>
             <button onClick={loadPendingPayments} className="text-sm text-emerald-600 hover:text-emerald-700 font-medium">Refresh</button>
           </div>
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-slate-100 bg-slate-50">
+                <tr className="border-b border-app-border bg-app-surface-alt">
                   {['Student', 'Fee Type', 'Amount', 'Method', 'Receipt', 'Date', 'Collected By', 'Actions'].map(h => (
-                    <th key={h} className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">{h}</th>
+                    <th key={h} className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">{h}</th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {loadingPending ? (
-                  <tr><td colSpan={8} className="text-center py-10 text-slate-400">Loading...</td></tr>
+                  <tr><td colSpan={8} className="text-center py-10 text-app-text-muted">Loading...</td></tr>
                 ) : pendingPayments.length === 0 ? (
                   <tr><td colSpan={8} className="text-center py-10">
                     <CheckCircle className="w-10 h-10 text-emerald-200 mx-auto mb-2" />
-                    <p className="text-slate-400 text-sm">No pending payments to approve.</p>
+                    <p className="text-app-text-muted text-sm">No pending payments to approve.</p>
                   </td></tr>
                 ) : pendingPayments.map(p => {
                   const student = Array.isArray(p.students) ? p.students[0] : p.students;
                   const feeType = Array.isArray(p.fees_master) ? p.fees_master[0] : p.fees_master;
                   const collector = p.collector;
                   return (
-                    <tr key={p.id} className="hover:bg-slate-50 transition-colors">
+                    <tr key={p.id} className="hover:bg-app-surface-alt transition-colors">
                       <td className="px-4 py-3">
-                        <p className="text-sm font-medium text-slate-800">{student?.first_name} {student?.last_name}</p>
-                        <p className="text-xs text-slate-400 font-mono">{student?.admission_number}</p>
+                        <p className="text-sm font-medium text-app-text">{student?.first_name} {student?.last_name}</p>
+                        <p className="text-xs text-app-text-muted font-mono">{student?.admission_number}</p>
                       </td>
-                      <td className="px-4 py-3 text-sm text-slate-600">{feeType?.fees_types?.name || '--'}</td>
+                      <td className="px-4 py-3 text-sm text-app-text-muted">{feeType?.fees_types?.name || '--'}</td>
                       <td className="px-4 py-3 text-sm font-semibold text-emerald-700">{Number(p.amount_paid).toLocaleString('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 })}</td>
-                      <td className="px-4 py-3 text-sm text-slate-600 capitalize">{p.payment_method?.replace('_', ' ')}</td>
-                      <td className="px-4 py-3 text-xs font-mono text-slate-500">{p.receipt_no || '--'}</td>
-                      <td className="px-4 py-3 text-sm text-slate-500">{new Date(p.payment_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
-                      <td className="px-4 py-3 text-sm text-slate-600">{collector?.first_name} {collector?.last_name}</td>
+                      <td className="px-4 py-3 text-sm text-app-text-muted capitalize">{p.payment_method?.replace('_', ' ')}</td>
+                      <td className="px-4 py-3 text-xs font-mono text-app-text-muted">{p.receipt_no || '--'}</td>
+                      <td className="px-4 py-3 text-sm text-app-text-muted">{new Date(p.payment_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
+                      <td className="px-4 py-3 text-sm text-app-text-muted">{collector?.first_name} {collector?.last_name}</td>
                       <td className="px-4 py-3">
                         <div className="flex gap-2">
                           <button
@@ -464,42 +464,42 @@ export default function FeeManagementPage() {
             </button>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-slate-100 bg-slate-50">
+                <tr className="border-b border-app-border bg-app-surface-alt">
                   {['SL', 'Name', 'Class Level', 'Amount', 'Due Date', 'Mandatory', 'Actions'].map(h => (
-                    <th key={h} className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">{h}</th>
+                    <th key={h} className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">{h}</th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {loadingCat ? (
-                  <tr><td colSpan={7} className="text-center py-10 text-slate-400">Loading...</td></tr>
+                  <tr><td colSpan={7} className="text-center py-10 text-app-text-muted">Loading...</td></tr>
                 ) : categories.length === 0 ? (
                   <tr><td colSpan={7} className="text-center py-10">
                     <DollarSign className="w-10 h-10 text-slate-200 mx-auto mb-2" />
-                    <p className="text-slate-400 text-sm">No fee categories yet.</p>
+                    <p className="text-app-text-muted text-sm">No fee categories yet.</p>
                   </td></tr>
                 ) : categories.map((c, idx) => (
-                  <tr key={c.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-4 py-3 text-sm text-slate-500">{idx + 1}</td>
+                  <tr key={c.id} className="hover:bg-app-surface-alt transition-colors">
+                    <td className="px-4 py-3 text-sm text-app-text-muted">{idx + 1}</td>
                     <td className="px-4 py-3">
-                      <p className="text-sm font-medium text-slate-800">{c.name}</p>
-                      {c.description && <p className="text-xs text-slate-400 mt-0.5">{c.description}</p>}
+                      <p className="text-sm font-medium text-app-text">{c.name}</p>
+                      {c.description && <p className="text-xs text-app-text-muted mt-0.5">{c.description}</p>}
                     </td>
-                    <td className="px-4 py-3 text-sm text-slate-600">{c.class_level || '—'}</td>
+                    <td className="px-4 py-3 text-sm text-app-text-muted">{c.class_level || '—'}</td>
                     <td className="px-4 py-3 text-sm font-semibold text-emerald-700">₦{Number(c.amount).toLocaleString()}</td>
-                    <td className="px-4 py-3 text-sm text-slate-500">{c.due_date ? new Date(c.due_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '—'}</td>
+                    <td className="px-4 py-3 text-sm text-app-text-muted">{c.due_date ? new Date(c.due_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '—'}</td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${c.is_mandatory ? 'bg-red-100 text-red-600' : 'bg-slate-100 text-slate-500'}`}>
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${c.is_mandatory ? 'bg-red-100 text-red-600' : 'bg-slate-100 text-app-text-muted'}`}>
                         {c.is_mandatory ? 'Yes' : 'No'}
                       </span>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1">
-                        <button onClick={() => openEditCat(c)} className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"><Edit2 className="w-4 h-4" /></button>
-                        <button onClick={() => deleteCat(c.id)} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><Trash2 className="w-4 h-4" /></button>
+                        <button onClick={() => openEditCat(c)} className="p-1.5 text-app-text-muted hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"><Edit2 className="w-4 h-4" /></button>
+                        <button onClick={() => deleteCat(c.id)} className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><Trash2 className="w-4 h-4" /></button>
                       </div>
                     </td>
                   </tr>
@@ -512,28 +512,28 @@ export default function FeeManagementPage() {
 
       {tab === 'payments' && (
         <div className="space-y-4">
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
-            <label className="block text-xs font-medium text-slate-600 mb-2">Search Student</label>
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4">
+            <label className="block text-xs font-medium text-app-text-muted mb-2">Search Student</label>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
               <input
                 value={studentSearch}
                 onChange={e => setStudentSearch(e.target.value)}
                 placeholder="Type student name or admission number..."
-                className="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                className="w-full pl-9 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
               />
-              {searching && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400">Searching...</span>}
+              {searching && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-app-text-muted">Searching...</span>}
             </div>
             {searchResults.length > 0 && (
-              <div className="mt-2 border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+              <div className="mt-2 border border-app-border rounded-xl overflow-hidden shadow-sm">
                 {searchResults.map(s => (
-                  <button key={s.id} onClick={() => selectStudent(s)} className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-0 text-left">
+                  <button key={s.id} onClick={() => selectStudent(s)} className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-app-surface-alt transition-colors border-b border-app-border last:border-0 text-left">
                     <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-xs font-semibold text-emerald-700 flex-shrink-0">
                       {s.first_name[0]}{s.last_name[0]}
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-slate-800">{s.first_name} {s.last_name}</p>
-                      <p className="text-xs text-slate-400">{s.admission_number} · {Array.isArray(s.classes) ? s.classes[0]?.level : s.classes?.level || 'No class'}</p>
+                      <p className="text-sm font-medium text-app-text">{s.first_name} {s.last_name}</p>
+                      <p className="text-xs text-app-text-muted">{s.admission_number} · {Array.isArray(s.classes) ? s.classes[0]?.level : s.classes?.level || 'No class'}</p>
                     </div>
                   </button>
                 ))}
@@ -543,48 +543,48 @@ export default function FeeManagementPage() {
 
           {selectedStudent && (
             <div className="space-y-3">
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 flex items-center justify-between">
+              <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-sm font-semibold text-emerald-700">
                     {selectedStudent.first_name[0]}{selectedStudent.last_name[0]}
                   </div>
                   <div>
-                    <p className="font-semibold text-slate-800">{selectedStudent.first_name} {selectedStudent.last_name}</p>
-                    <p className="text-xs text-slate-400">{selectedStudent.admission_number} · {selectedStudent.classes?.level || 'No class assigned'}</p>
+                    <p className="font-semibold text-app-text">{selectedStudent.first_name} {selectedStudent.last_name}</p>
+                    <p className="text-xs text-app-text-muted">{selectedStudent.admission_number} · {selectedStudent.classes?.level || 'No class assigned'}</p>
                   </div>
                 </div>
-                <button onClick={() => setSelectedStudent(null)} className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+                <button onClick={() => setSelectedStudent(null)} className="p-1.5 text-app-text-muted hover:text-app-text hover:bg-slate-100 rounded-lg transition-colors">
                   <X className="w-4 h-4" />
                 </button>
               </div>
 
               {loadingFees ? (
-                <div className="bg-white rounded-2xl border border-slate-200 p-8 text-center text-slate-400 text-sm">Loading fees...</div>
+                <div className="bg-app-surface rounded-2xl border border-app-border p-8 text-center text-app-text-muted text-sm">Loading fees...</div>
               ) : studentFees.length === 0 ? (
-                <div className="bg-white rounded-2xl border border-slate-200 p-8 text-center text-slate-400 text-sm">
+                <div className="bg-app-surface rounded-2xl border border-app-border p-8 text-center text-app-text-muted text-sm">
                   No fee categories found for {selectedStudent.classes?.level || 'this student\'s class'}.
                 </div>
               ) : (
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                  <div className="px-4 py-3 border-b border-slate-100 bg-slate-50">
-                    <span className="text-sm font-semibold text-slate-700">Fee Summary</span>
+                <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+                  <div className="px-4 py-3 border-b border-app-border bg-app-surface-alt">
+                    <span className="text-sm font-semibold text-app-text">Fee Summary</span>
                   </div>
                   <table className="w-full">
                     <thead>
-                      <tr className="border-b border-slate-100">
+                      <tr className="border-b border-app-border">
                         {['Fee Type', 'Total', 'Paid', 'Balance', ''].map(h => (
-                          <th key={h} className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">{h}</th>
+                          <th key={h} className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">{h}</th>
                         ))}
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-app-border">
                       {studentFees.map(fee => (
-                        <tr key={fee.id} className="hover:bg-slate-50 transition-colors">
+                        <tr key={fee.id} className="hover:bg-app-surface-alt transition-colors">
                           <td className="px-4 py-3">
-                            <p className="text-sm font-medium text-slate-800">{fee.name}</p>
+                            <p className="text-sm font-medium text-app-text">{fee.name}</p>
                             {fee.is_mandatory && <span className="text-xs text-red-400">Mandatory</span>}
                           </td>
-                          <td className="px-4 py-3 text-sm font-semibold text-slate-700">₦{Number(fee.amount).toLocaleString()}</td>
+                          <td className="px-4 py-3 text-sm font-semibold text-app-text">₦{Number(fee.amount).toLocaleString()}</td>
                           <td className="px-4 py-3 text-sm text-emerald-600 font-medium">₦{Number(fee.paid).toLocaleString()}</td>
                           <td className="px-4 py-3">
                             <span className={`text-sm font-semibold ${fee.balance > 0 ? 'text-red-500' : 'text-emerald-600'}`}>
@@ -600,9 +600,9 @@ export default function FeeManagementPage() {
                       ))}
                     </tbody>
                     <tfoot>
-                      <tr className="border-t-2 border-slate-200 bg-slate-50">
-                        <td className="px-4 py-3 text-sm font-bold text-slate-700">Total</td>
-                        <td className="px-4 py-3 text-sm font-bold text-slate-700">₦{studentFees.reduce((a, f) => a + Number(f.amount), 0).toLocaleString()}</td>
+                      <tr className="border-t-2 border-app-border bg-app-surface-alt">
+                        <td className="px-4 py-3 text-sm font-bold text-app-text">Total</td>
+                        <td className="px-4 py-3 text-sm font-bold text-app-text">₦{studentFees.reduce((a, f) => a + Number(f.amount), 0).toLocaleString()}</td>
                         <td className="px-4 py-3 text-sm font-bold text-emerald-600">₦{studentFees.reduce((a, f) => a + Number(f.paid), 0).toLocaleString()}</td>
                         <td className="px-4 py-3 text-sm font-bold text-red-500">₦{studentFees.reduce((a, f) => a + Number(f.balance), 0).toLocaleString()}</td>
                         <td />
@@ -615,9 +615,9 @@ export default function FeeManagementPage() {
           )}
 
           {!selectedStudent && (
-            <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
+            <div className="bg-app-surface rounded-2xl border border-app-border p-12 text-center">
               <Search className="w-10 h-10 text-slate-200 mx-auto mb-3" />
-              <p className="text-slate-400 text-sm">Search for a student to view their fees and record payments</p>
+              <p className="text-app-text-muted text-sm">Search for a student to view their fees and record payments</p>
             </div>
           )}
         </div>
@@ -625,36 +625,36 @@ export default function FeeManagementPage() {
 
       {tab === 'receipts' && (
         <div className="space-y-4">
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-slate-100 bg-slate-50">
+                <tr className="border-b border-app-border bg-app-surface-alt">
                   {['Receipt No.', 'Student', 'Fee Type', 'Amount', 'Method', 'Date', 'Actions'].map(h => (
-                    <th key={h} className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">{h}</th>
+                    <th key={h} className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">{h}</th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {loadingPay ? (
-                  <tr><td colSpan={7} className="text-center py-10 text-slate-400">Loading...</td></tr>
+                  <tr><td colSpan={7} className="text-center py-10 text-app-text-muted">Loading...</td></tr>
                 ) : payments.length === 0 ? (
                   <tr><td colSpan={7} className="text-center py-10">
                     <DollarSign className="w-10 h-10 text-slate-200 mx-auto mb-2" />
-                    <p className="text-slate-400 text-sm">No payments recorded yet.</p>
+                    <p className="text-app-text-muted text-sm">No payments recorded yet.</p>
                   </td></tr>
                 ) : payments.map(p => (
-                  <tr key={p.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-4 py-3 text-sm font-mono text-slate-700">{p.receipt_number || '—'}</td>
+                  <tr key={p.id} className="hover:bg-app-surface-alt transition-colors">
+                    <td className="px-4 py-3 text-sm font-mono text-app-text">{p.receipt_number || '—'}</td>
                     <td className="px-4 py-3">
-                      <p className="text-sm font-medium text-slate-800">{p.students?.first_name} {p.students?.last_name}</p>
-                      <p className="text-xs text-slate-400 font-mono">{p.students?.admission_number}</p>
+                      <p className="text-sm font-medium text-app-text">{p.students?.first_name} {p.students?.last_name}</p>
+                      <p className="text-xs text-app-text-muted font-mono">{p.students?.admission_number}</p>
                     </td>
-                    <td className="px-4 py-3 text-sm text-slate-600">{p.fee_structures?.name || '—'}</td>
+                    <td className="px-4 py-3 text-sm text-app-text-muted">{p.fee_structures?.name || '—'}</td>
                     <td className="px-4 py-3 text-sm font-semibold text-emerald-700">₦{Number(p.amount_paid).toLocaleString()}</td>
-                    <td className="px-4 py-3 text-sm text-slate-600 capitalize">{p.payment_method?.replace('_', ' ')}</td>
-                    <td className="px-4 py-3 text-sm text-slate-500">{new Date(p.payment_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
+                    <td className="px-4 py-3 text-sm text-app-text-muted capitalize">{p.payment_method?.replace('_', ' ')}</td>
+                    <td className="px-4 py-3 text-sm text-app-text-muted">{new Date(p.payment_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
                     <td className="px-4 py-3">
-                      <button onClick={() => printReceipt(p)} className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-colors">
+                      <button onClick={() => printReceipt(p)} className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-app-text rounded-lg transition-colors">
                         <Printer className="w-3.5 h-3.5" /> Print
                       </button>
                     </td>
@@ -662,15 +662,15 @@ export default function FeeManagementPage() {
                 ))}
               </tbody>
             </table>
-            <div className="px-4 py-3 border-t border-slate-100 flex items-center justify-between">
-              <div className="text-sm text-slate-500">
+            <div className="px-4 py-3 border-t border-app-border flex items-center justify-between">
+              <div className="text-sm text-app-text-muted">
                 Showing {(currentPage - 1) * pageSize + 1} to {Math.min(currentPage * pageSize, totalPayments)} of {totalPayments} receipt{totalPayments !== 1 ? 's' : ''}
               </div>
               {Math.ceil(totalPayments / pageSize) > 1 && (
                 <div className="flex items-center gap-2">
-                  <button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1} className="px-3 py-1.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 disabled:opacity-50 transition-colors">Previous</button>
-                  <div className="text-sm font-medium text-slate-600 px-2">Page {currentPage} of {Math.ceil(totalPayments / pageSize)}</div>
-                  <button onClick={() => setCurrentPage(p => Math.min(Math.ceil(totalPayments / pageSize), p + 1))} disabled={currentPage === Math.ceil(totalPayments / pageSize)} className="px-3 py-1.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 disabled:opacity-50 transition-colors">Next</button>
+                  <button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1} className="px-3 py-1.5 border border-app-border rounded-xl text-sm font-medium text-app-text-muted hover:bg-app-surface-alt disabled:opacity-50 transition-colors">Previous</button>
+                  <div className="text-sm font-medium text-app-text-muted px-2">Page {currentPage} of {Math.ceil(totalPayments / pageSize)}</div>
+                  <button onClick={() => setCurrentPage(p => Math.min(Math.ceil(totalPayments / pageSize), p + 1))} disabled={currentPage === Math.ceil(totalPayments / pageSize)} className="px-3 py-1.5 border border-app-border rounded-xl text-sm font-medium text-app-text-muted hover:bg-app-surface-alt disabled:opacity-50 transition-colors">Next</button>
                 </div>
               )}
             </div>
@@ -683,18 +683,18 @@ export default function FeeManagementPage() {
           {catError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{catError}</div>}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Name <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1">Name <span className="text-red-500">*</span></label>
               <input value={catForm.name} onChange={e => setCatForm({ ...catForm, name: e.target.value })} className={inputCls} placeholder="e.g. School Fees" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Amount (₦) <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1">Amount (₦) <span className="text-red-500">*</span></label>
               <input type="number" value={catForm.amount} onChange={e => setCatForm({ ...catForm, amount: e.target.value })} className={inputCls} placeholder="e.g. 25000" min="0" />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Class Level</label>
-              <select value={catForm.class_level} onChange={e => setCatForm({ ...catForm, class_level: e.target.value })} className={`${inputCls} bg-white`}>
+              <label className="block text-sm font-medium text-app-text mb-1">Class Level</label>
+              <select value={catForm.class_level} onChange={e => setCatForm({ ...catForm, class_level: e.target.value })} className={`${inputCls} bg-app-surface`}>
                 <option value="">All Classes</option>
                 {Array.from(new Set(classes.map(c => c.level))).map(lvl => (
                   <option key={lvl} value={lvl}>{lvl}</option>
@@ -702,29 +702,29 @@ export default function FeeManagementPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Due Date</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Due Date</label>
               <input type="date" value={catForm.due_date} onChange={e => setCatForm({ ...catForm, due_date: e.target.value })} className={inputCls} />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Description</label>
             <input value={catForm.description} onChange={e => setCatForm({ ...catForm, description: e.target.value })} className={inputCls} placeholder="Optional description" />
           </div>
-          <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
+          <div className="flex items-center justify-between p-3 bg-app-surface-alt rounded-xl border border-app-border">
             <div>
-              <p className="text-sm font-medium text-slate-700">Mandatory Fee</p>
-              <p className="text-xs text-slate-400">Students are required to pay this fee</p>
+              <p className="text-sm font-medium text-app-text">Mandatory Fee</p>
+              <p className="text-xs text-app-text-muted">Students are required to pay this fee</p>
             </div>
             <button
               type="button"
               onClick={() => setCatForm({ ...catForm, is_mandatory: !catForm.is_mandatory })}
               className={`relative w-11 h-6 rounded-full transition-colors ${catForm.is_mandatory ? 'bg-emerald-500' : 'bg-slate-200'}`}
             >
-              <span className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${catForm.is_mandatory ? 'translate-x-5' : ''}`} />
+              <span className={`absolute top-1 left-1 w-4 h-4 bg-app-surface rounded-full shadow transition-transform ${catForm.is_mandatory ? 'translate-x-5' : ''}`} />
             </button>
           </div>
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setShowCatModal(false)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => setShowCatModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
             <button onClick={saveCat} disabled={savingCat || !catForm.name.trim() || !catForm.amount} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
               {savingCat ? 'Saving...' : editCat ? 'Update' : 'Add Category'}
             </button>
@@ -734,9 +734,9 @@ export default function FeeManagementPage() {
 
       <Modal isOpen={rejectModalOpen} onClose={() => setRejectModalOpen(false)} title="Reject Payment">
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">Please provide a reason for rejecting this payment.</p>
+          <p className="text-sm text-app-text-muted">Please provide a reason for rejecting this payment.</p>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Reason <span className="text-red-500">*</span></label>
+            <label className="block text-sm font-medium text-app-text mb-1">Reason <span className="text-red-500">*</span></label>
             <textarea
               value={rejectReason}
               onChange={e => setRejectReason(e.target.value)}
@@ -745,7 +745,7 @@ export default function FeeManagementPage() {
             />
           </div>
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setRejectModalOpen(false)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => setRejectModalOpen(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
             <button onClick={confirmReject} disabled={!rejectReason.trim() || !!processingId} className="flex-1 px-4 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
               {processingId ? 'Processing...' : 'Reject Payment'}
             </button>
@@ -757,10 +757,10 @@ export default function FeeManagementPage() {
         <div className="space-y-4">
           {payError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{payError}</div>}
           {payForFee && (
-            <div className="bg-slate-50 rounded-xl p-3 border border-slate-200">
-              <p className="text-sm font-semibold text-slate-700">{payForFee.name}</p>
-              <div className="flex gap-4 mt-1 text-xs text-slate-500">
-                <span>Total: <strong className="text-slate-700">₦{Number(payForFee.amount).toLocaleString()}</strong></span>
+            <div className="bg-app-surface-alt rounded-xl p-3 border border-app-border">
+              <p className="text-sm font-semibold text-app-text">{payForFee.name}</p>
+              <div className="flex gap-4 mt-1 text-xs text-app-text-muted">
+                <span>Total: <strong className="text-app-text">₦{Number(payForFee.amount).toLocaleString()}</strong></span>
                 <span>Paid: <strong className="text-emerald-600">₦{Number(payForFee.paid).toLocaleString()}</strong></span>
                 <span>Balance: <strong className="text-red-500">₦{Number(payForFee.balance).toLocaleString()}</strong></span>
               </div>
@@ -768,32 +768,32 @@ export default function FeeManagementPage() {
           )}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Amount (₦) <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1">Amount (₦) <span className="text-red-500">*</span></label>
               <input type="number" value={payForm.amount_paid} onChange={e => setPayForm({ ...payForm, amount_paid: e.target.value })} className={inputCls} min="0" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Payment Date</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Payment Date</label>
               <input type="date" value={payForm.payment_date} onChange={e => setPayForm({ ...payForm, payment_date: e.target.value })} className={inputCls} />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Payment Method</label>
-              <select value={payForm.payment_method} onChange={e => setPayForm({ ...payForm, payment_method: e.target.value })} className={`${inputCls} bg-white`}>
+              <label className="block text-sm font-medium text-app-text mb-1">Payment Method</label>
+              <select value={payForm.payment_method} onChange={e => setPayForm({ ...payForm, payment_method: e.target.value })} className={`${inputCls} bg-app-surface`}>
                 {PAYMENT_METHODS.map(m => <option key={m} value={m}>{m.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Receipt Number</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Receipt Number</label>
               <input value={payForm.receipt_number} onChange={e => setPayForm({ ...payForm, receipt_number: e.target.value })} className={`${inputCls} font-mono`} />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Notes</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Notes</label>
             <input value={payForm.notes} onChange={e => setPayForm({ ...payForm, notes: e.target.value })} className={inputCls} placeholder="Optional notes" />
           </div>
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setShowPayModal(false)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => setShowPayModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
             <button onClick={savePayment} disabled={savingPay || !payForm.amount_paid} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
               {savingPay ? 'Saving...' : 'Record Payment'}
             </button>

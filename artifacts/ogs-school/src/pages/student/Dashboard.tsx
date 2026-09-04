@@ -51,8 +51,8 @@ export default function StudentDashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-slate-800">Hello, {profile?.first_name}!</h2>
-        <p className="text-slate-500 mt-1">Track your academic progress and stay up to date</p>
+        <h2 className="text-2xl font-bold text-app-text">Hello, {profile?.first_name}!</h2>
+        <p className="text-app-text-muted mt-1">Track your academic progress and stay up to date</p>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -66,19 +66,19 @@ export default function StudentDashboard() {
         <div className="lg:col-span-2 space-y-6">
           <DashboardCalendar />
           
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-            <div className="p-5 border-b border-slate-100">
-              <h3 className="font-semibold text-slate-800 text-sm">Upcoming Assignments</h3>
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+            <div className="p-5 border-b border-app-border">
+              <h3 className="font-semibold text-app-text text-sm">Upcoming Assignments</h3>
             </div>
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y divide-app-border">
               {assignments.slice(0, 4).length === 0 ? (
-                <div className="p-5 text-center text-slate-400 text-xs">No pending assignments</div>
+                <div className="p-5 text-center text-app-text-muted text-xs">No pending assignments</div>
               ) : assignments.slice(0, 4).map(a => (
-                <div key={a.id} className="p-4 hover:bg-slate-50 transition-colors">
+                <div key={a.id} className="p-4 hover:bg-app-surface-alt transition-colors">
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-slate-800 truncate">{a.title}</p>
-                      <p className="text-[11px] text-slate-500 truncate">{(a.subjects as any)?.name}</p>
+                      <p className="text-sm font-medium text-app-text truncate">{a.title}</p>
+                      <p className="text-[11px] text-app-text-muted truncate">{(a.subjects as any)?.name}</p>
                     </div>
                   </div>
                   <div className="flex items-center justify-between mt-2">
@@ -103,23 +103,23 @@ export default function StudentDashboard() {
         </div>
 
         <div className="space-y-6">
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-            <div className="p-5 border-b border-slate-100 flex items-center justify-between">
-              <h3 className="font-semibold text-slate-800 text-sm">Recent Grades</h3>
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+            <div className="p-5 border-b border-app-border flex items-center justify-between">
+              <h3 className="font-semibold text-app-text text-sm">Recent Grades</h3>
               <button onClick={() => navigate('/grades')} className="text-xs text-emerald-600 hover:underline">View all</button>
             </div>
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y divide-app-border">
               {loading ? (
-                <div className="p-5 text-center text-slate-400 text-sm">Loading...</div>
+                <div className="p-5 text-center text-app-text-muted text-sm">Loading...</div>
               ) : recentGrades.length === 0 ? (
-                <div className="p-5 text-center text-slate-400 text-sm">No grades recorded yet</div>
+                <div className="p-5 text-center text-app-text-muted text-sm">No grades recorded yet</div>
               ) : recentGrades.slice(0, 5).map(g => {
                 const gradeColor = g.grade?.startsWith('A') ? 'text-emerald-600 bg-emerald-50' : g.grade?.startsWith('B') ? 'text-blue-600 bg-blue-50' : g.grade?.startsWith('C') ? 'text-amber-600 bg-amber-50' : 'text-red-500 bg-red-50';
                 return (
                   <div key={g.id} className="flex items-center justify-between px-5 py-3">
                     <div>
-                      <p className="text-sm font-medium text-slate-800 truncate max-w-[120px]">{(g.subjects as any)?.name}</p>
-                      <p className="text-[10px] text-slate-500">{g.total_score}/100</p>
+                      <p className="text-sm font-medium text-app-text truncate max-w-[120px]">{(g.subjects as any)?.name}</p>
+                      <p className="text-[10px] text-app-text-muted">{g.total_score}/100</p>
                     </div>
                     <span className={`text-xs font-bold px-2 py-0.5 rounded-md ${gradeColor}`}>{g.grade}</span>
                   </div>
@@ -128,17 +128,17 @@ export default function StudentDashboard() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-            <div className="p-5 border-b border-slate-100">
-              <h3 className="font-semibold text-slate-800 text-sm">Announcements</h3>
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+            <div className="p-5 border-b border-app-border">
+              <h3 className="font-semibold text-app-text text-sm">Announcements</h3>
             </div>
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y divide-app-border">
               {announcements.length === 0 ? (
-                <div className="p-5 text-center text-slate-400 text-xs">No announcements</div>
+                <div className="p-5 text-center text-app-text-muted text-xs">No announcements</div>
               ) : announcements.map(a => (
                 <div key={a.id} className="p-4">
-                  <p className="text-sm font-medium text-slate-800 truncate">{a.title}</p>
-                  <p className="text-[10px] text-slate-400 mt-0.5">{new Date(a.created_at).toLocaleDateString()}</p>
+                  <p className="text-sm font-medium text-app-text truncate">{a.title}</p>
+                  <p className="text-[10px] text-app-text-muted mt-0.5">{new Date(a.created_at).toLocaleDateString()}</p>
                 </div>
               ))}
             </div>

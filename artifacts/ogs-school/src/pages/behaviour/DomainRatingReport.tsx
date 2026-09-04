@@ -209,83 +209,83 @@ export default function DomainRatingReport() {
 
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Domain Rating Report</h1>
-          <p className="text-sm text-slate-500 mt-0.5">View and export student domain ratings</p>
+          <h1 className="text-2xl font-bold text-app-text">Domain Rating Report</h1>
+          <p className="text-sm text-app-text-muted mt-0.5">View and export student domain ratings</p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <button onClick={handlePrint} className="flex items-center gap-2 px-3 py-2 border border-slate-300 rounded-lg text-sm text-slate-600 hover:bg-slate-50 transition-colors">
+          <button onClick={handlePrint} className="flex items-center gap-2 px-3 py-2 border border-app-border rounded-lg text-sm text-app-text-muted hover:bg-app-surface-alt transition-colors">
             <Printer className="h-4 w-4" /> Print / PDF
           </button>
-          <button onClick={handleCSV} className="flex items-center gap-2 px-3 py-2 border border-slate-300 rounded-lg text-sm text-slate-600 hover:bg-slate-50 transition-colors">
+          <button onClick={handleCSV} className="flex items-center gap-2 px-3 py-2 border border-app-border rounded-lg text-sm text-app-text-muted hover:bg-app-surface-alt transition-colors">
             <FileText className="h-4 w-4" /> CSV
           </button>
           <button onClick={handleExcel} className="flex items-center gap-2 px-3 py-2 border border-emerald-300 rounded-lg text-sm text-emerald-700 hover:bg-emerald-50 transition-colors">
             <Download className="h-4 w-4" /> Excel
           </button>
-          <button onClick={handleCopy} className="flex items-center gap-2 px-3 py-2 border border-slate-300 rounded-lg text-sm text-slate-600 hover:bg-slate-50 transition-colors">
+          <button onClick={handleCopy} className="flex items-center gap-2 px-3 py-2 border border-app-border rounded-lg text-sm text-app-text-muted hover:bg-app-surface-alt transition-colors">
             <Copy className="h-4 w-4" /> Copy
           </button>
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4">
         <div className="flex flex-wrap gap-3 items-end">
           <div>
-            <label className="block text-xs font-medium text-slate-500 mb-1">Domain</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Domain</label>
             <div className="relative">
               <select
                 value={filters.domain}
                 onChange={e => setFilters(f => ({ ...f, domain: e.target.value as any }))}
-                className="appearance-none border border-slate-300 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="appearance-none border border-app-border rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               >
                 {DOMAIN_OPTIONS.map(d => <option key={d.value} value={d.value}>{d.label}</option>)}
               </select>
-              <ChevronDown className="absolute right-2 top-2.5 h-4 w-4 text-slate-400 pointer-events-none" />
+              <ChevronDown className="absolute right-2 top-2.5 h-4 w-4 text-app-text-muted pointer-events-none" />
             </div>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-500 mb-1">Academic Year</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Academic Year</label>
             <select
               value={filters.year_id}
               onChange={e => setFilters(f => ({ ...f, year_id: e.target.value }))}
-              className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             >
               <option value="">Select Year</option>
               {years.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-500 mb-1">Class</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Class</label>
             <select
               value={filters.class_id}
               onChange={e => setFilters(f => ({ ...f, class_id: e.target.value }))}
-              className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             >
               <option value="">Select Class</option>
               {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-500 mb-1">Term</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Term</label>
             <select
               value={filters.term_id}
               onChange={e => setFilters(f => ({ ...f, term_id: e.target.value }))}
-              className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             >
               <option value="">All Terms</option>
               {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
             </select>
           </div>
           <div className="ml-auto">
-            <label className="block text-xs font-medium text-slate-500 mb-1">Search Student</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Search Student</label>
             <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-400" />
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-app-text-muted" />
               <input
                 type="text"
                 placeholder="Name or admission..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="border border-slate-300 rounded-lg pl-8 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 w-52"
+                className="border border-app-border rounded-lg pl-8 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 w-52"
               />
             </div>
           </div>
@@ -293,55 +293,55 @@ export default function DomainRatingReport() {
       </div>
 
       {!filters.class_id || !filters.year_id ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 py-16 text-center text-slate-400 text-sm">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border py-16 text-center text-app-text-muted text-sm">
           Select a domain, class, and academic year to generate the report
         </div>
       ) : loading ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 py-16 text-center">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border py-16 text-center">
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto" />
         </div>
       ) : (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
           <div ref={printRef}>
-            <div className="px-5 py-4 border-b border-slate-200 bg-slate-50">
-              <h2 className="text-base font-semibold text-slate-800 text-center">{domainLabel} Rating Report</h2>
-              <p className="text-sm text-slate-500 text-center mt-0.5">
+            <div className="px-5 py-4 border-b border-app-border bg-app-surface-alt">
+              <h2 className="text-base font-semibold text-app-text text-center">{domainLabel} Rating Report</h2>
+              <p className="text-sm text-app-text-muted text-center mt-0.5">
                 {className} &bull; {yearName} &bull; {termName}
               </p>
             </div>
 
             {filtered.length === 0 ? (
-              <div className="py-16 text-center text-slate-400 text-sm">
+              <div className="py-16 text-center text-app-text-muted text-sm">
                 No rating data found for the selected filters
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-slate-200 bg-slate-50">
-                      <th className="text-left px-4 py-2 text-slate-600 font-medium sticky left-0 bg-slate-50 z-10 border-r border-slate-200 min-w-[160px]">
+                    <tr className="border-b border-app-border bg-app-surface-alt">
+                      <th className="text-left px-4 py-2 text-app-text-muted font-medium sticky left-0 bg-app-surface-alt z-10 border-r border-app-border min-w-[160px]">
                         Student
                       </th>
                       {skills.map(skill => (
                         <th key={skill.id} className="px-2 py-2 text-center min-w-[90px]">
                           <div className="flex items-end justify-center h-20">
-                            <span className="text-slate-600 font-medium text-xs" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
+                            <span className="text-app-text-muted font-medium text-xs" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
                               {skill.name}
                             </span>
                           </div>
                         </th>
                       ))}
-                      <th className="px-3 py-2 text-center text-slate-600 font-medium min-w-[70px]">Avg</th>
+                      <th className="px-3 py-2 text-center text-app-text-muted font-medium min-w-[70px]">Avg</th>
                     </tr>
                   </thead>
                   <tbody>
                     {filtered.map((row, idx) => {
                       const avg = avgRating(row);
                       return (
-                        <tr key={row.student_id} className={`border-b border-slate-100 ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/40'}`}>
-                          <td className="px-4 py-2 sticky left-0 bg-inherit z-10 border-r border-slate-100">
-                            <div className="font-medium text-slate-800">{row.student_name}</div>
-                            {row.admission_number && <div className="text-xs text-slate-400">{row.admission_number}</div>}
+                        <tr key={row.student_id} className={`border-b border-app-border ${idx % 2 === 0 ? 'bg-app-surface' : 'bg-app-surface-alt/40'}`}>
+                          <td className="px-4 py-2 sticky left-0 bg-inherit z-10 border-r border-app-border">
+                            <div className="font-medium text-app-text">{row.student_name}</div>
+                            {row.admission_number && <div className="text-xs text-app-text-muted">{row.admission_number}</div>}
                           </td>
                           {skills.map(skill => {
                             const r = row.ratings[skill.id];
@@ -374,7 +374,7 @@ export default function DomainRatingReport() {
           </div>
 
           {filtered.length > 0 && (
-            <div className="px-5 py-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+            <div className="px-5 py-3 bg-app-surface-alt border-t border-app-border flex items-center justify-between text-xs text-app-text-muted">
               <span>{filtered.length} student{filtered.length !== 1 ? 's' : ''}</span>
               <div className="flex gap-3">
                 {[1,2,3,4,5].map(n => (

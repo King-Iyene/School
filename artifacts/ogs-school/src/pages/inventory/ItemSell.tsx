@@ -3,7 +3,7 @@ import { ShoppingCart } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 
-const INPUT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 interface InventoryItem {
   id: string;
@@ -141,7 +141,7 @@ export default function ItemSell() {
   function buyerTypeBadge(type: string) {
     if (type === 'student') return 'bg-blue-100 text-blue-700';
     if (type === 'staff') return 'bg-purple-100 text-purple-700';
-    return 'bg-slate-100 text-slate-600';
+    return 'bg-slate-100 text-app-text-muted';
   }
 
   return (
@@ -150,15 +150,15 @@ export default function ItemSell() {
         <div className="bg-emerald-500 text-white p-2 rounded-xl">
           <ShoppingCart size={20} />
         </div>
-        <h1 className="text-2xl font-bold text-slate-800">Sell Items</h1>
+        <h1 className="text-2xl font-bold text-app-text">Sell Items</h1>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-6">
-        <h2 className="text-base font-semibold text-slate-700 mb-4">New Sale</h2>
+      <div className="bg-app-surface rounded-2xl border border-app-border p-6">
+        <h2 className="text-base font-semibold text-app-text mb-4">New Sale</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Item</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Item</label>
             <select
               required
               className={INPUT_CLASS}
@@ -174,7 +174,7 @@ export default function ItemSell() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Buyer Name</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Buyer Name</label>
               <input
                 required
                 className={INPUT_CLASS}
@@ -184,7 +184,7 @@ export default function ItemSell() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Buyer Type</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Buyer Type</label>
               <select
                 className={INPUT_CLASS}
                 value={form.buyer_type}
@@ -199,7 +199,7 @@ export default function ItemSell() {
 
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Quantity</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Quantity</label>
               <input
                 type="number"
                 min="1"
@@ -212,7 +212,7 @@ export default function ItemSell() {
               {stockError && <p className="text-red-600 text-xs mt-1">{stockError}</p>}
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Unit Price (₦)</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Unit Price (₦)</label>
               <input
                 type="number"
                 min="0"
@@ -225,17 +225,17 @@ export default function ItemSell() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Total Price (₦)</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Total Price (₦)</label>
               <input
                 readOnly
-                className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm bg-slate-50 text-slate-600 w-full"
+                className="border border-app-border rounded-xl px-3 py-2.5 text-sm bg-app-surface-alt text-app-text-muted w-full"
                 value={form.total_price}
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Sell Date</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Sell Date</label>
             <input
               type="date"
               required
@@ -246,7 +246,7 @@ export default function ItemSell() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Notes</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Notes</label>
             <textarea
               className={INPUT_CLASS}
               rows={2}
@@ -268,43 +268,43 @@ export default function ItemSell() {
         </form>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-        <div className="px-4 py-3 border-b border-slate-200">
-          <h2 className="text-base font-semibold text-slate-700">Recent Sales</h2>
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
+        <div className="px-4 py-3 border-b border-app-border">
+          <h2 className="text-base font-semibold text-app-text">Recent Sales</h2>
         </div>
         {loading ? (
-          <div className="p-12 text-center text-slate-400">Loading...</div>
+          <div className="p-12 text-center text-app-text-muted">Loading...</div>
         ) : sells.length === 0 ? (
           <div className="p-12 text-center">
             <ShoppingCart size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-500">No sales yet.</p>
+            <p className="text-app-text-muted">No sales yet.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Date</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Item</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Buyer</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Type</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Qty</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Total</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Date</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Item</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Buyer</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Type</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Qty</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Total</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {sells.map(s => (
-                  <tr key={s.id} className="hover:bg-slate-50/50">
-                    <td className="px-4 py-3 text-slate-600">{s.sell_date ? new Date(s.sell_date).toLocaleDateString() : '-'}</td>
-                    <td className="px-4 py-3 font-medium text-slate-800">{s.inventory_items?.name || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600">{s.buyer_name || '-'}</td>
+                  <tr key={s.id} className="hover:bg-app-surface-alt/50">
+                    <td className="px-4 py-3 text-app-text-muted">{s.sell_date ? new Date(s.sell_date).toLocaleDateString() : '-'}</td>
+                    <td className="px-4 py-3 font-medium text-app-text">{s.inventory_items?.name || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{s.buyer_name || '-'}</td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-1 rounded-lg text-xs font-medium capitalize ${buyerTypeBadge(s.buyer_type)}`}>
                         {s.buyer_type}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-slate-700">{s.quantity}</td>
-                    <td className="px-4 py-3 text-slate-700 font-medium">₦{Number(s.total_price).toLocaleString()}</td>
+                    <td className="px-4 py-3 text-app-text">{s.quantity}</td>
+                    <td className="px-4 py-3 text-app-text font-medium">₦{Number(s.total_price).toLocaleString()}</td>
                   </tr>
                 ))}
               </tbody>

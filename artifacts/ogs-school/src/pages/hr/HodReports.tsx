@@ -27,7 +27,7 @@ CREATE POLICY "school_access" ON hod_reports
 --    Bucket name: hod-reports
 --    Public: YES (toggle on)`;
 
-const ic = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white';
+const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
 
 const REPORT_TYPES = ['Academic', 'Activity', 'Disciplinary', 'Financial', 'Infrastructure', 'Other'];
 const STATUS_COLORS: Record<string, string> = {
@@ -179,8 +179,8 @@ export default function HodReports() {
     <div className="p-6 space-y-5 max-w-5xl mx-auto">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold text-slate-800">HOD Reports</h1>
-          <p className="text-sm text-slate-500 mt-0.5">
+          <h1 className="text-xl font-bold text-app-text">HOD Reports</h1>
+          <p className="text-sm text-app-text-muted mt-0.5">
             {isAdmin ? 'View and acknowledge departmental reports from all HODs' : 'Submit your departmental reports via the portal'}
           </p>
         </div>
@@ -208,42 +208,42 @@ export default function HodReports() {
       )}
 
       {loading ? (
-        <div className="flex items-center gap-2 text-slate-500 py-8">
+        <div className="flex items-center gap-2 text-app-text-muted py-8">
           <div className="w-5 h-5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" /> Loading…
         </div>
       ) : reports.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center text-slate-400">
+        <div className="bg-app-surface rounded-2xl border border-app-border p-12 text-center text-app-text-muted">
           <FileText size={32} className="mx-auto mb-3 opacity-30" />
           <p className="text-sm">No reports found.</p>
           {canSubmit && <p className="text-xs mt-1">Click "Submit Report" to submit your first departmental report.</p>}
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 border-b border-slate-100">
+            <thead className="bg-app-surface-alt border-b border-app-border">
               <tr>
                 {['Title', 'Department', 'Period', 'Type', isAdmin ? 'Submitted By' : '', 'Date', 'Attach', 'Status', 'Action'].filter(Boolean).map(h => (
-                  <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">{h}</th>
+                  <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide">{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
               {reports.map(r => (
-                <tr key={r.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={r.id} className="hover:bg-app-surface-alt transition-colors">
                   <td className="px-4 py-3">
                     <button onClick={() => setViewReport(r)} className="text-emerald-700 hover:underline font-medium text-left">
                       {r.title}
                     </button>
                   </td>
-                  <td className="px-4 py-3 text-slate-600">{r.department}</td>
-                  <td className="px-4 py-3 text-slate-600 whitespace-nowrap">{r.period}</td>
-                  <td className="px-4 py-3 text-slate-500 capitalize">{r.report_type}</td>
+                  <td className="px-4 py-3 text-app-text-muted">{r.department}</td>
+                  <td className="px-4 py-3 text-app-text-muted whitespace-nowrap">{r.period}</td>
+                  <td className="px-4 py-3 text-app-text-muted capitalize">{r.report_type}</td>
                   {isAdmin && (
-                    <td className="px-4 py-3 text-slate-600">
+                    <td className="px-4 py-3 text-app-text-muted">
                       {r.profiles ? `${r.profiles.first_name} ${r.profiles.last_name}` : '—'}
                     </td>
                   )}
-                  <td className="px-4 py-3 text-slate-500 text-xs whitespace-nowrap">{new Date(r.created_at).toLocaleDateString()}</td>
+                  <td className="px-4 py-3 text-app-text-muted text-xs whitespace-nowrap">{new Date(r.created_at).toLocaleDateString()}</td>
                   <td className="px-4 py-3">
                     {r.attachment_url ? (
                       <a href={r.attachment_url} target="_blank" rel="noreferrer"
@@ -253,13 +253,13 @@ export default function HodReports() {
                     ) : <span className="text-slate-300">—</span>}
                   </td>
                   <td className="px-4 py-3">
-                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium capitalize ${STATUS_COLORS[r.status] || 'bg-slate-100 text-slate-600'}`}>
+                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium capitalize ${STATUS_COLORS[r.status] || 'bg-slate-100 text-app-text-muted'}`}>
                       {r.status}
                     </span>
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <button onClick={() => setViewReport(r)} className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700">
+                      <button onClick={() => setViewReport(r)} className="p-1.5 rounded-lg hover:bg-slate-100 text-app-text-muted hover:text-app-text">
                         <Eye size={14} />
                       </button>
                       {isAdmin && r.status === 'submitted' && (
@@ -288,39 +288,39 @@ export default function HodReports() {
         <div className="space-y-4 p-1 max-h-[75vh] overflow-y-auto pr-1">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-xs text-slate-500 mb-1 block">Department *</label>
+              <label className="text-xs text-app-text-muted mb-1 block">Department *</label>
               <input className={ic} value={form.department} onChange={e => setForm(f => ({ ...f, department: e.target.value }))} placeholder="e.g. Mathematics, English" />
             </div>
             <div>
-              <label className="text-xs text-slate-500 mb-1 block">Report Type *</label>
+              <label className="text-xs text-app-text-muted mb-1 block">Report Type *</label>
               <select className={ic} value={form.report_type} onChange={e => setForm(f => ({ ...f, report_type: e.target.value }))}>
                 {REPORT_TYPES.map(t => <option key={t}>{t}</option>)}
               </select>
             </div>
           </div>
           <div>
-            <label className="text-xs text-slate-500 mb-1 block">Report Title *</label>
+            <label className="text-xs text-app-text-muted mb-1 block">Report Title *</label>
             <input className={ic} value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} placeholder="e.g. End of Term Academic Report — Mathematics Dept" />
           </div>
           <div>
-            <label className="text-xs text-slate-500 mb-1 block">Period (Term / Month / Year) *</label>
+            <label className="text-xs text-app-text-muted mb-1 block">Period (Term / Month / Year) *</label>
             <input className={ic} value={form.period} onChange={e => setForm(f => ({ ...f, period: e.target.value }))} placeholder="e.g. First Term 2025/2026" />
           </div>
           <div>
-            <label className="text-xs text-slate-500 mb-1 block">Report Content *</label>
+            <label className="text-xs text-app-text-muted mb-1 block">Report Content *</label>
             <textarea className={ic} rows={8} value={form.content} onChange={e => setForm(f => ({ ...f, content: e.target.value }))} placeholder="Write your full report here..." />
           </div>
 
           {/* File Upload */}
           <div>
-            <label className="text-xs text-slate-500 mb-1 block">
-              Attach Document <span className="text-slate-400">(PDF, DOC, DOCX — optional)</span>
+            <label className="text-xs text-app-text-muted mb-1 block">
+              Attach Document <span className="text-app-text-muted">(PDF, DOC, DOCX — optional)</span>
             </label>
             <div
               onClick={() => fileInputRef.current?.click()}
-              className="border-2 border-dashed border-slate-200 rounded-xl p-4 flex flex-col items-center gap-2 cursor-pointer hover:border-emerald-400 hover:bg-emerald-50/40 transition-colors group"
+              className="border-2 border-dashed border-app-border rounded-xl p-4 flex flex-col items-center gap-2 cursor-pointer hover:border-emerald-400 hover:bg-emerald-50/40 transition-colors group"
             >
-              <Upload size={20} className="text-slate-400 group-hover:text-emerald-500" />
+              <Upload size={20} className="text-app-text-muted group-hover:text-emerald-500" />
               {selectedFile ? (
                 <div className="flex items-center gap-2">
                   <Paperclip size={14} className="text-emerald-600" />
@@ -332,7 +332,7 @@ export default function HodReports() {
                   ><X size={14} /></button>
                 </div>
               ) : (
-                <span className="text-xs text-slate-400">Click to select a file</span>
+                <span className="text-xs text-app-text-muted">Click to select a file</span>
               )}
             </div>
             <input
@@ -356,7 +356,7 @@ export default function HodReports() {
               className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-60">
               {saving ? 'Submitting…' : 'Submit Report'}
             </button>
-            <button onClick={() => setModalOpen(false)} className="px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl text-sm font-medium">Cancel</button>
+            <button onClick={() => setModalOpen(false)} className="px-4 py-2.5 bg-slate-100 text-app-text rounded-xl text-sm font-medium">Cancel</button>
           </div>
         </div>
       </Modal>
@@ -364,11 +364,11 @@ export default function HodReports() {
       {/* ── View Report Modal ────────────────────────────────────────────── */}
       {viewReport && (
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setViewReport(null)}>
-          <div className="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-            <div className="flex items-center justify-between p-5 border-b border-slate-100">
+          <div className="bg-app-surface rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between p-5 border-b border-app-border">
               <div>
-                <h2 className="font-bold text-slate-800">{viewReport.title}</h2>
-                <p className="text-xs text-slate-500 mt-0.5">{viewReport.department} · {viewReport.period} · {viewReport.report_type}</p>
+                <h2 className="font-bold text-app-text">{viewReport.title}</h2>
+                <p className="text-xs text-app-text-muted mt-0.5">{viewReport.department} · {viewReport.period} · {viewReport.report_type}</p>
               </div>
               <button onClick={() => setViewReport(null)} className="p-2 rounded-xl hover:bg-slate-100"><X size={18} /></button>
             </div>
@@ -376,22 +376,22 @@ export default function HodReports() {
               <div className="flex items-center gap-3 text-sm flex-wrap">
                 <span className={`px-2 py-0.5 rounded-full text-xs font-medium capitalize ${STATUS_COLORS[viewReport.status] || ''}`}>{viewReport.status}</span>
                 {viewReport.profiles && (
-                  <span className="text-slate-500">Submitted by {viewReport.profiles.first_name} {viewReport.profiles.last_name}</span>
+                  <span className="text-app-text-muted">Submitted by {viewReport.profiles.first_name} {viewReport.profiles.last_name}</span>
                 )}
-                <span className="text-slate-400 text-xs">{new Date(viewReport.created_at).toLocaleString()}</span>
+                <span className="text-app-text-muted text-xs">{new Date(viewReport.created_at).toLocaleString()}</span>
               </div>
-              <div className="bg-slate-50 rounded-xl p-4 text-sm text-slate-700 whitespace-pre-wrap leading-relaxed">
+              <div className="bg-app-surface-alt rounded-xl p-4 text-sm text-app-text whitespace-pre-wrap leading-relaxed">
                 {viewReport.content}
               </div>
               {viewReport.attachment_url && (
                 <a href={viewReport.attachment_url} target="_blank" rel="noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-medium transition-colors">
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-app-text rounded-xl text-sm font-medium transition-colors">
                   <Download size={15} />
                   {viewReport.attachment_name || 'Download Attachment'}
                 </a>
               )}
               {isAdmin && (
-                <div className="flex gap-2 pt-2 border-t border-slate-100">
+                <div className="flex gap-2 pt-2 border-t border-app-border">
                   {viewReport.status === 'submitted' && (
                     <button onClick={() => updateStatus(viewReport.id, 'reviewed')}
                       className="px-4 py-2 bg-amber-100 text-amber-700 rounded-xl text-sm font-medium hover:bg-amber-200">

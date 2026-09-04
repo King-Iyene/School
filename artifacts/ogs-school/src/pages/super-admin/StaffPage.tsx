@@ -24,7 +24,7 @@ interface StaffRecord {
 
 const ROLES = ['teacher', 'accountant', 'admin', 'librarian', 'security_officer', 'support', 'other'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const inputCls = 'w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-colors';
+const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-colors';
 
 const emptyForm = {
   staff_id: '', first_name: '', last_name: '', role: 'teacher',
@@ -35,7 +35,7 @@ const emptyForm = {
 
 const statusColors: Record<string, string> = {
   active: 'bg-emerald-100 text-emerald-700',
-  inactive: 'bg-slate-100 text-slate-500',
+  inactive: 'bg-slate-100 text-app-text-muted',
 };
 
 const roleColors: Record<string, string> = {
@@ -44,8 +44,8 @@ const roleColors: Record<string, string> = {
   admin: 'bg-emerald-100 text-emerald-700',
   librarian: 'bg-teal-100 text-teal-700',
   security_officer: 'bg-red-100 text-red-700',
-  support: 'bg-slate-100 text-slate-600',
-  other: 'bg-slate-100 text-slate-600',
+  support: 'bg-slate-100 text-app-text-muted',
+  other: 'bg-slate-100 text-app-text-muted',
 };
 
 import { cache } from '../../utils/cache';
@@ -287,81 +287,81 @@ export default function StaffPage() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Staff</h2>
-          <p className="text-slate-500 text-sm">Manage staff records and pay slips</p>
+          <h2 className="text-xl font-bold text-app-text">Staff</h2>
+          <p className="text-app-text-muted text-sm">Manage staff records and pay slips</p>
         </div>
         <button onClick={openAdd} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm">
           <Plus className="w-4 h-4" /> Add Staff
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 flex flex-wrap gap-3">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 flex flex-wrap gap-3">
         <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <input value={search} onChange={e => { setSearch(e.target.value); setCurrentPage(1); }} placeholder="Search by name, ID, email..." className="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
+          <input value={search} onChange={e => { setSearch(e.target.value); setCurrentPage(1); }} placeholder="Search by name, ID, email..." className="w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
         </div>
-        <select value={filterRole} onChange={e => { setFilterRole(e.target.value); setCurrentPage(1); }} className="border border-slate-200 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none">
+        <select value={filterRole} onChange={e => { setFilterRole(e.target.value); setCurrentPage(1); }} className="border border-app-border rounded-xl px-3 py-2 text-sm bg-app-surface focus:outline-none">
           <option value="">All Roles</option>
           {ROLES.map(r => <option key={r} value={r}>{r.charAt(0).toUpperCase() + r.slice(1)}</option>)}
         </select>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-slate-100 bg-slate-50">
+            <tr className="border-b border-app-border bg-app-surface-alt">
               {['SL', 'Staff ID', 'Full Name', 'Role', 'Phone', 'Email', 'Subject', 'Date Joined', 'Status', 'Actions'].map(h => (
-                <th key={h} className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">{h}</th>
+                <th key={h} className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">{h}</th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-app-border">
             {loading ? (
-              <tr><td colSpan={10} className="text-center py-10 text-slate-400">Loading...</td></tr>
+              <tr><td colSpan={10} className="text-center py-10 text-app-text-muted">Loading...</td></tr>
             ) : staff.length === 0 ? (
               <tr><td colSpan={10} className="text-center py-10">
                 <Briefcase className="w-10 h-10 text-slate-200 mx-auto mb-2" />
-                <p className="text-slate-400 text-sm">{totalCount === 0 ? 'No staff records yet. Click Add Staff to begin.' : 'No staff match the filter.'}</p>
+                <p className="text-app-text-muted text-sm">{totalCount === 0 ? 'No staff records yet. Click Add Staff to begin.' : 'No staff match the filter.'}</p>
               </td></tr>
             ) : staff.map((s, idx) => (
-              <tr key={s.id} className="hover:bg-slate-50 transition-colors">
-                <td className="px-4 py-3 text-sm text-slate-500">{(currentPage - 1) * pageSize + idx + 1}</td>
-                <td className="px-4 py-3 text-sm font-mono text-slate-700">{s.staff_id}</td>
+              <tr key={s.id} className="hover:bg-app-surface-alt transition-colors">
+                <td className="px-4 py-3 text-sm text-app-text-muted">{(currentPage - 1) * pageSize + idx + 1}</td>
+                <td className="px-4 py-3 text-sm font-mono text-app-text">{s.staff_id}</td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-semibold text-slate-600 flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-semibold text-app-text-muted flex-shrink-0">
                       {s.first_name[0]}{s.last_name[0]}
                     </div>
-                    <span className="text-sm font-medium text-slate-800">{s.first_name} {s.last_name}</span>
+                    <span className="text-sm font-medium text-app-text">{s.first_name} {s.last_name}</span>
                   </div>
                 </td>
                 <td className="px-4 py-3">
-                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${roleColors[s.role] ?? 'bg-slate-100 text-slate-600'}`}>
+                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${roleColors[s.role] ?? 'bg-slate-100 text-app-text-muted'}`}>
                     {s.role.charAt(0).toUpperCase() + s.role.slice(1)}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-sm text-slate-600">{s.phone || '—'}</td>
-                <td className="px-4 py-3 text-sm text-slate-600">{s.email || '—'}</td>
-                <td className="px-4 py-3 text-sm text-slate-600">{s.subject || '—'}</td>
-                <td className="px-4 py-3 text-sm text-slate-500">{s.date_joined ? new Date(s.date_joined).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '—'}</td>
+                <td className="px-4 py-3 text-sm text-app-text-muted">{s.phone || '—'}</td>
+                <td className="px-4 py-3 text-sm text-app-text-muted">{s.email || '—'}</td>
+                <td className="px-4 py-3 text-sm text-app-text-muted">{s.subject || '—'}</td>
+                <td className="px-4 py-3 text-sm text-app-text-muted">{s.date_joined ? new Date(s.date_joined).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '—'}</td>
                 <td className="px-4 py-3">
-                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[s.status] ?? 'bg-slate-100 text-slate-500'}`}>
+                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[s.status] ?? 'bg-slate-100 text-app-text-muted'}`}>
                     {s.status.charAt(0).toUpperCase() + s.status.slice(1)}
                   </span>
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-1">
-                    <button onClick={() => openPaySlip(s)} title="Pay Slip" className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"><Printer className="w-4 h-4" /></button>
-                    <button onClick={() => openEdit(s)} className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"><Edit2 className="w-4 h-4" /></button>
-                    <button onClick={() => handleDelete(s.id)} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><Trash2 className="w-4 h-4" /></button>
+                    <button onClick={() => openPaySlip(s)} title="Pay Slip" className="p-1.5 text-app-text-muted hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"><Printer className="w-4 h-4" /></button>
+                    <button onClick={() => openEdit(s)} className="p-1.5 text-app-text-muted hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"><Edit2 className="w-4 h-4" /></button>
+                    <button onClick={() => handleDelete(s.id)} className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><Trash2 className="w-4 h-4" /></button>
                   </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <div className="px-4 py-3 border-t border-slate-100 flex items-center justify-between">
-          <div className="text-sm text-slate-500">
+        <div className="px-4 py-3 border-t border-app-border flex items-center justify-between">
+          <div className="text-sm text-app-text-muted">
             Showing {(currentPage - 1) * pageSize + 1} to {Math.min(currentPage * pageSize, totalCount)} of {totalCount} staff member{totalCount !== 1 ? 's' : ''}
           </div>
           {totalPages > 1 && (
@@ -369,17 +369,17 @@ export default function StaffPage() {
               <button
                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="px-3 py-1.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 disabled:opacity-50 transition-colors"
+                className="px-3 py-1.5 border border-app-border rounded-xl text-sm font-medium text-app-text-muted hover:bg-app-surface-alt disabled:opacity-50 transition-colors"
               >
                 Previous
               </button>
-              <div className="text-sm font-medium text-slate-600 px-2">
+              <div className="text-sm font-medium text-app-text-muted px-2">
                 Page {currentPage} of {totalPages}
               </div>
               <button
                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                 disabled={currentPage === totalPages}
-                className="px-3 py-1.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 disabled:opacity-50 transition-colors"
+                className="px-3 py-1.5 border border-app-border rounded-xl text-sm font-medium text-app-text-muted hover:bg-app-surface-alt disabled:opacity-50 transition-colors"
               >
                 Next
               </button>
@@ -393,72 +393,72 @@ export default function StaffPage() {
           {error && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{error}</div>}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">First Name <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1">First Name <span className="text-red-500">*</span></label>
               <input value={form.first_name} onChange={e => setForm({ ...form, first_name: e.target.value })} className={inputCls} placeholder="First name" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Last Name <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1">Last Name <span className="text-red-500">*</span></label>
               <input value={form.last_name} onChange={e => setForm({ ...form, last_name: e.target.value })} className={inputCls} placeholder="Last name" />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Staff ID</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Staff ID</label>
               <input value={form.staff_id} onChange={e => setForm({ ...form, staff_id: e.target.value })} className={`${inputCls} font-mono`} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Role <span className="text-red-500">*</span></label>
-              <select value={form.role} onChange={e => setForm({ ...form, role: e.target.value })} className={`${inputCls} bg-white`}>
+              <label className="block text-sm font-medium text-app-text mb-1">Role <span className="text-red-500">*</span></label>
+              <select value={form.role} onChange={e => setForm({ ...form, role: e.target.value })} className={`${inputCls} bg-app-surface`}>
                 {ROLES.map(r => <option key={r} value={r}>{r.charAt(0).toUpperCase() + r.slice(1)}</option>)}
               </select>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Phone</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Phone</label>
               <input value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className={inputCls} placeholder="Phone number" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Email</label>
               <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} className={inputCls} placeholder="Email address" />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Subject {form.role === 'teacher' && <span className="text-blue-500">(Teacher)</span>}</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Subject {form.role === 'teacher' && <span className="text-blue-500">(Teacher)</span>}</label>
               <input value={form.subject} onChange={e => setForm({ ...form, subject: e.target.value })} className={inputCls} placeholder="e.g. Mathematics" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Date Joined</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Date Joined</label>
               <input type="date" value={form.date_joined} onChange={e => setForm({ ...form, date_joined: e.target.value })} className={inputCls} />
             </div>
           </div>
-          <div className="pt-1 border-t border-slate-100">
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Salary Information</p>
+          <div className="pt-1 border-t border-app-border">
+            <p className="text-xs font-semibold text-app-text-muted uppercase tracking-wide mb-3">Salary Information</p>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Basic Salary (₦)</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Basic Salary (₦)</label>
                 <input type="number" value={form.basic_salary} onChange={e => setForm({ ...form, basic_salary: e.target.value })} className={inputCls} placeholder="0" min="0" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Housing Allowance (₦)</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Housing Allowance (₦)</label>
                 <input type="number" value={form.housing_allowance} onChange={e => setForm({ ...form, housing_allowance: e.target.value })} className={inputCls} placeholder="0" min="0" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Transport Allowance (₦)</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Transport Allowance (₦)</label>
                 <input type="number" value={form.transport_allowance} onChange={e => setForm({ ...form, transport_allowance: e.target.value })} className={inputCls} placeholder="0" min="0" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Other Allowances (₦)</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Other Allowances (₦)</label>
                 <input type="number" value={form.other_allowances} onChange={e => setForm({ ...form, other_allowances: e.target.value })} className={inputCls} placeholder="0" min="0" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Deductions (₦)</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Deductions (₦)</label>
                 <input type="number" value={form.deductions} onChange={e => setForm({ ...form, deductions: e.target.value })} className={inputCls} placeholder="0" min="0" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Status</label>
-                <select value={form.status} onChange={e => setForm({ ...form, status: e.target.value })} className={`${inputCls} bg-white`}>
+                <label className="block text-sm font-medium text-app-text mb-1">Status</label>
+                <select value={form.status} onChange={e => setForm({ ...form, status: e.target.value })} className={`${inputCls} bg-app-surface`}>
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
                 </select>
@@ -466,7 +466,7 @@ export default function StaffPage() {
             </div>
           </div>
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
             <button onClick={handleSave} disabled={saving || !form.first_name.trim() || !form.last_name.trim()} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
               {saving ? 'Saving...' : editItem ? 'Update Staff' : 'Add Staff'}
             </button>
@@ -477,26 +477,26 @@ export default function StaffPage() {
       <Modal isOpen={showPaySlip} onClose={() => setShowPaySlip(false)} title="Generate Pay Slip">
         <div className="space-y-4">
           {paySlipStaff && (
-            <div className="bg-slate-50 rounded-xl p-3 border border-slate-200">
-              <p className="text-sm font-semibold text-slate-800">{paySlipStaff.first_name} {paySlipStaff.last_name}</p>
-              <p className="text-xs text-slate-500 mt-0.5">{paySlipStaff.staff_id} · {paySlipStaff.role.charAt(0).toUpperCase() + paySlipStaff.role.slice(1)}</p>
+            <div className="bg-app-surface-alt rounded-xl p-3 border border-app-border">
+              <p className="text-sm font-semibold text-app-text">{paySlipStaff.first_name} {paySlipStaff.last_name}</p>
+              <p className="text-xs text-app-text-muted mt-0.5">{paySlipStaff.staff_id} · {paySlipStaff.role.charAt(0).toUpperCase() + paySlipStaff.role.slice(1)}</p>
               <p className="text-sm font-semibold text-emerald-600 mt-1">Net Pay: ₦{netPay(paySlipStaff).toLocaleString()}</p>
             </div>
           )}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Month</label>
-              <select value={paySlipMonth} onChange={e => setPaySlipMonth(e.target.value)} className={`${inputCls} bg-white`}>
+              <label className="block text-sm font-medium text-app-text mb-1">Month</label>
+              <select value={paySlipMonth} onChange={e => setPaySlipMonth(e.target.value)} className={`${inputCls} bg-app-surface`}>
                 {MONTHS.map(m => <option key={m} value={m}>{m}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Year</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Year</label>
               <input value={paySlipYear} onChange={e => setPaySlipYear(e.target.value)} className={inputCls} placeholder="2026" />
             </div>
           </div>
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setShowPaySlip(false)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => setShowPaySlip(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
             <button onClick={printPaySlip} className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium transition-colors">
               <Printer className="w-4 h-4" /> Print Pay Slip
             </button>

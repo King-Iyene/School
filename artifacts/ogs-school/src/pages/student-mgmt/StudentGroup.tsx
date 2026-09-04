@@ -177,8 +177,8 @@ export default function StudentGroup() {
             <Users className="text-emerald-600" size={22} />
           </div>
           <div>
-            <h1 className="text-xl font-semibold text-slate-800">Student Group</h1>
-            <p className="text-sm text-slate-500">Manage student groups and members</p>
+            <h1 className="text-xl font-semibold text-app-text">Student Group</h1>
+            <p className="text-sm text-app-text-muted">Manage student groups and members</p>
           </div>
         </div>
         <button
@@ -190,28 +190,28 @@ export default function StudentGroup() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden shadow-sm">
         {loading ? (
-          <div className="flex items-center justify-center py-16 text-slate-400 text-sm">Loading...</div>
+          <div className="flex items-center justify-center py-16 text-app-text-muted text-sm">Loading...</div>
         ) : groups.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-slate-400">
+          <div className="flex flex-col items-center justify-center py-16 text-app-text-muted">
             <Users size={32} className="mb-3 opacity-40" />
             <p className="text-sm">No groups found. Add one to get started.</p>
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-5 py-3 font-medium text-slate-600">Name</th>
-                <th className="text-left px-5 py-3 font-medium text-slate-600">Description</th>
-                <th className="text-right px-5 py-3 font-medium text-slate-600">Actions</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-5 py-3 font-medium text-app-text-muted">Name</th>
+                <th className="text-left px-5 py-3 font-medium text-app-text-muted">Description</th>
+                <th className="text-right px-5 py-3 font-medium text-app-text-muted">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {groups.map((group) => (
-                <tr key={group.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-5 py-3.5 font-medium text-slate-800">{group.name}</td>
-                  <td className="px-5 py-3.5 text-slate-500">{group.description || <span className="italic text-slate-300">—</span>}</td>
+                <tr key={group.id} className="hover:bg-app-surface-alt transition-colors">
+                  <td className="px-5 py-3.5 font-medium text-app-text">{group.name}</td>
+                  <td className="px-5 py-3.5 text-app-text-muted">{group.description || <span className="italic text-slate-300">—</span>}</td>
                   <td className="px-5 py-3.5 text-right">
                     <div className="flex items-center justify-end gap-2">
                       <button
@@ -223,14 +223,14 @@ export default function StudentGroup() {
                       </button>
                       <button
                         onClick={() => openEdit(group)}
-                        className="p-1.5 rounded-lg hover:bg-emerald-50 text-slate-400 hover:text-emerald-600 transition-colors"
+                        className="p-1.5 rounded-lg hover:bg-emerald-50 text-app-text-muted hover:text-emerald-600 transition-colors"
                         title="Edit"
                       >
                         <Pencil size={15} />
                       </button>
                       <button
                         onClick={() => openDelete(group)}
-                        className="p-1.5 rounded-lg hover:bg-red-50 text-slate-400 hover:text-red-500 transition-colors"
+                        className="p-1.5 rounded-lg hover:bg-red-50 text-app-text-muted hover:text-red-500 transition-colors"
                         title="Delete"
                       >
                         <Trash2 size={15} />
@@ -250,21 +250,21 @@ export default function StudentGroup() {
             <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl px-4 py-3">{error}</div>
           )}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Name <span className="text-red-500">*</span></label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Name <span className="text-red-500">*</span></label>
             <input
               type="text"
               value={form.name}
               onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-              className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
               placeholder="e.g. Science Club, Arts Group"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Description</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Description</label>
             <textarea
               value={form.description}
               onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
-              className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full resize-none"
+              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full resize-none"
               rows={3}
               placeholder="Optional description..."
             />
@@ -272,7 +272,7 @@ export default function StudentGroup() {
           <div className="flex justify-end gap-3 pt-2">
             <button
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm text-app-text-muted border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>
@@ -289,13 +289,13 @@ export default function StudentGroup() {
 
       <Modal isOpen={deleteModalOpen} onClose={() => setDeleteModalOpen(false)} title="Delete Group">
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">
-            Are you sure you want to delete <span className="font-semibold text-slate-800">{deleteTarget?.name}</span>? All group members will also be removed.
+          <p className="text-sm text-app-text-muted">
+            Are you sure you want to delete <span className="font-semibold text-app-text">{deleteTarget?.name}</span>? All group members will also be removed.
           </p>
           <div className="flex justify-end gap-3 pt-2">
             <button
               onClick={() => setDeleteModalOpen(false)}
-              className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm text-app-text-muted border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>
@@ -316,31 +316,31 @@ export default function StudentGroup() {
       >
         <div className="space-y-5">
           <div>
-            <h3 className="text-sm font-medium text-slate-700 mb-2">Current Members</h3>
+            <h3 className="text-sm font-medium text-app-text mb-2">Current Members</h3>
             {membersLoading ? (
-              <div className="text-sm text-slate-400 py-4 text-center">Loading...</div>
+              <div className="text-sm text-app-text-muted py-4 text-center">Loading...</div>
             ) : members.length === 0 ? (
-              <div className="text-sm text-slate-400 py-4 text-center border border-dashed border-slate-200 rounded-xl">
+              <div className="text-sm text-app-text-muted py-4 text-center border border-dashed border-app-border rounded-xl">
                 No members yet.
               </div>
             ) : (
-              <div className="border border-slate-200 rounded-xl overflow-hidden max-h-48 overflow-y-auto">
+              <div className="border border-app-border rounded-xl overflow-hidden max-h-48 overflow-y-auto">
                 {members.map((member) => (
                   <div
                     key={member.id}
-                    className="flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 border-b border-slate-100 last:border-0"
+                    className="flex items-center justify-between px-4 py-2.5 hover:bg-app-surface-alt border-b border-app-border last:border-0"
                   >
                     <div>
-                      <p className="text-sm font-medium text-slate-800">
+                      <p className="text-sm font-medium text-app-text">
                         {member.student ? `${member.student.first_name} ${member.student.last_name}` : 'Unknown'}
                       </p>
                       {member.student?.admission_number && (
-                        <p className="text-xs text-slate-400">{member.student.admission_number}</p>
+                        <p className="text-xs text-app-text-muted">{member.student.admission_number}</p>
                       )}
                     </div>
                     <button
                       onClick={() => removeMember(member)}
-                      className="p-1.5 rounded-lg hover:bg-red-50 text-slate-400 hover:text-red-500 transition-colors"
+                      className="p-1.5 rounded-lg hover:bg-red-50 text-app-text-muted hover:text-red-500 transition-colors"
                       title="Remove"
                     >
                       <UserMinus size={14} />
@@ -352,32 +352,32 @@ export default function StudentGroup() {
           </div>
 
           <div>
-            <h3 className="text-sm font-medium text-slate-700 mb-2">Add Students</h3>
+            <h3 className="text-sm font-medium text-app-text mb-2">Add Students</h3>
             <div className="relative mb-2">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search by name or student ID..."
-                className="border border-slate-200 rounded-xl pl-8 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+                className="border border-app-border rounded-xl pl-8 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
               />
             </div>
-            <div className="border border-slate-200 rounded-xl overflow-hidden max-h-52 overflow-y-auto">
+            <div className="border border-app-border rounded-xl overflow-hidden max-h-52 overflow-y-auto">
               {filteredStudents.length === 0 ? (
-                <div className="text-sm text-slate-400 py-4 text-center">No students found.</div>
+                <div className="text-sm text-app-text-muted py-4 text-center">No students found.</div>
               ) : (
                 filteredStudents.map((student) => {
                   const isMember = memberIds.has(student.id);
                   return (
                     <div
                       key={student.id}
-                      className="flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 border-b border-slate-100 last:border-0"
+                      className="flex items-center justify-between px-4 py-2.5 hover:bg-app-surface-alt border-b border-app-border last:border-0"
                     >
                       <div>
-                        <p className="text-sm font-medium text-slate-800">{student.first_name} {student.last_name}</p>
+                        <p className="text-sm font-medium text-app-text">{student.first_name} {student.last_name}</p>
                         {student.admission_number && (
-                          <p className="text-xs text-slate-400">{student.admission_number}</p>
+                          <p className="text-xs text-app-text-muted">{student.admission_number}</p>
                         )}
                       </div>
                       {isMember ? (
@@ -386,7 +386,7 @@ export default function StudentGroup() {
                         <button
                           onClick={() => addMember(student)}
                           disabled={addingMember}
-                          className="p-1.5 rounded-lg hover:bg-emerald-50 text-slate-400 hover:text-emerald-600 transition-colors disabled:opacity-50"
+                          className="p-1.5 rounded-lg hover:bg-emerald-50 text-app-text-muted hover:text-emerald-600 transition-colors disabled:opacity-50"
                           title="Add"
                         >
                           <UserPlus size={14} />
@@ -402,7 +402,7 @@ export default function StudentGroup() {
           <div className="flex justify-end pt-1">
             <button
               onClick={() => setMembersModalOpen(false)}
-              className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm text-app-text-muted border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors"
             >
               Close
             </button>

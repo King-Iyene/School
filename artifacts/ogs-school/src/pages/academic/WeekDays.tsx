@@ -122,8 +122,8 @@ export default function WeekDays() {
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Week Days</h1>
-          <p className="text-sm text-slate-500 mt-1">Manage physical instructional days and weekends for your school</p>
+          <h1 className="text-2xl font-bold text-app-text">Week Days</h1>
+          <p className="text-sm text-app-text-muted mt-1">Manage physical instructional days and weekends for your school</p>
         </div>
         <button
           onClick={openAdd}
@@ -142,22 +142,22 @@ export default function WeekDays() {
       )}
 
       {loading ? (
-        <div className="flex items-center justify-center py-12 text-slate-400">Loading...</div>
+        <div className="flex items-center justify-center py-12 text-app-text-muted">Loading...</div>
       ) : (
-        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+        <div className="bg-app-surface rounded-xl border border-app-border overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Day Name</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Is Weekend?</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Sort Order</th>
-                <th className="text-right px-4 py-3 font-medium text-slate-600">Actions</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Day Name</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Is Weekend?</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Sort Order</th>
+                <th className="text-right px-4 py-3 font-medium text-app-text-muted">Actions</th>
               </tr>
             </thead>
             <tbody>
               {weekDays.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="text-center py-10 text-slate-400">
+                  <td colSpan={4} className="text-center py-10 text-app-text-muted">
                     <div className="flex flex-col items-center gap-2">
                       <CalendarDays size={32} className="opacity-20" />
                       <p>No week days defined. Add generic days such as Monday to continue.</p>
@@ -166,31 +166,31 @@ export default function WeekDays() {
                 </tr>
               ) : (
                 weekDays.map((day) => (
-                  <tr key={day.id} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="px-4 py-3 font-medium text-slate-800">{day.name}</td>
+                  <tr key={day.id} className="border-b border-app-border hover:bg-app-surface-alt">
+                    <td className="px-4 py-3 font-medium text-app-text">{day.name}</td>
                     <td className="px-4 py-3">
                       {day.is_weekend ? (
                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
                           Yes
                         </span>
                       ) : (
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-app-text">
                           No
                         </span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-slate-600">{day.sort_order}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{day.sort_order}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => openEdit(day)}
-                          className="p-1.5 text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors"
+                          className="p-1.5 text-app-text-muted hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors"
                         >
                           <Edit2 size={15} />
                         </button>
                         <button
                           onClick={() => handleDelete(day.id)}
-                          className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-1.5 text-app-text-muted hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                         >
                           <Trash2 size={15} />
                         </button>
@@ -211,26 +211,26 @@ export default function WeekDays() {
       >
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Day Name</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Day Name</label>
             <input
               type="text"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               placeholder="e.g. Monday"
             />
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Sort Order</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Sort Order</label>
             <input
               type="number"
               value={form.sort_order}
               onChange={(e) => setForm({ ...form, sort_order: parseInt(e.target.value) || 0 })}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               placeholder="1"
             />
-            <p className="text-xs text-slate-500 mt-1">Determines the display order in the Timetable</p>
+            <p className="text-xs text-app-text-muted mt-1">Determines the display order in the Timetable</p>
           </div>
 
           <div className="flex items-center gap-3 pt-2">
@@ -241,15 +241,15 @@ export default function WeekDays() {
                 checked={form.is_weekend}
                 onChange={(e) => setForm({ ...form, is_weekend: e.target.checked })}
               />
-              <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+              <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-app-surface after:border-app-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
             </label>
-            <span className="text-sm font-medium text-slate-700">Is Weekend?</span>
+            <span className="text-sm font-medium text-app-text">Is Weekend?</span>
           </div>
 
           <div className="flex justify-end gap-2 pt-4">
             <button
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2 text-sm rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm rounded-lg border border-app-border text-app-text-muted hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>

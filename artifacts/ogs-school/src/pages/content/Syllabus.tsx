@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 interface SyllabusItem {
   id: string;
@@ -231,7 +231,7 @@ export default function Syllabus() {
           <div className="bg-emerald-500 text-white p-1.5 sm:p-2 rounded-xl shrink-0">
             <FileText size={18} />
           </div>
-          <h1 className="text-lg sm:text-2xl font-bold text-slate-800 truncate">Syllabus</h1>
+          <h1 className="text-lg sm:text-2xl font-bold text-app-text truncate">Syllabus</h1>
         </div>
         <button onClick={openAdd}
           className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-sm font-medium transition-colors shrink-0">
@@ -240,10 +240,10 @@ export default function Syllabus() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4">
         <div className="flex items-center gap-2 mb-3">
-          <Filter size={16} className="text-slate-500" />
-          <span className="text-sm font-medium text-slate-600">Filters</span>
+          <Filter size={16} className="text-app-text-muted" />
+          <span className="text-sm font-medium text-app-text-muted">Filters</span>
         </div>
         <div className="flex flex-wrap gap-3">
           <select value={filterClass}
@@ -252,53 +252,53 @@ export default function Syllabus() {
               setFilterSubject('');
               fetchSubjectsForClass(e.target.value, 'filter');
             }}
-            className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+            className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
             <option value="">All Classes</option>
             {displayClasses.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
           </select>
           <select value={filterSubject} onChange={e => setFilterSubject(e.target.value)}
-            className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
             disabled={!filterClass}>
             <option value="">All Subjects</option>
             {filterSubjects.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
           </select>
           {(filterClass || filterSubject) && (
             <button onClick={() => { setFilterClass(''); setFilterSubject(''); setFilterSubjects([]); }}
-              className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700">
+              className="flex items-center gap-1 text-sm text-app-text-muted hover:text-app-text">
               <X size={14} /> Clear
             </button>
           )}
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {loading ? (
-          <div className="p-12 text-center text-slate-400">Loading...</div>
+          <div className="p-12 text-center text-app-text-muted">Loading...</div>
         ) : items.length === 0 ? (
           <div className="p-12 text-center">
             <FileText size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-500">No syllabus items found.</p>
+            <p className="text-app-text-muted">No syllabus items found.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Title</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Class</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Subject</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Academic Year</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">File</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Actions</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Title</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Class</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Subject</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Academic Year</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">File</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {items.map(item => (
-                  <tr key={item.id} className="hover:bg-slate-50/50">
-                    <td className="px-4 py-3 font-medium text-slate-800">{item.title}</td>
-                    <td className="px-4 py-3 text-slate-600">{item.classes?.name || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600">{item.subjects?.name || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600">{item.academic_years?.name || '-'}</td>
+                  <tr key={item.id} className="hover:bg-app-surface-alt/50">
+                    <td className="px-4 py-3 font-medium text-app-text">{item.title}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{item.classes?.name || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{item.subjects?.name || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{item.academic_years?.name || '-'}</td>
                     <td className="px-4 py-3">
                       {item.file_url ? (
                         <a href={item.file_url} target="_blank" rel="noopener noreferrer"
@@ -310,11 +310,11 @@ export default function Syllabus() {
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         <button onClick={() => openEdit(item)}
-                          className="text-slate-400 hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors">
+                          className="text-app-text-muted hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors">
                           <Pencil size={15} />
                         </button>
                         <button onClick={() => handleDelete(item.id)}
-                          className="text-slate-400 hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors">
+                          className="text-app-text-muted hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors">
                           <Trash2 size={15} />
                         </button>
                       </div>
@@ -332,7 +332,7 @@ export default function Syllabus() {
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{saveError}</div>}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Class</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Class</label>
               <select className={INPUT_CLASS} value={form.class_id}
                 onChange={e => {
                   setForm(p => ({ ...p, class_id: e.target.value, subject_id: '' }));
@@ -343,7 +343,7 @@ export default function Syllabus() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Subject</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Subject</label>
               <select className={INPUT_CLASS} value={form.subject_id}
                 onChange={e => setForm(p => ({ ...p, subject_id: e.target.value }))}
                 disabled={!form.class_id}>
@@ -354,7 +354,7 @@ export default function Syllabus() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Academic Year</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Academic Year</label>
               <select className={INPUT_CLASS} value={form.academic_year_id}
                 onChange={e => setForm(p => ({ ...p, academic_year_id: e.target.value }))}>
                 <option value="">Select Year</option>
@@ -362,7 +362,7 @@ export default function Syllabus() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Term</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Term</label>
               <select className={INPUT_CLASS} value={form.term_id}
                 onChange={e => setForm(p => ({ ...p, term_id: e.target.value }))}>
                 <option value="">Select Term</option>
@@ -371,23 +371,23 @@ export default function Syllabus() {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Title <span className="text-red-500">*</span></label>
+            <label className="block text-sm font-medium text-app-text mb-1">Title <span className="text-red-500">*</span></label>
             <input required className={INPUT_CLASS} value={form.title}
               onChange={e => setForm(p => ({ ...p, title: e.target.value }))} placeholder="Syllabus title" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Content</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Content</label>
             <textarea className={INPUT_CLASS} rows={4} value={form.content}
               onChange={e => setForm(p => ({ ...p, content: e.target.value }))} placeholder="Syllabus content..." />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">File URL</label>
+            <label className="block text-sm font-medium text-app-text mb-1">File URL</label>
             <input className={INPUT_CLASS} value={form.file_url}
               onChange={e => setForm(p => ({ ...p, file_url: e.target.value }))} placeholder="https://..." />
           </div>
           <div className="flex justify-end gap-3 pt-2">
             <button type="button" onClick={() => setModalOpen(false)}
-              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-slate-200 text-slate-600 hover:bg-slate-50">
+              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-app-border text-app-text-muted hover:bg-app-surface-alt">
               Cancel
             </button>
             <button type="submit" disabled={saving}

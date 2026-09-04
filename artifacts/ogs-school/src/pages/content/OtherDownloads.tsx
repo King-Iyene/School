@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 interface OtherDownload {
   id: string;
@@ -104,7 +104,7 @@ export default function OtherDownloads() {
           <div className="bg-emerald-500 text-white p-1.5 sm:p-2 rounded-xl shrink-0">
             <FolderOpen size={18} />
           </div>
-          <h1 className="text-lg sm:text-2xl font-bold text-slate-800 truncate">Other Downloads</h1>
+          <h1 className="text-lg sm:text-2xl font-bold text-app-text truncate">Other Downloads</h1>
         </div>
         <button
           onClick={openAdd}
@@ -115,37 +115,37 @@ export default function OtherDownloads() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {loading ? (
-          <div className="p-12 text-center text-slate-400">Loading...</div>
+          <div className="p-12 text-center text-app-text-muted">Loading...</div>
         ) : downloads.length === 0 ? (
           <div className="p-12 text-center">
             <FolderOpen size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-500">No downloads available.</p>
+            <p className="text-app-text-muted">No downloads available.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Title</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Available For</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">File</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Created</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Actions</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Title</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Available For</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">File</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Created</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {downloads.map(d => (
-                  <tr key={d.id} className="hover:bg-slate-50/50">
+                  <tr key={d.id} className="hover:bg-app-surface-alt/50">
                     <td className="px-4 py-3">
-                      <div className="font-medium text-slate-800">{d.title}</div>
+                      <div className="font-medium text-app-text">{d.title}</div>
                       {d.description && (
-                        <div className="text-xs text-slate-500 mt-0.5 line-clamp-1">{d.description}</div>
+                        <div className="text-xs text-app-text-muted mt-0.5 line-clamp-1">{d.description}</div>
                       )}
                     </td>
                     <td className="px-4 py-3">
-                      <span className={`px-2 py-1 rounded-lg text-xs font-medium ${availableForBadge[d.available_for] || 'bg-slate-100 text-slate-700'}`}>
+                      <span className={`px-2 py-1 rounded-lg text-xs font-medium ${availableForBadge[d.available_for] || 'bg-slate-100 text-app-text'}`}>
                         {d.available_for}
                       </span>
                     </td>
@@ -161,20 +161,20 @@ export default function OtherDownloads() {
                         </a>
                       ) : '-'}
                     </td>
-                    <td className="px-4 py-3 text-slate-500">
+                    <td className="px-4 py-3 text-app-text-muted">
                       {new Date(d.created_at).toLocaleDateString()}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => openEdit(d)}
-                          className="text-slate-400 hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors"
+                          className="text-app-text-muted hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors"
                         >
                           <Pencil size={15} />
                         </button>
                         <button
                           onClick={() => handleDelete(d.id)}
-                          className="text-slate-400 hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors"
+                          className="text-app-text-muted hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors"
                         >
                           <Trash2 size={15} />
                         </button>
@@ -192,7 +192,7 @@ export default function OtherDownloads() {
         <form onSubmit={handleSubmit} className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Title</label>
             <input
               required
               className={INPUT_CLASS}
@@ -202,7 +202,7 @@ export default function OtherDownloads() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Description</label>
             <textarea
               className={INPUT_CLASS}
               rows={3}
@@ -212,7 +212,7 @@ export default function OtherDownloads() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">File URL</label>
+            <label className="block text-sm font-medium text-app-text mb-1">File URL</label>
             <input
               className={INPUT_CLASS}
               value={form.file_url}
@@ -221,7 +221,7 @@ export default function OtherDownloads() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Available For</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Available For</label>
             <select
               className={INPUT_CLASS}
               value={form.available_for}
@@ -236,7 +236,7 @@ export default function OtherDownloads() {
             <button
               type="button"
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-slate-200 text-slate-600 hover:bg-slate-50"
+              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-app-border text-app-text-muted hover:bg-app-surface-alt"
             >
               Cancel
             </button>

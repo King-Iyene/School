@@ -114,8 +114,8 @@ export default function Products() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Products</h1>
-          <p className="text-slate-500 text-sm mt-1">{products.length} products in store</p>
+          <h1 className="text-2xl font-bold text-app-text">Products</h1>
+          <p className="text-app-text-muted text-sm mt-1">{products.length} products in store</p>
         </div>
         <button onClick={openAdd} className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 transition-colors">
           <Plus className="w-4 h-4" /> Add Product
@@ -123,8 +123,8 @@ export default function Products() {
       </div>
 
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search products..." className="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
+        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search products..." className="w-full pl-10 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface" />
       </div>
 
       {loading ? (
@@ -132,7 +132,7 @@ export default function Products() {
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-16 text-slate-400">
+        <div className="text-center py-16 text-app-text-muted">
           <Package className="w-12 h-12 mx-auto mb-3 opacity-30" />
           <p className="font-medium">No products found</p>
           <p className="text-sm">Add your first product to the store</p>
@@ -140,7 +140,7 @@ export default function Products() {
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filtered.map(p => (
-            <div key={p.id} className={`bg-white rounded-2xl border transition-all hover:shadow-md ${p.active ? 'border-slate-200' : 'border-slate-100 opacity-60'}`}>
+            <div key={p.id} className={`bg-app-surface rounded-2xl border transition-all hover:shadow-md ${p.active ? 'border-app-border' : 'border-app-border opacity-60'}`}>
               <div className="h-36 bg-slate-100 rounded-t-2xl overflow-hidden flex items-center justify-center relative">
                 {p.image_url ? (
                   <img src={p.image_url} alt={p.name} className="w-full h-full object-cover" />
@@ -151,22 +151,22 @@ export default function Products() {
               <div className="p-4">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
-                    <p className="font-semibold text-slate-800 truncate">{p.name}</p>
-                    <p className="text-xs text-slate-400 mt-0.5">{p.store_categories?.name ?? 'Uncategorised'}</p>
+                    <p className="font-semibold text-app-text truncate">{p.name}</p>
+                    <p className="text-xs text-app-text-muted mt-0.5">{p.store_categories?.name ?? 'Uncategorised'}</p>
                   </div>
                   <button onClick={() => toggleActive(p)} className="flex-shrink-0 mt-0.5">
                     {p.active ? <ToggleRight className="w-5 h-5 text-emerald-500" /> : <ToggleLeft className="w-5 h-5 text-slate-300" />}
                   </button>
                 </div>
-                <p className="text-xs text-slate-500 mt-1.5 line-clamp-2">{p.description}</p>
+                <p className="text-xs text-app-text-muted mt-1.5 line-clamp-2">{p.description}</p>
                 <div className="flex items-center justify-between mt-3">
                   <span className="text-base font-bold text-emerald-600">₦{Number(p.price).toLocaleString()}</span>
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${p.stock_qty === 0 ? 'bg-red-100 text-red-600' : p.stock_qty < 5 ? 'bg-amber-100 text-amber-600' : 'bg-slate-100 text-slate-600'}`}>
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${p.stock_qty === 0 ? 'bg-red-100 text-red-600' : p.stock_qty < 5 ? 'bg-amber-100 text-amber-600' : 'bg-slate-100 text-app-text-muted'}`}>
                     {p.stock_qty === 0 ? 'Out of stock' : `${p.stock_qty} in stock`}
                   </span>
                 </div>
                 <div className="flex gap-2 mt-3">
-                  <button onClick={() => openEdit(p)} className="flex-1 flex items-center justify-center gap-1 py-1.5 text-xs font-medium text-slate-600 bg-slate-50 hover:bg-slate-100 rounded-lg transition-colors">
+                  <button onClick={() => openEdit(p)} className="flex-1 flex items-center justify-center gap-1 py-1.5 text-xs font-medium text-app-text-muted bg-app-surface-alt hover:bg-slate-100 rounded-lg transition-colors">
                     <Edit2 className="w-3.5 h-3.5" /> Edit
                   </button>
                   <button onClick={() => del(p.id)} className="flex-1 flex items-center justify-center gap-1 py-1.5 text-xs font-medium text-red-500 bg-red-50 hover:bg-red-100 rounded-lg transition-colors">
@@ -182,39 +182,39 @@ export default function Products() {
       <Modal isOpen={modal} onClose={() => setModal(false)} title={editing ? 'Edit Product' : 'Add Product'}>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Product Name</label>
-            <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="e.g. School Polo Shirt" />
+            <label className="block text-sm font-medium text-app-text mb-1">Product Name</label>
+            <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="e.g. School Polo Shirt" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Price (₦)</label>
-              <input type="number" value={form.price} onChange={e => setForm(f => ({ ...f, price: Number(e.target.value) }))} className="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+              <label className="block text-sm font-medium text-app-text mb-1">Price (₦)</label>
+              <input type="number" value={form.price} onChange={e => setForm(f => ({ ...f, price: Number(e.target.value) }))} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Stock Qty</label>
-              <input type="number" value={form.stock_qty} onChange={e => setForm(f => ({ ...f, stock_qty: Number(e.target.value) }))} className="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+              <label className="block text-sm font-medium text-app-text mb-1">Stock Qty</label>
+              <input type="number" value={form.stock_qty} onChange={e => setForm(f => ({ ...f, stock_qty: Number(e.target.value) }))} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Category</label>
-            <select value={form.category_id ?? ''} onChange={e => setForm(f => ({ ...f, category_id: e.target.value || null }))} className="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
+            <label className="block text-sm font-medium text-app-text mb-1">Category</label>
+            <select value={form.category_id ?? ''} onChange={e => setForm(f => ({ ...f, category_id: e.target.value || null }))} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface">
               <option value="">None</option>
               {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
-            <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} rows={2} className="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none" placeholder="Product description..." />
+            <label className="block text-sm font-medium text-app-text mb-1">Description</label>
+            <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} rows={2} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none" placeholder="Product description..." />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">Product Image</label>
+            <label className="block text-sm font-medium text-app-text mb-2">Product Image</label>
             <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={e => { if (e.target.files?.[0]) handleFileUpload(e.target.files[0]); }} />
             {imagePreview ? (
-              <div className="relative w-full h-36 rounded-xl overflow-hidden border border-slate-200 bg-slate-100">
+              <div className="relative w-full h-36 rounded-xl overflow-hidden border border-app-border bg-slate-100">
                 <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
                 <button
                   onClick={() => { setImagePreview(''); setForm(f => ({ ...f, image_url: '' })); }}
-                  className="absolute top-2 right-2 w-7 h-7 bg-white rounded-full shadow flex items-center justify-center text-slate-600 hover:text-red-500"
+                  className="absolute top-2 right-2 w-7 h-7 bg-app-surface rounded-full shadow flex items-center justify-center text-app-text-muted hover:text-red-500"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -224,7 +224,7 @@ export default function Products() {
                 type="button"
                 onClick={() => fileRef.current?.click()}
                 disabled={uploading}
-                className="w-full h-32 border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center gap-2 text-slate-400 hover:border-emerald-400 hover:text-emerald-500 transition-colors disabled:opacity-50"
+                className="w-full h-32 border-2 border-dashed border-app-border rounded-xl flex flex-col items-center justify-center gap-2 text-app-text-muted hover:border-emerald-400 hover:text-emerald-500 transition-colors disabled:opacity-50"
               >
                 {uploading ? (
                   <div className="w-6 h-6 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
@@ -236,16 +236,16 @@ export default function Products() {
                 )}
               </button>
             )}
-            <p className="text-xs text-slate-400 mt-1">Or paste a URL below</p>
+            <p className="text-xs text-app-text-muted mt-1">Or paste a URL below</p>
             <input
               value={form.image_url}
               onChange={e => { setForm(f => ({ ...f, image_url: e.target.value })); setImagePreview(e.target.value); }}
-              className="w-full mt-1 px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full mt-1 px-3 py-2 border border-app-border rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
               placeholder="https://..."
             />
           </div>
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setModal(false)} className="flex-1 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => setModal(false)} className="flex-1 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
             <button onClick={save} disabled={saving || !form.name.trim() || uploading} className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-50 transition-colors">
               {saving ? 'Saving...' : editing ? 'Save Changes' : 'Add Product'}
             </button>

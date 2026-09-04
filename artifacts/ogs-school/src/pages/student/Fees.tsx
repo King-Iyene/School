@@ -48,66 +48,66 @@ export default function StudentFees() {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-xl font-bold text-slate-800">My Fee Status</h2>
-        <p className="text-slate-500 text-sm">View your payment history and outstanding fees</p>
+        <h2 className="text-xl font-bold text-app-text">My Fee Status</h2>
+        <p className="text-app-text-muted text-sm">View your payment history and outstanding fees</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
           <div className="flex items-center gap-3">
             <div className="bg-emerald-500 p-2.5 rounded-xl"><CheckCircle className="w-5 h-5 text-white" /></div>
             <div>
-              <p className="text-sm text-slate-500">Total Paid</p>
-              <p className="text-xl font-bold text-slate-800">₦{totalPaid.toLocaleString()}</p>
+              <p className="text-sm text-app-text-muted">Total Paid</p>
+              <p className="text-xl font-bold text-app-text">₦{totalPaid.toLocaleString()}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
           <div className="flex items-center gap-3">
             <div className="bg-amber-500 p-2.5 rounded-xl"><AlertCircle className="w-5 h-5 text-white" /></div>
             <div>
-              <p className="text-sm text-slate-500">Outstanding</p>
-              <p className="text-xl font-bold text-slate-800">₦{Math.max(0, outstanding).toLocaleString()}</p>
+              <p className="text-sm text-app-text-muted">Outstanding</p>
+              <p className="text-xl font-bold text-app-text">₦{Math.max(0, outstanding).toLocaleString()}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
           <div className="flex items-center gap-3">
             <div className="bg-blue-500 p-2.5 rounded-xl"><CreditCard className="w-5 h-5 text-white" /></div>
             <div>
-              <p className="text-sm text-slate-500">Total Transactions</p>
-              <p className="text-xl font-bold text-slate-800">{payments.length}</p>
+              <p className="text-sm text-app-text-muted">Total Transactions</p>
+              <p className="text-xl font-bold text-app-text">{payments.length}</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="p-5 border-b border-slate-100">
-          <h3 className="font-semibold text-slate-800">Payment History</h3>
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+        <div className="p-5 border-b border-app-border">
+          <h3 className="font-semibold text-app-text">Payment History</h3>
         </div>
         <table className="w-full">
           <thead>
-            <tr className="border-b border-slate-100 bg-slate-50">
-              <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Fee Item</th>
-              <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Amount</th>
-              <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Method</th>
-              <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Status</th>
-              <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Date</th>
+            <tr className="border-b border-app-border bg-app-surface-alt">
+              <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Fee Item</th>
+              <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Amount</th>
+              <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Method</th>
+              <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Status</th>
+              <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Date</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-app-border">
             {loading ? (
-              <tr><td colSpan={5} className="text-center py-8 text-slate-400">Loading...</td></tr>
+              <tr><td colSpan={5} className="text-center py-8 text-app-text-muted">Loading...</td></tr>
             ) : payments.length === 0 ? (
-              <tr><td colSpan={5} className="text-center py-8 text-slate-400">No payment records found</td></tr>
+              <tr><td colSpan={5} className="text-center py-8 text-app-text-muted">No payment records found</td></tr>
             ) : payments.map(p => (
-              <tr key={p.id} className="hover:bg-slate-50 transition-colors">
-                <td className="px-5 py-3 text-sm font-medium text-slate-800">{p.fee_name}</td>
+              <tr key={p.id} className="hover:bg-app-surface-alt transition-colors">
+                <td className="px-5 py-3 text-sm font-medium text-app-text">{p.fee_name}</td>
                 <td className="px-5 py-3 text-sm font-semibold text-emerald-600">₦{Number(p.amount_paid).toLocaleString()}</td>
-                <td className="px-5 py-3 text-sm text-slate-500 capitalize">{p.payment_method?.replace('_', ' ')}</td>
+                <td className="px-5 py-3 text-sm text-app-text-muted capitalize">{p.payment_method?.replace('_', ' ')}</td>
                 <td className="px-5 py-3"><Badge label={p.status} variant={statusColors[p.status]} /></td>
-                <td className="px-5 py-3 text-sm text-slate-500">{new Date(p.payment_date).toLocaleDateString()}</td>
+                <td className="px-5 py-3 text-sm text-app-text-muted">{new Date(p.payment_date).toLocaleDateString()}</td>
               </tr>
             ))}
           </tbody>

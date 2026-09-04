@@ -98,15 +98,15 @@ const DeleteStudentRecord: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-app-surface-alt p-6">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center gap-3 mb-6">
           <div className="bg-red-100 p-2 rounded-lg">
             <UserX className="text-red-500" size={24} />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-gray-800">Delete Student Record</h1>
-            <p className="text-gray-500 text-sm">Deactivate student accounts (soft delete - data is preserved)</p>
+            <h1 className="text-2xl font-bold text-app-text">Delete Student Record</h1>
+            <p className="text-app-text-muted text-sm">Deactivate student accounts (soft delete - data is preserved)</p>
           </div>
         </div>
 
@@ -117,18 +117,18 @@ const DeleteStudentRecord: React.FC = () => {
           </div>
         )}
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 mb-6">
-          <h2 className="font-semibold text-gray-700 mb-4">Search Student</h2>
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5 mb-6">
+          <h2 className="font-semibold text-app-text mb-4">Search Student</h2>
           <div className="flex gap-3">
             <div className="relative flex-1">
-              <Search size={16} className="absolute left-3 top-2.5 text-gray-400" />
+              <Search size={16} className="absolute left-3 top-2.5 text-app-text-muted" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Search by name or student ID..."
-                className="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                className="w-full pl-9 pr-4 py-2 border border-app-border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
               />
             </div>
             <button
@@ -142,15 +142,15 @@ const DeleteStudentRecord: React.FC = () => {
           </div>
 
           {searchResults.length > 0 && (
-            <div className="mt-4 divide-y divide-gray-50 border border-gray-100 rounded-lg overflow-hidden">
+            <div className="mt-4 divide-y divide-gray-50 border border-app-border rounded-lg overflow-hidden">
               {searchResults.map((student) => (
-                <div key={student.id} className="flex items-center gap-4 px-4 py-3 hover:bg-gray-50">
+                <div key={student.id} className="flex items-center gap-4 px-4 py-3 hover:bg-app-surface-alt">
                   <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-sm flex-shrink-0">
                     {student.first_name.charAt(0)}{student.last_name.charAt(0)}
                   </div>
                   <div className="flex-1">
-                    <p className="font-medium text-gray-800">{student.first_name} {student.last_name}</p>
-                    <p className="text-xs text-gray-500">
+                    <p className="font-medium text-app-text">{student.first_name} {student.last_name}</p>
+                    <p className="text-xs text-app-text-muted">
                       ID: {student.student_id || 'N/A'} &bull; {student.email || 'No email'} &bull; {student.gender || 'N/A'}
                     </p>
                   </div>
@@ -167,13 +167,13 @@ const DeleteStudentRecord: React.FC = () => {
           )}
 
           {!searching && searchQuery && searchResults.length === 0 && (
-            <p className="text-sm text-gray-400 mt-4 text-center">No active students found matching your search.</p>
+            <p className="text-sm text-app-text-muted mt-4 text-center">No active students found matching your search.</p>
           )}
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-            <h2 className="font-semibold text-gray-700">Recently Deactivated Students</h2>
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-app-border">
+            <h2 className="font-semibold text-app-text">Recently Deactivated Students</h2>
             <button
               onClick={fetchRecentlyDisabled}
               className="text-sm text-emerald-600 hover:text-emerald-800 flex items-center gap-1.5"
@@ -183,7 +183,7 @@ const DeleteStudentRecord: React.FC = () => {
             </button>
           </div>
           {recentlyDisabled.length === 0 ? (
-            <div className="py-10 text-center text-gray-400">
+            <div className="py-10 text-center text-app-text-muted">
               <UserX size={36} className="mx-auto mb-2 opacity-40" />
               <p className="text-sm">No deactivated students found.</p>
             </div>
@@ -191,12 +191,12 @@ const DeleteStudentRecord: React.FC = () => {
             <div className="divide-y divide-gray-50">
               {recentlyDisabled.map((student) => (
                 <div key={student.id} className="flex items-center gap-4 px-5 py-3">
-                  <div className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 font-bold text-sm flex-shrink-0">
+                  <div className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-app-text-muted font-bold text-sm flex-shrink-0">
                     {student.first_name.charAt(0)}{student.last_name.charAt(0)}
                   </div>
                   <div className="flex-1">
-                    <p className="font-medium text-gray-700">{student.first_name} {student.last_name}</p>
-                    <p className="text-xs text-gray-400">ID: {student.student_id || 'N/A'} &bull; {student.email || 'No email'}</p>
+                    <p className="font-medium text-app-text">{student.first_name} {student.last_name}</p>
+                    <p className="text-xs text-app-text-muted">ID: {student.student_id || 'N/A'} &bull; {student.email || 'No email'}</p>
                   </div>
                   <span className="text-xs bg-red-50 text-red-500 px-2.5 py-1 rounded-full font-medium">Deactivated</span>
                   <button
@@ -214,19 +214,19 @@ const DeleteStudentRecord: React.FC = () => {
 
       {showConfirm && selectedStudent && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-xl p-6 max-w-md w-full">
+          <div className="bg-app-surface rounded-xl shadow-xl p-6 max-w-md w-full">
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-red-100 p-2 rounded-full">
                 <AlertTriangle size={20} className="text-red-500" />
               </div>
-              <h3 className="font-semibold text-gray-800 text-lg">Confirm Deactivation</h3>
+              <h3 className="font-semibold text-app-text text-lg">Confirm Deactivation</h3>
             </div>
-            <div className="bg-gray-50 rounded-lg p-4 mb-4">
-              <p className="font-semibold text-gray-800 mb-1">{selectedStudent.first_name} {selectedStudent.last_name}</p>
-              <p className="text-sm text-gray-600">Student ID: {selectedStudent.student_id || 'N/A'}</p>
-              <p className="text-sm text-gray-600">Email: {selectedStudent.email || 'N/A'}</p>
+            <div className="bg-app-surface-alt rounded-lg p-4 mb-4">
+              <p className="font-semibold text-app-text mb-1">{selectedStudent.first_name} {selectedStudent.last_name}</p>
+              <p className="text-sm text-app-text-muted">Student ID: {selectedStudent.student_id || 'N/A'}</p>
+              <p className="text-sm text-app-text-muted">Email: {selectedStudent.email || 'N/A'}</p>
             </div>
-            <p className="text-sm text-gray-600 mb-2">
+            <p className="text-sm text-app-text-muted mb-2">
               This will set the student's account to <strong>inactive</strong>. Their data will be preserved and can be restored.
             </p>
             <div className="flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2.5 mb-5">
@@ -238,7 +238,7 @@ const DeleteStudentRecord: React.FC = () => {
             <div className="flex gap-3 justify-end">
               <button
                 onClick={() => setShowConfirm(false)}
-                className="px-4 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors font-medium"
+                className="px-4 py-2 text-sm border border-app-border rounded-lg text-app-text-muted hover:bg-app-surface-alt transition-colors font-medium"
               >
                 Cancel
               </button>

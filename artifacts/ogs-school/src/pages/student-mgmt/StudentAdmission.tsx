@@ -393,13 +393,13 @@ export default function StudentAdmission() {
   }
 
   const inputClass =
-    'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+    'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
   return (
     <div className="p-6">
       <div className="flex items-center gap-3 mb-6">
         <UserPlus size={24} className="text-emerald-600" />
-        <h1 className="text-2xl font-bold text-slate-800">Student Admission</h1>
+        <h1 className="text-2xl font-bold text-app-text">Student Admission</h1>
       </div>
 
       {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
@@ -419,13 +419,13 @@ export default function StudentAdmission() {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-8">
-        <div className="bg-white border border-slate-200 rounded-xl p-6">
-          <h2 className="text-base font-semibold text-slate-700 mb-5 pb-3 border-b border-slate-100">
+        <div className="bg-app-surface border border-app-border rounded-xl p-6">
+          <h2 className="text-base font-semibold text-app-text mb-5 pb-3 border-b border-app-border">
             Personal Information
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
+              <label className="block text-sm font-medium text-app-text mb-1">
                 First Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -437,7 +437,7 @@ export default function StudentAdmission() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
+              <label className="block text-sm font-medium text-app-text mb-1">
                 Last Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -449,7 +449,7 @@ export default function StudentAdmission() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Date of Birth</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Date of Birth</label>
               <input
                 type="date"
                 className={inputClass}
@@ -458,7 +458,7 @@ export default function StudentAdmission() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Gender</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Gender</label>
               <select
                 className={inputClass}
                 value={form.gender}
@@ -471,7 +471,7 @@ export default function StudentAdmission() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Blood Group</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Blood Group</label>
               <select
                 className={inputClass}
                 value={form.blood_group}
@@ -486,7 +486,7 @@ export default function StudentAdmission() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Religion</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Religion</label>
               <input
                 className={inputClass}
                 value={form.religion}
@@ -495,7 +495,7 @@ export default function StudentAdmission() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Nationality</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Nationality</label>
               <input
                 className={inputClass}
                 value={form.nationality}
@@ -504,7 +504,7 @@ export default function StudentAdmission() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">State of Origin</label>
+              <label className="block text-sm font-medium text-app-text mb-1">State of Origin</label>
               <input
                 className={inputClass}
                 value={form.state_of_origin}
@@ -513,7 +513,7 @@ export default function StudentAdmission() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">LGA</label>
+              <label className="block text-sm font-medium text-app-text mb-1">LGA</label>
               <input
                 className={inputClass}
                 value={form.lga}
@@ -524,13 +524,13 @@ export default function StudentAdmission() {
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-xl p-6">
-          <h2 className="text-base font-semibold text-slate-700 mb-5 pb-3 border-b border-slate-100">
+        <div className="bg-app-surface border border-app-border rounded-xl p-6">
+          <h2 className="text-base font-semibold text-app-text mb-5 pb-3 border-b border-app-border">
             Contact Information
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Phone</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Phone</label>
               <input
                 className={inputClass}
                 value={form.phone}
@@ -539,7 +539,7 @@ export default function StudentAdmission() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
+              <label className="block text-sm font-medium text-app-text mb-1">
                 Login Password <span className="text-red-500">*</span>
               </label>
               <div className="relative">
@@ -554,14 +554,14 @@ export default function StudentAdmission() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-muted hover:text-app-text transition-colors"
                 >
                   {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-slate-700 mb-1">Address</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Address</label>
               <input
                 className={inputClass}
                 value={form.address}
@@ -570,7 +570,7 @@ export default function StudentAdmission() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">City</label>
+              <label className="block text-sm font-medium text-app-text mb-1">City</label>
               <input
                 className={inputClass}
                 value={form.city}
@@ -581,13 +581,13 @@ export default function StudentAdmission() {
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-xl p-6">
-          <h2 className="text-base font-semibold text-slate-700 mb-5 pb-3 border-b border-slate-100">
+        <div className="bg-app-surface border border-app-border rounded-xl p-6">
+          <h2 className="text-base font-semibold text-app-text mb-5 pb-3 border-b border-app-border">
             Academic Information
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
+              <label className="block text-sm font-medium text-app-text mb-1">
                 Class <span className="text-red-500">*</span>
               </label>
               <select
@@ -604,7 +604,7 @@ export default function StudentAdmission() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Section</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Section</label>
               <select
                 className={inputClass}
                 value={form.section_id}
@@ -620,7 +620,7 @@ export default function StudentAdmission() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Roll Number</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Roll Number</label>
               <input
                 className={inputClass}
                 value={form.roll_number}
@@ -629,7 +629,7 @@ export default function StudentAdmission() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Admission Date</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Admission Date</label>
               <input
                 type="date"
                 className={inputClass}
@@ -638,7 +638,7 @@ export default function StudentAdmission() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Admission Number</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Admission Number</label>
               <div className="flex gap-2">
                 <input
                   className={inputClass}
@@ -646,7 +646,7 @@ export default function StudentAdmission() {
                   onChange={(e) => updateField('admission_number', e.target.value)}
                   placeholder="STU-2024-001"
                 />
-                <button type="button" onClick={async () => { const n = await getNextAdmissionNumber(profile?.school_id || '', admissionPrefix); setForm(f => ({ ...f, admission_number: n })); }} className="px-3 py-2 text-xs rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 whitespace-nowrap transition-colors">
+                <button type="button" onClick={async () => { const n = await getNextAdmissionNumber(profile?.school_id || '', admissionPrefix); setForm(f => ({ ...f, admission_number: n })); }} className="px-3 py-2 text-xs rounded-xl border border-app-border text-app-text-muted hover:bg-app-surface-alt whitespace-nowrap transition-colors">
                   Generate
                 </button>
               </div>
@@ -654,8 +654,8 @@ export default function StudentAdmission() {
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-xl p-6">
-          <h2 className="text-base font-semibold text-slate-700 mb-5 pb-3 border-b border-slate-100">
+        <div className="bg-app-surface border border-app-border rounded-xl p-6">
+          <h2 className="text-base font-semibold text-app-text mb-5 pb-3 border-b border-app-border">
             Guardian / Parent Information
           </h2>
 
@@ -663,28 +663,28 @@ export default function StudentAdmission() {
             <button
               type="button"
               onClick={() => updateField('parent_mode', 'none')}
-              className={`flex-1 py-2 px-4 rounded-xl text-sm font-medium transition-colors ${form.parent_mode === 'none' ? 'bg-slate-700 text-white' : 'bg-slate-50 text-slate-600 hover:bg-slate-100'}`}
+              className={`flex-1 py-2 px-4 rounded-xl text-sm font-medium transition-colors ${form.parent_mode === 'none' ? 'bg-slate-700 text-white' : 'bg-app-surface-alt text-app-text-muted hover:bg-slate-100'}`}
             >
               Skip for Now
             </button>
             <button
               type="button"
               onClick={() => updateField('parent_mode', 'existing')}
-              className={`flex-1 py-2 px-4 rounded-xl text-sm font-medium transition-colors ${form.parent_mode === 'existing' ? 'bg-emerald-500 text-white' : 'bg-slate-50 text-slate-600 hover:bg-slate-100'}`}
+              className={`flex-1 py-2 px-4 rounded-xl text-sm font-medium transition-colors ${form.parent_mode === 'existing' ? 'bg-emerald-500 text-white' : 'bg-app-surface-alt text-app-text-muted hover:bg-slate-100'}`}
             >
               Select Existing Parent
             </button>
             <button
               type="button"
               onClick={() => updateField('parent_mode', 'new')}
-              className={`flex-1 py-2 px-4 rounded-xl text-sm font-medium transition-colors ${form.parent_mode === 'new' ? 'bg-emerald-500 text-white' : 'bg-slate-50 text-slate-600 hover:bg-slate-100'}`}
+              className={`flex-1 py-2 px-4 rounded-xl text-sm font-medium transition-colors ${form.parent_mode === 'new' ? 'bg-emerald-500 text-white' : 'bg-app-surface-alt text-app-text-muted hover:bg-slate-100'}`}
             >
               Add New Parent
             </button>
           </div>
 
           {form.parent_mode === 'none' && (
-            <div className="text-center py-4 text-slate-400 text-sm">
+            <div className="text-center py-4 text-app-text-muted text-sm">
               No parent account will be created. You can link a parent from the student's profile later.
             </div>
           )}
@@ -692,9 +692,9 @@ export default function StudentAdmission() {
           {form.parent_mode === 'existing' && (
             <div className="space-y-4">
               <div className="relative">
-                <label className="block text-sm font-medium text-slate-700 mb-1">Search Parent</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Search Parent</label>
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
                   <input
                     className={`${inputClass} pl-9`}
                     value={parentSearch}
@@ -709,7 +709,7 @@ export default function StudentAdmission() {
                 </div>
 
                 {parentResults.length > 0 && (
-                  <div className="absolute z-10 w-full mt-1 bg-white border border-slate-200 rounded-xl shadow-lg max-h-60 overflow-auto">
+                  <div className="absolute z-10 w-full mt-1 bg-app-surface border border-app-border rounded-xl shadow-lg max-h-60 overflow-auto">
                     {parentResults.map((p) => (
                       <button
                         key={p.id}
@@ -722,12 +722,12 @@ export default function StudentAdmission() {
                           setParentResults([]);
                           setParentSearch(`${p.first_name} ${p.last_name}`);
                         }}
-                        className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-50 last:border-0 transition-colors"
+                        className="w-full text-left px-4 py-3 hover:bg-app-surface-alt border-b border-slate-50 last:border-0 transition-colors"
                       >
                         <div className="flex items-center justify-between">
                           <div>
-                            <p className="text-sm font-semibold text-slate-800">{p.first_name} {p.last_name}</p>
-                            <p className="text-xs text-slate-500">{p.email} · {p.phone}</p>
+                            <p className="text-sm font-semibold text-app-text">{p.first_name} {p.last_name}</p>
+                            <p className="text-xs text-app-text-muted">{p.email} · {p.phone}</p>
                           </div>
                           {form.parent_id === p.id && <Check className="w-4 h-4 text-emerald-500" />}
                         </div>
@@ -762,7 +762,7 @@ export default function StudentAdmission() {
           {form.parent_mode === 'new' && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Parent First Name <span className="text-red-500">*</span></label>
+                <label className="block text-sm font-medium text-app-text mb-1">Parent First Name <span className="text-red-500">*</span></label>
                 <input
                   className={inputClass}
                   value={form.parent_first_name}
@@ -774,7 +774,7 @@ export default function StudentAdmission() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Parent Last Name <span className="text-red-500">*</span></label>
+                <label className="block text-sm font-medium text-app-text mb-1">Parent Last Name <span className="text-red-500">*</span></label>
                 <input
                   className={inputClass}
                   value={form.parent_last_name}
@@ -786,7 +786,7 @@ export default function StudentAdmission() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Parent Email <span className="text-red-500">*</span></label>
+                <label className="block text-sm font-medium text-app-text mb-1">Parent Email <span className="text-red-500">*</span></label>
                 <input
                   type="email"
                   className={inputClass}
@@ -802,7 +802,7 @@ export default function StudentAdmission() {
                 The parent will receive an email at this address with a link to create their own password. They do not share the student's login password.
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Parent Phone</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Parent Phone</label>
                 <input
                   className={inputClass}
                   value={form.parent_phone}
@@ -816,8 +816,8 @@ export default function StudentAdmission() {
             </div>
           )}
 
-          {form.parent_mode !== 'none' && <div className="mt-4 pt-4 border-t border-slate-100">
-            <label className="block text-sm font-medium text-slate-700 mb-1">Relationship to Student</label>
+          {form.parent_mode !== 'none' && <div className="mt-4 pt-4 border-t border-app-border">
+            <label className="block text-sm font-medium text-app-text mb-1">Relationship to Student</label>
             <select
               className={inputClass}
               value={form.guardian_relation}

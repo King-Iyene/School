@@ -120,15 +120,15 @@ export default function OnlineExamReport() {
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-slate-800">Online Exam Report</h1>
+          <h1 className="text-2xl font-bold text-app-text">Online Exam Report</h1>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-16 flex flex-col items-center gap-4 text-center">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-16 flex flex-col items-center gap-4 text-center">
           <div className="bg-slate-100 p-6 rounded-full">
-            <Monitor className="h-16 w-16 text-slate-400" />
+            <Monitor className="h-16 w-16 text-app-text-muted" />
           </div>
-          <h2 className="text-xl font-semibold text-slate-700">No Online Exam Data Available</h2>
-          <p className="text-slate-500 max-w-md">
+          <h2 className="text-xl font-semibold text-app-text">No Online Exam Data Available</h2>
+          <p className="text-app-text-muted max-w-md">
             The online exam attempts table has not been set up yet. Once students begin taking online exams, their attempts and results will appear here.
           </p>
           <div className="flex items-center gap-2 mt-2 text-amber-600 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
@@ -150,7 +150,7 @@ export default function OnlineExamReport() {
       )}
 
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Online Exam Report</h1>
+        <h1 className="text-2xl font-bold text-app-text">Online Exam Report</h1>
         <button
           onClick={handleExport}
           className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
@@ -160,12 +160,12 @@ export default function OnlineExamReport() {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <select
             value={filters.academic_year_id}
             onChange={e => setFilters(f => ({ ...f, academic_year_id: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">All Academic Years</option>
             {academicYears.map(y => (
@@ -176,7 +176,7 @@ export default function OnlineExamReport() {
           <select
             value={filters.exam_id}
             onChange={e => setFilters(f => ({ ...f, exam_id: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">All Online Exams</option>
             {exams.map(e => (
@@ -187,7 +187,7 @@ export default function OnlineExamReport() {
           <select
             value={filters.class_id}
             onChange={e => setFilters(f => ({ ...f, class_id: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">All Classes</option>
             {classes.map(c => (
@@ -198,11 +198,11 @@ export default function OnlineExamReport() {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Total Attempts</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{attempts.length}</p>
+              <p className="text-sm text-app-text-muted">Total Attempts</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{attempts.length}</p>
             </div>
             <div className="bg-blue-100 p-3 rounded-lg">
               <Monitor className="h-6 w-6 text-blue-600" />
@@ -210,11 +210,11 @@ export default function OnlineExamReport() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Average Score</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{avgScore}%</p>
+              <p className="text-sm text-app-text-muted">Average Score</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{avgScore}%</p>
             </div>
             <div className="bg-amber-100 p-3 rounded-lg">
               <BarChart2 className="h-6 w-6 text-amber-600" />
@@ -222,10 +222,10 @@ export default function OnlineExamReport() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Pass Rate</p>
+              <p className="text-sm text-app-text-muted">Pass Rate</p>
               <p className="text-2xl font-bold text-emerald-600 mt-1">{passRate}%</p>
             </div>
             <div className="bg-emerald-100 p-3 rounded-lg">
@@ -235,42 +235,42 @@ export default function OnlineExamReport() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">#</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Student Name</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Class</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Attempt Date</th>
-                <th className="text-center px-4 py-3 text-slate-600 font-medium">Score</th>
-                <th className="text-center px-4 py-3 text-slate-600 font-medium">Total</th>
-                <th className="text-center px-4 py-3 text-slate-600 font-medium">Percentage</th>
-                <th className="text-center px-4 py-3 text-slate-600 font-medium">Time (mins)</th>
-                <th className="text-center px-4 py-3 text-slate-600 font-medium">Status</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">#</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Student Name</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Class</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Attempt Date</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Score</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Total</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Percentage</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Time (mins)</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Status</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-10 text-slate-400">Loading...</td>
+                  <td colSpan={9} className="text-center py-10 text-app-text-muted">Loading...</td>
                 </tr>
               ) : attempts.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-10 text-slate-400">No attempts found</td>
+                  <td colSpan={9} className="text-center py-10 text-app-text-muted">No attempts found</td>
                 </tr>
               ) : (
                 attempts.map((attempt, index) => (
-                  <tr key={attempt.id} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="px-4 py-3 text-slate-500">{index + 1}</td>
-                    <td className="px-4 py-3 font-medium text-slate-800">{attempt.student_name}</td>
-                    <td className="px-4 py-3 text-slate-600">{attempt.class_name}</td>
-                    <td className="px-4 py-3 text-slate-600">{new Date(attempt.attempt_date).toLocaleDateString()}</td>
-                    <td className="px-4 py-3 text-center font-medium text-slate-800">{attempt.score}</td>
-                    <td className="px-4 py-3 text-center text-slate-600">{attempt.total}</td>
-                    <td className="px-4 py-3 text-center font-medium text-slate-800">{attempt.percentage}%</td>
-                    <td className="px-4 py-3 text-center text-slate-600">{attempt.time_taken}</td>
+                  <tr key={attempt.id} className="border-b border-app-border hover:bg-app-surface-alt">
+                    <td className="px-4 py-3 text-app-text-muted">{index + 1}</td>
+                    <td className="px-4 py-3 font-medium text-app-text">{attempt.student_name}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{attempt.class_name}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{new Date(attempt.attempt_date).toLocaleDateString()}</td>
+                    <td className="px-4 py-3 text-center font-medium text-app-text">{attempt.score}</td>
+                    <td className="px-4 py-3 text-center text-app-text-muted">{attempt.total}</td>
+                    <td className="px-4 py-3 text-center font-medium text-app-text">{attempt.percentage}%</td>
+                    <td className="px-4 py-3 text-center text-app-text-muted">{attempt.time_taken}</td>
                     <td className="px-4 py-3 text-center">
                       {attempt.status === 'passed' ? (
                         <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">

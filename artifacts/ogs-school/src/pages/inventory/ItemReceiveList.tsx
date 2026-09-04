@@ -3,7 +3,7 @@ import { ClipboardList } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 
-const INPUT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 interface InventoryItemOption {
   id: string;
@@ -80,34 +80,34 @@ export default function ItemReceiveList() {
         <div className="bg-emerald-500 text-white p-2 rounded-xl">
           <ClipboardList size={20} />
         </div>
-        <h1 className="text-2xl font-bold text-slate-800">Item Receive List</h1>
+        <h1 className="text-2xl font-bold text-app-text">Item Receive List</h1>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white rounded-2xl border border-slate-200 p-4 flex items-center gap-4">
+        <div className="bg-app-surface rounded-2xl border border-app-border p-4 flex items-center gap-4">
           <div className="bg-emerald-100 text-emerald-600 p-3 rounded-xl">
             <ClipboardList size={20} />
           </div>
           <div>
-            <p className="text-xs text-slate-500">Total Records</p>
-            <p className="text-2xl font-bold text-slate-800">{receipts.length}</p>
+            <p className="text-xs text-app-text-muted">Total Records</p>
+            <p className="text-2xl font-bold text-app-text">{receipts.length}</p>
           </div>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 p-4 flex items-center gap-4">
+        <div className="bg-app-surface rounded-2xl border border-app-border p-4 flex items-center gap-4">
           <div className="bg-blue-100 text-blue-600 p-3 rounded-xl">
             <ClipboardList size={20} />
           </div>
           <div>
-            <p className="text-xs text-slate-500">Total Value</p>
-            <p className="text-2xl font-bold text-slate-800">₦{totalValue.toLocaleString()}</p>
+            <p className="text-xs text-app-text-muted">Total Value</p>
+            <p className="text-2xl font-bold text-app-text">₦{totalValue.toLocaleString()}</p>
           </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">From Date</label>
+            <label className="block text-sm font-medium text-app-text mb-1">From Date</label>
             <input
               type="date"
               className={INPUT_CLASS}
@@ -116,7 +116,7 @@ export default function ItemReceiveList() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">To Date</label>
+            <label className="block text-sm font-medium text-app-text mb-1">To Date</label>
             <input
               type="date"
               className={INPUT_CLASS}
@@ -125,7 +125,7 @@ export default function ItemReceiveList() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Item</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Item</label>
             <select
               className={INPUT_CLASS}
               value={filterItem}
@@ -138,7 +138,7 @@ export default function ItemReceiveList() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Supplier</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Supplier</label>
             <select
               className={INPUT_CLASS}
               value={filterSupplier}
@@ -153,38 +153,38 @@ export default function ItemReceiveList() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {loading ? (
-          <div className="p-12 text-center text-slate-400">Loading...</div>
+          <div className="p-12 text-center text-app-text-muted">Loading...</div>
         ) : receipts.length === 0 ? (
           <div className="p-12 text-center">
             <ClipboardList size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-500">No receipts found.</p>
+            <p className="text-app-text-muted">No receipts found.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Date</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Invoice No</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Item</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Supplier</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Quantity</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Unit Price</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Total Price</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Date</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Invoice No</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Item</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Supplier</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Quantity</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Unit Price</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Total Price</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {receipts.map(r => (
-                  <tr key={r.id} className="hover:bg-slate-50/50">
-                    <td className="px-4 py-3 text-slate-600">{r.receive_date ? new Date(r.receive_date).toLocaleDateString() : '-'}</td>
-                    <td className="px-4 py-3 text-slate-500 font-mono text-xs">{r.invoice_number || '-'}</td>
-                    <td className="px-4 py-3 font-medium text-slate-800">{r.inventory_items?.name || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600">{r.suppliers?.name || '-'}</td>
-                    <td className="px-4 py-3 text-slate-700">{r.quantity}</td>
-                    <td className="px-4 py-3 text-slate-700">₦{Number(r.unit_price).toLocaleString()}</td>
-                    <td className="px-4 py-3 text-slate-700 font-medium">₦{Number(r.total_price).toLocaleString()}</td>
+                  <tr key={r.id} className="hover:bg-app-surface-alt/50">
+                    <td className="px-4 py-3 text-app-text-muted">{r.receive_date ? new Date(r.receive_date).toLocaleDateString() : '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted font-mono text-xs">{r.invoice_number || '-'}</td>
+                    <td className="px-4 py-3 font-medium text-app-text">{r.inventory_items?.name || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{r.suppliers?.name || '-'}</td>
+                    <td className="px-4 py-3 text-app-text">{r.quantity}</td>
+                    <td className="px-4 py-3 text-app-text">₦{Number(r.unit_price).toLocaleString()}</td>
+                    <td className="px-4 py-3 text-app-text font-medium">₦{Number(r.total_price).toLocaleString()}</td>
                   </tr>
                 ))}
               </tbody>

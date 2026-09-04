@@ -47,8 +47,8 @@ export default function Reports() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold text-slate-800">Reports & Analytics</h2>
-        <p className="text-slate-500 text-sm">School performance overview and statistics</p>
+        <h2 className="text-xl font-bold text-app-text">Reports & Analytics</h2>
+        <p className="text-app-text-muted text-sm">School performance overview and statistics</p>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -59,49 +59,49 @@ export default function Reports() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-          <div className="p-5 border-b border-slate-100">
-            <h3 className="font-semibold text-slate-800">Top Performing Students</h3>
-            <p className="text-xs text-slate-500 mt-0.5">Based on average grade scores this academic year</p>
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+          <div className="p-5 border-b border-app-border">
+            <h3 className="font-semibold text-app-text">Top Performing Students</h3>
+            <p className="text-xs text-app-text-muted mt-0.5">Based on average grade scores this academic year</p>
           </div>
-          <div className="divide-y divide-slate-100">
+          <div className="divide-y divide-app-border">
             {loading ? (
-              <div className="p-5 text-center text-slate-400 text-sm">Loading...</div>
+              <div className="p-5 text-center text-app-text-muted text-sm">Loading...</div>
             ) : topStudents.length === 0 ? (
-              <div className="p-5 text-center text-slate-400 text-sm">No grade data available</div>
+              <div className="p-5 text-center text-app-text-muted text-sm">No grade data available</div>
             ) : topStudents.map((s, i) => (
               <div key={i} className="flex items-center justify-between px-5 py-3">
                 <div className="flex items-center gap-3">
-                  <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${i === 0 ? 'bg-amber-100 text-amber-700' : i === 1 ? 'bg-slate-200 text-slate-600' : i === 2 ? 'bg-orange-100 text-orange-700' : 'bg-slate-100 text-slate-500'}`}>
+                  <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${i === 0 ? 'bg-amber-100 text-amber-700' : i === 1 ? 'bg-slate-200 text-app-text-muted' : i === 2 ? 'bg-orange-100 text-orange-700' : 'bg-slate-100 text-app-text-muted'}`}>
                     {i + 1}
                   </span>
-                  <p className="text-sm font-medium text-slate-800">{s.name}</p>
+                  <p className="text-sm font-medium text-app-text">{s.name}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-24 h-2 bg-slate-100 rounded-full overflow-hidden">
                     <div className="h-full bg-emerald-400 rounded-full" style={{ width: `${s.avg}%` }} />
                   </div>
-                  <span className="text-sm font-semibold text-slate-700 w-12 text-right">{s.avg}%</span>
+                  <span className="text-sm font-semibold text-app-text w-12 text-right">{s.avg}%</span>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-          <h3 className="font-semibold text-slate-800 mb-4">School Summary</h3>
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
+          <h3 className="font-semibold text-app-text mb-4">School Summary</h3>
           <div className="space-y-4">
             {[
               { label: 'Student-Teacher Ratio', value: stats.teachers > 0 ? `${Math.round(stats.students / stats.teachers)}:1` : 'N/A', color: 'bg-emerald-500' },
               { label: 'Total Attendance Records', value: stats.attendance.toLocaleString(), color: 'bg-blue-500' },
               { label: 'Total Revenue Collected', value: `₦${stats.totalFees.toLocaleString()}`, color: 'bg-amber-500' },
             ].map(item => (
-              <div key={item.label} className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+              <div key={item.label} className="flex items-center justify-between p-3 bg-app-surface-alt rounded-xl">
                 <div className="flex items-center gap-3">
                   <div className={`w-2 h-8 ${item.color} rounded-full`} />
-                  <p className="text-sm text-slate-600">{item.label}</p>
+                  <p className="text-sm text-app-text-muted">{item.label}</p>
                 </div>
-                <p className="text-sm font-semibold text-slate-800">{item.value}</p>
+                <p className="text-sm font-semibold text-app-text">{item.value}</p>
               </div>
             ))}
           </div>

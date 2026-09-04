@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT = 'w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+const INPUT = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
 
 const AUDIENCE_OPTIONS = [
   { label: 'All', value: 'all' },
@@ -17,7 +17,7 @@ const audienceColors: Record<string, string> = {
   all: 'bg-emerald-100 text-emerald-700',
   teacher: 'bg-blue-100 text-blue-700',
   student: 'bg-amber-100 text-amber-700',
-  parent: 'bg-slate-100 text-slate-600',
+  parent: 'bg-slate-100 text-app-text-muted',
 };
 
 interface Announcement {
@@ -186,8 +186,8 @@ export default function Announcements() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Announcements</h2>
-          <p className="text-slate-500 text-sm">School-wide news and updates</p>
+          <h2 className="text-xl font-bold text-app-text">Announcements</h2>
+          <p className="text-app-text-muted text-sm">School-wide news and updates</p>
         </div>
         {canCreate && (
           <button
@@ -200,12 +200,12 @@ export default function Announcements() {
       </div>
 
       {loading ? (
-        <div className="text-center py-12 text-slate-400">Loading...</div>
+        <div className="text-center py-12 text-app-text-muted">Loading...</div>
       ) : items.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border p-12 text-center">
           <Bell className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">No announcements yet</p>
-          {canCreate && <p className="text-slate-400 text-sm mt-1">Click "New Announcement" to create one</p>}
+          <p className="text-app-text-muted font-medium">No announcements yet</p>
+          {canCreate && <p className="text-app-text-muted text-sm mt-1">Click "New Announcement" to create one</p>}
         </div>
       ) : (
         <div className="space-y-3">
@@ -215,18 +215,18 @@ export default function Announcements() {
             return (
               <div
                 key={a.id}
-                className={`bg-white rounded-2xl border shadow-sm p-5 transition-shadow hover:shadow-md ${a.is_pinned ? 'border-amber-200 bg-amber-50/30' : 'border-slate-200'}`}
+                className={`bg-app-surface rounded-2xl border shadow-sm p-5 transition-shadow hover:shadow-md ${a.is_pinned ? 'border-amber-200 bg-amber-50/30' : 'border-app-border'}`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1.5 flex-wrap">
                       {a.is_pinned && <Pin className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" />}
-                      <h3 className="font-semibold text-slate-800">{a.title}</h3>
-                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${audienceColors[role] ?? 'bg-slate-100 text-slate-600'}`}>
+                      <h3 className="font-semibold text-app-text">{a.title}</h3>
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${audienceColors[role] ?? 'bg-slate-100 text-app-text-muted'}`}>
                         {role === 'all' ? 'Everyone' : role}
                       </span>
                     </div>
-                    <p className="text-slate-600 text-sm leading-relaxed whitespace-pre-wrap">{a.content}</p>
+                    <p className="text-app-text-muted text-sm leading-relaxed whitespace-pre-wrap">{a.content}</p>
                   </div>
 
                   {canEdit && (
@@ -234,14 +234,14 @@ export default function Announcements() {
                       <button
                         onClick={() => openEdit(a)}
                         title="Edit announcement"
-                        className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="p-1.5 text-app-text-muted hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                       >
                         <Pencil className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => setDeletingItem(a)}
                         title="Delete announcement"
-                        className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -249,7 +249,7 @@ export default function Announcements() {
                   )}
                 </div>
 
-                <div className="flex items-center gap-3 mt-3 pt-3 border-t border-slate-100 text-xs text-slate-400">
+                <div className="flex items-center gap-3 mt-3 pt-3 border-t border-app-border text-xs text-app-text-muted">
                   <span>By {(a.profiles as any)?.first_name} {(a.profiles as any)?.last_name}</span>
                   {a.publish_date && <span>· Published {new Date(a.publish_date).toLocaleDateString()}</span>}
                   <span>· {new Date(a.created_at).toLocaleDateString()}</span>
@@ -266,7 +266,7 @@ export default function Announcements() {
           {error && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{error}</div>}
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Title <span className="text-red-500">*</span></label>
+            <label className="block text-sm font-medium text-app-text mb-1">Title <span className="text-red-500">*</span></label>
             <input
               value={form.title}
               onChange={e => setForm({ ...form, title: e.target.value })}
@@ -276,7 +276,7 @@ export default function Announcements() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Message <span className="text-red-500">*</span></label>
+            <label className="block text-sm font-medium text-app-text mb-1">Message <span className="text-red-500">*</span></label>
             <textarea
               value={form.content}
               onChange={e => setForm({ ...form, content: e.target.value })}
@@ -288,13 +288,13 @@ export default function Announcements() {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Target Audience</label>
-              <select value={form.audience} onChange={e => setForm({ ...form, audience: e.target.value })} className={`${INPUT} bg-white`}>
+              <label className="block text-sm font-medium text-app-text mb-1">Target Audience</label>
+              <select value={form.audience} onChange={e => setForm({ ...form, audience: e.target.value })} className={`${INPUT} bg-app-surface`}>
                 {AUDIENCE_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Publish Date</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Publish Date</label>
               <input type="date" value={form.publish_date} onChange={e => setForm({ ...form, publish_date: e.target.value })} className={INPUT} />
             </div>
           </div>
@@ -305,13 +305,13 @@ export default function Announcements() {
               onClick={() => setForm({ ...form, is_pinned: !form.is_pinned })}
               className={`relative w-10 h-5 rounded-full transition-colors ${form.is_pinned ? 'bg-amber-400' : 'bg-slate-200'}`}
             >
-              <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${form.is_pinned ? 'translate-x-5' : ''}`} />
+              <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-app-surface rounded-full shadow transition-transform ${form.is_pinned ? 'translate-x-5' : ''}`} />
             </button>
-            <span className="text-sm text-slate-600">Pin to top</span>
+            <span className="text-sm text-app-text-muted">Pin to top</span>
           </div>
 
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">
+            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">
               Cancel
             </button>
             <button
@@ -331,7 +331,7 @@ export default function Announcements() {
           {editError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{editError}</div>}
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Title <span className="text-red-500">*</span></label>
+            <label className="block text-sm font-medium text-app-text mb-1">Title <span className="text-red-500">*</span></label>
             <input
               value={editForm.title}
               onChange={e => setEditForm({ ...editForm, title: e.target.value })}
@@ -341,7 +341,7 @@ export default function Announcements() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Message <span className="text-red-500">*</span></label>
+            <label className="block text-sm font-medium text-app-text mb-1">Message <span className="text-red-500">*</span></label>
             <textarea
               value={editForm.content}
               onChange={e => setEditForm({ ...editForm, content: e.target.value })}
@@ -352,13 +352,13 @@ export default function Announcements() {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Target Audience</label>
-              <select value={editForm.audience} onChange={e => setEditForm({ ...editForm, audience: e.target.value })} className={`${INPUT} bg-white`}>
+              <label className="block text-sm font-medium text-app-text mb-1">Target Audience</label>
+              <select value={editForm.audience} onChange={e => setEditForm({ ...editForm, audience: e.target.value })} className={`${INPUT} bg-app-surface`}>
                 {AUDIENCE_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Publish Date</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Publish Date</label>
               <input type="date" value={editForm.publish_date} onChange={e => setEditForm({ ...editForm, publish_date: e.target.value })} className={INPUT} />
             </div>
           </div>
@@ -369,13 +369,13 @@ export default function Announcements() {
               onClick={() => setEditForm({ ...editForm, is_pinned: !editForm.is_pinned })}
               className={`relative w-10 h-5 rounded-full transition-colors ${editForm.is_pinned ? 'bg-amber-400' : 'bg-slate-200'}`}
             >
-              <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${editForm.is_pinned ? 'translate-x-5' : ''}`} />
+              <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-app-surface rounded-full shadow transition-transform ${editForm.is_pinned ? 'translate-x-5' : ''}`} />
             </button>
-            <span className="text-sm text-slate-600">Pin to top</span>
+            <span className="text-sm text-app-text-muted">Pin to top</span>
           </div>
 
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setEditingItem(null)} className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors">
+            <button onClick={() => setEditingItem(null)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">
               Cancel
             </button>
             <button
@@ -397,18 +397,18 @@ export default function Announcements() {
               <AlertTriangle className="w-5 h-5 text-red-600" />
             </div>
             <div>
-              <p className="text-sm font-medium text-slate-800">Are you sure you want to delete this announcement?</p>
+              <p className="text-sm font-medium text-app-text">Are you sure you want to delete this announcement?</p>
               {deletingItem && (
-                <p className="text-sm text-slate-500 mt-1 italic">"{deletingItem.title}"</p>
+                <p className="text-sm text-app-text-muted mt-1 italic">"{deletingItem.title}"</p>
               )}
-              <p className="text-sm text-slate-400 mt-2">This action cannot be undone.</p>
+              <p className="text-sm text-app-text-muted mt-2">This action cannot be undone.</p>
             </div>
           </div>
 
           <div className="flex gap-3 pt-1">
             <button
               onClick={() => setDeletingItem(null)}
-              className="flex-1 px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors"
+              className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>

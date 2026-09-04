@@ -62,7 +62,7 @@ export default function RolePermission() {
           <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
             <ShieldCheck className="w-5 h-5 text-emerald-600" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-800">Role Permissions</h1>
+          <h1 className="text-2xl font-bold text-app-text">Role Permissions</h1>
         </div>
       </div>
 
@@ -77,23 +77,23 @@ export default function RolePermission() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
+            <tr className="bg-app-surface-alt text-app-text-muted text-xs uppercase tracking-wider">
               <th className="px-4 py-3 text-left font-medium">Module / Page</th>
               {ROLE_LABELS.map((r) => (
                 <th key={r.key} className="px-4 py-3 text-center font-medium">{r.label}</th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-app-border">
             {PERMISSIONS.map((row, idx) => (
               <tr
                 key={row.module}
-                className={`transition-colors ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'} hover:bg-slate-50`}
+                className={`transition-colors ${idx % 2 === 0 ? 'bg-app-surface' : 'bg-app-surface-alt/50'} hover:bg-app-surface-alt`}
               >
-                <td className="px-4 py-3 font-medium text-slate-800">{row.module}</td>
+                <td className="px-4 py-3 font-medium text-app-text">{row.module}</td>
                 {ROLE_LABELS.map((r) => (
                   <td key={r.key} className="px-4 py-3">
                     <PermissionCheck value={row[r.key]} />
@@ -105,7 +105,7 @@ export default function RolePermission() {
         </table>
       </div>
 
-      <div className="flex items-center gap-6 px-2 text-xs text-slate-500">
+      <div className="flex items-center gap-6 px-2 text-xs text-app-text-muted">
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center">
             <svg className="w-2.5 h-2.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>

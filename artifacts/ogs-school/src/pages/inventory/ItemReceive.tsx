@@ -3,7 +3,7 @@ import { PackagePlus, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 
-const INPUT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 interface InventoryItem {
   id: string;
@@ -161,19 +161,19 @@ export default function ItemReceive() {
         <div className="bg-emerald-500 text-white p-2 rounded-xl">
           <PackagePlus size={20} />
         </div>
-        <h1 className="text-2xl font-bold text-slate-800">Receive Items</h1>
+        <h1 className="text-2xl font-bold text-app-text">Receive Items</h1>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-6">
-        <h2 className="text-base font-semibold text-slate-700 mb-4">New Receipt</h2>
+      <div className="bg-app-surface rounded-2xl border border-app-border p-6">
+        <h2 className="text-base font-semibold text-app-text mb-4">New Receipt</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div className="relative">
-            <label className="block text-sm font-medium text-slate-700 mb-1">Item</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Item</label>
             <div className="relative">
-              <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted" />
               <input
-                className="border border-slate-200 rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+                className="border border-app-border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
                 placeholder="Search item by name or code..."
                 value={itemSearch}
                 onChange={e => { setItemSearch(e.target.value); setShowItemDropdown(true); setSelectedItem(null); setForm(p => ({ ...p, item_id: '' })); }}
@@ -181,9 +181,9 @@ export default function ItemReceive() {
               />
             </div>
             {showItemDropdown && itemSearch && (
-              <div className="absolute z-10 mt-1 w-full bg-white border border-slate-200 rounded-xl shadow-lg max-h-48 overflow-y-auto">
+              <div className="absolute z-10 mt-1 w-full bg-app-surface border border-app-border rounded-xl shadow-lg max-h-48 overflow-y-auto">
                 {filteredItems.length === 0 ? (
-                  <div className="px-4 py-3 text-sm text-slate-500">No items found</div>
+                  <div className="px-4 py-3 text-sm text-app-text-muted">No items found</div>
                 ) : (
                   filteredItems.map(item => (
                     <button
@@ -192,9 +192,9 @@ export default function ItemReceive() {
                       onClick={() => selectItem(item)}
                       className="w-full text-left px-4 py-2.5 text-sm hover:bg-emerald-50 transition-colors"
                     >
-                      <span className="font-medium text-slate-800">{item.name}</span>
-                      {item.item_code && <span className="ml-2 text-slate-400 text-xs">{item.item_code}</span>}
-                      <span className="ml-2 text-slate-500 text-xs">Stock: {item.current_stock}</span>
+                      <span className="font-medium text-app-text">{item.name}</span>
+                      {item.item_code && <span className="ml-2 text-app-text-muted text-xs">{item.item_code}</span>}
+                      <span className="ml-2 text-app-text-muted text-xs">Stock: {item.current_stock}</span>
                     </button>
                   ))
                 )}
@@ -204,7 +204,7 @@ export default function ItemReceive() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Supplier</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Supplier</label>
               <select
                 className={INPUT_CLASS}
                 value={form.supplier_id}
@@ -217,7 +217,7 @@ export default function ItemReceive() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Invoice Number</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Invoice Number</label>
               <input
                 className={INPUT_CLASS}
                 value={form.invoice_number}
@@ -229,7 +229,7 @@ export default function ItemReceive() {
 
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Quantity</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Quantity</label>
               <input
                 type="number"
                 min="1"
@@ -241,7 +241,7 @@ export default function ItemReceive() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Unit Price (₦)</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Unit Price (₦)</label>
               <input
                 type="number"
                 min="0"
@@ -254,17 +254,17 @@ export default function ItemReceive() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Total Price (₦)</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Total Price (₦)</label>
               <input
                 readOnly
-                className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm bg-slate-50 text-slate-600 w-full"
+                className="border border-app-border rounded-xl px-3 py-2.5 text-sm bg-app-surface-alt text-app-text-muted w-full"
                 value={form.total_price}
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Receive Date</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Receive Date</label>
             <input
               type="date"
               required
@@ -275,7 +275,7 @@ export default function ItemReceive() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Notes</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Notes</label>
             <textarea
               className={INPUT_CLASS}
               rows={2}
@@ -297,39 +297,39 @@ export default function ItemReceive() {
         </form>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-        <div className="px-4 py-3 border-b border-slate-200">
-          <h2 className="text-base font-semibold text-slate-700">Recent Receipts</h2>
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
+        <div className="px-4 py-3 border-b border-app-border">
+          <h2 className="text-base font-semibold text-app-text">Recent Receipts</h2>
         </div>
         {loading ? (
-          <div className="p-12 text-center text-slate-400">Loading...</div>
+          <div className="p-12 text-center text-app-text-muted">Loading...</div>
         ) : receipts.length === 0 ? (
           <div className="p-12 text-center">
             <PackagePlus size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-500">No receipts yet.</p>
+            <p className="text-app-text-muted">No receipts yet.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Date</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Invoice No</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Item</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Supplier</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Qty</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Total</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Date</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Invoice No</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Item</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Supplier</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Qty</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Total</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {receipts.map(r => (
-                  <tr key={r.id} className="hover:bg-slate-50/50">
-                    <td className="px-4 py-3 text-slate-600">{r.receive_date ? new Date(r.receive_date).toLocaleDateString() : '-'}</td>
-                    <td className="px-4 py-3 text-slate-500 font-mono text-xs">{r.invoice_number || '-'}</td>
-                    <td className="px-4 py-3 font-medium text-slate-800">{r.inventory_items?.name || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600">{r.suppliers?.name || '-'}</td>
-                    <td className="px-4 py-3 text-slate-700">{r.quantity}</td>
-                    <td className="px-4 py-3 text-slate-700 font-medium">₦{Number(r.total_price).toLocaleString()}</td>
+                  <tr key={r.id} className="hover:bg-app-surface-alt/50">
+                    <td className="px-4 py-3 text-app-text-muted">{r.receive_date ? new Date(r.receive_date).toLocaleDateString() : '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted font-mono text-xs">{r.invoice_number || '-'}</td>
+                    <td className="px-4 py-3 font-medium text-app-text">{r.inventory_items?.name || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{r.suppliers?.name || '-'}</td>
+                    <td className="px-4 py-3 text-app-text">{r.quantity}</td>
+                    <td className="px-4 py-3 text-app-text font-medium">₦{Number(r.total_price).toLocaleString()}</td>
                   </tr>
                 ))}
               </tbody>

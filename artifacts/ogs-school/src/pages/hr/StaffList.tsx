@@ -23,14 +23,14 @@ interface Profile {
 const ROLES = ['accountant', 'admin', 'admin_support', 'cleaner', 'head_teacher', 'matron', 'non_teaching_staff', 'nur_prim_teacher', 'porter', 'principal', 'security_officer', 'super_admin', 'teacher'];
 
 const inputClass =
-  'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 function roleBadge(role: string) {
   switch (role) {
     case 'super_admin': return 'bg-purple-100 text-purple-700';
     case 'teacher': return 'bg-blue-100 text-blue-700';
     case 'accountant': return 'bg-amber-100 text-amber-700';
-    default: return 'bg-slate-100 text-slate-600';
+    default: return 'bg-slate-100 text-app-text-muted';
   }
 }
 
@@ -43,7 +43,7 @@ function avatarColor(role: string) {
     case 'super_admin': return 'bg-purple-100 text-purple-600';
     case 'teacher': return 'bg-blue-100 text-blue-600';
     case 'accountant': return 'bg-amber-100 text-amber-600';
-    default: return 'bg-slate-100 text-slate-600';
+    default: return 'bg-slate-100 text-app-text-muted';
   }
 }
 
@@ -249,10 +249,10 @@ export default function StaffList() {
   return (
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-slate-800">Staff List</h1>
+        <h1 className="text-2xl font-bold text-app-text">Staff List</h1>
         <div className="flex items-center gap-3">
           <select
-            className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
             value={filterRole}
             onChange={(e) => setFilterRole(e.target.value)}
           >
@@ -262,7 +262,7 @@ export default function StaffList() {
             ))}
           </select>
           <select
-            className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value as 'all' | 'active' | 'inactive')}
           >
@@ -284,40 +284,40 @@ export default function StaffList() {
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : staff.length === 0 ? (
-        <div className="text-center py-16 text-slate-400 text-sm">No staff members found.</div>
+        <div className="text-center py-16 text-app-text-muted text-sm">No staff members found.</div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+        <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-app-surface-alt border-b border-app-border">
               <tr>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Name</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Email</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Role</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Phone</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Status</th>
-                <th className="text-right px-5 py-3.5 font-semibold text-slate-600">Actions</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Name</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Email</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Role</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Phone</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Status</th>
+                <th className="text-right px-5 py-3.5 font-semibold text-app-text-muted">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {staff.map((p) => (
-                <tr key={p.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={p.id} className="hover:bg-app-surface-alt transition-colors">
                   <td className="px-5 py-3.5">
                     <div className="flex items-center gap-3">
                       <div className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${avatarColor(p.role)}`}>
                         {getInitials(p)}
                       </div>
-                      <span className="font-medium text-slate-800">
+                      <span className="font-medium text-app-text">
                         {`${p.first_name || ''} ${p.last_name || ''}`.trim() || 'N/A'}
                       </span>
                     </div>
                   </td>
-                  <td className="px-5 py-3.5 text-slate-600">{p.email || '-'}</td>
+                  <td className="px-5 py-3.5 text-app-text-muted">{p.email || '-'}</td>
                   <td className="px-5 py-3.5">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${roleBadge(p.role)}`}>
                       {p.role.replace('_', ' ')}
                     </span>
                   </td>
-                  <td className="px-5 py-3.5 text-slate-600">{p.phone || '-'}</td>
+                  <td className="px-5 py-3.5 text-app-text-muted">{p.phone || '-'}</td>
                   <td className="px-5 py-3.5">
                     {(p.is_active ?? true) ? (
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-100">
@@ -325,7 +325,7 @@ export default function StaffList() {
                         Active
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-500 border border-slate-200">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-app-text-muted border border-app-border">
                         <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
                         Deactivated
                       </span>
@@ -371,20 +371,20 @@ export default function StaffList() {
           )}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">First Name</label>
+              <label className="block text-sm font-medium text-app-text mb-1.5">First Name</label>
               <input className={inputClass} placeholder="First name" value={addForm.first_name} onChange={(e) => setAddForm({ ...addForm, first_name: e.target.value })} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">Last Name</label>
+              <label className="block text-sm font-medium text-app-text mb-1.5">Last Name</label>
               <input className={inputClass} placeholder="Last name" value={addForm.last_name} onChange={(e) => setAddForm({ ...addForm, last_name: e.target.value })} />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Email</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Email</label>
             <input type="email" className={inputClass} placeholder="Email address" value={addForm.email} onChange={(e) => setAddForm({ ...addForm, email: e.target.value })} />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -396,14 +396,14 @@ export default function StaffList() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-muted hover:text-app-text transition-colors"
               >
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Role</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Role</label>
             <select className={inputClass} value={addForm.role} onChange={(e) => setAddForm({ ...addForm, role: e.target.value })}>
               <option value="">Select role...</option>
               {ROLES.map((r) => (
@@ -412,15 +412,15 @@ export default function StaffList() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Phone</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Phone</label>
             <input className={inputClass} placeholder="Phone number" value={addForm.phone} onChange={(e) => setAddForm({ ...addForm, phone: e.target.value })} />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Basic Salary</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Basic Salary</label>
             <input type="number" className={inputClass} placeholder="e.g. 5000" value={addForm.basic_salary} onChange={(e) => setAddForm({ ...addForm, basic_salary: e.target.value })} />
           </div>
           <div className="flex justify-end gap-3 pt-2">
-            <button onClick={() => setAddModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-slate-600 hover:text-slate-800 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => setAddModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-app-text-muted hover:text-app-text border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors">Cancel</button>
             <button onClick={handleAdd} disabled={saving} className="px-4 py-2.5 text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 rounded-xl transition-colors disabled:opacity-60">
               {saving ? 'Adding...' : 'Add Staff'}
             </button>
@@ -435,16 +435,16 @@ export default function StaffList() {
           )}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">First Name</label>
+              <label className="block text-sm font-medium text-app-text mb-1.5">First Name</label>
               <input className={inputClass} placeholder="First name" value={editForm.first_name} onChange={(e) => setEditForm({ ...editForm, first_name: e.target.value })} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">Last Name</label>
+              <label className="block text-sm font-medium text-app-text mb-1.5">Last Name</label>
               <input className={inputClass} placeholder="Last name" value={editForm.last_name} onChange={(e) => setEditForm({ ...editForm, last_name: e.target.value })} />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Role</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Role</label>
             <select className={inputClass} value={editForm.role} onChange={(e) => setEditForm({ ...editForm, role: e.target.value })}>
               <option value="">Select role...</option>
               {ROLES.map((r) => (
@@ -453,15 +453,15 @@ export default function StaffList() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Phone</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Phone</label>
             <input className={inputClass} placeholder="Phone number" value={editForm.phone} onChange={(e) => setEditForm({ ...editForm, phone: e.target.value })} />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Basic Salary</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Basic Salary</label>
             <input type="number" className={inputClass} placeholder="e.g. 5000" value={editForm.basic_salary} onChange={(e) => setEditForm({ ...editForm, basic_salary: e.target.value })} />
           </div>
           <div className="flex justify-end gap-3 pt-2">
-            <button onClick={() => setEditModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-slate-600 hover:text-slate-800 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => setEditModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-app-text-muted hover:text-app-text border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors">Cancel</button>
             <button onClick={handleEdit} disabled={saving} className="px-4 py-2.5 text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 rounded-xl transition-colors disabled:opacity-60">
               {saving ? 'Saving...' : 'Save'}
             </button>
@@ -477,7 +477,7 @@ export default function StaffList() {
                 {getInitials(selected)}
               </div>
               <div>
-                <p className="text-lg font-semibold text-slate-800">{`${selected.first_name || ''} ${selected.last_name || ''}`.trim()}</p>
+                <p className="text-lg font-semibold text-app-text">{`${selected.first_name || ''} ${selected.last_name || ''}`.trim()}</p>
                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${roleBadge(selected.role)}`}>
                   {selected.role.replace('_', ' ')}
                 </span>
@@ -493,14 +493,14 @@ export default function StaffList() {
                 { label: 'Gender', value: selected.gender },
                 { label: 'Address', value: selected.address },
               ].map(({ label, value }) => (
-                <div key={label} className="bg-slate-50 rounded-xl px-3 py-2.5">
-                  <p className="text-xs text-slate-400 mb-0.5">{label}</p>
-                  <p className="font-medium text-slate-700">{value || '-'}</p>
+                <div key={label} className="bg-app-surface-alt rounded-xl px-3 py-2.5">
+                  <p className="text-xs text-app-text-muted mb-0.5">{label}</p>
+                  <p className="font-medium text-app-text">{value || '-'}</p>
                 </div>
               ))}
             </div>
             <div className="flex justify-end pt-2">
-              <button onClick={() => setViewModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-slate-600 hover:text-slate-800 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors">Close</button>
+              <button onClick={() => setViewModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-app-text-muted hover:text-app-text border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors">Close</button>
             </div>
           </div>
         )}
@@ -512,16 +512,16 @@ export default function StaffList() {
             <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-3 py-2.5 rounded-xl">{error}</div>
           )}
           {selected && (selected.is_active ?? true) ? (
-            <p className="text-sm text-slate-600">
-              Deactivate <span className="font-semibold text-slate-800">{`${selected.first_name} ${selected.last_name}`}</span>? They will be unable to sign in until reactivated. Their data will be preserved.
+            <p className="text-sm text-app-text-muted">
+              Deactivate <span className="font-semibold text-app-text">{`${selected.first_name} ${selected.last_name}`}</span>? They will be unable to sign in until reactivated. Their data will be preserved.
             </p>
           ) : (
-            <p className="text-sm text-slate-600">
-              Reactivate <span className="font-semibold text-slate-800">{selected ? `${selected.first_name} ${selected.last_name}` : ''}</span>? They will be able to sign in again immediately.
+            <p className="text-sm text-app-text-muted">
+              Reactivate <span className="font-semibold text-app-text">{selected ? `${selected.first_name} ${selected.last_name}` : ''}</span>? They will be able to sign in again immediately.
             </p>
           )}
           <div className="flex justify-end gap-3">
-            <button onClick={() => setDeactivateModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-slate-600 hover:text-slate-800 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => setDeactivateModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-app-text-muted hover:text-app-text border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors">Cancel</button>
             <button
               onClick={handleToggleActive}
               disabled={saving}
@@ -535,11 +535,11 @@ export default function StaffList() {
 
       <Modal isOpen={deleteModalOpen} onClose={() => setDeleteModalOpen(false)} title="Delete Staff">
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">
-            Are you sure you want to delete <span className="font-semibold text-slate-800">{selected ? `${selected.first_name} ${selected.last_name}` : ''}</span>? This action cannot be undone.
+          <p className="text-sm text-app-text-muted">
+            Are you sure you want to delete <span className="font-semibold text-app-text">{selected ? `${selected.first_name} ${selected.last_name}` : ''}</span>? This action cannot be undone.
           </p>
           <div className="flex justify-end gap-3">
-            <button onClick={() => setDeleteModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-slate-600 hover:text-slate-800 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => setDeleteModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-app-text-muted hover:text-app-text border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors">Cancel</button>
             <button onClick={handleDelete} className="px-4 py-2.5 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-xl transition-colors">Delete</button>
           </div>
         </div>

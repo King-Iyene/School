@@ -109,8 +109,8 @@ export default function NotificationSettings() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Notification Settings</h1>
-          <p className="text-slate-500 text-sm mt-1">Configure automatic alerts for key school events</p>
+          <h1 className="text-2xl font-bold text-app-text">Notification Settings</h1>
+          <p className="text-app-text-muted text-sm mt-1">Configure automatic alerts for key school events</p>
         </div>
         <button
           onClick={saveAll}
@@ -137,18 +137,18 @@ export default function NotificationSettings() {
       ) : (
         <div className="space-y-4">
           {triggers.map((trigger, idx) => (
-            <div key={trigger.event_type} className={`bg-white rounded-2xl border p-5 transition-all ${trigger.enabled ? 'border-slate-200' : 'border-slate-100 opacity-70'}`}>
+            <div key={trigger.event_type} className={`bg-app-surface rounded-2xl border p-5 transition-all ${trigger.enabled ? 'border-app-border' : 'border-app-border opacity-70'}`}>
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-1">
-                    <p className="font-semibold text-slate-800">{trigger.label}</p>
+                    <p className="font-semibold text-app-text">{trigger.label}</p>
                     {trigger.enabled ? (
                       <span className="text-xs px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full font-medium">Active</span>
                     ) : (
-                      <span className="text-xs px-2 py-0.5 bg-slate-100 text-slate-500 rounded-full font-medium">Inactive</span>
+                      <span className="text-xs px-2 py-0.5 bg-slate-100 text-app-text-muted rounded-full font-medium">Inactive</span>
                     )}
                   </div>
-                  <p className="text-sm text-slate-500">{trigger.description}</p>
+                  <p className="text-sm text-app-text-muted">{trigger.description}</p>
                 </div>
                 <button onClick={() => toggleEnabled(idx)} className="flex-shrink-0 mt-0.5">
                   {trigger.enabled
@@ -158,8 +158,8 @@ export default function NotificationSettings() {
               </div>
 
               {trigger.enabled && (
-                <div className="mt-4 pt-4 border-t border-slate-100">
-                  <p className="text-xs font-semibold text-slate-600 mb-2.5 uppercase tracking-wide">Delivery Channels</p>
+                <div className="mt-4 pt-4 border-t border-app-border">
+                  <p className="text-xs font-semibold text-app-text-muted mb-2.5 uppercase tracking-wide">Delivery Channels</p>
                   <div className="flex flex-wrap gap-2">
                     {ALL_CHANNELS.map(ch => {
                       const active = trigger.channels.includes(ch);
@@ -167,7 +167,7 @@ export default function NotificationSettings() {
                         <button
                           key={ch}
                           onClick={() => toggleChannel(idx, ch)}
-                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${active ? 'bg-emerald-50 border-emerald-300 text-emerald-700' : 'bg-slate-50 border-slate-200 text-slate-500 hover:border-slate-300'}`}
+                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${active ? 'bg-emerald-50 border-emerald-300 text-emerald-700' : 'bg-app-surface-alt border-app-border text-app-text-muted hover:border-app-border'}`}
                         >
                           {CHANNEL_ICONS[ch]}
                           {CHANNEL_LABELS[ch]}
@@ -177,7 +177,7 @@ export default function NotificationSettings() {
                   </div>
                   <button
                     onClick={() => sendTestNotification(trigger)}
-                    className="mt-3 flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-700 transition-colors"
+                    className="mt-3 flex items-center gap-1.5 text-xs text-app-text-muted hover:text-app-text transition-colors"
                   >
                     <Send className="w-3.5 h-3.5" /> Send test notification
                   </button>

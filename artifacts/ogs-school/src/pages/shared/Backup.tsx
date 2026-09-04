@@ -62,44 +62,44 @@ export default function Backup() {
           <HardDrive className="text-emerald-600" size={22} />
         </div>
         <div>
-          <h1 className="text-xl font-semibold text-slate-800">Backup & Restore</h1>
-          <p className="text-sm text-slate-500">Manage system backups and data restoration</p>
+          <h1 className="text-xl font-semibold text-app-text">Backup & Restore</h1>
+          <p className="text-sm text-app-text-muted">Manage system backups and data restoration</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4">
           <div className="flex items-center gap-2 mb-1">
-            <Info size={13} className="text-slate-400" />
-            <span className="text-xs text-slate-500 font-medium uppercase tracking-wide">Software Version</span>
+            <Info size={13} className="text-app-text-muted" />
+            <span className="text-xs text-app-text-muted font-medium uppercase tracking-wide">Software Version</span>
           </div>
-          <p className="text-xl font-bold text-slate-800">1.0.0</p>
+          <p className="text-xl font-bold text-app-text">1.0.0</p>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4">
           <div className="flex items-center gap-2 mb-1">
-            <Info size={13} className="text-slate-400" />
-            <span className="text-xs text-slate-500 font-medium uppercase tracking-wide">Last Backup</span>
+            <Info size={13} className="text-app-text-muted" />
+            <span className="text-xs text-app-text-muted font-medium uppercase tracking-wide">Last Backup</span>
           </div>
-          <p className="text-sm font-semibold text-slate-800">{formattedDate}</p>
+          <p className="text-sm font-semibold text-app-text">{formattedDate}</p>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4">
           <div className="flex items-center gap-2 mb-1">
-            <Info size={13} className="text-slate-400" />
-            <span className="text-xs text-slate-500 font-medium uppercase tracking-wide">Storage Used</span>
+            <Info size={13} className="text-app-text-muted" />
+            <span className="text-xs text-app-text-muted font-medium uppercase tracking-wide">Storage Used</span>
           </div>
-          <p className="text-xl font-bold text-slate-800">N/A</p>
+          <p className="text-xl font-bold text-app-text">N/A</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col gap-4">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5 flex flex-col gap-4">
           <div className="flex items-start gap-4">
             <div className="bg-emerald-50 p-3 rounded-xl">
               <Database className="text-emerald-600" size={22} />
             </div>
             <div className="flex-1">
-              <h2 className="text-sm font-semibold text-slate-800">Database Backup</h2>
-              <p className="text-xs text-slate-500 mt-0.5">Export all database tables and records as a compressed archive.</p>
+              <h2 className="text-sm font-semibold text-app-text">Database Backup</h2>
+              <p className="text-xs text-app-text-muted mt-0.5">Export all database tables and records as a compressed archive.</p>
             </div>
           </div>
           <button
@@ -111,14 +111,14 @@ export default function Backup() {
           </button>
         </div>
 
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col gap-4">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5 flex flex-col gap-4">
           <div className="flex items-start gap-4">
             <div className="bg-sky-50 p-3 rounded-xl">
               <Image className="text-sky-500" size={22} />
             </div>
             <div className="flex-1">
-              <h2 className="text-sm font-semibold text-slate-800">Images Backup</h2>
-              <p className="text-xs text-slate-500 mt-0.5">Download all uploaded images and media files from storage.</p>
+              <h2 className="text-sm font-semibold text-app-text">Images Backup</h2>
+              <p className="text-xs text-app-text-muted mt-0.5">Download all uploaded images and media files from storage.</p>
             </div>
           </div>
           <button
@@ -130,14 +130,14 @@ export default function Backup() {
           </button>
         </div>
 
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col gap-4">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5 flex flex-col gap-4">
           <div className="flex items-start gap-4">
             <div className="bg-amber-50 p-3 rounded-xl">
               <HardDrive className="text-amber-500" size={22} />
             </div>
             <div className="flex-1">
-              <h2 className="text-sm font-semibold text-slate-800">Full System Backup</h2>
-              <p className="text-xs text-slate-500 mt-0.5">Download a complete backup including database, files, and configuration.</p>
+              <h2 className="text-sm font-semibold text-app-text">Full System Backup</h2>
+              <p className="text-xs text-app-text-muted mt-0.5">Download a complete backup including database, files, and configuration.</p>
             </div>
           </div>
           <div className="flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5">
@@ -153,27 +153,27 @@ export default function Backup() {
           </button>
         </div>
 
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col gap-4">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5 flex flex-col gap-4">
           <div className="flex items-start gap-4">
             <div className="bg-slate-100 p-3 rounded-xl">
-              <Upload className="text-slate-500" size={22} />
+              <Upload className="text-app-text-muted" size={22} />
             </div>
             <div className="flex-1">
-              <h2 className="text-sm font-semibold text-slate-800">Restore Backup</h2>
-              <p className="text-xs text-slate-500 mt-0.5">Upload a previously exported backup file to restore the system.</p>
+              <h2 className="text-sm font-semibold text-app-text">Restore Backup</h2>
+              <p className="text-xs text-app-text-muted mt-0.5">Upload a previously exported backup file to restore the system.</p>
             </div>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1.5">Select backup file</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1.5">Select backup file</label>
             <input
               ref={fileInputRef}
               type="file"
               accept=".gz,.zip,.tar,.sql,.bak"
               onChange={handleFileChange}
-              className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer"
+              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer"
             />
             {restoreFile && (
-              <p className="text-xs text-slate-500 mt-1.5">Selected: <span className="font-medium text-slate-700">{restoreFile.name}</span></p>
+              <p className="text-xs text-app-text-muted mt-1.5">Selected: <span className="font-medium text-app-text">{restoreFile.name}</span></p>
             )}
           </div>
           <button

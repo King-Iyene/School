@@ -74,7 +74,7 @@ export default function UserLog() {
       parent: 'bg-amber-100 text-amber-700',
       accountant: 'bg-orange-100 text-orange-700',
     };
-    const cls = colorMap[role] || 'bg-slate-100 text-slate-700';
+    const cls = colorMap[role] || 'bg-slate-100 text-app-text';
     return (
       <span className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${cls}`}>
         {role?.replace('_', ' ')}
@@ -83,7 +83,7 @@ export default function UserLog() {
   }
 
   function getActivityStatus(updatedAt: string) {
-    if (!updatedAt) return <span className="px-2 py-1 rounded-full text-xs bg-slate-100 text-slate-500">Never</span>;
+    if (!updatedAt) return <span className="px-2 py-1 rounded-full text-xs bg-slate-100 text-app-text-muted">Never</span>;
     const date = new Date(updatedAt);
     if (date >= today) return <span className="px-2 py-1 rounded-full text-xs bg-emerald-100 text-emerald-700 font-medium">Today</span>;
     if (date >= thirtyDaysAgo) return <span className="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-700">Active</span>;
@@ -100,7 +100,7 @@ export default function UserLog() {
       )}
 
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">User Activity Log</h1>
+        <h1 className="text-2xl font-bold text-app-text">User Activity Log</h1>
         <button
           onClick={handleExport}
           className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
@@ -110,32 +110,32 @@ export default function UserLog() {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
-            <label className="block text-xs text-slate-500 mb-1">From Date</label>
+            <label className="block text-xs text-app-text-muted mb-1">From Date</label>
             <input
               type="date"
               value={filters.date_from}
               onChange={e => setFilters(f => ({ ...f, date_from: e.target.value }))}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
 
           <div>
-            <label className="block text-xs text-slate-500 mb-1">To Date</label>
+            <label className="block text-xs text-app-text-muted mb-1">To Date</label>
             <input
               type="date"
               value={filters.date_to}
               onChange={e => setFilters(f => ({ ...f, date_to: e.target.value }))}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
 
           <select
             value={filters.role}
             onChange={e => setFilters(f => ({ ...f, role: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 self-end"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 self-end"
           >
             <option value="">All Roles</option>
             <option value="super_admin">Super Admin</option>
@@ -147,23 +147,23 @@ export default function UserLog() {
           </select>
 
           <div className="relative self-end">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-app-text-muted" />
             <input
               type="text"
               placeholder="Search user..."
               value={filters.search}
               onChange={e => setFilters(f => ({ ...f, search: e.target.value }))}
-              className="w-full border border-slate-300 rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
         </div>
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Active Today</p>
+              <p className="text-sm text-app-text-muted">Active Today</p>
               <p className="text-2xl font-bold text-emerald-600 mt-1">{activeTodayCount}</p>
             </div>
             <div className="bg-emerald-100 p-3 rounded-lg">
@@ -172,11 +172,11 @@ export default function UserLog() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Total Users</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{filteredUsers.length}</p>
+              <p className="text-sm text-app-text-muted">Total Users</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{filteredUsers.length}</p>
             </div>
             <div className="bg-blue-100 p-3 rounded-lg">
               <Users className="h-6 w-6 text-blue-600" />
@@ -184,10 +184,10 @@ export default function UserLog() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Inactive (30+ Days)</p>
+              <p className="text-sm text-app-text-muted">Inactive (30+ Days)</p>
               <p className="text-2xl font-bold text-red-600 mt-1">{inactiveCount}</p>
             </div>
             <div className="bg-red-100 p-3 rounded-lg">
@@ -197,47 +197,47 @@ export default function UserLog() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">#</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Date / Time</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">User Name</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Role</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Email</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Last Activity</th>
-                <th className="text-center px-4 py-3 text-slate-600 font-medium">Status</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">IP Address</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">#</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Date / Time</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">User Name</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Role</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Email</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Last Activity</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Status</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">IP Address</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-10 text-slate-400">Loading...</td>
+                  <td colSpan={8} className="text-center py-10 text-app-text-muted">Loading...</td>
                 </tr>
               ) : filteredUsers.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-10 text-slate-400">No users found</td>
+                  <td colSpan={8} className="text-center py-10 text-app-text-muted">No users found</td>
                 </tr>
               ) : (
                 filteredUsers.map((user, index) => (
-                  <tr key={user.id} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="px-4 py-3 text-slate-500">{index + 1}</td>
-                    <td className="px-4 py-3 text-slate-600 text-xs">
+                  <tr key={user.id} className="border-b border-app-border hover:bg-app-surface-alt">
+                    <td className="px-4 py-3 text-app-text-muted">{index + 1}</td>
+                    <td className="px-4 py-3 text-app-text-muted text-xs">
                       {user.updated_at ? new Date(user.updated_at).toLocaleString() : '-'}
                     </td>
-                    <td className="px-4 py-3 font-medium text-slate-800">{user.full_name}</td>
+                    <td className="px-4 py-3 font-medium text-app-text">{user.full_name}</td>
                     <td className="px-4 py-3">{getRoleBadge(user.role)}</td>
-                    <td className="px-4 py-3 text-slate-600">{user.email || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600 text-xs">
+                    <td className="px-4 py-3 text-app-text-muted">{user.email || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted text-xs">
                       {user.updated_at ? new Date(user.updated_at).toLocaleString() : 'Never'}
                     </td>
                     <td className="px-4 py-3 text-center">
                       {getActivityStatus(user.updated_at)}
                     </td>
-                    <td className="px-4 py-3 text-slate-400 text-xs">N/A</td>
+                    <td className="px-4 py-3 text-app-text-muted text-xs">N/A</td>
                   </tr>
                 ))
               )}

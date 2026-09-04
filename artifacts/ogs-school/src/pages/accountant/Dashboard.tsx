@@ -56,8 +56,8 @@ export default function AccountantDashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-slate-800">Financial Overview</h2>
-        <p className="text-slate-500 mt-1">Track collections and fee management for {settings.school_name || 'School Portal'}</p>
+        <h2 className="text-2xl font-bold text-app-text">Financial Overview</h2>
+        <p className="text-app-text-muted mt-1">Track collections and fee management for {settings.school_name || 'School Portal'}</p>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -67,14 +67,14 @@ export default function AccountantDashboard() {
         <StatCard title="Total Students" value={stats.students} icon={Users} color="slate" />
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-        <h3 className="font-semibold text-slate-800 mb-4">Quick Actions</h3>
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
+        <h3 className="font-semibold text-app-text mb-4">Quick Actions</h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
             { label: 'Record Payment', path: '/fee-payments', icon: CreditCard, color: 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100' },
             { label: 'Fee Structures', path: '/fee-structures', icon: DollarSign, color: 'bg-blue-50 text-blue-600 hover:bg-blue-100' },
             { label: 'View Reports', path: '/reports', icon: TrendingUp, color: 'bg-amber-50 text-amber-600 hover:bg-amber-100' },
-            { label: 'All Students', path: '/students', icon: Users, color: 'bg-slate-50 text-slate-600 hover:bg-slate-100' },
+            { label: 'All Students', path: '/students', icon: Users, color: 'bg-app-surface-alt text-app-text-muted hover:bg-slate-100' },
           ].map(action => (
             <button key={action.path} onClick={() => navigate(action.path)} className={`flex flex-col items-center gap-2 p-4 rounded-xl transition-colors ${action.color}`}>
               <action.icon className="w-5 h-5" />
@@ -88,16 +88,16 @@ export default function AccountantDashboard() {
         <div className="lg:col-span-2 space-y-6">
           <DashboardCalendar />
 
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-            <div className="flex items-center justify-between p-5 border-b border-slate-100">
-              <h3 className="font-semibold text-slate-800">Recent Payments</h3>
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+            <div className="flex items-center justify-between p-5 border-b border-app-border">
+              <h3 className="font-semibold text-app-text">Recent Payments</h3>
               <button onClick={() => navigate('/fee-payments')} className="text-sm text-emerald-600 hover:text-emerald-700 font-medium">View all</button>
             </div>
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y divide-app-border">
               {loading ? (
-                <div className="p-5 text-center text-slate-400 text-sm">Loading...</div>
+                <div className="p-5 text-center text-app-text-muted text-sm">Loading...</div>
               ) : recentPayments.length === 0 ? (
-                <div className="p-5 text-center text-slate-400 text-sm">No payments recorded yet</div>
+                <div className="p-5 text-center text-app-text-muted text-sm">No payments recorded yet</div>
               ) : recentPayments.map(p => (
                 <div key={p.id} className="p-4 flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -105,15 +105,15 @@ export default function AccountantDashboard() {
                       <CreditCard className="w-4 h-4" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-slate-800">
+                      <p className="text-sm font-medium text-app-text">
                         {p.students?.first_name} {p.students?.last_name}
                       </p>
-                      <p className="text-xs text-slate-500">{p.fee_name}</p>
+                      <p className="text-xs text-app-text-muted">{p.fee_name}</p>
                     </div>
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-semibold text-emerald-600">₦{Number(p.amount_paid).toLocaleString()}</p>
-                    <p className="text-xs text-slate-400">{new Date(p.payment_date).toLocaleDateString()}</p>
+                    <p className="text-xs text-app-text-muted">{new Date(p.payment_date).toLocaleDateString()}</p>
                   </div>
                 </div>
               ))}

@@ -95,7 +95,7 @@ create policy "requisitions_access" on public.requisitions for all
 
 const ADMIN_ROLES = ['super_admin', 'admin', 'principal', 'accountant'];
 const fmt = (n: number) => `₦${n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-const inputClass = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const inputClass = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 const STATUS_CFG: Record<string, { label: string; bg: string; text: string }> = {
   pending:   { label: 'Pending',   bg: 'bg-amber-50',   text: 'text-amber-700'  },
@@ -107,7 +107,7 @@ const STATUS_CFG: Record<string, { label: string; bg: string; text: string }> = 
 };
 
 function StatusBadge({ status }: { status: string }) {
-  const cfg = STATUS_CFG[status] ?? { label: status, bg: 'bg-slate-100', text: 'text-slate-600' };
+  const cfg = STATUS_CFG[status] ?? { label: status, bg: 'bg-slate-100', text: 'text-app-text-muted' };
   return (
     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${cfg.bg} ${cfg.text}`}>
       {cfg.label}
@@ -644,7 +644,7 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
   if (setupNeeded) {
     return (
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold text-slate-800">Requisitions</h1>
+        <h1 className="text-2xl font-bold text-app-text">Requisitions</h1>
         <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5">
           <p className="font-semibold text-amber-800 mb-2">Database table not found</p>
           <p className="text-sm text-amber-700 mb-3">Run the SQL below in your Supabase SQL Editor to create the requisitions table.</p>
@@ -652,7 +652,7 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
             {showSql ? 'Hide' : 'Show'} SQL
           </button>
           {showSql && (
-            <pre className="bg-white border border-amber-200 rounded-xl p-4 text-xs overflow-x-auto whitespace-pre-wrap text-slate-700 font-mono">
+            <pre className="bg-app-surface border border-amber-200 rounded-xl p-4 text-xs overflow-x-auto whitespace-pre-wrap text-app-text font-mono">
               {SETUP_SQL}
             </pre>
           )}
@@ -665,8 +665,8 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
     <div className="space-y-6">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Requisitions</h1>
-          <p className="text-sm text-slate-500 mt-0.5">Submit and track expense requests</p>
+          <h1 className="text-2xl font-bold text-app-text">Requisitions</h1>
+          <p className="text-sm text-app-text-muted mt-0.5">Submit and track expense requests</p>
         </div>
         {activeTab === 'mine' && (
           <button
@@ -693,7 +693,7 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
             key={t.id}
             onClick={() => setActiveTab(t.id as typeof activeTab)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              activeTab === t.id ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+              activeTab === t.id ? 'bg-app-surface text-app-text shadow-sm' : 'text-app-text-muted hover:text-app-text'
             }`}
           >
             {t.label}
@@ -703,30 +703,30 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
 
       {/* New Request Form */}
       {showForm && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
+        <div className="bg-app-surface rounded-2xl border border-app-border p-6 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-base font-bold text-slate-800">New Requisition</h2>
-            <button onClick={() => setShowForm(false)} className="p-1.5 text-slate-400 hover:text-slate-600 rounded-xl hover:bg-slate-100">
+            <h2 className="text-base font-bold text-app-text">New Requisition</h2>
+            <button onClick={() => setShowForm(false)} className="p-1.5 text-app-text-muted hover:text-app-text rounded-xl hover:bg-slate-100">
               <X className="w-4 h-4" />
             </button>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="sm:col-span-2">
-              <label className="block text-xs font-medium text-slate-500 mb-1.5">Purpose / Title <span className="text-red-400">*</span></label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1.5">Purpose / Title <span className="text-red-400">*</span></label>
               <input className={inputClass} placeholder="e.g. Purchase of stationery" value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} />
             </div>
             <div className="sm:col-span-2">
-              <label className="block text-xs font-medium text-slate-500 mb-1.5">Description</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1.5">Description</label>
               <textarea className={`${inputClass} resize-none`} rows={2} placeholder="Optional details…" value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} />
             </div>
             {/* Itemized expenses / requests */}
             <div className="sm:col-span-2">
-              <label className="block text-xs font-medium text-slate-500 mb-1.5">Expenses / Request Items</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1.5">Expenses / Request Items</label>
               <div className="space-y-2">
                 {items.map((it, i) => (
                   <div key={i} className="flex gap-2 items-center">
-                    <span className="text-xs text-slate-400 w-5 text-right">{i + 1}.</span>
+                    <span className="text-xs text-app-text-muted w-5 text-right">{i + 1}.</span>
                     <input
                       className={inputClass}
                       placeholder="e.g. Boarders feeding ₦270,000/week × 4 weeks"
@@ -752,31 +752,31 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
                     <Plus className="w-3.5 h-3.5" /> Add Item
                   </button>
                   {validItems.length > 0 && (
-                    <p className="text-sm font-bold text-slate-700">Total: {fmt(itemsTotal)}</p>
+                    <p className="text-sm font-bold text-app-text">Total: {fmt(itemsTotal)}</p>
                   )}
                 </div>
               </div>
             </div>
             {validItems.length === 0 && (
               <div>
-                <label className="block text-xs font-medium text-slate-500 mb-1.5">Amount (₦) <span className="text-red-400">*</span></label>
+                <label className="block text-xs font-medium text-app-text-muted mb-1.5">Amount (₦) <span className="text-red-400">*</span></label>
                 <input type="number" min="0" step="0.01" className={inputClass} placeholder="0.00 — or itemize above" value={form.amount} onChange={e => setForm(f => ({ ...f, amount: e.target.value }))} />
               </div>
             )}
             <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1.5">Date Needed</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1.5">Date Needed</label>
               <input type="date" className={inputClass} value={form.date_needed} onChange={e => setForm(f => ({ ...f, date_needed: e.target.value }))} />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1.5">Bank Name</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1.5">Bank Name</label>
               <input className={inputClass} placeholder="e.g. Access Bank" value={form.bank_name} onChange={e => setForm(f => ({ ...f, bank_name: e.target.value }))} />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1.5">Account Number</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1.5">Account Number</label>
               <input className={inputClass} placeholder="0000000000" value={form.account_number} onChange={e => setForm(f => ({ ...f, account_number: e.target.value }))} />
             </div>
             <div className="sm:col-span-2">
-              <label className="block text-xs font-medium text-slate-500 mb-1.5">Account Name</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1.5">Account Name</label>
               <input className={inputClass} placeholder="Name on account" value={form.account_name} onChange={e => setForm(f => ({ ...f, account_name: e.target.value }))} />
             </div>
           </div>
@@ -787,7 +787,7 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
             <button onClick={submitForm} disabled={formSaving} className="bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors">
               {formSaving ? 'Submitting…' : 'Submit Request'}
             </button>
-            <button onClick={() => setShowForm(false)} className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium px-5 py-2.5 rounded-xl transition-colors">
+            <button onClick={() => setShowForm(false)} className="bg-slate-100 hover:bg-slate-200 text-app-text text-sm font-medium px-5 py-2.5 rounded-xl transition-colors">
               Cancel
             </button>
           </div>
@@ -804,8 +804,8 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
       {/* Status filter (all tab) */}
       {activeTab === 'all' && (
         <div className="flex items-center gap-3">
-          <label className="text-xs font-medium text-slate-500">Filter by status:</label>
-          <select className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white" value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
+          <label className="text-xs font-medium text-app-text-muted">Filter by status:</label>
+          <select className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface" value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
             <option value="">All</option>
             {Object.entries(STATUS_CFG).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
           </select>
@@ -818,45 +818,45 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-16 text-slate-400 text-sm bg-white rounded-2xl border border-slate-200">
+        <div className="text-center py-16 text-app-text-muted text-sm bg-app-surface rounded-2xl border border-app-border">
           {activeTab === 'mine' ? 'You have no requisitions yet. Click "New Request" to submit one.' :
            activeTab === 'retirement' ? 'No disbursed requisitions pending retirement.' :
            'No requisitions found.'}
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
+        <div className="bg-app-surface rounded-2xl border border-app-border overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-app-surface-alt border-b border-app-border">
               <tr>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Purpose</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Purpose</th>
                 {(activeTab === 'all' || activeTab === 'retirement') && (
-                  <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Requested By</th>
+                  <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Requested By</th>
                 )}
-                <th className="text-right px-5 py-3.5 font-semibold text-slate-600">Amount</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Date Needed</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Status</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Submitted</th>
-                <th className="text-right px-5 py-3.5 font-semibold text-slate-600">Actions</th>
+                <th className="text-right px-5 py-3.5 font-semibold text-app-text-muted">Amount</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Date Needed</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Status</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Submitted</th>
+                <th className="text-right px-5 py-3.5 font-semibold text-app-text-muted">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {filtered.map(req => (
-                <tr key={req.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={req.id} className="hover:bg-app-surface-alt transition-colors">
                   <td className="px-5 py-3.5">
-                    <p className="font-medium text-slate-800">{req.title}</p>
-                    {req.description && <p className="text-xs text-slate-400 mt-0.5 truncate max-w-[220px]">{req.description}</p>}
+                    <p className="font-medium text-app-text">{req.title}</p>
+                    {req.description && <p className="text-xs text-app-text-muted mt-0.5 truncate max-w-[220px]">{req.description}</p>}
                   </td>
                   {(activeTab === 'all' || activeTab === 'retirement') && (
                     <td className="px-5 py-3.5">
                       {req.requester ? (
-                        <p className="text-slate-700">{req.requester.first_name} {req.requester.last_name}</p>
+                        <p className="text-app-text">{req.requester.first_name} {req.requester.last_name}</p>
                       ) : '—'}
                     </td>
                   )}
-                  <td className="px-5 py-3.5 text-right font-semibold text-slate-800">{fmt(req.amount)}</td>
-                  <td className="px-5 py-3.5 text-slate-500 text-xs">{dateStr(req.date_needed)}</td>
+                  <td className="px-5 py-3.5 text-right font-semibold text-app-text">{fmt(req.amount)}</td>
+                  <td className="px-5 py-3.5 text-app-text-muted text-xs">{dateStr(req.date_needed)}</td>
                   <td className="px-5 py-3.5"><StatusBadge status={req.status} /></td>
-                  <td className="px-5 py-3.5 text-xs text-slate-400">{dateStr(req.created_at)}</td>
+                  <td className="px-5 py-3.5 text-xs text-app-text-muted">{dateStr(req.created_at)}</td>
                   <td className="px-5 py-3.5 text-right">
                     <button
                       onClick={() => { setDetailReq(req); setReviewNotes(''); setActionError(''); setReceiptError(''); }}
@@ -884,9 +884,9 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
       {/* Detail / Action Modal */}
       {detailReq && (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={() => setDetailReq(null)}>
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 sticky top-0 bg-white rounded-t-2xl z-10">
-              <h2 className="text-base font-bold text-slate-800">Requisition Detail</h2>
+          <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-5 py-4 border-b border-app-border sticky top-0 bg-app-surface rounded-t-2xl z-10">
+              <h2 className="text-base font-bold text-app-text">Requisition Detail</h2>
               <div className="flex items-center gap-2">
                 {isAdmin && (
                   <button
@@ -896,7 +896,7 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
                     <Printer className="w-3.5 h-3.5" /> Print Form
                   </button>
                 )}
-                <button onClick={() => setDetailReq(null)} className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl">
+                <button onClick={() => setDetailReq(null)} className="p-1.5 text-app-text-muted hover:text-app-text hover:bg-slate-100 rounded-xl">
                   <X className="w-4 h-4" />
                 </button>
               </div>
@@ -906,27 +906,27 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
               {/* Header info */}
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="font-bold text-slate-800 text-base">{detailReq.title}</p>
-                  {detailReq.description && <p className="text-sm text-slate-500 mt-1">{detailReq.description}</p>}
+                  <p className="font-bold text-app-text text-base">{detailReq.title}</p>
+                  {detailReq.description && <p className="text-sm text-app-text-muted mt-1">{detailReq.description}</p>}
                 </div>
                 <StatusBadge status={detailReq.status} />
               </div>
 
               {/* Itemized list */}
               {detailReq.items && detailReq.items.length > 0 && (
-                <div className="border border-slate-200 rounded-xl overflow-hidden">
+                <div className="border border-app-border rounded-xl overflow-hidden">
                   <table className="w-full text-sm">
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-app-border">
                       {detailReq.items.map((it, i) => (
                         <tr key={i}>
-                          <td className="px-3 py-2 text-slate-400 text-xs w-6">{i + 1}.</td>
-                          <td className="px-3 py-2 text-slate-700">{it.description}</td>
-                          <td className="px-3 py-2 text-right font-medium text-slate-800">{fmt(it.amount)}</td>
+                          <td className="px-3 py-2 text-app-text-muted text-xs w-6">{i + 1}.</td>
+                          <td className="px-3 py-2 text-app-text">{it.description}</td>
+                          <td className="px-3 py-2 text-right font-medium text-app-text">{fmt(it.amount)}</td>
                         </tr>
                       ))}
-                      <tr className="bg-slate-50">
-                        <td colSpan={2} className="px-3 py-2 text-xs font-bold text-slate-500 uppercase">Total</td>
-                        <td className="px-3 py-2 text-right font-bold text-slate-800">{fmt(detailReq.items.reduce((s, it) => s + it.amount, 0))}</td>
+                      <tr className="bg-app-surface-alt">
+                        <td colSpan={2} className="px-3 py-2 text-xs font-bold text-app-text-muted uppercase">Total</td>
+                        <td className="px-3 py-2 text-right font-bold text-app-text">{fmt(detailReq.items.reduce((s, it) => s + it.amount, 0))}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -941,20 +941,20 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
                   { label: 'Requested By', value: detailReq.requester ? `${detailReq.requester.first_name} ${detailReq.requester.last_name}` : '—' },
                 ].map(f => (
                   <div key={f.label}>
-                    <p className="text-xs text-slate-400 uppercase tracking-wide font-medium">{f.label}</p>
-                    <p className="font-semibold text-slate-800 mt-0.5">{f.value}</p>
+                    <p className="text-xs text-app-text-muted uppercase tracking-wide font-medium">{f.label}</p>
+                    <p className="font-semibold text-app-text mt-0.5">{f.value}</p>
                   </div>
                 ))}
               </div>
 
               {/* Bank details */}
               {(detailReq.bank_name || detailReq.account_number || detailReq.account_name) && (
-                <div className="bg-slate-50 rounded-xl p-4 text-sm space-y-1">
-                  <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Bank Details</p>
+                <div className="bg-app-surface-alt rounded-xl p-4 text-sm space-y-1">
+                  <p className="text-xs font-bold text-app-text-muted uppercase tracking-wide mb-2">Bank Details</p>
                   <div className="grid grid-cols-2 gap-2">
-                    {detailReq.bank_name && <div><p className="text-xs text-slate-400">Bank</p><p className="font-medium">{detailReq.bank_name}</p></div>}
-                    {detailReq.account_number && <div><p className="text-xs text-slate-400">Account No.</p><p className="font-medium font-mono">{detailReq.account_number}</p></div>}
-                    {detailReq.account_name && <div className="col-span-2"><p className="text-xs text-slate-400">Account Name</p><p className="font-medium">{detailReq.account_name}</p></div>}
+                    {detailReq.bank_name && <div><p className="text-xs text-app-text-muted">Bank</p><p className="font-medium">{detailReq.bank_name}</p></div>}
+                    {detailReq.account_number && <div><p className="text-xs text-app-text-muted">Account No.</p><p className="font-medium font-mono">{detailReq.account_number}</p></div>}
+                    {detailReq.account_name && <div className="col-span-2"><p className="text-xs text-app-text-muted">Account Name</p><p className="font-medium">{detailReq.account_name}</p></div>}
                   </div>
                 </div>
               )}
@@ -962,20 +962,20 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
               {/* Review info */}
               {detailReq.reviewer && (
                 <div className="text-sm">
-                  <p className="text-xs text-slate-400 uppercase tracking-wide font-medium">Review</p>
-                  <p className="text-slate-700 mt-0.5">
+                  <p className="text-xs text-app-text-muted uppercase tracking-wide font-medium">Review</p>
+                  <p className="text-app-text mt-0.5">
                     {detailReq.status === 'rejected' ? 'Rejected' : 'Approved'} by {detailReq.reviewer.first_name} {detailReq.reviewer.last_name}
                     {detailReq.reviewed_at ? ` on ${dateStr(detailReq.reviewed_at)}` : ''}
                   </p>
-                  {detailReq.review_notes && <p className="text-slate-500 mt-0.5 italic">{detailReq.review_notes}</p>}
+                  {detailReq.review_notes && <p className="text-app-text-muted mt-0.5 italic">{detailReq.review_notes}</p>}
                 </div>
               )}
 
               {/* Disbursal info */}
               {detailReq.disburser && (
                 <div className="text-sm">
-                  <p className="text-xs text-slate-400 uppercase tracking-wide font-medium">Disbursement</p>
-                  <p className="text-slate-700 mt-0.5">
+                  <p className="text-xs text-app-text-muted uppercase tracking-wide font-medium">Disbursement</p>
+                  <p className="text-app-text mt-0.5">
                     Disbursed by {detailReq.disburser.first_name} {detailReq.disburser.last_name}
                     {detailReq.disbursed_at ? ` on ${dateStr(detailReq.disbursed_at)}` : ''}
                   </p>
@@ -1008,8 +1008,8 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
 
               {/* Receipt section */}
               {['disbursed','retired','reimbursed'].includes(detailReq.status) && (
-                <div className="border border-slate-200 rounded-xl p-4 space-y-3">
-                  <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">Receipt</p>
+                <div className="border border-app-border rounded-xl p-4 space-y-3">
+                  <p className="text-xs font-bold text-app-text-muted uppercase tracking-wide">Receipt</p>
                   {detailReq.receipt_url ? (
                     <div className="flex items-center gap-3">
                       <a href={detailReq.receipt_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-emerald-600 font-medium underline underline-offset-2">
@@ -1024,7 +1024,7 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
                   ) : (
                     detailReq.requester_id === profile?.id || isAdmin ? (
                       <div className="space-y-2">
-                        <p className="text-xs text-slate-500">Upload the receipt/proof of expenditure:</p>
+                        <p className="text-xs text-app-text-muted">Upload the receipt/proof of expenditure:</p>
                         <div className="flex gap-2">
                           <input
                             ref={fileRef}
@@ -1048,7 +1048,7 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
                         {receiptError && <p className="text-xs text-red-600">{receiptError}</p>}
                       </div>
                     ) : (
-                      <p className="text-xs text-slate-400 italic">No receipt uploaded yet.</p>
+                      <p className="text-xs text-app-text-muted italic">No receipt uploaded yet.</p>
                     )
                   )}
                 </div>
@@ -1056,11 +1056,11 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
 
               {/* Admin actions */}
               {isAdmin && (
-                <div className="border-t border-slate-100 pt-4 space-y-3">
+                <div className="border-t border-app-border pt-4 space-y-3">
                   {detailReq.status === 'pending' && (
                     <>
                       <div>
-                        <label className="block text-xs font-medium text-slate-500 mb-1.5">Notes (optional)</label>
+                        <label className="block text-xs font-medium text-app-text-muted mb-1.5">Notes (optional)</label>
                         <textarea className={`${inputClass} resize-none`} rows={2} placeholder="Add a note for the requester…" value={reviewNotes} onChange={e => setReviewNotes(e.target.value)} />
                       </div>
                       <div className="flex gap-2">
@@ -1076,7 +1076,7 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
                   {detailReq.status === 'approved' && (
                     <>
                       <div>
-                        <label className="block text-xs font-medium text-slate-500 mb-1.5">Notes (optional — required if declining)</label>
+                        <label className="block text-xs font-medium text-app-text-muted mb-1.5">Notes (optional — required if declining)</label>
                         <textarea className={`${inputClass} resize-none`} rows={2} placeholder="Add a note for the requester…" value={reviewNotes} onChange={e => setReviewNotes(e.target.value)} />
                       </div>
                       <div className="flex gap-2 flex-wrap">
@@ -1119,7 +1119,7 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
                       </button>
                       <button
                         onClick={() => setDeleteConfirm(false)}
-                        className="text-xs text-slate-500 hover:text-slate-700 px-2 py-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+                        className="text-xs text-app-text-muted hover:text-app-text px-2 py-1.5 rounded-lg hover:bg-slate-100 transition-colors"
                       >
                         Cancel
                       </button>
@@ -1147,14 +1147,14 @@ function ReceiptUrlInput({ onSave }: { onSave: (url: string) => void }) {
   return (
     <div className="flex gap-2">
       <input
-        className="border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/30 flex-1"
+        className="border border-app-border rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/30 flex-1"
         placeholder="Or paste a URL to receipt…"
         value={url}
         onChange={e => setUrl(e.target.value)}
       />
       <button
         onClick={() => { onSave(url); setUrl(''); }}
-        className="bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-medium px-3 py-2 rounded-lg transition-colors"
+        className="bg-slate-200 hover:bg-slate-300 text-app-text text-xs font-medium px-3 py-2 rounded-lg transition-colors"
       >
         Save
       </button>

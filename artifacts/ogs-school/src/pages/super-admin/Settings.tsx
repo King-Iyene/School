@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import { School as SchoolType } from '../../lib/types';
 
-const inputCls = 'w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
 
 export default function Settings() {
   const { profile } = useAuth();
@@ -97,46 +97,46 @@ export default function Settings() {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-xl font-bold text-slate-800">School Settings</h2>
-        <p className="text-slate-500 text-sm">Manage school information and configuration</p>
+        <h2 className="text-xl font-bold text-app-text">School Settings</h2>
+        <p className="text-app-text-muted text-sm">Manage school information and configuration</p>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-        <div className="flex items-center gap-3 p-5 border-b border-slate-100">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+        <div className="flex items-center gap-3 p-5 border-b border-app-border">
           <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center">
             <School className="w-5 h-5 text-white" />
           </div>
           <div>
-            <p className="font-semibold text-slate-800">School Information</p>
-            <p className="text-xs text-slate-500">Update basic school details</p>
+            <p className="font-semibold text-app-text">School Information</p>
+            <p className="text-xs text-app-text-muted">Update basic school details</p>
           </div>
         </div>
         <div className="p-5 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">School Name</label>
+            <label className="block text-sm font-medium text-app-text mb-1">School Name</label>
             <input value={form.name} onChange={e => setForm({...form, name: e.target.value})} className={inputCls} />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Address</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Address</label>
             <textarea value={form.address} onChange={e => setForm({...form, address: e.target.value})} rows={2} className={`${inputCls} resize-none`} />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Phone</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Phone</label>
               <input value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} className={inputCls} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Email</label>
               <input type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} className={inputCls} />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">School Motto</label>
+              <label className="block text-sm font-medium text-app-text mb-1">School Motto</label>
               <input value={form.motto} onChange={e => setForm({...form, motto: e.target.value})} className={inputCls} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Established Year</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Established Year</label>
               <input type="number" value={form.established_year} onChange={e => setForm({...form, established_year: e.target.value})} className={inputCls} />
             </div>
           </div>
@@ -150,20 +150,20 @@ export default function Settings() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-        <div className="flex items-center gap-3 p-5 border-b border-slate-100">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+        <div className="flex items-center gap-3 p-5 border-b border-app-border">
           <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
             <Upload className="w-5 h-5 text-white" />
           </div>
           <div>
-            <p className="font-semibold text-slate-800">School Logo</p>
-            <p className="text-xs text-slate-500">Upload a logo to display in the sidebar and on printed documents</p>
+            <p className="font-semibold text-app-text">School Logo</p>
+            <p className="text-xs text-app-text-muted">Upload a logo to display in the sidebar and on printed documents</p>
           </div>
         </div>
         <div className="p-5">
           <div className="flex items-start gap-6">
             <div className="flex-shrink-0">
-              <div className="w-24 h-24 rounded-2xl border-2 border-dashed border-slate-200 flex items-center justify-center overflow-hidden bg-slate-50">
+              <div className="w-24 h-24 rounded-2xl border-2 border-dashed border-app-border flex items-center justify-center overflow-hidden bg-app-surface-alt">
                 {logoUrl ? (
                   <img src={logoUrl} alt="School logo" className="w-full h-full object-contain p-1" />
                 ) : (
@@ -172,7 +172,7 @@ export default function Settings() {
               </div>
             </div>
             <div className="flex-1 space-y-3">
-              <p className="text-sm text-slate-600">
+              <p className="text-sm text-app-text-muted">
                 Accepted formats: JPEG, PNG, WebP, SVG. Maximum size: 5MB.
               </p>
               {logoError && <div className="bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl px-3 py-2">{logoError}</div>}
@@ -187,7 +187,7 @@ export default function Settings() {
                 />
                 <label
                   htmlFor="logo-upload"
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors cursor-pointer ${logoUploading ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-emerald-500 hover:bg-emerald-600 text-white'}`}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors cursor-pointer ${logoUploading ? 'bg-slate-100 text-app-text-muted cursor-not-allowed' : 'bg-emerald-500 hover:bg-emerald-600 text-white'}`}
                 >
                   <Upload className="w-4 h-4" />
                   {logoUploading ? 'Uploading...' : logoUrl ? 'Change Logo' : 'Upload Logo'}
@@ -212,41 +212,41 @@ export default function Settings() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-        <h3 className="font-semibold text-slate-800 mb-3">Account Information</h3>
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
+        <h3 className="font-semibold text-app-text mb-3">Account Information</h3>
         <div className="space-y-3">
           <div className="flex justify-between text-sm">
-            <span className="text-slate-500">Name</span>
-            <span className="text-slate-800 font-medium">{profile?.first_name} {profile?.last_name}</span>
+            <span className="text-app-text-muted">Name</span>
+            <span className="text-app-text font-medium">{profile?.first_name} {profile?.last_name}</span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-slate-500">Email</span>
-            <span className="text-slate-800">{profile?.email}</span>
+            <span className="text-app-text-muted">Email</span>
+            <span className="text-app-text">{profile?.email}</span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-slate-500">Role</span>
-            <span className="text-slate-800 capitalize">{profile?.role?.replace('_', ' ')}</span>
+            <span className="text-app-text-muted">Role</span>
+            <span className="text-app-text capitalize">{profile?.role?.replace('_', ' ')}</span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-slate-500">Account Created</span>
-            <span className="text-slate-800">{profile?.created_at ? new Date(profile.created_at).toLocaleDateString() : '—'}</span>
+            <span className="text-app-text-muted">Account Created</span>
+            <span className="text-app-text">{profile?.created_at ? new Date(profile.created_at).toLocaleDateString() : '—'}</span>
           </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-        <div className="flex items-center gap-3 p-5 border-b border-slate-100">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+        <div className="flex items-center gap-3 p-5 border-b border-app-border">
           <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center">
             <KeyRound className="w-5 h-5 text-white" />
           </div>
           <div>
-            <p className="font-semibold text-slate-800">Change Password</p>
-            <p className="text-xs text-slate-500">Update your account password</p>
+            <p className="font-semibold text-app-text">Change Password</p>
+            <p className="text-xs text-app-text-muted">Update your account password</p>
           </div>
         </div>
         <div className="p-5 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Current Password</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Current Password</label>
             <div className="relative">
               <input
                 type={showCurrent ? 'text' : 'password'}
@@ -255,13 +255,13 @@ export default function Settings() {
                 className={`${inputCls} pr-10`}
                 placeholder="Enter current password"
               />
-              <button type="button" onClick={() => setShowCurrent(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+              <button type="button" onClick={() => setShowCurrent(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-muted hover:text-app-text">
                 {showCurrent ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">New Password</label>
+            <label className="block text-sm font-medium text-app-text mb-1">New Password</label>
             <div className="relative">
               <input
                 type={showNew ? 'text' : 'password'}
@@ -270,13 +270,13 @@ export default function Settings() {
                 className={`${inputCls} pr-10`}
                 placeholder="Enter new password (min 6 characters)"
               />
-              <button type="button" onClick={() => setShowNew(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+              <button type="button" onClick={() => setShowNew(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-muted hover:text-app-text">
                 {showNew ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Confirm New Password</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Confirm New Password</label>
             <div className="relative">
               <input
                 type={showConfirm ? 'text' : 'password'}
@@ -285,7 +285,7 @@ export default function Settings() {
                 className={`${inputCls} pr-10`}
                 placeholder="Re-enter new password"
               />
-              <button type="button" onClick={() => setShowConfirm(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+              <button type="button" onClick={() => setShowConfirm(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-muted hover:text-app-text">
                 {showConfirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>

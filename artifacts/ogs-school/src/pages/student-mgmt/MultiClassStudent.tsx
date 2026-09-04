@@ -131,7 +131,7 @@ const MultiClassStudent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-app-surface-alt p-6">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
@@ -139,14 +139,14 @@ const MultiClassStudent: React.FC = () => {
               <Users className="text-emerald-600" size={24} />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-800">Multi-Class Students</h1>
-              <p className="text-gray-500 text-sm">Students enrolled in more than one class in the same academic year</p>
+              <h1 className="text-2xl font-bold text-app-text">Multi-Class Students</h1>
+              <p className="text-app-text-muted text-sm">Students enrolled in more than one class in the same academic year</p>
             </div>
           </div>
           <button
             onClick={fetchMultiClassStudents}
             disabled={loading}
-            className="flex items-center gap-2 border border-gray-300 text-gray-600 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium disabled:opacity-50"
+            className="flex items-center gap-2 border border-app-border text-app-text-muted px-4 py-2 rounded-lg hover:bg-app-surface-alt transition-colors text-sm font-medium disabled:opacity-50"
           >
             <RefreshCw size={15} className={loading ? 'animate-spin' : ''} />
             Refresh
@@ -160,10 +160,10 @@ const MultiClassStudent: React.FC = () => {
         )}
 
         {!loading && records.length === 0 && (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+          <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-12 text-center">
             <Users size={48} className="mx-auto mb-3 text-gray-300" />
-            <h3 className="text-lg font-semibold text-gray-600 mb-1">No Multi-Class Enrollments</h3>
-            <p className="text-gray-400 text-sm">No students are currently enrolled in multiple classes in the same academic year.</p>
+            <h3 className="text-lg font-semibold text-app-text-muted mb-1">No Multi-Class Enrollments</h3>
+            <p className="text-app-text-muted text-sm">No students are currently enrolled in multiple classes in the same academic year.</p>
           </div>
         )}
 
@@ -177,16 +177,16 @@ const MultiClassStudent: React.FC = () => {
             </div>
 
             {records.map((record) => (
-              <div key={record.student.id} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                <div className="flex items-center gap-4 px-5 py-4 border-b border-gray-100 bg-gray-50">
+              <div key={record.student.id} className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
+                <div className="flex items-center gap-4 px-5 py-4 border-b border-app-border bg-app-surface-alt">
                   <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold">
                     {record.student.first_name.charAt(0)}{record.student.last_name.charAt(0)}
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-800">
+                    <p className="font-semibold text-app-text">
                       {record.student.first_name} {record.student.last_name}
                     </p>
-                    <p className="text-xs text-gray-500">Student ID: {record.student.student_id || 'N/A'}</p>
+                    <p className="text-xs text-app-text-muted">Student ID: {record.student.student_id || 'N/A'}</p>
                   </div>
                   <span className="ml-auto text-xs bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full font-medium">
                     {record.enrollments.length} classes
@@ -194,29 +194,29 @@ const MultiClassStudent: React.FC = () => {
                 </div>
                 <table className="w-full">
                   <thead>
-                    <tr className="text-left bg-gray-50">
-                      <th className="px-5 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">Class</th>
-                      <th className="px-5 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">Status</th>
-                      <th className="px-5 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">Enrollment Date</th>
-                      <th className="px-5 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide text-right">Action</th>
+                    <tr className="text-left bg-app-surface-alt">
+                      <th className="px-5 py-2.5 text-xs font-semibold text-app-text-muted uppercase tracking-wide">Class</th>
+                      <th className="px-5 py-2.5 text-xs font-semibold text-app-text-muted uppercase tracking-wide">Status</th>
+                      <th className="px-5 py-2.5 text-xs font-semibold text-app-text-muted uppercase tracking-wide">Enrollment Date</th>
+                      <th className="px-5 py-2.5 text-xs font-semibold text-app-text-muted uppercase tracking-wide text-right">Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-50">
                     {record.enrollments.map((enr, idx) => (
-                      <tr key={`${enr.class_id}-${idx}`} className="hover:bg-gray-50">
-                        <td className="px-5 py-3 font-medium text-gray-800">{enr.class_name}</td>
+                      <tr key={`${enr.class_id}-${idx}`} className="hover:bg-app-surface-alt">
+                        <td className="px-5 py-3 font-medium text-app-text">{enr.class_name}</td>
                         <td className="px-5 py-3">
                           <span
                             className={`text-xs px-2.5 py-1 rounded-full font-medium capitalize ${
                               enr.status === 'active'
                                 ? 'bg-emerald-100 text-emerald-700'
-                                : 'bg-gray-100 text-gray-600'
+                                : 'bg-gray-100 text-app-text-muted'
                             }`}
                           >
                             {enr.status}
                           </span>
                         </td>
-                        <td className="px-5 py-3 text-sm text-gray-600">
+                        <td className="px-5 py-3 text-sm text-app-text-muted">
                           {enr.enrollment_date
                             ? new Date(enr.enrollment_date).toLocaleDateString('en-US', {
                                 year: 'numeric',
@@ -253,20 +253,20 @@ const MultiClassStudent: React.FC = () => {
 
       {confirmRemove && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-xl p-6 max-w-sm w-full">
+          <div className="bg-app-surface rounded-xl shadow-xl p-6 max-w-sm w-full">
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-red-100 p-2 rounded-full">
                 <Trash2 size={20} className="text-red-500" />
               </div>
-              <h3 className="font-semibold text-gray-800 text-lg">Remove Enrollment</h3>
+              <h3 className="font-semibold text-app-text text-lg">Remove Enrollment</h3>
             </div>
-            <p className="text-gray-600 text-sm mb-6">
+            <p className="text-app-text-muted text-sm mb-6">
               Are you sure you want to remove this student from the class? This action cannot be undone.
             </p>
             <div className="flex gap-3 justify-end">
               <button
                 onClick={() => setConfirmRemove(null)}
-                className="px-4 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors font-medium"
+                className="px-4 py-2 text-sm border border-app-border rounded-lg text-app-text-muted hover:bg-app-surface-alt transition-colors font-medium"
               >
                 Cancel
               </button>

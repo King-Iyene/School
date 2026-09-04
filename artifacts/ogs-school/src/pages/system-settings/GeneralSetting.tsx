@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 
 const INPUT_CLASS =
-  'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 const EMPTY_FORM = {
   school_name: '',
@@ -141,7 +141,7 @@ export default function GeneralSetting() {
           <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
             <Settings className="w-5 h-5 text-emerald-600" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-800">General Settings</h1>
+          <h1 className="text-2xl font-bold text-app-text">General Settings</h1>
         </div>
         <button
           onClick={handleSave}
@@ -160,13 +160,13 @@ export default function GeneralSetting() {
       )}
 
       {loading ? (
-        <div className="flex items-center justify-center py-16 text-slate-400 text-sm">Loading settings...</div>
+        <div className="flex items-center justify-center py-16 text-app-text-muted text-sm">Loading settings...</div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6">
-          <h2 className="text-base font-semibold text-slate-700 mb-5">School Information</h2>
+        <div className="bg-app-surface rounded-2xl border border-app-border p-6">
+          <h2 className="text-base font-semibold text-app-text mb-5">School Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">School Name</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">School Name</label>
               <input
                 className={INPUT_CLASS}
                 value={form.school_name}
@@ -175,7 +175,7 @@ export default function GeneralSetting() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">School Code</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">School Code</label>
               <input
                 className={INPUT_CLASS}
                 value={form.school_code}
@@ -184,7 +184,7 @@ export default function GeneralSetting() {
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-slate-600 mb-1">Address</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Address</label>
               <textarea
                 className={INPUT_CLASS}
                 rows={2}
@@ -194,7 +194,7 @@ export default function GeneralSetting() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Phone</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Phone</label>
               <input
                 className={INPUT_CLASS}
                 value={form.phone}
@@ -203,7 +203,7 @@ export default function GeneralSetting() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Email</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Email</label>
               <input
                 type="email"
                 className={INPUT_CLASS}
@@ -213,7 +213,7 @@ export default function GeneralSetting() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">School Motto</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">School Motto</label>
               <input
                 className={INPUT_CLASS}
                 value={form.motto}
@@ -222,7 +222,7 @@ export default function GeneralSetting() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Website</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Website</label>
               <input
                 className={INPUT_CLASS}
                 value={form.website}
@@ -231,7 +231,7 @@ export default function GeneralSetting() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Principal Name</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Principal Name</label>
               <input
                 className={INPUT_CLASS}
                 value={form.principal_name}
@@ -240,7 +240,7 @@ export default function GeneralSetting() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">School Type</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">School Type</label>
               <select
                 className={INPUT_CLASS}
                 value={form.school_type}
@@ -251,7 +251,7 @@ export default function GeneralSetting() {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">Established Year</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Established Year</label>
               <input
                 type="number"
                 className={INPUT_CLASS}
@@ -263,9 +263,9 @@ export default function GeneralSetting() {
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-slate-600 mb-1">School Logo</label>
-              <div className="flex items-start gap-4 p-4 border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50/50 hover:bg-slate-50 transition-colors">
-                <div className="h-16 w-16 bg-white rounded-xl border border-slate-200 flex items-center justify-center overflow-hidden flex-shrink-0">
+              <label className="block text-xs font-medium text-app-text-muted mb-1">School Logo</label>
+              <div className="flex items-start gap-4 p-4 border-2 border-dashed border-app-border rounded-2xl bg-app-surface-alt/50 hover:bg-app-surface-alt transition-colors">
+                <div className="h-16 w-16 bg-app-surface rounded-xl border border-app-border flex items-center justify-center overflow-hidden flex-shrink-0">
                   {form.logo_url ? (
                     <img src={form.logo_url} alt="Logo Preview" className="h-full w-full object-contain" />
                   ) : (
@@ -273,10 +273,10 @@ export default function GeneralSetting() {
                   )}
                 </div>
                 <div className="flex-1">
-                  <p className="text-xs font-semibold text-slate-700">Upload New Logo</p>
-                  <p className="text-[10px] text-slate-500 mt-0.5">Recommended: Square PNG or JPG (Max 2MB)</p>
+                  <p className="text-xs font-semibold text-app-text">Upload New Logo</p>
+                  <p className="text-[10px] text-app-text-muted mt-0.5">Recommended: Square PNG or JPG (Max 2MB)</p>
                   <div className="mt-3 flex items-center gap-3">
-                    <label className="cursor-pointer bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-slate-50 transition-colors flex items-center gap-2">
+                    <label className="cursor-pointer bg-app-surface border border-app-border text-app-text-muted px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-app-surface-alt transition-colors flex items-center gap-2">
                       <Upload className="w-3 h-3" />
                       Browse Files
                       <input type="file" className="hidden" accept="image/*" onChange={handleLogoUpload} disabled={saving} />
@@ -294,7 +294,7 @@ export default function GeneralSetting() {
               </div>
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-slate-600 mb-1">External Logo URL (Alternative)</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">External Logo URL (Alternative)</label>
               <input
                 className={INPUT_CLASS}
                 value={form.logo_url}

@@ -137,8 +137,8 @@ export default function StudentCategory() {
             <Tag className="text-emerald-600" size={22} />
           </div>
           <div>
-            <h1 className="text-xl font-semibold text-slate-800">Student Category</h1>
-            <p className="text-sm text-slate-500">Manage student categories</p>
+            <h1 className="text-xl font-semibold text-app-text">Student Category</h1>
+            <p className="text-sm text-app-text-muted">Manage student categories</p>
           </div>
         </div>
         <button
@@ -150,29 +150,29 @@ export default function StudentCategory() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden shadow-sm">
         {loading ? (
-          <div className="flex items-center justify-center py-16 text-slate-400 text-sm">Loading...</div>
+          <div className="flex items-center justify-center py-16 text-app-text-muted text-sm">Loading...</div>
         ) : categories.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-slate-400">
+          <div className="flex flex-col items-center justify-center py-16 text-app-text-muted">
             <Tag size={32} className="mb-3 opacity-40" />
             <p className="text-sm">No categories found. Add one to get started.</p>
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-5 py-3 font-medium text-slate-600">Name</th>
-                <th className="text-left px-5 py-3 font-medium text-slate-600">Description</th>
-                <th className="text-center px-5 py-3 font-medium text-slate-600">Students</th>
-                <th className="text-right px-5 py-3 font-medium text-slate-600">Actions</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-5 py-3 font-medium text-app-text-muted">Name</th>
+                <th className="text-left px-5 py-3 font-medium text-app-text-muted">Description</th>
+                <th className="text-center px-5 py-3 font-medium text-app-text-muted">Students</th>
+                <th className="text-right px-5 py-3 font-medium text-app-text-muted">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {categories.map((cat) => (
-                <tr key={cat.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-5 py-3.5 font-medium text-slate-800">{cat.name}</td>
-                  <td className="px-5 py-3.5 text-slate-500">{cat.description || <span className="italic text-slate-300">—</span>}</td>
+                <tr key={cat.id} className="hover:bg-app-surface-alt transition-colors">
+                  <td className="px-5 py-3.5 font-medium text-app-text">{cat.name}</td>
+                  <td className="px-5 py-3.5 text-app-text-muted">{cat.description || <span className="italic text-slate-300">—</span>}</td>
                   <td className="px-5 py-3.5 text-center">
                     <span className="inline-flex items-center justify-center bg-emerald-50 text-emerald-700 font-semibold rounded-full px-3 py-0.5 text-xs">
                       {cat.student_count ?? 0}
@@ -182,14 +182,14 @@ export default function StudentCategory() {
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => openEdit(cat)}
-                        className="p-1.5 rounded-lg hover:bg-emerald-50 text-slate-400 hover:text-emerald-600 transition-colors"
+                        className="p-1.5 rounded-lg hover:bg-emerald-50 text-app-text-muted hover:text-emerald-600 transition-colors"
                         title="Edit"
                       >
                         <Pencil size={15} />
                       </button>
                       <button
                         onClick={() => openDelete(cat)}
-                        className="p-1.5 rounded-lg hover:bg-red-50 text-slate-400 hover:text-red-500 transition-colors"
+                        className="p-1.5 rounded-lg hover:bg-red-50 text-app-text-muted hover:text-red-500 transition-colors"
                         title="Delete"
                       >
                         <Trash2 size={15} />
@@ -209,21 +209,21 @@ export default function StudentCategory() {
             <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl px-4 py-3">{error}</div>
           )}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Name <span className="text-red-500">*</span></label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Name <span className="text-red-500">*</span></label>
             <input
               type="text"
               value={form.name}
               onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-              className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
               placeholder="e.g. General, Special Needs"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Description</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Description</label>
             <textarea
               value={form.description}
               onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
-              className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full resize-none"
+              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full resize-none"
               rows={3}
               placeholder="Optional description..."
             />
@@ -231,7 +231,7 @@ export default function StudentCategory() {
           <div className="flex justify-end gap-3 pt-2">
             <button
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2 text-sm text-slate-600 hover:text-slate-800 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm text-app-text-muted hover:text-app-text border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>
@@ -248,13 +248,13 @@ export default function StudentCategory() {
 
       <Modal isOpen={deleteModalOpen} onClose={() => setDeleteModalOpen(false)} title="Delete Category">
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">
-            Are you sure you want to delete <span className="font-semibold text-slate-800">{deleteTarget?.name}</span>? This action cannot be undone.
+          <p className="text-sm text-app-text-muted">
+            Are you sure you want to delete <span className="font-semibold text-app-text">{deleteTarget?.name}</span>? This action cannot be undone.
           </p>
           <div className="flex justify-end gap-3 pt-2">
             <button
               onClick={() => setDeleteModalOpen(false)}
-              className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm text-app-text-muted border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>

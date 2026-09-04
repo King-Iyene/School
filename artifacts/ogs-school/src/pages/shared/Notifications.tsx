@@ -56,7 +56,7 @@ const TYPE_LABELS: Record<NotificationType, string> = {
 };
 
 const TYPE_BADGE_CLASSES: Record<NotificationType, string> = {
-  general: 'bg-slate-100 text-slate-700',
+  general: 'bg-slate-100 text-app-text',
   assignment: 'bg-blue-100 text-blue-700',
   fee: 'bg-emerald-100 text-emerald-700',
   exam: 'bg-amber-100 text-amber-700',
@@ -462,11 +462,11 @@ export default function Notifications() {
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen space-y-6">
+    <div className="p-6 bg-app-surface-alt min-h-screen space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Notifications</h1>
-          <p className="text-sm text-gray-500 mt-1">Stay updated with school activities and messages</p>
+          <h1 className="text-2xl font-bold text-app-text">Notifications</h1>
+          <p className="text-sm text-app-text-muted mt-1">Stay updated with school activities and messages</p>
         </div>
         {activeTab === 'inbox' && inboxStats.unread > 0 && (
           <button
@@ -479,19 +479,19 @@ export default function Notifications() {
         )}
       </div>
 
-      <div className="flex bg-white p-1 rounded-xl shadow-sm border border-gray-100 w-fit">
+      <div className="flex bg-app-surface p-1 rounded-xl shadow-sm border border-app-border w-fit">
         <button
           onClick={() => { setActiveTab('inbox'); setPage(1); }}
           className={`flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-medium transition-all ${
             activeTab === 'inbox'
               ? 'bg-emerald-500 text-white shadow-md'
-              : 'text-gray-500 hover:bg-gray-50'
+              : 'text-app-text-muted hover:bg-app-surface-alt'
           }`}
         >
           <Inbox size={16} />
           Inbox
           {inboxStats.unread > 0 && (
-            <span className={`ml-1 px-1.5 py-0.5 rounded-full text-[10px] ${activeTab === 'inbox' ? 'bg-white text-emerald-600' : 'bg-emerald-100 text-emerald-600'}`}>
+            <span className={`ml-1 px-1.5 py-0.5 rounded-full text-[10px] ${activeTab === 'inbox' ? 'bg-app-surface text-emerald-600' : 'bg-emerald-100 text-emerald-600'}`}>
               {inboxStats.unread}
             </span>
           )}
@@ -502,7 +502,7 @@ export default function Notifications() {
             className={`flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-medium transition-all ${
               activeTab === 'sent'
                 ? 'bg-emerald-500 text-white shadow-md'
-                : 'text-gray-500 hover:bg-gray-50'
+                : 'text-app-text-muted hover:bg-app-surface-alt'
             }`}
           >
             <SendIcon size={16} />
@@ -525,61 +525,61 @@ export default function Notifications() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {activeTab === 'inbox' ? (
           <>
-            <div className="bg-white rounded-xl shadow-sm p-4 flex items-center gap-3">
+            <div className="bg-app-surface rounded-xl shadow-sm p-4 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
                 <Bell size={18} className="text-emerald-600" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">{inboxStats.total}</div>
-                <div className="text-xs text-gray-500">Total Received</div>
+                <div className="text-2xl font-bold text-app-text">{inboxStats.total}</div>
+                <div className="text-xs text-app-text-muted">Total Received</div>
               </div>
             </div>
-            <div className="bg-white rounded-xl shadow-sm p-4 flex items-center gap-3">
+            <div className="bg-app-surface rounded-xl shadow-sm p-4 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
                 <Bell size={18} className="text-blue-600" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">{inboxStats.read}</div>
-                <div className="text-xs text-gray-500">Read</div>
+                <div className="text-2xl font-bold text-app-text">{inboxStats.read}</div>
+                <div className="text-xs text-app-text-muted">Read</div>
               </div>
             </div>
-            <div className="bg-white rounded-xl shadow-sm p-4 flex items-center gap-3">
+            <div className="bg-app-surface rounded-xl shadow-sm p-4 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
                 <Bell size={18} className="text-amber-600" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">{inboxStats.unread}</div>
-                <div className="text-xs text-gray-500">Unread</div>
+                <div className="text-2xl font-bold text-app-text">{inboxStats.unread}</div>
+                <div className="text-xs text-app-text-muted">Unread</div>
               </div>
             </div>
           </>
         ) : (
           <>
-            <div className="bg-white rounded-xl shadow-sm p-4 flex items-center gap-3">
+            <div className="bg-app-surface rounded-xl shadow-sm p-4 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
                 <Bell size={18} className="text-emerald-600" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">{sentStats.total}</div>
-                <div className="text-xs text-gray-500">Total Sent</div>
+                <div className="text-2xl font-bold text-app-text">{sentStats.total}</div>
+                <div className="text-xs text-app-text-muted">Total Sent</div>
               </div>
             </div>
-            <div className="bg-white rounded-xl shadow-sm p-4 flex items-center gap-3">
+            <div className="bg-app-surface rounded-xl shadow-sm p-4 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
                 <Bell size={18} className="text-blue-600" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">{sentStats.read}</div>
-                <div className="text-xs text-gray-500">Read by Recipients</div>
+                <div className="text-2xl font-bold text-app-text">{sentStats.read}</div>
+                <div className="text-xs text-app-text-muted">Read by Recipients</div>
               </div>
             </div>
-            <div className="bg-white rounded-xl shadow-sm p-4 flex items-center gap-3">
+            <div className="bg-app-surface rounded-xl shadow-sm p-4 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
                 <Bell size={18} className="text-amber-600" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">{sentStats.unread}</div>
-                <div className="text-xs text-gray-500">Unread by Recipients</div>
+                <div className="text-2xl font-bold text-app-text">{sentStats.unread}</div>
+                <div className="text-xs text-app-text-muted">Unread by Recipients</div>
               </div>
             </div>
           </>
@@ -588,38 +588,38 @@ export default function Notifications() {
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         {(activeTab === 'sent' && isStaff) && (
-          <div className="lg:col-span-2 bg-white rounded-xl shadow-sm p-6 self-start">
-            <h2 className="text-base font-semibold text-gray-800 mb-5">Send Notification</h2>
+          <div className="lg:col-span-2 bg-app-surface rounded-xl shadow-sm p-6 self-start">
+            <h2 className="text-base font-semibold text-app-text mb-5">Send Notification</h2>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Title *</label>
                 <input
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                  className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
                   placeholder="Notification title"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message *</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Message *</label>
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   rows={4}
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none"
+                  className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none"
                   placeholder="Notification message..."
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Notification Type</label>
+                <label className="block text-sm font-medium text-app-text mb-1">Notification Type</label>
                 <select
                   value={notifType}
                   onChange={(e) => setNotifType(e.target.value as NotificationType)}
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white"
+                  className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-app-surface"
                 >
                   {(Object.keys(TYPE_LABELS) as NotificationType[]).map((t) => (
                     <option key={t} value={t}>{TYPE_LABELS[t]}</option>
@@ -633,7 +633,7 @@ export default function Notifications() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Target</label>
+                <label className="block text-sm font-medium text-app-text mb-2">Target</label>
                 <div className="flex flex-col gap-2">
                   {(['all', 'role', 'class', 'individual'] as TargetType[]).map((t) => (
                     <label key={t} className="flex items-center gap-2 cursor-pointer">
@@ -645,7 +645,7 @@ export default function Notifications() {
                         onChange={() => setTargetType(t)}
                         className="accent-emerald-500"
                       />
-                      <span className="text-sm text-gray-700">
+                      <span className="text-sm text-app-text">
                         {t === 'all' ? 'All Users' : t === 'role' ? 'By Role' : t === 'class' ? 'By Class' : 'Individual'}
                       </span>
                     </label>
@@ -655,11 +655,11 @@ export default function Notifications() {
 
               {targetType === 'role' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                  <label className="block text-sm font-medium text-app-text mb-1">Role</label>
                   <select
                     value={targetRole}
                     onChange={(e) => setTargetRole(e.target.value as RoleType)}
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white"
+                    className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-app-surface"
                   >
                     <option value="student">Student</option>
                     <option value="teacher">Teacher</option>
@@ -671,11 +671,11 @@ export default function Notifications() {
 
               {targetType === 'class' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Class</label>
+                  <label className="block text-sm font-medium text-app-text mb-1">Class</label>
                   <select
                     value={targetClassId}
                     onChange={(e) => setTargetClassId(e.target.value)}
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white"
+                    className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-app-surface"
                   >
                     <option value="">Select a class</option>
                     {classes.map((c) => (
@@ -687,16 +687,16 @@ export default function Notifications() {
 
               {targetType === 'individual' && (
                 <div className="relative">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Search User</label>
+                  <label className="block text-sm font-medium text-app-text mb-1">Search User</label>
                   {selectedUser ? (
                     <div className="flex items-center justify-between bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2">
                       <div>
-                        <div className="text-sm font-medium text-gray-800">{selectedUser.full_name}</div>
-                        <div className="text-xs text-gray-500">{selectedUser.role} · {selectedUser.email}</div>
+                        <div className="text-sm font-medium text-app-text">{selectedUser.full_name}</div>
+                        <div className="text-xs text-app-text-muted">{selectedUser.role} · {selectedUser.email}</div>
                       </div>
                       <button
                         onClick={() => { setSelectedUser(null); setIndividualQuery(''); }}
-                        className="text-gray-400 hover:text-gray-600"
+                        className="text-app-text-muted hover:text-app-text"
                       >
                         <X size={14} />
                       </button>
@@ -704,33 +704,33 @@ export default function Notifications() {
                   ) : (
                     <>
                       <div className="relative">
-                        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted" />
                         <input
                           type="text"
                           value={individualQuery}
                           onChange={(e) => setIndividualQuery(e.target.value)}
-                          className="w-full border border-gray-200 rounded-lg pl-8 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                          className="w-full border border-app-border rounded-lg pl-8 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
                           placeholder="Type a name to search..."
                         />
                       </div>
                       {searchLoading && (
-                        <div className="text-xs text-gray-400 mt-1 px-1">Searching...</div>
+                        <div className="text-xs text-app-text-muted mt-1 px-1">Searching...</div>
                       )}
                       {!searchLoading && individualResults.length > 0 && (
-                        <div className="absolute z-20 w-full bg-white border border-gray-200 rounded-lg shadow-lg mt-1 max-h-48 overflow-y-auto">
+                        <div className="absolute z-20 w-full bg-app-surface border border-app-border rounded-lg shadow-lg mt-1 max-h-48 overflow-y-auto">
                           {individualResults.map((u) => (
                             <button
                               onClick={() => { setSelectedUser(u); setIndividualQuery(''); setIndividualResults([]); }}
                               className="w-full text-left px-3 py-2 hover:bg-emerald-50 transition-colors"
                             >
-                              <div className="text-sm font-medium text-gray-800">{u.full_name}</div>
-                              <div className="text-xs text-gray-500">{u.role} · {u.email}</div>
+                              <div className="text-sm font-medium text-app-text">{u.full_name}</div>
+                              <div className="text-xs text-app-text-muted">{u.role} · {u.email}</div>
                             </button>
                           ))}
                         </div>
                       )}
                       {!searchLoading && individualQuery.trim() && individualResults.length === 0 && (
-                        <div className="text-xs text-gray-400 mt-1 px-1">No users found.</div>
+                        <div className="text-xs text-app-text-muted mt-1 px-1">No users found.</div>
                       )}
                     </>
                   )}
@@ -749,9 +749,9 @@ export default function Notifications() {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-app-text mb-1">
                   <div className="flex items-center gap-2">
-                    <Calendar size={14} className="text-gray-400" />
+                    <Calendar size={14} className="text-app-text-muted" />
                     Schedule for later (Optional)
                   </div>
                 </label>
@@ -759,40 +759,40 @@ export default function Notifications() {
                   type="datetime-local"
                   value={scheduledAt}
                   onChange={(e) => setScheduledAt(e.target.value)}
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                  className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
                 />
-                <p className="text-[10px] text-gray-400 mt-1">Leave empty to send immediately</p>
+                <p className="text-[10px] text-app-text-muted mt-1">Leave empty to send immediately</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-app-text mb-1">
                   <div className="flex items-center gap-2">
-                    <Paperclip size={14} className="text-gray-400" />
+                    <Paperclip size={14} className="text-app-text-muted" />
                     Attachments (Optional)
                   </div>
                 </label>
-                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
+                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-app-border border-dashed rounded-lg">
                   <div className="space-y-1 text-center">
-                    <div className="flex text-sm text-gray-600">
-                      <label htmlFor="file-upload" className="relative cursor-pointer bg-white rounded-md font-medium text-emerald-600 hover:text-emerald-500">
+                    <div className="flex text-sm text-app-text-muted">
+                      <label htmlFor="file-upload" className="relative cursor-pointer bg-app-surface rounded-md font-medium text-emerald-600 hover:text-emerald-500">
                         <span>Upload files</span>
                         <input id="file-upload" name="file-upload" type="file" className="sr-only" multiple onChange={handleFileUpload} disabled={uploading} />
                       </label>
                       <p className="pl-1">or drag and drop</p>
                     </div>
-                    <p className="text-xs text-gray-500">PNG, JPG, PDF up to 10MB</p>
+                    <p className="text-xs text-app-text-muted">PNG, JPG, PDF up to 10MB</p>
                   </div>
                 </div>
 
                 {attachments.length > 0 && (
                   <div className="mt-3 space-y-2">
                     {attachments.map((file, idx) => (
-                      <div key={idx} className="flex items-center justify-between bg-gray-50 p-2 rounded-lg border border-gray-100">
+                      <div key={idx} className="flex items-center justify-between bg-app-surface-alt p-2 rounded-lg border border-app-border">
                         <div className="flex items-center gap-2 truncate">
                           {file.type.includes('image') ? <ImageIcon size={14} className="text-blue-500" /> : <FileText size={14} className="text-emerald-500" />}
-                          <span className="text-xs text-gray-600 truncate">{file.name}</span>
+                          <span className="text-xs text-app-text-muted truncate">{file.name}</span>
                         </div>
-                        <button onClick={() => setAttachments(attachments.filter((_, i) => i !== idx))} className="text-gray-400 hover:text-red-500">
+                        <button onClick={() => setAttachments(attachments.filter((_, i) => i !== idx))} className="text-app-text-muted hover:text-red-500">
                           <X size={14} />
                         </button>
                       </div>
@@ -818,21 +818,21 @@ export default function Notifications() {
           </div>
         )}
 
-        <div className={`${(activeTab === 'sent' && isStaff) ? 'lg:col-span-3' : 'lg:col-span-5'} bg-white rounded-xl shadow-sm p-6`}>
+        <div className={`${(activeTab === 'sent' && isStaff) ? 'lg:col-span-3' : 'lg:col-span-5'} bg-app-surface rounded-xl shadow-sm p-6`}>
           <div className="flex items-center justify-between mb-5">
-            <h2 className="text-base font-semibold text-gray-800">
+            <h2 className="text-base font-semibold text-app-text">
               {activeTab === 'inbox' ? 'My Notifications' : 'Sent Notifications'}
             </h2>
-            <div className="flex items-center gap-1.5 text-xs text-gray-500">
+            <div className="flex items-center gap-1.5 text-xs text-app-text-muted">
               <Users size={13} />
               {totalCount} total
             </div>
           </div>
 
           {loading ? (
-            <div className="text-sm text-gray-400 text-center py-12">Loading notifications...</div>
+            <div className="text-sm text-app-text-muted text-center py-12">Loading notifications...</div>
           ) : (activeTab === 'inbox' ? inboxNotifications : sentNotifications).length === 0 ? (
-            <div className="text-sm text-gray-400 text-center py-12">
+            <div className="text-sm text-app-text-muted text-center py-12">
               {activeTab === 'inbox' ? 'No notifications yet.' : 'No notifications sent yet.'}
             </div>
           ) : (
@@ -840,32 +840,32 @@ export default function Notifications() {
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-gray-100">
-                      <th className="text-left py-2 px-3 text-gray-500 font-medium whitespace-nowrap">Date</th>
-                      <th className="text-left py-2 px-3 text-gray-500 font-medium">Title</th>
-                      <th className="text-left py-2 px-3 text-gray-500 font-medium hidden md:table-cell">Message</th>
-                      <th className="text-left py-2 px-3 text-gray-500 font-medium whitespace-nowrap">Type</th>
-                      <th className="text-left py-2 px-3 text-gray-500 font-medium hidden sm:table-cell">Target</th>
-                      <th className="text-left py-2 px-3 text-gray-500 font-medium">Actions</th>
+                    <tr className="border-b border-app-border">
+                      <th className="text-left py-2 px-3 text-app-text-muted font-medium whitespace-nowrap">Date</th>
+                      <th className="text-left py-2 px-3 text-app-text-muted font-medium">Title</th>
+                      <th className="text-left py-2 px-3 text-app-text-muted font-medium hidden md:table-cell">Message</th>
+                      <th className="text-left py-2 px-3 text-app-text-muted font-medium whitespace-nowrap">Type</th>
+                      <th className="text-left py-2 px-3 text-app-text-muted font-medium hidden sm:table-cell">Target</th>
+                      <th className="text-left py-2 px-3 text-app-text-muted font-medium">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     {(activeTab === 'inbox' ? inboxNotifications : sentNotifications).map((n) => (
-                      <tr key={n.id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
-                        <td className="py-2 px-3 text-gray-500 whitespace-nowrap text-xs">{formatDate(n.created_at)}</td>
+                      <tr key={n.id} className="border-b border-gray-50 hover:bg-app-surface-alt transition-colors">
+                        <td className="py-2 px-3 text-app-text-muted whitespace-nowrap text-xs">{formatDate(n.created_at)}</td>
                         <td className="py-2 px-3">
-                          <div className="text-gray-800 font-medium max-w-48 truncate">{n.title}</div>
+                          <div className="text-app-text font-medium max-w-48 truncate">{n.title}</div>
                           {activeTab === 'inbox' && !n.is_read && (
                             <span className="text-[10px] text-emerald-600 font-bold uppercase tracking-wider bg-emerald-50 px-1 rounded">New</span>
                           )}
                         </td>
-                        <td className="py-2 px-3 text-gray-500 hidden md:table-cell max-w-64 truncate">{n.message}</td>
+                        <td className="py-2 px-3 text-app-text-muted hidden md:table-cell max-w-64 truncate">{n.message}</td>
                         <td className="py-2 px-3 whitespace-nowrap">
-                          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${TYPE_BADGE_CLASSES[n.notification_type as NotificationType] ?? 'bg-slate-100 text-slate-700'}`}>
+                          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${TYPE_BADGE_CLASSES[n.notification_type as NotificationType] ?? 'bg-slate-100 text-app-text'}`}>
                             {TYPE_LABELS[n.notification_type as NotificationType] ?? n.notification_type}
                           </span>
                         </td>
-                        <td className="py-2 px-3 text-gray-500 hidden sm:table-cell text-xs whitespace-nowrap">
+                        <td className="py-2 px-3 text-app-text-muted hidden sm:table-cell text-xs whitespace-nowrap">
                           {activeTab === 'inbox' ? 'System' : (
                             <div className="flex flex-col">
                               <span>
@@ -898,7 +898,7 @@ export default function Notifications() {
                                     href={file.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-1 px-1.5 py-0.5 bg-gray-100 hover:bg-gray-200 rounded text-[10px] text-gray-600 transition-colors"
+                                    className="flex items-center gap-1 px-1.5 py-0.5 bg-gray-100 hover:bg-gray-200 rounded text-[10px] text-app-text-muted transition-colors"
                                     title={file.name}
                                   >
                                     {file.type.includes('image') ? <ImageIcon size={10} /> : <FileText size={10} />}
@@ -934,17 +934,17 @@ export default function Notifications() {
               </div>
 
               {totalPages > 1 && (
-                <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                  <div className="text-xs text-gray-500">
+                <div className="flex items-center justify-between mt-4 pt-4 border-t border-app-border">
+                  <div className="text-xs text-app-text-muted">
                     Page {page} of {totalPages}
                   </div>
                   <div className="flex gap-1">
                     <button
                       onClick={() => setPage((p) => Math.max(1, p - 1))}
                       disabled={page === 1}
-                      className="p-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors disabled:opacity-40"
+                      className="p-1.5 rounded-lg border border-app-border hover:bg-app-surface-alt transition-colors disabled:opacity-40"
                     >
-                      <ChevronLeft size={14} className="text-gray-600" />
+                      <ChevronLeft size={14} className="text-app-text-muted" />
                     </button>
                     {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
                       let pageNum: number;
@@ -964,7 +964,7 @@ export default function Notifications() {
                           className={`w-7 h-7 text-xs rounded-lg border transition-colors ${
                             page === pageNum
                               ? 'bg-emerald-500 text-white border-emerald-500'
-                              : 'border-gray-200 text-gray-600 hover:bg-gray-50'
+                              : 'border-app-border text-app-text-muted hover:bg-app-surface-alt'
                           }`}
                         >
                           {pageNum}
@@ -974,9 +974,9 @@ export default function Notifications() {
                     <button
                       onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                       disabled={page === totalPages}
-                      className="p-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors disabled:opacity-40"
+                      className="p-1.5 rounded-lg border border-app-border hover:bg-app-surface-alt transition-colors disabled:opacity-40"
                     >
-                      <ChevronRight size={14} className="text-gray-600" />
+                      <ChevronRight size={14} className="text-app-text-muted" />
                     </button>
                   </div>
                 </div>

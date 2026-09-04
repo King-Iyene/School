@@ -166,8 +166,8 @@ export default function DisabledStudents() {
             <UserX className="text-red-500" size={22} />
           </div>
           <div>
-            <h1 className="text-xl font-semibold text-slate-800">Disabled Students</h1>
-            <p className="text-sm text-slate-500">Manage disabled student records</p>
+            <h1 className="text-xl font-semibold text-app-text">Disabled Students</h1>
+            <p className="text-sm text-app-text-muted">Manage disabled student records</p>
           </div>
         </div>
         <button
@@ -179,13 +179,13 @@ export default function DisabledStudents() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 mb-5 flex items-center gap-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 mb-5 flex items-center gap-4">
         <div className="flex-1">
-          <label className="block text-xs font-medium text-slate-600 mb-1">Filter by Class</label>
+          <label className="block text-xs font-medium text-app-text-muted mb-1">Filter by Class</label>
           <select
             value={filterClass}
             onChange={(e) => setFilterClass(e.target.value)}
-            className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+            className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
           >
             <option value="">All Classes</option>
             {classes.map((c) => (
@@ -195,50 +195,50 @@ export default function DisabledStudents() {
         </div>
         <button
           onClick={fetchRecords}
-          className="mt-5 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-500 transition-colors"
+          className="mt-5 p-2.5 rounded-xl border border-app-border hover:bg-app-surface-alt text-app-text-muted transition-colors"
           title="Refresh"
         >
           <RefreshCw size={15} />
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
         {loading ? (
-          <div className="flex items-center justify-center py-16 text-slate-400 text-sm">Loading...</div>
+          <div className="flex items-center justify-center py-16 text-app-text-muted text-sm">Loading...</div>
         ) : records.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-slate-400">
+          <div className="flex flex-col items-center justify-center py-16 text-app-text-muted">
             <UserX size={32} className="mb-3 opacity-40" />
             <p className="text-sm">No disabled student records found.</p>
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-5 py-3 font-medium text-slate-600">Student Name</th>
-                <th className="text-left px-5 py-3 font-medium text-slate-600">Student ID</th>
-                <th className="text-left px-5 py-3 font-medium text-slate-600">Reason</th>
-                <th className="text-left px-5 py-3 font-medium text-slate-600">Disabled At</th>
-                <th className="text-center px-5 py-3 font-medium text-slate-600">Status</th>
-                <th className="text-right px-5 py-3 font-medium text-slate-600">Actions</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-5 py-3 font-medium text-app-text-muted">Student Name</th>
+                <th className="text-left px-5 py-3 font-medium text-app-text-muted">Student ID</th>
+                <th className="text-left px-5 py-3 font-medium text-app-text-muted">Reason</th>
+                <th className="text-left px-5 py-3 font-medium text-app-text-muted">Disabled At</th>
+                <th className="text-center px-5 py-3 font-medium text-app-text-muted">Status</th>
+                <th className="text-right px-5 py-3 font-medium text-app-text-muted">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {records.map((record) => (
-                <tr key={record.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-5 py-3.5 font-medium text-slate-800">
+                <tr key={record.id} className="hover:bg-app-surface-alt transition-colors">
+                  <td className="px-5 py-3.5 font-medium text-app-text">
                     {record.student ? `${record.student.first_name} ${record.student.last_name}` : '—'}
                   </td>
-                  <td className="px-5 py-3.5 text-slate-500">
+                  <td className="px-5 py-3.5 text-app-text-muted">
                     {record.student?.admission_number || '—'}
                   </td>
-                  <td className="px-5 py-3.5 text-slate-500 max-w-xs">
+                  <td className="px-5 py-3.5 text-app-text-muted max-w-xs">
                     {record.reason ? (
                       <span className="truncate block max-w-[200px]" title={record.reason}>{record.reason}</span>
                     ) : (
                       <span className="italic text-slate-300">No reason</span>
                     )}
                   </td>
-                  <td className="px-5 py-3.5 text-slate-500">{formatDate(record.disabled_at)}</td>
+                  <td className="px-5 py-3.5 text-app-text-muted">{formatDate(record.disabled_at)}</td>
                   <td className="px-5 py-3.5 text-center">
                     {record.is_disabled ? (
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-600">
@@ -264,7 +264,7 @@ export default function DisabledStudents() {
                       )}
                       <button
                         onClick={() => { setDeleteTarget(record); setDeleteModalOpen(true); }}
-                        className="p-1.5 rounded-lg hover:bg-red-50 text-slate-400 hover:text-red-500 transition-colors"
+                        className="p-1.5 rounded-lg hover:bg-red-50 text-app-text-muted hover:text-red-500 transition-colors"
                         title="Delete"
                       >
                         <Trash2 size={15} />
@@ -287,32 +287,32 @@ export default function DisabledStudents() {
             </div>
           )}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Student <span className="text-red-500">*</span></label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Student <span className="text-red-500">*</span></label>
             <div className="relative">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
                 placeholder="Search student by name..."
-                className="border border-slate-200 rounded-xl pl-8 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+                className="border border-app-border rounded-xl pl-8 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
               />
               {searchResults.length > 0 && (
-                <div className="absolute z-10 top-full mt-1 w-full bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden max-h-48 overflow-y-auto">
+                <div className="absolute z-10 top-full mt-1 w-full bg-app-surface border border-app-border rounded-xl shadow-lg overflow-hidden max-h-48 overflow-y-auto">
                   {searchResults.map((s) => (
                     <button
                       key={s.id}
                       onClick={() => selectStudent(s)}
-                      className="w-full text-left px-4 py-2.5 hover:bg-emerald-50 text-sm border-b border-slate-100 last:border-0"
+                      className="w-full text-left px-4 py-2.5 hover:bg-emerald-50 text-sm border-b border-app-border last:border-0"
                     >
-                      <span className="font-medium text-slate-800">{s.first_name} {s.last_name}</span>
-                      {s.admission_number && <span className="ml-2 text-xs text-slate-400">{s.admission_number}</span>}
+                      <span className="font-medium text-app-text">{s.first_name} {s.last_name}</span>
+                      {s.admission_number && <span className="ml-2 text-xs text-app-text-muted">{s.admission_number}</span>}
                     </button>
                   ))}
                 </div>
               )}
               {searching && (
-                <div className="absolute z-10 top-full mt-1 w-full bg-white border border-slate-200 rounded-xl shadow-lg px-4 py-3 text-sm text-slate-400">
+                <div className="absolute z-10 top-full mt-1 w-full bg-app-surface border border-app-border rounded-xl shadow-lg px-4 py-3 text-sm text-app-text-muted">
                   Searching...
                 </div>
               )}
@@ -325,11 +325,11 @@ export default function DisabledStudents() {
             )}
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Reason</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Reason</label>
             <textarea
               value={reason}
               onChange={(e) => setReason(e.target.value)}
-              className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full resize-none"
+              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full resize-none"
               rows={3}
               placeholder="Reason for disabling this student..."
             />
@@ -337,7 +337,7 @@ export default function DisabledStudents() {
           <div className="flex justify-end gap-3 pt-2">
             <button
               onClick={() => setAddModalOpen(false)}
-              className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm text-app-text-muted border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>
@@ -354,14 +354,14 @@ export default function DisabledStudents() {
 
       <Modal isOpen={deleteModalOpen} onClose={() => setDeleteModalOpen(false)} title="Delete Record">
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-app-text-muted">
             Are you sure you want to delete the disabled record for{' '}
-            <span className="font-semibold text-slate-800">{deleteTarget?.student ? `${deleteTarget.student.first_name} ${deleteTarget.student.last_name}` : 'Unknown'}</span>? This action cannot be undone.
+            <span className="font-semibold text-app-text">{deleteTarget?.student ? `${deleteTarget.student.first_name} ${deleteTarget.student.last_name}` : 'Unknown'}</span>? This action cannot be undone.
           </p>
           <div className="flex justify-end gap-3 pt-2">
             <button
               onClick={() => setDeleteModalOpen(false)}
-              className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm text-app-text-muted border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>

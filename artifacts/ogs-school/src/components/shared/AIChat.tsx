@@ -52,7 +52,7 @@ function renderContent(text: string) {
             : <span key={j}>{part}</span>
         );
         if (/^#{1,3} /.test(line)) {
-          return <div key={i} className="font-bold text-slate-800 mt-2">{line.replace(/^#{1,3} /, '')}</div>;
+          return <div key={i} className="font-bold text-app-text mt-2">{line.replace(/^#{1,3} /, '')}</div>;
         }
         if (/^[-*•] /.test(line)) {
           return <div key={i} className="pl-4 flex gap-2"><span>•</span><span>{line.slice(2)}</span></div>;
@@ -184,12 +184,12 @@ export default function AIChat({ compact = false, messages, onMessagesChange }: 
         <div className="flex items-center gap-1.5 font-semibold text-indigo-800 mb-1.5">
           <Sparkles className="w-3.5 h-3.5" /> Action needs your approval
         </div>
-        <p className="text-slate-700 mb-2">{action.summary}</p>
+        <p className="text-app-text mb-2">{action.summary}</p>
         <dl className="space-y-0.5 mb-3">
           {entries.map(([k, v]) => (
             <div key={k} className="flex gap-2 text-xs">
-              <dt className="text-slate-500 min-w-[110px]">{FIELD_LABELS[k] ?? k}</dt>
-              <dd className="text-slate-800 break-words">{String(v)}</dd>
+              <dt className="text-app-text-muted min-w-[110px]">{FIELD_LABELS[k] ?? k}</dt>
+              <dd className="text-app-text break-words">{String(v)}</dd>
             </div>
           ))}
         </dl>
@@ -203,14 +203,14 @@ export default function AIChat({ compact = false, messages, onMessagesChange }: 
             </button>
             <button
               onClick={() => dismissAction(index)}
-              className="flex items-center gap-1.5 text-xs font-medium bg-white text-slate-600 border border-slate-200 rounded-lg px-3 py-1.5 hover:bg-slate-50 transition-colors"
+              className="flex items-center gap-1.5 text-xs font-medium bg-app-surface text-app-text-muted border border-app-border rounded-lg px-3 py-1.5 hover:bg-app-surface-alt transition-colors"
             >
               <X className="w-3.5 h-3.5" /> Dismiss
             </button>
           </div>
         )}
         {msg.actionState === 'approving' && (
-          <div className="flex items-center gap-2 text-xs text-slate-500">
+          <div className="flex items-center gap-2 text-xs text-app-text-muted">
             <Loader2 className="w-3.5 h-3.5 animate-spin" /> Creating…
           </div>
         )}
@@ -220,7 +220,7 @@ export default function AIChat({ compact = false, messages, onMessagesChange }: 
           </div>
         )}
         {msg.actionState === 'dismissed' && (
-          <div className="text-xs text-slate-400">Dismissed.</div>
+          <div className="text-xs text-app-text-muted">Dismissed.</div>
         )}
         {msg.actionState === 'error' && (
           <div className="flex items-center gap-1.5 text-xs text-red-600 font-medium">
@@ -234,22 +234,22 @@ export default function AIChat({ compact = false, messages, onMessagesChange }: 
   return (
     <div className="flex flex-col h-full min-h-0">
       {/* Messages */}
-      <div className={`flex-1 overflow-y-auto space-y-3 ${compact ? 'p-4' : 'rounded-2xl border border-slate-200 bg-white p-4'}`}>
+      <div className={`flex-1 overflow-y-auto space-y-3 ${compact ? 'p-4' : 'rounded-2xl border border-app-border bg-app-surface p-4'}`}>
         {messages.length === 0 && (
           <div className="h-full flex flex-col items-center justify-center text-center px-4">
             <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-3 shadow-lg shadow-indigo-500/20">
               <Sparkles className="w-5 h-5 text-white" />
             </div>
-            <p className="text-slate-700 font-semibold mb-1">
+            <p className="text-app-text font-semibold mb-1">
               Hi{profile ? ` ${profile.first_name}` : ''} — ask about your school data
             </p>
-            <p className="text-xs text-slate-400 mb-4">Reads your school data; any actions need your approval.</p>
+            <p className="text-xs text-app-text-muted mb-4">Reads your school data; any actions need your approval.</p>
             <div className="flex flex-wrap justify-center gap-2 max-w-md">
               {SUGGESTIONS.map(s => (
                 <button
                   key={s}
                   onClick={() => send(s)}
-                  className="text-xs bg-slate-50 text-slate-600 border border-slate-200 rounded-full px-3 py-1.5 hover:bg-indigo-50 hover:text-indigo-700 hover:border-indigo-200 transition-colors"
+                  className="text-xs bg-app-surface-alt text-app-text-muted border border-app-border rounded-full px-3 py-1.5 hover:bg-indigo-50 hover:text-indigo-700 hover:border-indigo-200 transition-colors"
                 >
                   {s}
                 </button>
@@ -262,7 +262,7 @@ export default function AIChat({ compact = false, messages, onMessagesChange }: 
             <div className={`max-w-[88%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
               m.role === 'user'
                 ? 'bg-indigo-600 text-white rounded-br-md'
-                : 'bg-slate-50 border border-slate-100 text-slate-700 rounded-bl-md'
+                : 'bg-app-surface-alt border border-app-border text-app-text rounded-bl-md'
             }`}>
               {m.role === 'assistant' ? renderContent(m.content) : m.content}
               {m.role === 'assistant' && m.action && renderActionCard(m, i)}
@@ -271,7 +271,7 @@ export default function AIChat({ compact = false, messages, onMessagesChange }: 
         ))}
         {busy && (
           <div className="flex justify-start">
-            <div className="bg-slate-50 border border-slate-100 rounded-2xl rounded-bl-md px-3.5 py-2.5 flex items-center gap-2 text-sm text-slate-500">
+            <div className="bg-app-surface-alt border border-app-border rounded-2xl rounded-bl-md px-3.5 py-2.5 flex items-center gap-2 text-sm text-app-text-muted">
               <Loader2 className="w-4 h-4 animate-spin" /> Checking…
             </div>
           </div>
@@ -283,7 +283,7 @@ export default function AIChat({ compact = false, messages, onMessagesChange }: 
       </div>
 
       {/* Input */}
-      <div className={`flex items-end gap-2 ${compact ? 'p-3 border-t border-slate-100 bg-white' : 'mt-3'}`}>
+      <div className={`flex items-end gap-2 ${compact ? 'p-3 border-t border-app-border bg-app-surface' : 'mt-3'}`}>
         <textarea
           ref={inputRef}
           value={input}
@@ -293,7 +293,7 @@ export default function AIChat({ compact = false, messages, onMessagesChange }: 
           }}
           rows={1}
           placeholder="Ask a question…"
-          className="flex-1 resize-none border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30 max-h-32"
+          className="flex-1 resize-none bg-app-surface text-app-text border border-app-border rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30 max-h-32"
         />
         <button
           onClick={() => send()}

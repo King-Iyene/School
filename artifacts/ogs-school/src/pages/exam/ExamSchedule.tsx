@@ -165,23 +165,23 @@ export default function ExamSchedule() {
     }
   }
 
-  const inputClass = 'border border-slate-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
-  const filterInputClass = 'border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white';
+  const inputClass = 'border border-app-border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  const filterInputClass = 'border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
 
   return (
     <div className="p-6">
       <div className="flex items-center gap-3 mb-6">
         <Calendar className="text-emerald-600" size={28} />
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Exam Schedule</h1>
-          <p className="text-sm text-slate-500">Manage exam dates, times and supervisors per class</p>
+          <h1 className="text-2xl font-bold text-app-text">Exam Schedule</h1>
+          <p className="text-sm text-app-text-muted">Manage exam dates, times and supervisors per class</p>
         </div>
       </div>
 
-      <div className="bg-slate-50 rounded-2xl border border-slate-200 p-5 mb-8">
+      <div className="bg-app-surface-alt rounded-2xl border border-app-border p-5 mb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">Select Exam</label>
+            <label className="block text-xs font-semibold text-app-text-muted uppercase tracking-wider mb-1.5 ml-1">Select Exam</label>
             <select
               className={filterInputClass}
               value={selectedExam}
@@ -192,7 +192,7 @@ export default function ExamSchedule() {
             </select>
           </div>
           <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">Select Class</label>
+            <label className="block text-xs font-semibold text-app-text-muted uppercase tracking-wider mb-1.5 ml-1">Select Class</label>
             <select
               className={filterInputClass}
               value={selectedClass}
@@ -210,41 +210,41 @@ export default function ExamSchedule() {
           <div className="w-10 h-10 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : !selectedExam || !selectedClass ? (
-        <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-slate-300">
+        <div className="text-center py-20 bg-app-surface rounded-2xl border border-dashed border-app-border">
           <Calendar size={48} className="mx-auto text-slate-300 mb-4" />
-          <p className="text-lg font-medium text-slate-600">No selection made</p>
-          <p className="text-sm text-slate-400 mt-1">Please select an exam and a class to view and manage the schedule.</p>
+          <p className="text-lg font-medium text-app-text-muted">No selection made</p>
+          <p className="text-sm text-app-text-muted mt-1">Please select an exam and a class to view and manage the schedule.</p>
         </div>
       ) : subjectRows.length === 0 ? (
-        <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-slate-300">
-          <p className="text-lg font-medium text-slate-600">No subjects assigned</p>
-          <p className="text-sm text-slate-400 mt-1">No subjects were found for the selected class.</p>
+        <div className="text-center py-20 bg-app-surface rounded-2xl border border-dashed border-app-border">
+          <p className="text-lg font-medium text-app-text-muted">No subjects assigned</p>
+          <p className="text-sm text-app-text-muted mt-1">No subjects were found for the selected class.</p>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+        <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-6 py-4 font-bold text-slate-700 w-1/4">Subject</th>
-                  <th className="text-left px-4 py-4 font-bold text-slate-700">Exam Date</th>
-                  <th className="text-left px-4 py-4 font-bold text-slate-700">Start Time</th>
-                  <th className="text-left px-4 py-4 font-bold text-slate-700">End Time</th>
-                  <th className="text-left px-4 py-4 font-bold text-slate-700">Supervisor</th>
-                  <th className="text-left px-4 py-4 font-bold text-slate-700">Room</th>
-                  <th className="text-center px-6 py-4 font-bold text-slate-700 w-24">Action</th>
+                  <th className="text-left px-6 py-4 font-bold text-app-text w-1/4">Subject</th>
+                  <th className="text-left px-4 py-4 font-bold text-app-text">Exam Date</th>
+                  <th className="text-left px-4 py-4 font-bold text-app-text">Start Time</th>
+                  <th className="text-left px-4 py-4 font-bold text-app-text">End Time</th>
+                  <th className="text-left px-4 py-4 font-bold text-app-text">Supervisor</th>
+                  <th className="text-left px-4 py-4 font-bold text-app-text">Room</th>
+                  <th className="text-center px-6 py-4 font-bold text-app-text w-24">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {subjectRows.map((row, idx) => (
-                  <tr key={row.subject_id} className="hover:bg-slate-50/50 transition-colors">
+                  <tr key={row.subject_id} className="hover:bg-app-surface-alt/50 transition-colors">
                     <td className="px-6 py-4">
-                      <div className="font-semibold text-slate-800">{row.subject_name}</div>
+                      <div className="font-semibold text-app-text">{row.subject_name}</div>
                       {row.schedule_id && <div className="text-[10px] text-emerald-600 font-medium">Scheduled</div>}
                     </td>
                     <td className="px-4 py-4">
                       <div className="relative">
-                        <Calendar className="absolute left-2 top-2.5 text-slate-400" size={14} />
+                        <Calendar className="absolute left-2 top-2.5 text-app-text-muted" size={14} />
                         <input
                           type="date"
                           className={`${inputClass} pl-7`}
@@ -255,7 +255,7 @@ export default function ExamSchedule() {
                     </td>
                     <td className="px-4 py-4">
                       <div className="relative">
-                        <Clock className="absolute left-2 top-2.5 text-slate-400" size={14} />
+                        <Clock className="absolute left-2 top-2.5 text-app-text-muted" size={14} />
                         <input
                           type="time"
                           className={`${inputClass} pl-7`}
@@ -266,7 +266,7 @@ export default function ExamSchedule() {
                     </td>
                     <td className="px-4 py-4">
                       <div className="relative">
-                        <Clock className="absolute left-2 top-2.5 text-slate-400" size={14} />
+                        <Clock className="absolute left-2 top-2.5 text-app-text-muted" size={14} />
                         <input
                           type="time"
                           className={`${inputClass} pl-7`}
@@ -277,7 +277,7 @@ export default function ExamSchedule() {
                     </td>
                     <td className="px-4 py-4">
                       <div className="relative">
-                        <User className="absolute left-2 top-2.5 text-slate-400" size={14} />
+                        <User className="absolute left-2 top-2.5 text-app-text-muted" size={14} />
                         <select
                           className={`${inputClass} pl-7 appearance-none`}
                           value={row.supervisor_id}
@@ -290,7 +290,7 @@ export default function ExamSchedule() {
                     </td>
                     <td className="px-4 py-4">
                       <div className="relative">
-                        <DoorOpen className="absolute left-2 top-2.5 text-slate-400" size={14} />
+                        <DoorOpen className="absolute left-2 top-2.5 text-app-text-muted" size={14} />
                         <input
                           className={`${inputClass} pl-7`}
                           placeholder="Room"
@@ -305,12 +305,12 @@ export default function ExamSchedule() {
                         disabled={row.saving || !row.exam_date}
                         className={`p-2.5 rounded-xl transition-all ${
                           row.saving 
-                            ? 'bg-slate-100 text-slate-400' 
+                            ? 'bg-slate-100 text-app-text-muted' 
                             : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-500 hover:text-white shadow-sm shadow-emerald-200'
                         } disabled:opacity-50`}
                         title="Save Row"
                       >
-                        {row.saving ? <div className="w-4 h-4 border-2 border-slate-300 border-t-transparent rounded-full animate-spin" /> : <Save size={18} />}
+                        {row.saving ? <div className="w-4 h-4 border-2 border-app-border border-t-transparent rounded-full animate-spin" /> : <Save size={18} />}
                       </button>
                     </td>
                   </tr>

@@ -195,7 +195,7 @@ export default function FeesStatement() {
       )}
 
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Fees Statement</h1>
+        <h1 className="text-2xl font-bold text-app-text">Fees Statement</h1>
         <button
           onClick={handleExport}
           className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
@@ -205,12 +205,12 @@ export default function FeesStatement() {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <select
             value={filters.academic_year_id}
             onChange={e => setFilters(f => ({ ...f, academic_year_id: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">All Academic Years</option>
             {academicYears.map(y => (
@@ -221,7 +221,7 @@ export default function FeesStatement() {
           <select
             value={filters.class_id}
             onChange={e => setFilters(f => ({ ...f, class_id: e.target.value, section_id: '' }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">All Classes</option>
             {classes.map(c => (
@@ -233,7 +233,7 @@ export default function FeesStatement() {
             value={filters.section_id}
             onChange={e => setFilters(f => ({ ...f, section_id: e.target.value }))}
             disabled={!filters.class_id}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
           >
             <option value="">All Sections</option>
             {sections.map(s => (
@@ -244,7 +244,7 @@ export default function FeesStatement() {
           <select
             value={filters.payment_status}
             onChange={e => setFilters(f => ({ ...f, payment_status: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">All Status</option>
             <option value="paid">Paid</option>
@@ -255,22 +255,22 @@ export default function FeesStatement() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Total Fees</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">₦{totalFees.toLocaleString()}</p>
+              <p className="text-sm text-app-text-muted">Total Fees</p>
+              <p className="text-2xl font-bold text-app-text mt-1">₦{totalFees.toLocaleString()}</p>
             </div>
             <div className="bg-slate-100 p-3 rounded-lg">
-              <DollarSign className="h-6 w-6 text-slate-600" />
+              <DollarSign className="h-6 w-6 text-app-text-muted" />
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Total Collected</p>
+              <p className="text-sm text-app-text-muted">Total Collected</p>
               <p className="text-2xl font-bold text-emerald-600 mt-1">₦{totalCollected.toLocaleString()}</p>
             </div>
             <div className="bg-emerald-100 p-3 rounded-lg">
@@ -279,10 +279,10 @@ export default function FeesStatement() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Total Balance</p>
+              <p className="text-sm text-app-text-muted">Total Balance</p>
               <p className="text-2xl font-bold text-red-600 mt-1">₦{totalBalance.toLocaleString()}</p>
             </div>
             <div className="bg-red-100 p-3 rounded-lg">
@@ -291,11 +291,11 @@ export default function FeesStatement() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Collection %</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{collectionPct}%</p>
+              <p className="text-sm text-app-text-muted">Collection %</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{collectionPct}%</p>
             </div>
             <div className="bg-blue-100 p-3 rounded-lg">
               <Percent className="h-6 w-6 text-blue-600" />
@@ -304,42 +304,42 @@ export default function FeesStatement() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">#</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Student Name</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Class</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Section</th>
-                <th className="text-right px-4 py-3 text-slate-600 font-medium">Fees Amount</th>
-                <th className="text-right px-4 py-3 text-slate-600 font-medium">Amount Paid</th>
-                <th className="text-right px-4 py-3 text-slate-600 font-medium">Balance</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Last Payment</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Status</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">#</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Student Name</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Class</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Section</th>
+                <th className="text-right px-4 py-3 text-app-text-muted font-medium">Fees Amount</th>
+                <th className="text-right px-4 py-3 text-app-text-muted font-medium">Amount Paid</th>
+                <th className="text-right px-4 py-3 text-app-text-muted font-medium">Balance</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Last Payment</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Status</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-10 text-slate-400">Loading...</td>
+                  <td colSpan={9} className="text-center py-10 text-app-text-muted">Loading...</td>
                 </tr>
               ) : records.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-10 text-slate-400">No records found</td>
+                  <td colSpan={9} className="text-center py-10 text-app-text-muted">No records found</td>
                 </tr>
               ) : (
                 records.map((record, index) => (
-                  <tr key={record.student_id} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="px-4 py-3 text-slate-500">{index + 1}</td>
-                    <td className="px-4 py-3 font-medium text-slate-800">{record.student_name}</td>
-                    <td className="px-4 py-3 text-slate-600">{record.class_name}</td>
-                    <td className="px-4 py-3 text-slate-600">{record.section_name}</td>
-                    <td className="px-4 py-3 text-right text-slate-600">₦{record.total_fees.toLocaleString()}</td>
+                  <tr key={record.student_id} className="border-b border-app-border hover:bg-app-surface-alt">
+                    <td className="px-4 py-3 text-app-text-muted">{index + 1}</td>
+                    <td className="px-4 py-3 font-medium text-app-text">{record.student_name}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{record.class_name}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{record.section_name}</td>
+                    <td className="px-4 py-3 text-right text-app-text-muted">₦{record.total_fees.toLocaleString()}</td>
                     <td className="px-4 py-3 text-right text-emerald-600 font-medium">₦{record.amount_paid.toLocaleString()}</td>
                     <td className="px-4 py-3 text-right text-red-600 font-medium">₦{record.balance.toLocaleString()}</td>
-                    <td className="px-4 py-3 text-slate-600">
+                    <td className="px-4 py-3 text-app-text-muted">
                       {record.last_payment_date ? new Date(record.last_payment_date).toLocaleDateString() : '-'}
                     </td>
                     <td className="px-4 py-3">{getStatusBadge(record.payment_status)}</td>

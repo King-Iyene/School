@@ -94,12 +94,12 @@ export default function StudentPortal() {
         <p className="text-emerald-100 text-sm font-medium">{greeting},</p>
         <h2 className="text-2xl font-bold mt-0.5">{profile?.first_name} {profile?.last_name}</h2>
         <div className="flex items-center gap-4 mt-3">
-          <div className="flex items-center gap-1.5 bg-white/20 rounded-lg px-3 py-1.5 text-sm">
+          <div className="flex items-center gap-1.5 bg-app-surface/20 rounded-lg px-3 py-1.5 text-sm">
             <BookOpen className="w-4 h-4" />
             <span>{className}</span>
           </div>
           {profile?.student_id && (
-            <div className="flex items-center gap-1.5 bg-white/20 rounded-lg px-3 py-1.5 text-sm">
+            <div className="flex items-center gap-1.5 bg-app-surface/20 rounded-lg px-3 py-1.5 text-sm">
               <span>ID: {profile.student_id}</span>
             </div>
           )}
@@ -107,46 +107,46 @@ export default function StudentPortal() {
       </div>
 
       {loading ? (
-        <div className="text-center py-8 text-slate-400">Loading your dashboard...</div>
+        <div className="text-center py-8 text-app-text-muted">Loading your dashboard...</div>
       ) : (
         <>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
               <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center mx-auto mb-2">
                 <UserCheck className="w-5 h-5 text-emerald-600" />
               </div>
-              <p className="text-2xl font-bold text-slate-800">{attRate}%</p>
-              <p className="text-xs text-slate-500 mt-0.5">Attendance Rate</p>
+              <p className="text-2xl font-bold text-app-text">{attRate}%</p>
+              <p className="text-xs text-app-text-muted mt-0.5">Attendance Rate</p>
             </div>
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
               <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center mx-auto mb-2">
                 <Award className="w-5 h-5 text-blue-600" />
               </div>
-              <p className="text-2xl font-bold text-slate-800">{results.length}</p>
-              <p className="text-xs text-slate-500 mt-0.5">Subjects Taken</p>
+              <p className="text-2xl font-bold text-app-text">{results.length}</p>
+              <p className="text-xs text-app-text-muted mt-0.5">Subjects Taken</p>
             </div>
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
               <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center mx-auto mb-2">
                 <TrendingUp className="w-5 h-5 text-amber-600" />
               </div>
-              <p className="text-2xl font-bold text-slate-800">{results.length > 0 ? Math.round(results.reduce((s, r) => s + r.total, 0) / results.length) : 0}</p>
-              <p className="text-xs text-slate-500 mt-0.5">Avg Score</p>
+              <p className="text-2xl font-bold text-app-text">{results.length > 0 ? Math.round(results.reduce((s, r) => s + r.total, 0) / results.length) : 0}</p>
+              <p className="text-xs text-app-text-muted mt-0.5">Avg Score</p>
             </div>
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-center">
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 text-center">
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-2 ${fees.balance > 0 ? 'bg-red-100' : 'bg-emerald-100'}`}>
                 <CreditCard className={`w-5 h-5 ${fees.balance > 0 ? 'text-red-600' : 'text-emerald-600'}`} />
               </div>
               <p className={`text-2xl font-bold ${fees.balance > 0 ? 'text-red-600' : 'text-emerald-600'}`}>₦{fees.balance.toLocaleString()}</p>
-              <p className="text-xs text-slate-500 mt-0.5">Fee Balance</p>
+              <p className="text-xs text-app-text-muted mt-0.5">Fee Balance</p>
             </div>
           </div>
 
           <DashboardCalendar />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-              <div className="p-4 border-b border-slate-100 flex items-center justify-between">
-                <h3 className="font-semibold text-slate-800">Attendance Summary</h3>
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+              <div className="p-4 border-b border-app-border flex items-center justify-between">
+                <h3 className="font-semibold text-app-text">Attendance Summary</h3>
                 <button onClick={() => navigate('/attendance')} className="text-xs text-emerald-600 hover:text-emerald-700 font-medium">Details</button>
               </div>
               <div className="p-4 space-y-3">
@@ -158,37 +158,37 @@ export default function StudentPortal() {
                   <div key={label} className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <div className={`w-2.5 h-2.5 rounded-full bg-${color}-500`} />
-                      <span className="text-sm text-slate-600">{label}</span>
+                      <span className="text-sm text-app-text-muted">{label}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-28 h-1.5 bg-slate-100 rounded-full overflow-hidden">
                         <div className={`h-full bg-${color}-500 rounded-full`} style={{ width: att.total > 0 ? `${(count / att.total) * 100}%` : '0%' }} />
                       </div>
-                      <span className="text-sm font-semibold text-slate-700 w-6 text-right">{count}</span>
+                      <span className="text-sm font-semibold text-app-text w-6 text-right">{count}</span>
                     </div>
                   </div>
                 ))}
-                <div className="pt-2 border-t border-slate-100 flex justify-between text-xs text-slate-500">
+                <div className="pt-2 border-t border-app-border flex justify-between text-xs text-app-text-muted">
                   <span>Total Days: {att.total}</span>
                   <span className="font-semibold text-emerald-600">Rate: {attRate}%</span>
                 </div>
               </div>
             </div>
 
-            <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm">
-              <div className="p-4 border-b border-slate-100 flex items-center justify-between">
-                <h3 className="font-semibold text-slate-800">Latest Results</h3>
+            <div className="lg:col-span-2 bg-app-surface rounded-2xl border border-app-border shadow-sm">
+              <div className="p-4 border-b border-app-border flex items-center justify-between">
+                <h3 className="font-semibold text-app-text">Latest Results</h3>
                 <button onClick={() => navigate('/student/examinations')} className="text-xs text-emerald-600 hover:text-emerald-700 font-medium">View all</button>
               </div>
               {results.length === 0 ? (
-                <div className="p-8 text-center text-slate-400 text-sm">No exam results yet</div>
+                <div className="p-8 text-center text-app-text-muted text-sm">No exam results yet</div>
               ) : (
-                <div className="divide-y divide-slate-100">
+                <div className="divide-y divide-app-border">
                   {results.map((r, idx) => (
                     <div key={idx} className="flex items-center justify-between px-4 py-3">
                       <div>
-                        <p className="text-sm font-medium text-slate-800">{r.subject_name}</p>
-                        <p className="text-xs text-slate-400">Score: {r.total}/100</p>
+                        <p className="text-sm font-medium text-app-text">{r.subject_name}</p>
+                        <p className="text-xs text-app-text-muted">Score: {r.total}/100</p>
                       </div>
                       <div className="flex items-center gap-3">
                         <div className="w-24 h-2 bg-slate-100 rounded-full overflow-hidden">
@@ -207,26 +207,26 @@ export default function StudentPortal() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-              <div className="p-4 border-b border-slate-100 flex items-center justify-between">
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+              <div className="p-4 border-b border-app-border flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Bell className="w-4 h-4 text-slate-400" />
-                  <h3 className="font-semibold text-slate-800">Announcements</h3>
+                  <Bell className="w-4 h-4 text-app-text-muted" />
+                  <h3 className="font-semibold text-app-text">Announcements</h3>
                 </div>
                 <button onClick={() => navigate('/announcements')} className="text-xs text-emerald-600 hover:text-emerald-700 font-medium">View all</button>
               </div>
               {announcements.length === 0 ? (
-                <div className="p-8 text-center text-slate-400 text-sm">No announcements</div>
+                <div className="p-8 text-center text-app-text-muted text-sm">No announcements</div>
               ) : (
-                <div className="divide-y divide-slate-100">
+                <div className="divide-y divide-app-border">
                   {announcements.map(a => (
                     <div key={a.id} className="px-4 py-3">
                       <div className="flex items-start gap-2">
                         {a.is_pinned && <span className="mt-0.5 text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded font-medium flex-shrink-0">Pinned</span>}
                         <div>
-                          <p className="text-sm font-medium text-slate-800">{a.title}</p>
-                          <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">{a.content}</p>
-                          <p className="text-xs text-slate-400 mt-1">{new Date(a.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</p>
+                          <p className="text-sm font-medium text-app-text">{a.title}</p>
+                          <p className="text-xs text-app-text-muted mt-0.5 line-clamp-2">{a.content}</p>
+                          <p className="text-xs text-app-text-muted mt-1">{new Date(a.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</p>
                         </div>
                       </div>
                     </div>
@@ -235,21 +235,21 @@ export default function StudentPortal() {
               )}
             </div>
 
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-              <div className="p-4 border-b border-slate-100 flex items-center justify-between">
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+              <div className="p-4 border-b border-app-border flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <CreditCard className="w-4 h-4 text-slate-400" />
-                  <h3 className="font-semibold text-slate-800">Fee Status</h3>
+                  <CreditCard className="w-4 h-4 text-app-text-muted" />
+                  <h3 className="font-semibold text-app-text">Fee Status</h3>
                 </div>
                 <button onClick={() => navigate('/fees')} className="text-xs text-emerald-600 hover:text-emerald-700 font-medium">Details</button>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-slate-600">Total Fees</span>
-                  <span className="text-sm font-semibold text-slate-800">₦{fees.total_fees.toLocaleString()}</span>
+                  <span className="text-sm text-app-text-muted">Total Fees</span>
+                  <span className="text-sm font-semibold text-app-text">₦{fees.total_fees.toLocaleString()}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-slate-600">Amount Paid</span>
+                  <span className="text-sm text-app-text-muted">Amount Paid</span>
                   <span className="text-sm font-semibold text-emerald-600">₦{fees.total_paid.toLocaleString()}</span>
                 </div>
                 <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
@@ -279,12 +279,12 @@ export default function StudentPortal() {
               <button
                 key={path}
                 onClick={() => navigate(path)}
-                className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 flex flex-col items-center gap-2 hover:border-emerald-300 hover:shadow-md transition-all group"
+                className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 flex flex-col items-center gap-2 hover:border-emerald-300 hover:shadow-md transition-all group"
               >
                 <div className="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-emerald-100 flex items-center justify-center transition-colors">
-                  <Icon className="w-5 h-5 text-slate-500 group-hover:text-emerald-600 transition-colors" />
+                  <Icon className="w-5 h-5 text-app-text-muted group-hover:text-emerald-600 transition-colors" />
                 </div>
-                <span className="text-xs font-medium text-slate-600 group-hover:text-emerald-700 transition-colors">{label}</span>
+                <span className="text-xs font-medium text-app-text-muted group-hover:text-emerald-700 transition-colors">{label}</span>
               </button>
             ))}
           </div>

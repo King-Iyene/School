@@ -83,8 +83,8 @@ export default function Subjects() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Subject Management</h2>
-          <p className="text-slate-500 text-sm">Manage all subjects offered in the school</p>
+          <h2 className="text-xl font-bold text-app-text">Subject Management</h2>
+          <p className="text-app-text-muted text-sm">Manage all subjects offered in the school</p>
         </div>
         <button onClick={openCreate} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-500/20">
           <Plus className="w-4 h-4" />
@@ -92,32 +92,32 @@ export default function Subjects() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-slate-100 bg-slate-50">
-              <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Subject Name</th>
-              <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Code</th>
-              <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Category</th>
-              <th className="text-right text-xs font-semibold text-slate-500 uppercase px-5 py-3">Actions</th>
+            <tr className="border-b border-app-border bg-app-surface-alt">
+              <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Subject Name</th>
+              <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Code</th>
+              <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Category</th>
+              <th className="text-right text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-app-border">
             {loading ? (
-              <tr><td colSpan={4} className="text-center py-8 text-slate-400">Loading...</td></tr>
+              <tr><td colSpan={4} className="text-center py-8 text-app-text-muted">Loading...</td></tr>
             ) : subjects.length === 0 ? (
-              <tr><td colSpan={4} className="text-center py-8 text-slate-400">No subjects found</td></tr>
+              <tr><td colSpan={4} className="text-center py-8 text-app-text-muted">No subjects found</td></tr>
             ) : subjects.map(s => (
-              <tr key={s.id} className="hover:bg-slate-50 transition-colors">
-                <td className="px-5 py-3 text-sm font-medium text-slate-800">{s.name}</td>
-                <td className="px-5 py-3 text-sm text-slate-500 font-mono">{s.code || '—'}</td>
+              <tr key={s.id} className="hover:bg-app-surface-alt transition-colors">
+                <td className="px-5 py-3 text-sm font-medium text-app-text">{s.name}</td>
+                <td className="px-5 py-3 text-sm text-app-text-muted font-mono">{s.code || '—'}</td>
                 <td className="px-5 py-3"><Badge label={s.category} variant={catColor[s.category]} /></td>
                 <td className="px-5 py-3">
                   <div className="flex justify-end gap-1">
-                    <button onClick={() => openEdit(s)} className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                    <button onClick={() => openEdit(s)} className="p-1.5 text-app-text-muted hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
                       <Edit2 className="w-4 h-4" />
                     </button>
-                    <button onClick={() => deleteSubject(s.id)} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                    <button onClick={() => deleteSubject(s.id)} className="p-1.5 text-app-text-muted hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
@@ -132,23 +132,23 @@ export default function Subjects() {
         <div className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Subject Name</label>
-            <input value={form.name} onChange={e => setForm({...form, name: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            <label className="block text-sm font-medium text-app-text mb-1">Subject Name</label>
+            <input value={form.name} onChange={e => setForm({...form, name: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Subject Code</label>
-            <input value={form.code} onChange={e => setForm({...form, code: e.target.value})} placeholder="e.g. MATH" className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            <label className="block text-sm font-medium text-app-text mb-1">Subject Code</label>
+            <input value={form.code} onChange={e => setForm({...form, code: e.target.value})} placeholder="e.g. MATH" className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Category</label>
-            <select value={form.category} onChange={e => setForm({...form, category: e.target.value})} className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-white">
+            <label className="block text-sm font-medium text-app-text mb-1">Category</label>
+            <select value={form.category} onChange={e => setForm({...form, category: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
               <option value="core">Core</option>
               <option value="elective">Elective</option>
               <option value="vocational">Vocational</option>
             </select>
           </div>
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2 border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50">Cancel</button>
+            <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
             <button onClick={handleSave} disabled={saving} className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50">
               {saving ? 'Saving...' : editSubject ? 'Update' : 'Add Subject'}
             </button>

@@ -229,18 +229,18 @@ export default function StudentAttendance() {
   const lateCount    = records.filter(r => r.status === 'late').length;
   const missingCount = recentDays.filter(d => d !== today && !recordedDates.has(d)).length;
 
-  const inputClass = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white';
+  const inputClass = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
 
   if (!metaLoaded) {
     return (
       <div className="p-6">
         <div className="flex items-center gap-3 mb-6">
           <CalendarCheck size={24} className="text-emerald-600" />
-          <h1 className="text-2xl font-bold text-slate-800">Student Attendance</h1>
+          <h1 className="text-2xl font-bold text-app-text">Student Attendance</h1>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-16 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-16 text-center">
           <RefreshCw className="w-8 h-8 text-slate-300 animate-spin mx-auto mb-3" />
-          <p className="text-slate-400 text-sm">Loading…</p>
+          <p className="text-app-text-muted text-sm">Loading…</p>
         </div>
       </div>
     );
@@ -252,8 +252,8 @@ export default function StudentAttendance() {
         <div className="flex items-center gap-3">
           <CalendarCheck size={22} className="text-emerald-600 shrink-0" />
           <div>
-            <h1 className="text-xl sm:text-2xl font-bold text-slate-800">Student Attendance</h1>
-            <p className="text-slate-500 text-sm hidden sm:block">
+            <h1 className="text-xl sm:text-2xl font-bold text-app-text">Student Attendance</h1>
+            <p className="text-app-text-muted text-sm hidden sm:block">
               {isAdmin ? 'Mark and review attendance for any class' : 'Record daily attendance for your class'}
             </p>
           </div>
@@ -269,7 +269,7 @@ export default function StudentAttendance() {
             </button>
           </>}
           <button onClick={() => setBulkOpen(o => !o)}
-            className={`flex items-center gap-1.5 text-sm font-medium px-3 py-2 rounded-xl transition-colors ${bulkOpen ? 'bg-violet-100 text-violet-700' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+            className={`flex items-center gap-1.5 text-sm font-medium px-3 py-2 rounded-xl transition-colors ${bulkOpen ? 'bg-violet-100 text-violet-700' : 'bg-slate-100 text-app-text-muted hover:bg-slate-200'}`}>
             <Zap size={14} /> Bulk Fill
           </button>
         </div>
@@ -282,17 +282,17 @@ export default function StudentAttendance() {
       )}
 
       {/* ── Filters ── */}
-      <div className="bg-white border border-slate-200 rounded-xl p-5 mb-6 space-y-4">
+      <div className="bg-app-surface border border-app-border rounded-xl p-5 mb-6 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Class</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Class</label>
             <select className={inputClass} value={selectedClass} onChange={e => setSelectedClass(e.target.value)}>
               <option value="">Select class</option>
               {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Academic Year</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Academic Year</label>
             <select className={inputClass} value={selectedYear} onChange={e => setSelectedYear(e.target.value)}>
               <option value="">Select year</option>
               {academicYears.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
@@ -308,16 +308,16 @@ export default function StudentAttendance() {
 
         {/* Date navigator */}
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1.5">Date</label>
+          <label className="block text-sm font-medium text-app-text mb-1.5">Date</label>
           <div className="flex items-center gap-2 flex-wrap">
             <button onClick={() => setSelectedDate(prevWeekday(selectedDate))} title="Previous weekday"
-              className="p-2 rounded-xl border border-slate-200 hover:bg-slate-100 transition-colors text-slate-600">
+              className="p-2 rounded-xl border border-app-border hover:bg-slate-100 transition-colors text-app-text-muted">
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <input type="date" className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            <input type="date" className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
               value={selectedDate} max={today} onChange={e => setSelectedDate(e.target.value)} />
             <button onClick={() => setSelectedDate(nextWeekday(selectedDate))} disabled={selectedDate >= today} title="Next weekday"
-              className="p-2 rounded-xl border border-slate-200 hover:bg-slate-100 transition-colors text-slate-600 disabled:opacity-30 disabled:cursor-not-allowed">
+              className="p-2 rounded-xl border border-app-border hover:bg-slate-100 transition-colors text-app-text-muted disabled:opacity-30 disabled:cursor-not-allowed">
               <ChevronRight className="w-4 h-4" />
             </button>
             {selectedDate !== today && (
@@ -347,7 +347,7 @@ export default function StudentAttendance() {
                       : isRecorded
                         ? 'bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100'
                         : isTdy
-                          ? 'bg-slate-100 border-slate-300 text-slate-700 hover:bg-slate-200'
+                          ? 'bg-slate-100 border-app-border text-app-text hover:bg-slate-200'
                           : 'bg-red-50 border-red-200 text-red-600 hover:bg-red-100'
                     }`}>
                   <span className="font-semibold">{dayLabel(d)}</span>
@@ -372,19 +372,19 @@ export default function StudentAttendance() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
-                <label className="block text-xs font-medium text-slate-600 mb-1">From</label>
+                <label className="block text-xs font-medium text-app-text-muted mb-1">From</label>
                 <input type="date" value={bulkFrom} max={today} onChange={e => setBulkFrom(e.target.value)}
-                  className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white" />
+                  className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-slate-600 mb-1">To</label>
+                <label className="block text-xs font-medium text-app-text-muted mb-1">To</label>
                 <input type="date" value={bulkTo} min={bulkFrom || undefined} max={today} onChange={e => setBulkTo(e.target.value)}
-                  className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white" />
+                  className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-slate-600 mb-1">Status for all</label>
+                <label className="block text-xs font-medium text-app-text-muted mb-1">Status for all</label>
                 <select value={bulkStatus} onChange={e => setBulkStatus(e.target.value as any)}
-                  className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white">
+                  className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface">
                   <option value="present">Present</option>
                   <option value="absent">Absent</option>
                   <option value="late">Late</option>
@@ -410,7 +410,7 @@ export default function StudentAttendance() {
                 <Zap size={14} />
                 {bulkSaving ? 'Filling…' : `Fill ${bulkSchoolDays.length > 0 ? bulkSchoolDays.length : ''} Day${bulkSchoolDays.length !== 1 ? 's' : ''}`}
               </button>
-              <button onClick={() => setBulkOpen(false)} className="text-sm text-slate-500 hover:text-slate-700 px-3 py-2 rounded-xl hover:bg-slate-100 transition-colors">
+              <button onClick={() => setBulkOpen(false)} className="text-sm text-app-text-muted hover:text-app-text px-3 py-2 rounded-xl hover:bg-slate-100 transition-colors">
                 Cancel
               </button>
             </div>
@@ -422,9 +422,9 @@ export default function StudentAttendance() {
       {records.length > 0 && (
         <>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-4">
-            <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-center">
-              <p className="text-2xl font-bold text-slate-800">{records.length}</p>
-              <p className="text-xs text-slate-500 mt-0.5">Total Students</p>
+            <div className="bg-app-surface-alt border border-app-border rounded-xl px-4 py-3 text-center">
+              <p className="text-2xl font-bold text-app-text">{records.length}</p>
+              <p className="text-xs text-app-text-muted mt-0.5">Total Students</p>
             </div>
             <div className="bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3 text-center">
               <p className="text-2xl font-bold text-emerald-700">{presentCount}</p>
@@ -440,20 +440,20 @@ export default function StudentAttendance() {
             </div>
           </div>
 
-          <div className="overflow-x-auto rounded-xl border border-slate-200">
+          <div className="overflow-x-auto rounded-xl border border-app-border">
             <table className="w-full text-sm min-w-[480px]">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Student Name</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Admission No.</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Attendance</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Student Name</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Admission No.</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Attendance</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {records.map(r => (
-                  <tr key={r.student_id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-4 py-3 font-medium text-slate-800">{r.full_name}</td>
-                    <td className="px-4 py-3 text-slate-600">{r.roll_number ?? '—'}</td>
+                  <tr key={r.student_id} className="hover:bg-app-surface-alt transition-colors">
+                    <td className="px-4 py-3 font-medium text-app-text">{r.full_name}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{r.roll_number ?? '—'}</td>
                     <td className="px-4 py-3">
                       <div className="flex gap-2 flex-wrap">
                         {(['present', 'absent', 'late', 'excused'] as const).map(st => (
@@ -483,7 +483,7 @@ export default function StudentAttendance() {
       )}
 
       {records.length === 0 && !loading && (
-        <div className="text-center py-16 text-slate-400">
+        <div className="text-center py-16 text-app-text-muted">
           <CalendarCheck size={40} className="mx-auto mb-3 opacity-30" />
           <p className="text-base font-medium">No students loaded</p>
           <p className="text-sm mt-1">Select a class and date, then click "Load Students".</p>

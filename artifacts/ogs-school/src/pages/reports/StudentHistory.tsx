@@ -97,7 +97,7 @@ export default function StudentHistory() {
       case 'left':
         return <span className="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">Left</span>;
       default:
-        return <span className="px-2 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700 capitalize">{status}</span>;
+        return <span className="px-2 py-1 rounded-full text-xs font-medium bg-slate-100 text-app-text capitalize">{status}</span>;
     }
   }
 
@@ -111,7 +111,7 @@ export default function StudentHistory() {
       )}
 
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Student History</h1>
+        <h1 className="text-2xl font-bold text-app-text">Student History</h1>
         <button
           onClick={handleExport}
           className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
@@ -121,23 +121,23 @@ export default function StudentHistory() {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-app-text-muted" />
             <input
               type="text"
               placeholder="Search student..."
               value={filters.search}
               onChange={e => setFilters(f => ({ ...f, search: e.target.value }))}
-              className="w-full border border-slate-300 rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
 
           <select
             value={filters.academic_year_id}
             onChange={e => setFilters(f => ({ ...f, academic_year_id: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">All Academic Years</option>
             {academicYears.map(y => (
@@ -148,11 +148,11 @@ export default function StudentHistory() {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Total Promotions</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{promotions}</p>
+              <p className="text-sm text-app-text-muted">Total Promotions</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{promotions}</p>
             </div>
             <div className="bg-emerald-100 p-3 rounded-lg">
               <TrendingUp className="h-6 w-6 text-emerald-600" />
@@ -160,11 +160,11 @@ export default function StudentHistory() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Transfers</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{transfers}</p>
+              <p className="text-sm text-app-text-muted">Transfers</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{transfers}</p>
             </div>
             <div className="bg-blue-100 p-3 rounded-lg">
               <ArrowRightLeft className="h-6 w-6 text-blue-600" />
@@ -172,11 +172,11 @@ export default function StudentHistory() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Drop-outs</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{dropouts}</p>
+              <p className="text-sm text-app-text-muted">Drop-outs</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{dropouts}</p>
             </div>
             <div className="bg-red-100 p-3 rounded-lg">
               <LogOut className="h-6 w-6 text-red-600" />
@@ -185,36 +185,36 @@ export default function StudentHistory() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">#</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Student Name</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Previous Class</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Current Class</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Promoted Date</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Status</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">#</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Student Name</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Previous Class</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Current Class</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Promoted Date</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Status</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="text-center py-10 text-slate-400">Loading...</td>
+                  <td colSpan={6} className="text-center py-10 text-app-text-muted">Loading...</td>
                 </tr>
               ) : filteredRecords.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="text-center py-10 text-slate-400">No records found</td>
+                  <td colSpan={6} className="text-center py-10 text-app-text-muted">No records found</td>
                 </tr>
               ) : (
                 filteredRecords.map((record, index) => (
-                  <tr key={record.id} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="px-4 py-3 text-slate-500">{index + 1}</td>
-                    <td className="px-4 py-3 font-medium text-slate-800">{record.full_name}</td>
-                    <td className="px-4 py-3 text-slate-600">{record.previous_class}</td>
-                    <td className="px-4 py-3 text-slate-600">{record.current_class}</td>
-                    <td className="px-4 py-3 text-slate-600">
+                  <tr key={record.id} className="border-b border-app-border hover:bg-app-surface-alt">
+                    <td className="px-4 py-3 text-app-text-muted">{index + 1}</td>
+                    <td className="px-4 py-3 font-medium text-app-text">{record.full_name}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{record.previous_class}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{record.current_class}</td>
+                    <td className="px-4 py-3 text-app-text-muted">
                       {record.promoted_date ? new Date(record.promoted_date).toLocaleDateString() : '-'}
                     </td>
                     <td className="px-4 py-3">{getStatusBadge(record.promotion_status)}</td>

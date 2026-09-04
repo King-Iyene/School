@@ -199,21 +199,21 @@ export default function StudentGrades() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">My Results</h2>
-          <p className="text-slate-500 text-sm">Your term-by-term academic performance history</p>
+          <h2 className="text-xl font-bold text-app-text">My Results</h2>
+          <p className="text-app-text-muted text-sm">Your term-by-term academic performance history</p>
         </div>
       </div>
 
       {loading ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-16 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-16 text-center">
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-slate-400 text-sm">Loading your results...</p>
+          <p className="text-app-text-muted text-sm">Loading your results...</p>
         </div>
       ) : termResults.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-16 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-16 text-center">
           <Award className="w-12 h-12 text-slate-200 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">No results recorded yet</p>
-          <p className="text-slate-400 text-sm mt-1">Your term results will appear here once published</p>
+          <p className="text-app-text-muted font-medium">No results recorded yet</p>
+          <p className="text-app-text-muted text-sm mt-1">Your term results will appear here once published</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -222,22 +222,22 @@ export default function StudentGrades() {
             return (
               <div
                 key={`${r.term_id}-${r.academic_year_id}`}
-                className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+                className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden hover:shadow-md transition-shadow"
               >
-                <div className="px-5 py-4 border-b border-slate-100 bg-gradient-to-r from-emerald-50 to-blue-50">
+                <div className="px-5 py-4 border-b border-app-border bg-gradient-to-r from-emerald-50 to-blue-50">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="font-bold text-slate-800 flex items-center gap-2">
+                      <h3 className="font-bold text-app-text flex items-center gap-2">
                         <Calendar className="w-4 h-4 text-emerald-600" />
                         {r.term_name} — {r.academic_year_name}
                       </h3>
-                      <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
+                      <p className="text-xs text-app-text-muted mt-1 flex items-center gap-1">
                         <GraduationCap className="w-3.5 h-3.5" />
                         Class: {r.class_name}
                       </p>
                     </div>
                     {locked ? (
-                      <span className="text-[10px] uppercase font-bold tracking-wider bg-slate-200 text-slate-600 px-2 py-1 rounded">
+                      <span className="text-[10px] uppercase font-bold tracking-wider bg-slate-200 text-app-text-muted px-2 py-1 rounded">
                         Pending
                       </span>
                     ) : (
@@ -248,30 +248,30 @@ export default function StudentGrades() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-3 divide-x divide-slate-100">
+                <div className="grid grid-cols-3 divide-x divide-app-border">
                   <div className="p-4 text-center">
-                    <p className="text-[10px] uppercase font-semibold text-slate-500 tracking-wide">Average</p>
+                    <p className="text-[10px] uppercase font-semibold text-app-text-muted tracking-wide">Average</p>
                     <p className="text-2xl font-black text-emerald-600 mt-1">{r.average.toFixed(2)}%</p>
-                    <p className="text-[10px] text-slate-400 mt-0.5">{r.subject_count} subjects</p>
+                    <p className="text-[10px] text-app-text-muted mt-0.5">{r.subject_count} subjects</p>
                   </div>
                   <div className="p-4 text-center">
-                    <p className="text-[10px] uppercase font-semibold text-slate-500 tracking-wide">Position</p>
+                    <p className="text-[10px] uppercase font-semibold text-app-text-muted tracking-wide">Position</p>
                     <p className="text-2xl font-black text-blue-600 mt-1">
                       {r.position ? getOrdinal(r.position) : '—'}
                     </p>
-                    {r.class_size && <p className="text-[10px] text-slate-400 mt-0.5">of {r.class_size}</p>}
+                    {r.class_size && <p className="text-[10px] text-app-text-muted mt-0.5">of {r.class_size}</p>}
                   </div>
                   <div className="p-4 text-center">
-                    <p className="text-[10px] uppercase font-semibold text-slate-500 tracking-wide">Remark</p>
+                    <p className="text-[10px] uppercase font-semibold text-app-text-muted tracking-wide">Remark</p>
                     <span className={`inline-block mt-1 text-sm font-bold px-3 py-1 rounded-lg border ${remarkColor(r.remark)}`}>
                       {r.remark}
                     </span>
                   </div>
                 </div>
 
-                <div className="px-5 py-3 border-t border-slate-100 bg-slate-50">
+                <div className="px-5 py-3 border-t border-app-border bg-app-surface-alt">
                   {locked ? (
-                    <p className="text-xs text-slate-500 text-center italic">
+                    <p className="text-xs text-app-text-muted text-center italic">
                       Results not yet published. Full report will be available once your class teacher publishes.
                     </p>
                   ) : (

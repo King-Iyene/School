@@ -30,7 +30,7 @@ interface FeesMasterItem {
 interface FeesDiscount { id: string; name: string; discount_type: 'percentage' | 'fixed'; discount_value: number; }
 interface PaymentMethod { id: string; name: string; }
 
-const INPUT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 const EMPTY_COLLECT_FORM = {
   fees_master_id: '',
@@ -235,68 +235,68 @@ export default function CollectFees() {
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-slate-800">Collect Fees</h1>
+        <h1 className="text-2xl font-bold text-app-text">Collect Fees</h1>
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-4 mb-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4 mb-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Class <span className="text-red-400">*</span></label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Class <span className="text-red-400">*</span></label>
             <select className={INPUT_CLASS} value={selectedClass} onChange={e => setSelectedClass(e.target.value)}>
               <option value="">Select class</option>
               {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Academic Year <span className="text-red-400">*</span></label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Academic Year <span className="text-red-400">*</span></label>
             <select className={INPUT_CLASS} value={selectedYear} onChange={e => setSelectedYear(e.target.value)}>
               <option value="">Select year</option>
               {academicYears.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Term <span className="text-red-400">*</span></label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Term <span className="text-red-400">*</span></label>
             <select className={INPUT_CLASS} value={selectedTerm} onChange={e => setSelectedTerm(e.target.value)}>
               <option value="">Select term</option>
               {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Search Student</label>
+            <label className="block text-xs font-medium text-app-text-muted mb-1">Search Student</label>
             <input className={INPUT_CLASS} value={searchName} onChange={e => setSearchName(e.target.value)} placeholder="Search by name..." />
           </div>
         </div>
       </div>
 
       {/* Student List */}
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {!canLoad ? (
-          <div className="flex flex-col items-center justify-center py-16 text-slate-400">
+          <div className="flex flex-col items-center justify-center py-16 text-app-text-muted">
             <p className="text-sm">Select a class, academic year, and term to load students.</p>
           </div>
         ) : loadingStudents ? (
-          <div className="flex items-center justify-center py-16 text-slate-400 text-sm">Loading students...</div>
+          <div className="flex items-center justify-center py-16 text-app-text-muted text-sm">Loading students...</div>
         ) : students.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-slate-400">
+          <div className="flex flex-col items-center justify-center py-16 text-app-text-muted">
             <p className="text-sm">No students found for the selected class.</p>
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
+              <tr className="bg-app-surface-alt text-app-text-muted text-xs uppercase tracking-wider">
                 <th className="px-4 py-3 text-left font-medium">Student Name</th>
                 <th className="px-4 py-3 text-left font-medium">Student ID</th>
                 <th className="px-4 py-3 text-right font-medium">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {students.map(s => (
-                <tr key={s.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-4 py-3 font-medium text-slate-800">
+                <tr key={s.id} className="hover:bg-app-surface-alt transition-colors">
+                  <td className="px-4 py-3 font-medium text-app-text">
                     {s.students ? `${s.students.first_name} ${s.students.last_name}` : 'Unknown'}
                   </td>
-                  <td className="px-4 py-3 font-mono text-xs text-slate-600">{s.students?.admission_number || '--'}</td>
+                  <td className="px-4 py-3 font-mono text-xs text-app-text-muted">{s.students?.admission_number || '--'}</td>
                   <td className="px-4 py-3 text-right">
                     <button onClick={() => openCollectModal(s)} className="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">
                       Collect Fees
@@ -316,18 +316,18 @@ export default function CollectFees() {
           {successMsg && <p className="text-emerald-600 text-sm bg-emerald-50 rounded-xl px-3 py-2">{successMsg}</p>}
 
           {loadingFees ? (
-            <p className="text-sm text-slate-400 text-center py-4">Loading fees...</p>
+            <p className="text-sm text-app-text-muted text-center py-4">Loading fees...</p>
           ) : feesMasterItems.length === 0 ? (
-            <div className="text-center py-6 text-slate-400">
+            <div className="text-center py-6 text-app-text-muted">
               <p className="text-sm">No fee items configured for this term and class.</p>
             </div>
           ) : (
             <>
               {/* Fee Status Summary */}
-              <div className="border border-slate-200 rounded-xl overflow-hidden">
+              <div className="border border-app-border rounded-xl overflow-hidden">
                 <table className="w-full text-xs">
                   <thead>
-                    <tr className="bg-slate-50 text-slate-500 uppercase">
+                    <tr className="bg-app-surface-alt text-app-text-muted uppercase">
                       <th className="px-3 py-2 text-left">Fee Item</th>
                       <th className="px-3 py-2 text-right">Due</th>
                       <th className="px-3 py-2 text-right">Paid</th>
@@ -335,10 +335,10 @@ export default function CollectFees() {
                       <th className="px-3 py-2 text-center">Status</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-app-border">
                     {feesMasterItems.map(f => (
                       <tr key={f.id} className={f.status === 'paid' ? 'opacity-50' : ''}>
-                        <td className="px-3 py-2 font-medium text-slate-700">{f.fees_types?.name}</td>
+                        <td className="px-3 py-2 font-medium text-app-text">{f.fees_types?.name}</td>
                         <td className="px-3 py-2 text-right">{formatCurrency(f.amount)}</td>
                         <td className="px-3 py-2 text-right text-emerald-600">{formatCurrency(f.paid_amount)}</td>
                         <td className="px-3 py-2 text-right text-orange-600 font-medium">{formatCurrency(f.balance)}</td>
@@ -350,7 +350,7 @@ export default function CollectFees() {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-600 mb-1">Select Fee Item to Pay</label>
+                <label className="block text-xs font-medium text-app-text-muted mb-1">Select Fee Item to Pay</label>
                 <select className={INPUT_CLASS} value={collectForm.fees_master_id} onChange={e => setCollectForm({...collectForm, fees_master_id: e.target.value})}>
                   <option value="">Select fee item</option>
                   {feesMasterItems.filter(f => f.status !== 'paid').map(f => (
@@ -362,9 +362,9 @@ export default function CollectFees() {
               </div>
 
               {selectedFeeItem && (
-                <div className="bg-slate-50 rounded-xl p-3 text-sm space-y-1">
+                <div className="bg-app-surface-alt rounded-xl p-3 text-sm space-y-1">
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Amount Due (Balance):</span>
+                    <span className="text-app-text-muted">Amount Due (Balance):</span>
                     <span className="font-medium">{formatCurrency(selectedFeeItem.balance)}</span>
                   </div>
                   {discountAmount > 0 && (
@@ -379,7 +379,7 @@ export default function CollectFees() {
                       <span>+ {formatCurrency(Number(collectForm.fine_amount))}</span>
                     </div>
                   )}
-                  <div className="flex justify-between font-semibold text-slate-800 border-t border-slate-200 pt-1 mt-1">
+                  <div className="flex justify-between font-semibold text-app-text border-t border-app-border pt-1 mt-1">
                     <span>Net Payable:</span>
                     <span>{formatCurrency(totalDue)}</span>
                   </div>
@@ -394,17 +394,17 @@ export default function CollectFees() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 mb-1">Amount Paid (N)</label>
+                  <label className="block text-xs font-medium text-app-text-muted mb-1">Amount Paid (N)</label>
                   <input type="number" min="0" className={INPUT_CLASS} value={collectForm.amount_paid} onChange={e => setCollectForm({...collectForm, amount_paid: parseFloat(e.target.value) || 0})} placeholder="0.00" />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 mb-1">Fine Amount (N)</label>
+                  <label className="block text-xs font-medium text-app-text-muted mb-1">Fine Amount (N)</label>
                   <input type="number" min="0" className={INPUT_CLASS} value={collectForm.fine_amount} onChange={e => setCollectForm({...collectForm, fine_amount: parseFloat(e.target.value) || 0})} placeholder="0.00" />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-600 mb-1">Discount (Optional)</label>
+                <label className="block text-xs font-medium text-app-text-muted mb-1">Discount (Optional)</label>
                 <select className={INPUT_CLASS} value={collectForm.discount_id} onChange={e => setCollectForm({...collectForm, discount_id: e.target.value})}>
                   <option value="">No discount</option>
                   {discounts.map(d => (
@@ -415,25 +415,25 @@ export default function CollectFees() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 mb-1">Payment Method</label>
+                  <label className="block text-xs font-medium text-app-text-muted mb-1">Payment Method</label>
                   <select className={INPUT_CLASS} value={collectForm.payment_method_id} onChange={e => setCollectForm({...collectForm, payment_method_id: e.target.value})}>
                     <option value="">Select method</option>
                     {paymentMethods.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 mb-1">Payment Date</label>
+                  <label className="block text-xs font-medium text-app-text-muted mb-1">Payment Date</label>
                   <input type="date" className={INPUT_CLASS} value={collectForm.payment_date} onChange={e => setCollectForm({...collectForm, payment_date: e.target.value})} />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-600 mb-1">Receipt No (auto-generated if blank)</label>
+                <label className="block text-xs font-medium text-app-text-muted mb-1">Receipt No (auto-generated if blank)</label>
                 <input className={INPUT_CLASS} value={collectForm.receipt_no} onChange={e => setCollectForm({...collectForm, receipt_no: e.target.value})} placeholder="e.g. RCP-2026-T1-00001" />
               </div>
 
               <div className="flex justify-end gap-2 pt-2">
-                <button onClick={() => setModalOpen(false)} className="px-4 py-2.5 text-sm text-slate-600 hover:text-slate-800 font-medium rounded-xl hover:bg-slate-100 transition-colors">Close</button>
+                <button onClick={() => setModalOpen(false)} className="px-4 py-2.5 text-sm text-app-text-muted hover:text-app-text font-medium rounded-xl hover:bg-slate-100 transition-colors">Close</button>
                 <button onClick={handleCollect} disabled={saving} className="px-5 py-2.5 text-sm bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-xl transition-colors disabled:opacity-60">
                   {saving ? 'Recording...' : 'Record Payment'}
                 </button>

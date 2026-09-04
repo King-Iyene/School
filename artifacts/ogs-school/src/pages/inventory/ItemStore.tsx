@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT_CLASS = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
 interface Store {
   id: string;
@@ -91,7 +91,7 @@ export default function ItemStore() {
           <div className="bg-emerald-500 text-white p-2 rounded-xl">
             <Warehouse size={20} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-800">Item Stores</h1>
+          <h1 className="text-2xl font-bold text-app-text">Item Stores</h1>
         </div>
         <button
           onClick={openAdd}
@@ -102,42 +102,42 @@ export default function ItemStore() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden">
         {loading ? (
-          <div className="p-12 text-center text-slate-400">Loading...</div>
+          <div className="p-12 text-center text-app-text-muted">Loading...</div>
         ) : stores.length === 0 ? (
           <div className="p-12 text-center">
             <Warehouse size={40} className="mx-auto text-slate-300 mb-3" />
-            <p className="text-slate-500">No stores found.</p>
+            <p className="text-app-text-muted">No stores found.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Name</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Location</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Description</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Actions</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Name</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Location</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Description</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {stores.map(store => (
-                  <tr key={store.id} className="hover:bg-slate-50/50">
-                    <td className="px-4 py-3 font-medium text-slate-800">{store.name}</td>
-                    <td className="px-4 py-3 text-slate-600">{store.location || '-'}</td>
-                    <td className="px-4 py-3 text-slate-600">{store.description || '-'}</td>
+                  <tr key={store.id} className="hover:bg-app-surface-alt/50">
+                    <td className="px-4 py-3 font-medium text-app-text">{store.name}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{store.location || '-'}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{store.description || '-'}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => openEdit(store)}
-                          className="text-slate-400 hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors"
+                          className="text-app-text-muted hover:text-emerald-600 p-1 rounded-lg hover:bg-emerald-50 transition-colors"
                         >
                           <Pencil size={15} />
                         </button>
                         <button
                           onClick={() => handleDelete(store.id)}
-                          className="text-slate-400 hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors"
+                          className="text-app-text-muted hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors"
                         >
                           <Trash2 size={15} />
                         </button>
@@ -155,7 +155,7 @@ export default function ItemStore() {
         <form onSubmit={handleSubmit} className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Name</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Name</label>
             <input
               required
               className={INPUT_CLASS}
@@ -165,7 +165,7 @@ export default function ItemStore() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Location</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Location</label>
             <input
               className={INPUT_CLASS}
               value={form.location}
@@ -174,7 +174,7 @@ export default function ItemStore() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Description</label>
             <textarea
               className={INPUT_CLASS}
               rows={3}
@@ -187,7 +187,7 @@ export default function ItemStore() {
             <button
               type="button"
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-slate-200 text-slate-600 hover:bg-slate-50"
+              className="px-4 py-2.5 rounded-xl text-sm font-medium border border-app-border text-app-text-muted hover:bg-app-surface-alt"
             >
               Cancel
             </button>

@@ -168,7 +168,7 @@ export default function StudentAttendanceReport() {
     reports.length > 0 ? Math.max(...reports.map((r) => r.total_days)) : 0;
 
   const inputClass =
-    'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+    'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
   return (
     <div className="p-6">
@@ -181,12 +181,12 @@ export default function StudentAttendanceReport() {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <BarChart2 size={24} className="text-emerald-600" />
-          <h1 className="text-2xl font-bold text-slate-800">Student Attendance Report</h1>
+          <h1 className="text-2xl font-bold text-app-text">Student Attendance Report</h1>
         </div>
         {reports.length > 0 && (
           <button
             onClick={handleExport}
-            className="flex items-center gap-2 border border-slate-200 text-slate-600 hover:bg-slate-50 px-4 py-2 rounded-xl text-sm font-medium transition-colors"
+            className="flex items-center gap-2 border border-app-border text-app-text-muted hover:bg-app-surface-alt px-4 py-2 rounded-xl text-sm font-medium transition-colors"
           >
             <Download size={15} />
             Export
@@ -194,8 +194,8 @@ export default function StudentAttendanceReport() {
         )}
       </div>
 
-      <div className="bg-white border border-slate-200 rounded-xl p-5 mb-6">
-        <h2 className="text-sm font-semibold text-slate-700 mb-4">Filters</h2>
+      <div className="bg-app-surface border border-app-border rounded-xl p-5 mb-6">
+        <h2 className="text-sm font-semibold text-app-text mb-4">Filters</h2>
         {loadingFilters ? (
           <div className="flex justify-center py-4">
             <div className="w-6 h-6 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
@@ -203,7 +203,7 @@ export default function StudentAttendanceReport() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Class</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Class</label>
               <select
                 className={inputClass}
                 value={selectedClass}
@@ -218,7 +218,7 @@ export default function StudentAttendanceReport() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Section</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Section</label>
               <select
                 className={inputClass}
                 value={selectedSection}
@@ -234,7 +234,7 @@ export default function StudentAttendanceReport() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Month</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Month</label>
               <select
                 className={inputClass}
                 value={selectedMonth}
@@ -248,7 +248,7 @@ export default function StudentAttendanceReport() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Year</label>
+              <label className="block text-sm font-medium text-app-text mb-1">Year</label>
               <input
                 type="number"
                 className={inputClass}
@@ -274,54 +274,54 @@ export default function StudentAttendanceReport() {
       {reports.length > 0 && (
         <>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div className="bg-white border border-slate-200 rounded-xl p-5 flex items-center gap-4">
+            <div className="bg-app-surface border border-app-border rounded-xl p-5 flex items-center gap-4">
               <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center">
                 <TrendingUp size={20} className="text-emerald-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-slate-800">{avgAttendance}%</p>
-                <p className="text-xs text-slate-500 mt-0.5">Average Attendance</p>
+                <p className="text-2xl font-bold text-app-text">{avgAttendance}%</p>
+                <p className="text-xs text-app-text-muted mt-0.5">Average Attendance</p>
               </div>
             </div>
-            <div className="bg-white border border-slate-200 rounded-xl p-5 flex items-center gap-4">
+            <div className="bg-app-surface border border-app-border rounded-xl p-5 flex items-center gap-4">
               <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
                 <AlertTriangle size={20} className="text-red-500" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-slate-800">{belowThreshold}</p>
-                <p className="text-xs text-slate-500 mt-0.5">Students Below 75%</p>
+                <p className="text-2xl font-bold text-app-text">{belowThreshold}</p>
+                <p className="text-xs text-app-text-muted mt-0.5">Students Below 75%</p>
               </div>
             </div>
-            <div className="bg-white border border-slate-200 rounded-xl p-5 flex items-center gap-4">
+            <div className="bg-app-surface border border-app-border rounded-xl p-5 flex items-center gap-4">
               <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
                 <Users size={20} className="text-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-slate-800">{totalDays}</p>
-                <p className="text-xs text-slate-500 mt-0.5">Total School Days</p>
+                <p className="text-2xl font-bold text-app-text">{totalDays}</p>
+                <p className="text-xs text-app-text-muted mt-0.5">Total School Days</p>
               </div>
             </div>
           </div>
 
-          <div className="overflow-x-auto rounded-xl border border-slate-200">
+          <div className="overflow-x-auto rounded-xl border border-app-border">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt border-b border-app-border">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Student Name</th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-600">Roll No.</th>
-                  <th className="text-center px-4 py-3 font-semibold text-slate-600">Total Days</th>
-                  <th className="text-center px-4 py-3 font-semibold text-slate-600">Present</th>
-                  <th className="text-center px-4 py-3 font-semibold text-slate-600">Absent</th>
-                  <th className="text-center px-4 py-3 font-semibold text-slate-600">Late</th>
-                  <th className="text-center px-4 py-3 font-semibold text-slate-600">Attendance %</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Student Name</th>
+                  <th className="text-left px-4 py-3 font-semibold text-app-text-muted">Roll No.</th>
+                  <th className="text-center px-4 py-3 font-semibold text-app-text-muted">Total Days</th>
+                  <th className="text-center px-4 py-3 font-semibold text-app-text-muted">Present</th>
+                  <th className="text-center px-4 py-3 font-semibold text-app-text-muted">Absent</th>
+                  <th className="text-center px-4 py-3 font-semibold text-app-text-muted">Late</th>
+                  <th className="text-center px-4 py-3 font-semibold text-app-text-muted">Attendance %</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {reports.map((r) => (
-                  <tr key={r.student_id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-4 py-3 font-medium text-slate-800">{r.full_name}</td>
-                    <td className="px-4 py-3 text-slate-600">{r.roll_number ?? '—'}</td>
-                    <td className="px-4 py-3 text-center text-slate-600">{r.total_days}</td>
+                  <tr key={r.student_id} className="hover:bg-app-surface-alt transition-colors">
+                    <td className="px-4 py-3 font-medium text-app-text">{r.full_name}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{r.roll_number ?? '—'}</td>
+                    <td className="px-4 py-3 text-center text-app-text-muted">{r.total_days}</td>
                     <td className="px-4 py-3 text-center text-emerald-600 font-medium">{r.present}</td>
                     <td className="px-4 py-3 text-center text-red-500 font-medium">{r.absent}</td>
                     <td className="px-4 py-3 text-center text-amber-500 font-medium">{r.late}</td>
@@ -337,7 +337,7 @@ export default function StudentAttendanceReport() {
       )}
 
       {reports.length === 0 && !loading && (
-        <div className="text-center py-16 text-slate-400">
+        <div className="text-center py-16 text-app-text-muted">
           <BarChart2 size={40} className="mx-auto mb-3 opacity-30" />
           <p className="text-base font-medium">No report data</p>
           <p className="text-sm mt-1">Select filters and click "Generate Report".</p>

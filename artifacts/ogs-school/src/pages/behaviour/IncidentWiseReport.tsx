@@ -112,8 +112,8 @@ export default function IncidentWiseReport() {
 
 
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Incident Type Report</h1>
-        <p className="text-sm text-gray-500 mt-1">View occurrence statistics for each behaviour incident type</p>
+        <h1 className="text-2xl font-bold text-app-text">Incident Type Report</h1>
+        <p className="text-sm text-app-text-muted mt-1">View occurrence statistics for each behaviour incident type</p>
       </div>
 
       {loading ? (
@@ -121,21 +121,21 @@ export default function IncidentWiseReport() {
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : incidentSummaries.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-16 text-gray-400 bg-white rounded-xl border border-gray-200">
+        <div className="flex flex-col items-center justify-center py-16 text-app-text-muted bg-app-surface rounded-xl border border-app-border">
           <BarChart2 size={40} className="mb-3 text-gray-300" />
           <p className="text-base font-medium">No incident types defined</p>
           <p className="text-sm mt-1">Add incident types in the Incident Types management page</p>
         </div>
       ) : (
         <>
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
-            <h2 className="text-base font-semibold text-gray-800 mb-5 flex items-center gap-2">
+          <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-6 mb-6">
+            <h2 className="text-base font-semibold text-app-text mb-5 flex items-center gap-2">
               <BarChart2 size={18} className="text-emerald-600" /> Most Common Incidents
             </h2>
             <div className="space-y-3">
               {incidentSummaries.map(incident => (
                 <div key={incident.id} className="flex items-center gap-4">
-                  <div className="w-40 text-sm text-gray-700 font-medium truncate" title={incident.name}>{incident.name}</div>
+                  <div className="w-40 text-sm text-app-text font-medium truncate" title={incident.name}>{incident.name}</div>
                   <div className="flex-1 bg-gray-100 rounded-full h-7 overflow-hidden">
                     <div
                       className={`h-full ${barColor(incident.severity)} rounded-full transition-all duration-500 flex items-center justify-end pr-3`}
@@ -152,62 +152,62 @@ export default function IncidentWiseReport() {
 
           <div className="space-y-3">
             {incidentSummaries.map(incident => (
-              <div key={incident.id} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+              <div key={incident.id} className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
                 <button
                   onClick={() => setExpandedId(expandedId === incident.id ? null : incident.id)}
-                  className="w-full flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors"
+                  className="w-full flex items-center justify-between px-5 py-4 hover:bg-app-surface-alt transition-colors"
                 >
                   <div className="flex items-center gap-4">
                     <div className="flex-shrink-0">{severityBadge(incident.severity)}</div>
                     <div className="text-left">
-                      <p className="text-sm font-semibold text-gray-800">{incident.name}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">{incident.points_deducted} points deducted per incident</p>
+                      <p className="text-sm font-semibold text-app-text">{incident.name}</p>
+                      <p className="text-xs text-app-text-muted mt-0.5">{incident.points_deducted} points deducted per incident</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-6">
                     <div className="text-center">
                       <p className="text-xl font-bold text-emerald-700">{incident.count}</p>
-                      <p className="text-xs text-gray-500">Occurrences</p>
+                      <p className="text-xs text-app-text-muted">Occurrences</p>
                     </div>
                     <div className="text-center flex items-center gap-1">
-                      <Users size={14} className="text-gray-400" />
+                      <Users size={14} className="text-app-text-muted" />
                       <div>
-                        <p className="text-xl font-bold text-gray-700">{incident.affected_students}</p>
-                        <p className="text-xs text-gray-500">Students</p>
+                        <p className="text-xl font-bold text-app-text">{incident.affected_students}</p>
+                        <p className="text-xs text-app-text-muted">Students</p>
                       </div>
                     </div>
-                    <div className="text-gray-400">
+                    <div className="text-app-text-muted">
                       {expandedId === incident.id ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
                     </div>
                   </div>
                 </button>
 
                 {expandedId === incident.id && (
-                  <div className="border-t border-gray-100">
+                  <div className="border-t border-app-border">
                     {incident.students.length === 0 ? (
-                      <div className="text-center py-8 text-gray-400 text-sm">No students assigned to this incident type</div>
+                      <div className="text-center py-8 text-app-text-muted text-sm">No students assigned to this incident type</div>
                     ) : (
                       <div className="overflow-x-auto">
-                        <table className="min-w-full divide-y divide-gray-100">
-                          <thead className="bg-gray-50">
+                        <table className="min-w-full divide-y divide-app-border">
+                          <thead className="bg-app-surface-alt">
                             <tr>
-                              <th className="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Student</th>
-                              <th className="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Class</th>
-                              <th className="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Incident Date</th>
-                              <th className="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                              <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Student</th>
+                              <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Class</th>
+                              <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Incident Date</th>
+                              <th className="px-5 py-3 text-left text-xs font-semibold text-app-text-muted uppercase tracking-wider">Status</th>
                             </tr>
                           </thead>
-                          <tbody className="divide-y divide-gray-100">
+                          <tbody className="divide-y divide-app-border">
                             {incident.students.map((s, idx) => (
-                              <tr key={idx} className="hover:bg-gray-50 transition-colors">
+                              <tr key={idx} className="hover:bg-app-surface-alt transition-colors">
                                 <td className="px-5 py-3.5">
-                                  <p className="text-sm font-medium text-gray-800">{s.student_name}</p>
-                                  <p className="text-xs text-gray-400">{s.student_id}</p>
+                                  <p className="text-sm font-medium text-app-text">{s.student_name}</p>
+                                  <p className="text-xs text-app-text-muted">{s.student_id}</p>
                                 </td>
-                                <td className="px-5 py-3.5 text-sm text-gray-600">{s.class_name}</td>
-                                <td className="px-5 py-3.5 text-sm text-gray-600">{new Date(s.incident_date).toLocaleDateString()}</td>
+                                <td className="px-5 py-3.5 text-sm text-app-text-muted">{s.class_name}</td>
+                                <td className="px-5 py-3.5 text-sm text-app-text-muted">{new Date(s.incident_date).toLocaleDateString()}</td>
                                 <td className="px-5 py-3.5">
-                                  <div className="flex items-center gap-1.5 text-sm text-gray-600">
+                                  <div className="flex items-center gap-1.5 text-sm text-app-text-muted">
                                     {statusDot(s.status)}
                                     <span className="capitalize">{s.status}</span>
                                   </div>

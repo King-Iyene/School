@@ -281,20 +281,20 @@ export default function StudentPromote() {
           <ArrowUpCircle className="text-emerald-600" size={22} />
         </div>
         <div>
-          <h1 className="text-xl font-semibold text-slate-800">Student Promote</h1>
-          <p className="text-sm text-slate-500">Promote students to the next academic year or class</p>
+          <h1 className="text-xl font-semibold text-app-text">Student Promote</h1>
+          <p className="text-sm text-app-text-muted">Promote students to the next academic year or class</p>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 mb-5">
-        <h2 className="text-sm font-semibold text-slate-700 mb-4">Step 1 — Filter Students</h2>
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5 mb-5">
+        <h2 className="text-sm font-semibold text-app-text mb-4">Step 1 — Filter Students</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">From Academic Year</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">From Academic Year</label>
             <select
               value={fromYearId}
               onChange={(e) => { setFromYearId(e.target.value); setStudents([]); setSuccessCount(null); }}
-              className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
             >
               <option value="">Select year...</option>
               {academicYears.map((y) => (
@@ -303,11 +303,11 @@ export default function StudentPromote() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">From Class</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">From Class</label>
             <select
               value={fromClassId}
               onChange={(e) => { setFromClassId(e.target.value); setStudents([]); setSuccessCount(null); }}
-              className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
             >
               <option value="">Select class...</option>
               {classes.map((c) => (
@@ -326,15 +326,15 @@ export default function StudentPromote() {
       </div>
 
       {students.length > 0 && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 mb-5">
-          <h2 className="text-sm font-semibold text-slate-700 mb-4">Step 2 — Set Promotion Target</h2>
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5 mb-5">
+          <h2 className="text-sm font-semibold text-app-text mb-4">Step 2 — Set Promotion Target</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">To Academic Year <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1.5">To Academic Year <span className="text-red-500">*</span></label>
               <select
                 value={toYearId}
                 onChange={(e) => setToYearId(e.target.value)}
-                className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+                className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
               >
                 <option value="">Select year...</option>
                 {academicYears.map((y) => (
@@ -343,13 +343,13 @@ export default function StudentPromote() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">To Class <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium text-app-text mb-1.5">To Class <span className="text-red-500">*</span></label>
               <div className="flex flex-col gap-2">
                 <select
                   value={toClassId}
                   onChange={(e) => setToClassId(e.target.value)}
                   disabled={isGraduating}
-                  className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full disabled:bg-slate-50"
+                  className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full disabled:bg-app-surface-alt"
                 >
                   <option value="">Select class...</option>
                   {classes.map((c) => (
@@ -389,9 +389,9 @@ export default function StudentPromote() {
       )}
 
       {students.length > 0 && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-            <span className="text-sm font-medium text-slate-700">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-app-border">
+            <span className="text-sm font-medium text-app-text">
               {students.length} student{students.length !== 1 ? 's' : ''} found
               {selectedCount > 0 && <span className="ml-2 text-emerald-600">({selectedCount} selected)</span>}
             </span>
@@ -406,7 +406,7 @@ export default function StudentPromote() {
           </div>
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
+              <tr className="bg-app-surface-alt border-b border-app-border">
                 <th className="px-5 py-3 text-left">
                   <input
                     type="checkbox"
@@ -415,11 +415,11 @@ export default function StudentPromote() {
                     className="rounded accent-emerald-500"
                   />
                 </th>
-                <th className="text-left px-5 py-3 font-medium text-slate-600">Student Name</th>
-                <th className="text-left px-5 py-3 font-medium text-slate-600">Student ID</th>
-                <th className="text-left px-5 py-3 font-medium text-slate-600">Roll No.</th>
-                <th className="text-center px-5 py-3 font-medium text-slate-600">3rd Term Avg</th>
-                <th className="text-center px-5 py-3 font-medium text-slate-600">
+                <th className="text-left px-5 py-3 font-medium text-app-text-muted">Student Name</th>
+                <th className="text-left px-5 py-3 font-medium text-app-text-muted">Student ID</th>
+                <th className="text-left px-5 py-3 font-medium text-app-text-muted">Roll No.</th>
+                <th className="text-center px-5 py-3 font-medium text-app-text-muted">3rd Term Avg</th>
+                <th className="text-center px-5 py-3 font-medium text-app-text-muted">
                   <div className="flex flex-col items-center gap-1">
                     <span>Result</span>
                     <div className="flex gap-2">
@@ -430,11 +430,11 @@ export default function StudentPromote() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {students.map((student) => (
                 <tr
                   key={student.id}
-                  className={`hover:bg-slate-50 transition-colors ${!student.selected ? 'opacity-50' : ''}`}
+                  className={`hover:bg-app-surface-alt transition-colors ${!student.selected ? 'opacity-50' : ''}`}
                 >
                   <td className="px-5 py-3">
                     <input
@@ -444,13 +444,13 @@ export default function StudentPromote() {
                       className="rounded accent-emerald-500"
                     />
                   </td>
-                  <td className="px-5 py-3 font-medium text-slate-800">
+                  <td className="px-5 py-3 font-medium text-app-text">
                     {student.profile?.full_name || '—'}
                   </td>
-                  <td className="px-5 py-3 text-slate-500">
+                  <td className="px-5 py-3 text-app-text-muted">
                     {student.profile?.student_id || '—'}
                   </td>
-                  <td className="px-5 py-3 text-slate-500">
+                  <td className="px-5 py-3 text-app-text-muted">
                     {student.roll_number || '—'}
                   </td>
                   <td className="px-5 py-3 text-center">
@@ -463,7 +463,7 @@ export default function StudentPromote() {
                         {student.thirdTermAvg.toFixed(1)}%
                       </span>
                     ) : (
-                      <span className="text-xs text-slate-400">No results</span>
+                      <span className="text-xs text-app-text-muted">No results</span>
                     )}
                   </td>
                   <td className="px-5 py-3">
@@ -501,7 +501,7 @@ export default function StudentPromote() {
       )}
 
       {!loadingStudents && students.length === 0 && fromYearId && fromClassId && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm py-14 flex flex-col items-center justify-center text-slate-400">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm py-14 flex flex-col items-center justify-center text-app-text-muted">
           <ArrowUpCircle size={32} className="mb-3 opacity-40" />
           <p className="text-sm">No active enrollments found for the selected filters.</p>
         </div>

@@ -152,7 +152,7 @@ export default function ExamAttendance() {
   }
 
   const inputClass =
-    'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+    'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 
   const allSelected = selectedExam && selectedClass && selectedSubject && selectedDate;
   const presentCount = students.filter((s) => s.status === 'present').length;
@@ -163,8 +163,8 @@ export default function ExamAttendance() {
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Exam Attendance</h1>
-          <p className="text-sm text-slate-500 mt-0.5">Mark and lock student attendance for specific exams securely</p>
+          <h1 className="text-2xl font-bold text-app-text">Exam Attendance</h1>
+          <p className="text-sm text-app-text-muted mt-0.5">Mark and lock student attendance for specific exams securely</p>
         </div>
         {allSelected && students.length > 0 && (
           <div className="flex items-center gap-2">
@@ -189,8 +189,8 @@ export default function ExamAttendance() {
               </>
             )}
             {allLocked && (
-              <span className="flex items-center gap-1.5 text-slate-600 bg-slate-100 px-4 py-2 rounded-xl text-sm border border-slate-200">
-                <Lock size={16} className="text-slate-500" />
+              <span className="flex items-center gap-1.5 text-app-text-muted bg-slate-100 px-4 py-2 rounded-xl text-sm border border-app-border">
+                <Lock size={16} className="text-app-text-muted" />
                 Records Locked
               </span>
             )}
@@ -198,14 +198,14 @@ export default function ExamAttendance() {
         )}
       </div>
 
-      <div className="bg-slate-50 rounded-2xl border border-slate-200 p-5 mb-6">
+      <div className="bg-app-surface-alt rounded-2xl border border-app-border p-5 mb-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-bold text-app-text-muted uppercase tracking-wider mb-1.5 ml-1">
               Exam
             </label>
             <select
-              className={`${inputClass} bg-white`}
+              className={`${inputClass} bg-app-surface`}
               value={selectedExam}
               onChange={(e) => setSelectedExam(e.target.value)}
             >
@@ -218,11 +218,11 @@ export default function ExamAttendance() {
             </select>
           </div>
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-bold text-app-text-muted uppercase tracking-wider mb-1.5 ml-1">
               Class
             </label>
             <select
-              className={`${inputClass} bg-white`}
+              className={`${inputClass} bg-app-surface`}
               value={selectedClass}
               onChange={(e) => setSelectedClass(e.target.value)}
             >
@@ -235,11 +235,11 @@ export default function ExamAttendance() {
             </select>
           </div>
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-bold text-app-text-muted uppercase tracking-wider mb-1.5 ml-1">
               Subject
             </label>
             <select
-              className={`${inputClass} bg-white`}
+              className={`${inputClass} bg-app-surface`}
               value={selectedSubject}
               onChange={(e) => setSelectedSubject(e.target.value)}
             >
@@ -252,12 +252,12 @@ export default function ExamAttendance() {
             </select>
           </div>
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-bold text-app-text-muted uppercase tracking-wider mb-1.5 ml-1">
               Date
             </label>
             <input
               type="date"
-              className={`${inputClass} bg-white`}
+              className={`${inputClass} bg-app-surface`}
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
             />
@@ -270,19 +270,19 @@ export default function ExamAttendance() {
           <div className="w-10 h-10 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : !allSelected ? (
-        <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-slate-300">
+        <div className="text-center py-20 bg-app-surface rounded-2xl border border-dashed border-app-border">
           <CheckCircle size={48} className="mx-auto text-slate-300 mb-4" />
-          <p className="text-lg font-medium text-slate-600">Complete selection</p>
-          <p className="text-sm text-slate-400 mt-1">Exam, class, subject and date are required to see attendance.</p>
+          <p className="text-lg font-medium text-app-text-muted">Complete selection</p>
+          <p className="text-sm text-app-text-muted mt-1">Exam, class, subject and date are required to see attendance.</p>
         </div>
       ) : students.length === 0 ? (
-        <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-slate-300">
-          <p className="text-lg font-medium text-slate-600">No students enrolled</p>
-          <p className="text-sm text-slate-400 mt-1">No students found for the selected class.</p>
+        <div className="text-center py-20 bg-app-surface rounded-2xl border border-dashed border-app-border">
+          <p className="text-lg font-medium text-app-text-muted">No students enrolled</p>
+          <p className="text-sm text-app-text-muted mt-1">No students found for the selected class.</p>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-          <div className="flex items-center justify-between p-4 bg-slate-50 border-b border-slate-200">
+        <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden shadow-sm">
+          <div className="flex items-center justify-between p-4 bg-app-surface-alt border-b border-app-border">
             <div className="flex items-center gap-5 text-sm">
               <span className="flex items-center gap-2 text-emerald-700 font-bold bg-emerald-100/50 px-3 py-1.5 rounded-lg border border-emerald-200/50">
                 <CheckCircle size={16} /> {presentCount} Present
@@ -310,27 +310,27 @@ export default function ExamAttendance() {
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50/50 border-b border-slate-200">
+              <thead className="bg-app-surface-alt/50 border-b border-app-border">
                 <tr>
-                  <th className="text-left px-6 py-4 font-bold text-slate-700 w-16">#</th>
-                  <th className="text-left px-4 py-4 font-bold text-slate-700">Student Name</th>
-                  <th className="text-center px-4 py-4 font-bold text-slate-700">
+                  <th className="text-left px-6 py-4 font-bold text-app-text w-16">#</th>
+                  <th className="text-left px-4 py-4 font-bold text-app-text">Student Name</th>
+                  <th className="text-center px-4 py-4 font-bold text-app-text">
                     Attendance Status
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {students.map((student, idx) => (
                   <tr
                     key={student.student_id}
-                    className={`hover:bg-slate-50 transition-colors ${
+                    className={`hover:bg-app-surface-alt transition-colors ${
                       student.status === 'absent' ? 'bg-red-50/20' : ''
-                    } ${student.is_locked ? 'opacity-70 bg-slate-50/50' : ''}`}
+                    } ${student.is_locked ? 'opacity-70 bg-app-surface-alt/50' : ''}`}
                   >
-                    <td className="px-6 py-4 text-slate-500 font-medium">{idx + 1}</td>
+                    <td className="px-6 py-4 text-app-text-muted font-medium">{idx + 1}</td>
                     <td className="px-4 py-4">
-                      <div className="font-semibold text-slate-800">{student.full_name}</div>
-                      <div className="text-[10px] text-slate-400 font-medium mt-0.5">ADM: {student.admission_number || '—'}</div>
+                      <div className="font-semibold text-app-text">{student.full_name}</div>
+                      <div className="text-[10px] text-app-text-muted font-medium mt-0.5">ADM: {student.admission_number || '—'}</div>
                     </td>
                     <td className="px-4 py-4">
                       <div className="flex items-center justify-center gap-8 text-base">
@@ -349,7 +349,7 @@ export default function ExamAttendance() {
                             }}
                             className="w-4 h-4 accent-emerald-500 cursor-pointer disabled:cursor-not-allowed"
                           />
-                          <span className={`font-semibold ${student.status === 'present' ? 'text-emerald-600' : 'text-slate-500'}`}>Present</span>
+                          <span className={`font-semibold ${student.status === 'present' ? 'text-emerald-600' : 'text-app-text-muted'}`}>Present</span>
                         </label>
                         <label className={`flex items-center gap-2 ${student.is_locked ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'}`}>
                           <input
@@ -366,10 +366,10 @@ export default function ExamAttendance() {
                             }}
                             className="w-4 h-4 accent-red-500 cursor-pointer disabled:cursor-not-allowed"
                           />
-                          <span className={`font-semibold ${student.status === 'absent' ? 'text-red-500' : 'text-slate-500'}`}>Absent</span>
+                          <span className={`font-semibold ${student.status === 'absent' ? 'text-red-500' : 'text-app-text-muted'}`}>Absent</span>
                         </label>
                         {student.is_locked && (
-                          <div title="Locked" className="-ml-4"><Lock size={14} className="text-slate-400" /></div>
+                          <div title="Locked" className="-ml-4"><Lock size={14} className="text-app-text-muted" /></div>
                         )}
                       </div>
                     </td>

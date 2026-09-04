@@ -406,13 +406,13 @@ export default function AttendanceOverview() {
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Attendance Overview</h2>
-          <p className="text-slate-500 text-sm">School-wide attendance summary — {periodLabel}</p>
+          <h2 className="text-xl font-bold text-app-text">Attendance Overview</h2>
+          <p className="text-app-text-muted text-sm">School-wide attendance summary — {periodLabel}</p>
         </div>
         <div className="flex items-center gap-1 bg-slate-100 rounded-xl p-1">
           {PERIODS.map(p => (
             <button key={p.value} onClick={() => setPeriod(p.value)}
-              className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all ${period === p.value ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}>
+              className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all ${period === p.value ? 'bg-app-surface text-app-text shadow-sm' : 'text-app-text-muted hover:text-app-text'}`}>
               {p.label}
             </button>
           ))}
@@ -435,13 +435,13 @@ export default function AttendanceOverview() {
       )}
 
       {period === 'custom' && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 flex items-center gap-3 flex-wrap">
-          <label className="text-xs font-medium text-slate-500">From</label>
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 flex items-center gap-3 flex-wrap">
+          <label className="text-xs font-medium text-app-text-muted">From</label>
           <input type="date" value={customFrom} max={customTo} onChange={e => setCustomFrom(e.target.value)}
-            className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
-          <label className="text-xs font-medium text-slate-500">To</label>
+            className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+          <label className="text-xs font-medium text-app-text-muted">To</label>
           <input type="date" value={customTo} min={customFrom} max={TODAY} onChange={e => setCustomTo(e.target.value)}
-            className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
           <button onClick={loadAttendance}
             className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-xl transition-colors">
             Apply
@@ -450,7 +450,7 @@ export default function AttendanceOverview() {
       )}
 
       {loading ? (
-        <div className="py-20 text-center text-slate-400 text-sm">Loading attendance data…</div>
+        <div className="py-20 text-center text-app-text-muted text-sm">Loading attendance data…</div>
       ) : (
         <>
           {/* Stat cards */}
@@ -468,8 +468,8 @@ export default function AttendanceOverview() {
                   </div>
                   <div className="min-w-0">
                     <div className={`text-2xl font-black ${card.textColor}`}>{card.value}</div>
-                    <div className="text-xs text-slate-500 font-medium">{card.label}</div>
-                    <div className="text-xs text-slate-400">{card.sub}</div>
+                    <div className="text-xs text-app-text-muted font-medium">{card.label}</div>
+                    <div className="text-xs text-app-text-muted">{card.sub}</div>
                   </div>
                 </div>
               </div>
@@ -477,59 +477,59 @@ export default function AttendanceOverview() {
           </div>
 
           {schoolStats.total === 0 ? (
-            <div className="bg-white rounded-2xl border border-slate-200 py-20 text-center">
+            <div className="bg-app-surface rounded-2xl border border-app-border py-20 text-center">
               <CalendarDays className="w-12 h-12 text-slate-200 mx-auto mb-3" />
-              <p className="font-medium text-slate-500">No attendance data for this period</p>
-              <p className="text-sm text-slate-400 mt-1">Attendance records will appear here once they are marked</p>
+              <p className="font-medium text-app-text-muted">No attendance data for this period</p>
+              <p className="text-sm text-app-text-muted mt-1">Attendance records will appear here once they are marked</p>
             </div>
           ) : (
             <>
               {/* Row 1: By-class table + top absentees */}
               <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
                 {/* Per-class table */}
-                <div className="xl:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                  <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between flex-wrap gap-2">
+                <div className="xl:col-span-2 bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+                  <div className="px-5 py-4 border-b border-app-border flex items-center justify-between flex-wrap gap-2">
                     <div className="flex items-center gap-2">
-                      <Users className="w-4 h-4 text-slate-400" />
-                      <h3 className="font-semibold text-slate-800">By Class</h3>
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-500">{classStats.filter(c => c.total > 0).length} classes</span>
+                      <Users className="w-4 h-4 text-app-text-muted" />
+                      <h3 className="font-semibold text-app-text">By Class</h3>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-app-text-muted">{classStats.filter(c => c.total > 0).length} classes</span>
                     </div>
                     <select value={filterClass} onChange={e => setFilterClass(e.target.value)}
-                      className="border border-slate-200 rounded-xl px-3 py-1.5 text-xs focus:outline-none bg-white text-slate-600">
+                      className="border border-app-border rounded-xl px-3 py-1.5 text-xs focus:outline-none bg-app-surface text-app-text-muted">
                       <option value="">All Classes</option>
                       {classes.map(c => <option key={c.id} value={c.id}>{c.name || `${c.level}${c.section}`}</option>)}
                     </select>
                   </div>
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
-                      <thead className="bg-slate-50 border-b border-slate-100">
+                      <thead className="bg-app-surface-alt border-b border-app-border">
                         <tr>
-                          <th className="text-left px-5 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide cursor-pointer hover:text-slate-700" onClick={() => toggleSort('name')}>
+                          <th className="text-left px-5 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide cursor-pointer hover:text-app-text" onClick={() => toggleSort('name')}>
                             Class <SortIcon col="name" />
                           </th>
-                          <th className="text-left px-3 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide hidden md:table-cell">Form Master</th>
-                          <th className="text-center px-3 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Present</th>
-                          <th className="text-center px-3 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide cursor-pointer hover:text-slate-700" onClick={() => toggleSort('absent')}>
+                          <th className="text-left px-3 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide hidden md:table-cell">Form Master</th>
+                          <th className="text-center px-3 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide">Present</th>
+                          <th className="text-center px-3 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide cursor-pointer hover:text-app-text" onClick={() => toggleSort('absent')}>
                             Absent <SortIcon col="absent" />
                           </th>
-                          <th className="text-center px-3 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Late</th>
-                          <th className="text-right px-5 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide cursor-pointer hover:text-slate-700" onClick={() => toggleSort('rate')}>
+                          <th className="text-center px-3 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide">Late</th>
+                          <th className="text-right px-5 py-3 text-xs font-semibold text-app-text-muted uppercase tracking-wide cursor-pointer hover:text-app-text" onClick={() => toggleSort('rate')}>
                             Rate <SortIcon col="rate" />
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-100">
+                      <tbody className="divide-y divide-app-border">
                         {classStats.filter(c => c.total > 0).map(c => {
                           const col = rateColor(c.rate);
                           const cls = classes.find(cl => cl.id === c.classId);
                           const fmName = cls?.class_teacher_id ? (teacherNames[cls.class_teacher_id] ?? '—') : '—';
                           return (
-                            <tr key={c.classId} className="hover:bg-slate-50/70 transition-colors">
+                            <tr key={c.classId} className="hover:bg-app-surface-alt/70 transition-colors">
                               <td className="px-5 py-3">
-                                <div className="font-medium text-slate-800">{c.className}</div>
-                                <div className="text-xs text-slate-400">{c.daysMarked} day{c.daysMarked !== 1 ? 's' : ''} · {c.enrolled} enrolled</div>
+                                <div className="font-medium text-app-text">{c.className}</div>
+                                <div className="text-xs text-app-text-muted">{c.daysMarked} day{c.daysMarked !== 1 ? 's' : ''} · {c.enrolled} enrolled</div>
                               </td>
-                              <td className="px-3 py-3 text-xs text-slate-500 hidden md:table-cell">{fmName}</td>
+                              <td className="px-3 py-3 text-xs text-app-text-muted hidden md:table-cell">{fmName}</td>
                               <td className="px-3 py-3 text-center font-medium text-emerald-700">{c.present}</td>
                               <td className="px-3 py-3 text-center font-medium text-red-600">{c.absent}</td>
                               <td className="px-3 py-3 text-center text-amber-600">{c.late}</td>
@@ -548,8 +548,8 @@ export default function AttendanceOverview() {
                     </table>
                   </div>
                   {classesWithNoData.length > 0 && !filterClass && (
-                    <div className="px-5 py-3 border-t border-slate-100 bg-slate-50">
-                      <p className="text-xs text-slate-400">
+                    <div className="px-5 py-3 border-t border-app-border bg-app-surface-alt">
+                      <p className="text-xs text-app-text-muted">
                         <AlertTriangle className="w-3 h-3 inline mr-1 text-amber-400" />
                         {classesWithNoData.length} class{classesWithNoData.length !== 1 ? 'es' : ''} not recorded: {classesWithNoData.map(c => c.className).join(', ')}
                       </p>
@@ -558,28 +558,28 @@ export default function AttendanceOverview() {
                 </div>
 
                 {/* Top Absentees */}
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                  <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-2">
+                <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+                  <div className="px-5 py-4 border-b border-app-border flex items-center gap-2">
                     <UserX className="w-4 h-4 text-red-400" />
-                    <h3 className="font-semibold text-slate-800">Most Absent Students</h3>
+                    <h3 className="font-semibold text-app-text">Most Absent Students</h3>
                     <span className="text-xs px-2 py-0.5 rounded-full bg-red-50 text-red-500 font-medium">Top {topAbsentees.length}</span>
                   </div>
                   {topAbsentees.length === 0 ? (
-                    <div className="py-12 text-center text-slate-400 text-sm">No absences recorded</div>
+                    <div className="py-12 text-center text-app-text-muted text-sm">No absences recorded</div>
                   ) : (
-                    <div className="divide-y divide-slate-100">
+                    <div className="divide-y divide-app-border">
                       {topAbsentees.map((s, i) => {
                         const absPct = s.total > 0 ? Math.round((s.absent / s.total) * 100) : 0;
                         return (
                           <div key={s.student_id} className="flex items-center gap-3 px-5 py-3">
-                            <span className={`text-xs font-black w-5 flex-shrink-0 ${i < 3 ? 'text-red-500' : 'text-slate-400'}`}>#{i + 1}</span>
+                            <span className={`text-xs font-black w-5 flex-shrink-0 ${i < 3 ? 'text-red-500' : 'text-app-text-muted'}`}>#{i + 1}</span>
                             <div className="flex-1 min-w-0">
-                              <div className="text-sm font-medium text-slate-800 truncate">{s.name}</div>
-                              <div className="text-xs text-slate-400">{s.className}</div>
+                              <div className="text-sm font-medium text-app-text truncate">{s.name}</div>
+                              <div className="text-xs text-app-text-muted">{s.className}</div>
                             </div>
                             <div className="text-right flex-shrink-0">
                               <div className="text-sm font-bold text-red-600">{s.absent} day{s.absent !== 1 ? 's' : ''}</div>
-                              <div className="text-xs text-slate-400">{absPct}% absent</div>
+                              <div className="text-xs text-app-text-muted">{absPct}% absent</div>
                             </div>
                           </div>
                         );
@@ -593,12 +593,12 @@ export default function AttendanceOverview() {
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
 
                 {/* Unmarked Days */}
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                  <button className="w-full px-5 py-4 border-b border-slate-100 flex items-center justify-between hover:bg-slate-50 transition-colors"
+                <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+                  <button className="w-full px-5 py-4 border-b border-app-border flex items-center justify-between hover:bg-app-surface-alt transition-colors"
                     onClick={() => setGapsExpanded(p => !p)}>
                     <div className="flex items-center gap-2 flex-wrap">
                       <ClipboardX className="w-4 h-4 text-amber-500" />
-                      <h3 className="font-semibold text-slate-800">Unmarked Classes</h3>
+                      <h3 className="font-semibold text-app-text">Unmarked Classes</h3>
                       {unmaredGaps.length > 0 && (
                         <span className="text-xs px-2 py-0.5 rounded-full bg-amber-50 text-amber-600 font-semibold">
                           {unmaredGaps.length} partial gap{unmaredGaps.length !== 1 ? 's' : ''}
@@ -610,7 +610,7 @@ export default function AttendanceOverview() {
                         </span>
                       )}
                     </div>
-                    {gapsExpanded ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+                    {gapsExpanded ? <ChevronUp className="w-4 h-4 text-app-text-muted" /> : <ChevronDown className="w-4 h-4 text-app-text-muted" />}
                   </button>
 
                   {gapsExpanded && (
@@ -620,7 +620,7 @@ export default function AttendanceOverview() {
                         <p className="text-sm font-medium text-emerald-700">All classes marked for every weekday</p>
                       </div>
                     ) : (
-                      <div className="max-h-80 overflow-y-auto divide-y divide-slate-100">
+                      <div className="max-h-80 overflow-y-auto divide-y divide-app-border">
                         {/* Days where NO class recorded anything */}
                         {emptyDays.length > 0 && (
                           <div className="px-5 py-3 bg-red-50 border-b border-red-100">
@@ -643,9 +643,9 @@ export default function AttendanceOverview() {
                                 <span className="text-xs text-amber-500">{dayGaps.length} class{dayGaps.length !== 1 ? 'es' : ''} unmarked</span>
                               </div>
                               {dayGaps.map(g => (
-                                <div key={`${g.date}-${g.classId}`} className="flex items-center justify-between px-5 py-2.5 hover:bg-slate-50">
-                                  <span className="text-sm font-medium text-slate-800">{g.className}</span>
-                                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${g.formMaster === 'Unassigned' ? 'bg-slate-100 text-slate-500' : 'bg-red-50 text-red-600'}`}>
+                                <div key={`${g.date}-${g.classId}`} className="flex items-center justify-between px-5 py-2.5 hover:bg-app-surface-alt">
+                                  <span className="text-sm font-medium text-app-text">{g.className}</span>
+                                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${g.formMaster === 'Unassigned' ? 'bg-slate-100 text-app-text-muted' : 'bg-red-50 text-red-600'}`}>
                                     {g.formMaster}
                                   </span>
                                 </div>
@@ -659,32 +659,32 @@ export default function AttendanceOverview() {
                 </div>
 
                 {/* Form Master Efficiency */}
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                  <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-2">
+                <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+                  <div className="px-5 py-4 border-b border-app-border flex items-center gap-2">
                     <Star className="w-4 h-4 text-indigo-400" />
-                    <h3 className="font-semibold text-slate-800">Form Master Efficiency</h3>
-                    <span className="text-xs text-slate-400 ml-auto">days marked / expected</span>
+                    <h3 className="font-semibold text-app-text">Form Master Efficiency</h3>
+                    <span className="text-xs text-app-text-muted ml-auto">days marked / expected</span>
                   </div>
 
                   {formMasterStats.length === 0 ? (
-                    <div className="py-10 text-center text-slate-400 text-sm">No form masters assigned to classes</div>
+                    <div className="py-10 text-center text-app-text-muted text-sm">No form masters assigned to classes</div>
                   ) : (
-                    <div className="max-h-80 overflow-y-auto divide-y divide-slate-100">
+                    <div className="max-h-80 overflow-y-auto divide-y divide-app-border">
                       {formMasterStats.map((fm, i) => {
                         const col = rateColor(fm.efficiency);
                         const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : null;
                         return (
-                          <div key={fm.teacherId} className="flex items-center gap-3 px-5 py-3 hover:bg-slate-50">
+                          <div key={fm.teacherId} className="flex items-center gap-3 px-5 py-3 hover:bg-app-surface-alt">
                             <div className="w-6 text-center flex-shrink-0">
                               {medal
                                 ? <span className="text-base">{medal}</span>
-                                : <span className="text-xs font-bold text-slate-400">#{i + 1}</span>
+                                : <span className="text-xs font-bold text-app-text-muted">#{i + 1}</span>
                               }
                             </div>
                             <div className="flex-1 min-w-0">
-                              <div className="text-sm font-semibold text-slate-800 truncate">{fm.name}</div>
-                              <div className="text-xs text-slate-400 truncate">{fm.classes.join(' · ')}</div>
-                              <div className="text-xs text-slate-400">{fm.marked} of {fm.totalPossible} class-days marked</div>
+                              <div className="text-sm font-semibold text-app-text truncate">{fm.name}</div>
+                              <div className="text-xs text-app-text-muted truncate">{fm.classes.join(' · ')}</div>
+                              <div className="text-xs text-app-text-muted">{fm.marked} of {fm.totalPossible} class-days marked</div>
                             </div>
                             <div className="flex items-center gap-2 flex-shrink-0">
                               <div className="w-16 bg-slate-100 rounded-full h-2">
@@ -699,8 +699,8 @@ export default function AttendanceOverview() {
                   )}
 
                   {formMasterStats.length > 0 && (
-                    <div className="px-5 py-3 border-t border-slate-100 bg-slate-50">
-                      <p className="text-xs text-slate-400">
+                    <div className="px-5 py-3 border-t border-app-border bg-app-surface-alt">
+                      <p className="text-xs text-app-text-muted">
                         Efficiency = days marked ÷ (classes × {schoolWeekdays.length} school day{schoolWeekdays.length !== 1 ? 's' : ''}). Weekdays in period minus public holidays.
                       </p>
                     </div>

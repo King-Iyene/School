@@ -42,7 +42,7 @@ const ROLE_LABELS: Record<string, string> = {
   staff: 'Staff',
 };
 
-const inputCls = 'w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
 
 export default function TeacherProfileView() {
   const teacherId = getIdFromUrl();
@@ -323,7 +323,7 @@ export default function TeacherProfileView() {
 
   if (!teacher) {
     return (
-      <div className="text-center py-20 text-slate-400">
+      <div className="text-center py-20 text-app-text-muted">
         <p className="font-medium">Staff member not found</p>
         <button onClick={() => window.history.back()} className="mt-3 text-sm text-emerald-600 hover:underline">Go back</button>
       </div>
@@ -349,16 +349,16 @@ export default function TeacherProfileView() {
 
       <div className="flex items-center gap-3">
         <button onClick={() => window.history.back()} className="p-2 hover:bg-slate-100 rounded-xl transition-colors">
-          <ArrowLeft className="w-5 h-5 text-slate-600" />
+          <ArrowLeft className="w-5 h-5 text-app-text-muted" />
         </button>
         <div>
-          <h2 className="text-xl font-bold text-slate-800">Staff Profile</h2>
-          <p className="text-slate-500 text-sm">{roleLabel}</p>
+          <h2 className="text-xl font-bold text-app-text">Staff Profile</h2>
+          <p className="text-app-text-muted text-sm">{roleLabel}</p>
         </div>
       </div>
 
       {/* Profile header card */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
         <div className="h-24 bg-gradient-to-r from-slate-700 via-slate-800 to-slate-900" />
         <div className="px-5 pb-5">
           <div className="flex items-end justify-between -mt-12 mb-4 flex-wrap gap-3">
@@ -371,9 +371,9 @@ export default function TeacherProfileView() {
                 size="lg"
               />
               <div className="pb-1">
-                <h3 className="text-xl font-bold text-slate-800">{teacher.first_name} {teacher.last_name}</h3>
-                <p className="text-sm text-slate-500">{teacher.email}</p>
-                {teacher.staff_id && <p className="text-xs text-slate-400 font-mono">{teacher.staff_id}</p>}
+                <h3 className="text-xl font-bold text-app-text">{teacher.first_name} {teacher.last_name}</h3>
+                <p className="text-sm text-app-text-muted">{teacher.email}</p>
+                {teacher.staff_id && <p className="text-xs text-app-text-muted font-mono">{teacher.staff_id}</p>}
               </div>
             </div>
             <div className="flex items-center gap-2 pb-1 flex-wrap">
@@ -382,7 +382,7 @@ export default function TeacherProfileView() {
                   <GraduationCap className="w-3 h-3" /> Form Master — {c.name}
                 </span>
               ))}
-              <span className="bg-slate-100 text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-full capitalize">{roleLabel}</span>
+              <span className="bg-slate-100 text-app-text text-xs font-semibold px-3 py-1.5 rounded-full capitalize">{roleLabel}</span>
               {teacher.department && <span className="bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1.5 rounded-full">{teacher.department}</span>}
               {isAdmin && (
                 <button onClick={() => setShowDeleteModal(true)} className="flex items-center gap-1.5 bg-red-500 hover:bg-red-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full transition-colors">
@@ -402,9 +402,9 @@ export default function TeacherProfileView() {
               { label: 'Attendance', value: `${attPct}%`, icon: Calendar, color: 'bg-amber-50 text-amber-600' },
               { label: 'Leave Days', value: leaves.filter(l => l.status === 'approved').reduce((s, l) => s + (l.total_days ?? 1), 0), icon: Clock, color: 'bg-rose-50 text-rose-600' },
             ].map(stat => (
-              <div key={stat.label} className="bg-slate-50 rounded-xl p-3 flex items-center gap-3">
+              <div key={stat.label} className="bg-app-surface-alt rounded-xl p-3 flex items-center gap-3">
                 <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${stat.color}`}><stat.icon className="w-4 h-4" /></div>
-                <div><p className="text-xs text-slate-500">{stat.label}</p><p className="text-lg font-bold text-slate-800">{stat.value}</p></div>
+                <div><p className="text-xs text-app-text-muted">{stat.label}</p><p className="text-lg font-bold text-app-text">{stat.value}</p></div>
               </div>
             ))}
           </div>
@@ -412,7 +412,7 @@ export default function TeacherProfileView() {
           <div className="flex gap-1 overflow-x-auto pb-1">
             {TABS.map(t => (
               <button key={t.key} onClick={() => handleTabChange(t.key)}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors whitespace-nowrap ${tab === t.key ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'}`}>
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors whitespace-nowrap ${tab === t.key ? 'bg-slate-900 text-white' : 'text-app-text-muted hover:bg-slate-100'}`}>
                 <t.icon className="w-3.5 h-3.5" />{t.label}
               </button>
             ))}
@@ -425,33 +425,33 @@ export default function TeacherProfileView() {
         <div className="space-y-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Personal Information */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
               <div className="flex items-center justify-between mb-4">
-                <h4 className="font-bold text-slate-800 flex items-center gap-2 text-sm"><User className="w-4 h-4 text-slate-500" />Personal Information</h4>
+                <h4 className="font-bold text-app-text flex items-center gap-2 text-sm"><User className="w-4 h-4 text-app-text-muted" />Personal Information</h4>
                 {isAdmin && !editBasic && <button onClick={() => setEditBasic(true)} className="flex items-center gap-1 text-xs text-emerald-600 hover:text-emerald-700 font-semibold"><Edit2 className="w-3 h-3" />Edit</button>}
               </div>
               {editBasic ? (
                 <div className="space-y-3">
                   <div className="grid grid-cols-2 gap-2">
-                    <div><label className="block text-xs font-semibold text-slate-500 mb-1">First Name</label><input value={basicForm.first_name} onChange={e => setBasicForm({ ...basicForm, first_name: e.target.value })} className={inputCls} /></div>
-                    <div><label className="block text-xs font-semibold text-slate-500 mb-1">Last Name</label><input value={basicForm.last_name} onChange={e => setBasicForm({ ...basicForm, last_name: e.target.value })} className={inputCls} /></div>
+                    <div><label className="block text-xs font-semibold text-app-text-muted mb-1">First Name</label><input value={basicForm.first_name} onChange={e => setBasicForm({ ...basicForm, first_name: e.target.value })} className={inputCls} /></div>
+                    <div><label className="block text-xs font-semibold text-app-text-muted mb-1">Last Name</label><input value={basicForm.last_name} onChange={e => setBasicForm({ ...basicForm, last_name: e.target.value })} className={inputCls} /></div>
                   </div>
-                  <div><label className="block text-xs font-semibold text-slate-500 mb-1">Email</label><input type="email" value={basicForm.email} onChange={e => setBasicForm({ ...basicForm, email: e.target.value })} className={inputCls} /></div>
+                  <div><label className="block text-xs font-semibold text-app-text-muted mb-1">Email</label><input type="email" value={basicForm.email} onChange={e => setBasicForm({ ...basicForm, email: e.target.value })} className={inputCls} /></div>
                   <div className="grid grid-cols-2 gap-2">
-                    <div><label className="block text-xs font-semibold text-slate-500 mb-1">Phone</label><input value={basicForm.phone} onChange={e => setBasicForm({ ...basicForm, phone: e.target.value })} className={inputCls} /></div>
-                    <div><label className="block text-xs font-semibold text-slate-500 mb-1">Staff ID</label><input value={basicForm.staff_id} onChange={e => setBasicForm({ ...basicForm, staff_id: e.target.value })} className={inputCls} /></div>
+                    <div><label className="block text-xs font-semibold text-app-text-muted mb-1">Phone</label><input value={basicForm.phone} onChange={e => setBasicForm({ ...basicForm, phone: e.target.value })} className={inputCls} /></div>
+                    <div><label className="block text-xs font-semibold text-app-text-muted mb-1">Staff ID</label><input value={basicForm.staff_id} onChange={e => setBasicForm({ ...basicForm, staff_id: e.target.value })} className={inputCls} /></div>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
-                    <div><label className="block text-xs font-semibold text-slate-500 mb-1">Gender</label>
-                      <select value={basicForm.gender} onChange={e => setBasicForm({ ...basicForm, gender: e.target.value })} className={`${inputCls} bg-white`}>
+                    <div><label className="block text-xs font-semibold text-app-text-muted mb-1">Gender</label>
+                      <select value={basicForm.gender} onChange={e => setBasicForm({ ...basicForm, gender: e.target.value })} className={`${inputCls} bg-app-surface`}>
                         <option value="">Select</option><option value="male">Male</option><option value="female">Female</option>
                       </select>
                     </div>
-                    <div><label className="block text-xs font-semibold text-slate-500 mb-1">Date of Birth</label><input type="date" value={basicForm.date_of_birth} onChange={e => setBasicForm({ ...basicForm, date_of_birth: e.target.value })} className={inputCls} /></div>
+                    <div><label className="block text-xs font-semibold text-app-text-muted mb-1">Date of Birth</label><input type="date" value={basicForm.date_of_birth} onChange={e => setBasicForm({ ...basicForm, date_of_birth: e.target.value })} className={inputCls} /></div>
                   </div>
-                  <div><label className="block text-xs font-semibold text-slate-500 mb-1">Address</label><input value={basicForm.address} onChange={e => setBasicForm({ ...basicForm, address: e.target.value })} className={inputCls} /></div>
+                  <div><label className="block text-xs font-semibold text-app-text-muted mb-1">Address</label><input value={basicForm.address} onChange={e => setBasicForm({ ...basicForm, address: e.target.value })} className={inputCls} /></div>
                   <div className="flex gap-2">
-                    <button onClick={() => setEditBasic(false)} className="flex-1 border border-slate-200 text-slate-700 rounded-xl py-2 text-sm hover:bg-slate-50">Cancel</button>
+                    <button onClick={() => setEditBasic(false)} className="flex-1 border border-app-border text-app-text rounded-xl py-2 text-sm hover:bg-app-surface-alt">Cancel</button>
                     <button onClick={saveBasic} disabled={savingBasic} className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-2 text-sm font-medium flex items-center justify-center gap-1.5 disabled:opacity-50">
                       <Save className="w-3.5 h-3.5" />{savingBasic ? 'Saving...' : 'Save'}
                     </button>
@@ -468,8 +468,8 @@ export default function TeacherProfileView() {
                     { label: 'Join Date', value: teacher.join_date ? new Date(teacher.join_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '—' },
                   ].map(item => (
                     <div key={item.label} className="flex gap-3">
-                      <dt className="text-xs text-slate-500 w-28 flex-shrink-0">{item.label}</dt>
-                      <dd className="text-sm font-semibold text-slate-800 capitalize">{item.value}</dd>
+                      <dt className="text-xs text-app-text-muted w-28 flex-shrink-0">{item.label}</dt>
+                      <dd className="text-sm font-semibold text-app-text capitalize">{item.value}</dd>
                     </div>
                   ))}
                 </dl>
@@ -477,8 +477,8 @@ export default function TeacherProfileView() {
             </div>
 
             {/* Contact Details */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-              <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2 text-sm"><Mail className="w-4 h-4 text-slate-500" />Contact Details</h4>
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
+              <h4 className="font-bold text-app-text mb-4 flex items-center gap-2 text-sm"><Mail className="w-4 h-4 text-app-text-muted" />Contact Details</h4>
               <dl className="space-y-3">
                 {[
                   { label: 'Email', value: teacher.email, icon: Mail },
@@ -486,15 +486,15 @@ export default function TeacherProfileView() {
                   { label: 'Address', value: teacher.address || '—', icon: MapPin },
                 ].map(item => (
                   <div key={item.label} className="flex gap-3 items-start">
-                    <item.icon className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
-                    <div><p className="text-xs text-slate-400">{item.label}</p><p className="text-sm font-medium text-slate-800">{item.value}</p></div>
+                    <item.icon className="w-4 h-4 text-app-text-muted mt-0.5 flex-shrink-0" />
+                    <div><p className="text-xs text-app-text-muted">{item.label}</p><p className="text-sm font-medium text-app-text">{item.value}</p></div>
                   </div>
                 ))}
               </dl>
               {teacher.bio && (
-                <div className="mt-4 pt-4 border-t border-slate-100">
-                  <p className="text-xs text-slate-400 mb-1">Bio</p>
-                  <p className="text-sm text-slate-600 leading-relaxed">{teacher.bio}</p>
+                <div className="mt-4 pt-4 border-t border-app-border">
+                  <p className="text-xs text-app-text-muted mb-1">Bio</p>
+                  <p className="text-sm text-app-text-muted leading-relaxed">{teacher.bio}</p>
                 </div>
               )}
             </div>
@@ -511,9 +511,9 @@ export default function TeacherProfileView() {
               : (current?.room_label || '—');
             const TYPE_LABELS: Record<string, string> = { staff_quarter: 'Staff Quarter', office: 'Office', other: 'Other' };
             return (
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+              <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
                 <div className="flex items-center justify-between mb-3">
-                  <h4 className="font-bold text-slate-800 flex items-center gap-2 text-sm"><Home className="w-4 h-4 text-emerald-600" />Accommodation</h4>
+                  <h4 className="font-bold text-app-text flex items-center gap-2 text-sm"><Home className="w-4 h-4 text-emerald-600" />Accommodation</h4>
                   <button onClick={() => handleTabChange('accommodation')} className="text-xs text-emerald-600 hover:text-emerald-700 font-semibold">View history →</button>
                 </div>
                 {current ? (
@@ -523,58 +523,58 @@ export default function TeacherProfileView() {
                         <Home className="w-4 h-4 text-emerald-600" />
                       </div>
                       <div>
-                        <p className="text-sm font-bold text-slate-800">{roomLabel}</p>
-                        <p className="text-xs text-slate-400 capitalize">{TYPE_LABELS[current.location_type] ?? current.location_type} · Assigned {current.assigned_date}</p>
+                        <p className="text-sm font-bold text-app-text">{roomLabel}</p>
+                        <p className="text-xs text-app-text-muted capitalize">{TYPE_LABELS[current.location_type] ?? current.location_type} · Assigned {current.assigned_date}</p>
                       </div>
                     </div>
                     <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700">Active</span>
                   </div>
                 ) : (
-                  <p className="text-sm text-slate-400">No active accommodation assignment.</p>
+                  <p className="text-sm text-app-text-muted">No active accommodation assignment.</p>
                 )}
               </div>
             );
           })()}
 
           {/* Department & Reporting line */}
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-            <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2 text-sm">
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
+            <h4 className="font-bold text-app-text mb-4 flex items-center gap-2 text-sm">
               <Building2 className="w-4 h-4 text-emerald-600" />Department & Reporting Line
             </h4>
             {!teacher.department ? (
-              <p className="text-sm text-slate-400">No department assigned yet.{isAdmin ? ' Go to HR → Departments to assign.' : ' Contact your administrator.'}</p>
+              <p className="text-sm text-app-text-muted">No department assigned yet.{isAdmin ? ' Go to HR → Departments to assign.' : ' Contact your administrator.'}</p>
             ) : (
               <div className="flex flex-wrap gap-6 items-start">
                 <div className="flex-1 min-w-[180px]">
-                  <p className="text-xs text-slate-500 uppercase tracking-wide font-semibold mb-1">Department</p>
+                  <p className="text-xs text-app-text-muted uppercase tracking-wide font-semibold mb-1">Department</p>
                   <div className="flex items-center gap-2">
                     <div className="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
                       <Building2 className="w-4 h-4 text-emerald-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-800">{teacher.department}</p>
-                      {deptInfo?.description && <p className="text-xs text-slate-400">{deptInfo.description}</p>}
+                      <p className="text-sm font-bold text-app-text">{teacher.department}</p>
+                      {deptInfo?.description && <p className="text-xs text-app-text-muted">{deptInfo.description}</p>}
                     </div>
                   </div>
                 </div>
 
                 <div className="flex-1 min-w-[180px]">
-                  <p className="text-xs text-slate-500 uppercase tracking-wide font-semibold mb-1">Head of Department (Manager)</p>
+                  <p className="text-xs text-app-text-muted uppercase tracking-wide font-semibold mb-1">Head of Department (Manager)</p>
                   {deptInfo?.hod ? (
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0 text-xs font-bold text-amber-700">
                         {deptInfo.hod.first_name[0]}{deptInfo.hod.last_name[0]}
                       </div>
                       <div>
-                        <p className="text-sm font-bold text-slate-800 flex items-center gap-1">
+                        <p className="text-sm font-bold text-app-text flex items-center gap-1">
                           {deptInfo.hod.first_name} {deptInfo.hod.last_name}
                           <Crown className="w-3 h-3 text-amber-500" />
                         </p>
-                        <p className="text-xs text-slate-400">Head of Department</p>
+                        <p className="text-xs text-app-text-muted">Head of Department</p>
                       </div>
                     </div>
                   ) : (
-                    <p className="text-sm text-slate-400">No HOD assigned</p>
+                    <p className="text-sm text-app-text-muted">No HOD assigned</p>
                   )}
                 </div>
 
@@ -590,9 +590,9 @@ export default function TeacherProfileView() {
           </div>
 
           {/* Active Committee Memberships */}
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-5">
             <div className="flex items-center justify-between mb-4">
-              <h4 className="font-bold text-slate-800 flex items-center gap-2 text-sm">
+              <h4 className="font-bold text-app-text flex items-center gap-2 text-sm">
                 <Shield className="w-4 h-4 text-blue-600" />Active Committee Memberships
               </h4>
               <button onClick={() => handleTabChange('committees')} className="text-xs text-blue-600 hover:text-blue-700 font-semibold">
@@ -600,7 +600,7 @@ export default function TeacherProfileView() {
               </button>
             </div>
             {activeCommittees.length === 0 ? (
-              <p className="text-sm text-slate-400">No active committee memberships.{isAdmin ? ' Go to the Committees tab to add.' : ''}</p>
+              <p className="text-sm text-app-text-muted">No active committee memberships.{isAdmin ? ' Go to the Committees tab to add.' : ''}</p>
             ) : (
               <div className="flex flex-wrap gap-2">
                 {activeCommittees.map((c, i) => (
@@ -643,17 +643,17 @@ export default function TeacherProfileView() {
               ))}
             </div>
           )}
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-            <div className="p-4 border-b border-slate-100"><h4 className="font-bold text-slate-800 flex items-center gap-2 text-sm"><BookOpen className="w-4 h-4 text-emerald-600" />Assigned Classes & Subjects</h4></div>
-            {classSubjects.length === 0 ? <div className="text-center py-8 text-slate-400 text-sm">No subjects assigned</div> : (
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+            <div className="p-4 border-b border-app-border"><h4 className="font-bold text-app-text flex items-center gap-2 text-sm"><BookOpen className="w-4 h-4 text-emerald-600" />Assigned Classes & Subjects</h4></div>
+            {classSubjects.length === 0 ? <div className="text-center py-8 text-app-text-muted text-sm">No subjects assigned</div> : (
               <table className="w-full">
-                <thead><tr className="bg-slate-50 border-b border-slate-100">{['Class','Subject','Code'].map(h => <th key={h} className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">{h}</th>)}</tr></thead>
-                <tbody className="divide-y divide-slate-100">
+                <thead><tr className="bg-app-surface-alt border-b border-app-border">{['Class','Subject','Code'].map(h => <th key={h} className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">{h}</th>)}</tr></thead>
+                <tbody className="divide-y divide-app-border">
                   {classSubjects.map(cs => (
-                    <tr key={cs.id} className="hover:bg-slate-50">
-                      <td className="px-4 py-3 text-sm font-medium text-slate-700">{(cs.classes as any)?.name ?? '—'}</td>
-                      <td className="px-4 py-3 text-sm text-slate-600">{(cs.subjects as any)?.name ?? '—'}</td>
-                      <td className="px-4 py-3 text-xs font-mono text-slate-500">{(cs.subjects as any)?.code ?? '—'}</td>
+                    <tr key={cs.id} className="hover:bg-app-surface-alt">
+                      <td className="px-4 py-3 text-sm font-medium text-app-text">{(cs.classes as any)?.name ?? '—'}</td>
+                      <td className="px-4 py-3 text-sm text-app-text-muted">{(cs.subjects as any)?.name ?? '—'}</td>
+                      <td className="px-4 py-3 text-xs font-mono text-app-text-muted">{(cs.subjects as any)?.code ?? '—'}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -661,20 +661,20 @@ export default function TeacherProfileView() {
             )}
           </div>
           {timetable.length > 0 && (
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-              <div className="p-4 border-b border-slate-100"><h4 className="font-bold text-slate-800 flex items-center gap-2 text-sm"><Calendar className="w-4 h-4 text-emerald-600" />Class Schedule / Timetable</h4></div>
+            <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+              <div className="p-4 border-b border-app-border"><h4 className="font-bold text-app-text flex items-center gap-2 text-sm"><Calendar className="w-4 h-4 text-emerald-600" />Class Schedule / Timetable</h4></div>
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead><tr className="bg-slate-50 border-b border-slate-100">{['Day','Time','Class','Subject'].map(h => <th key={h} className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">{h}</th>)}</tr></thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <thead><tr className="bg-app-surface-alt border-b border-app-border">{['Day','Time','Class','Subject'].map(h => <th key={h} className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">{h}</th>)}</tr></thead>
+                  <tbody className="divide-y divide-app-border">
                     {timetable.map(tt => (
-                      <tr key={tt.id} className="hover:bg-slate-50">
-                        <td className="px-4 py-2.5 text-sm font-medium text-slate-700">
+                      <tr key={tt.id} className="hover:bg-app-surface-alt">
+                        <td className="px-4 py-2.5 text-sm font-medium text-app-text">
                           {Array.isArray(tt.school_week_days) ? tt.school_week_days[0]?.name : tt.school_week_days?.name || '—'}
                         </td>
-                        <td className="px-4 py-2.5 text-sm text-slate-600">{tt.start_time?.slice(0,5)} – {tt.end_time?.slice(0,5)}</td>
-                        <td className="px-4 py-2.5 text-sm text-slate-600">{(tt.classes as any)?.name ?? '—'}</td>
-                        <td className="px-4 py-2.5 text-sm text-slate-600">{(tt.subjects as any)?.name ?? '—'}</td>
+                        <td className="px-4 py-2.5 text-sm text-app-text-muted">{tt.start_time?.slice(0,5)} – {tt.end_time?.slice(0,5)}</td>
+                        <td className="px-4 py-2.5 text-sm text-app-text-muted">{(tt.classes as any)?.name ?? '—'}</td>
+                        <td className="px-4 py-2.5 text-sm text-app-text-muted">{(tt.subjects as any)?.name ?? '—'}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -686,21 +686,21 @@ export default function TeacherProfileView() {
       )}
 
       {tab === 'attendance' && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-          <div className="p-4 border-b border-slate-100 flex items-center justify-between">
-            <h4 className="font-bold text-slate-800 text-sm">Attendance Record</h4>
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+          <div className="p-4 border-b border-app-border flex items-center justify-between">
+            <h4 className="font-bold text-app-text text-sm">Attendance Record</h4>
             <span className={`text-sm font-semibold px-3 py-1 rounded-full ${attPct >= 75 ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>{attPct}% overall</span>
           </div>
-          {attendance.length === 0 ? <div className="text-center py-8 text-slate-400 text-sm">No attendance records found</div> : (
+          {attendance.length === 0 ? <div className="text-center py-8 text-app-text-muted text-sm">No attendance records found</div> : (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead><tr className="bg-slate-50 border-b border-slate-100">{['Date','Status','Note'].map(h => <th key={h} className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">{h}</th>)}</tr></thead>
-                <tbody className="divide-y divide-slate-100">
+                <thead><tr className="bg-app-surface-alt border-b border-app-border">{['Date','Status','Note'].map(h => <th key={h} className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">{h}</th>)}</tr></thead>
+                <tbody className="divide-y divide-app-border">
                   {attendance.map(a => (
-                    <tr key={a.id} className="hover:bg-slate-50">
-                      <td className="px-4 py-3 text-sm text-slate-600">{new Date(a.date).toLocaleDateString('en-GB')}</td>
+                    <tr key={a.id} className="hover:bg-app-surface-alt">
+                      <td className="px-4 py-3 text-sm text-app-text-muted">{new Date(a.date).toLocaleDateString('en-GB')}</td>
                       <td className="px-4 py-3"><span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${a.status === 'present' ? 'bg-emerald-100 text-emerald-700' : a.status === 'absent' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700'}`}>{a.status}</span></td>
-                      <td className="px-4 py-3 text-sm text-slate-500">{a.note ?? '—'}</td>
+                      <td className="px-4 py-3 text-sm text-app-text-muted">{a.note ?? '—'}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -711,21 +711,21 @@ export default function TeacherProfileView() {
       )}
 
       {tab === 'leaves' && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden text-sm">
-          <div className="p-4 border-b border-slate-100"><h4 className="font-bold text-slate-800 text-sm">Leave History</h4></div>
-          {leaves.length === 0 ? <div className="text-center py-8 text-slate-400">No leave records found</div> : (
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden text-sm">
+          <div className="p-4 border-b border-app-border"><h4 className="font-bold text-app-text text-sm">Leave History</h4></div>
+          {leaves.length === 0 ? <div className="text-center py-8 text-app-text-muted">No leave records found</div> : (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead><tr className="bg-slate-50 border-b border-slate-100">{['Type','From','To','Days','Status','Reason','Actions'].map(h => <th key={h} className="text-left text-xs font-semibold text-slate-500 uppercase px-4 py-3">{h}</th>)}</tr></thead>
-                <tbody className="divide-y divide-slate-100">
+                <thead><tr className="bg-app-surface-alt border-b border-app-border">{['Type','From','To','Days','Status','Reason','Actions'].map(h => <th key={h} className="text-left text-xs font-semibold text-app-text-muted uppercase px-4 py-3">{h}</th>)}</tr></thead>
+                <tbody className="divide-y divide-app-border">
                   {leaves.map(l => (
-                    <tr key={l.id} className="hover:bg-slate-50">
-                      <td className="px-4 py-3 text-sm text-slate-700">{(l.leave_types as any)?.name ?? l.leave_type ?? '—'}</td>
-                      <td className="px-4 py-3 text-sm text-slate-500">{l.from_date || '—'}</td>
-                      <td className="px-4 py-3 text-sm text-slate-500">{l.to_date || '—'}</td>
-                      <td className="px-4 py-3 text-sm text-slate-600 text-center">{l.days ?? '—'}</td>
+                    <tr key={l.id} className="hover:bg-app-surface-alt">
+                      <td className="px-4 py-3 text-sm text-app-text">{(l.leave_types as any)?.name ?? l.leave_type ?? '—'}</td>
+                      <td className="px-4 py-3 text-sm text-app-text-muted">{l.from_date || '—'}</td>
+                      <td className="px-4 py-3 text-sm text-app-text-muted">{l.to_date || '—'}</td>
+                      <td className="px-4 py-3 text-sm text-app-text-muted text-center">{l.days ?? '—'}</td>
                       <td className="px-4 py-3"><span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${l.status === 'approved' ? 'bg-emerald-100 text-emerald-700' : l.status === 'rejected' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700'}`}>{l.status ?? 'pending'}</span></td>
-                      <td className="px-4 py-3 text-sm text-slate-500 max-w-xs truncate">{l.reason ?? '—'}</td>
+                      <td className="px-4 py-3 text-sm text-app-text-muted max-w-xs truncate">{l.reason ?? '—'}</td>
                       <td className="px-4 py-3 text-right space-x-3 whitespace-nowrap">
                         {(l.status === 'pending' && (teacherId === viewer?.id || isAdmin)) && (
                           <button onClick={() => openEditLeave(l)} className="text-emerald-600 hover:text-emerald-700 p-1.5 hover:bg-emerald-50 rounded-lg transition-colors" title="Edit">
@@ -749,26 +749,26 @@ export default function TeacherProfileView() {
 
       {tab === 'accommodation' && (
         <div className="space-y-4">
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-            <div className="p-4 border-b border-slate-100 flex items-center justify-between">
-              <h4 className="font-bold text-slate-800 text-sm flex items-center gap-2">
+          <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+            <div className="p-4 border-b border-app-border flex items-center justify-between">
+              <h4 className="font-bold text-app-text text-sm flex items-center gap-2">
                 <Home className="w-4 h-4 text-emerald-600" />Accommodation History
               </h4>
-              <span className="text-xs text-slate-400">{accommodation.length} record{accommodation.length !== 1 ? 's' : ''}</span>
+              <span className="text-xs text-app-text-muted">{accommodation.length} record{accommodation.length !== 1 ? 's' : ''}</span>
             </div>
             {accommodation.length === 0 ? (
-              <div className="text-center py-10 text-slate-400 text-sm">No accommodation records found for this staff member.</div>
+              <div className="text-center py-10 text-app-text-muted text-sm">No accommodation records found for this staff member.</div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="bg-slate-50 border-b border-slate-100">
+                    <tr className="bg-app-surface-alt border-b border-app-border">
                       {['Type', 'Building / Room', 'Assigned', 'Vacated', 'Status', 'Notes'].map(h => (
-                        <th key={h} className="text-left text-xs font-semibold text-slate-500 uppercase tracking-wide px-4 py-3">{h}</th>
+                        <th key={h} className="text-left text-xs font-semibold text-app-text-muted uppercase tracking-wide px-4 py-3">{h}</th>
                       ))}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-app-border">
                     {accommodation.map(a => {
                       const TYPE_LABELS: Record<string, string> = { staff_quarter: 'Staff Quarter', office: 'Office', other: 'Other' };
                       const roomLabel = a.asset_rooms
@@ -777,24 +777,24 @@ export default function TeacherProfileView() {
                             : a.asset_rooms.name)
                         : (a.room_label || '—');
                       return (
-                        <tr key={a.id} className="hover:bg-slate-50 transition-colors">
-                          <td className="px-4 py-3 text-slate-600 whitespace-nowrap">{TYPE_LABELS[a.location_type] ?? a.location_type}</td>
+                        <tr key={a.id} className="hover:bg-app-surface-alt transition-colors">
+                          <td className="px-4 py-3 text-app-text-muted whitespace-nowrap">{TYPE_LABELS[a.location_type] ?? a.location_type}</td>
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-2">
                               <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center flex-shrink-0">
                                 <Home className="w-3.5 h-3.5 text-emerald-600" />
                               </div>
-                              <span className="font-medium text-slate-800">{roomLabel}</span>
+                              <span className="font-medium text-app-text">{roomLabel}</span>
                             </div>
                           </td>
-                          <td className="px-4 py-3 text-slate-500 whitespace-nowrap">{a.assigned_date || '—'}</td>
-                          <td className="px-4 py-3 text-slate-500 whitespace-nowrap">{a.vacated_date || '—'}</td>
+                          <td className="px-4 py-3 text-app-text-muted whitespace-nowrap">{a.assigned_date || '—'}</td>
+                          <td className="px-4 py-3 text-app-text-muted whitespace-nowrap">{a.vacated_date || '—'}</td>
                           <td className="px-4 py-3">
-                            <span className={`px-2 py-0.5 rounded-full text-xs font-semibold capitalize ${a.status === 'active' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500'}`}>
+                            <span className={`px-2 py-0.5 rounded-full text-xs font-semibold capitalize ${a.status === 'active' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-app-text-muted'}`}>
                               {a.status}
                             </span>
                           </td>
-                          <td className="px-4 py-3 text-slate-500 max-w-[200px] truncate">{a.notes || '—'}</td>
+                          <td className="px-4 py-3 text-app-text-muted max-w-[200px] truncate">{a.notes || '—'}</td>
                         </tr>
                       );
                     })}
@@ -812,7 +812,7 @@ export default function TeacherProfileView() {
             <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-3 py-2.5 rounded-xl">{leaveError}</div>
           )}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Leave Type</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Leave Type</label>
             <select
               className={inputCls}
               value={leaveForm.leave_type_id}
@@ -825,11 +825,11 @@ export default function TeacherProfileView() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">From Date</label>
+              <label className="block text-sm font-medium text-app-text mb-1.5">From Date</label>
               <input type="date" className={inputCls} value={leaveForm.from_date} onChange={(e) => setLeaveForm({ ...leaveForm, from_date: e.target.value })} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">To Date</label>
+              <label className="block text-sm font-medium text-app-text mb-1.5">To Date</label>
               <input type="date" className={inputCls} value={leaveForm.to_date} onChange={(e) => setLeaveForm({ ...leaveForm, to_date: e.target.value })} />
             </div>
           </div>
@@ -839,11 +839,11 @@ export default function TeacherProfileView() {
             </div>
           )}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Reason</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Reason</label>
             <textarea className={inputCls} rows={3} value={leaveForm.reason} onChange={(e) => setLeaveForm({ ...leaveForm, reason: e.target.value })} />
           </div>
           <div className="flex justify-end gap-3 pt-2">
-            <button onClick={() => setLeaveModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50">Cancel</button>
+            <button onClick={() => setLeaveModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-app-text-muted border border-app-border rounded-xl hover:bg-app-surface-alt">Cancel</button>
             <button onClick={saveLeave} disabled={savingLeave} className="px-4 py-2.5 text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 rounded-xl disabled:opacity-60">{savingLeave ? 'Saving...' : 'Save Changes'}</button>
           </div>
         </div>
@@ -851,9 +851,9 @@ export default function TeacherProfileView() {
 
       <Modal isOpen={leaveDeleteModalOpen} onClose={() => setLeaveDeleteModalOpen(false)} title="Delete Application">
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">Are you sure you want to delete this leave application? This action cannot be undone.</p>
+          <p className="text-sm text-app-text-muted">Are you sure you want to delete this leave application? This action cannot be undone.</p>
           <div className="flex justify-end gap-3">
-            <button onClick={() => setLeaveDeleteModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50">Cancel</button>
+            <button onClick={() => setLeaveDeleteModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-app-text-muted border border-app-border rounded-xl hover:bg-app-surface-alt">Cancel</button>
             <button onClick={confirmDeleteLeave} className="px-4 py-2.5 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-xl transition-colors">Delete</button>
           </div>
         </div>
@@ -871,7 +871,7 @@ export default function TeacherProfileView() {
             </div>
           </div>
           <div className="flex justify-end gap-3">
-            <button onClick={() => setShowDeleteModal(false)} className="px-4 py-2.5 text-sm font-medium text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors">Cancel</button>
+            <button onClick={() => setShowDeleteModal(false)} className="px-4 py-2.5 text-sm font-medium text-app-text-muted border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors">Cancel</button>
             <button onClick={handleDeleteStaff} disabled={deleting} className="px-4 py-2.5 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-xl transition-colors disabled:opacity-60">
               {deleting ? 'Deleting...' : 'Delete Staff Member'}
             </button>

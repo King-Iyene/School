@@ -109,7 +109,7 @@ export default function TeacherClassRoutine() {
       )}
 
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Teacher Class Routine</h1>
+        <h1 className="text-2xl font-bold text-app-text">Teacher Class Routine</h1>
         <button
           onClick={handleExport}
           className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
@@ -119,12 +119,12 @@ export default function TeacherClassRoutine() {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <select
             value={filters.teacher_id}
             onChange={e => setFilters(f => ({ ...f, teacher_id: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">Select Teacher</option>
             {teachers.map(t => (
@@ -135,7 +135,7 @@ export default function TeacherClassRoutine() {
           <select
             value={filters.academic_year_id}
             onChange={e => setFilters(f => ({ ...f, academic_year_id: e.target.value }))}
-            className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">All Academic Years</option>
             {academicYears.map(y => (
@@ -146,37 +146,37 @@ export default function TeacherClassRoutine() {
       </div>
 
       {!filters.teacher_id ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 flex flex-col items-center gap-3 text-slate-400">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-12 flex flex-col items-center gap-3 text-app-text-muted">
           <CalendarDays className="h-12 w-12 text-slate-300" />
           <p className="text-lg font-medium">Select a teacher to view their class routine</p>
           <p className="text-sm">Choose a teacher from the dropdown above</p>
         </div>
       ) : loading ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center text-slate-400">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-12 text-center text-app-text-muted">
           Loading...
         </div>
       ) : routineSlots.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 flex flex-col items-center gap-3 text-slate-400">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-12 flex flex-col items-center gap-3 text-app-text-muted">
           <Info className="h-12 w-12 text-slate-300" />
           <p className="text-lg font-medium">No routine data available</p>
           <p className="text-sm">No class routine has been assigned to this teacher yet</p>
         </div>
       ) : (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-50 border-b border-slate-200">
-                  <th className="text-left px-4 py-3 text-slate-600 font-medium w-32">Time Slot</th>
+                <tr className="bg-app-surface-alt border-b border-app-border">
+                  <th className="text-left px-4 py-3 text-app-text-muted font-medium w-32">Time Slot</th>
                   {DAYS.map(day => (
-                    <th key={day} className="text-center px-3 py-3 text-slate-600 font-medium">{day}</th>
+                    <th key={day} className="text-center px-3 py-3 text-app-text-muted font-medium">{day}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {timeSlots.map(slot => (
-                  <tr key={slot} className="border-b border-slate-100">
-                    <td className="px-4 py-3 font-medium text-slate-700 bg-slate-50">{slot}</td>
+                  <tr key={slot} className="border-b border-app-border">
+                    <td className="px-4 py-3 font-medium text-app-text bg-app-surface-alt">{slot}</td>
                     {DAYS.map(day => {
                       const cell = getSlot(slot, day);
                       return (
@@ -201,30 +201,30 @@ export default function TeacherClassRoutine() {
       )}
 
       {filters.teacher_id && routineSlots.length > 0 && (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-          <div className="px-4 py-3 bg-slate-50 border-b border-slate-200">
-            <h2 className="font-semibold text-slate-700">Detailed Schedule</h2>
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
+          <div className="px-4 py-3 bg-app-surface-alt border-b border-app-border">
+            <h2 className="font-semibold text-app-text">Detailed Schedule</h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-50 border-b border-slate-200">
-                  <th className="text-left px-4 py-3 text-slate-600 font-medium">#</th>
-                  <th className="text-left px-4 py-3 text-slate-600 font-medium">Day</th>
-                  <th className="text-left px-4 py-3 text-slate-600 font-medium">Time Slot</th>
-                  <th className="text-left px-4 py-3 text-slate-600 font-medium">Class</th>
-                  <th className="text-left px-4 py-3 text-slate-600 font-medium">Section</th>
-                  <th className="text-left px-4 py-3 text-slate-600 font-medium">Subject</th>
+                <tr className="bg-app-surface-alt border-b border-app-border">
+                  <th className="text-left px-4 py-3 text-app-text-muted font-medium">#</th>
+                  <th className="text-left px-4 py-3 text-app-text-muted font-medium">Day</th>
+                  <th className="text-left px-4 py-3 text-app-text-muted font-medium">Time Slot</th>
+                  <th className="text-left px-4 py-3 text-app-text-muted font-medium">Class</th>
+                  <th className="text-left px-4 py-3 text-app-text-muted font-medium">Section</th>
+                  <th className="text-left px-4 py-3 text-app-text-muted font-medium">Subject</th>
                 </tr>
               </thead>
               <tbody>
                 {routineSlots.map((slot, index) => (
-                  <tr key={slot.id} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="px-4 py-3 text-slate-500">{index + 1}</td>
-                    <td className="px-4 py-3 text-slate-600">{slot.day}</td>
-                    <td className="px-4 py-3 text-slate-600">{slot.time_slot}</td>
-                    <td className="px-4 py-3 text-slate-800">{slot.class_name}</td>
-                    <td className="px-4 py-3 text-slate-600">{slot.section_name}</td>
+                  <tr key={slot.id} className="border-b border-app-border hover:bg-app-surface-alt">
+                    <td className="px-4 py-3 text-app-text-muted">{index + 1}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{slot.day}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{slot.time_slot}</td>
+                    <td className="px-4 py-3 text-app-text">{slot.class_name}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{slot.section_name}</td>
                     <td className="px-4 py-3 font-medium text-emerald-700">{slot.subject_name}</td>
                   </tr>
                 ))}

@@ -64,7 +64,7 @@ const STAFF_ROLES: { value: string; label: string }[] = [
 
 const ROLE_LABEL: Record<string, string> = Object.fromEntries(STAFF_ROLES.map(r => [r.value, r.label]));
 
-const inputClass = 'border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const inputClass = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
 const fmt = (n: number) => `₦${n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
 function parseNotes(notes?: string): BankDetails {
@@ -190,14 +190,14 @@ function SalaryVoucher({ record, staff, settings, onClose }: VoucherProps) {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={onClose}>
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[92vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 sticky top-0 bg-white rounded-t-2xl">
-          <h2 className="text-base font-bold text-slate-800">Salary Voucher</h2>
+      <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-lg max-h-[92vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+        <div className="flex items-center justify-between px-5 py-4 border-b border-app-border sticky top-0 bg-app-surface rounded-t-2xl">
+          <h2 className="text-base font-bold text-app-text">Salary Voucher</h2>
           <div className="flex gap-2">
             <button onClick={handlePrint} className="flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-1.5 rounded-xl transition-colors">
               <Printer className="w-3.5 h-3.5" /> Print
             </button>
-            <button onClick={onClose} className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-colors">
+            <button onClick={onClose} className="p-1.5 text-app-text-muted hover:text-app-text hover:bg-slate-100 rounded-xl transition-colors">
               <X className="w-4 h-4" />
             </button>
           </div>
@@ -205,12 +205,12 @@ function SalaryVoucher({ record, staff, settings, onClose }: VoucherProps) {
 
         <div className="p-5 space-y-4">
           <div className="text-center pb-3 border-b-2 border-slate-800">
-            <p className="text-lg font-bold text-slate-800 uppercase tracking-wider">{schoolName}</p>
-            {settings.address && <p className="text-xs text-slate-500 mt-0.5">{settings.address}</p>}
+            <p className="text-lg font-bold text-app-text uppercase tracking-wider">{schoolName}</p>
+            {settings.address && <p className="text-xs text-app-text-muted mt-0.5">{settings.address}</p>}
             <div className="inline-block mt-2 bg-slate-800 text-white text-xs font-bold tracking-widest px-6 py-1.5 rounded">
               SALARY VOUCHER
             </div>
-            <p className="text-sm text-slate-500 mt-1.5">{monthLabel} {record.year}</p>
+            <p className="text-sm text-app-text-muted mt-1.5">{monthLabel} {record.year}</p>
           </div>
 
           <div className="grid grid-cols-2 gap-3 text-sm">
@@ -221,35 +221,35 @@ function SalaryVoucher({ record, staff, settings, onClose }: VoucherProps) {
               { label: 'Status', value: record.status === 'paid' ? 'PAID' : 'PENDING' },
             ].map(f => (
               <div key={f.label}>
-                <p className="text-xs text-slate-400 uppercase tracking-wide">{f.label}</p>
-                <p className="font-semibold text-slate-800 mt-0.5">{f.value}</p>
+                <p className="text-xs text-app-text-muted uppercase tracking-wide">{f.label}</p>
+                <p className="font-semibold text-app-text mt-0.5">{f.value}</p>
               </div>
             ))}
           </div>
 
           {(bank.bank_name || bank.account_number) && (
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-3">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-2">Bank Details</p>
+            <div className="bg-app-surface-alt border border-app-border rounded-xl p-3">
+              <p className="text-xs font-bold text-app-text-muted uppercase tracking-wide mb-2">Bank Details</p>
               <div className="grid grid-cols-2 gap-2 text-sm">
-                <div><p className="text-xs text-slate-400">Bank</p><p className="font-medium text-slate-800">{bank.bank_name || '—'}</p></div>
-                <div><p className="text-xs text-slate-400">Account No.</p><p className="font-medium text-slate-800 font-mono">{bank.account_number || '—'}</p></div>
-                <div className="col-span-2"><p className="text-xs text-slate-400">Account Name</p><p className="font-medium text-slate-800">{bank.account_name || '—'}</p></div>
+                <div><p className="text-xs text-app-text-muted">Bank</p><p className="font-medium text-app-text">{bank.bank_name || '—'}</p></div>
+                <div><p className="text-xs text-app-text-muted">Account No.</p><p className="font-medium text-app-text font-mono">{bank.account_number || '—'}</p></div>
+                <div className="col-span-2"><p className="text-xs text-app-text-muted">Account Name</p><p className="font-medium text-app-text">{bank.account_name || '—'}</p></div>
               </div>
             </div>
           )}
 
-          <div className="border border-slate-200 rounded-xl overflow-hidden">
+          <div className="border border-app-border rounded-xl overflow-hidden">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50">
+              <thead className="bg-app-surface-alt">
                 <tr>
-                  <th className="text-left px-4 py-2.5 font-semibold text-slate-500 text-xs uppercase tracking-wide">Description</th>
-                  <th className="text-right px-4 py-2.5 font-semibold text-slate-500 text-xs uppercase tracking-wide">Amount</th>
+                  <th className="text-left px-4 py-2.5 font-semibold text-app-text-muted text-xs uppercase tracking-wide">Description</th>
+                  <th className="text-right px-4 py-2.5 font-semibold text-app-text-muted text-xs uppercase tracking-wide">Amount</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
-                <tr><td className="px-4 py-2.5 text-slate-700">Basic Salary</td><td className="px-4 py-2.5 text-right text-slate-700">{fmt(record.basic_salary)}</td></tr>
-                <tr><td className="px-4 py-2.5 text-slate-700">Allowances</td><td className="px-4 py-2.5 text-right text-emerald-600">+ {fmt(record.allowances)}</td></tr>
-                <tr><td className="px-4 py-2.5 text-slate-700">Deductions</td><td className="px-4 py-2.5 text-right text-red-500">− {fmt(record.deductions)}</td></tr>
+              <tbody className="divide-y divide-app-border">
+                <tr><td className="px-4 py-2.5 text-app-text">Basic Salary</td><td className="px-4 py-2.5 text-right text-app-text">{fmt(record.basic_salary)}</td></tr>
+                <tr><td className="px-4 py-2.5 text-app-text">Allowances</td><td className="px-4 py-2.5 text-right text-emerald-600">+ {fmt(record.allowances)}</td></tr>
+                <tr><td className="px-4 py-2.5 text-app-text">Deductions</td><td className="px-4 py-2.5 text-right text-red-500">− {fmt(record.deductions)}</td></tr>
               </tbody>
               <tfoot>
                 <tr className="bg-slate-800 text-white">
@@ -261,14 +261,14 @@ function SalaryVoucher({ record, staff, settings, onClose }: VoucherProps) {
           </div>
 
           {bank.note && (
-            <p className="text-sm text-slate-500"><span className="font-medium text-slate-600">Notes: </span>{bank.note}</p>
+            <p className="text-sm text-app-text-muted"><span className="font-medium text-app-text-muted">Notes: </span>{bank.note}</p>
           )}
 
           <div className="grid grid-cols-3 gap-4 pt-2">
             {['Prepared By', 'Approved By', 'Staff Signature'].map(label => (
               <div key={label} className="text-center">
                 <div className="h-8 border-b border-slate-400 mb-1" />
-                <p className="text-xs text-slate-400">{label}</p>
+                <p className="text-xs text-app-text-muted">{label}</p>
               </div>
             ))}
           </div>
@@ -700,8 +700,8 @@ ${sheetRows.map((s, i) => {
     <div className="space-y-6">
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Payroll</h1>
-          <p className="text-sm text-slate-500 mt-0.5">{monthLabel} {filterYear}</p>
+          <h1 className="text-2xl font-bold text-app-text">Payroll</h1>
+          <p className="text-sm text-app-text-muted mt-0.5">{monthLabel} {filterYear}</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           {activeTab === 'records' && (
@@ -740,12 +740,12 @@ ${sheetRows.map((s, i) => {
 
       {/* Auto-generate result banner */}
       {autoGenResult && (
-        <div className={`rounded-2xl border p-4 flex items-start gap-3 ${autoGenResult.generated > 0 ? 'bg-emerald-50 border-emerald-200' : 'bg-slate-50 border-slate-200'}`}>
+        <div className={`rounded-2xl border p-4 flex items-start gap-3 ${autoGenResult.generated > 0 ? 'bg-emerald-50 border-emerald-200' : 'bg-app-surface-alt border-app-border'}`}>
           {autoGenResult.generated > 0
             ? <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
-            : <AlertCircle className="w-5 h-5 text-slate-400 flex-shrink-0 mt-0.5" />}
+            : <AlertCircle className="w-5 h-5 text-app-text-muted flex-shrink-0 mt-0.5" />}
           <div className="flex-1 min-w-0">
-            <p className={`text-sm font-semibold ${autoGenResult.generated > 0 ? 'text-emerald-800' : 'text-slate-600'}`}>
+            <p className={`text-sm font-semibold ${autoGenResult.generated > 0 ? 'text-emerald-800' : 'text-app-text-muted'}`}>
               {autoGenResult.generated > 0
                 ? `${autoGenResult.generated} payroll record${autoGenResult.generated !== 1 ? 's' : ''} generated for ${monthLabel} ${filterYear}`
                 : `No payroll records were generated for ${monthLabel} ${filterYear}`}
@@ -756,7 +756,7 @@ ${sheetRows.map((s, i) => {
               </p>
             )}
           </div>
-          <button onClick={() => setAutoGenResult(null)} className="p-1 text-slate-400 hover:text-slate-600 rounded-lg transition-colors flex-shrink-0">
+          <button onClick={() => setAutoGenResult(null)} className="p-1 text-app-text-muted hover:text-app-text rounded-lg transition-colors flex-shrink-0">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -766,43 +766,43 @@ ${sheetRows.map((s, i) => {
       <div className="flex gap-1 bg-slate-100 rounded-xl p-1 w-fit">
         <button
           onClick={() => setActiveTab('records')}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === 'records' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === 'records' ? 'bg-app-surface text-app-text shadow-sm' : 'text-app-text-muted hover:text-app-text'}`}
         >
           Payroll Records
         </button>
         <button
           onClick={() => setActiveTab('sheet')}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === 'sheet' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === 'sheet' ? 'bg-app-surface text-app-text shadow-sm' : 'text-app-text-muted hover:text-app-text'}`}
         >
           Monthly Salary Sheet
         </button>
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-4">
+      <div className="bg-app-surface rounded-2xl border border-app-border p-4">
         <div className="flex flex-wrap items-end gap-3">
           <div className="flex-1 min-w-[140px]">
-            <label className="block text-xs font-medium text-slate-500 mb-1.5">Role</label>
-            <select disabled={autoGenerating} className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white disabled:opacity-50 disabled:cursor-not-allowed" value={filterRole} onChange={e => setFilterRole(e.target.value)}>
+            <label className="block text-xs font-medium text-app-text-muted mb-1.5">Role</label>
+            <select disabled={autoGenerating} className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed" value={filterRole} onChange={e => setFilterRole(e.target.value)}>
               <option value="">All Staff</option>
               {STAFF_ROLES.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
             </select>
           </div>
           <div className="flex-1 min-w-[120px]">
-            <label className="block text-xs font-medium text-slate-500 mb-1.5">Month</label>
-            <select disabled={autoGenerating} className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white disabled:opacity-50 disabled:cursor-not-allowed" value={filterMonth} onChange={e => setFilterMonth(Number(e.target.value))}>
+            <label className="block text-xs font-medium text-app-text-muted mb-1.5">Month</label>
+            <select disabled={autoGenerating} className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed" value={filterMonth} onChange={e => setFilterMonth(Number(e.target.value))}>
               {MONTHS.map(m => <option key={m.value} value={m.value}>{m.label}</option>)}
             </select>
           </div>
           <div className="flex-1 min-w-[90px]">
-            <label className="block text-xs font-medium text-slate-500 mb-1.5">Year</label>
-            <select disabled={autoGenerating} className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-white disabled:opacity-50 disabled:cursor-not-allowed" value={filterYear} onChange={e => setFilterYear(Number(e.target.value))}>
+            <label className="block text-xs font-medium text-app-text-muted mb-1.5">Year</label>
+            <select disabled={autoGenerating} className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed" value={filterYear} onChange={e => setFilterYear(Number(e.target.value))}>
               {yearOptions.map(y => <option key={y} value={y}>{y}</option>)}
             </select>
           </div>
           <div className="flex-1 min-w-[160px]">
-            <label className="block text-xs font-medium text-slate-500 mb-1.5">Search</label>
-            <input disabled={autoGenerating} className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full disabled:opacity-50 disabled:cursor-not-allowed" placeholder="Search name…" value={search} onChange={e => setSearch(e.target.value)} />
+            <label className="block text-xs font-medium text-app-text-muted mb-1.5">Search</label>
+            <input disabled={autoGenerating} className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full disabled:opacity-50 disabled:cursor-not-allowed" placeholder="Search name…" value={search} onChange={e => setSearch(e.target.value)} />
           </div>
         </div>
       </div>
@@ -812,13 +812,13 @@ ${sheetRows.map((s, i) => {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
             { label: 'Total Net Payroll', value: fmt(totalNet), color: 'text-emerald-700', bg: 'bg-emerald-50' },
-            { label: 'Paid', value: String(summaryPaid), color: 'text-emerald-600', bg: 'bg-white' },
-            { label: 'Pending', value: String(summaryPending), color: 'text-amber-600', bg: 'bg-white' },
-            { label: 'Not Generated', value: String(summaryNone), color: 'text-slate-500', bg: 'bg-white' },
+            { label: 'Paid', value: String(summaryPaid), color: 'text-emerald-600', bg: 'bg-app-surface' },
+            { label: 'Pending', value: String(summaryPending), color: 'text-amber-600', bg: 'bg-app-surface' },
+            { label: 'Not Generated', value: String(summaryNone), color: 'text-app-text-muted', bg: 'bg-app-surface' },
           ].map(c => (
-            <div key={c.label} className={`${c.bg} rounded-2xl border border-slate-200 p-4 text-center`}>
+            <div key={c.label} className={`${c.bg} rounded-2xl border border-app-border p-4 text-center`}>
               <p className={`text-xl font-bold ${c.color}`}>{c.value}</p>
-              <p className="text-xs text-slate-400 mt-0.5">{c.label}</p>
+              <p className="text-xs text-app-text-muted mt-0.5">{c.label}</p>
             </div>
           ))}
         </div>
@@ -830,15 +830,15 @@ ${sheetRows.map((s, i) => {
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : displayed.length === 0 ? (
-        <div className="text-center py-16 text-slate-400 text-sm bg-white rounded-2xl border border-slate-200">
+        <div className="text-center py-16 text-app-text-muted text-sm bg-app-surface rounded-2xl border border-app-border">
           No active staff found. Check your filters.
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
+        <div className="bg-app-surface rounded-2xl border border-app-border overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-app-surface-alt border-b border-app-border">
               <tr>
-                <th className="text-left pl-5 pr-2 py-3.5 font-semibold text-slate-600 w-12">
+                <th className="text-left pl-5 pr-2 py-3.5 font-semibold text-app-text-muted w-12">
                   <input
                     type="checkbox"
                     checked={allSelectableDisplayedSelected}
@@ -846,23 +846,23 @@ ${sheetRows.map((s, i) => {
                     disabled={selectableDisplayed.length === 0 || autoGenerating}
                     aria-label="Select all visible staff without payroll records"
                     title="Select all visible staff without payroll records"
-                    className="w-4 h-4 rounded border-slate-300 text-emerald-500 focus:ring-emerald-500 disabled:opacity-40"
+                    className="w-4 h-4 rounded border-app-border text-emerald-500 focus:ring-emerald-500 disabled:opacity-40"
                   />
                 </th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Staff</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Role</th>
-                <th className="text-right px-5 py-3.5 font-semibold text-slate-600">Base (Profile)</th>
-                <th className="text-right px-5 py-3.5 font-semibold text-slate-600">{monthLabel} Basic</th>
-                <th className="text-right px-5 py-3.5 font-semibold text-slate-600">Net</th>
-                <th className="text-left px-5 py-3.5 font-semibold text-slate-600">Status</th>
-                <th className="text-right px-5 py-3.5 font-semibold text-slate-600">Actions</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Staff</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Role</th>
+                <th className="text-right px-5 py-3.5 font-semibold text-app-text-muted">Base (Profile)</th>
+                <th className="text-right px-5 py-3.5 font-semibold text-app-text-muted">{monthLabel} Basic</th>
+                <th className="text-right px-5 py-3.5 font-semibold text-app-text-muted">Net</th>
+                <th className="text-left px-5 py-3.5 font-semibold text-app-text-muted">Status</th>
+                <th className="text-right px-5 py-3.5 font-semibold text-app-text-muted">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {displayed.map(s => {
                 const pr = payrollMap[s.id];
                 return (
-                  <tr key={s.id} className="hover:bg-slate-50 transition-colors">
+                  <tr key={s.id} className="hover:bg-app-surface-alt transition-colors">
                     <td className="pl-5 pr-2 py-3.5">
                       <input
                         type="checkbox"
@@ -871,25 +871,25 @@ ${sheetRows.map((s, i) => {
                         disabled={!!pr || autoGenerating}
                         aria-label={`Select ${s.first_name} ${s.last_name} for ${monthLabel} payroll`}
                         title={pr ? `Payroll already exists for ${monthLabel} ${filterYear}` : `Add ${s.first_name} ${s.last_name} to selected payroll`}
-                        className="w-4 h-4 rounded border-slate-300 text-emerald-500 focus:ring-emerald-500 disabled:opacity-40"
+                        className="w-4 h-4 rounded border-app-border text-emerald-500 focus:ring-emerald-500 disabled:opacity-40"
                       />
                     </td>
                     <td className="px-5 py-3.5">
-                      <p className="font-medium text-slate-800">{s.first_name} {s.last_name}</p>
-                      {s.staff_id && <p className="text-xs text-slate-400 font-mono">{s.staff_id}</p>}
+                      <p className="font-medium text-app-text">{s.first_name} {s.last_name}</p>
+                      {s.staff_id && <p className="text-xs text-app-text-muted font-mono">{s.staff_id}</p>}
                     </td>
                     <td className="px-5 py-3.5">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-app-text-muted">
                         {ROLE_LABEL[s.role] ?? s.role.replace(/_/g, ' ')}
                       </span>
                     </td>
-                    <td className="px-5 py-3.5 text-right text-slate-400 text-xs">
+                    <td className="px-5 py-3.5 text-right text-app-text-muted text-xs">
                       {s.basic_salary != null ? `₦${s.basic_salary.toLocaleString()}` : '—'}
                     </td>
-                    <td className="px-5 py-3.5 text-right text-slate-700">
+                    <td className="px-5 py-3.5 text-right text-app-text">
                       {pr ? `₦${pr.basic_salary.toLocaleString()}` : '—'}
                     </td>
-                    <td className="px-5 py-3.5 text-right font-semibold text-slate-800">
+                    <td className="px-5 py-3.5 text-right font-semibold text-app-text">
                       {pr ? fmt(pr.basic_salary + pr.allowances - pr.deductions) : '—'}
                     </td>
                     <td className="px-5 py-3.5">
@@ -898,7 +898,7 @@ ${sheetRows.map((s, i) => {
                           {pr.status === 'paid' ? 'Paid' : 'Pending'}
                         </span>
                       ) : (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-400">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-app-text-muted">
                           Not Generated
                         </span>
                       )}
@@ -916,7 +916,7 @@ ${sheetRows.map((s, i) => {
                           <button
                             onClick={() => { setVoucherStaff(s); setVoucherRecord(pr); }}
                             title="Print Voucher"
-                            className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+                            className="p-1.5 text-app-text-muted hover:text-app-text hover:bg-slate-100 rounded-lg transition-colors"
                           >
                             <Printer className="w-4 h-4" />
                           </button>
@@ -937,40 +937,40 @@ ${sheetRows.map((s, i) => {
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : sheetRows.length === 0 ? (
-        <div className="text-center py-16 text-slate-400 text-sm bg-white rounded-2xl border border-slate-200">
+        <div className="text-center py-16 text-app-text-muted text-sm bg-app-surface rounded-2xl border border-app-border">
           No payroll records for {monthLabel} {filterYear}. Switch to &ldquo;Payroll Records&rdquo; to generate them first.
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
+        <div className="bg-app-surface rounded-2xl border border-app-border overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-app-surface-alt border-b border-app-border">
               <tr>
-                <th className="text-left px-4 py-3.5 font-semibold text-slate-600 w-10">S/N</th>
-                <th className="text-left px-4 py-3.5 font-semibold text-slate-600">Staff Name</th>
-                <th className="text-left px-4 py-3.5 font-semibold text-slate-600">Role</th>
-                <th className="text-left px-4 py-3.5 font-semibold text-slate-600">Bank</th>
-                <th className="text-left px-4 py-3.5 font-semibold text-slate-600">Account Name</th>
-                <th className="text-left px-4 py-3.5 font-semibold text-slate-600">Account No.</th>
-                <th className="text-right px-4 py-3.5 font-semibold text-slate-600">Net Salary</th>
+                <th className="text-left px-4 py-3.5 font-semibold text-app-text-muted w-10">S/N</th>
+                <th className="text-left px-4 py-3.5 font-semibold text-app-text-muted">Staff Name</th>
+                <th className="text-left px-4 py-3.5 font-semibold text-app-text-muted">Role</th>
+                <th className="text-left px-4 py-3.5 font-semibold text-app-text-muted">Bank</th>
+                <th className="text-left px-4 py-3.5 font-semibold text-app-text-muted">Account Name</th>
+                <th className="text-left px-4 py-3.5 font-semibold text-app-text-muted">Account No.</th>
+                <th className="text-right px-4 py-3.5 font-semibold text-app-text-muted">Net Salary</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {sheetRows.map((s, i) => {
                 const pr = payrollMap[s.id];
                 const bank = parseNotes(pr?.notes);
                 return (
-                  <tr key={s.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-4 py-3.5 text-slate-400 text-xs">{i + 1}</td>
-                    <td className="px-4 py-3.5 font-medium text-slate-800">{s.first_name} {s.last_name}</td>
+                  <tr key={s.id} className="hover:bg-app-surface-alt transition-colors">
+                    <td className="px-4 py-3.5 text-app-text-muted text-xs">{i + 1}</td>
+                    <td className="px-4 py-3.5 font-medium text-app-text">{s.first_name} {s.last_name}</td>
                     <td className="px-4 py-3.5">
-                      <span className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">
+                      <span className="text-xs bg-slate-100 text-app-text-muted px-2 py-0.5 rounded-full">
                         {ROLE_LABEL[s.role] ?? s.role.replace(/_/g, ' ')}
                       </span>
                     </td>
-                    <td className="px-4 py-3.5 text-slate-600">{bank.bank_name || '—'}</td>
-                    <td className="px-4 py-3.5 text-slate-600">{bank.account_name || '—'}</td>
-                    <td className="px-4 py-3.5 font-mono text-xs text-slate-600">{bank.account_number || '—'}</td>
-                    <td className="px-4 py-3.5 text-right font-semibold text-slate-800">{fmt((pr?.basic_salary ?? 0) + (pr?.allowances ?? 0) - (pr?.deductions ?? 0))}</td>
+                    <td className="px-4 py-3.5 text-app-text-muted">{bank.bank_name || '—'}</td>
+                    <td className="px-4 py-3.5 text-app-text-muted">{bank.account_name || '—'}</td>
+                    <td className="px-4 py-3.5 font-mono text-xs text-app-text-muted">{bank.account_number || '—'}</td>
+                    <td className="px-4 py-3.5 text-right font-semibold text-app-text">{fmt((pr?.basic_salary ?? 0) + (pr?.allowances ?? 0) - (pr?.deductions ?? 0))}</td>
                   </tr>
                 );
               })}
@@ -1002,17 +1002,17 @@ ${sheetRows.map((s, i) => {
 
           {/* Salary */}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Basic Salary (₦)</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Basic Salary (₦)</label>
             <input type="number" className={inputClass} placeholder="e.g. 50000" value={form.basic_salary} onChange={e => setForm({ ...form, basic_salary: e.target.value, updateSalary: false })} />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">Allowances (₦)</label>
+              <label className="block text-sm font-medium text-app-text mb-1.5">Allowances (₦)</label>
               <input type="number" className={inputClass} placeholder="0" value={form.allowances} onChange={e => setForm({ ...form, allowances: e.target.value })} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">Deductions (₦)</label>
+              <label className="block text-sm font-medium text-app-text mb-1.5">Deductions (₦)</label>
               <input type="number" className={inputClass} placeholder="0" value={form.deductions} onChange={e => setForm({ ...form, deductions: e.target.value })} />
             </div>
           </div>
@@ -1041,19 +1041,19 @@ ${sheetRows.map((s, i) => {
           )}
 
           {/* Bank details */}
-          <div className="border border-slate-200 rounded-xl p-4 space-y-3">
-            <p className="text-sm font-semibold text-slate-700">Bank / Payment Details</p>
+          <div className="border border-app-border rounded-xl p-4 space-y-3">
+            <p className="text-sm font-semibold text-app-text">Bank / Payment Details</p>
             <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1">Bank Name</label>
+              <label className="block text-xs font-medium text-app-text-muted mb-1">Bank Name</label>
               <input className={inputClass} placeholder="e.g. First Bank of Nigeria" value={form.bank_name} onChange={e => setForm({ ...form, bank_name: e.target.value })} />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-slate-500 mb-1">Account Number</label>
+                <label className="block text-xs font-medium text-app-text-muted mb-1">Account Number</label>
                 <input className={inputClass} placeholder="0123456789" value={form.account_number} onChange={e => setForm({ ...form, account_number: e.target.value })} />
               </div>
               <div>
-                <label className="block text-xs font-medium text-slate-500 mb-1">Account Name</label>
+                <label className="block text-xs font-medium text-app-text-muted mb-1">Account Name</label>
                 <input className={inputClass} placeholder="As on bank records" value={form.account_name} onChange={e => setForm({ ...form, account_name: e.target.value })} />
               </div>
             </div>
@@ -1062,7 +1062,7 @@ ${sheetRows.map((s, i) => {
           {/* Status */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">Status</label>
+              <label className="block text-sm font-medium text-app-text mb-1.5">Status</label>
               <select className={inputClass} value={form.status} onChange={e => setForm({ ...form, status: e.target.value as 'pending' | 'paid' })}>
                 <option value="pending">Pending</option>
                 <option value="paid">Paid</option>
@@ -1070,7 +1070,7 @@ ${sheetRows.map((s, i) => {
             </div>
             {form.status === 'paid' && (
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">Payment Date</label>
+                <label className="block text-sm font-medium text-app-text mb-1.5">Payment Date</label>
                 <input type="date" className={inputClass} value={form.payment_date} onChange={e => setForm({ ...form, payment_date: e.target.value })} />
               </div>
             )}
@@ -1078,12 +1078,12 @@ ${sheetRows.map((s, i) => {
 
           {/* Notes */}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Notes</label>
+            <label className="block text-sm font-medium text-app-text mb-1.5">Notes</label>
             <textarea className={inputClass} placeholder="Optional notes…" rows={2} value={form.note} onChange={e => setForm({ ...form, note: e.target.value })} />
           </div>
 
           <div className="flex justify-end gap-3 pt-1">
-            <button onClick={() => setModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors">
+            <button onClick={() => setModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-app-text-muted border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors">
               Cancel
             </button>
             <button onClick={handleSave} disabled={saving} className="px-4 py-2.5 text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 rounded-xl transition-colors disabled:opacity-60">

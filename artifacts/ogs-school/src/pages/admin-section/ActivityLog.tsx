@@ -78,7 +78,7 @@ export default function ActivityLog() {
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
   if (!authorized) {
-    return <div className="p-6 text-sm text-slate-500">You do not have permission to view the activity log.</div>;
+    return <div className="p-6 text-sm text-app-text-muted">You do not have permission to view the activity log.</div>;
   }
 
   function detailText(details: any): string {
@@ -96,74 +96,74 @@ export default function ActivityLog() {
             <ScrollText size={22} className="text-violet-600" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-slate-800">Activity Log</h1>
-            <p className="text-sm text-slate-500">Every recorded action taken by users in the portal</p>
+            <h1 className="text-2xl font-bold text-app-text">Activity Log</h1>
+            <p className="text-sm text-app-text-muted">Every recorded action taken by users in the portal</p>
           </div>
         </div>
-        <button onClick={load} className="flex items-center gap-2 text-sm text-slate-600 border border-slate-200 rounded-xl px-3.5 py-2 hover:bg-slate-50">
+        <button onClick={load} className="flex items-center gap-2 text-sm text-app-text-muted border border-app-border rounded-xl px-3.5 py-2 hover:bg-app-surface-alt">
           <RefreshCw className="w-4 h-4" /> Refresh
         </button>
       </div>
 
       <div className="flex flex-wrap items-center gap-3 mb-4">
         <div className="relative">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-app-text-muted absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             value={userSearch}
             onChange={e => setUserSearch(e.target.value)}
             onKeyDown={e => { if (e.key === 'Enter') { setPage(1); setQuery(userSearch.trim()); } }}
             placeholder="Search by user…"
-            className="border border-slate-200 rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/30 w-56"
+            className="border border-app-border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/30 w-56"
           />
         </div>
         <select
           value={action}
           onChange={e => { setPage(1); setAction(e.target.value); }}
-          className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/30"
+          className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/30"
         >
           {ACTION_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
-        <input type="date" value={dateFrom} onChange={e => { setPage(1); setDateFrom(e.target.value); }} className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm" />
-        <span className="text-slate-400 text-sm">to</span>
-        <input type="date" value={dateTo} onChange={e => { setPage(1); setDateTo(e.target.value); }} className="border border-slate-200 rounded-xl px-3 py-2.5 text-sm" />
-        <span className="text-sm text-slate-500 ml-auto">{total} entries</span>
+        <input type="date" value={dateFrom} onChange={e => { setPage(1); setDateFrom(e.target.value); }} className="border border-app-border rounded-xl px-3 py-2.5 text-sm" />
+        <span className="text-app-text-muted text-sm">to</span>
+        <input type="date" value={dateTo} onChange={e => { setPage(1); setDateTo(e.target.value); }} className="border border-app-border rounded-xl px-3 py-2.5 text-sm" />
+        <span className="text-sm text-app-text-muted ml-auto">{total} entries</span>
       </div>
 
       {loadError && (
         <div className="bg-amber-50 border border-amber-200 text-amber-700 text-sm rounded-xl px-4 py-3 mb-4">{loadError}</div>
       )}
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
         {loading ? (
-          <div className="py-16 text-center text-slate-400 text-sm">Loading…</div>
+          <div className="py-16 text-center text-app-text-muted text-sm">Loading…</div>
         ) : rows.length === 0 ? (
-          <div className="py-16 text-center text-slate-400 text-sm">No activity recorded yet</div>
+          <div className="py-16 text-center text-app-text-muted text-sm">No activity recorded yet</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-50 text-left text-xs text-slate-500 uppercase">
+                <tr className="bg-app-surface-alt text-left text-xs text-app-text-muted uppercase">
                   <th className="px-5 py-3 font-semibold">When</th>
                   <th className="px-5 py-3 font-semibold">User</th>
                   <th className="px-5 py-3 font-semibold">Action</th>
                   <th className="px-5 py-3 font-semibold">Details</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-app-border">
                 {rows.map(r => (
-                  <tr key={r.id} className="hover:bg-slate-50 align-top">
-                    <td className="px-5 py-3 text-slate-500 whitespace-nowrap">
+                  <tr key={r.id} className="hover:bg-app-surface-alt align-top">
+                    <td className="px-5 py-3 text-app-text-muted whitespace-nowrap">
                       {new Date(r.created_at).toLocaleDateString()}<br />
                       <span className="text-xs">{new Date(r.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                     </td>
                     <td className="px-5 py-3">
-                      <p className="font-medium text-slate-800">{r.user_name}</p>
-                      <p className="text-xs text-slate-400 capitalize">{(r.user_role || '').replace(/_/g, ' ')}</p>
+                      <p className="font-medium text-app-text">{r.user_name}</p>
+                      <p className="text-xs text-app-text-muted capitalize">{(r.user_role || '').replace(/_/g, ' ')}</p>
                     </td>
                     <td className="px-5 py-3">
                       <span className="text-xs px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 font-medium whitespace-nowrap">{actionLabel(r.action)}</span>
                     </td>
-                    <td className="px-5 py-3 text-slate-600 capitalize">{detailText(r.details) || '—'}</td>
+                    <td className="px-5 py-3 text-app-text-muted capitalize">{detailText(r.details) || '—'}</td>
                   </tr>
                 ))}
               </tbody>
@@ -174,9 +174,9 @@ export default function ActivityLog() {
 
       {totalPages > 1 && (
         <div className="flex items-center justify-end gap-2 mt-4">
-          <button disabled={page <= 1} onClick={() => setPage(p => p - 1)} className="p-2 rounded-lg border border-slate-200 disabled:opacity-40"><ChevronLeft className="w-4 h-4" /></button>
-          <span className="text-sm text-slate-600">Page {page} of {totalPages}</span>
-          <button disabled={page >= totalPages} onClick={() => setPage(p => p + 1)} className="p-2 rounded-lg border border-slate-200 disabled:opacity-40"><ChevronRight className="w-4 h-4" /></button>
+          <button disabled={page <= 1} onClick={() => setPage(p => p - 1)} className="p-2 rounded-lg border border-app-border disabled:opacity-40"><ChevronLeft className="w-4 h-4" /></button>
+          <span className="text-sm text-app-text-muted">Page {page} of {totalPages}</span>
+          <button disabled={page >= totalPages} onClick={() => setPage(p => p + 1)} className="p-2 rounded-lg border border-app-border disabled:opacity-40"><ChevronRight className="w-4 h-4" /></button>
         </div>
       )}
     </div>

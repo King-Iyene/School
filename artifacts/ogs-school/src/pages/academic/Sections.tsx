@@ -87,8 +87,8 @@ export default function Sections() {
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Sections</h1>
-          <p className="text-sm text-slate-500 mt-1">Manage class sections</p>
+          <h1 className="text-2xl font-bold text-app-text">Sections</h1>
+          <p className="text-sm text-app-text-muted mt-1">Manage class sections</p>
         </div>
         <button
           onClick={openAdd}
@@ -100,38 +100,38 @@ export default function Sections() {
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center h-40 text-slate-400">Loading...</div>
+        <div className="flex items-center justify-center h-40 text-app-text-muted">Loading...</div>
       ) : (
-        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+        <div className="bg-app-surface rounded-xl border border-app-border overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Name</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600">Description</th>
-                <th className="text-right px-4 py-3 font-medium text-slate-600">Actions</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Name</th>
+                <th className="text-left px-4 py-3 font-medium text-app-text-muted">Description</th>
+                <th className="text-right px-4 py-3 font-medium text-app-text-muted">Actions</th>
               </tr>
             </thead>
             <tbody>
               {sections.length === 0 ? (
                 <tr>
-                  <td colSpan={3} className="text-center py-10 text-slate-400">No sections found</td>
+                  <td colSpan={3} className="text-center py-10 text-app-text-muted">No sections found</td>
                 </tr>
               ) : (
                 sections.map((section) => (
-                  <tr key={section.id} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="px-4 py-3 font-medium text-slate-800">{section.name}</td>
-                    <td className="px-4 py-3 text-slate-600">{section.description || '-'}</td>
+                  <tr key={section.id} className="border-b border-app-border hover:bg-app-surface-alt">
+                    <td className="px-4 py-3 font-medium text-app-text">{section.name}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{section.description || '-'}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => openEdit(section)}
-                          className="p-1.5 text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors"
+                          className="p-1.5 text-app-text-muted hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors"
                         >
                           <Edit2 size={15} />
                         </button>
                         <button
                           onClick={() => handleDelete(section.id)}
-                          className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-1.5 text-app-text-muted hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                         >
                           <Trash2 size={15} />
                         </button>
@@ -153,21 +153,21 @@ export default function Sections() {
         <div className="space-y-4">
           {saveError && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-2">{saveError}</div>}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Name</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Name</label>
             <input
               type="text"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               placeholder="e.g. A, B, Morning"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+            <label className="block text-sm font-medium text-app-text mb-1">Description</label>
             <textarea
               value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
-              className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               rows={3}
               placeholder="Optional description"
             />
@@ -175,7 +175,7 @@ export default function Sections() {
           <div className="flex justify-end gap-2 pt-2">
             <button
               onClick={() => setModalOpen(false)}
-              className="px-4 py-2 text-sm rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm rounded-lg border border-app-border text-app-text-muted hover:bg-app-surface-alt transition-colors"
             >
               Cancel
             </button>

@@ -117,7 +117,7 @@ export default function ClassReport() {
       )}
 
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Class Report</h1>
+        <h1 className="text-2xl font-bold text-app-text">Class Report</h1>
         <button
           onClick={handleExport}
           className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
@@ -128,11 +128,11 @@ export default function ClassReport() {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Total Classes</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{totalClasses}</p>
+              <p className="text-sm text-app-text-muted">Total Classes</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{totalClasses}</p>
             </div>
             <div className="bg-emerald-100 p-3 rounded-lg">
               <BookOpen className="h-6 w-6 text-emerald-600" />
@@ -140,11 +140,11 @@ export default function ClassReport() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Total Students</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{totalStudents}</p>
+              <p className="text-sm text-app-text-muted">Total Students</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{totalStudents}</p>
             </div>
             <div className="bg-blue-100 p-3 rounded-lg">
               <Users className="h-6 w-6 text-blue-600" />
@@ -152,11 +152,11 @@ export default function ClassReport() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <div className="bg-app-surface rounded-xl shadow-sm border border-app-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-500">Overall Attendance</p>
-              <p className="text-2xl font-bold text-slate-800 mt-1">{overallAttendance}%</p>
+              <p className="text-sm text-app-text-muted">Overall Attendance</p>
+              <p className="text-2xl font-bold text-app-text mt-1">{overallAttendance}%</p>
             </div>
             <div className="bg-amber-100 p-3 rounded-lg">
               <BarChart2 className="h-6 w-6 text-amber-600" />
@@ -165,37 +165,37 @@ export default function ClassReport() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-app-surface rounded-xl shadow-sm border border-app-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">#</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Class Name</th>
-                <th className="text-center px-4 py-3 text-slate-600 font-medium">Sections</th>
-                <th className="text-center px-4 py-3 text-slate-600 font-medium">Total Students</th>
-                <th className="text-center px-4 py-3 text-slate-600 font-medium">Male</th>
-                <th className="text-center px-4 py-3 text-slate-600 font-medium">Female</th>
-                <th className="text-center px-4 py-3 text-slate-600 font-medium">Avg Attendance %</th>
-                <th className="text-left px-4 py-3 text-slate-600 font-medium">Form Master</th>
+              <tr className="bg-app-surface-alt border-b border-app-border">
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">#</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Class Name</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Sections</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Total Students</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Male</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Female</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Avg Attendance %</th>
+                <th className="text-left px-4 py-3 text-app-text-muted font-medium">Form Master</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-10 text-slate-400">Loading...</td>
+                  <td colSpan={8} className="text-center py-10 text-app-text-muted">Loading...</td>
                 </tr>
               ) : records.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-10 text-slate-400">No classes found</td>
+                  <td colSpan={8} className="text-center py-10 text-app-text-muted">No classes found</td>
                 </tr>
               ) : (
                 records.map((record, index) => (
-                  <tr key={record.id} className="border-b border-slate-100 hover:bg-slate-50">
-                    <td className="px-4 py-3 text-slate-500">{index + 1}</td>
-                    <td className="px-4 py-3 font-medium text-slate-800">{record.class_name}</td>
-                    <td className="px-4 py-3 text-center text-slate-600">{record.section_count}</td>
-                    <td className="px-4 py-3 text-center font-medium text-slate-800">{record.total_students}</td>
+                  <tr key={record.id} className="border-b border-app-border hover:bg-app-surface-alt">
+                    <td className="px-4 py-3 text-app-text-muted">{index + 1}</td>
+                    <td className="px-4 py-3 font-medium text-app-text">{record.class_name}</td>
+                    <td className="px-4 py-3 text-center text-app-text-muted">{record.section_count}</td>
+                    <td className="px-4 py-3 text-center font-medium text-app-text">{record.total_students}</td>
                     <td className="px-4 py-3 text-center text-blue-600">{record.male_count}</td>
                     <td className="px-4 py-3 text-center text-pink-600">{record.female_count}</td>
                     <td className="px-4 py-3 text-center">
@@ -203,7 +203,7 @@ export default function ClassReport() {
                         {record.avg_attendance}%
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-slate-600">{record.class_teacher}</td>
+                    <td className="px-4 py-3 text-app-text-muted">{record.class_teacher}</td>
                   </tr>
                 ))
               )}

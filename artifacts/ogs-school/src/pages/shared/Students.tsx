@@ -178,21 +178,21 @@ export default function Students() {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-xl font-bold text-slate-800">Students</h2>
-        <p className="text-slate-500 text-sm">All enrolled students at {settings.school_name || 'School Portal'}</p>
+        <h2 className="text-xl font-bold text-app-text">Students</h2>
+        <p className="text-app-text-muted text-sm">All enrolled students at {settings.school_name || 'School Portal'}</p>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-        <div className="p-4 border-b border-slate-100 flex flex-col sm:flex-row flex-wrap gap-3">
+      <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
+        <div className="p-4 border-b border-app-border flex flex-col sm:flex-row flex-wrap gap-3">
           <div className="relative flex-1 min-w-[180px]">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <input value={search} onChange={e => { setSearch(e.target.value); setCurrentPage(1); }} placeholder="Search by name, admission no or class..." className="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
+            <input value={search} onChange={e => { setSearch(e.target.value); setCurrentPage(1); }} placeholder="Search by name, admission no or class..." className="w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
           </div>
           <div className="flex gap-3 flex-wrap">
             <select
               value={filterClass}
               onChange={e => { setFilterClass(e.target.value); setCurrentPage(1); }}
-              className="border border-slate-200 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-w-[130px]"
+              className="border border-app-border rounded-xl px-3 py-2 text-sm bg-app-surface focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-w-[130px]"
             >
               <option value="">All Classes</option>
               {classes.map(c => (
@@ -204,7 +204,7 @@ export default function Students() {
             <select
               value={filterYear}
               onChange={e => { setFilterYear(e.target.value); setCurrentPage(1); }}
-              className="border border-slate-200 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-w-[130px]"
+              className="border border-app-border rounded-xl px-3 py-2 text-sm bg-app-surface focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-w-[130px]"
             >
               <option value="">All Years</option>
               {years.map(y => (
@@ -216,7 +216,7 @@ export default function Students() {
             <button
               onClick={handleExport}
               disabled={loading || students.length === 0}
-              className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50 whitespace-nowrap"
+              className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-app-text px-3 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50 whitespace-nowrap"
             >
               <Download className="w-4 h-4" />
               <span className="hidden sm:inline">Export CSV</span>
@@ -226,41 +226,41 @@ export default function Students() {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[650px]">
             <thead>
-              <tr className="border-b border-slate-100 bg-slate-50">
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Student</th>
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Admission No.</th>
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Class</th>
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Phone</th>
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Status</th>
-                <th className="text-left text-xs font-semibold text-slate-500 uppercase px-5 py-3">Joined</th>
+              <tr className="border-b border-app-border bg-app-surface-alt">
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Student</th>
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Admission No.</th>
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Class</th>
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Phone</th>
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Status</th>
+                <th className="text-left text-xs font-semibold text-app-text-muted uppercase px-5 py-3">Joined</th>
                 <th className="px-5 py-3"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-app-border">
               {loading ? (
-                <tr><td colSpan={7} className="text-center py-8 text-slate-400">Loading students...</td></tr>
+                <tr><td colSpan={7} className="text-center py-8 text-app-text-muted">Loading students...</td></tr>
               ) : students.length === 0 ? (
-                <tr><td colSpan={7} className="text-center py-8 text-slate-400">No students found</td></tr>
+                <tr><td colSpan={7} className="text-center py-8 text-app-text-muted">No students found</td></tr>
               ) : students.map(s => (
-                <tr key={s.id} className="hover:bg-slate-50 transition-colors cursor-pointer" onClick={() => navigate(`/student-profile?id=${s.id}`)}>
+                <tr key={s.id} className="hover:bg-app-surface-alt transition-colors cursor-pointer" onClick={() => navigate(`/student-profile?id=${s.id}`)}>
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-xs font-semibold text-emerald-700">
                         {s.first_name?.[0]}{s.last_name?.[0]}
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-slate-800">{s.first_name} {s.last_name}</p>
+                        <p className="text-sm font-medium text-app-text">{s.first_name} {s.last_name}</p>
                         <StudentTypeBadge type={s.student_type} />
                       </div>
                     </div>
                   </td>
                   <td className="px-5 py-3 text-sm font-mono text-emerald-600 font-medium">{s.admission_number || '—'}</td>
-                  <td className="px-5 py-3 text-sm text-slate-800 font-semibold">{s.classes ? (s.classes.name || `${s.classes.level}${s.classes.section}`) : '—'}</td>
-                  <td className="px-5 py-3 text-sm text-slate-500">{s.guardian_phone || s.phone || '—'}</td>
+                  <td className="px-5 py-3 text-sm text-app-text font-semibold">{s.classes ? (s.classes.name || `${s.classes.level}${s.classes.section}`) : '—'}</td>
+                  <td className="px-5 py-3 text-sm text-app-text-muted">{s.guardian_phone || s.phone || '—'}</td>
                   <td className="px-5 py-3"><Badge label={s.status === 'active' || s.is_active ? 'Active' : 'Inactive'} variant={s.status === 'active' || s.is_active ? 'success' : 'error'} /></td>
-                  <td className="px-5 py-3 text-sm text-slate-500">{new Date(s.created_at).toLocaleDateString()}</td>
+                  <td className="px-5 py-3 text-sm text-app-text-muted">{new Date(s.created_at).toLocaleDateString()}</td>
                   <td className="px-5 py-3" onClick={e => e.stopPropagation()}>
-                    <button onClick={() => navigate(`/student-profile?id=${s.id}`)} className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors">
+                    <button onClick={() => navigate(`/student-profile?id=${s.id}`)} className="p-1.5 text-app-text-muted hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors">
                       <Eye className="w-4 h-4" />
                     </button>
                   </td>
@@ -269,8 +269,8 @@ export default function Students() {
             </tbody>
           </table>
         </div>
-        <div className="px-5 py-3 border-t border-slate-100 flex items-center justify-between">
-          <div className="text-sm text-slate-500">
+        <div className="px-5 py-3 border-t border-app-border flex items-center justify-between">
+          <div className="text-sm text-app-text-muted">
             Showing {(currentPage - 1) * pageSize + 1} to {Math.min(currentPage * pageSize, totalCount)} of {totalCount} students
           </div>
           {totalPages > 1 && (
@@ -278,17 +278,17 @@ export default function Students() {
               <button
                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="px-3 py-1.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 disabled:opacity-50 transition-colors"
+                className="px-3 py-1.5 border border-app-border rounded-xl text-sm font-medium text-app-text-muted hover:bg-app-surface-alt disabled:opacity-50 transition-colors"
               >
                 Previous
               </button>
-              <div className="text-sm font-medium text-slate-600 px-2">
+              <div className="text-sm font-medium text-app-text-muted px-2">
                 Page {currentPage} of {totalPages}
               </div>
               <button
                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                 disabled={currentPage === totalPages}
-                className="px-3 py-1.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 disabled:opacity-50 transition-colors"
+                className="px-3 py-1.5 border border-app-border rounded-xl text-sm font-medium text-app-text-muted hover:bg-app-surface-alt disabled:opacity-50 transition-colors"
               >
                 Next
               </button>

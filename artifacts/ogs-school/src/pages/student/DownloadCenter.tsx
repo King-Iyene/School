@@ -85,14 +85,14 @@ export default function DownloadCenter() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-slate-800">Download Center</h1>
+      <h1 className="text-2xl font-bold text-app-text">Download Center</h1>
 
       <div className="flex gap-1 bg-slate-100 p-1 rounded-xl w-fit">
         {TABS.map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === tab ? 'bg-white text-emerald-700 shadow-sm' : 'text-slate-600 hover:text-slate-800'}`}
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === tab ? 'bg-app-surface text-emerald-700 shadow-sm' : 'text-app-text-muted hover:text-app-text'}`}
           >
             {tabIcons[tab]}
             {tab}
@@ -101,11 +101,11 @@ export default function DownloadCenter() {
       </div>
 
       <div className="flex items-center gap-3">
-        <Filter className="w-4 h-4 text-slate-400" />
+        <Filter className="w-4 h-4 text-app-text-muted" />
         <select
           value={subjectFilter}
           onChange={e => setSubjectFilter(e.target.value)}
-          className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white"
+          className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-app-surface"
         >
           <option value="">All Subjects</option>
           {subjects.map(s => (
@@ -119,30 +119,30 @@ export default function DownloadCenter() {
           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : items.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-12 text-center">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-12 text-center">
           <FolderOpen className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">No {activeTab} available</p>
-          <p className="text-sm text-slate-400 mt-1">Check back later for new uploads</p>
+          <p className="text-app-text-muted font-medium">No {activeTab} available</p>
+          <p className="text-sm text-app-text-muted mt-1">Check back later for new uploads</p>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-          <div className="divide-y divide-slate-100">
+        <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
+          <div className="divide-y divide-app-border">
             {items.map(item => {
               const subject = item.subjects as any;
               const hasFile = item.file_url && isUrl(item.file_url);
               return (
-                <div key={item.id} className="flex items-center justify-between px-5 py-4 hover:bg-slate-50 transition-colors">
+                <div key={item.id} className="flex items-center justify-between px-5 py-4 hover:bg-app-surface-alt transition-colors">
                   <div className="flex items-center gap-4 min-w-0">
                     <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0">
                       <FileText className="w-5 h-5 text-emerald-600" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold text-slate-800 truncate">{item.title}</p>
+                      <p className="text-sm font-semibold text-app-text truncate">{item.title}</p>
                       <div className="flex items-center gap-2 mt-0.5">
                         {subject?.name && (
-                          <span className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">{subject.name}</span>
+                          <span className="text-xs bg-slate-100 text-app-text-muted px-2 py-0.5 rounded-full">{subject.name}</span>
                         )}
-                        <span className="text-xs text-slate-400">
+                        <span className="text-xs text-app-text-muted">
                           {item.created_at ? new Date(item.created_at).toLocaleDateString() : '—'}
                         </span>
                       </div>
@@ -160,7 +160,7 @@ export default function DownloadCenter() {
                         Download
                       </a>
                     ) : (
-                      <span className="text-xs text-slate-400 bg-slate-100 px-3 py-2 rounded-xl">No file</span>
+                      <span className="text-xs text-app-text-muted bg-slate-100 px-3 py-2 rounded-xl">No file</span>
                     )}
                   </div>
                 </div>
