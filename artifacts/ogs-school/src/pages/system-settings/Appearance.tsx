@@ -1,9 +1,11 @@
-import { useState } from 'react';
-import { Palette, RotateCcw, Check, Moon, Sun, LayoutGrid, Eye, EyeOff, ChevronUp, ChevronDown } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { Palette, RotateCcw, Check, Moon, Sun, LayoutGrid, PanelLeft, Eye, EyeOff, ChevronUp, ChevronDown } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useTenantSettings } from '../../context/TenantContext';
 import { DASHBOARD_WIDGETS, resolveDashboardLayout } from '../../lib/dashboardLayout';
-import { DashboardLayoutEntry } from '../../lib/types';
+import { buildEditableSidebarLayout } from '../../lib/sidebarLayout';
+import { getNavItems } from '../../components/layout/navConfig';
+import { DashboardLayoutEntry, SidebarLayoutEntry } from '../../lib/types';
 
 const DEFAULT_PRIMARY = '#2A0A5C';
 const DEFAULT_SECONDARY = '#B679F5';
@@ -88,6 +90,67 @@ export default function Appearance() {
     const defaultLayout = resolveDashboardLayout(null);
     setLayout(defaultLayout);
     await saveLayout(null);
+  }
+
+  // Every role has its own nav array, but group *names* (Academics, HR &
+  // Leave, ...) are shared vocabulary across all of them — using the
+  // super_admin's own nav (the fullest one) as the representative list of
+  // customizable groups keeps this screen from needing a separate settings
+  // list per role.
+  const presentGroups = useMemo(() => {
+    const items = getNavItems('super_admin', tenant?.plan_tier);
+    const seen = new Set<string>();
+    const groups: string[] = [];
+    for (const item of items) {
+      if (item.group && !seen.has(item.group)) {
+        seen.add(item.group);
+        groups.push(item.group);
+      }
+    }
+    return groups;
+  }, [tenant?.plan_tier]);
+
+  const [sidebarLayout, setSidebarLayout] = useState<SidebarLayoutEntry[]>(() =>
+    buildEditableSidebarLayout(settings.sidebar_layout, presentGroups)
+  );
+  const [sidebarSaving, setSidebarSaving] = useState(false);
+  const [sidebarMessage, setSidebarMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const sidebarIsCustomized = !!settings.sidebar_layout;
+
+  function moveSidebarGroup(index: number, direction: -1 | 1) {
+    const next = [...sidebarLayout];
+    const target = index + direction;
+    if (target < 0 || target >= next.length) return;
+    [next[index], next[target]] = [next[target], next[index]];
+    setSidebarLayout(next);
+  }
+
+  function toggleSidebarGroup(index: number) {
+    const next = [...sidebarLayout];
+    next[index] = { ...next[index], visible: !next[index].visible };
+    setSidebarLayout(next);
+  }
+
+  async function saveSidebarLayout(newLayout: SidebarLayoutEntry[] | null) {
+    if (!tenant?.id) return;
+    setSidebarSaving(true);
+    setSidebarMessage(null);
+    const { error } = await supabase
+      .from('tenant_settings')
+      .update({ sidebar_layout: newLayout })
+      .eq('tenant_id', tenant.id);
+    setSidebarSaving(false);
+    if (error) {
+      setSidebarMessage({ type: 'error', text: error.message });
+      return;
+    }
+    setSidebarMessage({ type: 'success', text: 'Sidebar navigation updated — every user of your school will see it applied.' });
+    await refresh();
+  }
+
+  async function resetSidebarLayout() {
+    setSidebarLayout(buildEditableSidebarLayout(null, presentGroups));
+    await saveSidebarLayout(null);
   }
 
   return (
@@ -257,6 +320,74 @@ export default function Appearance() {
           <button
             onClick={resetLayout}
             disabled={layoutSaving || !layoutIsCustomized}
+            className="bg-app-surface text-app-text inline-flex items-center gap-2 px-4 py-2.5 border border-app-border text-app-text-muted hover:text-app-text disabled:opacity-40 disabled:cursor-not-allowed text-sm font-medium rounded-xl transition-colors"
+          >
+            <RotateCcw className="w-4 h-4" /> Reset to Default
+          </button>
+        </div>
+      </div>
+
+      <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">
+        <h2 className="font-semibold text-app-text flex items-center gap-2 mb-1">
+          <PanelLeft className="w-4 h-4" /> Sidebar Navigation
+        </h2>
+        <p className="text-sm text-app-text-muted mb-4">
+          Choose which sidebar sections appear, and in what order — applied for every user at your school. "System Settings" always stays put, so you can never lose access to this screen.
+        </p>
+
+        {sidebarMessage && (
+          <div className={`rounded-xl px-4 py-3 text-sm mb-4 ${sidebarMessage.type === 'success' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-600 border border-red-200'}`}>
+            {sidebarMessage.text}
+          </div>
+        )}
+
+        <div className="divide-y divide-app-border border border-app-border rounded-xl overflow-hidden mb-4">
+          {sidebarLayout.map((entry, index) => (
+            <div
+              key={entry.id}
+              className={`flex items-center gap-3 px-4 py-3 bg-app-surface ${!entry.visible ? 'opacity-50' : ''}`}
+            >
+              <div className="flex flex-col -my-1">
+                <button
+                  onClick={() => moveSidebarGroup(index, -1)}
+                  disabled={index === 0}
+                  aria-label={`Move ${entry.id} up`}
+                  className="text-app-text-muted hover:text-app-text disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  <ChevronUp className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => moveSidebarGroup(index, 1)}
+                  disabled={index === sidebarLayout.length - 1}
+                  aria-label={`Move ${entry.id} down`}
+                  className="text-app-text-muted hover:text-app-text disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+              </div>
+              <span className="flex-1 text-sm font-medium text-app-text">{entry.id}</span>
+              <button
+                onClick={() => toggleSidebarGroup(index)}
+                className="flex items-center gap-1.5 text-xs font-medium text-app-text-muted hover:text-app-text px-2.5 py-1.5 rounded-lg hover:bg-app-surface-alt transition-colors"
+              >
+                {entry.visible ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
+                {entry.visible ? 'Visible' : 'Hidden'}
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            onClick={() => saveSidebarLayout(sidebarLayout)}
+            disabled={sidebarSaving}
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-app-primary hover:opacity-90 disabled:opacity-50 text-white text-sm font-semibold rounded-xl transition-colors"
+          >
+            <Check className="w-4 h-4" /> {sidebarSaving ? 'Saving…' : 'Save Navigation'}
+          </button>
+          <button
+            onClick={resetSidebarLayout}
+            disabled={sidebarSaving || !sidebarIsCustomized}
             className="bg-app-surface text-app-text inline-flex items-center gap-2 px-4 py-2.5 border border-app-border text-app-text-muted hover:text-app-text disabled:opacity-40 disabled:cursor-not-allowed text-sm font-medium rounded-xl transition-colors"
           >
             <RotateCcw className="w-4 h-4" /> Reset to Default

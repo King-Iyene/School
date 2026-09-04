@@ -5,6 +5,7 @@ import { useTenantSettings } from '../../context/TenantContext';
 import { LogOut, X, ChevronDown, ChevronRight } from 'lucide-react';
 import { getNavItems } from './navConfig';
 import { navigate } from '../hooks/useLocation';
+import { resolveSidebarLayout } from '../../lib/sidebarLayout';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -42,7 +43,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     return acc;
   }, {} as Record<string, typeof navItems>);
 
-  const groups = Object.keys(groupedMap);
+  const groups = resolveSidebarLayout(settings.sidebar_layout, Object.keys(groupedMap));
 
   function toggleGroup(group: string) {
     setCollapsedGroups(prev => {
