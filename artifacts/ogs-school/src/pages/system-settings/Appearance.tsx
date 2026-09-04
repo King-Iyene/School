@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Palette, RotateCcw, Check, Moon, Sun } from 'lucide-react';
+import { Palette, RotateCcw, Check, Moon, Sun, LayoutGrid, Eye, EyeOff, ChevronUp, ChevronDown } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useTenantSettings } from '../../context/TenantContext';
+import { DASHBOARD_WIDGETS, resolveDashboardLayout } from '../../lib/dashboardLayout';
+import { DashboardLayoutEntry } from '../../lib/types';
 
 const DEFAULT_PRIMARY = '#2A0A5C';
 const DEFAULT_SECONDARY = '#B679F5';
@@ -44,6 +46,48 @@ export default function Appearance() {
     setPrimary(DEFAULT_PRIMARY);
     setSecondary(DEFAULT_SECONDARY);
     await save(null, null);
+  }
+
+  const [layout, setLayout] = useState<DashboardLayoutEntry[]>(() => resolveDashboardLayout(settings.dashboard_layout));
+  const [layoutSaving, setLayoutSaving] = useState(false);
+  const [layoutMessage, setLayoutMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const layoutIsCustomized = !!settings.dashboard_layout;
+
+  function moveWidget(index: number, direction: -1 | 1) {
+    const next = [...layout];
+    const target = index + direction;
+    if (target < 0 || target >= next.length) return;
+    [next[index], next[target]] = [next[target], next[index]];
+    setLayout(next);
+  }
+
+  function toggleWidget(index: number) {
+    const next = [...layout];
+    next[index] = { ...next[index], visible: !next[index].visible };
+    setLayout(next);
+  }
+
+  async function saveLayout(newLayout: DashboardLayoutEntry[] | null) {
+    if (!tenant?.id) return;
+    setLayoutSaving(true);
+    setLayoutMessage(null);
+    const { error } = await supabase
+      .from('tenant_settings')
+      .update({ dashboard_layout: newLayout })
+      .eq('tenant_id', tenant.id);
+    setLayoutSaving(false);
+    if (error) {
+      setLayoutMessage({ type: 'error', text: error.message });
+      return;
+    }
+    setLayoutMessage({ type: 'success', text: 'Dashboard layout updated — every user of your school will see it applied.' });
+    await refresh();
+  }
+
+  async function resetLayout() {
+    const defaultLayout = resolveDashboardLayout(null);
+    setLayout(defaultLayout);
+    await saveLayout(null);
   }
 
   return (
@@ -140,6 +184,80 @@ export default function Appearance() {
             <button
               onClick={reset}
               disabled={saving}
+              className="bg-app-surface text-app-text inline-flex items-center gap-2 px-4 py-2.5 border border-app-border text-app-text-muted hover:text-app-text text-sm font-medium rounded-xl transition-colors"
+            >
+              <RotateCcw className="w-4 h-4" /> Reset to Default
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">
+        <h2 className="font-semibold text-app-text flex items-center gap-2 mb-1">
+          <LayoutGrid className="w-4 h-4" /> Dashboard Layout
+        </h2>
+        <p className="text-sm text-app-text-muted mb-4">
+          Choose which sections appear on the dashboard, and in what order — applied for every user at your school.
+        </p>
+
+        {layoutMessage && (
+          <div className={`rounded-xl px-4 py-3 text-sm mb-4 ${layoutMessage.type === 'success' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-600 border border-red-200'}`}>
+            {layoutMessage.text}
+          </div>
+        )}
+
+        <div className="divide-y divide-app-border border border-app-border rounded-xl overflow-hidden mb-4">
+          {layout.map((entry, index) => {
+            const widget = DASHBOARD_WIDGETS.find(w => w.id === entry.id);
+            if (!widget) return null;
+            return (
+              <div
+                key={entry.id}
+                className={`flex items-center gap-3 px-4 py-3 bg-app-surface ${!entry.visible ? 'opacity-50' : ''}`}
+              >
+                <div className="flex flex-col -my-1">
+                  <button
+                    onClick={() => moveWidget(index, -1)}
+                    disabled={index === 0}
+                    aria-label={`Move ${widget.label} up`}
+                    className="text-app-text-muted hover:text-app-text disabled:opacity-30 disabled:cursor-not-allowed"
+                  >
+                    <ChevronUp className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => moveWidget(index, 1)}
+                    disabled={index === layout.length - 1}
+                    aria-label={`Move ${widget.label} down`}
+                    className="text-app-text-muted hover:text-app-text disabled:opacity-30 disabled:cursor-not-allowed"
+                  >
+                    <ChevronDown className="w-4 h-4" />
+                  </button>
+                </div>
+                <span className="flex-1 text-sm font-medium text-app-text">{widget.label}</span>
+                <button
+                  onClick={() => toggleWidget(index)}
+                  className="flex items-center gap-1.5 text-xs font-medium text-app-text-muted hover:text-app-text px-2.5 py-1.5 rounded-lg hover:bg-app-surface-alt transition-colors"
+                >
+                  {entry.visible ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
+                  {entry.visible ? 'Visible' : 'Hidden'}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            onClick={() => saveLayout(layout)}
+            disabled={layoutSaving}
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-app-primary hover:opacity-90 disabled:opacity-50 text-white text-sm font-semibold rounded-xl transition-colors"
+          >
+            <Check className="w-4 h-4" /> {layoutSaving ? 'Saving…' : 'Save Layout'}
+          </button>
+          {layoutIsCustomized && (
+            <button
+              onClick={resetLayout}
+              disabled={layoutSaving}
               className="bg-app-surface text-app-text inline-flex items-center gap-2 px-4 py-2.5 border border-app-border text-app-text-muted hover:text-app-text text-sm font-medium rounded-xl transition-colors"
             >
               <RotateCcw className="w-4 h-4" /> Reset to Default

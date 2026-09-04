@@ -18,6 +18,7 @@ const DEFAULT_SETTINGS: TenantSettings = {
   custom_domain: null,
   app_primary_color: null,
   app_secondary_color: null,
+  dashboard_layout: null,
   updated_at: '',
 };
 

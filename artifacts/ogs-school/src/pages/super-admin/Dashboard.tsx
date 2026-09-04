@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, ReactElement, useEffect, useState } from "react";
 import {
   Users,
   GraduationCap,
@@ -24,6 +24,7 @@ import { supabase } from "../../lib/supabase";
 import { useAuth } from "../../context/AuthContext";
 import { useTenantSettings } from "../../context/TenantContext";
 import { navigate } from "../../components/hooks/useLocation";
+import { resolveDashboardLayout } from "../../lib/dashboardLayout";
 
 interface StatsData {
   students: number;
@@ -567,58 +568,8 @@ export default function SuperAdminDashboard() {
     if (diff > 1) return `In ${diff}d`;
     return formatDate(dateStr);
   }
-
-  return (
-    <div className="space-y-6">
-      {/* Hero */}
-      <div className="relative overflow-hidden rounded-3xl border border-app-border p-6 sm:p-8" style={{ background: 'linear-gradient(135deg, color-mix(in srgb, var(--app-primary) 6%, var(--app-surface)), color-mix(in srgb, var(--app-secondary) 10%, var(--app-surface)))' }}>
-        <div className="relative flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          <div>
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-wider uppercase text-app-primary mb-3">
-              <Radio className="w-3 h-3" /> Leadership Command Console \u00b7 {settings.school_name || "School Portal"}
-            </span>
-            <h1 className="text-2xl sm:text-3xl font-bold text-app-text">
-              Welcome back{profile?.first_name ? `, ${profile.first_name}` : ""}
-            </h1>
-            <p className="text-app-text-muted mt-1.5 text-sm max-w-lg">
-              {MONTH_NAMES[new Date().getMonth()]} {new Date().getFullYear()} \u2014 {totalHeadcount.toLocaleString()} people across your school portal today.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-4">
-            {attendancePct !== null && (
-              <div className="flex items-center gap-3 bg-app-surface rounded-2xl px-4 py-3 border border-app-border">
-                <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
-                  style={{ background: `conic-gradient(var(--app-primary) ${attendancePct}%, var(--app-surface-alt) 0)` }}
-                >
-                  <span className="w-9 h-9 rounded-full bg-app-surface flex items-center justify-center text-xs text-app-text">{attendancePct}%</span>
-                </div>
-                <div>
-                  <p className="text-app-text text-sm font-semibold leading-tight">Staff Present</p>
-                  <p className="text-app-text-muted text-xs">Today's attendance</p>
-                </div>
-              </div>
-            )}
-            <div className="flex flex-col sm:flex-row gap-2">
-              <button
-                onClick={() => navigate("/notice-board")}
-                className="inline-flex items-center gap-2 px-4 py-2.5 bg-app-primary text-white text-sm font-semibold rounded-xl hover:opacity-90 transition-colors"
-              >
-                <Megaphone className="w-4 h-4" /> Notice Board
-              </button>
-              <button
-                onClick={() => navigate("/reports")}
-                className="inline-flex items-center gap-2 px-4 py-2.5 bg-app-surface text-app-text text-sm font-semibold rounded-xl hover:bg-app-surface-alt transition-colors border border-app-border"
-              >
-                <BarChart2 className="w-4 h-4" /> Reports
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Stat tiles */}
+  const dashboardSections: Record<string, ReactElement> = {
+    stats: (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {statTiles.map((tile) => {
           const Icon = tile.icon;
@@ -642,8 +593,8 @@ export default function SuperAdminDashboard() {
           );
         })}
       </div>
-
-      {/* Attendance progress + Staff Authorizations */}
+    ),
+    attendance: (
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
         <div className="lg:col-span-3 bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">
           <h2 className="text-lg font-semibold text-app-text">Today's Staff Attendance</h2>
@@ -760,7 +711,8 @@ export default function SuperAdminDashboard() {
           />
         </div>
       </div>
-
+    ),
+    financials: (
       <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-app-text">
@@ -979,7 +931,8 @@ export default function SuperAdminDashboard() {
           </div>
         </div>
       </div>
-
+    ),
+    operations: (
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         <div className="lg:col-span-3 bg-app-surface border border-app-border rounded-2xl shadow-sm overflow-hidden">
           <div className="flex items-center justify-between px-6 py-4 border-b border-app-border">
@@ -1061,7 +1014,8 @@ export default function SuperAdminDashboard() {
           )}
         </div>
       </div>
-
+    ),
+    quickdispatch: (
       <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-app-primary/10 text-app-primary flex items-center justify-center flex-shrink-0">
@@ -1093,6 +1047,64 @@ export default function SuperAdminDashboard() {
           </button>
         </div>
       </div>
+    ),
+  };
+  const resolvedLayout = resolveDashboardLayout(settings.dashboard_layout);
+
+
+  return (
+    <div className="space-y-6">
+      {/* Hero */}
+      <div className="relative overflow-hidden rounded-3xl border border-app-border p-6 sm:p-8" style={{ background: 'linear-gradient(135deg, color-mix(in srgb, var(--app-primary) 6%, var(--app-surface)), color-mix(in srgb, var(--app-secondary) 10%, var(--app-surface)))' }}>
+        <div className="relative flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div>
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-wider uppercase text-app-primary mb-3">
+              <Radio className="w-3 h-3" /> Leadership Command Console \u00b7 {settings.school_name || "School Portal"}
+            </span>
+            <h1 className="text-2xl sm:text-3xl font-bold text-app-text">
+              Welcome back{profile?.first_name ? `, ${profile.first_name}` : ""}
+            </h1>
+            <p className="text-app-text-muted mt-1.5 text-sm max-w-lg">
+              {MONTH_NAMES[new Date().getMonth()]} {new Date().getFullYear()} \u2014 {totalHeadcount.toLocaleString()} people across your school portal today.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-4">
+            {attendancePct !== null && (
+              <div className="flex items-center gap-3 bg-app-surface rounded-2xl px-4 py-3 border border-app-border">
+                <div
+                  className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
+                  style={{ background: `conic-gradient(var(--app-primary) ${attendancePct}%, var(--app-surface-alt) 0)` }}
+                >
+                  <span className="w-9 h-9 rounded-full bg-app-surface flex items-center justify-center text-xs text-app-text">{attendancePct}%</span>
+                </div>
+                <div>
+                  <p className="text-app-text text-sm font-semibold leading-tight">Staff Present</p>
+                  <p className="text-app-text-muted text-xs">Today's attendance</p>
+                </div>
+              </div>
+            )}
+            <div className="flex flex-col sm:flex-row gap-2">
+              <button
+                onClick={() => navigate("/notice-board")}
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-app-primary text-white text-sm font-semibold rounded-xl hover:opacity-90 transition-colors"
+              >
+                <Megaphone className="w-4 h-4" /> Notice Board
+              </button>
+              <button
+                onClick={() => navigate("/reports")}
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-app-surface text-app-text text-sm font-semibold rounded-xl hover:bg-app-surface-alt transition-colors border border-app-border"
+              >
+                <BarChart2 className="w-4 h-4" /> Reports
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {resolvedLayout.filter((w) => w.visible).map((w) => (
+        <Fragment key={w.id}>{dashboardSections[w.id]}</Fragment>
+      ))}
 
       {selectedAnnouncement && (
         <Modal

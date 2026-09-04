@@ -50,7 +50,14 @@ export interface TenantSettings {
   /** Enterprise-only ("white_labeling") app-shell accent override. Null = default brand theme. */
   app_primary_color: string | null;
   app_secondary_color: string | null;
+  /** Enterprise-only ("white_labeling") dashboard section order/visibility. Null = default layout. */
+  dashboard_layout: DashboardLayoutEntry[] | null;
   updated_at: string;
+}
+
+export interface DashboardLayoutEntry {
+  id: string;
+  visible: boolean;
 }
 
 export interface Profile {
