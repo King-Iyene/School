@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState, ElementType } from 'react';
-import { Building2, Users, DollarSign, Search, Save, Palette, X, TrendingUp } from 'lucide-react';
+import { Building2, Users, DollarSign, Search, Save, Palette, X, TrendingUp, LifeBuoy } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import Modal from '../../components/common/Modal';
 import Reveal from '../../components/shared/Reveal';
 import { PLAN_LABELS, PLAN_PRICES_NGN, PLAN_ORDER } from '../../lib/planFeatures';
 import type { PlanTier, TenantStatus } from '../../lib/types';
+import SupportTicketsAdmin from './SupportTicketsAdmin';
 
 interface TenantRow {
   tenant_id: string;
@@ -62,6 +63,7 @@ export default function SaasAdminDashboard() {
   const [search, setSearch] = useState('');
   const [editing, setEditing] = useState<TenantRow | null>(null);
   const [saving, setSaving] = useState(false);
+  const [tab, setTab] = useState<'tenants' | 'tickets'>('tenants');
 
   async function load() {
     setLoading(true);
@@ -135,6 +137,24 @@ export default function SaasAdminDashboard() {
           <StatTile title="Active Students (Platform-wide)" value={totalStudents.toLocaleString()} icon={Users} delay={160} />
         </div>
 
+        <div className="flex items-center gap-2 mb-4">
+          <button
+            onClick={() => setTab('tenants')}
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors ${tab === 'tenants' ? 'bg-brand-ink text-white' : 'bg-slate-100 text-app-text-muted hover:bg-slate-200'}`}
+          >
+            <Building2 className="w-4 h-4" /> Tenants
+          </button>
+          <button
+            onClick={() => setTab('tickets')}
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors ${tab === 'tickets' ? 'bg-brand-ink text-white' : 'bg-slate-100 text-app-text-muted hover:bg-slate-200'}`}
+          >
+            <LifeBuoy className="w-4 h-4" /> Support Tickets
+          </button>
+        </div>
+
+        {tab === 'tickets' && <SupportTicketsAdmin />}
+
+        {tab === 'tenants' && (
         <Reveal delay={200} className="bg-app-surface rounded-2xl border border-app-border shadow-sm">
           <div className="p-4 border-b border-app-border flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
             <div className="relative w-full sm:w-72">
@@ -222,6 +242,7 @@ export default function SaasAdminDashboard() {
             </table>
           </div>
         </Reveal>
+        )}
       </div>
 
       {editing && (

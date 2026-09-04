@@ -249,6 +249,7 @@ import Parents from './pages/student-mgmt/Parents';
 import SetPassword from './pages/auth/SetPassword';
 import MfaChallenge from './pages/auth/MfaChallenge';
 import AccountSecurity from './pages/shared/AccountSecurity';
+import SupportTickets from './pages/shared/SupportTickets';
 import Alumni from './pages/student-mgmt/Alumni';
 import ActivityLogPage from './pages/admin-section/ActivityLog';
 
@@ -464,6 +465,7 @@ function AppContent() {
 
       case '/my-profile': return <MyProfile />;
       case '/account-security': return <AccountSecurity />;
+      case '/support': return <SupportTickets />;
       case '/hr/staff-accommodation': return <StaffAccommodation />;
       case '/hr/hod-reports': return <HodReports />;
       case '/hr/committees': return <Committees />;

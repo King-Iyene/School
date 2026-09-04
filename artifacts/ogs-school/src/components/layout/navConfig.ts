@@ -1,4 +1,4 @@
-import { Sparkles, LayoutDashboard, Users, GraduationCap, BookOpen, ClipboardList, Calendar, DollarSign, Bell, Settings, School, UserCheck, BarChart2, FileText, CreditCard, BookMarked, Award, MessageCircle, BookUser, AlertCircle, Mail, MailOpen, Phone, SlidersHorizontal, ScrollText, BadgeCheck, Clock, Building, Building2, Briefcase, Receipt, TrendingUp, TrendingDown, Tag, Map, Truck, Megaphone, HardDrive, Monitor, ArrowRightLeft, Percent, Book, LayoutGrid, UserCog, CheckSquare, CalendarCheck, BarChart, Download, FolderOpen, ClipboardCheck, Globe, AtSign, MessageSquare, Umbrella, ShieldCheck, RefreshCw, Package, Store, PackagePlus, PackageCheck, ShoppingCart, ShoppingBag, Send, UserPlus, BookCopy, List, Upload, User, Activity, History, Star, Bus, Eye, Flag, Shield, Home, Palette } from 'lucide-react';
+import { Sparkles, LayoutDashboard, Users, GraduationCap, BookOpen, ClipboardList, Calendar, DollarSign, Bell, Settings, School, UserCheck, BarChart2, FileText, CreditCard, BookMarked, Award, MessageCircle, BookUser, AlertCircle, Mail, MailOpen, Phone, SlidersHorizontal, ScrollText, BadgeCheck, Clock, Building, Building2, Briefcase, Receipt, TrendingUp, TrendingDown, Tag, Map, Truck, Megaphone, HardDrive, Monitor, ArrowRightLeft, Percent, Book, LayoutGrid, UserCog, CheckSquare, CalendarCheck, BarChart, Download, FolderOpen, ClipboardCheck, Globe, AtSign, MessageSquare, Umbrella, ShieldCheck, RefreshCw, Package, Store, PackagePlus, PackageCheck, ShoppingCart, ShoppingBag, Send, UserPlus, BookCopy, List, Upload, User, Activity, History, Star, Bus, Eye, Flag, Shield, Home, Palette, LifeBuoy } from 'lucide-react';
 import { UserRole, PlanTier } from '../../lib/types';
 import { Feature, isFeatureEnabledForPlan } from '../../lib/planFeatures';
 
@@ -246,6 +246,7 @@ const superAdminNav: NavItem[] = [
   { label: 'Payment Methods',      path: '/finance/payment-methods',   icon: CreditCard,   group: 'System Settings' },
   { label: 'Backup',               path: '/backup',                    icon: HardDrive,    group: 'System Settings' },
   { label: 'Update System',        path: '/system/update',             icon: RefreshCw,    group: 'System Settings' },
+  { label: 'Support Tickets',      path: '/support',                   icon: LifeBuoy,     group: 'System Settings' },
 ];
 
 const teacherNav: NavItem[] = [
@@ -506,6 +507,7 @@ const principalNav: NavItem[] = [
   { label: 'School Setup', path: '/school-setup',   icon: School,       group: 'System Settings' },
   { label: 'Holiday',      path: '/system/holiday', icon: Umbrella,     group: 'System Settings' },
   { label: 'Weekend',      path: '/system/weekend', icon: CalendarCheck, group: 'System Settings' },
+  { label: 'Support Tickets', path: '/support',     icon: LifeBuoy,     group: 'System Settings' },
 ];
 
 const headTeacherNav: NavItem[] = [
