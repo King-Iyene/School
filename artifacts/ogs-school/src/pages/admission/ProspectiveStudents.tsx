@@ -5,6 +5,7 @@ import {
   ClipboardList, GraduationCap, Users, ChevronRight, Calendar,
   FileText, Star, AlertCircle, X, Printer,
 } from 'lucide-react';
+import { createPortal } from 'react-dom';
 import { printAdmissionLetter } from '../../components/print/AdmissionLetterPrint';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
@@ -756,8 +757,8 @@ export default function ProspectiveStudents() {
       ══════════════════════════════════════════════════════════════════ */}
 
       {/* ── Detail view ──────────────────────────────────────────────────── */}
-      {viewing && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+      {viewing && createPortal(
+<div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
           <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="sticky top-0 bg-app-surface border-b border-app-border px-5 py-4">
               <div className="flex items-start justify-between gap-3">
@@ -855,12 +856,13 @@ export default function ProspectiveStudents() {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
 
       {/* ── Exam Result Modal ─────────────────────────────────────────────── */}
-      {examModal && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+      {examModal && createPortal(
+<div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
           <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-md">
             <div className="flex items-center justify-between p-5 border-b border-app-border">
               <div>
@@ -905,12 +907,13 @@ export default function ProspectiveStudents() {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
 
       {/* ── Interview Modal ───────────────────────────────────────────────── */}
-      {interviewModal && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+      {interviewModal && createPortal(
+<div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
           <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-md">
             <div className="flex items-center justify-between p-5 border-b border-app-border">
               <div>
@@ -966,12 +969,13 @@ export default function ProspectiveStudents() {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
 
       {/* ── Add / Edit Prospect Modal ─────────────────────────────────────── */}
-      {showForm && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+      {showForm && createPortal(
+<div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
           <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between p-5 border-b border-app-border sticky top-0 bg-app-surface">
               <h3 className="font-bold text-app-text">{editingId?'Edit Applicant':'Add New Applicant'}</h3>
@@ -1031,12 +1035,13 @@ export default function ProspectiveStudents() {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
 
       {/* ── Admit Student Modal ───────────────────────────────────────────── */}
-      {admitting && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+      {admitting && createPortal(
+<div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
           <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between p-5 border-b border-app-border sticky top-0 bg-app-surface">
               <div><h3 className="font-bold text-app-text">Admit Student</h3><p className="text-sm text-app-text-muted">{admitting.first_name} {admitting.last_name}</p></div>
@@ -1108,7 +1113,8 @@ export default function ProspectiveStudents() {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
     </div>
   );

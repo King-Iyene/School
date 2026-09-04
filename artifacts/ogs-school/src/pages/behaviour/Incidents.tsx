@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import { Plus, Pencil, Trash2, X, AlertTriangle, ShieldAlert, Shield } from 'lucide-react';
+import { createPortal } from 'react-dom';
 
 interface Incident {
   id: string;
@@ -191,8 +192,8 @@ export default function Incidents() {
         )}
       </div>
 
-      {modal.open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      {modal.open && createPortal(
+<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-md mx-4 p-6">
             <div className="flex items-center justify-between mb-5">
               <h2 className="text-lg font-semibold text-app-text">
@@ -268,11 +269,12 @@ export default function Incidents() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
 
-      {deleteId && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      {deleteId && createPortal(
+<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-sm mx-4 p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 bg-red-100 rounded-full">
@@ -296,7 +298,8 @@ export default function Incidents() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
     </div>
   );

@@ -3,6 +3,7 @@ import { Plus, Users, Calendar, MapPin, CreditCard as Edit2, Trash2, Eye, Award,
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import { navigate } from '../../components/hooks/useLocation';
+import { createPortal } from 'react-dom';
 
 const CATEGORIES = ['All', 'STEM', 'Arts & Culture', 'Agriculture', 'Sports', 'Academic', 'Religious', 'Social', 'general'];
 
@@ -314,8 +315,8 @@ export default function Clubs() {
       )}
 
       {/* Add/Edit Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      {showModal && createPortal(
+<div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-lg">
             <div className="p-6 border-b border-app-border">
               <h2 className="text-lg font-semibold text-app-text">{editing ? 'Edit Club' : 'Add New Club'}</h2>
@@ -401,12 +402,13 @@ export default function Clubs() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
 
       {/* Delete Confirm */}
-      {deleteTarget && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      {deleteTarget && createPortal(
+<div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-sm p-6 text-center">
             <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <Trash2 className="w-6 h-6 text-red-600" />
@@ -418,7 +420,8 @@ export default function Clubs() {
               <button onClick={handleDelete} className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-medium">Delete</button>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
     </div>
   );

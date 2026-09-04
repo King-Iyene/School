@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { X, Phone, Mail, MapPin, BookOpen, Tag, Calendar, MessageSquare, Plus, Trash2, CreditCard as Edit2, Clock } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { createPortal } from 'react-dom';
 
 interface Query {
   id: string;
@@ -76,8 +77,8 @@ export default function AdmissionQueryDetail({ query, onClose, onEdit, onDelete,
     ? new Date(query.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
     : new Date(query.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
 
-  return (
-    <div className="fixed inset-0 z-50 flex justify-end" onClick={onClose}>
+  return createPortal(
+<div className="fixed inset-0 z-50 flex justify-end" onClick={onClose}>
       <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" />
       <div
         className="relative w-full max-w-lg bg-app-surface h-full shadow-2xl flex flex-col overflow-hidden"
@@ -209,7 +210,8 @@ export default function AdmissionQueryDetail({ query, onClose, onEdit, onDelete,
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+      document.body
   );
 }
 

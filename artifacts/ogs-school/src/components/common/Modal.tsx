@@ -1,4 +1,5 @@
 import { ReactNode, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 
 interface ModalProps {
@@ -25,7 +26,14 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' }:
 
   if (!isOpen) return null;
 
-  return (
+  // Rendered via a portal straight onto <body> rather than in place — nested
+  // deep inside the app shell, a `fixed inset-0` overlay can end up scoped to
+  // whichever ancestor happens to introduce a transform/filter/etc (and thus
+  // its own containing block) instead of the true viewport, leaving a gap at
+  // an edge instead of covering the whole screen. A portal sidesteps that
+  // entirely: the overlay is a direct child of <body>, so `fixed` always
+  // resolves against the real viewport no matter where Modal is used from.
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
       <div className={`relative bg-app-surface rounded-2xl shadow-2xl w-full ${sizeMap[size]} max-h-[90vh] flex flex-col`}>
@@ -37,6 +45,7 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' }:
         </div>
         <div className="overflow-y-auto flex-1 p-5">{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Shield, Plus, Search, Trash2, CreditCard as Edit2, User, ChevronDown, Star } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { createPortal } from 'react-dom';
 
 const GENDER_BADGE: Record<string, string> = {
   boy:  'bg-blue-100 text-blue-700',
@@ -314,8 +315,8 @@ export default function Prefects() {
       )}
 
       {/* Assign Student Modal */}
-      {showAssignModal && assigningPosition && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      {showAssignModal && assigningPosition && createPortal(
+<div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-md">
             <div className="p-6 border-b border-app-border">
               <h2 className="text-lg font-semibold text-app-text">
@@ -378,12 +379,13 @@ export default function Prefects() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
 
       {/* Add/Edit Position Modal */}
-      {showAddPos && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      {showAddPos && createPortal(
+<div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-sm p-6">
             <h2 className="text-lg font-semibold text-app-text mb-5">{editingPos ? 'Edit Position' : 'Add New Position'}</h2>
             <div className="space-y-4">
@@ -423,7 +425,8 @@ export default function Prefects() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
     </div>
   );

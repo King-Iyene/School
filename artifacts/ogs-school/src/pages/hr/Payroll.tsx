@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useTenantSettings } from '../../context/TenantContext';
 import type { TenantSettings } from '../../lib/types';
 import Modal from '../../components/common/Modal';
+import { createPortal } from 'react-dom';
 
 interface StaffProfile {
   id: string;
@@ -188,8 +189,8 @@ function SalaryVoucher({ record, staff, settings, onClose }: VoucherProps) {
     setTimeout(() => { win.print(); }, 350);
   };
 
-  return (
-    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={onClose}>
+  return createPortal(
+<div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={onClose}>
       <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-lg max-h-[92vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between px-5 py-4 border-b border-app-border sticky top-0 bg-app-surface rounded-t-2xl">
           <h2 className="text-base font-bold text-app-text">Salary Voucher</h2>
@@ -274,7 +275,8 @@ function SalaryVoucher({ record, staff, settings, onClose }: VoucherProps) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+      document.body
   );
 }
 
