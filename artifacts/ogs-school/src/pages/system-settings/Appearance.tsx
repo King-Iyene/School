@@ -132,7 +132,7 @@ export default function Appearance() {
           <button
             onClick={() => save(primary, secondary)}
             disabled={saving}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-app-primary disabled:opacity-50 text-white text-sm font-semibold rounded-xl transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-app-primary hover:opacity-90 disabled:opacity-50 text-white text-sm font-semibold rounded-xl transition-colors"
           >
             <Check className="w-4 h-4" /> {saving ? 'Saving…' : 'Save Changes'}
           </button>

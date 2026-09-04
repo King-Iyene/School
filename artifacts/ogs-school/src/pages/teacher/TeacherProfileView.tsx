@@ -412,7 +412,7 @@ export default function TeacherProfileView() {
           <div className="flex gap-1 overflow-x-auto pb-1">
             {TABS.map(t => (
               <button key={t.key} onClick={() => handleTabChange(t.key)}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors whitespace-nowrap ${tab === t.key ? 'bg-slate-900 text-white' : 'text-app-text-muted hover:bg-slate-100'}`}>
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors whitespace-nowrap ${tab === t.key ? 'bg-app-primary text-white' : 'text-app-text-muted hover:bg-app-surface-alt'}`}>
                 <t.icon className="w-3.5 h-3.5" />{t.label}
               </button>
             ))}

@@ -181,7 +181,7 @@ export default function ExamAttendance() {
                 <button
                   onClick={() => handleSaveAll(true)}
                   disabled={saving || locking}
-                  className="flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all shadow-md shadow-slate-200 disabled:opacity-50"
+                  className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all shadow-md disabled:opacity-50"
                 >
                   <Lock size={16} />
                   {locking ? 'Locking...' : 'Submit & Lock'}

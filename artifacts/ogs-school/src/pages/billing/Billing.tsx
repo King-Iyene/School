@@ -193,7 +193,7 @@ export default function Billing() {
         <button
           onClick={updateCard}
           disabled={cardBusy}
-          className="px-5 py-2.5 bg-slate-900 hover:bg-brand-indigo disabled:opacity-50 text-white text-sm font-semibold rounded-xl transition-colors"
+          className="px-5 py-2.5 bg-app-primary hover:opacity-90 disabled:opacity-50 text-white text-sm font-semibold rounded-xl transition-colors"
         >
           {cardBusy ? 'Opening secure payment…' : hasCard ? 'Update Card' : 'Add Card'}
         </button>
