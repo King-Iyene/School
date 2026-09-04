@@ -13,6 +13,10 @@ interface AuthContextType {
   refreshProfile: () => Promise<void>;
   passwordRecovery: boolean;
   clearPasswordRecovery: () => void;
+  /** True once a password sign-in succeeds but the session still needs a TOTP code before it's fully authenticated. */
+  mfaRequired: boolean;
+  verifyMfa: (code: string) => Promise<{ error: Error | null }>;
+  cancelMfaChallenge: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -28,6 +32,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [passwordRecovery, setPasswordRecovery] = useState(() =>
     typeof window !== 'undefined' && window.location.hash.includes('type=recovery')
   );
+  const [mfaRequired, setMfaRequired] = useState(false);
+  const [mfaFactorId, setMfaFactorId] = useState<string | null>(null);
 
   // Safety net: never hang on the loading screen for more than 8 seconds
   useEffect(() => {
@@ -53,12 +59,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (user) await fetchProfile(user.id);
   };
 
+  // A password sign-in leaves the session at aal1 even when the user has an
+  // enrolled TOTP factor — Supabase only elevates to aal2 after mfa.verify().
+  // Detect that gap here so the app can hold the user on a code-entry screen
+  // instead of letting them straight into the dashboard on password alone.
+  const checkMfaStatus = async () => {
+    const { data } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+    if (data && data.currentLevel === 'aal1' && data.nextLevel === 'aal2') {
+      const { data: factorsData } = await supabase.auth.mfa.listFactors();
+      const factor = factorsData?.totp?.find(f => f.status === 'verified') ?? factorsData?.totp?.[0];
+      setMfaFactorId(factor?.id ?? null);
+      setMfaRequired(true);
+    } else {
+      setMfaRequired(false);
+      setMfaFactorId(null);
+    }
+  };
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
       if (session?.user) {
-        fetchProfile(session.user.id).finally(() => setLoading(false));
+        Promise.all([fetchProfile(session.user.id), checkMfaStatus()]).finally(() => setLoading(false));
       } else {
         setLoading(false);
       }
@@ -80,11 +103,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           if (event === 'SIGNED_IN') {
             setLoading(true);
           }
-          await fetchProfile(session.user.id).catch(() => {});
+          await Promise.all([
+            fetchProfile(session.user.id).catch(() => {}),
+            checkMfaStatus().catch(() => {}),
+          ]);
           setLoading(false);
         })();
       } else if (event === 'SIGNED_OUT') {
         setProfile(null);
+        setMfaRequired(false);
+        setMfaFactorId(null);
         setLoading(false);
       }
     });
@@ -112,6 +140,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signOut = async () => {
     await supabase.auth.signOut();
     setProfile(null);
+    setMfaRequired(false);
+    setMfaFactorId(null);
+  };
+
+  const verifyMfa = async (code: string) => {
+    if (!mfaFactorId) {
+      return { error: new Error('No two-factor authentication method found on this account. Please contact your administrator.') };
+    }
+    const { data: challenge, error: challengeErr } = await supabase.auth.mfa.challenge({ factorId: mfaFactorId });
+    if (challengeErr) return { error: challengeErr };
+    const { error: verifyErr } = await supabase.auth.mfa.verify({
+      factorId: mfaFactorId,
+      challengeId: challenge.id,
+      code,
+    });
+    if (verifyErr) return { error: verifyErr };
+    setMfaRequired(false);
+    return { error: null };
+  };
+
+  const cancelMfaChallenge = async () => {
+    await signOut();
   };
 
   const contextValue = useMemo(() => ({
@@ -123,8 +173,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     signOut,
     refreshProfile,
     passwordRecovery,
-    clearPasswordRecovery: () => setPasswordRecovery(false)
-  }), [user, session, profile, loading, passwordRecovery]);
+    clearPasswordRecovery: () => setPasswordRecovery(false),
+    mfaRequired,
+    verifyMfa,
+    cancelMfaChallenge,
+  }), [user, session, profile, loading, passwordRecovery, mfaRequired, mfaFactorId]);
 
   return (
     <AuthContext.Provider value={contextValue}>

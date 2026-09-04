@@ -247,11 +247,13 @@ import ClubDetail from './pages/clubs/ClubDetail';
 import Prefects from './pages/student-mgmt/Prefects';
 import Parents from './pages/student-mgmt/Parents';
 import SetPassword from './pages/auth/SetPassword';
+import MfaChallenge from './pages/auth/MfaChallenge';
+import AccountSecurity from './pages/shared/AccountSecurity';
 import Alumni from './pages/student-mgmt/Alumni';
 import ActivityLogPage from './pages/admin-section/ActivityLog';
 
 function AppContent() {
-  const { user, profile, loading, signOut, passwordRecovery } = useAuth();
+  const { user, profile, loading, signOut, passwordRecovery, mfaRequired } = useAuth();
   const { tenant } = useTenantSettings();
   const path = useLocation();
 
@@ -285,6 +287,10 @@ function AppContent() {
 
   if (passwordRecovery) {
     return <SetPassword />;
+  }
+
+  if (mfaRequired) {
+    return <MfaChallenge />;
   }
 
   if (!user || !profile) {
@@ -457,6 +463,7 @@ function AppContent() {
       case '/inventory/issue-item': return <IssueItem />;
 
       case '/my-profile': return <MyProfile />;
+      case '/account-security': return <AccountSecurity />;
       case '/hr/staff-accommodation': return <StaffAccommodation />;
       case '/hr/hod-reports': return <HodReports />;
       case '/hr/committees': return <Committees />;

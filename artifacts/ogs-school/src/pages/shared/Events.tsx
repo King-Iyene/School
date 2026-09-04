@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Plus, Calendar as CalIcon, Trash2 } from 'lucide-react';
+import { Plus, Calendar as CalIcon, Trash2, Download } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { useTenantSettings } from '../../context/TenantContext';
 import Modal from '../../components/common/Modal';
+import { downloadEventICS, downloadEventsICS } from '../../lib/ics';
 
 const INPUT = 'bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30';
 
@@ -42,6 +44,8 @@ const emptyForm = {
 
 export default function Events() {
   const { profile } = useAuth();
+  const { settings } = useTenantSettings();
+  const school_name = settings.school_name;
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -111,14 +115,24 @@ export default function Events() {
           <h2 className="text-xl font-bold text-app-text">School Events</h2>
           <p className="text-app-text-muted text-sm">Calendar of academic and school activities</p>
         </div>
-        {canCreate && (
-          <button
-            onClick={openAdd}
-            className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm"
-          >
-            <Plus className="w-4 h-4" /> Add Event
-          </button>
-        )}
+        <div className="flex items-center gap-2">
+          {upcoming.length > 0 && (
+            <button
+              onClick={() => downloadEventsICS(upcoming, `${school_name} Events`)}
+              className="flex items-center gap-2 bg-app-surface text-app-text border border-app-border hover:bg-app-surface-alt px-4 py-2.5 rounded-xl text-sm font-medium transition-colors"
+            >
+              <Download className="w-4 h-4" /> Export to Calendar
+            </button>
+          )}
+          {canCreate && (
+            <button
+              onClick={openAdd}
+              className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm"
+            >
+              <Plus className="w-4 h-4" /> Add Event
+            </button>
+          )}
+        </div>
       </div>
 
       {loading ? (
@@ -140,7 +154,7 @@ export default function Events() {
               </div>
               <div className="divide-y divide-app-border">
                 {upcoming.map(ev => (
-                  <EventRow key={ev.id} ev={ev} canDelete={canCreate} onDelete={() => handleDelete(ev.id)} />
+                  <EventRow key={ev.id} ev={ev} canDelete={canCreate} onDelete={() => handleDelete(ev.id)} schoolName={school_name} />
                 ))}
               </div>
             </div>
@@ -257,7 +271,7 @@ export default function Events() {
   );
 }
 
-function EventRow({ ev, canDelete, onDelete }: { ev: EventItem; canDelete: boolean; onDelete: () => void }) {
+function EventRow({ ev, canDelete, onDelete, schoolName }: { ev: EventItem; canDelete: boolean; onDelete: () => void; schoolName?: string }) {
   const d = new Date(ev.event_date);
   const color = EVENT_TYPES.find(t => t.value === ev.event_type)?.color ?? 'bg-slate-100 text-app-text-muted';
   return (
@@ -277,6 +291,13 @@ function EventRow({ ev, canDelete, onDelete }: { ev: EventItem; canDelete: boole
           <p className="text-xs text-app-text-muted mt-0.5">{ev.start_time}{ev.end_time ? ` — ${ev.end_time}` : ''}</p>
         )}
       </div>
+      <button
+        onClick={() => downloadEventICS(ev, schoolName)}
+        title="Add to calendar"
+        className="p-1.5 text-app-text-muted hover:text-app-text hover:bg-app-surface-alt rounded-lg transition-colors flex-shrink-0"
+      >
+        <Download className="w-4 h-4" />
+      </button>
       {canDelete && (
         <button onClick={onDelete} className="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors flex-shrink-0">
           <Trash2 className="w-4 h-4" />
