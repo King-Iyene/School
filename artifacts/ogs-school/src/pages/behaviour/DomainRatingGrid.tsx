@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import { Save, CheckCircle, AlertCircle, Settings, Plus, Trash2, Users, User } from 'lucide-react';
+import { createPortal } from 'react-dom';
 
 interface Skill {
   id: string;
@@ -463,8 +464,8 @@ export default function DomainRatingGrid({ domain, title }: Props) {
         </div>
       )}
 
-      {showSkillModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      {showSkillModal && createPortal(
+<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
             <div className="px-5 py-4 border-b border-app-border flex items-center justify-between">
               <h2 className="text-base font-semibold text-app-text">Manage {title} Skills</h2>
@@ -506,7 +507,8 @@ export default function DomainRatingGrid({ domain, title }: Props) {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
     </div>
   );

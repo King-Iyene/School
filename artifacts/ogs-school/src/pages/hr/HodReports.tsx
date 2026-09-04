@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 import { Plus, FileText, AlertCircle, Copy, CheckCircle, Eye, X, Upload, Paperclip, Download } from 'lucide-react';
+import { createPortal } from 'react-dom';
 
 const SQL_SETUP = `-- 1. Run in Supabase SQL Editor:
 CREATE TABLE IF NOT EXISTS hod_reports (
@@ -362,8 +363,8 @@ export default function HodReports() {
       </Modal>
 
       {/* ── View Report Modal ────────────────────────────────────────────── */}
-      {viewReport && (
-        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setViewReport(null)}>
+      {viewReport && createPortal(
+<div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setViewReport(null)}>
           <div className="bg-app-surface rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between p-5 border-b border-app-border">
               <div>
@@ -413,7 +414,8 @@ export default function HodReports() {
               )}
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
     </div>
   );

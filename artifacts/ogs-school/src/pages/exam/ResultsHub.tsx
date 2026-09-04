@@ -6,6 +6,7 @@ import { getOverallRemark } from '../../lib/grading';
 import { useAuth } from '../../context/AuthContext';
 import StudentReportPrint from '../../components/print/StudentReportPrint';
 import ClassReportsPrint from '../../components/print/ClassReportsPrint';
+import { createPortal } from 'react-dom';
 
 interface FilterOption { id: string; name: string; }
 
@@ -584,8 +585,8 @@ function TermSettingsModal({ schoolId, classId, termId, yearId, onClose }: TermS
     onClose();
   }
 
-  return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  return createPortal(
+<div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
       <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-md">
         <div className="flex items-center justify-between px-5 py-4 border-b border-app-border">
           <h3 className="font-bold text-app-text">Class Term Settings</h3>
@@ -621,7 +622,8 @@ function TermSettingsModal({ schoolId, classId, termId, yearId, onClose }: TermS
           </div>
         )}
       </div>
-    </div>
+    </div>,
+      document.body
   );
 }
 
@@ -699,8 +701,8 @@ function StudentCommentsModal({ schoolId, classId, termId, yearId, studentId, st
     onClose();
   }
 
-  return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  return createPortal(
+<div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
       <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between px-5 py-4 border-b border-app-border sticky top-0 bg-app-surface">
           <div>
@@ -774,6 +776,7 @@ function StudentCommentsModal({ schoolId, classId, termId, yearId, studentId, st
           </div>
         )}
       </div>
-    </div>
+    </div>,
+      document.body
   );
 }

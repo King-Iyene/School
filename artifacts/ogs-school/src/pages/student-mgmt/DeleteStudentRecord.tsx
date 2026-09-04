@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import { Search, Trash2, AlertTriangle, UserX, RefreshCw, CheckCircle } from 'lucide-react';
+import { createPortal } from 'react-dom';
 
 interface StudentProfile {
   id: string;
@@ -212,8 +213,8 @@ const DeleteStudentRecord: React.FC = () => {
         </div>
       </div>
 
-      {showConfirm && selectedStudent && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4">
+      {showConfirm && selectedStudent && createPortal(
+<div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4">
           <div className="bg-app-surface rounded-xl shadow-xl p-6 max-w-md w-full">
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-red-100 p-2 rounded-full">
@@ -252,7 +253,8 @@ const DeleteStudentRecord: React.FC = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
     </div>
   );

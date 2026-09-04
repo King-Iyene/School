@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { User, Phone, Mail, MapPin, Calendar, Droplet, BookOpen, GraduationCap, CreditCard as Edit2, X, Save } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import { createPortal } from 'react-dom';
 
 export default function StudentProfile() {
   const { profile } = useAuth();
@@ -240,8 +241,8 @@ export default function StudentProfile() {
         </div>
       </div>
 
-      {editOpen && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+      {editOpen && createPortal(
+<div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
           <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-md">
             <div className="flex items-center justify-between p-5 border-b border-app-border">
               <h3 className="font-semibold text-app-text">Edit Profile</h3>
@@ -296,7 +297,8 @@ export default function StudentProfile() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
     </div>
   );

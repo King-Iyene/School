@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import { Users, AlertTriangle, Trash2, RefreshCw } from 'lucide-react';
+import { createPortal } from 'react-dom';
 
 interface EnrollmentRow {
   student_id: string;
@@ -251,8 +252,8 @@ const MultiClassStudent: React.FC = () => {
         )}
       </div>
 
-      {confirmRemove && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4">
+      {confirmRemove && createPortal(
+<div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4">
           <div className="bg-app-surface rounded-xl shadow-xl p-6 max-w-sm w-full">
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-red-100 p-2 rounded-full">
@@ -278,7 +279,8 @@ const MultiClassStudent: React.FC = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
     </div>
   );

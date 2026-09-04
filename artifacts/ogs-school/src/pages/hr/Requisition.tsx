@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useTenantSettings } from '../../context/TenantContext';
 import { Printer, Plus, X, CheckCircle, XCircle, Banknote, Upload, FileText, ChevronDown } from 'lucide-react';
 import { sendWebPush } from '../../hooks/usePushSubscription';
+import { createPortal } from 'react-dom';
 
 interface Requisition {
   id: string;
@@ -882,8 +883,8 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
       )}
 
       {/* Detail / Action Modal */}
-      {detailReq && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={() => setDetailReq(null)}>
+      {detailReq && createPortal(
+<div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={() => setDetailReq(null)}>
           <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between px-5 py-4 border-b border-app-border sticky top-0 bg-app-surface rounded-t-2xl z-10">
               <h2 className="text-base font-bold text-app-text">Requisition Detail</h2>
@@ -1136,7 +1137,8 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
               )}
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
     </div>
   );

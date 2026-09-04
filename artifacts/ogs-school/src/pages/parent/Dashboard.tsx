@@ -5,6 +5,7 @@ import DashboardCalendar from '../../components/dashboard/DashboardCalendar';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import { navigate } from '../../components/hooks/useLocation';
+import { createPortal } from 'react-dom';
 
 interface Child {
   id: string;
@@ -273,8 +274,8 @@ export default function ParentDashboard() {
       </div>
 
       {/* Link Child Modal */}
-      {showLinkModal && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+      {showLinkModal && createPortal(
+<div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-md">
             <div className="flex items-center justify-between p-5 border-b border-app-border">
               <div>
@@ -385,7 +386,8 @@ export default function ParentDashboard() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
     </div>
   );

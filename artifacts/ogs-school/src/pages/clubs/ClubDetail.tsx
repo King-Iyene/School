@@ -3,6 +3,7 @@ import { ArrowLeft, Plus, Trash2, UserCheck, Users, CreditCard as Edit2, Search,
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import { navigate, getSearchParams } from '../../components/hooks/useLocation';
+import { createPortal } from 'react-dom';
 
 function getClubIdFromUrl() {
   const params = getSearchParams();
@@ -461,8 +462,8 @@ export default function ClubDetail() {
       )}
 
       {/* Add Member Modal */}
-      {showAddMember && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      {showAddMember && createPortal(
+<div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-md">
             <div className="p-6 border-b border-app-border">
               <h2 className="text-lg font-semibold text-app-text">Add Club Member</h2>
@@ -521,12 +522,13 @@ export default function ClubDetail() {
               <button onClick={() => { setShowAddMember(false); setStudentSearch(''); setSearchResults([]); }} className="px-4 py-2 text-app-text-muted hover:bg-app-surface-alt rounded-lg transition-colors text-sm">Close</button>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
 
       {/* Add Teacher Modal */}
-      {showAddTeacher && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      {showAddTeacher && createPortal(
+<div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-md">
             <div className="p-6 border-b border-app-border">
               <h2 className="text-lg font-semibold text-app-text">Assign Patron / Advisor</h2>
@@ -572,12 +574,13 @@ export default function ClubDetail() {
               <button onClick={() => { setShowAddTeacher(false); setTeacherSearch(''); setTeacherResults([]); }} className="px-4 py-2 text-app-text-muted hover:bg-app-surface-alt rounded-lg transition-colors text-sm">Close</button>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
 
       {/* Edit Role Modal */}
-      {editingMember && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      {editingMember && createPortal(
+<div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-app-surface rounded-2xl shadow-xl w-full max-w-sm p-6">
             <h2 className="text-lg font-semibold text-app-text mb-4">Change Role</h2>
             <p className="text-sm text-app-text-muted mb-4">{editingMember.student_name}</p>
@@ -593,7 +596,8 @@ export default function ClubDetail() {
               <button onClick={saveEditRole} className="flex-1 px-4 py-2 bg-app-primary text-white rounded-lg hover:opacity-90 text-sm font-medium">Save</button>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
     </div>
   );

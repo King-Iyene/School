@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom';
 /*
  * ── One-time Supabase setup — paste into SQL Editor ─────────────────────────
  *
@@ -1024,8 +1025,8 @@ export default function StaffAssessment() {
         )
       )}
 
-      {initiateModalOpen && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+      {initiateModalOpen && createPortal(
+<div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-app-surface rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-5">
             <div className="flex items-center justify-between">
               <div>
@@ -1086,11 +1087,12 @@ export default function StaffAssessment() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+      document.body
       )}
 
-      {reviewTarget && (
-        <div className="fixed inset-0 bg-black/50 z-50 overflow-y-auto flex justify-end">
+      {reviewTarget && createPortal(
+<div className="fixed inset-0 bg-black/50 z-50 overflow-y-auto flex justify-end">
           <div className="bg-app-surface w-full max-w-2xl min-h-full shadow-2xl flex flex-col">
             <div className="flex items-center justify-between px-6 py-4 border-b border-app-border sticky top-0 bg-app-surface z-10">
               <div>
@@ -1357,7 +1359,8 @@ export default function StaffAssessment() {
               </div>
             )}
           </div>
-        </div>
+        </div>,
+      document.body
       )}
     </div>
   );
