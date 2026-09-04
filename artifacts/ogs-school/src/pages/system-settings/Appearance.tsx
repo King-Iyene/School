@@ -254,15 +254,13 @@ export default function Appearance() {
           >
             <Check className="w-4 h-4" /> {layoutSaving ? 'Saving…' : 'Save Layout'}
           </button>
-          {layoutIsCustomized && (
-            <button
-              onClick={resetLayout}
-              disabled={layoutSaving}
-              className="bg-app-surface text-app-text inline-flex items-center gap-2 px-4 py-2.5 border border-app-border text-app-text-muted hover:text-app-text text-sm font-medium rounded-xl transition-colors"
-            >
-              <RotateCcw className="w-4 h-4" /> Reset to Default
-            </button>
-          )}
+          <button
+            onClick={resetLayout}
+            disabled={layoutSaving || !layoutIsCustomized}
+            className="bg-app-surface text-app-text inline-flex items-center gap-2 px-4 py-2.5 border border-app-border text-app-text-muted hover:text-app-text disabled:opacity-40 disabled:cursor-not-allowed text-sm font-medium rounded-xl transition-colors"
+          >
+            <RotateCcw className="w-4 h-4" /> Reset to Default
+          </button>
         </div>
       </div>
 
