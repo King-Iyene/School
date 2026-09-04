@@ -1,4 +1,4 @@
-import { Fragment, ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import {
   Users,
   GraduationCap,
@@ -24,7 +24,7 @@ import { supabase } from "../../lib/supabase";
 import { useAuth } from "../../context/AuthContext";
 import { useTenantSettings } from "../../context/TenantContext";
 import { navigate } from "../../components/hooks/useLocation";
-import { resolveDashboardLayout } from "../../lib/dashboardLayout";
+import { DASHBOARD_WIDGETS, resolveDashboardLayout, SPAN_CLASS } from "../../lib/dashboardLayout";
 
 interface StatsData {
   students: number;
@@ -569,148 +569,146 @@ export default function SuperAdminDashboard() {
     return formatDate(dateStr);
   }
   const dashboardSections: Record<string, ReactElement> = {
-    stats: (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {statTiles.map((tile) => {
-          const Icon = tile.icon;
-          const pct = totalHeadcount > 0 ? Math.round((tile.value / totalHeadcount) * 100) : 0;
-          return (
-            <div key={tile.label} className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-5">
-              <div className="flex items-start justify-between">
-                <span className="text-xs font-semibold text-app-text-muted uppercase tracking-wide">{tile.label}</span>
-                <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${tile.color}1a` }}>
-                  <Icon className="w-4.5 h-4.5" style={{ color: tile.color }} />
-                </div>
+    ...Object.fromEntries(
+      statTiles.map((tile) => {
+        const Icon = tile.icon;
+        const pct = totalHeadcount > 0 ? Math.round((tile.value / totalHeadcount) * 100) : 0;
+        return [
+          `stat-${tile.label.toLowerCase()}`,
+          <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-5 h-full">
+            <div className="flex items-start justify-between">
+              <span className="text-xs font-semibold text-app-text-muted uppercase tracking-wide">{tile.label}</span>
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${tile.color}1a` }}>
+                <Icon className="w-4.5 h-4.5" style={{ color: tile.color }} />
               </div>
-              <div className="text-3xl font-bold text-app-text mt-3">
-                {loadingStats ? "\u2014" : tile.value.toLocaleString()}
-              </div>
-              <div className="mt-3 h-1.5 rounded-full bg-app-surface-alt overflow-hidden">
-                <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: tile.color }} />
-              </div>
-              <p className="text-xs text-app-text-muted mt-1.5">{pct}% of total headcount</p>
             </div>
-          );
-        })}
+            <div className="text-3xl font-bold text-app-text mt-3">
+              {loadingStats ? "\u2014" : tile.value.toLocaleString()}
+            </div>
+            <div className="mt-3 h-1.5 rounded-full bg-app-surface-alt overflow-hidden">
+              <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: tile.color }} />
+            </div>
+            <p className="text-xs text-app-text-muted mt-1.5">{pct}% of total headcount</p>
+          </div>,
+        ] as const;
+      })
+    ),
+    "attendance-progress": (
+      <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-6 h-full">
+        <h2 className="text-lg font-semibold text-app-text">Today's Staff Attendance</h2>
+        <p className="text-sm text-app-text-muted mt-0.5 mb-5">Live check-ins vs. total staff on record today.</p>
+        {loadingAttendance ? (
+          <div className="text-sm text-app-text-muted">Loading attendance data...</div>
+        ) : totalStaffMarked === 0 ? (
+          <div className="text-sm text-app-text-muted">No attendance recorded for today yet.</div>
+        ) : (
+          <div className="space-y-5">
+            {attendanceRows.map((row) => {
+              const pct = Math.round((row.value / totalStaffMarked) * 100);
+              return (
+                <div key={row.label}>
+                  <div className="flex items-center justify-between text-sm mb-1.5">
+                    <span className="flex items-center gap-2 font-medium text-app-text">
+                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: row.color }} />
+                      {row.label}
+                    </span>
+                    <span className="text-app-text-muted">{row.value} of {totalStaffMarked} \u00b7 {pct}%</span>
+                  </div>
+                  <div className="h-2 rounded-full bg-app-surface-alt overflow-hidden">
+                    <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: row.color }} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     ),
-    attendance: (
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
-        <div className="lg:col-span-3 bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">
-          <h2 className="text-lg font-semibold text-app-text">Today's Staff Attendance</h2>
-          <p className="text-sm text-app-text-muted mt-0.5 mb-5">Live check-ins vs. total staff on record today.</p>
-          {loadingAttendance ? (
-            <div className="text-sm text-app-text-muted">Loading attendance data...</div>
-          ) : totalStaffMarked === 0 ? (
-            <div className="text-sm text-app-text-muted">No attendance recorded for today yet.</div>
-          ) : (
-            <div className="space-y-5">
-              {attendanceRows.map((row) => {
-                const pct = Math.round((row.value / totalStaffMarked) * 100);
-                return (
-                  <div key={row.label}>
-                    <div className="flex items-center justify-between text-sm mb-1.5">
-                      <span className="flex items-center gap-2 font-medium text-app-text">
-                        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: row.color }} />
-                        {row.label}
-                      </span>
-                      <span className="text-app-text-muted">{row.value} of {totalStaffMarked} \u00b7 {pct}%</span>
-                    </div>
-                    <div className="h-2 rounded-full bg-app-surface-alt overflow-hidden">
-                      <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: row.color }} />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-
-        <div className="lg:col-span-2 space-y-6">
-          <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm overflow-hidden">
-            <div className="flex items-center justify-between px-5 py-4 border-b border-app-border">
-              <div>
-                <h2 className="font-semibold text-app-text flex items-center gap-2">
-                  <ClipboardCheck className="w-4 h-4 text-app-primary" /> Staff Authorizations
-                </h2>
-                <p className="text-xs text-app-text-muted mt-0.5">Pending leave requests awaiting your sign-off.</p>
-              </div>
-              {pendingLeaves.length > 0 && (
-                <span className="bg-app-primary text-white text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0">
-                  {pendingLeaves.length} New
-                </span>
-              )}
-            </div>
-            {loadingLeaves ? (
-              <div className="px-5 py-6 text-center text-app-text-muted text-sm">Loading\u2026</div>
-            ) : pendingLeaves.length === 0 ? (
-              <div className="px-5 py-6 text-center text-app-text-muted text-sm">No pending approvals right now.</div>
-            ) : (
-              <div className="divide-y divide-app-border">
-                {pendingLeaves.map((leave) => {
-                  const initials = `${leave.profiles?.first_name?.[0] ?? ''}${leave.profiles?.last_name?.[0] ?? ''}`.toUpperCase();
-                  return (
-                    <div key={leave.id} className="px-5 py-4">
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div className="w-9 h-9 rounded-full bg-app-primary/10 text-app-primary flex items-center justify-center text-xs font-bold flex-shrink-0">
-                            {initials || '?'}
-                          </div>
-                          <div className="min-w-0">
-                            <p className="text-sm font-semibold text-app-text truncate">
-                              {leave.profiles ? `${leave.profiles.first_name} ${leave.profiles.last_name}` : 'Staff member'}
-                            </p>
-                            <p className="text-xs text-app-text-muted truncate capitalize">
-                              {leave.profiles?.role?.replace('_', ' ')} {leave.leave_types?.name ? `\u00b7 ${leave.leave_types.name}` : ''}
-                            </p>
-                          </div>
-                        </div>
-                        <span className="text-xs font-medium text-app-text-muted bg-app-surface-alt px-2 py-0.5 rounded-full flex-shrink-0">
-                          {leave.days}d
-                        </span>
-                      </div>
-                      <p className="text-xs text-app-text-muted mt-2 ml-12 line-clamp-2">
-                        {formatDate(leave.from_date)} \u2013 {formatDate(leave.to_date)}{leave.reason ? ` \u00b7 ${leave.reason}` : ''}
-                      </p>
-                      <div className="flex items-center gap-2 mt-3 ml-12">
-                        <button
-                          onClick={() => navigate('/hr/approve-leave')}
-                          className="px-3 py-1.5 text-xs font-medium text-app-text border border-app-border rounded-lg hover:bg-app-surface-alt transition-colors"
-                        >
-                          Review
-                        </button>
-                        <button
-                          onClick={() => actOnLeave(leave.id, 'approved')}
-                          disabled={actingOnLeave === leave.id}
-                          className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-white bg-app-primary rounded-lg hover:opacity-90 disabled:opacity-50 transition-colors"
-                        >
-                          <Check className="w-3 h-3" /> Approve
-                        </button>
-                        <button
-                          onClick={() => actOnLeave(leave.id, 'rejected')}
-                          disabled={actingOnLeave === leave.id}
-                          className="flex items-center gap-1 px-2 py-1.5 text-xs font-medium text-app-text-muted hover:text-red-600 disabled:opacity-50 transition-colors"
-                        >
-                          <X className="w-3 h-3" />
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+    "staff-authorizations": (
+      <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm overflow-hidden h-full">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-app-border">
+          <div>
+            <h2 className="font-semibold text-app-text flex items-center gap-2">
+              <ClipboardCheck className="w-4 h-4 text-app-primary" /> Staff Authorizations
+            </h2>
+            <p className="text-xs text-app-text-muted mt-0.5">Pending leave requests awaiting your sign-off.</p>
           </div>
-
-          {userId && schoolId && (
-            <RequisitionStatusWidget userId={userId} schoolId={schoolId} isApprover={true} />
+          {pendingLeaves.length > 0 && (
+            <span className="bg-app-primary text-white text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0">
+              {pendingLeaves.length} New
+            </span>
           )}
-          <TodoWidget
-            userId={userId}
-            schoolId={schoolId ?? undefined}
-            isSuperAdmin={profile?.role === "super_admin" || profile?.role === "admin" || profile?.role === "principal"}
-          />
         </div>
+        {loadingLeaves ? (
+          <div className="px-5 py-6 text-center text-app-text-muted text-sm">Loading\u2026</div>
+        ) : pendingLeaves.length === 0 ? (
+          <div className="px-5 py-6 text-center text-app-text-muted text-sm">No pending approvals right now.</div>
+        ) : (
+          <div className="divide-y divide-app-border">
+            {pendingLeaves.map((leave) => {
+              const initials = `${leave.profiles?.first_name?.[0] ?? ''}${leave.profiles?.last_name?.[0] ?? ''}`.toUpperCase();
+              return (
+                <div key={leave.id} className="px-5 py-4">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-9 h-9 rounded-full bg-app-primary/10 text-app-primary flex items-center justify-center text-xs font-bold flex-shrink-0">
+                        {initials || '?'}
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-app-text truncate">
+                          {leave.profiles ? `${leave.profiles.first_name} ${leave.profiles.last_name}` : 'Staff member'}
+                        </p>
+                        <p className="text-xs text-app-text-muted truncate capitalize">
+                          {leave.profiles?.role?.replace('_', ' ')} {leave.leave_types?.name ? `\u00b7 ${leave.leave_types.name}` : ''}
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-xs font-medium text-app-text-muted bg-app-surface-alt px-2 py-0.5 rounded-full flex-shrink-0">
+                      {leave.days}d
+                    </span>
+                  </div>
+                  <p className="text-xs text-app-text-muted mt-2 ml-12 line-clamp-2">
+                    {formatDate(leave.from_date)} \u2013 {formatDate(leave.to_date)}{leave.reason ? ` \u00b7 ${leave.reason}` : ''}
+                  </p>
+                  <div className="flex items-center gap-2 mt-3 ml-12">
+                    <button
+                      onClick={() => navigate('/hr/approve-leave')}
+                      className="px-3 py-1.5 text-xs font-medium text-app-text border border-app-border rounded-lg hover:bg-app-surface-alt transition-colors"
+                    >
+                      Review
+                    </button>
+                    <button
+                      onClick={() => actOnLeave(leave.id, 'approved')}
+                      disabled={actingOnLeave === leave.id}
+                      className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-white bg-app-primary rounded-lg hover:opacity-90 disabled:opacity-50 transition-colors"
+                    >
+                      <Check className="w-3 h-3" /> Approve
+                    </button>
+                    <button
+                      onClick={() => actOnLeave(leave.id, 'rejected')}
+                      disabled={actingOnLeave === leave.id}
+                      className="flex items-center gap-1 px-2 py-1.5 text-xs font-medium text-app-text-muted hover:text-red-600 disabled:opacity-50 transition-colors"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
+    ),
+    requisitions: (userId && schoolId
+      ? <RequisitionStatusWidget userId={userId} schoolId={schoolId} isApprover={true} />
+      : <></>
+    ),
+    todo: (
+      <TodoWidget
+        userId={userId}
+        schoolId={schoolId ?? undefined}
+        isSuperAdmin={profile?.role === "super_admin" || profile?.role === "admin" || profile?.role === "principal"}
+      />
     ),
     financials: (
       <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">
@@ -932,87 +930,86 @@ export default function SuperAdminDashboard() {
         </div>
       </div>
     ),
-    operations: (
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        <div className="lg:col-span-3 bg-app-surface border border-app-border rounded-2xl shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-6 py-4 border-b border-app-border">
-            <div>
-              <h2 className="font-semibold text-app-text flex items-center gap-2">
-                <Bell className="w-4 h-4 text-app-primary" /> Campus Operations &amp; Incident Stream
-              </h2>
-              <p className="text-xs text-app-text-muted mt-0.5">Latest notices and updates posted across the school.</p>
-            </div>
-            <button
-              onClick={() => navigate("/notice-board")}
-              className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold text-app-primary hover:opacity-80 transition-colors flex-shrink-0"
-            >
-              View all <ArrowRight className="w-3 h-3" />
-            </button>
+    "operations-stream": (
+      <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm overflow-hidden h-full">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-app-border">
+          <div>
+            <h2 className="font-semibold text-app-text flex items-center gap-2">
+              <Bell className="w-4 h-4 text-app-primary" /> Campus Operations &amp; Incident Stream
+            </h2>
+            <p className="text-xs text-app-text-muted mt-0.5">Latest notices and updates posted across the school.</p>
           </div>
-          {loadingAnnouncements ? (
-            <div className="text-sm text-app-text-muted py-10 text-center">Loading announcements…</div>
-          ) : announcements.length === 0 ? (
-            <div className="text-sm text-app-text-muted py-10 text-center">No announcements posted yet.</div>
-          ) : (
-            <div className="divide-y divide-app-border">
-              {announcements.map((a) => (
-                <button
-                  key={a.id}
-                  onClick={() => setSelectedAnnouncement(a)}
-                  className="w-full flex items-start gap-3 px-6 py-4 text-left hover:bg-app-surface-alt transition-colors"
-                >
-                  <div className="w-9 h-9 rounded-xl bg-app-primary/10 text-app-primary flex items-center justify-center flex-shrink-0">
-                    <Megaphone className="w-4 h-4" />
+          <button
+            onClick={() => navigate("/notice-board")}
+            className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold text-app-primary hover:opacity-80 transition-colors flex-shrink-0"
+          >
+            View all <ArrowRight className="w-3 h-3" />
+          </button>
+        </div>
+        {loadingAnnouncements ? (
+          <div className="text-sm text-app-text-muted py-10 text-center">Loading announcements…</div>
+        ) : announcements.length === 0 ? (
+          <div className="text-sm text-app-text-muted py-10 text-center">No announcements posted yet.</div>
+        ) : (
+          <div className="divide-y divide-app-border">
+            {announcements.map((a) => (
+              <button
+                key={a.id}
+                onClick={() => setSelectedAnnouncement(a)}
+                className="w-full flex items-start gap-3 px-6 py-4 text-left hover:bg-app-surface-alt transition-colors"
+              >
+                <div className="w-9 h-9 rounded-xl bg-app-primary/10 text-app-primary flex items-center justify-center flex-shrink-0">
+                  <Megaphone className="w-4 h-4" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-sm font-semibold text-app-text truncate">{a.title}</p>
+                    <span className="text-xs text-app-text-muted whitespace-nowrap flex-shrink-0">{formatDate(a.created_at)}</span>
+                  </div>
+                  <p className="text-xs text-app-text-muted mt-0.5 line-clamp-1">{a.content}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    ),
+    "institutional-calendar": (
+      <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm overflow-hidden h-full">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-app-border">
+          <h2 className="font-semibold text-app-text flex items-center gap-2">
+            <CalendarDays className="w-4 h-4 text-app-primary" /> Institutional Calendar
+          </h2>
+          <button
+            onClick={() => navigate("/events")}
+            className="inline-flex items-center gap-1 text-xs font-semibold text-app-primary hover:opacity-80 transition-colors flex-shrink-0"
+          >
+            Full Schedule <ArrowRight className="w-3 h-3" />
+          </button>
+        </div>
+        {upcomingEvents.length === 0 ? (
+          <div className="text-sm text-app-text-muted py-10 text-center">No upcoming events scheduled.</div>
+        ) : (
+          <div className="divide-y divide-app-border">
+            {upcomingEvents.map((ev) => {
+              const d = new Date(ev.date);
+              return (
+                <div key={ev.id} className="flex items-center gap-3 px-6 py-4">
+                  <div className="w-11 h-11 rounded-xl bg-app-surface-alt border border-app-border flex flex-col items-center justify-center flex-shrink-0 leading-none">
+                    <span className="text-[9px] font-bold uppercase text-app-text-muted">{SHORT_MONTH_NAMES[d.getMonth()]}</span>
+                    <span className="text-sm font-bold text-app-text">{d.getDate()}</span>
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-center justify-between gap-2">
-                      <p className="text-sm font-semibold text-app-text truncate">{a.title}</p>
-                      <span className="text-xs text-app-text-muted whitespace-nowrap flex-shrink-0">{formatDate(a.created_at)}</span>
-                    </div>
-                    <p className="text-xs text-app-text-muted mt-0.5 line-clamp-1">{a.content}</p>
+                    <p className="text-sm font-semibold text-app-text truncate">{ev.title}</p>
+                    <p className={`text-xs mt-0.5 ${ev.type === "holiday" ? "text-amber-600" : "text-app-text-muted"}`}>
+                      {ev.type === "holiday" ? "Holiday" : "Event"} · {daysUntil(ev.date)}
+                    </p>
                   </div>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div className="lg:col-span-2 bg-app-surface border border-app-border rounded-2xl shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-6 py-4 border-b border-app-border">
-            <h2 className="font-semibold text-app-text flex items-center gap-2">
-              <CalendarDays className="w-4 h-4 text-app-primary" /> Institutional Calendar
-            </h2>
-            <button
-              onClick={() => navigate("/events")}
-              className="inline-flex items-center gap-1 text-xs font-semibold text-app-primary hover:opacity-80 transition-colors flex-shrink-0"
-            >
-              Full Schedule <ArrowRight className="w-3 h-3" />
-            </button>
+                </div>
+              );
+            })}
           </div>
-          {upcomingEvents.length === 0 ? (
-            <div className="text-sm text-app-text-muted py-10 text-center">No upcoming events scheduled.</div>
-          ) : (
-            <div className="divide-y divide-app-border">
-              {upcomingEvents.map((ev) => {
-                const d = new Date(ev.date);
-                return (
-                  <div key={ev.id} className="flex items-center gap-3 px-6 py-4">
-                    <div className="w-11 h-11 rounded-xl bg-app-surface-alt border border-app-border flex flex-col items-center justify-center flex-shrink-0 leading-none">
-                      <span className="text-[9px] font-bold uppercase text-app-text-muted">{SHORT_MONTH_NAMES[d.getMonth()]}</span>
-                      <span className="text-sm font-bold text-app-text">{d.getDate()}</span>
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm font-semibold text-app-text truncate">{ev.title}</p>
-                      <p className={`text-xs mt-0.5 ${ev.type === "holiday" ? "text-amber-600" : "text-app-text-muted"}`}>
-                        {ev.type === "holiday" ? "Holiday" : "Event"} · {daysUntil(ev.date)}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
+        )}
       </div>
     ),
     quickdispatch: (
@@ -1102,9 +1099,19 @@ export default function SuperAdminDashboard() {
         </div>
       </div>
 
-      {resolvedLayout.filter((w) => w.visible).map((w) => (
-        <Fragment key={w.id}>{dashboardSections[w.id]}</Fragment>
-      ))}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
+        {resolvedLayout
+          .filter((w) => w.visible)
+          .map((w) => {
+            const widgetDef = DASHBOARD_WIDGETS.find((d) => d.id === w.id);
+            const spanClass = SPAN_CLASS[widgetDef?.span ?? 12];
+            return (
+              <div key={w.id} className={spanClass}>
+                {dashboardSections[w.id]}
+              </div>
+            );
+          })}
+      </div>
 
       {selectedAnnouncement && (
         <Modal
