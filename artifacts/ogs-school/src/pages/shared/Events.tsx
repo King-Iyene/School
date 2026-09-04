@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+const INPUT = 'bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30';
 
 const EVENT_TYPES = [
   { value: 'academic', label: 'Academic', color: 'bg-blue-100 text-blue-700' },
@@ -114,7 +114,7 @@ export default function Events() {
         {canCreate && (
           <button
             onClick={openAdd}
-            className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm"
+            className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm"
           >
             <Plus className="w-4 h-4" /> Add Event
           </button>
@@ -246,7 +246,7 @@ export default function Events() {
             <button
               onClick={handleSave}
               disabled={saving || !form.title.trim() || !form.event_date}
-              className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors"
+              className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors"
             >
               {saving ? 'Saving...' : 'Add Event'}
             </button>

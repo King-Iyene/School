@@ -137,7 +137,7 @@ export default function StaffAttendanceReport() {
           <div className="flex-1 min-w-[140px]">
             <label className="block text-xs font-medium text-app-text-muted mb-1.5">Role</label>
             <select
-              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+              className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full"
               value={filterRole}
               onChange={(e) => setFilterRole(e.target.value)}
             >
@@ -150,7 +150,7 @@ export default function StaffAttendanceReport() {
           <div className="flex-1 min-w-[140px]">
             <label className="block text-xs font-medium text-app-text-muted mb-1.5">Month</label>
             <select
-              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+              className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full"
               value={filterMonth}
               onChange={(e) => setFilterMonth(Number(e.target.value))}
             >
@@ -162,7 +162,7 @@ export default function StaffAttendanceReport() {
           <div className="flex-1 min-w-[120px]">
             <label className="block text-xs font-medium text-app-text-muted mb-1.5">Year</label>
             <select
-              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+              className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full"
               value={filterYear}
               onChange={(e) => setFilterYear(Number(e.target.value))}
             >

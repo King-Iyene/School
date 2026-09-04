@@ -154,7 +154,7 @@ export default function DownloadCenter() {
                         href={item.file_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-xl transition-colors"
+                        className="flex items-center gap-1.5 px-4 py-2 bg-app-primary hover:opacity-90 text-white text-sm font-medium rounded-xl transition-colors"
                       >
                         <Download className="w-4 h-4" />
                         Download

@@ -23,7 +23,7 @@ interface AcademicYear { id: string; name: string; is_current?: boolean; }
 interface Term { id: string; name: string; }
 
 const LEVELS = ['all', 'JSS1', 'JSS2', 'JSS3', 'SS1', 'SS2', 'SS3'];
-const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface';
+const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface';
 
 export default function FeeStructures() {
   const { profile } = useAuth();
@@ -119,7 +119,7 @@ export default function FeeStructures() {
           <h2 className="text-xl font-bold text-app-text">Fee Structures</h2>
           <p className="text-app-text-muted text-sm">Define and manage school fee categories</p>
         </div>
-        <button onClick={openCreate} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-500/20">
+        <button onClick={openCreate} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-500/20">
           <Plus className="w-4 h-4" /> Add Fee
         </button>
       </div>
@@ -270,7 +270,7 @@ export default function FeeStructures() {
           </label>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
-            <button onClick={handleSave} disabled={saving} className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50">
+            <button onClick={handleSave} disabled={saving} className="flex-1 px-4 py-2 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50">
               {saving ? 'Saving...' : editFee ? 'Update' : 'Create'}
             </button>
           </div>

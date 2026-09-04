@@ -380,21 +380,21 @@ ${studentRows.map((r, i) => `
             <div>
               <label className="block text-xs font-medium text-app-text-muted mb-1">Class</label>
               <select value={selectedClass} onChange={e => setSelectedClass(e.target.value)}
-                className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+                className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
                 {myClasses.map(c => <option key={(c as any)?.id} value={(c as any)?.id}>{(c as any)?.name || `${(c as any)?.level}${(c as any)?.section}`}</option>)}
               </select>
             </div>
             <div>
               <label className="block text-xs font-medium text-app-text-muted mb-1">Term</label>
               <select value={selectedTerm} onChange={e => setSelectedTerm(e.target.value)}
-                className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+                className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
                 {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
               </select>
             </div>
             <div>
               <label className="block text-xs font-medium text-app-text-muted mb-1">Academic Year</label>
               <select value={selectedYear} onChange={e => setSelectedYear(e.target.value)}
-                className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+                className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
                 {academicYears.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
               </select>
             </div>

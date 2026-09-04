@@ -64,7 +64,7 @@ export default function StoreCategories() {
           <h1 className="text-2xl font-bold text-app-text">Store Categories</h1>
           <p className="text-app-text-muted text-sm mt-1">Organise products into categories</p>
         </div>
-        <button onClick={openAdd} className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 transition-colors">
+        <button onClick={openAdd} className="flex items-center gap-2 px-4 py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 transition-colors">
           <Plus className="w-4 h-4" /> Add Category
         </button>
       </div>
@@ -108,15 +108,15 @@ export default function StoreCategories() {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Category Name</label>
-            <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="e.g. Uniforms" />
+            <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="bg-app-surface text-app-text w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" placeholder="e.g. Uniforms" />
           </div>
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Description</label>
-            <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} rows={3} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none" placeholder="What products are in this category?" />
+            <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} rows={3} className="bg-app-surface text-app-text w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none" placeholder="What products are in this category?" />
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setModal(false)} className="flex-1 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
-            <button onClick={save} disabled={saving || !form.name.trim()} className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-50 transition-colors">
+            <button onClick={save} disabled={saving || !form.name.trim()} className="flex-1 py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 disabled:opacity-50 transition-colors">
               {saving ? 'Saving...' : editing ? 'Save Changes' : 'Add Category'}
             </button>
           </div>

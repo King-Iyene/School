@@ -329,7 +329,7 @@ export default function UploadContent() {
     fetchUploads();
   }
 
-  const inputClass = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  const inputClass = 'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
   const showClassSubject = (type: string) => type !== 'other';
 
   return (
@@ -470,7 +470,7 @@ export default function UploadContent() {
               <button
                 onClick={handleSubmit}
                 disabled={saving || !form.title}
-                className="flex items-center gap-2 px-5 py-2 text-sm rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors disabled:opacity-50"
+                className="flex items-center gap-2 px-5 py-2 text-sm rounded-xl bg-app-primary hover:opacity-90 text-white font-medium transition-colors disabled:opacity-50"
               >
                 <Plus size={15} />
                 {saving ? 'Uploading...' : 'Upload Content'}
@@ -634,7 +634,7 @@ export default function UploadContent() {
             <button
               onClick={handleEditSave}
               disabled={saving || !form.title}
-              className="px-4 py-2 text-sm rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors disabled:opacity-50"
+              className="px-4 py-2 text-sm rounded-xl bg-app-primary hover:opacity-90 text-white font-medium transition-colors disabled:opacity-50"
             >
               {saving ? 'Saving...' : 'Update'}
             </button>

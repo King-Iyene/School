@@ -146,7 +146,7 @@ export default function TopicOverview() {
             <select
               value={selectedLesson}
               onChange={(e) => setSelectedLesson(e.target.value)}
-              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface"
             >
               <option value="">Choose a lesson...</option>
               {lessons.map((l) => (
@@ -166,7 +166,7 @@ export default function TopicOverview() {
               value={selectedTopic}
               onChange={(e) => setSelectedTopic(e.target.value)}
               disabled={!selectedLesson}
-              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <option value="">Choose a topic...</option>
               {topics.map((t) => (

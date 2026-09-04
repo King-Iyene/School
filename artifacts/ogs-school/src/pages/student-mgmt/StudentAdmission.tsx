@@ -393,7 +393,7 @@ export default function StudentAdmission() {
   }
 
   const inputClass =
-    'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+    'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 
   return (
     <div className="p-6">
@@ -837,7 +837,7 @@ export default function StudentAdmission() {
           <button
             type="submit"
             disabled={saving || !form.first_name || !form.last_name || !form.class_id || !form.password}
-            className="flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-sm transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 px-6 py-3 rounded-xl bg-app-primary hover:opacity-90 text-white font-medium text-sm transition-colors disabled:opacity-50"
           >
             <UserPlus size={16} />
             {saving ? 'Admitting Student...' : 'Admit Student'}

@@ -371,7 +371,7 @@ export default function QuestionBank() {
                   <button onClick={() => setDrafts(ds => ds.map(d => ({ ...d, selected: false })))}
                     className="text-sm text-app-text-muted hover:underline">Deselect all</button>
                   <button onClick={handleSave} disabled={saving || selectedCount === 0}
-                    className="flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm hover:bg-emerald-700 transition-all disabled:opacity-50">
+                    className="flex items-center gap-2 bg-app-primary text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm hover:opacity-90 transition-all disabled:opacity-50">
                     {saving ? <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
                       : <Save className="w-4 h-4" />}
                     Save {selectedCount} to Bank
@@ -498,7 +498,7 @@ export default function QuestionBank() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
               <input value={bankSearch} onChange={e => setBankSearch(e.target.value)}
                 placeholder="Search questions or topics…"
-                className="w-full pl-9 pr-3 py-2 rounded-lg border border-app-border text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                className="bg-app-surface text-app-text w-full pl-9 pr-3 py-2 rounded-lg border border-app-border text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
             <div className="flex gap-1 bg-slate-100 rounded-lg p-1">
               {(['all', 'objective', 'theory'] as const).map(t => (

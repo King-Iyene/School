@@ -16,7 +16,7 @@ interface CellData {
 
 type GridData = Record<string, Record<string, CellData>>;
 
-const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 const STEPS = ['Select Year', 'Boarding Fees', 'Day Fees', 'Review & Confirm'];
 
 function formatCurrency(amount: number): string {
@@ -273,19 +273,19 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
                     <input
                       type="number"
                       placeholder="Amount"
-                      className="border border-app-border rounded-lg px-2 py-1.5 text-xs w-24 focus:outline-none focus:ring-1 focus:ring-emerald-400"
+                      className="bg-app-surface text-app-text border border-app-border rounded-lg px-2 py-1.5 text-xs w-24 focus:outline-none focus:ring-1 focus:ring-emerald-400"
                       value={bulkAmount[term.id] || ''}
                       onChange={e => setBulkAmount({ ...bulkAmount, [term.id]: e.target.value })}
                     />
                     <input
                       type="date"
-                      className="border border-app-border rounded-lg px-2 py-1.5 text-xs w-32 focus:outline-none focus:ring-1 focus:ring-emerald-400"
+                      className="bg-app-surface text-app-text border border-app-border rounded-lg px-2 py-1.5 text-xs w-32 focus:outline-none focus:ring-1 focus:ring-emerald-400"
                       value={bulkDate[term.id] || ''}
                       onChange={e => setBulkDate({ ...bulkDate, [term.id]: e.target.value })}
                     />
                     <button
                       onClick={() => applyBulkToColumn(grid, setGrid, term.id, bulkAmount[term.id] || '', bulkDate[term.id] || '')}
-                      className="bg-emerald-500 hover:bg-emerald-600 text-white text-xs px-2 py-1 rounded-lg transition-colors whitespace-nowrap"
+                      className="bg-app-primary hover:opacity-90 text-white text-xs px-2 py-1 rounded-lg transition-colors whitespace-nowrap"
                     >
                       Apply
                     </button>
@@ -315,13 +315,13 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
                       <input
                         type="number"
                         min="0"
-                        className="border border-app-border rounded-lg px-2 py-1.5 text-xs w-24 focus:outline-none focus:ring-1 focus:ring-emerald-400"
+                        className="bg-app-surface text-app-text border border-app-border rounded-lg px-2 py-1.5 text-xs w-24 focus:outline-none focus:ring-1 focus:ring-emerald-400"
                         value={grid[cls.id]?.[term.id]?.amount || ''}
                         onChange={e => updateCell(grid, setGrid, cls.id, term.id, 'amount', e.target.value)}
                       />
                       <input
                         type="date"
-                        className="border border-app-border rounded-lg px-2 py-1.5 text-xs w-32 focus:outline-none focus:ring-1 focus:ring-emerald-400"
+                        className="bg-app-surface text-app-text border border-app-border rounded-lg px-2 py-1.5 text-xs w-32 focus:outline-none focus:ring-1 focus:ring-emerald-400"
                         value={grid[cls.id]?.[term.id]?.due_date || ''}
                         onChange={e => updateCell(grid, setGrid, cls.id, term.id, 'due_date', e.target.value)}
                       />
@@ -345,7 +345,7 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
           </div>
           <h2 className="text-xl font-bold text-app-text mb-2">Fee Structure Created Successfully</h2>
           <p className="text-app-text-muted mb-6">{boardingEntries + dayEntries} fee records have been created for {academicYears.find(y => y.id === selectedYear)?.name}.</p>
-          <button onClick={onClose} className="bg-emerald-500 hover:bg-emerald-600 text-white font-medium px-6 py-2.5 rounded-xl transition-colors">
+          <button onClick={onClose} className="bg-app-primary hover:opacity-90 text-white font-medium px-6 py-2.5 rounded-xl transition-colors">
             Back to Fees Master
           </button>
         </div>
@@ -584,7 +584,7 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
               setError('');
               setStep(step + 1);
             }}
-            className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-medium px-5 py-2.5 text-sm rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white font-medium px-5 py-2.5 text-sm rounded-xl transition-colors"
           >
             Next <ArrowRight className="w-4 h-4" />
           </button>
@@ -592,7 +592,7 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
           <button
             onClick={handleSubmit}
             disabled={saving || (boardingEntries + dayEntries === 0)}
-            className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-medium px-6 py-2.5 text-sm rounded-xl transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white font-medium px-6 py-2.5 text-sm rounded-xl transition-colors disabled:opacity-50"
           >
             {saving ? 'Creating...' : `Confirm & Create ${boardingEntries + dayEntries} Records`}
           </button>

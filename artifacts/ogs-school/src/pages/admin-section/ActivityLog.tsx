@@ -113,19 +113,19 @@ export default function ActivityLog() {
             onChange={e => setUserSearch(e.target.value)}
             onKeyDown={e => { if (e.key === 'Enter') { setPage(1); setQuery(userSearch.trim()); } }}
             placeholder="Search by user…"
-            className="border border-app-border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/30 w-56"
+            className="bg-app-surface text-app-text border border-app-border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/30 w-56"
           />
         </div>
         <select
           value={action}
           onChange={e => { setPage(1); setAction(e.target.value); }}
-          className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/30"
+          className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/30"
         >
           {ACTION_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
-        <input type="date" value={dateFrom} onChange={e => { setPage(1); setDateFrom(e.target.value); }} className="border border-app-border rounded-xl px-3 py-2.5 text-sm" />
+        <input type="date" value={dateFrom} onChange={e => { setPage(1); setDateFrom(e.target.value); }} className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm" />
         <span className="text-app-text-muted text-sm">to</span>
-        <input type="date" value={dateTo} onChange={e => { setPage(1); setDateTo(e.target.value); }} className="border border-app-border rounded-xl px-3 py-2.5 text-sm" />
+        <input type="date" value={dateTo} onChange={e => { setPage(1); setDateTo(e.target.value); }} className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm" />
         <span className="text-sm text-app-text-muted ml-auto">{total} entries</span>
       </div>
 

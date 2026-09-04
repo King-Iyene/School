@@ -28,7 +28,7 @@ interface ExpenseRecord {
 }
 
 const INPUT_CLASS =
-  'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 
 const EMPTY_FORM = {
   source_name: '',
@@ -192,7 +192,7 @@ export default function Expense() {
         <h1 className="text-2xl font-bold text-app-text">Expense</h1>
         <button
           onClick={openCreate}
-          className="bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
+          className="bg-app-primary hover:opacity-90 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
         >
           + Add Expense
         </button>
@@ -372,7 +372,7 @@ export default function Expense() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="px-5 py-2.5 text-sm bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-xl transition-colors disabled:opacity-60"
+              className="px-5 py-2.5 text-sm bg-app-primary hover:opacity-90 text-white font-medium rounded-xl transition-colors disabled:opacity-60"
             >
               {saving ? 'Saving...' : editId ? 'Update' : 'Create'}
             </button>

@@ -24,7 +24,7 @@ interface StaffRecord {
 
 const ROLES = ['teacher', 'accountant', 'admin', 'librarian', 'security_officer', 'support', 'other'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-colors';
+const inputCls = 'bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 focus:border-emerald-400 transition-colors';
 
 const emptyForm = {
   staff_id: '', first_name: '', last_name: '', role: 'teacher',
@@ -290,7 +290,7 @@ export default function StaffPage() {
           <h2 className="text-xl font-bold text-app-text">Staff</h2>
           <p className="text-app-text-muted text-sm">Manage staff records and pay slips</p>
         </div>
-        <button onClick={openAdd} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm">
+        <button onClick={openAdd} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm">
           <Plus className="w-4 h-4" /> Add Staff
         </button>
       </div>
@@ -298,7 +298,7 @@ export default function StaffPage() {
       <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-4 flex flex-wrap gap-3">
         <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
-          <input value={search} onChange={e => { setSearch(e.target.value); setCurrentPage(1); }} placeholder="Search by name, ID, email..." className="w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+          <input value={search} onChange={e => { setSearch(e.target.value); setCurrentPage(1); }} placeholder="Search by name, ID, email..." className="bg-app-surface text-app-text w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
         </div>
         <select value={filterRole} onChange={e => { setFilterRole(e.target.value); setCurrentPage(1); }} className="border border-app-border rounded-xl px-3 py-2 text-sm bg-app-surface focus:outline-none">
           <option value="">All Roles</option>
@@ -467,7 +467,7 @@ export default function StaffPage() {
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
-            <button onClick={handleSave} disabled={saving || !form.first_name.trim() || !form.last_name.trim()} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
+            <button onClick={handleSave} disabled={saving || !form.first_name.trim() || !form.last_name.trim()} className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
               {saving ? 'Saving...' : editItem ? 'Update Staff' : 'Add Staff'}
             </button>
           </div>
@@ -497,7 +497,7 @@ export default function StaffPage() {
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setShowPaySlip(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
-            <button onClick={printPaySlip} className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium transition-colors">
+            <button onClick={printPaySlip} className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium transition-colors">
               <Printer className="w-4 h-4" /> Print Pay Slip
             </button>
           </div>

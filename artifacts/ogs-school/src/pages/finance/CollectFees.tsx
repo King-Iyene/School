@@ -30,7 +30,7 @@ interface FeesMasterItem {
 interface FeesDiscount { id: string; name: string; discount_type: 'percentage' | 'fixed'; discount_value: number; }
 interface PaymentMethod { id: string; name: string; }
 
-const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 
 const EMPTY_COLLECT_FORM = {
   fees_master_id: '',
@@ -298,7 +298,7 @@ export default function CollectFees() {
                   </td>
                   <td className="px-4 py-3 font-mono text-xs text-app-text-muted">{s.students?.admission_number || '--'}</td>
                   <td className="px-4 py-3 text-right">
-                    <button onClick={() => openCollectModal(s)} className="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">
+                    <button onClick={() => openCollectModal(s)} className="bg-app-primary hover:opacity-90 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">
                       Collect Fees
                     </button>
                   </td>
@@ -434,7 +434,7 @@ export default function CollectFees() {
 
               <div className="flex justify-end gap-2 pt-2">
                 <button onClick={() => setModalOpen(false)} className="px-4 py-2.5 text-sm text-app-text-muted hover:text-app-text font-medium rounded-xl hover:bg-slate-100 transition-colors">Close</button>
-                <button onClick={handleCollect} disabled={saving} className="px-5 py-2.5 text-sm bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-xl transition-colors disabled:opacity-60">
+                <button onClick={handleCollect} disabled={saving} className="px-5 py-2.5 text-sm bg-app-primary hover:opacity-90 text-white font-medium rounded-xl transition-colors disabled:opacity-60">
                   {saving ? 'Recording...' : 'Record Payment'}
                 </button>
               </div>

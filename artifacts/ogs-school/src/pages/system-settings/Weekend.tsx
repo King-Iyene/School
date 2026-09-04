@@ -84,7 +84,7 @@ export default function Weekend() {
         <button
           onClick={handleSave}
           disabled={saving || loading}
-          className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors disabled:opacity-60"
+          className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors disabled:opacity-60"
         >
           <Save className="w-4 h-4" />
           {saving ? 'Saving...' : 'Save Weekend Settings'}

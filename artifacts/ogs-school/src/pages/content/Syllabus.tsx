@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 
 interface SyllabusItem {
   id: string;
@@ -228,13 +228,13 @@ export default function Syllabus() {
     <div className="space-y-5">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-          <div className="bg-emerald-500 text-white p-1.5 sm:p-2 rounded-xl shrink-0">
+          <div className="bg-app-primary text-white p-1.5 sm:p-2 rounded-xl shrink-0">
             <FileText size={18} />
           </div>
           <h1 className="text-lg sm:text-2xl font-bold text-app-text truncate">Syllabus</h1>
         </div>
         <button onClick={openAdd}
-          className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-sm font-medium transition-colors shrink-0">
+          className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-sm font-medium transition-colors shrink-0">
           <Plus size={16} />
           <span className="hidden sm:inline">Add Syllabus</span>
         </button>
@@ -252,12 +252,12 @@ export default function Syllabus() {
               setFilterSubject('');
               fetchSubjectsForClass(e.target.value, 'filter');
             }}
-            className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+            className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30">
             <option value="">All Classes</option>
             {displayClasses.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
           </select>
           <select value={filterSubject} onChange={e => setFilterSubject(e.target.value)}
-            className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
             disabled={!filterClass}>
             <option value="">All Subjects</option>
             {filterSubjects.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
@@ -391,7 +391,7 @@ export default function Syllabus() {
               Cancel
             </button>
             <button type="submit" disabled={saving}
-              className="px-4 py-2.5 rounded-xl text-sm font-medium bg-emerald-500 hover:bg-emerald-600 text-white disabled:opacity-60">
+              className="px-4 py-2.5 rounded-xl text-sm font-medium bg-app-primary hover:opacity-90 text-white disabled:opacity-60">
               {saving ? 'Saving...' : editId ? 'Update' : 'Save'}
             </button>
           </div>

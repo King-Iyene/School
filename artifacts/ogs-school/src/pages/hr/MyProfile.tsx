@@ -54,7 +54,7 @@ DROP POLICY IF EXISTS "Users can insert own profile" ON profiles;
 CREATE POLICY "Users can insert own profile" ON profiles
   FOR INSERT WITH CHECK (auth.uid() = id);`;
 
-const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
+const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface';
 
 const SECTION = ({ icon: Icon, title, subtitle, children }: { icon: any; title: string; subtitle?: string; children: React.ReactNode }) => (
   <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm p-6 space-y-4">
@@ -491,7 +491,7 @@ export default function MyProfile() {
         <button
           onClick={save}
           disabled={saving}
-          className="flex items-center gap-2 px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-semibold transition-colors disabled:opacity-60 shadow-sm"
+          className="flex items-center gap-2 px-6 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-semibold transition-colors disabled:opacity-60 shadow-sm"
         >
           <Save size={15} />
           {saving ? 'Saving…' : 'Save Profile'}

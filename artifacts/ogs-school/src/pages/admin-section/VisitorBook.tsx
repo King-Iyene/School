@@ -111,7 +111,7 @@ export default function VisitorBook() {
     grouped[d].push(v);
   });
 
-  const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+  const inputCls = 'bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30';
 
   return (
     <div className="space-y-5">
@@ -124,7 +124,7 @@ export default function VisitorBook() {
           <button onClick={exportCSV} className="flex items-center gap-2 border border-app-border text-app-text-muted hover:bg-app-surface-alt px-4 py-2.5 rounded-xl text-sm font-medium transition-colors">
             <Download className="w-4 h-4" /> Export CSV
           </button>
-          <button onClick={openAdd} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors">
+          <button onClick={openAdd} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors">
             <Plus className="w-4 h-4" /> Add Visitor
           </button>
         </div>
@@ -134,13 +134,13 @@ export default function VisitorBook() {
         <div className="p-4 border-b border-app-border flex flex-wrap gap-3">
           <div className="relative flex-1 min-w-48">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by name, phone, purpose..." className="w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by name, phone, purpose..." className="bg-app-surface text-app-text w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
           </div>
           <div className="flex items-center gap-2">
             <CalendarDays className="w-4 h-4 text-app-text-muted flex-shrink-0" />
-            <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
             <span className="text-app-text-muted text-sm">to</span>
-            <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
             {(dateFrom || dateTo) && (
               <button onClick={() => { setDateFrom(''); setDateTo(''); }} className="text-xs text-red-500 hover:text-red-700 font-medium px-2 py-1 rounded-lg hover:bg-red-50 transition-colors">Clear</button>
             )}
@@ -275,7 +275,7 @@ export default function VisitorBook() {
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
-            <button onClick={handleSave} disabled={saving || !form.name.trim()} className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50">{saving ? 'Saving...' : editItem ? 'Update' : 'Add Visitor'}</button>
+            <button onClick={handleSave} disabled={saving || !form.name.trim()} className="flex-1 px-4 py-2 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50">{saving ? 'Saving...' : editItem ? 'Update' : 'Add Visitor'}</button>
           </div>
         </div>
       </Modal>

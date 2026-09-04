@@ -96,9 +96,9 @@ export default function AdminSetup() {
                     onChange={e => setNewValue(e.target.value)}
                     onKeyDown={e => { if (e.key === 'Enter') handleAdd(type.key); if (e.key === 'Escape') setAdding(null); }}
                     placeholder="Enter value..."
-                    className="flex-1 border border-app-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                    className="bg-app-surface text-app-text flex-1 border border-app-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
                   />
-                  <button onClick={() => handleAdd(type.key)} disabled={saving} className="p-1.5 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:opacity-50"><Check className="w-4 h-4" /></button>
+                  <button onClick={() => handleAdd(type.key)} disabled={saving} className="p-1.5 bg-app-primary text-white rounded-lg hover:opacity-90 disabled:opacity-50"><Check className="w-4 h-4" /></button>
                   <button onClick={() => setAdding(null)} className="p-1.5 text-app-text-muted hover:bg-slate-200 rounded-lg"><X className="w-4 h-4" /></button>
                 </div>
               )}
@@ -113,9 +113,9 @@ export default function AdminSetup() {
                         value={editValue}
                         onChange={e => setEditValue(e.target.value)}
                         onKeyDown={e => { if (e.key === 'Enter') handleEdit(item.id); if (e.key === 'Escape') setEditingId(null); }}
-                        className="flex-1 border border-app-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                        className="bg-app-surface text-app-text flex-1 border border-app-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
                       />
-                      <button onClick={() => handleEdit(item.id)} disabled={saving} className="p-1.5 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:opacity-50"><Check className="w-4 h-4" /></button>
+                      <button onClick={() => handleEdit(item.id)} disabled={saving} className="p-1.5 bg-app-primary text-white rounded-lg hover:opacity-90 disabled:opacity-50"><Check className="w-4 h-4" /></button>
                       <button onClick={() => setEditingId(null)} className="p-1.5 text-app-text-muted hover:bg-slate-200 rounded-lg"><X className="w-4 h-4" /></button>
                     </div>
                   ) : (

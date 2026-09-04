@@ -264,7 +264,7 @@ export default function WhatsApp() {
         <div className="p-4 border-b border-app-border flex gap-3">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search logs..." className="w-full pl-9 pr-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search logs..." className="bg-app-surface text-app-text w-full pl-9 pr-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" />
           </div>
           <button onClick={loadLogs} className="p-2.5 border border-app-border rounded-xl text-app-text-muted hover:bg-app-surface-alt transition-colors">
             <RefreshCw className="w-4 h-4" />
@@ -314,15 +314,15 @@ export default function WhatsApp() {
           </div>
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Phone Number ID</label>
-            <input value={waSettings.phone_number_id} onChange={e => setWaSettings(s => ({ ...s, phone_number_id: e.target.value }))} placeholder="From Meta Developer Console" className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+            <input value={waSettings.phone_number_id} onChange={e => setWaSettings(s => ({ ...s, phone_number_id: e.target.value }))} placeholder="From Meta Developer Console" className="bg-app-surface text-app-text w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" />
           </div>
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Access Token</label>
-            <input type="password" value={waSettings.access_token} onChange={e => setWaSettings(s => ({ ...s, access_token: e.target.value }))} placeholder="Meta Permanent Access Token" className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+            <input type="password" value={waSettings.access_token} onChange={e => setWaSettings(s => ({ ...s, access_token: e.target.value }))} placeholder="Meta Permanent Access Token" className="bg-app-surface text-app-text w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" />
           </div>
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Verify Token (optional)</label>
-            <input value={waSettings.verify_token} onChange={e => setWaSettings(s => ({ ...s, verify_token: e.target.value }))} placeholder="For webhook verification" className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+            <input value={waSettings.verify_token} onChange={e => setWaSettings(s => ({ ...s, verify_token: e.target.value }))} placeholder="For webhook verification" className="bg-app-surface text-app-text w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" />
           </div>
           <div className="flex items-center justify-between py-2">
             <div>
@@ -337,7 +337,7 @@ export default function WhatsApp() {
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setSettingsOpen(false)} className="flex-1 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
-            <button onClick={saveSettings} disabled={savingSettings} className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-50">
+            <button onClick={saveSettings} disabled={savingSettings} className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 disabled:opacity-50">
               <Save className="w-4 h-4" /> {savingSettings ? 'Saving...' : 'Save Settings'}
             </button>
           </div>
@@ -348,7 +348,7 @@ export default function WhatsApp() {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Phone Number</label>
-            <input value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="+234 800 000 0000" />
+            <input value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} className="bg-app-surface text-app-text w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" placeholder="+234 800 000 0000" />
             {contacts.length > 0 && (
               <div className="mt-2">
                 <p className="text-xs text-app-text-muted mb-1.5">Or choose from contacts:</p>
@@ -369,11 +369,11 @@ export default function WhatsApp() {
           </div>
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Contact Name (optional)</label>
-            <input value={form.contact_name} onChange={e => setForm(f => ({ ...f, contact_name: e.target.value }))} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="e.g. Mr. John Smith" />
+            <input value={form.contact_name} onChange={e => setForm(f => ({ ...f, contact_name: e.target.value }))} className="bg-app-surface text-app-text w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" placeholder="e.g. Mr. John Smith" />
           </div>
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Message</label>
-            <textarea value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} rows={4} className="w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none" placeholder="Type your message..." />
+            <textarea value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} rows={4} className="bg-app-surface text-app-text w-full px-3 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none" placeholder="Type your message..." />
           </div>
           {sendError && (
             <div className="flex items-start gap-2 bg-red-50 border border-red-200 rounded-xl p-3 text-sm text-red-700">

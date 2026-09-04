@@ -266,7 +266,7 @@ export default function AcademicYears() {
 
   const currentYear = years.find(y => y.is_current);
   const currentAYT = currentYear?.termDates.find(a => a.is_current);
-  const inputClass = 'w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface';
+  const inputClass = 'w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface';
   const inputErrorClass = 'w-full border border-red-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400/30 bg-app-surface';
 
   // ─── Render ───────────────────────────────────────────────────────────────
@@ -308,7 +308,7 @@ export default function AcademicYears() {
         </div>
         <button
           onClick={() => { setShowYearModal(true); setYearFieldErrors({}); setYearForm({ name: '', start_date: '', end_date: '' }); }}
-          className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-100"
+          className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-100"
         >
           <Plus className="w-4 h-4" />
           New Academic Year
@@ -376,7 +376,7 @@ export default function AcademicYears() {
                     <div className="flex items-center gap-2">
                       <h3 className="font-bold text-app-text text-base">{year.name}</h3>
                       {year.is_current && (
-                        <span className="text-[10px] font-bold bg-emerald-500 text-white px-2 py-0.5 rounded-full uppercase tracking-wide">
+                        <span className="text-[10px] font-bold bg-app-primary text-white px-2 py-0.5 rounded-full uppercase tracking-wide">
                           Current Year
                         </span>
                       )}
@@ -554,7 +554,7 @@ export default function AcademicYears() {
           </div>
           <div className="flex gap-3 pt-1">
             <button onClick={() => { setShowYearModal(false); setYearFieldErrors({}); }} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
-            <button onClick={saveYear} disabled={saving} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
+            <button onClick={saveYear} disabled={saving} className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
               {saving ? 'Creating...' : 'Create Year'}
             </button>
           </div>
@@ -606,7 +606,7 @@ export default function AcademicYears() {
             >
               Cancel
             </button>
-            <button onClick={saveEditYear} disabled={saving} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
+            <button onClick={saveEditYear} disabled={saving} className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
               {saving ? 'Saving...' : 'Save Changes'}
             </button>
           </div>
@@ -690,7 +690,7 @@ export default function AcademicYears() {
           </div>
           <div className="flex gap-3 pt-1">
             <button onClick={() => { setShowEditTermModal(false); setEditingAYT(null); setTermError(''); }} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
-            <button onClick={saveTermDates} disabled={saving} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
+            <button onClick={saveTermDates} disabled={saving} className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
               {saving ? 'Saving...' : 'Save Dates'}
             </button>
           </div>

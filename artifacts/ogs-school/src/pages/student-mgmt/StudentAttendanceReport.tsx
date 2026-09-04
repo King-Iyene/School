@@ -168,12 +168,12 @@ export default function StudentAttendanceReport() {
     reports.length > 0 ? Math.max(...reports.map((r) => r.total_days)) : 0;
 
   const inputClass =
-    'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+    'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 
   return (
     <div className="p-6">
       {exportToast && (
-        <div className="fixed top-5 right-5 z-50 bg-emerald-500 text-white px-5 py-3 rounded-xl shadow-lg text-sm font-medium">
+        <div className="fixed top-5 right-5 z-50 bg-app-primary text-white px-5 py-3 rounded-xl shadow-lg text-sm font-medium">
           Report exported successfully!
         </div>
       )}
@@ -262,7 +262,7 @@ export default function StudentAttendanceReport() {
               <button
                 onClick={generateReport}
                 disabled={!selectedClass || loading}
-                className="w-full bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
+                className="w-full bg-app-primary hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
               >
                 {loading ? 'Generating...' : 'Generate Report'}
               </button>

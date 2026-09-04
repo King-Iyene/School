@@ -335,21 +335,21 @@ export default function ResultsHub() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div>
             <label className="block text-[11px] font-bold text-app-text-muted uppercase tracking-wider mb-1.5">Academic Session</label>
-            <select value={yearId} onChange={e => setYearId(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+            <select value={yearId} onChange={e => setYearId(e.target.value)} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30">
               <option value="">Select session...</option>
               {years.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
             </select>
           </div>
           <div>
             <label className="block text-[11px] font-bold text-app-text-muted uppercase tracking-wider mb-1.5">Term</label>
-            <select value={termId} onChange={e => setTermId(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+            <select value={termId} onChange={e => setTermId(e.target.value)} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30">
               <option value="">Select term...</option>
               {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
             </select>
           </div>
           <div>
             <label className="block text-[11px] font-bold text-app-text-muted uppercase tracking-wider mb-1.5">Class</label>
-            <select value={classId} onChange={e => setClassId(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+            <select value={classId} onChange={e => setClassId(e.target.value)} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30">
               <option value="">Select class...</option>
               {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
@@ -424,7 +424,7 @@ export default function ResultsHub() {
                 <button
                   onClick={() => setPrintingAll(true)}
                   disabled={filteredRows.length === 0}
-                  className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-app-primary hover:opacity-90 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   title="Print report cards for all students in this class"
                 >
                   <Printer className="w-3.5 h-3.5" />
@@ -437,7 +437,7 @@ export default function ResultsHub() {
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                     placeholder="Search name or admission no..."
-                    className="border border-app-border rounded-xl pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-64"
+                    className="bg-app-surface text-app-text border border-app-border rounded-xl pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-64"
                   />
                 </div>
               </div>
@@ -597,23 +597,23 @@ function TermSettingsModal({ schoolId, classId, termId, yearId, onClose }: TermS
           <div className="p-5 space-y-4">
             <div>
               <label className="block text-xs font-bold text-app-text-muted uppercase mb-1.5">Next Term Fees (NGN)</label>
-              <input type="number" value={nextTermFees} onChange={e => setNextTermFees(e.target.value)} className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" placeholder="0.00" />
+              <input type="number" value={nextTermFees} onChange={e => setNextTermFees(e.target.value)} className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" placeholder="0.00" />
             </div>
             <div>
               <label className="block text-xs font-bold text-app-text-muted uppercase mb-1.5">Other Fees (NGN)</label>
-              <input type="number" value={otherFees} onChange={e => setOtherFees(e.target.value)} className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" placeholder="0.00" />
+              <input type="number" value={otherFees} onChange={e => setOtherFees(e.target.value)} className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" placeholder="0.00" />
             </div>
             <div>
               <label className="block text-xs font-bold text-app-text-muted uppercase mb-1.5">Vacation Date</label>
-              <input type="date" value={vacationDate} onChange={e => setVacationDate(e.target.value)} className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <input type="date" value={vacationDate} onChange={e => setVacationDate(e.target.value)} className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
             </div>
             <div>
               <label className="block text-xs font-bold text-app-text-muted uppercase mb-1.5">Next Term Begins</label>
-              <input type="date" value={nextTermBegins} onChange={e => setNextTermBegins(e.target.value)} className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <input type="date" value={nextTermBegins} onChange={e => setNextTermBegins(e.target.value)} className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
             </div>
             <div className="flex justify-end gap-2 pt-2">
               <button onClick={onClose} className="px-4 py-2 text-sm font-semibold text-app-text bg-slate-100 hover:bg-slate-200 rounded-lg">Cancel</button>
-              <button onClick={save} disabled={saving} className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg disabled:opacity-50">
+              <button onClick={save} disabled={saving} className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-app-primary hover:opacity-90 rounded-lg disabled:opacity-50">
                 <Save className="w-4 h-4" />
                 {saving ? 'Saving...' : 'Save'}
               </button>
@@ -720,7 +720,7 @@ function StudentCommentsModal({ schoolId, classId, termId, yearId, studentId, st
                 value={behaviour}
                 onChange={e => setBehaviour(e.target.value)}
                 disabled={!canEditFormTeacher}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:bg-app-surface-alt"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 disabled:bg-app-surface-alt"
                 placeholder="e.g. Polite, respectful, cooperates well with peers..."
               />
             </div>
@@ -731,7 +731,7 @@ function StudentCommentsModal({ schoolId, classId, termId, yearId, studentId, st
                 value={formTeacherComment}
                 onChange={e => setFormTeacherComment(e.target.value)}
                 disabled={!canEditFormTeacher}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:bg-app-surface-alt"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 disabled:bg-app-surface-alt"
                 placeholder="Form teacher's comments on the student's overall performance..."
               />
               {!canEditFormTeacher && <p className="text-[11px] text-app-text-muted mt-1">Only the form teacher or an admin can edit this.</p>}
@@ -743,7 +743,7 @@ function StudentCommentsModal({ schoolId, classId, termId, yearId, studentId, st
                 value={principalComment}
                 onChange={e => setPrincipalComment(e.target.value)}
                 disabled={!canEditPrincipal}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:bg-app-surface-alt"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 disabled:bg-app-surface-alt"
                 placeholder="Principal's comments..."
               />
               {!canEditPrincipal && <p className="text-[11px] text-app-text-muted mt-1">Only the principal or super admin can edit this.</p>}
@@ -755,7 +755,7 @@ function StudentCommentsModal({ schoolId, classId, termId, yearId, studentId, st
                 value={outstandingOverride}
                 onChange={e => setOutstandingOverride(e.target.value)}
                 disabled={!canEditFormTeacher}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:bg-app-surface-alt"
+                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 disabled:bg-app-surface-alt"
                 placeholder="Leave blank to auto-calculate from finance module"
               />
               <p className="text-[11px] text-app-text-muted mt-1">Optional. Leave blank to use the value from the fees module.</p>
@@ -765,7 +765,7 @@ function StudentCommentsModal({ schoolId, classId, termId, yearId, studentId, st
               <button
                 onClick={save}
                 disabled={saving || (!canEditFormTeacher && !canEditPrincipal)}
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-app-primary hover:opacity-90 rounded-lg disabled:opacity-50"
               >
                 <Save className="w-4 h-4" />
                 {saving ? 'Saving...' : 'Save'}

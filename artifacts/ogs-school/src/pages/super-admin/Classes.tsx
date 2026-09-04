@@ -113,7 +113,7 @@ export default function Classes() {
     return matchLevel && matchSearch;
   });
 
-  const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface';
+  const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface';
 
   return (
     <div className="space-y-5">
@@ -122,7 +122,7 @@ export default function Classes() {
           <h2 className="text-xl font-bold text-app-text">Class Management</h2>
           <p className="text-app-text-muted text-sm">Manage school classes and assign class teachers</p>
         </div>
-        <button onClick={openCreate} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm">
+        <button onClick={openCreate} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm">
           <Plus className="w-4 h-4" /> Add Class
         </button>
       </div>
@@ -132,7 +132,7 @@ export default function Classes() {
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder="Search classes..."
-          className="flex-1 min-w-[160px] border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+          className="bg-app-surface text-app-text flex-1 min-w-[160px] border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
         />
         <select value={filterLevel} onChange={e => setFilterLevel(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none bg-app-surface">
           <option value="">All Levels</option>
@@ -253,7 +253,7 @@ export default function Classes() {
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
-            <button onClick={handleSave} disabled={saving} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+            <button onClick={handleSave} disabled={saving} className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
               {saving ? 'Saving...' : editClass ? 'Update Class' : 'Create Class'}
             </button>
           </div>

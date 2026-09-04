@@ -3,7 +3,7 @@ import { ArrowRightLeft, Search, RotateCcw } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 
-const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 
 interface InventoryItem {
   id: string;
@@ -212,7 +212,7 @@ export default function IssueItem() {
   return (
     <div className="p-6 space-y-6">
       <div className="flex items-center gap-3">
-        <div className="bg-emerald-500 text-white p-2 rounded-xl">
+        <div className="bg-app-primary text-white p-2 rounded-xl">
           <ArrowRightLeft size={20} />
         </div>
         <h1 className="text-2xl font-bold text-app-text">Issue Items</h1>
@@ -242,7 +242,7 @@ export default function IssueItem() {
             <div className="relative">
               <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted" />
               <input
-                className="border border-app-border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+                className="bg-app-surface text-app-text border border-app-border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full"
                 placeholder="Search student or staff by name..."
                 value={profileSearch}
                 onChange={e => { setProfileSearch(e.target.value); setShowProfileDropdown(true); setSelectedProfile(null); setForm(p => ({ ...p, issued_to: '' })); }}
@@ -333,7 +333,7 @@ export default function IssueItem() {
             <button
               type="submit"
               disabled={saving || !!stockError || !form.item_id || !form.issued_to}
-              className="px-6 py-2.5 rounded-xl text-sm font-medium bg-emerald-500 hover:bg-emerald-600 text-white disabled:opacity-60 transition-colors"
+              className="px-6 py-2.5 rounded-xl text-sm font-medium bg-app-primary hover:opacity-90 text-white disabled:opacity-60 transition-colors"
             >
               {saving ? 'Issuing...' : 'Issue Item'}
             </button>

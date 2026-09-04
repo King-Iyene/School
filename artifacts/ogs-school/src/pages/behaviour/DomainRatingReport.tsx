@@ -202,7 +202,7 @@ export default function DomainRatingReport() {
 
 
       {toast && (
-        <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-lg text-sm font-medium">
+        <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-app-primary text-white px-4 py-3 rounded-xl shadow-lg text-sm font-medium">
           <CheckCircle className="h-4 w-4" /> {toast}
         </div>
       )}
@@ -236,7 +236,7 @@ export default function DomainRatingReport() {
               <select
                 value={filters.domain}
                 onChange={e => setFilters(f => ({ ...f, domain: e.target.value as any }))}
-                className="appearance-none border border-app-border rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="bg-app-surface text-app-text appearance-none border border-app-border rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
               >
                 {DOMAIN_OPTIONS.map(d => <option key={d.value} value={d.value}>{d.label}</option>)}
               </select>
@@ -248,7 +248,7 @@ export default function DomainRatingReport() {
             <select
               value={filters.year_id}
               onChange={e => setFilters(f => ({ ...f, year_id: e.target.value }))}
-              className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
             >
               <option value="">Select Year</option>
               {years.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
@@ -259,7 +259,7 @@ export default function DomainRatingReport() {
             <select
               value={filters.class_id}
               onChange={e => setFilters(f => ({ ...f, class_id: e.target.value }))}
-              className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
             >
               <option value="">Select Class</option>
               {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -270,7 +270,7 @@ export default function DomainRatingReport() {
             <select
               value={filters.term_id}
               onChange={e => setFilters(f => ({ ...f, term_id: e.target.value }))}
-              className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="bg-app-surface text-app-text border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
             >
               <option value="">All Terms</option>
               {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
@@ -285,7 +285,7 @@ export default function DomainRatingReport() {
                 placeholder="Name or admission..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="border border-app-border rounded-lg pl-8 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 w-52"
+                className="bg-app-surface text-app-text border border-app-border rounded-lg pl-8 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary w-52"
               />
             </div>
           </div>

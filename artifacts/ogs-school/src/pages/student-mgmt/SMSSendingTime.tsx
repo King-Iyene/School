@@ -49,7 +49,7 @@ const colorMap = {
   emerald: {
     bg: 'bg-emerald-100',
     text: 'text-emerald-600',
-    ring: 'focus:ring-emerald-500 focus:border-emerald-500',
+    ring: 'focus:ring-app-primary focus:border-emerald-500',
     badge: 'bg-emerald-100 text-emerald-700',
     toggle_on: 'bg-emerald-500',
     border: 'border-emerald-200',
@@ -135,7 +135,7 @@ const SMSSendingTime: React.FC = () => {
           </div>
           <button
             onClick={handleSave}
-            className="flex items-center gap-2 bg-emerald-600 text-white px-5 py-2.5 rounded-lg hover:bg-emerald-700 transition-colors font-medium text-sm"
+            className="flex items-center gap-2 bg-app-primary text-white px-5 py-2.5 rounded-lg hover:opacity-90 transition-colors font-medium text-sm"
           >
             <Save size={16} />
             {saved ? 'Saved!' : 'Save Settings'}
@@ -250,7 +250,7 @@ const SMSSendingTime: React.FC = () => {
         </div>
 
         {saved && (
-          <div className="fixed bottom-6 right-6 flex items-center gap-2 bg-emerald-600 text-white px-4 py-3 rounded-lg shadow-lg">
+          <div className="fixed bottom-6 right-6 flex items-center gap-2 bg-app-primary text-white px-4 py-3 rounded-lg shadow-lg">
             <CheckCircle size={18} />
             <span className="text-sm font-medium">SMS settings saved successfully!</span>
           </div>

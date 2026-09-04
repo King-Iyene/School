@@ -42,7 +42,7 @@ const ROLE_LABELS: Record<string, string> = {
   staff: 'Staff',
 };
 
-const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+const inputCls = 'bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30';
 
 export default function TeacherProfileView() {
   const teacherId = getIdFromUrl();
@@ -412,7 +412,7 @@ export default function TeacherProfileView() {
           <div className="flex gap-1 overflow-x-auto pb-1">
             {TABS.map(t => (
               <button key={t.key} onClick={() => handleTabChange(t.key)}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors whitespace-nowrap ${tab === t.key ? 'bg-slate-900 text-white' : 'text-app-text-muted hover:bg-slate-100'}`}>
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors whitespace-nowrap ${tab === t.key ? 'bg-app-primary text-white' : 'text-app-text-muted hover:bg-app-surface-alt'}`}>
                 <t.icon className="w-3.5 h-3.5" />{t.label}
               </button>
             ))}
@@ -452,7 +452,7 @@ export default function TeacherProfileView() {
                   <div><label className="block text-xs font-semibold text-app-text-muted mb-1">Address</label><input value={basicForm.address} onChange={e => setBasicForm({ ...basicForm, address: e.target.value })} className={inputCls} /></div>
                   <div className="flex gap-2">
                     <button onClick={() => setEditBasic(false)} className="flex-1 border border-app-border text-app-text rounded-xl py-2 text-sm hover:bg-app-surface-alt">Cancel</button>
-                    <button onClick={saveBasic} disabled={savingBasic} className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-2 text-sm font-medium flex items-center justify-center gap-1.5 disabled:opacity-50">
+                    <button onClick={saveBasic} disabled={savingBasic} className="flex-1 bg-app-primary hover:opacity-90 text-white rounded-xl py-2 text-sm font-medium flex items-center justify-center gap-1.5 disabled:opacity-50">
                       <Save className="w-3.5 h-3.5" />{savingBasic ? 'Saving...' : 'Save'}
                     </button>
                   </div>
@@ -844,7 +844,7 @@ export default function TeacherProfileView() {
           </div>
           <div className="flex justify-end gap-3 pt-2">
             <button onClick={() => setLeaveModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-app-text-muted border border-app-border rounded-xl hover:bg-app-surface-alt">Cancel</button>
-            <button onClick={saveLeave} disabled={savingLeave} className="px-4 py-2.5 text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 rounded-xl disabled:opacity-60">{savingLeave ? 'Saving...' : 'Save Changes'}</button>
+            <button onClick={saveLeave} disabled={savingLeave} className="px-4 py-2.5 text-sm font-medium text-white bg-app-primary hover:opacity-90 rounded-xl disabled:opacity-60">{savingLeave ? 'Saving...' : 'Save Changes'}</button>
           </div>
         </div>
       </Modal>

@@ -23,7 +23,7 @@ interface Profile {
 const ROLES = ['accountant', 'admin', 'admin_support', 'cleaner', 'head_teacher', 'matron', 'non_teaching_staff', 'nur_prim_teacher', 'porter', 'principal', 'security_officer', 'super_admin', 'teacher'];
 
 const inputClass =
-  'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 
 function roleBadge(role: string) {
   switch (role) {
@@ -252,7 +252,7 @@ export default function StaffList() {
         <h1 className="text-2xl font-bold text-app-text">Staff List</h1>
         <div className="flex items-center gap-3">
           <select
-            className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
             value={filterRole}
             onChange={(e) => setFilterRole(e.target.value)}
           >
@@ -262,7 +262,7 @@ export default function StaffList() {
             ))}
           </select>
           <select
-            className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value as 'all' | 'active' | 'inactive')}
           >
@@ -272,7 +272,7 @@ export default function StaffList() {
           </select>
           <button
             onClick={openAdd}
-            className="bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
+            className="bg-app-primary hover:opacity-90 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
           >
             + Add Staff
           </button>
@@ -421,7 +421,7 @@ export default function StaffList() {
           </div>
           <div className="flex justify-end gap-3 pt-2">
             <button onClick={() => setAddModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-app-text-muted hover:text-app-text border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors">Cancel</button>
-            <button onClick={handleAdd} disabled={saving} className="px-4 py-2.5 text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 rounded-xl transition-colors disabled:opacity-60">
+            <button onClick={handleAdd} disabled={saving} className="px-4 py-2.5 text-sm font-medium text-white bg-app-primary hover:opacity-90 rounded-xl transition-colors disabled:opacity-60">
               {saving ? 'Adding...' : 'Add Staff'}
             </button>
           </div>
@@ -462,7 +462,7 @@ export default function StaffList() {
           </div>
           <div className="flex justify-end gap-3 pt-2">
             <button onClick={() => setEditModalOpen(false)} className="px-4 py-2.5 text-sm font-medium text-app-text-muted hover:text-app-text border border-app-border rounded-xl hover:bg-app-surface-alt transition-colors">Cancel</button>
-            <button onClick={handleEdit} disabled={saving} className="px-4 py-2.5 text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 rounded-xl transition-colors disabled:opacity-60">
+            <button onClick={handleEdit} disabled={saving} className="px-4 py-2.5 text-sm font-medium text-white bg-app-primary hover:opacity-90 rounded-xl transition-colors disabled:opacity-60">
               {saving ? 'Saving...' : 'Save'}
             </button>
           </div>

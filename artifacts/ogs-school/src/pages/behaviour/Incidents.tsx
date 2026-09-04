@@ -133,7 +133,7 @@ export default function Incidents() {
         </div>
         <button
           onClick={openAdd}
-          className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-sm font-medium"
+          className="flex items-center gap-2 px-4 py-2 bg-app-primary text-white rounded-lg hover:opacity-90 transition-colors text-sm font-medium"
         >
           <Plus size={16} /> Add Incident Type
         </button>
@@ -214,7 +214,7 @@ export default function Incidents() {
                   type="text"
                   value={modal.incident.name || ''}
                   onChange={e => handleChange('name', e.target.value)}
-                  className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
                   placeholder="e.g. Classroom Disruption"
                 />
               </div>
@@ -224,7 +224,7 @@ export default function Incidents() {
                   value={modal.incident.description || ''}
                   onChange={e => handleChange('description', e.target.value)}
                   rows={3}
-                  className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                  className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none"
                   placeholder="Brief description of this incident type"
                 />
               </div>
@@ -233,7 +233,7 @@ export default function Incidents() {
                 <select
                   value={modal.incident.severity || 'minor'}
                   onChange={e => handleChange('severity', e.target.value)}
-                  className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
                 >
                   <option value="minor">Minor</option>
                   <option value="moderate">Moderate</option>
@@ -247,7 +247,7 @@ export default function Incidents() {
                   min={0}
                   value={modal.incident.points_deducted ?? 0}
                   onChange={e => handleChange('points_deducted', parseInt(e.target.value) || 0)}
-                  className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
                 />
               </div>
             </div>
@@ -262,7 +262,7 @@ export default function Incidents() {
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="px-4 py-2 text-sm bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-60"
+                className="px-4 py-2 text-sm bg-app-primary text-white rounded-lg hover:opacity-90 transition-colors disabled:opacity-60"
               >
                 {saving ? 'Saving...' : modal.mode === 'add' ? 'Add Incident' : 'Save Changes'}
               </button>

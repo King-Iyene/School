@@ -208,7 +208,7 @@ const SubjectWiseAttendance: React.FC = () => {
               <select
                 value={selectedClass}
                 onChange={(e) => setSelectedClass(e.target.value)}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-app-primary focus:border-emerald-500 outline-none"
               >
                 <option value="">Select Class</option>
                 {classes.map((c) => (
@@ -221,7 +221,7 @@ const SubjectWiseAttendance: React.FC = () => {
               <select
                 value={selectedSubject}
                 onChange={(e) => setSelectedSubject(e.target.value)}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-app-primary focus:border-emerald-500 outline-none"
               >
                 <option value="">All Subjects</option>
                 {subjects.map((s) => (
@@ -235,7 +235,7 @@ const SubjectWiseAttendance: React.FC = () => {
                 type="date"
                 value={dateFrom}
                 onChange={(e) => setDateFrom(e.target.value)}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-app-primary focus:border-emerald-500 outline-none"
               />
             </div>
             <div>
@@ -244,7 +244,7 @@ const SubjectWiseAttendance: React.FC = () => {
                 type="date"
                 value={dateTo}
                 onChange={(e) => setDateTo(e.target.value)}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-app-primary focus:border-emerald-500 outline-none"
               />
             </div>
           </div>
@@ -252,7 +252,7 @@ const SubjectWiseAttendance: React.FC = () => {
             <button
               onClick={fetchAttendance}
               disabled={loading || !selectedClass}
-              className="flex items-center gap-2 bg-emerald-600 text-white px-5 py-2.5 rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium text-sm"
+              className="flex items-center gap-2 bg-app-primary text-white px-5 py-2.5 rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium text-sm"
             >
               {loading ? <RefreshCw size={16} className="animate-spin" /> : <Filter size={16} />}
               Generate Report

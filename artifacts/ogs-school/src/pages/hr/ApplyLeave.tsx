@@ -22,7 +22,7 @@ interface LeaveApplication {
 }
 
 const inputClass =
-  'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 
 function calcDays(from: string, to: string): number {
   if (!from || !to) return 0;
@@ -156,7 +156,7 @@ export default function ApplyLeave() {
         </div>
         <button
           onClick={openAdd}
-          className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-3 sm:px-4 py-2.5 rounded-xl transition-colors"
+          className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white text-sm font-medium px-3 sm:px-4 py-2.5 rounded-xl transition-colors"
         >
           <Plus className="w-4 h-4" />
           <span className="hidden sm:inline">Apply Leave</span>
@@ -289,7 +289,7 @@ export default function ApplyLeave() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="px-4 py-2.5 text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 rounded-xl transition-colors disabled:opacity-60"
+              className="px-4 py-2.5 text-sm font-medium text-white bg-app-primary hover:opacity-90 rounded-xl transition-colors disabled:opacity-60"
             >
               {saving ? 'Submitting...' : 'Submit'}
             </button>

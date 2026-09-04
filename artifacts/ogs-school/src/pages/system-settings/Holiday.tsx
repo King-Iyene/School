@@ -39,7 +39,7 @@ interface Holiday {
 }
 
 const INPUT_CLASS =
-  'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+  'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 
 const EMPTY_FORM = {
   name: '',
@@ -216,7 +216,7 @@ export default function Holiday() {
           <button
             onClick={handleQuickImport}
             disabled={!selectedYear || importing}
-            className="flex items-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors disabled:opacity-60"
+            className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors disabled:opacity-60"
             title="Import all 12 Nigerian federal public holidays for the 2025/2026 academic year"
           >
             <Download className="w-4 h-4" />
@@ -225,7 +225,7 @@ export default function Holiday() {
           <button
             onClick={openCreate}
             disabled={!selectedYear}
-            className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors disabled:opacity-60"
+            className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors disabled:opacity-60"
           >
             <Plus className="w-4 h-4" />
             Add Holiday
@@ -382,7 +382,7 @@ export default function Holiday() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="px-5 py-2.5 text-sm bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-xl transition-colors disabled:opacity-60"
+              className="px-5 py-2.5 text-sm bg-app-primary hover:opacity-90 text-white font-medium rounded-xl transition-colors disabled:opacity-60"
             >
               {saving ? 'Saving...' : editId ? 'Update' : 'Create'}
             </button>

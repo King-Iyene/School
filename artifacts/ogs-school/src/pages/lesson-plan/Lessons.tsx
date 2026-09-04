@@ -180,7 +180,7 @@ export default function Lessons() {
         </div>
         <button
           onClick={openAdd}
-          className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+          className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
         >
           <Plus size={16} />
           Add Lesson
@@ -191,7 +191,7 @@ export default function Lessons() {
         <select
           value={filterClass}
           onChange={(e) => setFilterClass(e.target.value)}
-          className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
+          className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface"
         >
           <option value="">All Classes</option>
           {classes.map((cls) => (
@@ -201,7 +201,7 @@ export default function Lessons() {
         <select
           value={filterSubject}
           onChange={(e) => setFilterSubject(e.target.value)}
-          className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
+          className="border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface"
         >
           <option value="">All Subjects</option>
           {subjects.map((sub) => (
@@ -293,7 +293,7 @@ export default function Lessons() {
               <select
                 value={form.class_id}
                 onChange={(e) => setForm({ ...form, class_id: e.target.value })}
-                className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
               >
                 <option value="">Select class</option>
                 {classes.map((cls) => (
@@ -306,7 +306,7 @@ export default function Lessons() {
               <select
                 value={form.subject_id}
                 onChange={(e) => setForm({ ...form, subject_id: e.target.value })}
-                className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
               >
                 <option value="">Select subject</option>
                 {subjects.map((sub) => (
@@ -322,7 +322,7 @@ export default function Lessons() {
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
               placeholder="Lesson title"
-              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
             />
           </div>
           <div>
@@ -332,7 +332,7 @@ export default function Lessons() {
               onChange={(e) => setForm({ ...form, description: e.target.value })}
               placeholder="Brief description of the lesson"
               rows={3}
-              className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none"
             />
           </div>
           <div className="grid grid-cols-3 gap-4">
@@ -344,7 +344,7 @@ export default function Lessons() {
                 onChange={(e) => setForm({ ...form, lesson_number: e.target.value })}
                 placeholder="1"
                 min="1"
-                className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
               />
             </div>
             <div>
@@ -355,7 +355,7 @@ export default function Lessons() {
                 onChange={(e) => setForm({ ...form, duration_minutes: e.target.value })}
                 placeholder="60"
                 min="0"
-                className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
               />
             </div>
             <div>
@@ -363,7 +363,7 @@ export default function Lessons() {
               <select
                 value={form.status}
                 onChange={(e) => setForm({ ...form, status: e.target.value as FormData['status'] })}
-                className="w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
               >
                 <option value="draft">Draft</option>
                 <option value="active">Active</option>
@@ -381,7 +381,7 @@ export default function Lessons() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="px-4 py-2 text-sm rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors disabled:opacity-50"
+              className="px-4 py-2 text-sm rounded-lg bg-app-primary hover:opacity-90 text-white font-medium transition-colors disabled:opacity-50"
             >
               {saving ? 'Saving...' : editing ? 'Update' : 'Add Lesson'}
             </button>

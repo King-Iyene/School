@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT_CLASS = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT_CLASS = 'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 
 interface ClassOption {
   id: string;
@@ -201,7 +201,7 @@ export default function TransportAssignment() {
   return (
     <div className="p-6 space-y-6">
       <div className="flex items-center gap-3">
-        <div className="bg-emerald-500 text-white p-2 rounded-xl">
+        <div className="bg-app-primary text-white p-2 rounded-xl">
           <MapPin size={20} />
         </div>
         <h1 className="text-2xl font-bold text-app-text">Transport Assignment</h1>
@@ -216,7 +216,7 @@ export default function TransportAssignment() {
           <select
             value={filterClass}
             onChange={e => { setFilterClass(e.target.value); setFilterSection(''); }}
-            className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
           >
             <option value="">Select Class</option>
             {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -224,7 +224,7 @@ export default function TransportAssignment() {
           <select
             value={filterSection}
             onChange={e => setFilterSection(e.target.value)}
-            className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
           >
             <option value="">All Sections</option>
             {filteredSections.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
@@ -374,7 +374,7 @@ export default function TransportAssignment() {
             <button
               type="submit"
               disabled={saving}
-              className="px-4 py-2.5 rounded-xl text-sm font-medium bg-emerald-500 hover:bg-emerald-600 text-white disabled:opacity-60"
+              className="px-4 py-2.5 rounded-xl text-sm font-medium bg-app-primary hover:opacity-90 text-white disabled:opacity-60"
             >
               {saving ? 'Saving...' : 'Save Assignment'}
             </button>

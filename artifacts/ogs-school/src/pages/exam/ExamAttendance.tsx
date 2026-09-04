@@ -152,7 +152,7 @@ export default function ExamAttendance() {
   }
 
   const inputClass =
-    'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+    'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 
   const allSelected = selectedExam && selectedClass && selectedSubject && selectedDate;
   const presentCount = students.filter((s) => s.status === 'present').length;
@@ -181,7 +181,7 @@ export default function ExamAttendance() {
                 <button
                   onClick={() => handleSaveAll(true)}
                   disabled={saving || locking}
-                  className="flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all shadow-md shadow-slate-200 disabled:opacity-50"
+                  className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all shadow-md disabled:opacity-50"
                 >
                   <Lock size={16} />
                   {locking ? 'Locking...' : 'Submit & Lock'}

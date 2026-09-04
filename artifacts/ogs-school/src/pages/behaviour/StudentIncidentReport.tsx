@@ -160,13 +160,13 @@ export default function StudentIncidentReport() {
                   onChange={e => setSearchQuery(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && handleSearch()}
                   placeholder="Search by name or admission number..."
-                  className="w-full pl-9 pr-3 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                  className="bg-app-surface text-app-text w-full pl-9 pr-3 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
                 />
               </div>
               <button
                 onClick={handleSearch}
                 disabled={loadingSearch}
-                className="px-4 py-2 bg-emerald-500 text-white rounded-xl text-sm font-medium hover:bg-emerald-600 transition-colors disabled:opacity-60 whitespace-nowrap"
+                className="px-4 py-2 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 transition-colors disabled:opacity-60 whitespace-nowrap"
               >
                 {loadingSearch ? '...' : 'Search'}
               </button>
@@ -201,7 +201,7 @@ export default function StudentIncidentReport() {
               <select
                 value={selectedClass}
                 onChange={e => handleClassChange(e.target.value)}
-                className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface"
+                className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface"
               >
                 <option value="">-- Choose Class --</option>
                 {classes.map(c => <option key={c.id} value={c.id}>{c.name} {c.section ? `(${c.section})` : ''}</option>)}
@@ -216,7 +216,7 @@ export default function StudentIncidentReport() {
                   if (s) selectStudent(s);
                 }}
                 disabled={!selectedClass}
-                className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface disabled:bg-app-surface-alt disabled:text-app-text-muted"
+                className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface disabled:bg-app-surface-alt disabled:text-app-text-muted"
               >
                 <option value="">-- Choose Student --</option>
                 {classStudents.map(s => <option key={s.id} value={s.id}>{s.first_name} {s.last_name} ({s.admission_number})</option>)}

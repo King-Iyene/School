@@ -174,7 +174,7 @@ const DETERMINATION_OPTIONS: { value: Determination; label: string; desc: string
 const TERM_LABELS: Record<number, string> = { 1: 'First Term', 2: 'Second Term', 3: 'Third Term' };
 const TERM_SHORT: Record<number, string>  = { 1: '1st Term', 2: '2nd Term', 3: '3rd Term' };
 
-const INPUT  = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const INPUT  = 'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 const TEXTAREA = INPUT + ' resize-y min-h-[90px]';
 
 const SETUP_SQL = `create table if not exists public.staff_assessments (
@@ -702,7 +702,7 @@ export default function StaffAssessment() {
           <button
             onClick={() => { setInitiateForm({ term: filterTerm || '' }); setInitiateModalOpen(true); }}
             disabled={initiating}
-            className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors disabled:opacity-60"
+            className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors disabled:opacity-60"
           >
             <Plus className="w-4 h-4" />
             Initiate Assessment Round
@@ -776,19 +776,19 @@ export default function StaffAssessment() {
             <input
               value={search} onChange={e => setSearch(e.target.value)}
               placeholder="Search by name…"
-              className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-44"
+              className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-44"
             />
-            <select value={filterTerm} onChange={e => setFilterTerm(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+            <select value={filterTerm} onChange={e => setFilterTerm(e.target.value)} className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30">
               <option value="">All Terms</option>
               <option value="1">First Term</option>
               <option value="2">Second Term</option>
               <option value="3">Third Term</option>
             </select>
-            <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+            <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30">
               <option value="">All Statuses</option>
               {Object.entries(STATUS_CONFIG).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
             </select>
-            <select value={filterType} onChange={e => setFilterType(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+            <select value={filterType} onChange={e => setFilterType(e.target.value)} className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30">
               <option value="">All Staff Types</option>
               <option value="teaching">Teaching</option>
               <option value="non_teaching">Non-Teaching</option>
@@ -876,7 +876,7 @@ export default function StaffAssessment() {
             </div>
             <h3 className="text-lg font-bold text-app-text mb-2">No Assessment Started</h3>
             <p className="text-app-text-muted text-sm max-w-sm mx-auto mb-5">Your Professional Development Assessment for 2026 hasn't been created yet. Click below to begin.</p>
-            <button onClick={createMyAssessment} className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors">
+            <button onClick={createMyAssessment} className="bg-app-primary hover:opacity-90 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors">
               Start My Assessment
             </button>
           </div>
@@ -982,7 +982,7 @@ export default function StaffAssessment() {
                 <button onClick={() => saveSelf(false)} disabled={selfSaving} className="px-5 py-2.5 rounded-xl border border-app-border text-sm font-medium text-app-text-muted hover:bg-app-surface-alt transition-colors disabled:opacity-50">
                   {selfSaving ? 'Saving…' : 'Save Draft'}
                 </button>
-                <button onClick={() => saveSelf(true)} disabled={selfSaving} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+                <button onClick={() => saveSelf(true)} disabled={selfSaving} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
                   <Send className="w-4 h-4" />
                   {selfSaving ? 'Submitting…' : 'Submit Assessment'}
                 </button>
@@ -1079,7 +1079,7 @@ export default function StaffAssessment() {
               <button
                 onClick={handleInitiateRound}
                 disabled={!initiateForm.term || initiating}
-                className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 text-white text-sm font-medium px-5 py-2.5 rounded-xl transition-colors"
+                className="flex items-center gap-2 bg-app-primary hover:opacity-90 disabled:opacity-50 text-white text-sm font-medium px-5 py-2.5 rounded-xl transition-colors"
               >
                 <Plus className="w-4 h-4" />
                 {initiating ? 'Creating…' : 'Initiate Round'}
@@ -1340,7 +1340,7 @@ export default function StaffAssessment() {
                 <button onClick={() => saveDataEntry(false)} disabled={dataEntrySaving} className="px-5 py-2.5 rounded-xl border border-app-border text-sm font-medium text-app-text-muted hover:bg-app-surface-alt transition-colors disabled:opacity-50">
                   {dataEntrySaving ? 'Saving…' : 'Save Draft'}
                 </button>
-                <button onClick={() => saveDataEntry(true)} disabled={dataEntrySaving} className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+                <button onClick={() => saveDataEntry(true)} disabled={dataEntrySaving} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
                   <CheckCircle className="w-4 h-4" />
                   {dataEntrySaving ? 'Submitting…' : 'Submit on Behalf of Staff'}
                 </button>
@@ -1350,7 +1350,7 @@ export default function StaffAssessment() {
                 <button onClick={() => saveReview(false)} disabled={reviewSaving} className="px-5 py-2.5 rounded-xl border border-app-border text-sm font-medium text-app-text-muted hover:bg-app-surface-alt transition-colors disabled:opacity-50">
                   {reviewSaving ? 'Saving…' : 'Save Draft'}
                 </button>
-                <button onClick={() => saveReview(true)} disabled={reviewSaving} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+                <button onClick={() => saveReview(true)} disabled={reviewSaving} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
                   <CheckCircle className="w-4 h-4" />
                   {reviewSaving ? 'Submitting…' : isPrincipal ? 'Complete Assessment' : 'Submit Review'}
                 </button>

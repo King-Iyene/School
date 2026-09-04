@@ -47,7 +47,7 @@ interface Payment {
   fee_structures?: { name: string };
 }
 
-const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-colors';
+const inputCls = 'bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 focus:border-emerald-400 transition-colors';
 
 const EMPTY_CAT = { name: '', description: '', amount: '', class_level: '', due_date: '', is_mandatory: true };
 const EMPTY_PAY = { amount_paid: '', payment_method: 'cash', receipt_number: '', notes: '', payment_date: new Date().toISOString().split('T')[0] };
@@ -459,7 +459,7 @@ export default function FeeManagementPage() {
       {tab === 'categories' && (
         <div className="space-y-4">
           <div className="flex justify-end">
-            <button onClick={openAddCat} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm">
+            <button onClick={openAddCat} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm">
               <Plus className="w-4 h-4" /> Add Fee Category
             </button>
           </div>
@@ -520,7 +520,7 @@ export default function FeeManagementPage() {
                 value={studentSearch}
                 onChange={e => setStudentSearch(e.target.value)}
                 placeholder="Type student name or admission number..."
-                className="w-full pl-9 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                className="bg-app-surface text-app-text w-full pl-9 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
               />
               {searching && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-app-text-muted">Searching...</span>}
             </div>
@@ -592,7 +592,7 @@ export default function FeeManagementPage() {
                             </span>
                           </td>
                           <td className="px-4 py-3">
-                            <button onClick={() => openPayModal(fee)} className="text-xs px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition-colors font-medium">
+                            <button onClick={() => openPayModal(fee)} className="text-xs px-3 py-1.5 bg-app-primary hover:opacity-90 text-white rounded-lg transition-colors font-medium">
                               Record Payment
                             </button>
                           </td>
@@ -725,7 +725,7 @@ export default function FeeManagementPage() {
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setShowCatModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
-            <button onClick={saveCat} disabled={savingCat || !catForm.name.trim() || !catForm.amount} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
+            <button onClick={saveCat} disabled={savingCat || !catForm.name.trim() || !catForm.amount} className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
               {savingCat ? 'Saving...' : editCat ? 'Update' : 'Add Category'}
             </button>
           </div>
@@ -794,7 +794,7 @@ export default function FeeManagementPage() {
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setShowPayModal(false)} className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
-            <button onClick={savePayment} disabled={savingPay || !payForm.amount_paid} className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
+            <button onClick={savePayment} disabled={savingPay || !payForm.amount_paid} className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors">
               {savingPay ? 'Saving...' : 'Record Payment'}
             </button>
           </div>

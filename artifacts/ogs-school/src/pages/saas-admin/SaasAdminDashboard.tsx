@@ -143,7 +143,7 @@ export default function SaasAdminDashboard() {
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="Search schools…"
-                className="w-full pl-9 pr-3 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-violet/30 focus:border-brand-violet/40"
+                className="bg-app-surface text-app-text w-full pl-9 pr-3 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-violet/30 focus:border-brand-violet/40"
               />
             </div>
             <div className="flex gap-2">
@@ -245,7 +245,7 @@ function TenantEditModal({
   onSave: (patch: Partial<TenantRow>) => void;
 }) {
   const [form, setForm] = useState<TenantRow>({ ...tenant });
-  const fieldClass = 'w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-violet/30 focus:border-brand-violet/40 transition-colors';
+  const fieldClass = 'bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-violet/30 focus:border-brand-violet/40 transition-colors';
 
   return (
     <Modal isOpen title={`Manage ${tenant.school_name || tenant.slug}`} onClose={onClose} size="lg">

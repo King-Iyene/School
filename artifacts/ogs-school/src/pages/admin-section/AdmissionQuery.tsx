@@ -173,7 +173,7 @@ export default function AdmissionQuery() {
     return matchSearch && matchSource && matchStatus && matchFrom && matchTo;
   });
 
-  const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-colors';
+  const inputCls = 'bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 focus:border-emerald-400 transition-colors';
 
   return (
     <div className="space-y-5">
@@ -182,7 +182,7 @@ export default function AdmissionQuery() {
           <h2 className="text-xl font-bold text-app-text">Admission Queries</h2>
           <p className="text-app-text-muted text-sm">Track and manage prospective student inquiries</p>
         </div>
-        <button onClick={openAdd} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm">
+        <button onClick={openAdd} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm">
           <Plus className="w-4 h-4" /> Add Query
         </button>
       </div>
@@ -194,7 +194,7 @@ export default function AdmissionQuery() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Search by name, phone, email..."
-            className="w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="bg-app-surface text-app-text w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
           />
         </div>
         <select value={filterSource} onChange={e => setFilterSource(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none bg-app-surface">
@@ -205,8 +205,8 @@ export default function AdmissionQuery() {
           <option value="">All Status</option>
           {STATUS_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
-        <input type="date" value={fromDate} onChange={e => setFromDate(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none" />
-        <input type="date" value={toDate} onChange={e => setToDate(e.target.value)} className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none" />
+        <input type="date" value={fromDate} onChange={e => setFromDate(e.target.value)} className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none" />
+        <input type="date" value={toDate} onChange={e => setToDate(e.target.value)} className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none" />
       </div>
 
       <div className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
@@ -357,7 +357,7 @@ export default function AdmissionQuery() {
             <button
               onClick={handleSave}
               disabled={saving || !form.student_name.trim()}
-              className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors"
+              className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors"
             >
               {saving ? 'Saving...' : editItem ? 'Update Query' : 'Add Query'}
             </button>
@@ -396,7 +396,7 @@ export default function AdmissionQuery() {
             <button
               onClick={handleSaveFollowUp}
               disabled={savingFollowUp || !followUpForm.note.trim()}
-              className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors"
+              className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50 transition-colors"
             >
               {savingFollowUp ? 'Saving...' : 'Add Follow-up'}
             </button>

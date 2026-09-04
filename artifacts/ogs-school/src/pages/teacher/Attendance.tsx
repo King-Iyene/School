@@ -303,7 +303,7 @@ export default function Attendance() {
   // Count recent school days (excluding today) with missing records
   const missingCount  = recentSchoolDays.filter(d => d !== t && !recordedDates.has(d)).length;
 
-  const inputCls = 'border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface';
+  const inputCls = 'border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface';
 
   return (
     <div className="space-y-5">
@@ -364,7 +364,7 @@ export default function Attendance() {
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-app-text-muted" />
                   <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search…"
-                    className="w-full pl-8 pr-3 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+                    className="bg-app-surface text-app-text w-full pl-8 pr-3 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
                 </div>
               </div>
             </div>
@@ -382,7 +382,7 @@ export default function Attendance() {
                 </button>
                 <input type="date" value={attendanceDate} max={t}
                   onChange={e => setAttendanceDate(e.target.value)}
-                  className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+                  className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
                 <button
                   onClick={() => setAttendanceDate(getNextSchoolDay(attendanceDate))}
                   disabled={attendanceDate >= t}
@@ -512,7 +512,7 @@ export default function Attendance() {
                   <button
                     onClick={doBulkFill}
                     disabled={bulkSaving || bulkSchoolDays.length === 0 || students.length === 0}
-                    className="flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+                    className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
                     <Zap className="w-4 h-4" />
                     {bulkSaving ? 'Filling…' : `Fill ${bulkSchoolDays.length > 0 ? bulkSchoolDays.length : ''} Day${bulkSchoolDays.length !== 1 ? 's' : ''}`}
                   </button>
@@ -567,7 +567,7 @@ export default function Attendance() {
                   ? <div className="flex items-center gap-1.5 text-amber-600 text-sm"><WifiOff className="w-4 h-4" /> Saved offline — will sync when connected</div>
                   : <div />}
                 <button onClick={saveAttendance} disabled={saving || !!dateWarning}
-                  className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+                  className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-5 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
                   {saved ? <><CheckCircle className="w-4 h-4" /> Saved!</> : saving ? 'Saving…' : isOnline ? 'Save Attendance' : 'Save Offline'}
                 </button>
               </div>

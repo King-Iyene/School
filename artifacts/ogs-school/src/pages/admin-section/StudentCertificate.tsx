@@ -176,7 +176,7 @@ export default function StudentCertificate() {
   }
 
   const selectedTemplate = templates.find(t => t.id === genTemplate);
-  const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+  const inputCls = 'bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30';
 
   const CERT_TYPE_LABELS: Record<string, string> = {
     graduation: 'Graduation', excellence: 'Excellence', participation: 'Participation', merit: 'Merit', custom: 'Achievement',
@@ -249,7 +249,7 @@ export default function StudentCertificate() {
                 <div className="flex items-center gap-3">
                   <button onClick={toggleAll} className="text-sm text-emerald-600 hover:underline">{selectedStudents.size === students.length ? 'Deselect All' : 'Select All'}</button>
                   {selectedStudents.size > 0 && (
-                    <button onClick={handleGenerate} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors">
+                    <button onClick={handleGenerate} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors">
                       <Printer className="w-4 h-4" /> Print {selectedStudents.size} Certificate{selectedStudents.size !== 1 ? 's' : ''}
                     </button>
                   )}
@@ -302,7 +302,7 @@ export default function StudentCertificate() {
           <button onClick={() => setView('generate')} className="flex items-center gap-2 border border-emerald-500 text-emerald-600 hover:bg-emerald-50 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors">
             <Users className="w-4 h-4" /> Generate
           </button>
-          <button onClick={openAdd} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors">
+          <button onClick={openAdd} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors">
             <Plus className="w-4 h-4" /> Add Template
           </button>
         </div>
@@ -377,7 +377,7 @@ export default function StudentCertificate() {
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
-            <button onClick={handleSave} disabled={saving || !form.name} className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50">{saving ? 'Saving...' : editItem ? 'Update' : 'Add Template'}</button>
+            <button onClick={handleSave} disabled={saving || !form.name} className="flex-1 px-4 py-2 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50">{saving ? 'Saving...' : editItem ? 'Update' : 'Add Template'}</button>
           </div>
         </div>
       </Modal>

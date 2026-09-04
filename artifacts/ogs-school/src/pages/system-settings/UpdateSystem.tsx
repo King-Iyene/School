@@ -40,7 +40,7 @@ export default function UpdateSystem() {
           <button
             onClick={handleCheckUpdates}
             disabled={checking}
-            className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-5 py-2.5 rounded-xl transition-colors disabled:opacity-60"
+            className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white text-sm font-medium px-5 py-2.5 rounded-xl transition-colors disabled:opacity-60"
           >
             <RefreshCw className={`w-4 h-4 ${checking ? 'animate-spin' : ''}`} />
             {checking ? 'Checking...' : 'Check for Updates'}

@@ -183,7 +183,7 @@ export default function StudentGroup() {
         </div>
         <button
           onClick={openCreate}
-          className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-2 rounded-xl transition-colors"
+          className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white text-sm font-medium px-4 py-2 rounded-xl transition-colors"
         >
           <Plus size={16} />
           Add Group
@@ -255,7 +255,7 @@ export default function StudentGroup() {
               type="text"
               value={form.name}
               onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+              className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full"
               placeholder="e.g. Science Club, Arts Group"
             />
           </div>
@@ -264,7 +264,7 @@ export default function StudentGroup() {
             <textarea
               value={form.description}
               onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
-              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full resize-none"
+              className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full resize-none"
               rows={3}
               placeholder="Optional description..."
             />
@@ -279,7 +279,7 @@ export default function StudentGroup() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="px-5 py-2 text-sm font-medium bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl transition-colors disabled:opacity-60"
+              className="px-5 py-2 text-sm font-medium bg-app-primary hover:opacity-90 text-white rounded-xl transition-colors disabled:opacity-60"
             >
               {saving ? 'Saving...' : editTarget ? 'Update' : 'Create'}
             </button>
@@ -320,7 +320,7 @@ export default function StudentGroup() {
             {membersLoading ? (
               <div className="text-sm text-app-text-muted py-4 text-center">Loading...</div>
             ) : members.length === 0 ? (
-              <div className="text-sm text-app-text-muted py-4 text-center border border-dashed border-app-border rounded-xl">
+              <div className="bg-app-surface text-app-text text-sm text-app-text-muted py-4 text-center border border-dashed border-app-border rounded-xl">
                 No members yet.
               </div>
             ) : (
@@ -360,7 +360,7 @@ export default function StudentGroup() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search by name or student ID..."
-                className="border border-app-border rounded-xl pl-8 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full"
+                className="bg-app-surface text-app-text border border-app-border rounded-xl pl-8 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full"
               />
             </div>
             <div className="border border-app-border rounded-xl overflow-hidden max-h-52 overflow-y-auto">

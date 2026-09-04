@@ -240,7 +240,7 @@ const StudentExport: React.FC = () => {
           {fetched && previewData.length > 0 && (
             <button
               onClick={handleDownloadCSV}
-              className="flex items-center gap-2 bg-emerald-600 text-white px-5 py-2.5 rounded-lg hover:bg-emerald-700 transition-colors font-medium text-sm"
+              className="flex items-center gap-2 bg-app-primary text-white px-5 py-2.5 rounded-lg hover:opacity-90 transition-colors font-medium text-sm"
             >
               <Download size={16} />
               Download CSV ({previewData.length} rows)
@@ -281,7 +281,7 @@ const StudentExport: React.FC = () => {
               <select
                 value={selectedClass}
                 onChange={(e) => setSelectedClass(e.target.value)}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-app-primary focus:border-emerald-500 outline-none"
               >
                 <option value="">All Classes</option>
                 {classes.map((c) => (
@@ -294,7 +294,7 @@ const StudentExport: React.FC = () => {
               <select
                 value={selectedYear}
                 onChange={(e) => setSelectedYear(e.target.value)}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-app-primary focus:border-emerald-500 outline-none"
               >
                 <option value="">All Years</option>
                 {academicYears.map((y) => (
@@ -310,7 +310,7 @@ const StudentExport: React.FC = () => {
               loading ||
               ((exportType === 'attendance_summary' || exportType === 'exam_results') && !selectedClass)
             }
-            className="flex items-center gap-2 bg-emerald-600 text-white px-5 py-2.5 rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium text-sm"
+            className="flex items-center gap-2 bg-app-primary text-white px-5 py-2.5 rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium text-sm"
           >
             {loading ? <RefreshCw size={16} className="animate-spin" /> : <Table size={16} />}
             Generate Preview

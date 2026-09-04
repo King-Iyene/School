@@ -200,7 +200,7 @@ export default function Users() {
           <h2 className="text-xl font-bold text-app-text">User Management</h2>
           <p className="text-app-text-muted text-sm">Manage all school users and their roles</p>
         </div>
-        <button onClick={openCreate} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-500/20">
+        <button onClick={openCreate} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-500/20">
           <Plus className="w-4 h-4" />
           Add User
         </button>
@@ -214,13 +214,13 @@ export default function Users() {
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search users..."
-              className="w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+              className="bg-app-surface text-app-text w-full pl-9 pr-4 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
             />
           </div>
           <select
             value={roleFilter}
             onChange={e => setRoleFilter(e.target.value)}
-            className="px-3 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface"
+            className="px-3 py-2 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface"
           >
             <option value="all">All Roles</option>
             <option value="super_admin">Super Admin</option>
@@ -311,17 +311,17 @@ export default function Users() {
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-sm font-medium text-app-text mb-1">First Name</label>
-              <input value={form.first_name} onChange={e => setForm({...form, first_name: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <input value={form.first_name} onChange={e => setForm({...form, first_name: e.target.value})} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
             </div>
             <div>
               <label className="block text-sm font-medium text-app-text mb-1">Last Name</label>
-              <input value={form.last_name} onChange={e => setForm({...form, last_name: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <input value={form.last_name} onChange={e => setForm({...form, last_name: e.target.value})} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
             </div>
           </div>
           {!editUser && (
             <div>
               <label className="block text-sm font-medium text-app-text mb-1">Email</label>
-              <input type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <input type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
             </div>
           )}
           {!editUser && (
@@ -332,7 +332,7 @@ export default function Users() {
                   type={showPassword ? 'text' : 'password'}
                   value={form.password}
                   onChange={e => setForm({...form, password: e.target.value})}
-                  className="w-full border border-app-border rounded-xl px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                  className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
                   placeholder="Enter password"
                 />
                 <button
@@ -348,7 +348,7 @@ export default function Users() {
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-sm font-medium text-app-text mb-1">Role</label>
-              <select value={form.role} onChange={e => setForm({...form, role: e.target.value as UserRole})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+              <select value={form.role} onChange={e => setForm({...form, role: e.target.value as UserRole})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
                 <option value="teacher">Teacher</option>
                 <option value="nur_prim_teacher">Nur &amp; Prim Teacher</option>
                 <option value="non_teaching_staff">Non-Teaching Staff</option>
@@ -367,7 +367,7 @@ export default function Users() {
             </div>
             <div>
               <label className="block text-sm font-medium text-app-text mb-1">Gender</label>
-              <select value={form.gender} onChange={e => setForm({...form, gender: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+              <select value={form.gender} onChange={e => setForm({...form, gender: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
                 <option value="">Select</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -377,11 +377,11 @@ export default function Users() {
           </div>
           <div>
             <label className="block text-sm font-medium text-app-text mb-1">Phone</label>
-            <input value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            <input value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setShowModal(false)} className="flex-1 px-4 py-2 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors">Cancel</button>
-            <button onClick={handleSave} disabled={saving} className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+            <button onClick={handleSave} disabled={saving} className="flex-1 px-4 py-2 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
               {saving ? 'Saving...' : editUser ? 'Update User' : 'Create User'}
             </button>
           </div>

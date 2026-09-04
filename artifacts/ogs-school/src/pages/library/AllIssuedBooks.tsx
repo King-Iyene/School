@@ -132,7 +132,7 @@ export default function AllIssuedBooks() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="bg-emerald-500 text-white p-2 rounded-xl">
+          <div className="bg-app-primary text-white p-2 rounded-xl">
             <BookOpen size={20} />
           </div>
           <h1 className="text-2xl font-bold text-app-text">All Issued Books</h1>
@@ -158,7 +158,7 @@ export default function AllIssuedBooks() {
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface"
+            className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface"
           >
             <option value="all">All Statuses</option>
             <option value="issued">Issued</option>
@@ -171,7 +171,7 @@ export default function AllIssuedBooks() {
               type="date"
               value={dateFrom}
               onChange={(e) => setDateFrom(e.target.value)}
-              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+              className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
             />
           </div>
           <div className="flex items-center gap-2">
@@ -180,7 +180,7 @@ export default function AllIssuedBooks() {
               type="date"
               value={dateTo}
               onChange={(e) => setDateTo(e.target.value)}
-              className="border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+              className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
             />
           </div>
           {(dateFrom || dateTo || filterStatus !== 'all') && (

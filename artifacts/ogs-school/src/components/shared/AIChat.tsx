@@ -197,7 +197,7 @@ export default function AIChat({ compact = false, messages, onMessagesChange }: 
           <div className="flex gap-2">
             <button
               onClick={() => approveAction(index)}
-              className="flex items-center gap-1.5 text-xs font-medium bg-indigo-600 text-white rounded-lg px-3 py-1.5 hover:bg-indigo-700 transition-colors"
+              className="flex items-center gap-1.5 text-xs font-medium bg-app-primary text-white rounded-lg px-3 py-1.5 hover:opacity-90 transition-colors"
             >
               <Check className="w-3.5 h-3.5" /> Approve
             </button>
@@ -298,7 +298,7 @@ export default function AIChat({ compact = false, messages, onMessagesChange }: 
         <button
           onClick={() => send()}
           disabled={busy || !input.trim()}
-          className="h-10 w-10 shrink-0 flex items-center justify-center rounded-xl bg-indigo-600 text-white disabled:opacity-40 hover:bg-indigo-700 transition-colors"
+          className="h-10 w-10 shrink-0 flex items-center justify-center rounded-xl bg-app-primary text-white disabled:opacity-40 hover:opacity-90 transition-colors"
           aria-label="Send"
         >
           <Send className="w-4 h-4" />

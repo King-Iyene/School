@@ -784,7 +784,7 @@ export default function StudentProfile() {
               {isClassTeacher && <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1.5 rounded-full flex items-center gap-1"><GraduationCap className="w-3 h-3" /> Form Master</span>}
               {!isAdmin && !isClassTeacher && role === 'teacher' && <span className="bg-slate-100 text-app-text-muted text-xs font-semibold px-3 py-1.5 rounded-full">Subject Teacher View</span>}
               {(isAdmin || viewer?.id === studentId) && (
-                <button onClick={openEdit} className="flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-semibold px-4 py-1.5 rounded-full transition-colors">
+                <button onClick={openEdit} className="flex items-center gap-1.5 bg-app-primary hover:opacity-90 text-white text-xs font-semibold px-4 py-1.5 rounded-full transition-colors">
                   <Edit2 className="w-3 h-3" /> Edit Profile
                 </button>
               )}
@@ -1305,26 +1305,26 @@ export default function StudentProfile() {
               <>
                 <div>
                   <label className="block text-xs font-medium text-app-text-muted mb-1">First Name</label>
-                  <input value={editForm.first_name} onChange={e => setEditForm({...editForm, first_name: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+                  <input value={editForm.first_name} onChange={e => setEditForm({...editForm, first_name: e.target.value})} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-app-text-muted mb-1">Last Name</label>
-                  <input value={editForm.last_name} onChange={e => setEditForm({...editForm, last_name: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+                  <input value={editForm.last_name} onChange={e => setEditForm({...editForm, last_name: e.target.value})} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
                 </div>
                 <div className="sm:col-span-2">
                   <label className="block text-xs font-medium text-app-text-muted mb-1">Email</label>
-                  <input type="email" value={editForm.email} onChange={e => setEditForm({...editForm, email: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+                  <input type="email" value={editForm.email} onChange={e => setEditForm({...editForm, email: e.target.value})} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
                 </div>
               </>
             )}
             <div>
               <label className="block text-xs font-medium text-app-text-muted mb-1">Phone Number</label>
-              <input value={editForm.phone} onChange={e => setEditForm({...editForm, phone: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <input value={editForm.phone} onChange={e => setEditForm({...editForm, phone: e.target.value})} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
             </div>
             {isAdmin && (
               <div>
                 <label className="block text-xs font-medium text-app-text-muted mb-1">Gender</label>
-                <select value={editForm.gender} onChange={e => setEditForm({...editForm, gender: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+                <select value={editForm.gender} onChange={e => setEditForm({...editForm, gender: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
                   <option value="">Select</option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
@@ -1334,21 +1334,21 @@ export default function StudentProfile() {
             )}
             <div>
               <label className="block text-xs font-medium text-app-text-muted mb-1">Date of Birth</label>
-              <input type="date" value={editForm.date_of_birth} onChange={e => setEditForm({...editForm, date_of_birth: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <input type="date" value={editForm.date_of_birth} onChange={e => setEditForm({...editForm, date_of_birth: e.target.value})} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
             </div>
             {isAdmin && (
               <>
                 <div>
                   <label className="block text-xs font-medium text-app-text-muted mb-1">State of Origin</label>
-                  <input type="text" value={editForm.state_of_origin || ''} onChange={e => setEditForm({...editForm, state_of_origin: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+                  <input type="text" value={editForm.state_of_origin || ''} onChange={e => setEditForm({...editForm, state_of_origin: e.target.value})} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-app-text-muted mb-1">Local Government Area (LGA)</label>
-                  <input type="text" value={editForm.lga || ''} onChange={e => setEditForm({...editForm, lga: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+                  <input type="text" value={editForm.lga || ''} onChange={e => setEditForm({...editForm, lga: e.target.value})} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-app-text-muted mb-1">Blood Group</label>
-                  <select value={editForm.blood_group} onChange={e => setEditForm({...editForm, blood_group: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+                  <select value={editForm.blood_group} onChange={e => setEditForm({...editForm, blood_group: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
                     <option value="">Select</option>
                     {['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].map(bg => <option key={bg} value={bg}>{bg}</option>)}
                   </select>
@@ -1357,12 +1357,12 @@ export default function StudentProfile() {
             )}
             <div className="sm:col-span-2">
               <label className="block text-xs font-medium text-app-text-muted mb-1">Address</label>
-              <textarea value={editForm.address || ''} onChange={e => setEditForm({...editForm, address: e.target.value})} rows={2} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <textarea value={editForm.address || ''} onChange={e => setEditForm({...editForm, address: e.target.value})} rows={2} className="bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30" />
             </div>
             {isAdmin && (
               <div className="sm:col-span-2">
                 <label className="block text-xs font-medium text-app-text-muted mb-1">Class (Admin Only)</label>
-                <select value={editForm.class_id} onChange={e => setEditForm({...editForm, class_id: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+                <select value={editForm.class_id} onChange={e => setEditForm({...editForm, class_id: e.target.value})} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
                   {classList.map(c => <option key={c.id} value={c.id}>{c.name || `${c.level}${c.section}`}</option>)}
                 </select>
               </div>
@@ -1370,7 +1370,7 @@ export default function StudentProfile() {
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={() => setShowEdit(false)} className="flex-1 px-4 py-2 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt">Cancel</button>
-            <button onClick={handleSaveProfile} disabled={saving} className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-medium disabled:opacity-50 flex items-center justify-center gap-2">
+            <button onClick={handleSaveProfile} disabled={saving} className="flex-1 px-4 py-2 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-medium disabled:opacity-50 flex items-center justify-center gap-2">
               {saving ? 'Saving...' : <><Save className="w-4 h-4" /> Save Changes</>}
             </button>
           </div>
@@ -1441,7 +1441,7 @@ export default function StudentProfile() {
                 placeholder="Search by name, email or phone..."
                 value={parentSearchQuery}
                 onChange={e => setParentSearchQuery(e.target.value)}
-                className="flex-1 border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                className="bg-app-surface text-app-text flex-1 border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
               />
               <button 
                 onClick={searchParents}
@@ -1476,7 +1476,7 @@ export default function StudentProfile() {
                           handleLinkParent(p.id, rel);
                         }}
                         disabled={linkingParent}
-                        className="text-xs bg-emerald-500 text-white px-3 py-1 rounded font-medium hover:bg-emerald-600 disabled:opacity-50"
+                        className="text-xs bg-app-primary text-white px-3 py-1 rounded font-medium hover:opacity-90 disabled:opacity-50"
                       >
                         Link
                       </button>

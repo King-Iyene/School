@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/common/Modal';
 
-const INPUT = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
+const INPUT = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface';
 
 const COLORS = [
   { value: 'amber',   label: 'Amber',   bg: 'bg-amber-100',   text: 'text-amber-700'   },
@@ -90,7 +90,7 @@ export default function AssetCategories() {
           <p className="text-app-text-muted text-sm">Group assets by type — furniture, bedding, electronics and more</p>
         </div>
         <button onClick={openAdd}
-          className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-200">
+          className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors shadow-sm shadow-emerald-200">
           <Plus className="w-4 h-4" /> Add Category
         </button>
       </div>
@@ -101,7 +101,7 @@ export default function AssetCategories() {
           <div className="flex flex-wrap gap-2">
             {SUGGESTED.map(s => (
               <button key={s} onClick={() => { setForm({ name: s, color: 'slate' }); setEditId(null); setSaveError(''); setModalOpen(true); }}
-                className="text-sm px-3 py-1.5 rounded-full border border-dashed border-app-border text-app-text-muted hover:border-emerald-400 hover:text-emerald-600 transition-colors">
+                className="bg-app-surface text-app-text text-sm px-3 py-1.5 rounded-full border border-dashed border-app-border text-app-text-muted hover:border-emerald-400 hover:text-emerald-600 transition-colors">
                 + {s}
               </button>
             ))}
@@ -171,7 +171,7 @@ export default function AssetCategories() {
           {saveError && <p className="text-sm text-red-500 bg-red-50 rounded-xl px-3 py-2">{saveError}</p>}
           <div className="flex justify-end gap-2">
             <button type="button" onClick={() => setModalOpen(false)} className="px-4 py-2 rounded-xl border border-app-border text-sm text-app-text-muted hover:bg-app-surface-alt">Cancel</button>
-            <button type="submit" disabled={saving} className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium disabled:opacity-50">{saving ? 'Saving…' : editId ? 'Save' : 'Add'}</button>
+            <button type="submit" disabled={saving} className="px-5 py-2 rounded-xl bg-app-primary hover:opacity-90 text-white text-sm font-medium disabled:opacity-50">{saving ? 'Saving…' : editId ? 'Save' : 'Add'}</button>
           </div>
         </form>
       </Modal>

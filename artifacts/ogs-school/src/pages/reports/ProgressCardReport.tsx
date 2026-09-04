@@ -340,7 +340,7 @@ export default function ProgressCardReport() {
     win.document.close();
   }
 
-  const inputClass = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30';
+  const inputClass = 'bg-app-surface text-app-text w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30';
   const hasResults = selectedStudent && selectedExam && marks.length > 0;
 
   return (
@@ -353,7 +353,7 @@ export default function ProgressCardReport() {
         {hasResults && (
           <button
             onClick={handlePrint}
-            className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors"
+            className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors"
           >
             <Printer className="w-4 h-4" />
             Print Card
@@ -377,7 +377,7 @@ export default function ProgressCardReport() {
                 }}
                 onFocus={() => setShowDropdown(true)}
                 placeholder="Search by name or admission number..."
-                className="w-full border border-app-border rounded-xl pl-9 pr-9 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-xl pl-9 pr-9 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
               />
               {selectedStudent && (
                 <button onClick={clearStudent} className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-muted hover:text-app-text">

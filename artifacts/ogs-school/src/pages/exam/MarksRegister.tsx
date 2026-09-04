@@ -531,8 +531,8 @@ export default function MarksRegister() {
     win.document.close();
   }
 
-  const inputClass = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
-  const cellInputClass = 'border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 text-center font-bold';
+  const inputClass = 'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
+  const cellInputClass = 'bg-app-surface text-app-text border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 text-center font-bold';
   const allSelected = selectedExam && selectedClass && selectedSubject;
   const canGenerate = selectedExam && selectedClass;
 
@@ -558,7 +558,7 @@ export default function MarksRegister() {
             <button
               onClick={handleGenerateResultCards}
               disabled={generatingCards}
-              className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
+              className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
             >
               <Printer size={16} />
               {generatingCards ? 'Generating...' : 'Generate Result Cards'}
@@ -568,7 +568,7 @@ export default function MarksRegister() {
             <button
               onClick={handleSaveAll}
               disabled={saving || students.length === 0 || resultsLocked}
-              className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2 rounded-xl text-sm font-bold transition-all shadow-lg shadow-emerald-100 disabled:opacity-50 active:scale-95"
+              className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-5 py-2 rounded-xl text-sm font-bold transition-all shadow-lg shadow-emerald-100 disabled:opacity-50 active:scale-95"
             >
               <Save size={18} />
               {saving ? 'Saving...' : 'Save All Marks'}
@@ -679,7 +679,7 @@ export default function MarksRegister() {
                           checked={student.offers}
                           disabled={resultsLocked}
                           onChange={() => toggleOffers(idx)}
-                          className="w-4 h-4 rounded border-app-border text-emerald-600 focus:ring-emerald-500/30 cursor-pointer disabled:cursor-not-allowed"
+                          className="w-4 h-4 rounded border-app-border text-emerald-600 focus:ring-app-primary/30 cursor-pointer disabled:cursor-not-allowed"
                           title={student.offers ? 'Uncheck to mark: student does not offer this subject' : 'Check to restore: student offers this subject'}
                         />
                       </td>

@@ -31,7 +31,7 @@ CREATE POLICY "school_access" ON committee_members
   USING ((SELECT school_id FROM profiles WHERE id = auth.uid()) =
          (SELECT school_id FROM profiles WHERE id = committee_members.staff_id));`;
 
-const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full bg-app-surface';
+const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface';
 const MEMBER_ROLES = ['Chair', 'Member', 'Secretary'];
 const ROLE_BADGE: Record<string, string> = {
   Chair: 'bg-purple-100 text-purple-700',
@@ -163,7 +163,7 @@ export default function Committees() {
         </div>
         {isAdmin && (
           <button onClick={() => { setForm({ name: '', description: '' }); setSaveError(''); setCreateModal(true); }}
-            className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 shadow-sm">
+            className="flex items-center gap-2 px-4 py-2 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 shadow-sm">
             <Plus size={16} /> New Committee
           </button>
         )}
@@ -290,7 +290,7 @@ export default function Committees() {
           {saveError && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle size={13} />{saveError}</p>}
           <div className="flex gap-3 pt-1">
             <button onClick={createCommittee} disabled={saving}
-              className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-60">
+              className="flex-1 py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 disabled:opacity-60">
               {saving ? 'Creating…' : 'Create Committee'}
             </button>
             <button onClick={() => setCreateModal(false)} className="px-4 py-2.5 bg-slate-100 text-app-text rounded-xl text-sm font-medium">Cancel</button>
@@ -328,7 +328,7 @@ export default function Committees() {
           {saveError && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle size={13} />{saveError}</p>}
           <div className="flex gap-3 pt-1">
             <button onClick={addMember} disabled={saving || !memberForm.staff_id}
-              className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 disabled:opacity-60">
+              className="flex-1 py-2.5 bg-app-primary text-white rounded-xl text-sm font-medium hover:opacity-90 disabled:opacity-60">
               {saving ? 'Adding…' : 'Add Member'}
             </button>
             <button onClick={() => setAddMemberModal(null)} className="px-4 py-2.5 bg-slate-100 text-app-text rounded-xl text-sm font-medium">Cancel</button>

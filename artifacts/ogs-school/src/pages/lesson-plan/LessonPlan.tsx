@@ -236,7 +236,7 @@ export default function LessonPlan() {
           <button
             onClick={handleSave}
             disabled={saving || !canSave}
-            className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
           >
             {saved ? (
               <>
@@ -262,7 +262,7 @@ export default function LessonPlan() {
             <select
               value={selectedClass}
               onChange={(e) => setSelectedClass(e.target.value)}
-              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface"
             >
               <option value="">Select class...</option>
               {classes.map((cls) => (
@@ -280,7 +280,7 @@ export default function LessonPlan() {
               value={selectedLesson}
               onChange={(e) => setSelectedLesson(e.target.value)}
               disabled={!selectedClass}
-              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <option value="">Select lesson...</option>
               {lessons.map((l) => (
@@ -298,7 +298,7 @@ export default function LessonPlan() {
               value={selectedTopic}
               onChange={(e) => setSelectedTopic(e.target.value)}
               disabled={!selectedLesson}
-              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <option value="">Select topic...</option>
               {topics.map((t) => (
@@ -337,7 +337,7 @@ export default function LessonPlan() {
                 type="date"
                 value={form.plan_date}
                 onChange={(e) => setForm({ ...form, plan_date: e.target.value })}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
               />
             </div>
             <div className="bg-app-surface rounded-xl border border-app-border p-4">
@@ -345,7 +345,7 @@ export default function LessonPlan() {
               <select
                 value={form.status}
                 onChange={(e) => setForm({ ...form, status: e.target.value as FormData['status'] })}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary"
               >
                 <option value="draft">Draft</option>
                 <option value="active">Active</option>
@@ -364,7 +364,7 @@ export default function LessonPlan() {
               onChange={(e) => setForm({ ...form, introduction: e.target.value })}
               placeholder="How will you introduce and engage students with the topic?"
               rows={4}
-              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none"
             />
           </div>
 
@@ -375,7 +375,7 @@ export default function LessonPlan() {
               onChange={(e) => setForm({ ...form, development: e.target.value })}
               placeholder="Main instructional activities and content delivery..."
               rows={5}
-              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none"
             />
           </div>
 
@@ -386,7 +386,7 @@ export default function LessonPlan() {
               onChange={(e) => setForm({ ...form, conclusion: e.target.value })}
               placeholder="How will you wrap up the lesson and reinforce learning?"
               rows={3}
-              className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none"
             />
           </div>
 
@@ -398,7 +398,7 @@ export default function LessonPlan() {
                 onChange={(e) => setForm({ ...form, materials: e.target.value })}
                 placeholder="List required materials and resources..."
                 rows={3}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none"
               />
             </div>
             <div className="bg-app-surface rounded-xl border border-app-border p-4">
@@ -408,7 +408,7 @@ export default function LessonPlan() {
                 onChange={(e) => setForm({ ...form, evaluation: e.target.value })}
                 placeholder="How will you assess student learning?"
                 rows={3}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none"
               />
             </div>
           </div>
@@ -421,7 +421,7 @@ export default function LessonPlan() {
                 onChange={(e) => setForm({ ...form, homework_notes: e.target.value })}
                 placeholder="Any homework or follow-up assignments..."
                 rows={3}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none"
               />
             </div>
             <div className="bg-app-surface rounded-xl border border-app-border p-4">
@@ -431,7 +431,7 @@ export default function LessonPlan() {
                 onChange={(e) => setForm({ ...form, notes: e.target.value })}
                 placeholder="Any other notes or observations..."
                 rows={3}
-                className="w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                className="bg-app-surface text-app-text w-full border border-app-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary resize-none"
               />
             </div>
           </div>
@@ -440,7 +440,7 @@ export default function LessonPlan() {
             <button
               onClick={handleSave}
               disabled={saving || !canSave}
-              className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+              className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
             >
               {saved ? (
                 <>

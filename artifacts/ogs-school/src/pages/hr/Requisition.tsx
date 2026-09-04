@@ -95,7 +95,7 @@ create policy "requisitions_access" on public.requisitions for all
 
 const ADMIN_ROLES = ['super_admin', 'admin', 'principal', 'accountant'];
 const fmt = (n: number) => `₦${n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-const inputClass = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 w-full';
+const inputClass = 'bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full';
 
 const STATUS_CFG: Record<string, { label: string; bg: string; text: string }> = {
   pending:   { label: 'Pending',   bg: 'bg-amber-50',   text: 'text-amber-700'  },
@@ -671,7 +671,7 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
         {activeTab === 'mine' && (
           <button
             onClick={() => { setShowForm(true); setFormError(''); }}
-            className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors"
           >
             <Plus className="w-4 h-4" /> New Request
           </button>
@@ -784,7 +784,7 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
           {formError && <p className="text-sm text-red-600 bg-red-50 rounded-xl px-3 py-2">{formError}</p>}
 
           <div className="flex gap-3 pt-2">
-            <button onClick={submitForm} disabled={formSaving} className="bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors">
+            <button onClick={submitForm} disabled={formSaving} className="bg-app-primary hover:opacity-90 disabled:opacity-50 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors">
               {formSaving ? 'Submitting…' : 'Submit Request'}
             </button>
             <button onClick={() => setShowForm(false)} className="bg-slate-100 hover:bg-slate-200 text-app-text text-sm font-medium px-5 py-2.5 rounded-xl transition-colors">
@@ -805,7 +805,7 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
       {activeTab === 'all' && (
         <div className="flex items-center gap-3">
           <label className="text-xs font-medium text-app-text-muted">Filter by status:</label>
-          <select className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface" value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
+          <select className="border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface" value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
             <option value="">All</option>
             {Object.entries(STATUS_CFG).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
           </select>
@@ -998,7 +998,7 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
                   <button
                     onClick={() => { setSyncExpenseMsg(''); syncExpense(detailReq); }}
                     disabled={syncingExpense}
-                    className="flex items-center gap-1.5 bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold px-3 py-2 rounded-lg disabled:opacity-50 transition-colors"
+                    className="flex items-center gap-1.5 bg-app-primary hover:opacity-90 text-white text-xs font-semibold px-3 py-2 rounded-lg disabled:opacity-50 transition-colors"
                   >
                     <Banknote className="w-3.5 h-3.5" />
                     {syncingExpense ? 'Syncing…' : 'Sync to Expense'}
@@ -1016,7 +1016,7 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
                         <FileText className="w-4 h-4" /> View Receipt
                       </a>
                       {detailReq.status === 'disbursed' && isAdmin && (
-                        <button onClick={() => doAction(detailReq, 'retire')} disabled={actionSaving} className="ml-auto bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors disabled:opacity-50">
+                        <button onClick={() => doAction(detailReq, 'retire')} disabled={actionSaving} className="ml-auto bg-app-primary hover:opacity-90 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors disabled:opacity-50">
                           {actionSaving ? 'Marking…' : 'Mark as Retired'}
                         </button>
                       )}
@@ -1064,7 +1064,7 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
                         <textarea className={`${inputClass} resize-none`} rows={2} placeholder="Add a note for the requester…" value={reviewNotes} onChange={e => setReviewNotes(e.target.value)} />
                       </div>
                       <div className="flex gap-2">
-                        <button onClick={() => doAction(detailReq, 'approve')} disabled={actionSaving} className="flex items-center gap-1.5 bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold px-4 py-2.5 rounded-xl disabled:opacity-50 transition-colors">
+                        <button onClick={() => doAction(detailReq, 'approve')} disabled={actionSaving} className="flex items-center gap-1.5 bg-app-primary hover:opacity-90 text-white text-sm font-semibold px-4 py-2.5 rounded-xl disabled:opacity-50 transition-colors">
                           <CheckCircle className="w-4 h-4" /> {actionSaving ? 'Saving…' : 'Approve'}
                         </button>
                         <button onClick={() => doAction(detailReq, 'reject')} disabled={actionSaving} className="flex items-center gap-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold px-4 py-2.5 rounded-xl disabled:opacity-50 transition-colors">
@@ -1080,7 +1080,7 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
                         <textarea className={`${inputClass} resize-none`} rows={2} placeholder="Add a note for the requester…" value={reviewNotes} onChange={e => setReviewNotes(e.target.value)} />
                       </div>
                       <div className="flex gap-2 flex-wrap">
-                        <button onClick={() => doAction(detailReq, 'disburse')} disabled={actionSaving} className="flex items-center gap-1.5 bg-purple-500 hover:bg-purple-600 text-white text-sm font-semibold px-4 py-2.5 rounded-xl disabled:opacity-50 transition-colors">
+                        <button onClick={() => doAction(detailReq, 'disburse')} disabled={actionSaving} className="flex items-center gap-1.5 bg-app-primary hover:opacity-90 text-white text-sm font-semibold px-4 py-2.5 rounded-xl disabled:opacity-50 transition-colors">
                           <Banknote className="w-4 h-4" /> {actionSaving ? 'Saving…' : 'Mark as Disbursed'}
                         </button>
                         <button onClick={() => doAction(detailReq, 'reject')} disabled={actionSaving} className="flex items-center gap-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold px-4 py-2.5 rounded-xl disabled:opacity-50 transition-colors">
@@ -1090,12 +1090,12 @@ ${rows.map((item, i) => `<tr style="height:22px"><td class="sn">${i + 1}.</td><t
                     </>
                   )}
                   {detailReq.status === 'disbursed' && detailReq.receipt_url && (
-                    <button onClick={() => doAction(detailReq, 'retire')} disabled={actionSaving} className="flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold px-4 py-2.5 rounded-xl disabled:opacity-50 transition-colors">
+                    <button onClick={() => doAction(detailReq, 'retire')} disabled={actionSaving} className="flex items-center gap-1.5 bg-app-primary hover:opacity-90 text-white text-sm font-semibold px-4 py-2.5 rounded-xl disabled:opacity-50 transition-colors">
                       <CheckCircle className="w-4 h-4" /> {actionSaving ? 'Saving…' : 'Mark as Retired'}
                     </button>
                   )}
                   {detailReq.status === 'retired' && (
-                    <button onClick={() => doAction(detailReq, 'reimburse')} disabled={actionSaving} className="flex items-center gap-1.5 bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold px-4 py-2.5 rounded-xl disabled:opacity-50 transition-colors">
+                    <button onClick={() => doAction(detailReq, 'reimburse')} disabled={actionSaving} className="flex items-center gap-1.5 bg-app-primary hover:opacity-90 text-white text-sm font-semibold px-4 py-2.5 rounded-xl disabled:opacity-50 transition-colors">
                       <Banknote className="w-4 h-4" /> {actionSaving ? 'Saving…' : 'Mark as Reimbursed from Account'}
                     </button>
                   )}
@@ -1147,7 +1147,7 @@ function ReceiptUrlInput({ onSave }: { onSave: (url: string) => void }) {
   return (
     <div className="flex gap-2">
       <input
-        className="border border-app-border rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/30 flex-1"
+        className="bg-app-surface text-app-text border border-app-border rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-app-primary/30 flex-1"
         placeholder="Or paste a URL to receipt…"
         value={url}
         onChange={e => setUrl(e.target.value)}

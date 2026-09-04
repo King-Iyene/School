@@ -220,25 +220,25 @@ export default function TeacherGrades() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           <div>
             <label className="block text-xs font-medium text-app-text-muted mb-1">Class</label>
-            <select value={selectedClass} onChange={e => setSelectedClass(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+            <select value={selectedClass} onChange={e => setSelectedClass(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
               {classes.map(c => <option key={(c as any)?.id} value={(c as any)?.id}>{(c as any)?.name || `${(c as any)?.level}${(c as any)?.section}`}</option>)}
             </select>
           </div>
           <div>
             <label className="block text-xs font-medium text-app-text-muted mb-1">Subject</label>
-            <select value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+            <select value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
               {subjects.map(s => <option key={(s as any)?.id} value={(s as any)?.id}>{(s as any)?.name}</option>)}
             </select>
           </div>
           <div>
             <label className="block text-xs font-medium text-app-text-muted mb-1">Term</label>
-            <select value={selectedTerm} onChange={e => setSelectedTerm(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+            <select value={selectedTerm} onChange={e => setSelectedTerm(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
               {terms.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
             </select>
           </div>
           <div>
             <label className="block text-xs font-medium text-app-text-muted mb-1">Academic Year</label>
-            <select value={selectedYear} onChange={e => setSelectedYear(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 bg-app-surface">
+            <select value={selectedYear} onChange={e => setSelectedYear(e.target.value)} className="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface">
               {academicYears.map(y => <option key={y.id} value={y.id}>{y.name}</option>)}
             </select>
           </div>
@@ -285,7 +285,7 @@ export default function TeacherGrades() {
                             value={grades[s.id]?.[field] ?? ''}
                             disabled={locked}
                             onChange={e => updateGrade(s.id, field, e.target.value)}
-                            className="w-16 text-center border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:bg-app-surface-alt disabled:text-app-text-muted"
+                            className="w-16 text-center border border-app-border rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 disabled:bg-app-surface-alt disabled:text-app-text-muted"
                           />
                         </td>
                       ))}
@@ -310,7 +310,7 @@ export default function TeacherGrades() {
             </div>
           )}
           <div className="p-4 border-t border-app-border flex justify-end">
-            <button onClick={saveGrades} disabled={saving || locked} className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+            <button onClick={saveGrades} disabled={saving || locked} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white px-5 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
               {saved ? <><CheckCircle className="w-4 h-4" /> Saved!</> : <><Save className="w-4 h-4" />{saving ? 'Saving...' : 'Save Grades'}</>}
             </button>
           </div>
