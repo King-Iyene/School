@@ -125,7 +125,7 @@ export default function ClassSectionReport() {
   const displaySummaries = selectedClass ? (filteredSummary ? [filteredSummary] : []) : classSummaries;
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
+    <div className="p-6">
 
 
       <div className="mb-6">

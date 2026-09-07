@@ -177,7 +177,7 @@ export default function HodReports() {
   }
 
   return (
-    <div className="p-6 space-y-5 max-w-5xl mx-auto">
+    <div className="p-6 space-y-5">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-bold text-app-text">HOD Reports</h1>

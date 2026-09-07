@@ -99,7 +99,7 @@ export default function PaymentMethods() {
   }
 
   return (
-    <div className="p-6 max-w-5xl mx-auto">
+    <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-app-text">Payment Method</h1>
         <button

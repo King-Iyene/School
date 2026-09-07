@@ -281,7 +281,7 @@ export default function MyProfile() {
   );
 
   return (
-    <div className="p-6 max-w-3xl mx-auto space-y-5 pb-16">
+    <div className="p-6 space-y-5 pb-16">
       <div>
         <h1 className="text-xl font-bold text-app-text">My Profile</h1>
         <p className="text-sm text-app-text-muted mt-1">

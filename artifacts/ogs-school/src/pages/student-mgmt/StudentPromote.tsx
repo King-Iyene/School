@@ -275,7 +275,7 @@ export default function StudentPromote() {
   const allSelected = students.length > 0 && students.every((s) => s.selected);
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
+    <div className="p-6">
       <div className="flex items-center gap-3 mb-6">
         <div className="bg-emerald-50 p-2 rounded-lg">
           <ArrowUpCircle className="text-emerald-600" size={22} />

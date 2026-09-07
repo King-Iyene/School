@@ -199,7 +199,7 @@ export default function Appearance() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
+    <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-app-text">Appearance</h1>
         <p className="text-app-text-muted text-sm mt-1">

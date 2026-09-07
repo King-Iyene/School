@@ -103,7 +103,7 @@ export default function AccountSecurity() {
   }
 
   return (
-    <div className="p-6 max-w-2xl mx-auto space-y-5 pb-16">
+    <div className="p-6 space-y-5 pb-16">
       <div>
         <h1 className="text-xl font-bold text-app-text">Account Security</h1>
         <p className="text-sm text-app-text-muted mt-1">Manage two-factor authentication for your account.</p>
