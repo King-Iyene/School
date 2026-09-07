@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { NavLink } from '../common/NavLink';
 import { useAuth } from '../../context/AuthContext';
 import { useTenantSettings } from '../../context/TenantContext';
-import { LogOut, X, ChevronDown, ChevronRight } from 'lucide-react';
+import { LogOut, X, ChevronDown, ChevronRight, Building2 } from 'lucide-react';
 import { getNavItems } from './navConfig';
 import { navigate } from '../hooks/useLocation';
 import { resolveSidebarLayout } from '../../lib/sidebarLayout';
@@ -15,7 +15,9 @@ interface SidebarProps {
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const { profile, signOut } = useAuth();
   const { settings, tenant } = useTenantSettings();
-  const navItems = getNavItems(profile?.role, tenant?.plan_tier);
+  const navItems = profile?.is_platform_owner
+    ? [{ label: 'Platform Admin', path: '/saas-admin', icon: Building2 }, ...getNavItems(profile?.role, tenant?.plan_tier)]
+    : getNavItems(profile?.role, tenant?.plan_tier);
   const groupedMapInit = navItems.filter(i => i.group).reduce((acc, item) => { acc[item.group!] = true; return acc; }, {} as Record<string, boolean>);
   const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(() => new Set(Object.keys(groupedMapInit)));
   const [schoolName, setSchoolName] = useState('');
