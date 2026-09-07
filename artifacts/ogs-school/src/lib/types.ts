@@ -47,6 +47,10 @@ export interface TenantSettings {
   secondary_color: string;
   paystack_public_key: string;
   custom_domain: string | null;
+  /** True once a DNS TXT lookup confirmed custom_domain_verification_token. Reset to false whenever custom_domain changes. */
+  custom_domain_verified: boolean;
+  /** Token to publish as a TXT record at _ogs-verify.<custom_domain> to prove DNS ownership. */
+  custom_domain_verification_token: string;
   /** Enterprise-only ("white_labeling") app-shell accent override. Null = default brand theme. */
   app_primary_color: string | null;
   app_secondary_color: string | null;

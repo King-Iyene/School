@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react';
-import { Palette, RotateCcw, Check, Moon, Sun, LayoutGrid, PanelLeft, Eye, EyeOff, ChevronUp, ChevronDown } from 'lucide-react';
+import { Palette, RotateCcw, Check, Moon, Sun, LayoutGrid, PanelLeft, Eye, EyeOff, ChevronUp, ChevronDown, Globe } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useTenantSettings } from '../../context/TenantContext';
 import { DASHBOARD_WIDGETS, resolveDashboardLayout } from '../../lib/dashboardLayout';
 import { buildEditableSidebarLayout } from '../../lib/sidebarLayout';
 import { getNavItems } from '../../components/layout/navConfig';
 import { DashboardLayoutEntry, SidebarLayoutEntry } from '../../lib/types';
+import { verifyCustomDomainDns } from '../../lib/dnsVerify';
 
 const DEFAULT_PRIMARY = '#2A0A5C';
 const DEFAULT_SECONDARY = '#B679F5';
@@ -48,6 +49,50 @@ export default function Appearance() {
     setPrimary(DEFAULT_PRIMARY);
     setSecondary(DEFAULT_SECONDARY);
     await save(null, null);
+  }
+
+  const isEnterprise = tenant?.plan_tier === 'enterprise';
+  const [domain, setDomain] = useState(settings.custom_domain ?? '');
+  const [domainSaving, setDomainSaving] = useState(false);
+  const [domainMessage, setDomainMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [checkingDns, setCheckingDns] = useState(false);
+  const [dnsError, setDnsError] = useState('');
+
+  async function saveDomain() {
+    if (!tenant?.id) return;
+    setDomainSaving(true);
+    setDomainMessage(null);
+    const { error } = await supabase
+      .from('tenant_settings')
+      .update({ custom_domain: domain.trim() || null })
+      .eq('tenant_id', tenant.id);
+    setDomainSaving(false);
+    if (error) {
+      setDomainMessage({ type: 'error', text: error.message });
+      return;
+    }
+    setDomainMessage({ type: 'success', text: 'Custom domain saved. Add the DNS record below to verify ownership.' });
+    await refresh();
+  }
+
+  async function checkDns() {
+    if (!settings.custom_domain) return;
+    setCheckingDns(true);
+    setDnsError('');
+    try {
+      const verified = await verifyCustomDomainDns(settings.custom_domain, settings.custom_domain_verification_token);
+      if (!verified) {
+        setDnsError('TXT record not found yet. DNS changes can take a few minutes to propagate — try again shortly.');
+        return;
+      }
+      if (!tenant?.id) return;
+      await supabase.from('tenant_settings').update({ custom_domain_verified: true }).eq('tenant_id', tenant.id);
+      await refresh();
+    } catch (err) {
+      setDnsError(err instanceof Error ? err.message : 'DNS lookup failed.');
+    } finally {
+      setCheckingDns(false);
+    }
   }
 
   const [layout, setLayout] = useState<DashboardLayoutEntry[]>(() => resolveDashboardLayout(settings.dashboard_layout));
@@ -253,6 +298,68 @@ export default function Appearance() {
             </button>
           )}
         </div>
+      </div>
+
+      <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">
+        <h2 className="font-semibold text-app-text flex items-center gap-2 mb-1">
+          <Globe className="w-4 h-4" /> Custom Domain
+          {!isEnterprise && (
+            <span className="text-white text-[10px] font-semibold px-1.5 py-0.5 rounded bg-gradient-to-r from-brand-violet to-brand-indigo">ENTERPRISE ONLY</span>
+          )}
+        </h2>
+        <p className="text-sm text-app-text-muted mb-4">
+          Use your own domain (e.g. portal.yourschool.com) instead of the default address.
+        </p>
+
+        {domainMessage && (
+          <div className={`rounded-xl px-4 py-3 text-sm mb-4 ${domainMessage.type === 'success' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-600 border border-red-200'}`}>
+            {domainMessage.text}
+          </div>
+        )}
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-app-text mb-2">Domain</label>
+          <input
+            value={domain}
+            onChange={e => setDomain(e.target.value)}
+            placeholder="portal.yourschool.com"
+            disabled={!isEnterprise}
+            className="w-full px-3 py-2 text-sm bg-app-surface border border-app-border text-app-text rounded-lg focus:outline-none focus:ring-2 focus:ring-app-primary/40 disabled:bg-app-surface-alt disabled:text-app-text-muted"
+          />
+        </div>
+
+        {isEnterprise && settings.custom_domain && domain.trim() === settings.custom_domain && (
+          settings.custom_domain_verified ? (
+            <p className="mb-4 text-xs text-emerald-600 font-medium">✓ Domain ownership verified</p>
+          ) : (
+            <div className="mb-4 bg-app-surface-alt border border-app-border rounded-lg p-3 text-xs text-app-text-muted space-y-2">
+              <p>
+                To confirm you control <strong>{settings.custom_domain}</strong>, add this DNS TXT record at your domain registrar, then check:
+              </p>
+              <div className="bg-app-surface rounded border border-app-border p-2 font-mono text-[11px] break-all">
+                <div>Host: <span className="text-app-text">_ogs-verify.{settings.custom_domain}</span></div>
+                <div>Value: <span className="text-app-text">{settings.custom_domain_verification_token}</span></div>
+              </div>
+              {dnsError && <p className="text-red-600">{dnsError}</p>}
+              <button
+                type="button"
+                onClick={checkDns}
+                disabled={checkingDns}
+                className="px-3 py-1.5 bg-app-primary hover:opacity-90 text-white rounded-lg text-xs font-medium disabled:opacity-50 transition-colors"
+              >
+                {checkingDns ? 'Checking...' : 'Check Now'}
+              </button>
+            </div>
+          )
+        )}
+
+        <button
+          onClick={saveDomain}
+          disabled={domainSaving || !isEnterprise}
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-app-primary hover:opacity-90 disabled:opacity-50 text-white text-sm font-semibold rounded-xl transition-colors"
+        >
+          <Check className="w-4 h-4" /> {domainSaving ? 'Saving…' : 'Save Domain'}
+        </button>
       </div>
 
       <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">

@@ -16,6 +16,8 @@ const DEFAULT_SETTINGS: TenantSettings = {
   secondary_color: '#0d9488',
   paystack_public_key: '',
   custom_domain: null,
+  custom_domain_verified: false,
+  custom_domain_verification_token: '',
   app_primary_color: null,
   app_secondary_color: null,
   dashboard_layout: null,
