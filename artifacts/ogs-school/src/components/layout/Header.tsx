@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Menu, Bell, Search, Globe, LayoutDashboard, BarChart2, Calendar, Sun, Moon, Monitor, User, KeyRound, LogOut, Check, ChevronDown, X } from 'lucide-react';
+import { Menu, Bell, Search, Globe, LayoutDashboard, BarChart2, Calendar, Sun, Moon, Monitor, User, KeyRound, LogOut, Check, ChevronDown, X, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../lib/supabase';
 import { navigate } from '../hooks/useLocation';
@@ -415,6 +415,14 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
                   >
                     <KeyRound className="w-4 h-4 text-app-text-muted" />
                     Change Password
+                  </button>
+
+                  <button
+                    onClick={() => { navigate('/account-security'); setShowProfile(false); }}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-app-text hover:bg-app-surface-alt transition-colors"
+                  >
+                    <ShieldCheck className="w-4 h-4 text-app-text-muted" />
+                    Two-Factor Authentication
                   </button>
 
                   {showChangePassword && (
