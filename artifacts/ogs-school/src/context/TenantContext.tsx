@@ -75,6 +75,27 @@ export function TenantProvider({ children }: { children: ReactNode }) {
     return tenantRow as Tenant;
   }, []);
 
+  // Matches the current hostname against a verified Enterprise custom
+  // domain, so a visitor who lands on a tenant's own domain (rather than
+  // <slug>.schoolos.app) sees that tenant's real branding pre-login too.
+  // Only a *verified* domain resolves here — an unverified one (still
+  // mid DNS setup) falls through to loadDefaultTenant() like any other
+  // unrecognized host, since we can't yet be sure who really owns it.
+  const resolveByCustomDomain = useCallback(async (hostname: string) => {
+    const { data: settingsRow } = await supabase
+      .from('tenant_settings')
+      .select('*')
+      .eq('custom_domain', hostname)
+      .eq('custom_domain_verified', true)
+      .maybeSingle();
+    if (!settingsRow) return null;
+    const { data: tenantRow } = await supabase.from('tenants').select('*').eq('id', settingsRow.tenant_id).maybeSingle();
+    if (!tenantRow) return null;
+    setTenant(tenantRow as Tenant);
+    setSettings(settingsRow as TenantSettings);
+    return tenantRow as Tenant;
+  }, []);
+
   const loadDefaultTenant = useCallback(async () => {
     // No authenticated profile and no tenant subdomain in the URL (the
     // current production deployment serves one school on its own domain,
@@ -99,13 +120,18 @@ export function TenantProvider({ children }: { children: ReactNode }) {
         await loadByTenantId(profile.school_id);
       } else {
         const slug = slugFromHostname();
-        if (slug) await resolveBySlug(slug);
-        else await loadDefaultTenant();
+        if (slug) {
+          await resolveBySlug(slug);
+        } else {
+          const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
+          const byDomain = hostname && hostname !== 'localhost' ? await resolveByCustomDomain(hostname) : null;
+          if (!byDomain) await loadDefaultTenant();
+        }
       }
     } finally {
       setLoading(false);
     }
-  }, [profile?.school_id, loadByTenantId, resolveBySlug, loadDefaultTenant]);
+  }, [profile?.school_id, loadByTenantId, resolveBySlug, resolveByCustomDomain, loadDefaultTenant]);
 
   useEffect(() => {
     refresh();
