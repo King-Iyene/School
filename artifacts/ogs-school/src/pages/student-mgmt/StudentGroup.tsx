@@ -170,7 +170,7 @@ export default function StudentGroup() {
   );
 
   return (
-    <div className="p-6 max-w-5xl mx-auto">
+    <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <div className="bg-emerald-50 p-2 rounded-lg">

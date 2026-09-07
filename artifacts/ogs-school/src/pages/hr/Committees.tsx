@@ -153,7 +153,7 @@ export default function Committees() {
   const myCommittees = committees.filter(c => members[c.id]?.some(m => m.staff_id === profile?.id));
 
   return (
-    <div className="p-6 space-y-5 max-w-5xl mx-auto">
+    <div className="p-6 space-y-5">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-bold text-app-text">Committees</h1>

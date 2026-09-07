@@ -226,7 +226,7 @@ const StudentExport: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-app-surface-alt p-6">
-      <div className="max-w-6xl mx-auto">
+      <div>
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <div className="bg-emerald-100 p-2 rounded-lg">

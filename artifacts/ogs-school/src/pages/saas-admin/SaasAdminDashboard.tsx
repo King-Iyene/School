@@ -121,7 +121,7 @@ export default function SaasAdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white p-4 sm:p-8">
-      <div className="max-w-6xl mx-auto">
+      <div>
         <Reveal>
           <div className="flex items-center gap-3 mb-8">
             <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-violet to-brand-indigo flex items-center justify-center shadow-lg shadow-brand-violet/25">

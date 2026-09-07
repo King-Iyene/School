@@ -68,9 +68,7 @@ export default function BehaviourSettings() {
   }
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-
-
+    <div className="p-6">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-app-text">Behaviour Module Settings</h1>
         <p className="text-sm text-app-text-muted mt-1">Configure behaviour management preferences and thresholds</p>

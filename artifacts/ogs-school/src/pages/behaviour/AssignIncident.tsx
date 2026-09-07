@@ -173,9 +173,7 @@ export default function AssignIncident() {
   }
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-
-
+    <div className="p-6">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-app-text">Assign Behaviour Incident</h1>
         <p className="text-sm text-app-text-muted mt-1">Record a behaviour incident for a student</p>

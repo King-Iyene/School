@@ -56,7 +56,7 @@ export default function Backup() {
   const backupDate = now.toISOString().slice(0, 10).replace(/-/g, '');
 
   return (
-    <div className="p-6 max-w-5xl mx-auto">
+    <div className="p-6">
       <div className="flex items-center gap-3 mb-6">
         <div className="bg-emerald-50 p-2 rounded-lg">
           <HardDrive className="text-emerald-600" size={22} />
