@@ -6,8 +6,9 @@ import { DASHBOARD_WIDGETS, resolveDashboardLayout } from '../../lib/dashboardLa
 import { buildEditableSidebarLayout } from '../../lib/sidebarLayout';
 import { getNavItems } from '../../components/layout/navConfig';
 import { DashboardLayoutEntry, SidebarLayoutEntry } from '../../lib/types';
-import { verifyCustomDomainDns } from '../../lib/dnsVerify';
+import { verifyCustomDomainDns, getVercelDnsRecord } from '../../lib/dnsVerify';
 import { apiUrl } from '../../lib/apiUrl';
+import Modal from '../../components/common/Modal';
 
 const DEFAULT_PRIMARY = '#2A0A5C';
 const DEFAULT_SECONDARY = '#B679F5';
@@ -62,6 +63,7 @@ export default function Appearance() {
   const [connectMessage, setConnectMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [checkingStatus, setCheckingStatus] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<{ connected: boolean; misconfigured: boolean } | null>(null);
+  const [showDnsModal, setShowDnsModal] = useState(false);
 
   async function authedFetch(path: string, init?: RequestInit) {
     const { data: { session } } = await supabase.auth.getSession();
@@ -81,7 +83,8 @@ export default function Appearance() {
         setConnectMessage({ type: 'error', text: body.error ?? 'Could not connect this domain.' });
         return;
       }
-      setConnectMessage({ type: 'success', text: 'Domain connected. It can take a few minutes for the certificate to activate — use "Check Status" below.' });
+      setConnectMessage({ type: 'success', text: 'Domain connected — one more step below.' });
+      setShowDnsModal(true);
     } catch {
       setConnectMessage({ type: 'error', text: 'Could not reach the server. Please try again.' });
     } finally {
@@ -392,12 +395,12 @@ export default function Appearance() {
                   {connectionStatus.connected && !connectionStatus.misconfigured
                     ? '✓ Connected and live — visitors to this domain now reach your portal.'
                     : connectionStatus.connected
-                      ? '⚠ Connected, but DNS still needs to point at Vercel (add the record Vercel shows in its dashboard) — this can take a few minutes.'
+                      ? '⚠ Connected, but DNS still needs to point at Vercel — see the record below. This can take a few minutes to take effect.'
                       : '⚠ Not connected yet.'}
                 </p>
               )}
 
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 <button
                   type="button"
                   onClick={connectToVercel}
@@ -413,6 +416,13 @@ export default function Appearance() {
                   className="px-3 py-1.5 bg-app-surface-alt border border-app-border text-app-text rounded-lg text-xs font-medium disabled:opacity-50 transition-colors hover:bg-app-border"
                 >
                   {checkingStatus ? 'Checking...' : 'Check Status'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowDnsModal(true)}
+                  className="px-3 py-1.5 bg-app-surface-alt border border-app-border text-app-text rounded-lg text-xs font-medium transition-colors hover:bg-app-border"
+                >
+                  View DNS Record
                 </button>
               </div>
             </div>
@@ -446,6 +456,38 @@ export default function Appearance() {
           <Check className="w-4 h-4" /> {domainSaving ? 'Saving…' : 'Save Domain'}
         </button>
       </div>
+
+      {showDnsModal && settings.custom_domain && (() => {
+        const record = getVercelDnsRecord(settings.custom_domain);
+        return (
+          <Modal isOpen onClose={() => setShowDnsModal(false)} title="Point your domain at Vercel" size="md">
+            <div className="space-y-4">
+              <p className="text-sm text-app-text-muted">
+                Your domain is registered with your portal. To make it actually work, add this record at wherever <strong>{settings.custom_domain}</strong>'s DNS is managed (your domain registrar or DNS provider):
+              </p>
+              <div className="bg-app-surface-alt border border-app-border rounded-xl overflow-hidden text-sm">
+                <div className="grid grid-cols-3 gap-2 px-4 py-2 font-semibold text-app-text-muted text-xs uppercase tracking-wide border-b border-app-border">
+                  <span>Type</span><span>Host / Name</span><span>Value</span>
+                </div>
+                <div className="grid grid-cols-3 gap-2 px-4 py-3 font-mono text-xs items-center">
+                  <span className="text-app-text">{record.type}</span>
+                  <span className="text-app-text">{record.host}</span>
+                  <span className="text-app-text break-all">{record.value}</span>
+                </div>
+              </div>
+              <p className="text-xs text-app-text-muted">
+                DNS changes can take anywhere from a few minutes to a few hours to take effect. Use "Check Status" once you've added it to see when it's live.
+              </p>
+              <button
+                onClick={() => setShowDnsModal(false)}
+                className="w-full px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-semibold transition-colors"
+              >
+                Got it
+              </button>
+            </div>
+          </Modal>
+        );
+      })()}
 
       <div className="bg-app-surface border border-app-border rounded-2xl shadow-sm p-6">
         <h2 className="font-semibold text-app-text flex items-center gap-2 mb-1">
