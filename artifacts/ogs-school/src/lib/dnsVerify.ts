@@ -52,3 +52,27 @@ export async function verifyCustomDomainDns(domain: string, expectedToken: strin
   const records = await lookupTxt(host);
   return records.includes(expectedToken);
 }
+
+export interface VercelDnsRecord {
+  type: 'CNAME' | 'A';
+  host: string;
+  value: string;
+}
+
+/**
+ * The DNS record a domain needs so it actually routes to Vercel, once
+ * Vercel has the domain attached to the project. Vercel's dashboard now
+ * suggests a per-domain CNAME target, but its own UI confirms the stable,
+ * generic legacy values below "will continue to work" indefinitely — using
+ * them means this never needs to call Vercel's API just to render
+ * instructions.
+ */
+export function getVercelDnsRecord(domain: string): VercelDnsRecord {
+  const clean = domain.trim().replace(/^https?:\/\//, '').replace(/\/$/, '');
+  const labels = clean.split('.');
+  if (labels.length <= 2) {
+    // Apex/root domain (e.g. "example.com") — no subdomain label to CNAME.
+    return { type: 'A', host: '@', value: '76.76.21.21' };
+  }
+  return { type: 'CNAME', host: labels.slice(0, -2).join('.'), value: 'cname.vercel-dns.com' };
+}
