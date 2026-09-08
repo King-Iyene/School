@@ -7,6 +7,7 @@ import { buildEditableSidebarLayout } from '../../lib/sidebarLayout';
 import { getNavItems } from '../../components/layout/navConfig';
 import { DashboardLayoutEntry, SidebarLayoutEntry } from '../../lib/types';
 import { verifyCustomDomainDns } from '../../lib/dnsVerify';
+import { apiUrl } from '../../lib/apiUrl';
 
 const DEFAULT_PRIMARY = '#2A0A5C';
 const DEFAULT_SECONDARY = '#B679F5';
@@ -57,6 +58,54 @@ export default function Appearance() {
   const [domainMessage, setDomainMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [checkingDns, setCheckingDns] = useState(false);
   const [dnsError, setDnsError] = useState('');
+  const [connecting, setConnecting] = useState(false);
+  const [connectMessage, setConnectMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [checkingStatus, setCheckingStatus] = useState(false);
+  const [connectionStatus, setConnectionStatus] = useState<{ connected: boolean; misconfigured: boolean } | null>(null);
+
+  async function authedFetch(path: string, init?: RequestInit) {
+    const { data: { session } } = await supabase.auth.getSession();
+    return fetch(apiUrl(path), {
+      ...init,
+      headers: { ...init?.headers, Authorization: `Bearer ${session?.access_token ?? ''}` },
+    });
+  }
+
+  async function connectToVercel() {
+    setConnecting(true);
+    setConnectMessage(null);
+    try {
+      const resp = await authedFetch('/api/domains/register-vercel', { method: 'POST' });
+      const body = await resp.json().catch(() => ({}));
+      if (!resp.ok) {
+        setConnectMessage({ type: 'error', text: body.error ?? 'Could not connect this domain.' });
+        return;
+      }
+      setConnectMessage({ type: 'success', text: 'Domain connected. It can take a few minutes for the certificate to activate — use "Check Status" below.' });
+    } catch {
+      setConnectMessage({ type: 'error', text: 'Could not reach the server. Please try again.' });
+    } finally {
+      setConnecting(false);
+    }
+  }
+
+  async function checkConnectionStatus() {
+    setCheckingStatus(true);
+    setConnectionStatus(null);
+    try {
+      const resp = await authedFetch('/api/domains/vercel-status');
+      const body = await resp.json().catch(() => ({}));
+      if (!resp.ok) {
+        setConnectMessage({ type: 'error', text: body.error ?? 'Could not check connection status.' });
+        return;
+      }
+      setConnectionStatus({ connected: !!body.connected, misconfigured: !!body.misconfigured });
+    } catch {
+      setConnectMessage({ type: 'error', text: 'Could not reach the server. Please try again.' });
+    } finally {
+      setCheckingStatus(false);
+    }
+  }
 
   async function saveDomain() {
     if (!tenant?.id) return;
@@ -88,6 +137,7 @@ export default function Appearance() {
       if (!tenant?.id) return;
       await supabase.from('tenant_settings').update({ custom_domain_verified: true }).eq('tenant_id', tenant.id);
       await refresh();
+      await connectToVercel();
     } catch (err) {
       setDnsError(err instanceof Error ? err.message : 'DNS lookup failed.');
     } finally {
@@ -330,7 +380,42 @@ export default function Appearance() {
 
         {isEnterprise && settings.custom_domain && domain.trim() === settings.custom_domain && (
           settings.custom_domain_verified ? (
-            <p className="mb-4 text-xs text-emerald-600 font-medium">✓ Domain ownership verified</p>
+            <div className="mb-4 space-y-2">
+              <p className="text-xs text-emerald-600 font-medium">✓ Domain ownership verified</p>
+
+              {connectMessage && (
+                <p className={`text-xs ${connectMessage.type === 'success' ? 'text-emerald-600' : 'text-red-600'}`}>{connectMessage.text}</p>
+              )}
+
+              {connectionStatus && (
+                <p className="text-xs text-app-text-muted">
+                  {connectionStatus.connected && !connectionStatus.misconfigured
+                    ? '✓ Connected and live — visitors to this domain now reach your portal.'
+                    : connectionStatus.connected
+                      ? '⚠ Connected, but DNS still needs to point at Vercel (add the record Vercel shows in its dashboard) — this can take a few minutes.'
+                      : '⚠ Not connected yet.'}
+                </p>
+              )}
+
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={connectToVercel}
+                  disabled={connecting}
+                  className="px-3 py-1.5 bg-app-primary hover:opacity-90 text-white rounded-lg text-xs font-medium disabled:opacity-50 transition-colors"
+                >
+                  {connecting ? 'Connecting...' : 'Connect Domain'}
+                </button>
+                <button
+                  type="button"
+                  onClick={checkConnectionStatus}
+                  disabled={checkingStatus}
+                  className="px-3 py-1.5 bg-app-surface-alt border border-app-border text-app-text rounded-lg text-xs font-medium disabled:opacity-50 transition-colors hover:bg-app-border"
+                >
+                  {checkingStatus ? 'Checking...' : 'Check Status'}
+                </button>
+              </div>
+            </div>
           ) : (
             <div className="mb-4 bg-app-surface-alt border border-app-border rounded-lg p-3 text-xs text-app-text-muted space-y-2">
               <p>
