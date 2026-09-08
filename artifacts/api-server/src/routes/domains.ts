@@ -192,7 +192,11 @@ router.get("/domains/vercel-status", requireDomainAdmin, async (req: Request, re
   }
 
   if (!configRes.ok) {
-    res.status(404).json({ connected: false, misconfigured: true, notFound: true });
+    // Vercel not (yet) recognizing this domain at all is a normal state to
+    // report while it's mid-setup, not a failure of this endpoint itself —
+    // keep the HTTP status 200 so it isn't indistinguishable from a broken
+    // route in the browser's network tab.
+    res.json({ connected: false, misconfigured: true, notFound: true });
     return;
   }
 
