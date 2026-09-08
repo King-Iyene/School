@@ -7,7 +7,7 @@ const SUPABASE_URL = process.env.VITE_SUPABASE_URL ?? "";
 const SUPABASE_ANON_KEY = process.env.VITE_SUPABASE_ANON_KEY ?? "";
 
 const VERCEL_API_TOKEN = process.env.VERCEL_API_TOKEN;
-const VERCEL_PROJECT_ID = process.env.VERCEL_PROJECT_ID;
+const VERCEL_TARGET_PROJECT_ID = process.env.VERCEL_TARGET_PROJECT_ID;
 const VERCEL_TEAM_ID = process.env.VERCEL_TEAM_ID;
 
 function vercelUrl(path: string): string {
@@ -94,7 +94,7 @@ async function requireDomainAdmin(req: Request, res: Response, next: NextFunctio
 router.post("/domains/register-vercel", requireDomainAdmin, async (req: Request, res: Response) => {
   const schoolId = (req as AuthedRequest).schoolId!;
 
-  if (!VERCEL_API_TOKEN || !VERCEL_PROJECT_ID) {
+  if (!VERCEL_API_TOKEN || !VERCEL_TARGET_PROJECT_ID) {
     res.status(503).json({ error: "Custom domain connection isn't configured on this server yet." });
     return;
   }
@@ -120,7 +120,7 @@ router.post("/domains/register-vercel", requireDomainAdmin, async (req: Request,
 
   let vercelRes: globalThis.Response;
   try {
-    vercelRes = await fetch(vercelUrl(`/v10/projects/${VERCEL_PROJECT_ID}/domains`), {
+    vercelRes = await fetch(vercelUrl(`/v10/projects/${VERCEL_TARGET_PROJECT_ID}/domains`), {
       method: "POST",
       headers: {
         Authorization: `Bearer ${VERCEL_API_TOKEN}`,
@@ -146,7 +146,7 @@ router.post("/domains/register-vercel", requireDomainAdmin, async (req: Request,
     if (body.error?.code === "domain_already_in_use") {
       try {
         const existingRes = await fetch(
-          vercelUrl(`/v9/projects/${VERCEL_PROJECT_ID}/domains/${settings.custom_domain}`),
+          vercelUrl(`/v9/projects/${VERCEL_TARGET_PROJECT_ID}/domains/${settings.custom_domain}`),
           { headers: { Authorization: `Bearer ${VERCEL_API_TOKEN}` } },
         );
         if (existingRes.ok) {
@@ -178,7 +178,7 @@ router.post("/domains/register-vercel", requireDomainAdmin, async (req: Request,
 router.get("/domains/vercel-status", requireDomainAdmin, async (req: Request, res: Response) => {
   const schoolId = (req as AuthedRequest).schoolId!;
 
-  if (!VERCEL_API_TOKEN || !VERCEL_PROJECT_ID) {
+  if (!VERCEL_API_TOKEN || !VERCEL_TARGET_PROJECT_ID) {
     res.status(503).json({ error: "Custom domain connection isn't configured on this server yet." });
     return;
   }
