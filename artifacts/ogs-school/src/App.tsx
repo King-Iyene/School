@@ -255,7 +255,7 @@ import ActivityLogPage from './pages/admin-section/ActivityLog';
 
 function AppContent() {
   const { user, profile, loading, signOut, passwordRecovery, mfaRequired } = useAuth();
-  const { tenant } = useTenantSettings();
+  const { tenant, isOnOwnCustomDomain } = useTenantSettings();
   const path = useLocation();
 
   useEffect(() => {
@@ -263,6 +263,16 @@ function AppContent() {
       navigate('/dashboard');
     }
   }, [user, profile, path]);
+
+  // The SaaS marketing/sign-up pages only make sense on the platform's own
+  // domain — a visitor on a tenant's own connected custom domain (e.g.
+  // portal.kdsquares.com) should never see "start your school's free
+  // trial" or the generic onboarding flow; send them to login instead.
+  const platformOnlyPaths = ['/landing', '/onboarding'];
+  if (isOnOwnCustomDomain && platformOnlyPaths.includes(path)) {
+    navigate('/login');
+    return null;
+  }
 
   const publicPaths = ['/apply', '/admission', '/admission-payment', '/schedule-exam', '/application-status', '/landing', '/onboarding'];
   if (publicPaths.includes(path)) {
