@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Palette, RotateCcw, Check, Moon, Sun, LayoutGrid, PanelLeft, Eye, EyeOff, ChevronUp, ChevronDown, Globe } from 'lucide-react';
+import { Palette, RotateCcw, Check, Moon, Sun, LayoutGrid, PanelLeft, Eye, EyeOff, ChevronUp, ChevronDown, Globe, Copy } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useTenantSettings } from '../../context/TenantContext';
 import { DASHBOARD_WIDGETS, resolveDashboardLayout } from '../../lib/dashboardLayout';
@@ -64,6 +64,14 @@ export default function Appearance() {
   const [checkingStatus, setCheckingStatus] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<{ connected: boolean; misconfigured: boolean } | null>(null);
   const [showDnsModal, setShowDnsModal] = useState(false);
+  const [copiedField, setCopiedField] = useState<string | null>(null);
+
+  function copyField(field: string, value: string) {
+    navigator.clipboard.writeText(value).then(() => {
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(f => (f === field ? null : f)), 1500);
+    });
+  }
 
   async function authedFetch(path: string, init?: RequestInit) {
     const { data: { session } } = await supabase.auth.getSession();
@@ -471,8 +479,28 @@ export default function Appearance() {
                 </div>
                 <div className="grid grid-cols-3 gap-2 px-4 py-3 font-mono text-xs items-center">
                   <span className="text-app-text">{record.type}</span>
-                  <span className="text-app-text">{record.host}</span>
-                  <span className="text-app-text break-all">{record.value}</span>
+                  <span className="text-app-text flex items-center gap-1.5">
+                    {record.host}
+                    <button
+                      type="button"
+                      onClick={() => copyField('host', record.host)}
+                      title="Copy"
+                      className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0"
+                    >
+                      {copiedField === 'host' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                    </button>
+                  </span>
+                  <span className="text-app-text flex items-center gap-1.5 min-w-0">
+                    <span className="break-all">{record.value}</span>
+                    <button
+                      type="button"
+                      onClick={() => copyField('value', record.value)}
+                      title="Copy"
+                      className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0"
+                    >
+                      {copiedField === 'value' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                    </button>
+                  </span>
                 </div>
               </div>
               <p className="text-xs text-app-text-muted">
