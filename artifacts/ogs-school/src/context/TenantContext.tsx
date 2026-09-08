@@ -33,6 +33,8 @@ interface TenantContextType {
   resolveBySlug: (slug: string) => Promise<Tenant | null>;
   isFeatureEnabled: (feature: Feature) => boolean;
   refresh: () => Promise<void>;
+  /** True when the current hostname matched a tenant's own verified custom domain (not the platform's own domain). */
+  isOnOwnCustomDomain: boolean;
 }
 
 const TenantContext = createContext<TenantContextType | undefined>(undefined);
@@ -54,6 +56,7 @@ export function TenantProvider({ children }: { children: ReactNode }) {
   const [tenant, setTenant] = useState<Tenant | null>(null);
   const [settings, setSettings] = useState<TenantSettings>(DEFAULT_SETTINGS);
   const [loading, setLoading] = useState(true);
+  const [isOnOwnCustomDomain, setIsOnOwnCustomDomain] = useState(false);
 
   const loadByTenantId = useCallback(async (tenantId: string) => {
     const [{ data: tenantRow }, { data: settingsRow }] = await Promise.all([
@@ -117,18 +120,31 @@ export function TenantProvider({ children }: { children: ReactNode }) {
 
   const refresh = useCallback(async () => {
     setLoading(true);
+    setIsOnOwnCustomDomain(false);
     try {
       if (profile?.school_id) {
         await loadByTenantId(profile.school_id);
       } else {
+        // Check custom domains FIRST, before guessing this is a
+        // <slug>.schoolos.app-style address: a real custom domain like
+        // "portal.kdsquares.com" has 3 dot-separated labels too, so
+        // checking slugFromHostname() first would misread "portal" as a
+        // subdomain slug and never reach the actual custom-domain match.
+        const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
+        const isLocalOrIp = !hostname || hostname === 'localhost' || /^\d+\.\d+\.\d+\.\d+$/.test(hostname);
+        const byDomain = isLocalOrIp ? null : await resolveByCustomDomain(hostname);
+        if (byDomain) {
+          setIsOnOwnCustomDomain(true);
+          return;
+        }
+
         const slug = slugFromHostname();
         if (slug) {
-          await resolveBySlug(slug);
-        } else {
-          const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
-          const byDomain = hostname && hostname !== 'localhost' ? await resolveByCustomDomain(hostname) : null;
-          if (!byDomain) await loadDefaultTenant();
+          const bySlug = await resolveBySlug(slug);
+          if (bySlug) return;
         }
+
+        await loadDefaultTenant();
       }
     } finally {
       setLoading(false);
@@ -146,8 +162,8 @@ export function TenantProvider({ children }: { children: ReactNode }) {
   );
 
   const contextValue = useMemo(
-    () => ({ tenant, settings, loading, resolveBySlug, isFeatureEnabled, refresh }),
-    [tenant, settings, loading, resolveBySlug, isFeatureEnabled, refresh]
+    () => ({ tenant, settings, loading, resolveBySlug, isFeatureEnabled, refresh, isOnOwnCustomDomain }),
+    [tenant, settings, loading, resolveBySlug, isFeatureEnabled, refresh, isOnOwnCustomDomain]
   );
 
   return <TenantContext.Provider value={contextValue}>{children}</TenantContext.Provider>;
