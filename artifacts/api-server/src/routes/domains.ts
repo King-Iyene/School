@@ -136,16 +136,34 @@ router.post("/domains/register-vercel", requireDomainAdmin, async (req: Request,
 
   const body = (await vercelRes.json().catch(() => ({}))) as { error?: { code?: string; message?: string } };
 
-  // "domain_already_in_use" against OUR OWN project just means a previous
-  // attempt already registered it — treat that as success rather than an
-  // error the admin has to puzzle over.
-  const alreadyOnThisProject =
-    body.error?.code === "domain_already_in_use" &&
-    (body.error.message ?? "").toLowerCase().includes(VERCEL_PROJECT_ID.toLowerCase());
+  if (!vercelRes.ok) {
+    // Vercel's "domain_already_in_use" message never names which project —
+    // it could mean OUR project (a previous attempt already registered it,
+    // nothing to do) or a genuinely different one (a real conflict). Ask
+    // Vercel directly which case this is, rather than guessing from message
+    // text: "Get a Project Domain" 404s if the domain isn't attached to
+    // THIS project, and succeeds if it already is.
+    if (body.error?.code === "domain_already_in_use") {
+      try {
+        const existingRes = await fetch(
+          vercelUrl(`/v9/projects/${VERCEL_PROJECT_ID}/domains/${settings.custom_domain}`),
+          { headers: { Authorization: `Bearer ${VERCEL_API_TOKEN}` } },
+        );
+        if (existingRes.ok) {
+          res.json({ success: true });
+          return;
+        }
+      } catch (e) {
+        req.log?.error?.(e);
+      }
+      res.status(502).json({
+        error: `${settings.custom_domain} is already attached to a different Vercel project. Remove it there first, then try again.`,
+      });
+      return;
+    }
 
-  if (!vercelRes.ok && !alreadyOnThisProject) {
     req.log?.error?.({ vercelError: body.error }, "Vercel domain registration failed");
-    res.status(502).json({ error: body.error?.message ?? "Vercel rejected this domain. Check it isn't already in use elsewhere." });
+    res.status(502).json({ error: body.error?.message ?? "Vercel rejected this domain." });
     return;
   }
 
