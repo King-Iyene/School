@@ -458,7 +458,7 @@ export default function Appearance() {
 
         <button
           onClick={saveDomain}
-          disabled={domainSaving || !isEnterprise}
+          disabled={domainSaving || !isEnterprise || domain.trim() === (settings.custom_domain ?? '')}
           className="inline-flex items-center gap-2 px-5 py-2.5 bg-app-primary hover:opacity-90 disabled:opacity-50 text-white text-sm font-semibold rounded-xl transition-colors"
         >
           <Check className="w-4 h-4" /> {domainSaving ? 'Saving…' : 'Save Domain'}
