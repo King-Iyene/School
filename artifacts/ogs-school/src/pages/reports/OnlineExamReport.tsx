@@ -1,7 +1,16 @@
 import { useState, useEffect } from 'react';
-import { Monitor, CheckCircle, XCircle, BarChart2, Download, AlertCircle } from 'lucide-react';
+import { Monitor, CheckCircle, XCircle, BarChart2, Download, AlertCircle, ClipboardEdit } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
+import Modal from '../../components/common/Modal';
+
+interface TheoryAnswer {
+  id: string;
+  question_text: string;
+  marks: number;
+  marks_awarded: number | null;
+  student_answer: string;
+}
 
 interface AttemptRecord {
   id: string;
@@ -12,7 +21,7 @@ interface AttemptRecord {
   total: number;
   percentage: number;
   time_taken: number;
-  status: 'passed' | 'failed';
+  status: 'in_progress' | 'pending' | 'passed' | 'failed';
 }
 
 interface AcademicYear {
@@ -46,6 +55,47 @@ export default function OnlineExamReport() {
     class_id: '',
   });
 
+  const [gradingAttemptId, setGradingAttemptId] = useState<string | null>(null);
+  const [gradingQuestions, setGradingQuestions] = useState<TheoryAnswer[]>([]);
+  const [gradingLoading, setGradingLoading] = useState(false);
+  const [gradingSaving, setGradingSaving] = useState(false);
+
+  async function openGrading(attemptId: string) {
+    setGradingAttemptId(attemptId);
+    setGradingLoading(true);
+    const { data } = await supabase
+      .from('online_exam_attempt_questions')
+      .select('id, marks, marks_awarded, student_answer, question_bank(question_text)')
+      .eq('attempt_id', attemptId)
+      .eq('question_type', 'theory')
+      .order('sort_order', { ascending: true });
+    setGradingQuestions(
+      (data || []).map((r: any) => ({
+        id: r.id,
+        question_text: r.question_bank?.question_text ?? 'Question',
+        marks: Number(r.marks),
+        marks_awarded: r.marks_awarded === null ? null : Number(r.marks_awarded),
+        student_answer: r.student_answer ?? '',
+      })),
+    );
+    setGradingLoading(false);
+  }
+
+  async function saveGrading() {
+    setGradingSaving(true);
+    await Promise.all(
+      gradingQuestions.map((q) =>
+        supabase
+          .from('online_exam_attempt_questions')
+          .update({ marks_awarded: q.marks_awarded ?? 0 })
+          .eq('id', q.id),
+      ),
+    );
+    setGradingSaving(false);
+    setGradingAttemptId(null);
+    fetchAttempts();
+  }
+
   useEffect(() => {
     checkTableAndFetchBase();
   }, []);
@@ -74,30 +124,35 @@ export default function OnlineExamReport() {
     setLoading(true);
     let query = supabase
       .from('online_exam_attempts')
-      .select('id, student_name, class_name, attempt_date, score, total, time_taken, students!student_id(first_name, last_name, class_name)')
-      .order('attempt_date', { ascending: false });
+      .select(
+        'id, status, started_at, submitted_at, score, total_marks, time_taken_seconds, exams(name), students!student_id(first_name, last_name, classes(name))',
+      )
+      .eq('school_id', profile?.school_id)
+      .order('started_at', { ascending: false });
 
     if (filters.exam_id) query = query.eq('exam_id', filters.exam_id);
     if (filters.class_id) {
       const cls = classes.find(c => c.id === filters.class_id);
-      if (cls) query = query.eq('class_name', cls.name);
+      if (cls) query = query.eq('students.class_id', filters.class_id);
     }
 
     const { data } = await query;
     const mapped: AttemptRecord[] = (data || []).map((d: any) => {
-      const total = Number(d.total) || 100;
-      const score = Number(d.score) || 0;
-      const pct = Math.round((score / total) * 100);
+      const total = Number(d.total_marks) || 0;
+      const score = d.score === null ? 0 : Number(d.score);
+      const pct = total > 0 ? Math.round((score / total) * 100) : 0;
+      const status: AttemptRecord['status'] =
+        d.status === 'in_progress' ? 'in_progress' : d.score === null ? 'pending' : pct >= 40 ? 'passed' : 'failed';
       return {
         id: d.id,
-        student_name: d.students?.first_name ? `${d.students.first_name} ${d.students.last_name}` : (d.student_name || 'Unknown'),
-        class_name: d.students?.class_name || d.class_name || '-',
-        attempt_date: d.attempt_date,
+        student_name: d.students ? `${d.students.first_name} ${d.students.last_name}` : 'Unknown',
+        class_name: d.students?.classes?.name || '-',
+        attempt_date: d.submitted_at || d.started_at,
         score,
         total,
         percentage: pct,
-        time_taken: Number(d.time_taken) || 0,
-        status: pct >= 40 ? 'passed' : 'failed',
+        time_taken: Math.round((Number(d.time_taken_seconds) || 0) / 60),
+        status,
       };
     });
     setAttempts(mapped);
@@ -109,11 +164,12 @@ export default function OnlineExamReport() {
     setTimeout(() => setShowToast(false), 3000);
   }
 
-  const avgScore = attempts.length > 0
-    ? Math.round(attempts.reduce((s, a) => s + a.percentage, 0) / attempts.length)
+  const gradedAttempts = attempts.filter(a => a.status === 'passed' || a.status === 'failed');
+  const avgScore = gradedAttempts.length > 0
+    ? Math.round(gradedAttempts.reduce((s, a) => s + a.percentage, 0) / gradedAttempts.length)
     : 0;
-  const passRate = attempts.length > 0
-    ? Math.round((attempts.filter(a => a.status === 'passed').length / attempts.length) * 100)
+  const passRate = gradedAttempts.length > 0
+    ? Math.round((gradedAttempts.filter(a => a.status === 'passed').length / gradedAttempts.length) * 100)
     : 0;
 
   if (tableExists === false) {
@@ -249,16 +305,17 @@ export default function OnlineExamReport() {
                 <th className="text-center px-4 py-3 text-app-text-muted font-medium">Percentage</th>
                 <th className="text-center px-4 py-3 text-app-text-muted font-medium">Time (mins)</th>
                 <th className="text-center px-4 py-3 text-app-text-muted font-medium">Status</th>
+                <th className="text-center px-4 py-3 text-app-text-muted font-medium">Actions</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-10 text-app-text-muted">Loading...</td>
+                  <td colSpan={10} className="text-center py-10 text-app-text-muted">Loading...</td>
                 </tr>
               ) : attempts.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-10 text-app-text-muted">No attempts found</td>
+                  <td colSpan={10} className="text-center py-10 text-app-text-muted">No attempts found</td>
                 </tr>
               ) : (
                 attempts.map((attempt, index) => (
@@ -272,16 +329,37 @@ export default function OnlineExamReport() {
                     <td className="px-4 py-3 text-center font-medium text-app-text">{attempt.percentage}%</td>
                     <td className="px-4 py-3 text-center text-app-text-muted">{attempt.time_taken}</td>
                     <td className="px-4 py-3 text-center">
-                      {attempt.status === 'passed' ? (
+                      {attempt.status === 'in_progress' && (
+                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
+                          In Progress
+                        </span>
+                      )}
+                      {attempt.status === 'pending' && (
+                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-slate-100 text-app-text-muted">
+                          Pending Grading
+                        </span>
+                      )}
+                      {attempt.status === 'passed' && (
                         <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
                           <CheckCircle className="h-3 w-3" />
                           Passed
                         </span>
-                      ) : (
+                      )}
+                      {attempt.status === 'failed' && (
                         <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">
                           <XCircle className="h-3 w-3" />
                           Failed
                         </span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      {attempt.status === 'pending' && (
+                        <button
+                          onClick={() => openGrading(attempt.id)}
+                          className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 text-xs font-medium transition-colors"
+                        >
+                          <ClipboardEdit className="h-3 w-3" /> Grade
+                        </button>
                       )}
                     </td>
                   </tr>
@@ -291,6 +369,49 @@ export default function OnlineExamReport() {
           </table>
         </div>
       </div>
+
+      <Modal isOpen={!!gradingAttemptId} onClose={() => setGradingAttemptId(null)} title="Grade Theory Answers" size="lg">
+        {gradingLoading ? (
+          <div className="flex justify-center py-8">
+            <div className="w-6 h-6 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : (
+          <div className="space-y-5">
+            {gradingQuestions.map((q, idx) => (
+              <div key={q.id} className="border border-app-border rounded-xl p-4 space-y-2">
+                <p className="text-sm font-medium text-app-text">{idx + 1}. {q.question_text}</p>
+                <p className="text-sm text-app-text-muted bg-app-surface-alt rounded-lg p-3 whitespace-pre-wrap">{q.student_answer || '(no answer)'}</p>
+                <div className="flex items-center gap-2">
+                  <label className="text-xs text-app-text-muted">Marks (max {q.marks})</label>
+                  <input
+                    type="number"
+                    min={0}
+                    max={q.marks}
+                    className="w-20 bg-app-surface text-app-text border border-app-border rounded-lg px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30"
+                    value={q.marks_awarded ?? ''}
+                    onChange={(e) => {
+                      const val = Math.min(q.marks, Math.max(0, parseFloat(e.target.value) || 0));
+                      setGradingQuestions(prev => prev.map((item, i) => (i === idx ? { ...item, marks_awarded: val } : item)));
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+            <div className="flex justify-end gap-3 pt-2">
+              <button onClick={() => setGradingAttemptId(null)} className="px-4 py-2 text-sm rounded-xl border border-app-border text-app-text-muted hover:bg-app-surface-alt transition-colors">
+                Cancel
+              </button>
+              <button
+                onClick={saveGrading}
+                disabled={gradingSaving}
+                className="px-4 py-2 text-sm rounded-xl bg-app-primary hover:opacity-90 text-white font-medium transition-colors disabled:opacity-50"
+              >
+                {gradingSaving ? 'Saving...' : 'Save Grades'}
+              </button>
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 }

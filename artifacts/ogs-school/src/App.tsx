@@ -35,6 +35,8 @@ import StudentAssignments from './pages/student/Assignments';
 import StudentGrades from './pages/student/Grades';
 import StudentAttendance from './pages/student/Attendance';
 import StudentFees from './pages/student/Fees';
+import StudentOnlineExams from './pages/student/OnlineExams';
+import TakeExam from './pages/student/TakeExam';
 
 import ParentDashboard from './pages/parent/Dashboard';
 import ParentGrades from './pages/parent/Grades';
@@ -82,6 +84,7 @@ import ExamAttendance from './pages/exam/ExamAttendance';
 import AddExam from './pages/exam/AddExam';
 import MarksRegister from './pages/exam/MarksRegister';
 import QuestionBank from './pages/exam/QuestionBank';
+import OnlineExamSetup from './pages/exam/OnlineExamSetup';
 import ResultsHub from './pages/exam/ResultsHub';
 import AIAssistant from './pages/shared/AIAssistant';
 
@@ -420,6 +423,7 @@ function AppContent() {
       case '/exam/exam-attendance': return <ExamAttendance />;
       case '/exam/marks-register': return <MarksRegister />;
       case '/exam/question-bank': return <QuestionBank />;
+      case '/exam/online-exam-setup': return <OnlineExamSetup />;
       case '/ai-assistant': return <AIAssistant />;
       case '/exam/results':
       case '/results-hub': return <ResultsHub />;
@@ -552,6 +556,8 @@ function AppContent() {
       case '/student/assignments': return <StudentAssignments />;
       case '/student/downloads': return <DownloadCenter />;
       case '/student/examinations': return <StudentExaminations />;
+      case '/student/online-exams': return <StudentOnlineExams />;
+      case '/student/take-exam': return <TakeExam />;
       case '/student/subjects': return <StudentSubjects />;
       case '/student/teachers': return <StudentTeachers />;
       case '/student/library': return <StudentLibrary />;

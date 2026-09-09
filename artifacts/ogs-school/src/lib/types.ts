@@ -325,6 +325,57 @@ export interface QuestionBankItem {
   subjects?: Subject;
 }
 
+export interface OnlineExamSettings {
+  exam_id: string;
+  school_id: string;
+  subject_id: string | null;
+  difficulty: 'easy' | 'medium' | 'hard' | null;
+  question_count: number;
+  duration_minutes: number;
+  pass_percentage: number;
+  shuffle_questions: boolean;
+  shuffle_options: boolean;
+  show_result_immediately: boolean;
+  instructions: string;
+  is_published: boolean;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface OnlineExamAttempt {
+  id: string;
+  school_id: string;
+  exam_id: string;
+  student_id: string;
+  status: 'in_progress' | 'submitted' | 'graded';
+  started_at: string;
+  submitted_at: string | null;
+  duration_minutes: number;
+  total_marks: number;
+  objective_score: number;
+  theory_score: number | null;
+  score: number | null;
+  time_taken_seconds: number | null;
+}
+
+export interface ExamAttemptOption {
+  letter: string;
+  text: string;
+}
+
+export interface ExamAttemptQuestion {
+  id: string;
+  question_text: string;
+  question_type: 'objective' | 'theory';
+  marks: number;
+  options: ExamAttemptOption[];
+  student_answer: string;
+  is_correct: boolean | null;
+  marks_awarded: number | null;
+  correct_answer?: string;
+}
+
 export interface TodoItem {
   id: string;
   school_id: string;

@@ -7,6 +7,7 @@ import aiRouter from "./ai";
 import onboardingRouter from "./onboarding";
 import billingRouter from "./billing";
 import domainsRouter from "./domains";
+import examsRouter from "./exams";
 
 const router: IRouter = Router();
 
@@ -18,5 +19,6 @@ router.use(aiRouter);
 router.use(onboardingRouter);
 router.use(billingRouter);
 router.use(domainsRouter);
+router.use(examsRouter);
 
 export default router;

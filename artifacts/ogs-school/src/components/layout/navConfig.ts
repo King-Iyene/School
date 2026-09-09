@@ -38,7 +38,10 @@ const PATH_FEATURE_OVERRIDES: Record<string, Feature> = {
   '/finance/bank-accounts': 'financial_accounting',
   '/finance/chart-of-accounts': 'financial_accounting',
   '/exam/question-bank': 'cbt_engine',
+  '/exam/online-exam-setup': 'cbt_engine',
   '/reports/online-exam': 'cbt_engine',
+  '/student/online-exams': 'cbt_engine',
+  '/student/take-exam': 'cbt_engine',
   '/system/appearance': 'white_labeling',
 };
 
@@ -99,6 +102,7 @@ const superAdminNav: NavItem[] = [
   { label: 'Marks Grade',        path: '/exam/grade-scale',      icon: Star,          group: 'Examination' },
   { label: 'Report Cards',       path: '/reports/progress-card', icon: ScrollText,    group: 'Examination' },
   { label: 'Question Bank',      path: '/exam/question-bank',    icon: BookCopy,      group: 'Examination' },
+  { label: 'Online Exam Setup',  path: '/exam/online-exam-setup',icon: Monitor,       group: 'Examination' },
 
   // ── Lesson Plan ──────────────────────────────────────────────────────────────
   { label: 'Lessons',                path: '/lesson-plan/lessons',       icon: BookOpen,      group: 'Lesson Plan' },
@@ -261,6 +265,7 @@ const teacherNav: NavItem[] = [
   { label: 'Class Results',    path: '/teacher/class-results',    icon: BarChart2,    group: 'Examination' },
   { label: 'Results Hub',      path: '/exam/results',             icon: Award,        group: 'Examination' },
   { label: 'Question Bank',    path: '/exam/question-bank',       icon: BookCopy,     group: 'Examination' },
+  { label: 'Online Exam Setup',path: '/exam/online-exam-setup',   icon: Monitor,      group: 'Examination' },
 
   { label: 'Attendance',       path: '/attendance',               icon: UserCheck,    group: 'Classroom' },
   { label: 'Timetable',        path: '/timetable',                icon: Calendar,     group: 'Classroom' },
@@ -298,6 +303,7 @@ const studentNav: NavItem[] = [
   { label: 'Downloads',     path: '/student/downloads',       icon: Download,   group: 'Academics' },
 
   { label: 'Examinations', path: '/student/examinations', icon: Award,    group: 'Examination' },
+  { label: 'Online Exams', path: '/student/online-exams', icon: Monitor,  group: 'Examination' },
   { label: 'Results',      path: '/grades',               icon: ScrollText, group: 'Examination' },
 
   { label: 'Fees',      path: '/fees',               icon: DollarSign, group: 'Finance' },
@@ -551,6 +557,7 @@ const headTeacherNav: NavItem[] = [
   { label: 'Marks Grade',   path: '/exam/grade-scale',      icon: Star,          group: 'Examination' },
   { label: 'Report Cards',  path: '/reports/progress-card', icon: ScrollText,    group: 'Examination' },
   { label: 'Question Bank', path: '/exam/question-bank',    icon: BookCopy,      group: 'Examination' },
+  { label: 'Online Exam Setup', path: '/exam/online-exam-setup', icon: Monitor,  group: 'Examination' },
 
   // ── Lesson Plan ──────────────────────────────────────────────────────────────
   { label: 'Lessons',                path: '/lesson-plan/lessons',       icon: BookOpen,      group: 'Lesson Plan' },
