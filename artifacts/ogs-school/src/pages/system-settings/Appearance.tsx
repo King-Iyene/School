@@ -119,22 +119,46 @@ export default function Appearance() {
     }
   }
 
-  async function saveDomain() {
+  async function saveDomain(explicitDomain?: string | null) {
     if (!tenant?.id) return;
+    const nextDomain = explicitDomain !== undefined ? explicitDomain : (domain.trim() || null);
     setDomainSaving(true);
     setDomainMessage(null);
+
+    // Clean up the OLD domain's Vercel attachment first, while it's still
+    // the value on record — otherwise a removed/replaced domain stays
+    // attached to the project forever, blocking it from being reconnected
+    // later (whether by this tenant again or a different one). Not fatal
+    // if this fails: the DB stays the source of truth for what THIS
+    // tenant's domain is, and a stale Vercel attachment can be cleaned up
+    // manually — just surface a note rather than blocking the save.
+    if (settings.custom_domain && settings.custom_domain !== nextDomain) {
+      const resp = await authedFetch('/api/domains/remove-vercel', { method: 'POST' }).catch(() => null);
+      if (resp && !resp.ok) {
+        const body = await resp.json().catch(() => ({}));
+        if (body.error) setConnectMessage({ type: 'error', text: `Note: ${body.error}` });
+      }
+    }
+
     const { error } = await supabase
       .from('tenant_settings')
-      .update({ custom_domain: domain.trim() || null })
+      .update({ custom_domain: nextDomain })
       .eq('tenant_id', tenant.id);
     setDomainSaving(false);
     if (error) {
       setDomainMessage({ type: 'error', text: error.message });
       return;
     }
-    setDomainMessage({ type: 'success', text: 'Custom domain saved.' });
-    setShowSetupModal(true);
+    setDomain(nextDomain ?? '');
+    setDomainMessage({ type: 'success', text: nextDomain ? 'Custom domain saved.' : 'Custom domain removed.' });
+    setConnectionStatus(null);
+    if (nextDomain) setShowSetupModal(true);
     await refresh();
+  }
+
+  async function removeDomain() {
+    if (!confirm('Remove this custom domain? Visitors will need to use the default address again.')) return;
+    await saveDomain(null);
   }
 
   async function checkDns() {
@@ -435,24 +459,42 @@ export default function Appearance() {
                 >
                   View DNS Record
                 </button>
+                <button
+                  type="button"
+                  onClick={removeDomain}
+                  disabled={domainSaving}
+                  className="px-3 py-1.5 border border-red-200 text-red-600 hover:bg-red-50 rounded-lg text-xs font-medium disabled:opacity-50 transition-colors"
+                >
+                  Remove Domain
+                </button>
               </div>
             </div>
           ) : (
             <div className="mb-4 bg-app-surface-alt border border-app-border rounded-lg p-3 text-xs text-app-text-muted flex items-center justify-between gap-3 flex-wrap">
               <span>DNS setup needed before this domain will work.</span>
-              <button
-                type="button"
-                onClick={() => setShowSetupModal(true)}
-                className="px-3 py-1.5 bg-app-primary hover:opacity-90 text-white rounded-lg text-xs font-medium transition-colors flex-shrink-0"
-              >
-                View DNS Records
-              </button>
+              <div className="flex gap-2 flex-shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setShowSetupModal(true)}
+                  className="px-3 py-1.5 bg-app-primary hover:opacity-90 text-white rounded-lg text-xs font-medium transition-colors"
+                >
+                  View DNS Records
+                </button>
+                <button
+                  type="button"
+                  onClick={removeDomain}
+                  disabled={domainSaving}
+                  className="px-3 py-1.5 border border-red-200 text-red-600 hover:bg-red-50 rounded-lg text-xs font-medium disabled:opacity-50 transition-colors"
+                >
+                  Remove Domain
+                </button>
+              </div>
             </div>
           )
         )}
 
         <button
-          onClick={saveDomain}
+          onClick={() => saveDomain()}
           disabled={domainSaving || !isEnterprise || domain.trim() === (settings.custom_domain ?? '')}
           className="inline-flex items-center gap-2 px-5 py-2.5 bg-app-primary hover:opacity-90 disabled:opacity-50 text-white text-sm font-semibold rounded-xl transition-colors"
         >
