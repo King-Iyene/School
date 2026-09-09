@@ -64,6 +64,7 @@ export default function Appearance() {
   const [checkingStatus, setCheckingStatus] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<{ connected: boolean; misconfigured: boolean } | null>(null);
   const [showDnsModal, setShowDnsModal] = useState(false);
+  const [showSetupModal, setShowSetupModal] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
   function copyField(field: string, value: string) {
@@ -131,7 +132,8 @@ export default function Appearance() {
       setDomainMessage({ type: 'error', text: error.message });
       return;
     }
-    setDomainMessage({ type: 'success', text: 'Custom domain saved. Add the DNS record below to verify ownership.' });
+    setDomainMessage({ type: 'success', text: 'Custom domain saved.' });
+    setShowSetupModal(true);
     await refresh();
   }
 
@@ -148,6 +150,7 @@ export default function Appearance() {
       if (!tenant?.id) return;
       await supabase.from('tenant_settings').update({ custom_domain_verified: true }).eq('tenant_id', tenant.id);
       await refresh();
+      setShowSetupModal(false);
       await connectToVercel(false);
     } catch (err) {
       setDnsError(err instanceof Error ? err.message : 'DNS lookup failed.');
@@ -434,65 +437,18 @@ export default function Appearance() {
                 </button>
               </div>
             </div>
-          ) : (() => {
-            const routingRecord = getVercelDnsRecord(settings.custom_domain);
-            return (
-              <div className="mb-4 bg-app-surface-alt border border-app-border rounded-lg p-3 text-xs text-app-text-muted space-y-3">
-                <p>
-                  Add both of these DNS records at <strong>{settings.custom_domain}</strong>'s registrar in one trip, then check — the first proves you own the domain, the second is what actually routes it to your portal:
-                </p>
-
-                <div className="bg-app-surface rounded border border-app-border overflow-hidden">
-                  <div className="grid grid-cols-3 gap-2 px-2 py-1.5 font-semibold text-app-text-muted text-[10px] uppercase tracking-wide border-b border-app-border">
-                    <span>Type</span><span>Host / Name</span><span>Value</span>
-                  </div>
-                  <div className="grid grid-cols-3 gap-2 px-2 py-2 font-mono text-[11px] items-center border-b border-app-border">
-                    <span className="text-app-text">TXT</span>
-                    <span className="text-app-text flex items-center gap-1.5 min-w-0">
-                      <span className="break-all">_ogs-verify.{settings.custom_domain}</span>
-                      <button type="button" onClick={() => copyField('txt-host', `_ogs-verify.${settings.custom_domain}`)} title="Copy" className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
-                        {copiedField === 'txt-host' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                      </button>
-                    </span>
-                    <span className="text-app-text flex items-center gap-1.5 min-w-0">
-                      <span className="break-all">{settings.custom_domain_verification_token}</span>
-                      <button type="button" onClick={() => copyField('txt-value', settings.custom_domain_verification_token)} title="Copy" className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
-                        {copiedField === 'txt-value' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                      </button>
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-3 gap-2 px-2 py-2 font-mono text-[11px] items-center">
-                    <span className="text-app-text">{routingRecord.type}</span>
-                    <span className="text-app-text flex items-center gap-1.5 min-w-0">
-                      <span className="break-all">{routingRecord.host}</span>
-                      <button type="button" onClick={() => copyField('cname-host', routingRecord.host)} title="Copy" className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
-                        {copiedField === 'cname-host' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                      </button>
-                    </span>
-                    <span className="text-app-text flex items-center gap-1.5 min-w-0">
-                      <span className="break-all">{routingRecord.value}</span>
-                      <button type="button" onClick={() => copyField('cname-value', routingRecord.value)} title="Copy" className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
-                        {copiedField === 'cname-value' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                      </button>
-                    </span>
-                  </div>
-                </div>
-
-                {dnsError && <p className="text-red-600">{dnsError}</p>}
-                <button
-                  type="button"
-                  onClick={checkDns}
-                  disabled={checkingDns}
-                  className="px-3 py-1.5 bg-app-primary hover:opacity-90 text-white rounded-lg text-xs font-medium disabled:opacity-50 transition-colors"
-                >
-                  {checkingDns ? 'Checking...' : 'Check Now'}
-                </button>
-                <p className="text-[11px] text-app-text-muted">
-                  "Check Now" verifies ownership and connects your domain in one step once the TXT record is visible — the CNAME record can take longer to propagate, so the portal may not be reachable at the domain immediately even after this succeeds.
-                </p>
-              </div>
-            );
-          })()
+          ) : (
+            <div className="mb-4 bg-app-surface-alt border border-app-border rounded-lg p-3 text-xs text-app-text-muted flex items-center justify-between gap-3 flex-wrap">
+              <span>DNS setup needed before this domain will work.</span>
+              <button
+                type="button"
+                onClick={() => setShowSetupModal(true)}
+                className="px-3 py-1.5 bg-app-primary hover:opacity-90 text-white rounded-lg text-xs font-medium transition-colors flex-shrink-0"
+              >
+                View DNS Records
+              </button>
+            </div>
+          )
         )}
 
         <button
@@ -503,6 +459,79 @@ export default function Appearance() {
           <Check className="w-4 h-4" /> {domainSaving ? 'Saving…' : 'Save Domain'}
         </button>
       </div>
+
+      {showSetupModal && settings.custom_domain && (() => {
+        const routingRecord = getVercelDnsRecord(settings.custom_domain);
+        return (
+          <Modal isOpen onClose={() => setShowSetupModal(false)} title="Set up your custom domain" size="md">
+            <div className="space-y-4">
+              <p className="text-sm text-app-text-muted">
+                Add both of these DNS records at <strong>{settings.custom_domain}</strong>'s registrar in one trip, then verify — the first proves you own the domain, the second is what actually routes it to your portal:
+              </p>
+
+              <div className="bg-app-surface-alt border border-app-border rounded-xl overflow-hidden text-sm">
+                <div className="grid grid-cols-3 gap-2 px-4 py-2 font-semibold text-app-text-muted text-xs uppercase tracking-wide border-b border-app-border">
+                  <span>Type</span><span>Host / Name</span><span>Value</span>
+                </div>
+                <div className="grid grid-cols-3 gap-2 px-4 py-3 font-mono text-xs items-center border-b border-app-border">
+                  <span className="text-app-text">TXT</span>
+                  <span className="text-app-text flex items-center gap-1.5 min-w-0">
+                    <span className="break-all">_ogs-verify.{settings.custom_domain}</span>
+                    <button type="button" onClick={() => copyField('txt-host', `_ogs-verify.${settings.custom_domain}`)} title="Copy" className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
+                      {copiedField === 'txt-host' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                    </button>
+                  </span>
+                  <span className="text-app-text flex items-center gap-1.5 min-w-0">
+                    <span className="break-all">{settings.custom_domain_verification_token}</span>
+                    <button type="button" onClick={() => copyField('txt-value', settings.custom_domain_verification_token)} title="Copy" className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
+                      {copiedField === 'txt-value' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                    </button>
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-2 px-4 py-3 font-mono text-xs items-center">
+                  <span className="text-app-text">{routingRecord.type}</span>
+                  <span className="text-app-text flex items-center gap-1.5 min-w-0">
+                    <span className="break-all">{routingRecord.host}</span>
+                    <button type="button" onClick={() => copyField('setup-cname-host', routingRecord.host)} title="Copy" className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
+                      {copiedField === 'setup-cname-host' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                    </button>
+                  </span>
+                  <span className="text-app-text flex items-center gap-1.5 min-w-0">
+                    <span className="break-all">{routingRecord.value}</span>
+                    <button type="button" onClick={() => copyField('setup-cname-value', routingRecord.value)} title="Copy" className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
+                      {copiedField === 'setup-cname-value' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                    </button>
+                  </span>
+                </div>
+              </div>
+
+              {dnsError && (
+                <div className="bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl px-4 py-3">{dnsError}</div>
+              )}
+
+              <p className="text-xs text-app-text-muted">
+                "Verify Now" checks ownership and connects your domain in one step once the TXT record is visible. The CNAME record can take longer to propagate, so the portal may not be reachable at the domain immediately even after this succeeds.
+              </p>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowSetupModal(false)}
+                  className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors"
+                >
+                  Close
+                </button>
+                <button
+                  onClick={checkDns}
+                  disabled={checkingDns}
+                  className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-semibold disabled:opacity-50 transition-colors"
+                >
+                  {checkingDns ? 'Verifying...' : 'Verify Now'}
+                </button>
+              </div>
+            </div>
+          </Modal>
+        );
+      })()}
 
       {showDnsModal && settings.custom_domain && (() => {
         const record = getVercelDnsRecord(settings.custom_domain);
