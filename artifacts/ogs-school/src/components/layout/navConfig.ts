@@ -235,7 +235,6 @@ const superAdminNav: NavItem[] = [
   { label: 'Notification Settings', path: '/messaging/notifications',      icon: Bell,          group: 'Messaging' },
 
   // ── System Settings (always last) ────────────────────────────────────────────
-  { label: 'School Setup',         path: '/school-setup',              icon: School,       group: 'System Settings' },
   { label: 'General Setting',      path: '/system/general',            icon: Globe,        group: 'System Settings' },
   { label: 'Appearance',           path: '/system/appearance',         icon: Palette,      group: 'System Settings' },
   { label: 'Role Permission',      path: '/system/role-permission',    icon: ShieldCheck,  group: 'System Settings' },
@@ -504,7 +503,6 @@ const principalNav: NavItem[] = [
   { label: 'Notification Settings', path: '/messaging/notifications', icon: Bell,          group: 'Messaging' },
 
   // ── System Settings (limited) ─────────────────────────────────────────────────
-  { label: 'School Setup', path: '/school-setup',   icon: School,       group: 'System Settings' },
   { label: 'Holiday',      path: '/system/holiday', icon: Umbrella,     group: 'System Settings' },
   { label: 'Weekend',      path: '/system/weekend', icon: CalendarCheck, group: 'System Settings' },
   { label: 'Support Tickets', path: '/support',     icon: LifeBuoy,     group: 'System Settings' },
