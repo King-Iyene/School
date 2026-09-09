@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { Palette, RotateCcw, Check, Moon, Sun, LayoutGrid, PanelLeft, Eye, EyeOff, ChevronUp, ChevronDown, Globe, Copy } from 'lucide-react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { Palette, RotateCcw, Check, Moon, Sun, LayoutGrid, PanelLeft, Eye, EyeOff, ChevronUp, ChevronDown, Globe, Copy, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useTenantSettings } from '../../context/TenantContext';
 import { DASHBOARD_WIDGETS, resolveDashboardLayout } from '../../lib/dashboardLayout';
@@ -63,8 +63,7 @@ export default function Appearance() {
   const [connectMessage, setConnectMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [checkingStatus, setCheckingStatus] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<{ connected: boolean; misconfigured: boolean } | null>(null);
-  const [showDnsModal, setShowDnsModal] = useState(false);
-  const [showSetupModal, setShowSetupModal] = useState(false);
+  const [showDomainModal, setShowDomainModal] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
   function copyField(field: string, value: string) {
@@ -82,7 +81,7 @@ export default function Appearance() {
     });
   }
 
-  async function connectToVercel(showModalOnSuccess = true) {
+  async function connectToVercel(): Promise<boolean> {
     setConnecting(true);
     setConnectMessage(null);
     try {
@@ -90,12 +89,14 @@ export default function Appearance() {
       const body = await resp.json().catch(() => ({}));
       if (!resp.ok) {
         setConnectMessage({ type: 'error', text: body.error ?? 'Could not connect this domain.' });
-        return;
+        return false;
       }
       setConnectMessage({ type: 'success', text: 'Domain connected.' });
-      if (showModalOnSuccess) setShowDnsModal(true);
+      await checkConnectionStatus();
+      return true;
     } catch {
       setConnectMessage({ type: 'error', text: 'Could not reach the server. Please try again.' });
+      return false;
     } finally {
       setConnecting(false);
     }
@@ -119,22 +120,46 @@ export default function Appearance() {
     }
   }
 
-  async function saveDomain() {
+  async function saveDomain(explicitDomain?: string | null) {
     if (!tenant?.id) return;
+    const nextDomain = explicitDomain !== undefined ? explicitDomain : (domain.trim() || null);
     setDomainSaving(true);
     setDomainMessage(null);
+
+    // Clean up the OLD domain's Vercel attachment first, while it's still
+    // the value on record — otherwise a removed/replaced domain stays
+    // attached to the project forever, blocking it from being reconnected
+    // later (whether by this tenant again or a different one). Not fatal
+    // if this fails: the DB stays the source of truth for what THIS
+    // tenant's domain is, and a stale Vercel attachment can be cleaned up
+    // manually — just surface a note rather than blocking the save.
+    if (settings.custom_domain && settings.custom_domain !== nextDomain) {
+      const resp = await authedFetch('/api/domains/remove-vercel', { method: 'POST' }).catch(() => null);
+      if (resp && !resp.ok) {
+        const body = await resp.json().catch(() => ({}));
+        if (body.error) setConnectMessage({ type: 'error', text: `Note: ${body.error}` });
+      }
+    }
+
     const { error } = await supabase
       .from('tenant_settings')
-      .update({ custom_domain: domain.trim() || null })
+      .update({ custom_domain: nextDomain })
       .eq('tenant_id', tenant.id);
     setDomainSaving(false);
     if (error) {
       setDomainMessage({ type: 'error', text: error.message });
       return;
     }
-    setDomainMessage({ type: 'success', text: 'Custom domain saved.' });
-    setShowSetupModal(true);
+    setDomain(nextDomain ?? '');
+    setDomainMessage({ type: 'success', text: nextDomain ? 'Custom domain saved.' : 'Custom domain removed.' });
+    setConnectionStatus(null);
+    if (nextDomain) setShowDomainModal(true);
     await refresh();
+  }
+
+  async function removeDomain() {
+    if (!confirm('Remove this custom domain? Visitors will need to use the default address again.')) return;
+    await saveDomain(null);
   }
 
   async function checkDns() {
@@ -150,14 +175,26 @@ export default function Appearance() {
       if (!tenant?.id) return;
       await supabase.from('tenant_settings').update({ custom_domain_verified: true }).eq('tenant_id', tenant.id);
       await refresh();
-      setShowSetupModal(false);
-      await connectToVercel(false);
+      const connected = await connectToVercel();
+      if (connected) setShowDomainModal(false);
     } catch (err) {
       setDnsError(err instanceof Error ? err.message : 'DNS lookup failed.');
     } finally {
       setCheckingDns(false);
     }
   }
+
+  // Keeps the status icon in the domain input meaningful without a manual
+  // "Check Status" button — refreshes automatically whenever there's a
+  // verified domain to report on (page load, or right after verifying).
+  useEffect(() => {
+    if (settings.custom_domain_verified) {
+      checkConnectionStatus();
+    } else {
+      setConnectionStatus(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [settings.custom_domain_verified, settings.custom_domain]);
 
   const [layout, setLayout] = useState<DashboardLayoutEntry[]>(() => resolveDashboardLayout(settings.dashboard_layout));
   const [layoutSaving, setLayoutSaving] = useState(false);
@@ -381,78 +418,71 @@ export default function Appearance() {
           </div>
         )}
 
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-app-text mb-2">Domain</label>
-          <input
-            value={domain}
-            onChange={e => setDomain(e.target.value)}
-            placeholder="portal.yourschool.com"
-            disabled={!isEnterprise}
-            className="w-full px-3 py-2 text-sm bg-app-surface border border-app-border text-app-text rounded-lg focus:outline-none focus:ring-2 focus:ring-app-primary/40 disabled:bg-app-surface-alt disabled:text-app-text-muted"
-          />
-        </div>
+        {(() => {
+          const domainMatchesSaved = !!settings.custom_domain && domain.trim() === settings.custom_domain;
+          const connected = connectionStatus?.connected && !connectionStatus.misconfigured;
+          let statusIcon: ReactNode = null;
+          let statusTitle = '';
+          if (domainMatchesSaved) {
+            if (!settings.custom_domain_verified) {
+              statusIcon = <AlertCircle className="w-4 h-4 text-amber-500" />;
+              statusTitle = 'Setup needed';
+            } else if (checkingStatus) {
+              statusIcon = <Loader2 className="w-4 h-4 text-app-text-muted animate-spin" />;
+              statusTitle = 'Checking connection…';
+            } else if (connected) {
+              statusIcon = <CheckCircle2 className="w-4 h-4 text-emerald-600" />;
+              statusTitle = 'Connected and live';
+            } else {
+              statusIcon = <AlertCircle className="w-4 h-4 text-amber-500" />;
+              statusTitle = 'Verified — DNS still needs to point at Vercel';
+            }
+          }
 
-        {isEnterprise && settings.custom_domain && domain.trim() === settings.custom_domain && (
-          settings.custom_domain_verified ? (
-            <div className="mb-4 space-y-2">
-              <p className="text-xs text-emerald-600 font-medium">✓ Domain ownership verified</p>
-
-              {connectMessage && (
-                <p className={`text-xs ${connectMessage.type === 'success' ? 'text-emerald-600' : 'text-red-600'}`}>{connectMessage.text}</p>
-              )}
-
-              {connectionStatus && (
-                <p className="text-xs text-app-text-muted">
-                  {connectionStatus.connected && !connectionStatus.misconfigured
-                    ? '✓ Connected and live — visitors to this domain now reach your portal.'
-                    : connectionStatus.connected
-                      ? '⚠ Connected, but DNS still needs to point at Vercel — see the record below. This can take a few minutes to take effect.'
-                      : '⚠ Not connected yet.'}
-                </p>
-              )}
-
-              <div className="flex gap-2 flex-wrap">
-                <button
-                  type="button"
-                  onClick={() => connectToVercel(true)}
-                  disabled={connecting}
-                  className="px-3 py-1.5 bg-app-primary hover:opacity-90 text-white rounded-lg text-xs font-medium disabled:opacity-50 transition-colors"
-                >
-                  {connecting ? 'Connecting...' : 'Connect Domain'}
-                </button>
-                <button
-                  type="button"
-                  onClick={checkConnectionStatus}
-                  disabled={checkingStatus}
-                  className="px-3 py-1.5 bg-app-surface-alt border border-app-border text-app-text rounded-lg text-xs font-medium disabled:opacity-50 transition-colors hover:bg-app-border"
-                >
-                  {checkingStatus ? 'Checking...' : 'Check Status'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowDnsModal(true)}
-                  className="px-3 py-1.5 bg-app-surface-alt border border-app-border text-app-text rounded-lg text-xs font-medium transition-colors hover:bg-app-border"
-                >
-                  View DNS Record
-                </button>
+          return (
+            <>
+              <div className="mb-2">
+                <label className="block text-sm font-medium text-app-text mb-2">Domain</label>
+                <div className="relative">
+                  <input
+                    value={domain}
+                    onChange={e => setDomain(e.target.value)}
+                    placeholder="portal.yourschool.com"
+                    disabled={!isEnterprise}
+                    className="w-full px-3 py-2 pr-9 text-sm bg-app-surface border border-app-border text-app-text rounded-lg focus:outline-none focus:ring-2 focus:ring-app-primary/40 disabled:bg-app-surface-alt disabled:text-app-text-muted"
+                  />
+                  {statusIcon && (
+                    <button
+                      type="button"
+                      title={statusTitle}
+                      onClick={() => setShowDomainModal(true)}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2"
+                    >
+                      {statusIcon}
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          ) : (
-            <div className="mb-4 bg-app-surface-alt border border-app-border rounded-lg p-3 text-xs text-app-text-muted flex items-center justify-between gap-3 flex-wrap">
-              <span>DNS setup needed before this domain will work.</span>
-              <button
-                type="button"
-                onClick={() => setShowSetupModal(true)}
-                className="px-3 py-1.5 bg-app-primary hover:opacity-90 text-white rounded-lg text-xs font-medium transition-colors flex-shrink-0"
-              >
-                View DNS Records
-              </button>
-            </div>
-          )
-        )}
+
+              {domainMatchesSaved && (
+                <div className="mb-4 flex items-center justify-between gap-3 flex-wrap">
+                  <p className="text-xs text-app-text-muted">{statusTitle}</p>
+                  <div className="flex items-center gap-3 flex-shrink-0">
+                    <button type="button" onClick={() => setShowDomainModal(true)} className="text-xs text-app-primary font-medium hover:underline">
+                      Manage
+                    </button>
+                    <button type="button" onClick={removeDomain} disabled={domainSaving} className="text-xs text-red-600 font-medium hover:underline disabled:opacity-50">
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
+          );
+        })()}
 
         <button
-          onClick={saveDomain}
+          onClick={() => saveDomain()}
           disabled={domainSaving || !isEnterprise || domain.trim() === (settings.custom_domain ?? '')}
           className="inline-flex items-center gap-2 px-5 py-2.5 bg-app-primary hover:opacity-90 disabled:opacity-50 text-white text-sm font-semibold rounded-xl transition-colors"
         >
@@ -460,46 +490,58 @@ export default function Appearance() {
         </button>
       </div>
 
-      {showSetupModal && settings.custom_domain && (() => {
+      {showDomainModal && settings.custom_domain && (() => {
         const routingRecord = getVercelDnsRecord(settings.custom_domain);
+        const verified = settings.custom_domain_verified;
+        const connected = connectionStatus?.connected && !connectionStatus.misconfigured;
         return (
-          <Modal isOpen onClose={() => setShowSetupModal(false)} title="Set up your custom domain" size="md">
+          <Modal isOpen onClose={() => setShowDomainModal(false)} title="Custom Domain" size="md">
             <div className="space-y-4">
-              <p className="text-sm text-app-text-muted">
-                Add both of these DNS records at <strong>{settings.custom_domain}</strong>'s registrar in one trip, then verify — the first proves you own the domain, the second is what actually routes it to your portal:
-              </p>
+              {!verified ? (
+                <p className="text-sm text-app-text-muted">
+                  Add both of these DNS records at <strong>{settings.custom_domain}</strong>'s registrar in one trip, then verify — the first proves you own the domain, the second is what actually routes it to your portal:
+                </p>
+              ) : (
+                <p className="text-sm text-app-text-muted">
+                  {connected
+                    ? <>✓ Connected and live — visitors to <strong>{settings.custom_domain}</strong> now reach your portal.</>
+                    : <>Ownership verified. If the DNS record below isn't added yet, add it at your registrar — this can take a few minutes to a few hours to take effect.</>}
+                </p>
+              )}
 
               <div className="bg-app-surface-alt border border-app-border rounded-xl overflow-hidden text-sm">
                 <div className="grid grid-cols-3 gap-2 px-4 py-2 font-semibold text-app-text-muted text-xs uppercase tracking-wide border-b border-app-border">
                   <span>Type</span><span>Host / Name</span><span>Value</span>
                 </div>
-                <div className="grid grid-cols-3 gap-2 px-4 py-3 font-mono text-xs items-center border-b border-app-border">
-                  <span className="text-app-text">TXT</span>
-                  <span className="text-app-text flex items-center gap-1.5 min-w-0">
-                    <span className="break-all">_ogs-verify.{settings.custom_domain}</span>
-                    <button type="button" onClick={() => copyField('txt-host', `_ogs-verify.${settings.custom_domain}`)} title="Copy" className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
-                      {copiedField === 'txt-host' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                    </button>
-                  </span>
-                  <span className="text-app-text flex items-center gap-1.5 min-w-0">
-                    <span className="break-all">{settings.custom_domain_verification_token}</span>
-                    <button type="button" onClick={() => copyField('txt-value', settings.custom_domain_verification_token)} title="Copy" className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
-                      {copiedField === 'txt-value' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                    </button>
-                  </span>
-                </div>
+                {!verified && (
+                  <div className="grid grid-cols-3 gap-2 px-4 py-3 font-mono text-xs items-center border-b border-app-border">
+                    <span className="text-app-text">TXT</span>
+                    <span className="text-app-text flex items-center gap-1.5 min-w-0">
+                      <span className="break-all">_ogs-verify.{settings.custom_domain}</span>
+                      <button type="button" onClick={() => copyField('txt-host', `_ogs-verify.${settings.custom_domain}`)} title="Copy" className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
+                        {copiedField === 'txt-host' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                      </button>
+                    </span>
+                    <span className="text-app-text flex items-center gap-1.5 min-w-0">
+                      <span className="break-all">{settings.custom_domain_verification_token}</span>
+                      <button type="button" onClick={() => copyField('txt-value', settings.custom_domain_verification_token)} title="Copy" className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
+                        {copiedField === 'txt-value' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                      </button>
+                    </span>
+                  </div>
+                )}
                 <div className="grid grid-cols-3 gap-2 px-4 py-3 font-mono text-xs items-center">
                   <span className="text-app-text">{routingRecord.type}</span>
                   <span className="text-app-text flex items-center gap-1.5 min-w-0">
                     <span className="break-all">{routingRecord.host}</span>
-                    <button type="button" onClick={() => copyField('setup-cname-host', routingRecord.host)} title="Copy" className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
-                      {copiedField === 'setup-cname-host' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                    <button type="button" onClick={() => copyField('cname-host', routingRecord.host)} title="Copy" className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
+                      {copiedField === 'cname-host' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                     </button>
                   </span>
                   <span className="text-app-text flex items-center gap-1.5 min-w-0">
                     <span className="break-all">{routingRecord.value}</span>
-                    <button type="button" onClick={() => copyField('setup-cname-value', routingRecord.value)} title="Copy" className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
-                      {copiedField === 'setup-cname-value' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                    <button type="button" onClick={() => copyField('cname-value', routingRecord.value)} title="Copy" className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0">
+                      {copiedField === 'cname-value' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                     </button>
                   </span>
                 </div>
@@ -508,77 +550,50 @@ export default function Appearance() {
               {dnsError && (
                 <div className="bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl px-4 py-3">{dnsError}</div>
               )}
+              {connectMessage && (
+                <div className={`text-xs rounded-xl px-4 py-3 ${connectMessage.type === 'success' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                  {connectMessage.text}
+                </div>
+              )}
 
-              <p className="text-xs text-app-text-muted">
-                "Verify Now" checks ownership and connects your domain in one step once the TXT record is visible. The CNAME record can take longer to propagate, so the portal may not be reachable at the domain immediately even after this succeeds.
-              </p>
+              {!verified && (
+                <p className="text-xs text-app-text-muted">
+                  "Verify Now" checks ownership and connects your domain in one step once the TXT record is visible. The CNAME record can take longer to propagate, so the portal may not be reachable at the domain immediately even after this succeeds.
+                </p>
+              )}
 
               <div className="flex gap-3">
                 <button
-                  onClick={() => setShowSetupModal(false)}
+                  onClick={() => setShowDomainModal(false)}
                   className="flex-1 px-4 py-2.5 border border-app-border text-app-text rounded-xl text-sm font-medium hover:bg-app-surface-alt transition-colors"
                 >
                   Close
                 </button>
-                <button
-                  onClick={checkDns}
-                  disabled={checkingDns}
-                  className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-semibold disabled:opacity-50 transition-colors"
-                >
-                  {checkingDns ? 'Verifying...' : 'Verify Now'}
-                </button>
+                {!verified ? (
+                  <button
+                    onClick={checkDns}
+                    disabled={checkingDns}
+                    className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-semibold disabled:opacity-50 transition-colors"
+                  >
+                    {checkingDns ? 'Verifying...' : 'Verify Now'}
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => (connected ? checkConnectionStatus() : connectToVercel())}
+                    disabled={checkingStatus || connecting}
+                    className="flex-1 px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-semibold disabled:opacity-50 transition-colors"
+                  >
+                    {checkingStatus || connecting ? 'Checking...' : 'Refresh Status'}
+                  </button>
+                )}
               </div>
-            </div>
-          </Modal>
-        );
-      })()}
 
-      {showDnsModal && settings.custom_domain && (() => {
-        const record = getVercelDnsRecord(settings.custom_domain);
-        return (
-          <Modal isOpen onClose={() => setShowDnsModal(false)} title="Point your domain at Vercel" size="md">
-            <div className="space-y-4">
-              <p className="text-sm text-app-text-muted">
-                Your domain is registered with your portal. To make it actually work, add this record at wherever <strong>{settings.custom_domain}</strong>'s DNS is managed (your domain registrar or DNS provider):
-              </p>
-              <div className="bg-app-surface-alt border border-app-border rounded-xl overflow-hidden text-sm">
-                <div className="grid grid-cols-3 gap-2 px-4 py-2 font-semibold text-app-text-muted text-xs uppercase tracking-wide border-b border-app-border">
-                  <span>Type</span><span>Host / Name</span><span>Value</span>
-                </div>
-                <div className="grid grid-cols-3 gap-2 px-4 py-3 font-mono text-xs items-center">
-                  <span className="text-app-text">{record.type}</span>
-                  <span className="text-app-text flex items-center gap-1.5">
-                    {record.host}
-                    <button
-                      type="button"
-                      onClick={() => copyField('host', record.host)}
-                      title="Copy"
-                      className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0"
-                    >
-                      {copiedField === 'host' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                    </button>
-                  </span>
-                  <span className="text-app-text flex items-center gap-1.5 min-w-0">
-                    <span className="break-all">{record.value}</span>
-                    <button
-                      type="button"
-                      onClick={() => copyField('value', record.value)}
-                      title="Copy"
-                      className="text-app-text-muted hover:text-app-text transition-colors flex-shrink-0"
-                    >
-                      {copiedField === 'value' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                    </button>
-                  </span>
-                </div>
-              </div>
-              <p className="text-xs text-app-text-muted">
-                DNS changes can take anywhere from a few minutes to a few hours to take effect. Use "Check Status" once you've added it to see when it's live.
-              </p>
               <button
-                onClick={() => setShowDnsModal(false)}
-                className="w-full px-4 py-2.5 bg-app-primary hover:opacity-90 text-white rounded-xl text-sm font-semibold transition-colors"
+                onClick={removeDomain}
+                disabled={domainSaving}
+                className="w-full px-4 py-2 text-xs text-red-600 hover:underline disabled:opacity-50 transition-colors"
               >
-                Got it
+                Remove this domain
               </button>
             </div>
           </Modal>

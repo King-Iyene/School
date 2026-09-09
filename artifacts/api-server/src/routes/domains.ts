@@ -171,6 +171,60 @@ router.post("/domains/register-vercel", requireDomainAdmin, async (req: Request,
 });
 
 /**
+ * Removes the caller's own tenant's CURRENT custom_domain from the Vercel
+ * project — reads it from the DB itself rather than trusting a
+ * client-supplied domain string, so this can only ever remove the domain
+ * that's actually attached to the caller's own tenant, never an arbitrary
+ * one. Called by the frontend before clearing or changing custom_domain,
+ * so a removed/replaced domain doesn't sit attached to Vercel forever
+ * (which would block re-registering it, whether for this tenant or later
+ * for a different one).
+ */
+router.post("/domains/remove-vercel", requireDomainAdmin, async (req: Request, res: Response) => {
+  const schoolId = (req as AuthedRequest).schoolId!;
+
+  if (!VERCEL_API_TOKEN || !VERCEL_TARGET_PROJECT_ID) {
+    res.status(503).json({ error: "Custom domain connection isn't configured on this server yet." });
+    return;
+  }
+  if (!supabaseAdmin) {
+    res.status(503).json({ error: "Server misconfigured." });
+    return;
+  }
+
+  const { data: settings } = await supabaseAdmin
+    .from("tenant_settings")
+    .select("custom_domain")
+    .eq("tenant_id", schoolId)
+    .maybeSingle();
+
+  if (!settings?.custom_domain) {
+    res.json({ success: true });
+    return;
+  }
+
+  try {
+    const delRes = await fetch(vercelUrl(`/v9/projects/${VERCEL_TARGET_PROJECT_ID}/domains/${settings.custom_domain}`), {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${VERCEL_API_TOKEN}` },
+    });
+    // 404 just means it's already not attached — fine either way.
+    if (!delRes.ok && delRes.status !== 404) {
+      const body = (await delRes.json().catch(() => ({}))) as { error?: { message?: string } };
+      req.log?.error?.({ vercelError: body.error }, "Vercel domain removal failed");
+      res.status(502).json({ error: body.error?.message ?? "Could not remove this domain from Vercel." });
+      return;
+    }
+  } catch (e) {
+    req.log?.error?.(e);
+    res.status(503).json({ error: "Could not reach Vercel right now. Please try again shortly." });
+    return;
+  }
+
+  res.json({ success: true });
+});
+
+/**
  * Live status of the tenant's domain from Vercel's side — lets the UI show
  * real progress ("DNS not pointed at Vercel yet" vs "connected") without
  * the admin needing to guess from a generic error message.
