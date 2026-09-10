@@ -4,6 +4,6 @@
     { "source": "/(.*)", "destination": "/api" }
   ],
   "crons": [
-    { "path": "/api/webhooks/dispatch", "schedule": "*/5 * * * *" }
+    { "path": "/api/webhooks/dispatch", "schedule": "0 0 * * *" }
   ]
 }
