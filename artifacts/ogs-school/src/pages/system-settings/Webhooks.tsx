@@ -60,7 +60,28 @@ export default function Webhooks() {
   const [deliveries, setDeliveries] = useState<Delivery[]>([]);
   const [deliveriesLoading, setDeliveriesLoading] = useState(false);
 
+  const [dispatching, setDispatching] = useState(false);
+  const [dispatchResult, setDispatchResult] = useState('');
+
   useEffect(() => { fetchWebhooks(); }, []);
+
+  async function dispatchNow() {
+    setDispatching(true);
+    setDispatchResult('');
+    try {
+      const res = await authedFetch('/api/webhooks/dispatch-now', { method: 'POST' });
+      setDispatchResult(
+        res.processed === 0
+          ? 'No pending events waiting.'
+          : `Processed ${res.processed} event${res.processed !== 1 ? 's' : ''}, delivered to ${res.delivered} subscriber${res.delivered !== 1 ? 's' : ''}.`,
+      );
+    } catch (e: any) {
+      setDispatchResult(e.message);
+    } finally {
+      setDispatching(false);
+      setTimeout(() => setDispatchResult(''), 6000);
+    }
+  }
 
   async function fetchWebhooks() {
     setLoading(true);
@@ -161,11 +182,22 @@ export default function Webhooks() {
             <p className="text-sm text-app-text-muted mt-0.5">Notify your own systems when things happen in this school's account</p>
           </div>
         </div>
-        <button onClick={openAdd} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors">
-          <Plus className="w-4 h-4" /> New Webhook
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={dispatchNow}
+            disabled={dispatching}
+            title="Deliver any pending events immediately instead of waiting for the next scheduled run"
+            className="flex items-center gap-2 border border-app-border text-app-text text-sm font-medium px-4 py-2.5 rounded-xl hover:bg-app-surface-alt transition-colors disabled:opacity-60"
+          >
+            <RefreshCw className={`w-4 h-4 ${dispatching ? 'animate-spin' : ''}`} /> {dispatching ? 'Sending...' : 'Send Pending Now'}
+          </button>
+          <button onClick={openAdd} className="flex items-center gap-2 bg-app-primary hover:opacity-90 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors">
+            <Plus className="w-4 h-4" /> New Webhook
+          </button>
+        </div>
       </div>
 
+      {dispatchResult && <div className="bg-blue-50 border border-blue-200 text-blue-700 text-sm rounded-xl px-4 py-3">{dispatchResult}</div>}
       {error && !modalOpen && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">{error}</div>}
 
       {loading ? (
