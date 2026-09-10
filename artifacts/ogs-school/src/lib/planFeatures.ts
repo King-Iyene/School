@@ -23,7 +23,8 @@ export type Feature =
   | 'campus_security'
   | 'multi_branch'
   | 'white_labeling'
-  | 'custom_domain';
+  | 'custom_domain'
+  | 'webhooks';
 
 export const PLAN_ORDER: PlanTier[] = ['starter', 'premium', 'enterprise'];
 
@@ -75,6 +76,7 @@ const ENTERPRISE_FEATURES: Feature[] = [
   'multi_branch',
   'white_labeling',
   'custom_domain',
+  'webhooks',
 ];
 
 export const PLAN_FEATURES: Record<PlanTier, Feature[]> = {

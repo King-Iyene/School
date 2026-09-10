@@ -195,6 +195,7 @@ import DiocesanDashboard from './pages/diocesan/Dashboard';
 
 import GeneralSetting from './pages/system-settings/GeneralSetting';
 import Appearance from './pages/system-settings/Appearance';
+import Webhooks from './pages/system-settings/Webhooks';
 import EmailSetting from './pages/system-settings/EmailSetting';
 import SmsSetting from './pages/system-settings/SmsSetting';
 import Holiday from './pages/system-settings/Holiday';
@@ -487,6 +488,7 @@ function AppContent() {
 
       case '/system/general': return <GeneralSetting />;
       case '/system/appearance': return <Appearance />;
+      case '/system/webhooks': return <Webhooks />;
       case '/system/email': return <EmailSetting />;
       case '/system/sms': return <SmsSetting />;
       case '/system/holiday': return <Holiday />;
