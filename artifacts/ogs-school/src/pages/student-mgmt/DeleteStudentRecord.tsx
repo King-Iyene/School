@@ -35,7 +35,7 @@ const DeleteStudentRecord: React.FC = () => {
       .from('students')
       .select('id, first_name, last_name, admission_number, email, phone, gender, status')
       .eq('school_id', profile?.school_id)
-      .eq('status', 'disabled')
+      .eq('status', 'inactive')
       .order('last_name')
       .limit(20);
     if (data) setRecentlyDisabled(data.map((s: any) => ({ ...s, student_id: s.admission_number, is_active: s.status === 'active' })));
@@ -73,7 +73,7 @@ const DeleteStudentRecord: React.FC = () => {
 
     const { error } = await supabase
       .from('students')
-      .update({ status: 'disabled' })
+      .update({ status: 'inactive' })
       .eq('id', selectedStudent.id)
       .eq('school_id', profile?.school_id);
 
