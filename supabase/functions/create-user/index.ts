@@ -30,13 +30,23 @@ Deno.serve(async (req: Request) => {
       });
     }
 
-    if (!email || !role) {
+    // Student accounts are provisioned by admission_number, not email — the
+    // admission pages never send one. Derive the same deterministic
+    // `<admission-number>@student.okrika.edu.ng` identity Login.tsx already
+    // proxies bare admission numbers into (see its LEGACY_STUDENT_EMAIL_DOMAIN
+    // comment), so a newly admitted student can actually sign in afterwards.
+    let resolvedEmail = email;
+    if (!resolvedEmail && role === 'student' && extraData.admission_number) {
+      resolvedEmail = `${String(extraData.admission_number).toLowerCase()}@student.okrika.edu.ng`;
+    }
+
+    if (!resolvedEmail || !role) {
       throw new Error('Email and role are required');
     }
 
     // 1. Create the user in Auth
     const { data: authData, error: authError } = await adminClient.auth.admin.createUser({
-      email,
+      email: resolvedEmail,
       password: password || 'School@' + Math.random().toString(36).slice(-4),
       email_confirm: true,
       user_metadata: { first_name, last_name, role },
@@ -45,11 +55,11 @@ Deno.serve(async (req: Request) => {
     if (authError) throw authError;
 
     // 2. Create/Update the profile
-    // Note: The database trigger handle_new_user should catch this, 
+    // Note: The database trigger handle_new_user should catch this,
     // but we'll do an explicit upsert here for safety and to capture extra fields.
     const { error: profileError } = await adminClient.from('profiles').upsert({
       id: authData.user.id,
-      email,
+      email: resolvedEmail,
       first_name: first_name || '',
       last_name: last_name || '',
       role,
