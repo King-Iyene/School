@@ -297,34 +297,21 @@ router.post("/webhooks/deliveries/:deliveryId/retry", requireWebhookAdmin, async
   res.json({ success: result.success });
 });
 
-/**
- * Drains the outbox: point a periodic job (Vercel Cron, Supabase Cron, a
- * GitHub Action) at this with the shared secret. Not wired to a schedule by
- * this change. One delivery attempt per subscriber per event — failures are
- * visible (and retryable) in the delivery log rather than auto-retried, to
- * keep this endpoint's own runtime bounded.
- */
-router.post("/webhooks/dispatch", async (req: Request, res: Response) => {
-  const secret = process.env.WEBHOOK_CRON_SECRET;
-  if (!secret || req.header("x-cron-secret") !== secret) {
-    res.status(401).json({ error: "Unauthorized" });
-    return;
-  }
-  if (!supabaseAdmin) {
-    res.status(503).json({ error: "Server misconfigured." });
-    return;
-  }
-
-  const { data: pending } = await supabaseAdmin
+/** Drains up to `limit` pending outbox rows (optionally scoped to one school) and delivers them. */
+async function drainOutbox(opts: { schoolId?: string; limit: number }) {
+  let query = supabaseAdmin!
     .from("tenant_webhook_outbox")
     .select("id, school_id, event_type, payload")
     .is("dispatched_at", null)
     .order("created_at", { ascending: true })
-    .limit(50);
+    .limit(opts.limit);
+  if (opts.schoolId) query = query.eq("school_id", opts.schoolId);
+
+  const { data: pending } = await query;
 
   let delivered = 0;
   for (const item of pending ?? []) {
-    const { data: subscribers } = await supabaseAdmin
+    const { data: subscribers } = await supabaseAdmin!
       .from("tenant_webhooks")
       .select("id, url, secret")
       .eq("school_id", item.school_id)
@@ -333,7 +320,7 @@ router.post("/webhooks/dispatch", async (req: Request, res: Response) => {
 
     for (const webhook of subscribers ?? []) {
       const result = await deliver(webhook, item.event_type, item.payload);
-      await supabaseAdmin.from("tenant_webhook_deliveries").insert({
+      await supabaseAdmin!.from("tenant_webhook_deliveries").insert({
         webhook_id: webhook.id,
         outbox_id: item.id,
         event_type: item.event_type,
@@ -345,10 +332,50 @@ router.post("/webhooks/dispatch", async (req: Request, res: Response) => {
       delivered++;
     }
 
-    await supabaseAdmin.from("tenant_webhook_outbox").update({ dispatched_at: new Date().toISOString() }).eq("id", item.id);
+    await supabaseAdmin!.from("tenant_webhook_outbox").update({ dispatched_at: new Date().toISOString() }).eq("id", item.id);
   }
 
-  res.json({ processed: pending?.length ?? 0, delivered });
+  return { processed: pending?.length ?? 0, delivered };
+}
+
+/**
+ * Drains the whole outbox across every tenant. Wired to Vercel Cron via
+ * vercel.json (GET, authenticated by Vercel's own CRON_SECRET convention —
+ * it auto-attaches `Authorization: Bearer $CRON_SECRET` to its own cron
+ * requests). Also accepts a manual POST with `x-cron-secret` for a
+ * Supabase Cron job or GitHub Action instead, using a separately-named
+ * WEBHOOK_CRON_SECRET so the two invocation paths can't be confused with
+ * each other. One delivery attempt per subscriber per event — failures are
+ * visible (and retryable) in the delivery log rather than auto-retried, to
+ * keep this endpoint's own runtime bounded.
+ */
+router.all("/webhooks/dispatch", async (req: Request, res: Response) => {
+  const viaVercelCron = !!process.env.CRON_SECRET && req.header("authorization") === `Bearer ${process.env.CRON_SECRET}`;
+  const viaManualCron = !!process.env.WEBHOOK_CRON_SECRET && req.header("x-cron-secret") === process.env.WEBHOOK_CRON_SECRET;
+  if (!viaVercelCron && !viaManualCron) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+  if (!supabaseAdmin) {
+    res.status(503).json({ error: "Server misconfigured." });
+    return;
+  }
+
+  res.json(await drainOutbox({ limit: 50 }));
+});
+
+/**
+ * Lets an admin drain their own school's pending outbox on demand, instead
+ * of waiting for the next cron tick — mainly so "did my webhook actually
+ * fire?" has an immediate answer while testing.
+ */
+router.post("/webhooks/dispatch-now", requireWebhookAdmin, async (req: Request, res: Response) => {
+  const schoolId = (req as AuthedRequest).schoolId!;
+  if (!supabaseAdmin) {
+    res.status(503).json({ error: "Server misconfigured." });
+    return;
+  }
+  res.json(await drainOutbox({ schoolId, limit: 20 }));
 });
 
 export default router;
