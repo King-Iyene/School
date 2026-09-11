@@ -53,11 +53,9 @@ function Sidebar() {
   return (
     <aside className="hidden lg:flex flex-col w-[360px] flex-shrink-0 bg-slate-50 border-r border-slate-100 p-8">
       <div className="flex items-center gap-2.5 mb-10">
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-violet to-brand-indigo flex items-center justify-center">
-          <GraduationCap className="w-5 h-5 text-white" />
-        </div>
+        <img src="/brand/loop-mark.svg" alt="Loop" className="w-9 h-9 rounded-xl" />
         <div>
-          <p className="font-bold text-slate-900 leading-tight">SchoolOS</p>
+          <p className="font-bold text-slate-900 leading-tight">Loop</p>
           <p className="text-xs text-slate-400">School Management Platform</p>
         </div>
       </div>
@@ -115,7 +113,7 @@ export default function Onboarding() {
 
   useEffect(() => {
     const prevTitle = document.title;
-    document.title = 'Start Your Free Trial — SchoolOS';
+    document.title = 'Start Your Free Trial — Loop';
     return () => { document.title = prevTitle; };
   }, []);
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Eye, EyeOff, GraduationCap } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTenantSettings } from '../../context/TenantContext';
 import { supabase } from '../../lib/supabase';
@@ -84,12 +84,8 @@ export default function Login() {
     <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 shadow-sm overflow-hidden ${!logoUrl ? 'bg-gradient-to-br from-brand-violet to-brand-indigo' : 'bg-white border border-slate-200'}`}>
-            {logoUrl ? (
-              <img src={logoUrl} alt="Logo" className="w-full h-full object-contain" />
-            ) : (
-              <GraduationCap className="w-8 h-8 text-white" />
-            )}
+          <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 shadow-sm overflow-hidden ${!logoUrl ? '' : 'bg-white border border-slate-200'}`}>
+            <img src={logoUrl || '/brand/loop-mark.svg'} alt="Logo" className="w-full h-full object-contain" />
           </div>
           <h1 className="text-3xl font-bold text-slate-900">{schoolName}</h1>
           <p className="text-slate-500 mt-1">School Management System</p>

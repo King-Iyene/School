@@ -1,0 +1,13 @@
+<svg width="240" height="240" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="loopMarkGradient" x1="24" y1="24" x2="216" y2="216" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#B679F5"/>
+      <stop offset="1" stop-color="#2A0A5C"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="240" rx="52" fill="url(#loopMarkGradient)"/>
+  <path
+    d="M92 62c11.046 0 20 8.954 20 20v58h34c11.046 0 20 8.954 20 20s-8.954 20-20 20H92c-11.046 0-20-8.954-20-20V82c0-11.046 8.954-20 20-20z"
+    fill="white"
+  />
+</svg>
