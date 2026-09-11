@@ -14,7 +14,7 @@ const DEFAULT_PRIMARY = '#2A0A5C';
 const DEFAULT_SECONDARY = '#B679F5';
 
 const PRESETS: { label: string; primary: string; secondary: string }[] = [
-  { label: 'SchoolOS (default)', primary: '#2A0A5C', secondary: '#B679F5' },
+  { label: 'Loop (default)', primary: '#2A0A5C', secondary: '#B679F5' },
   { label: 'Forest', primary: '#065f46', secondary: '#10b981' },
   { label: 'Ocean', primary: '#0c4a6e', secondary: '#0ea5e9' },
   { label: 'Crimson', primary: '#7f1d1d', secondary: '#ef4444' },

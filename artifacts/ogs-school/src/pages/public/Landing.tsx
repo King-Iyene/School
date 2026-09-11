@@ -147,10 +147,8 @@ export default function Landing() {
       <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-violet to-brand-indigo flex items-center justify-center shadow-sm">
-              <GraduationCap className="w-5 h-5 text-white" />
-            </div>
-            <span className="font-bold text-lg text-slate-900">SchoolOS</span>
+            <img src="/brand/loop-mark.svg" alt="Loop" className="w-9 h-9 rounded-xl shadow-sm" />
+            <span className="font-bold text-lg text-slate-900">Loop</span>
           </div>
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
             <a href="#features" className="hover:text-brand-indigo transition-colors">Features</a>
@@ -411,7 +409,7 @@ export default function Landing() {
       <footer className="border-t border-slate-100 py-8 text-center text-sm text-slate-400">
         <button onClick={() => navigate('/login')} className="hover:text-slate-600 transition-colors">Sign In</button>
         <span className="mx-2">·</span>
-        <span>&copy; {new Date().getFullYear()} SchoolOS. All rights reserved.</span>
+        <span>&copy; {new Date().getFullYear()} Loop. All rights reserved.</span>
       </footer>
     </div>
   );

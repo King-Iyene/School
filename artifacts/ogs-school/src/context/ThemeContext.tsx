@@ -3,7 +3,7 @@ import { useTenantSettings } from './TenantContext';
 
 export type ThemeMode = 'light' | 'dark' | 'system';
 
-const STORAGE_KEY = 'schoolos-theme-mode';
+const STORAGE_KEY = 'loop-theme-mode';
 
 interface ThemeContextType {
   mode: ThemeMode;
