@@ -284,7 +284,7 @@ export default function ExamAttendance() {
         <div className="bg-app-surface rounded-2xl border border-app-border overflow-hidden shadow-sm">
           <div className="flex items-center justify-between p-4 bg-app-surface-alt border-b border-app-border">
             <div className="flex items-center gap-5 text-sm">
-              <span className="flex items-center gap-2 text-emerald-700 font-bold bg-emerald-100/50 px-3 py-1.5 rounded-lg border border-emerald-200/50">
+              <span className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-bold bg-emerald-100/50 dark:bg-emerald-500/10 px-3 py-1.5 rounded-lg border border-emerald-200/50 dark:border-emerald-500/30">
                 <CheckCircle size={16} /> {presentCount} Present
               </span>
               <span className="flex items-center gap-2 text-red-600 font-bold bg-red-50 px-3 py-1.5 rounded-lg border border-red-200">
@@ -324,7 +324,7 @@ export default function ExamAttendance() {
                   <tr
                     key={student.student_id}
                     className={`hover:bg-app-surface-alt transition-colors ${
-                      student.status === 'absent' ? 'bg-red-50/20' : ''
+                      student.status === 'absent' ? 'bg-red-50/20 dark:bg-red-500/10' : ''
                     } ${student.is_locked ? 'opacity-70 bg-app-surface-alt/50' : ''}`}
                   >
                     <td className="px-6 py-4 text-app-text-muted font-medium">{idx + 1}</td>

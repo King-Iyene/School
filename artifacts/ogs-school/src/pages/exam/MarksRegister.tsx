@@ -669,9 +669,9 @@ export default function MarksRegister() {
                 {students.map((student, idx) => ({ student, idx })).filter(x => x.student.offers).map(({ student, idx }, displayIdx) => {
                   const total = calcTotal(student);
                   const { grade } = getWAECGrade(total);
-                  const gradeColor = grade.startsWith('A') ? 'text-emerald-600 bg-emerald-50' : grade.startsWith('B') ? 'text-blue-600 bg-blue-50' : grade.startsWith('C') ? 'text-amber-600 bg-amber-50' : 'text-red-500 bg-red-50';
+                  const gradeColor = grade.startsWith('A') ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/15' : grade.startsWith('B') ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/15' : grade.startsWith('C') ? 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/15' : 'text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-500/15';
                   return (
-                    <tr key={student.student_id} className={`hover:bg-app-surface-alt transition-colors ${!student.offers ? 'bg-slate-100/60 opacity-60' : student.is_absent ? 'bg-red-50/30' : ''}`}>
+                    <tr key={student.student_id} className={`hover:bg-app-surface-alt transition-colors ${!student.offers ? 'bg-slate-100/60 dark:bg-app-surface-alt/60 opacity-60' : student.is_absent ? 'bg-red-50/30 dark:bg-red-500/10' : ''}`}>
                       <td className="px-6 py-4 text-app-text-muted font-medium">{displayIdx + 1}</td>
                       <td className="px-3 py-4 text-center">
                         <input

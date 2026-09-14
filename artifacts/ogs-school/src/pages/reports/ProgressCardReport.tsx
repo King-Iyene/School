@@ -540,7 +540,7 @@ export default function ProgressCardReport() {
                 </thead>
                 <tbody className="divide-y divide-app-border">
                   {marks.map(m => (
-                    <tr key={m.subject_id} className={`hover:bg-app-surface-alt transition-colors ${m.is_absent ? 'bg-red-50/30' : ''}`}>
+                    <tr key={m.subject_id} className={`hover:bg-app-surface-alt transition-colors ${m.is_absent ? 'bg-red-50/30 dark:bg-red-500/10' : ''}`}>
                       <td className="px-5 py-3 font-medium text-app-text">{m.subject_name}</td>
                       <td className="px-4 py-3 text-center text-app-text-muted">{m.is_absent ? '—' : m.ca}</td>
                       <td className="px-4 py-3 text-center text-app-text-muted">{m.is_absent ? '—' : m.test}</td>

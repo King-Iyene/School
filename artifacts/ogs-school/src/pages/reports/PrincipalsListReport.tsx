@@ -303,13 +303,13 @@ export default function PrincipalsListReport() {
                     key={r.student_id}
                     className={`border-b transition-colors ${
                       r.rank === 1
-                        ? 'bg-amber-50'
+                        ? 'bg-amber-50 dark:bg-amber-500/15'
                         : r.rank === 2
                         ? 'bg-app-surface-alt'
                         : r.rank === 3
-                        ? 'bg-orange-50'
+                        ? 'bg-orange-50 dark:bg-orange-500/15'
                         : r.scholarship
-                        ? 'bg-emerald-50/40'
+                        ? 'bg-emerald-50/40 dark:bg-emerald-500/10'
                         : ''
                     }`}
                   >

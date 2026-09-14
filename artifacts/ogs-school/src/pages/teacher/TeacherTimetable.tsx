@@ -98,7 +98,7 @@ export default function TeacherTimetable() {
         </div>
         <button
           onClick={() => navigate('/timetable')}
-          className="text-sm text-emerald-600 hover:text-emerald-700 font-semibold px-4 py-2 border border-emerald-100 bg-emerald-50/50 rounded-xl transition-colors"
+          className="text-sm text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 font-semibold px-4 py-2 border border-emerald-100 dark:border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-500/10 rounded-xl transition-colors"
         >
           View Full School Timetable
         </button>
