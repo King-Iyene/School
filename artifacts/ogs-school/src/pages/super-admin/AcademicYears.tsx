@@ -317,7 +317,7 @@ export default function AcademicYears() {
 
       {/* Fixed terms notice */}
       <div className="bg-app-surface-alt border border-app-border rounded-2xl p-4 flex items-start gap-3">
-        <div className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+        <div className="w-8 h-8 bg-slate-100 dark:bg-app-surface-alt rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
           <Lock className="w-4 h-4 text-app-text-muted" />
         </div>
         <div>
@@ -443,13 +443,13 @@ export default function AcademicYears() {
                           key={ayt.id}
                           className={`relative rounded-xl border p-4 transition-all ${
                             ayt.is_current
-                              ? 'border-emerald-300 bg-emerald-50 shadow-sm shadow-emerald-100'
+                              ? 'border-emerald-300 dark:border-emerald-500/40 bg-emerald-50 dark:bg-emerald-500/10 shadow-sm shadow-emerald-100 dark:shadow-none'
                               : 'border-app-border bg-app-surface-alt/50'
                           }`}
                         >
                           <div className="flex items-start justify-between mb-2.5">
                             <div className="flex items-center gap-2">
-                              <span className={`text-xs font-black w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0 ${ayt.is_current ? 'bg-emerald-500 text-white' : 'bg-slate-200 text-app-text-muted'}`}>
+                              <span className={`text-xs font-black w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0 ${ayt.is_current ? 'bg-emerald-500 text-white' : 'bg-slate-200 dark:bg-app-surface-alt text-app-text-muted'}`}>
                                 {TERM_SHORT[termName] ?? '—'}
                               </span>
                               <div>
