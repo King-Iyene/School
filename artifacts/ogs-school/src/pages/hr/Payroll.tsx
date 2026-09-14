@@ -742,12 +742,12 @@ ${sheetRows.map((s, i) => {
 
       {/* Auto-generate result banner */}
       {autoGenResult && (
-        <div className={`rounded-2xl border p-4 flex items-start gap-3 ${autoGenResult.generated > 0 ? 'bg-emerald-50 border-emerald-200' : 'bg-app-surface-alt border-app-border'}`}>
+        <div className={`rounded-2xl border p-4 flex items-start gap-3 ${autoGenResult.generated > 0 ? 'bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/30' : 'bg-app-surface-alt border-app-border'}`}>
           {autoGenResult.generated > 0
             ? <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
             : <AlertCircle className="w-5 h-5 text-app-text-muted flex-shrink-0 mt-0.5" />}
           <div className="flex-1 min-w-0">
-            <p className={`text-sm font-semibold ${autoGenResult.generated > 0 ? 'text-emerald-800' : 'text-app-text-muted'}`}>
+            <p className={`text-sm font-semibold ${autoGenResult.generated > 0 ? 'text-emerald-800 dark:text-emerald-300' : 'text-app-text-muted'}`}>
               {autoGenResult.generated > 0
                 ? `${autoGenResult.generated} payroll record${autoGenResult.generated !== 1 ? 's' : ''} generated for ${monthLabel} ${filterYear}`
                 : `No payroll records were generated for ${monthLabel} ${filterYear}`}

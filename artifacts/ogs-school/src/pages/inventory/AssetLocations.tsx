@@ -158,10 +158,10 @@ export default function AssetLocations() {
                 const isSelected = selectedLoc === l.id;
                 return (
                   <div key={l.id} onClick={() => setSelectedLoc(l.id)}
-                    className={`flex items-center gap-3 px-5 py-3.5 cursor-pointer transition-colors group ${isSelected ? 'bg-emerald-50 border-l-2 border-emerald-500' : 'hover:bg-app-surface-alt border-l-2 border-transparent'}`}>
+                    className={`flex items-center gap-3 px-5 py-3.5 cursor-pointer transition-colors group ${isSelected ? 'bg-emerald-50 dark:bg-emerald-500/10 border-l-2 border-emerald-500' : 'hover:bg-app-surface-alt border-l-2 border-transparent'}`}>
                     <div className="flex-1 min-w-0">
-                      <div className={`font-medium text-sm ${isSelected ? 'text-emerald-700' : 'text-app-text'}`}>{l.name}</div>
-                      <div className="text-xs text-app-text-muted mt-0.5">{l.type} · {roomCount} room{roomCount !== 1 ? 's' : ''}</div>
+                      <div className={`font-medium text-sm ${isSelected ? 'text-emerald-700 dark:text-emerald-400' : 'text-app-text'}`}>{l.name}</div>
+                      <div className={`text-xs mt-0.5 ${isSelected ? 'text-emerald-700/70 dark:text-emerald-400/70' : 'text-app-text-muted'}`}>{l.type} · {roomCount} room{roomCount !== 1 ? 's' : ''}</div>
                     </div>
                     <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button onClick={ev => { ev.stopPropagation(); openEditLoc(l); }}

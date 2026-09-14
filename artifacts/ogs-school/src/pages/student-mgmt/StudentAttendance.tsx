@@ -347,7 +347,7 @@ export default function StudentAttendance() {
                       : isRecorded
                         ? 'bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100'
                         : isTdy
-                          ? 'bg-slate-100 border-app-border text-app-text hover:bg-slate-200'
+                          ? 'bg-slate-100 dark:bg-app-surface-alt border-app-border text-app-text hover:bg-slate-200 dark:hover:bg-app-border'
                           : 'bg-red-50 border-red-200 text-red-600 hover:bg-red-100'
                     }`}>
                   <span className="font-semibold">{dayLabel(d)}</span>

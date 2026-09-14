@@ -151,7 +151,7 @@ export default function MyOrders() {
               {STATUS_MSG[selected.status] ?? 'Order in progress.'}
             </div>
 
-            {selected.notes && <p className="text-sm text-app-text-muted bg-amber-50 border border-amber-100 rounded-xl p-3">{selected.notes}</p>}
+            {selected.notes && <p className="text-sm text-app-text-muted bg-amber-50 dark:bg-amber-500/10 border border-amber-100 dark:border-amber-500/30 rounded-xl p-3">{selected.notes}</p>}
 
             <div>
               <p className="text-sm font-semibold text-app-text mb-3">Items</p>

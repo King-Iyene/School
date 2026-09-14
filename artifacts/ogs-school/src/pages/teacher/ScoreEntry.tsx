@@ -382,7 +382,7 @@ export default function ScoreEntry() {
               const isSelected = sub.id === selectedSubject;
               return (
                 <button key={sub.id} onClick={() => setSelectedSubject(sub.id)}
-                  className={`text-left p-3 rounded-xl border-2 transition-all ${isSelected ? 'border-emerald-500 bg-emerald-50' : 'border-app-border bg-app-surface hover:border-app-border'}`}>
+                  className={`text-left p-3 rounded-xl border-2 transition-all ${isSelected ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-500/10' : 'border-app-border bg-app-surface hover:border-app-border'}`}>
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-xs font-semibold text-app-text truncate">{sub.name}</span>
                     {isComplete

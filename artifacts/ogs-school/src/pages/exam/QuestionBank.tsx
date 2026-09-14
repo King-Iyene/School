@@ -301,7 +301,7 @@ export default function QuestionBank() {
               <div ref={dropRef} onDragOver={onDragOver} onDrop={onDrop}
                 onClick={() => fileInputRef.current?.click()}
                 className={`border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-all ${
-                  selectedFile ? 'border-blue-400 bg-blue-50' : 'border-app-border hover:border-blue-400 hover:bg-app-surface-alt'}`}>
+                  selectedFile ? 'border-blue-400 bg-blue-50 dark:bg-blue-500/10' : 'border-app-border hover:border-blue-400 hover:bg-app-surface-alt'}`}>
                 <input ref={fileInputRef} type="file" accept=".pdf,.docx,.doc" className="hidden"
                   onChange={e => setSelectedFile(e.target.files?.[0] ?? null)} />
                 {selectedFile ? (
