@@ -258,19 +258,19 @@ export default function Orders() {
             </div>
 
             {(selected.payment_status === 'unpaid' || selected.payment_status == null) && selected.status !== 'cancelled' && (
-              <div className="border border-emerald-200 bg-emerald-50 rounded-xl p-4 space-y-3">
-                <p className="text-sm font-semibold text-emerald-800 flex items-center gap-2">
+              <div className="border border-emerald-200 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 rounded-xl p-4 space-y-3">
+                <p className="text-sm font-semibold text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
                   <CreditCard className="w-4 h-4" /> Record Payment
                 </p>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-app-text mb-1">Payment Method</label>
-                    <select value={payForm.method} onChange={e => setPayForm(f => ({ ...f, method: e.target.value }))} className="w-full px-3 py-2 border border-app-border rounded-lg text-sm bg-app-surface focus:outline-none focus:ring-2 focus:ring-app-primary">
+                    <label className="block text-xs font-medium text-emerald-900 dark:text-emerald-200 mb-1">Payment Method</label>
+                    <select value={payForm.method} onChange={e => setPayForm(f => ({ ...f, method: e.target.value }))} className="w-full px-3 py-2 border border-app-border rounded-lg text-sm bg-app-surface text-app-text focus:outline-none focus:ring-2 focus:ring-app-primary">
                       {PAYMENT_METHODS.map(m => <option key={m}>{m}</option>)}
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-app-text mb-1">Reference (optional)</label>
+                    <label className="block text-xs font-medium text-emerald-900 dark:text-emerald-200 mb-1">Reference (optional)</label>
                     <input value={payForm.reference} onChange={e => setPayForm(f => ({ ...f, reference: e.target.value }))} placeholder="Receipt no., etc." className="bg-app-surface text-app-text w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-app-primary" />
                   </div>
                 </div>

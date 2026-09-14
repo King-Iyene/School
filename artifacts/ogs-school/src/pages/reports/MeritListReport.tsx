@@ -174,9 +174,9 @@ export default function MeritListReport() {
     : 0;
 
   function getRankRowClass(rank: number) {
-    if (rank === 1) return 'bg-amber-50 border-amber-200';
+    if (rank === 1) return 'bg-amber-50 dark:bg-amber-500/15 border-amber-200 dark:border-amber-500/30';
     if (rank === 2) return 'bg-app-surface-alt border-app-border';
-    if (rank === 3) return 'bg-orange-50 border-orange-200';
+    if (rank === 3) return 'bg-orange-50 dark:bg-orange-500/15 border-orange-200 dark:border-orange-500/30';
     return '';
   }
 

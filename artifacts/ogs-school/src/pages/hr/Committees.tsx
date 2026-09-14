@@ -309,7 +309,7 @@ export default function Committees() {
                 <p className="p-3 text-xs text-app-text-muted">No staff found.</p>
               ) : filteredStaff.map(s => (
                 <button key={s.id} onClick={() => setMemberForm(f => ({ ...f, staff_id: s.id }))}
-                  className={`w-full text-left px-3 py-2 text-sm hover:bg-app-surface-alt flex items-center gap-2 ${memberForm.staff_id === s.id ? 'bg-emerald-50 text-emerald-700' : 'text-app-text'}`}>
+                  className={`w-full text-left px-3 py-2 text-sm hover:bg-app-surface-alt flex items-center gap-2 ${memberForm.staff_id === s.id ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400' : 'text-app-text'}`}>
                   <div className="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center text-xs font-semibold flex-shrink-0">
                     {s.first_name[0]}{s.last_name[0]}
                   </div>

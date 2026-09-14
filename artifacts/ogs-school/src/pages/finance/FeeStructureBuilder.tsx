@@ -480,17 +480,17 @@ export default function FeeStructureBuilder({ onClose }: FeeStructureBuilderProp
                 <p className="text-sm text-app-text-muted">Academic Year</p>
                 <p className="text-lg font-bold text-app-text">{academicYears.find(y => y.id === selectedYear)?.name}</p>
               </div>
-              <div className="bg-emerald-50 rounded-xl p-4 text-center">
-                <p className="text-sm text-app-text-muted">Boarding Entries</p>
-                <p className="text-lg font-bold text-emerald-700">{boardingEntries} records</p>
-                <p className="text-xs text-app-text-muted mt-1">Type: {types.find(t => t.id === selectedBoardingTypeId)?.name || '--'}</p>
-                <p className="text-xs text-app-text-muted">Total: {formatCurrency(totalAmount(boardingGrid))}</p>
+              <div className="bg-emerald-50 dark:bg-emerald-500/10 rounded-xl p-4 text-center">
+                <p className="text-sm text-emerald-800/70 dark:text-emerald-300/70">Boarding Entries</p>
+                <p className="text-lg font-bold text-emerald-700 dark:text-emerald-400">{boardingEntries} records</p>
+                <p className="text-xs text-emerald-800/70 dark:text-emerald-300/70 mt-1">Type: {types.find(t => t.id === selectedBoardingTypeId)?.name || '--'}</p>
+                <p className="text-xs text-emerald-800/70 dark:text-emerald-300/70">Total: {formatCurrency(totalAmount(boardingGrid))}</p>
               </div>
-              <div className="bg-teal-50 rounded-xl p-4 text-center">
-                <p className="text-sm text-app-text-muted">Day Entries</p>
-                <p className="text-lg font-bold text-teal-700">{dayEntries} records</p>
-                <p className="text-xs text-app-text-muted mt-1">Type: {types.find(t => t.id === selectedDayTypeId)?.name || '--'}</p>
-                <p className="text-xs text-app-text-muted">Total: {formatCurrency(totalAmount(dayGrid))}</p>
+              <div className="bg-teal-50 dark:bg-teal-500/10 rounded-xl p-4 text-center">
+                <p className="text-sm text-teal-800/70 dark:text-teal-300/70">Day Entries</p>
+                <p className="text-lg font-bold text-teal-700 dark:text-teal-400">{dayEntries} records</p>
+                <p className="text-xs text-teal-800/70 dark:text-teal-300/70 mt-1">Type: {types.find(t => t.id === selectedDayTypeId)?.name || '--'}</p>
+                <p className="text-xs text-teal-800/70 dark:text-teal-300/70">Total: {formatCurrency(totalAmount(dayGrid))}</p>
               </div>
             </div>
 

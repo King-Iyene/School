@@ -403,7 +403,7 @@ ${studentRows.map((r, i) => `
       )}
 
       {isClassTeacher && compilation && (
-        <div className={`rounded-xl border px-4 py-3 flex flex-wrap items-center gap-2 text-sm ${compilation.status === 'published' ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-200'}`}>
+        <div className={`rounded-xl border px-4 py-3 flex flex-wrap items-center gap-2 text-sm ${compilation.status === 'published' ? 'bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/30' : 'bg-amber-50 dark:bg-amber-500/10 border-amber-200 dark:border-amber-500/30'}`}>
           {compilation.status === 'published'
             ? <CheckCircle className="w-4 h-4 text-emerald-600 flex-shrink-0" />
             : <Award className="w-4 h-4 text-amber-600 flex-shrink-0" />}
@@ -563,7 +563,7 @@ ${studentRows.map((r, i) => `
           <h3 className="font-semibold text-app-text mb-3 text-sm">Subject Teachers Status</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
             {subjects.map(s => (
-              <div key={s.id} className={`p-3 rounded-xl border ${s.hasScores ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-200'}`}>
+              <div key={s.id} className={`p-3 rounded-xl border ${s.hasScores ? 'bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/30' : 'bg-amber-50 dark:bg-amber-500/10 border-amber-200 dark:border-amber-500/30'}`}>
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-xs font-semibold text-app-text truncate">{s.name}</span>
                   {s.hasScores
