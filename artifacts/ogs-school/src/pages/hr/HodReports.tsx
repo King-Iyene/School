@@ -28,7 +28,7 @@ CREATE POLICY "school_access" ON hod_reports
 --    Bucket name: hod-reports
 --    Public: YES (toggle on)`;
 
-const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface';
+const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface text-app-text';
 
 const REPORT_TYPES = ['Academic', 'Activity', 'Disciplinary', 'Financial', 'Infrastructure', 'Other'];
 const STATUS_COLORS: Record<string, string> = {

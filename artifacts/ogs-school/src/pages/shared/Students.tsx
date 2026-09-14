@@ -192,7 +192,7 @@ export default function Students() {
             <select
               value={filterClass}
               onChange={e => { setFilterClass(e.target.value); setCurrentPage(1); }}
-              className="border border-app-border rounded-xl px-3 py-2 text-sm bg-app-surface focus:outline-none focus:ring-2 focus:ring-app-primary/30 min-w-[130px]"
+              className="border border-app-border rounded-xl px-3 py-2 text-sm bg-app-surface text-app-text focus:outline-none focus:ring-2 focus:ring-app-primary/30 min-w-[130px]"
             >
               <option value="">All Classes</option>
               {classes.map(c => (
@@ -204,7 +204,7 @@ export default function Students() {
             <select
               value={filterYear}
               onChange={e => { setFilterYear(e.target.value); setCurrentPage(1); }}
-              className="border border-app-border rounded-xl px-3 py-2 text-sm bg-app-surface focus:outline-none focus:ring-2 focus:ring-app-primary/30 min-w-[130px]"
+              className="border border-app-border rounded-xl px-3 py-2 text-sm bg-app-surface text-app-text focus:outline-none focus:ring-2 focus:ring-app-primary/30 min-w-[130px]"
             >
               <option value="">All Years</option>
               {years.map(y => (

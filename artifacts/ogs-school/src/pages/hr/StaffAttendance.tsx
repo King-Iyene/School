@@ -227,7 +227,7 @@ export default function StaffAttendance() {
     on_leave: staffList.filter(s => isHoliday || attendance[s.id] === 'on_leave' || (attendance[s.id] as string) === 'holiday').length,
   };
 
-  const inputCls = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface';
+  const inputCls = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface text-app-text';
 
   return (
     <div className="p-6">

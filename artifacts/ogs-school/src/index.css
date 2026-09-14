@@ -42,7 +42,34 @@
   }
 
   body {
-    @apply antialiased;
+    @apply antialiased text-app-text;
+  }
+
+  /* Form controls don't inherit color/placeholder styling as reliably as
+     plain text does — several pages build their input classes without an
+     explicit text color, which is invisible-on-invisible in dark mode
+     (browser default black text on a dark --app-surface panel) even
+     though it looked fine in light mode. These defaults make every input
+     legible in both themes; an explicit text-app-text class on a specific
+     input still wins (class selectors beat these bare tag selectors). */
+  input, textarea, select {
+    color: var(--app-text);
+  }
+
+  ::placeholder {
+    color: var(--app-text-muted);
+    opacity: 1;
+  }
+
+  /* The native date/time picker icon is drawn by the browser/OS and
+     doesn't follow the page's dark mode on its own — without this it
+     renders as its default dark glyph, invisible against a dark input. */
+  .dark input[type="date"]::-webkit-calendar-picker-indicator,
+  .dark input[type="time"]::-webkit-calendar-picker-indicator,
+  .dark input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+  .dark input[type="month"]::-webkit-calendar-picker-indicator,
+  .dark input[type="week"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
   }
 
   ::-webkit-scrollbar {

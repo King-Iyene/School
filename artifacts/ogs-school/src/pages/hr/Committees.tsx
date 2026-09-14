@@ -31,7 +31,7 @@ CREATE POLICY "school_access" ON committee_members
   USING ((SELECT school_id FROM profiles WHERE id = auth.uid()) =
          (SELECT school_id FROM profiles WHERE id = committee_members.staff_id));`;
 
-const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface';
+const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface text-app-text';
 const MEMBER_ROLES = ['Chair', 'Member', 'Secretary'];
 const ROLE_BADGE: Record<string, string> = {
   Chair: 'bg-purple-100 text-purple-700',

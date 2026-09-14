@@ -266,8 +266,8 @@ export default function AcademicYears() {
 
   const currentYear = years.find(y => y.is_current);
   const currentAYT = currentYear?.termDates.find(a => a.is_current);
-  const inputClass = 'w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface';
-  const inputErrorClass = 'w-full border border-red-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400/30 bg-app-surface';
+  const inputClass = 'w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface text-app-text';
+  const inputErrorClass = 'w-full border border-red-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400/30 bg-app-surface text-app-text';
 
   // ─── Render ───────────────────────────────────────────────────────────────
 
