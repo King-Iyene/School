@@ -23,7 +23,7 @@ const RELATIONSHIPS = ['Aunt','Father','Guardian','Mother','Other','Sibling','Un
 const PLACEHOLDER_EMAIL = 'no-email@pending.local';
 const displayEmail = (e?: string|null) => (!e || e === PLACEHOLDER_EMAIL) ? '' : e;
 
-const inputCls  = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface';
+const inputCls  = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface text-app-text';
 const labelCls  = 'block text-sm font-medium text-app-text mb-1';
 
 /* ─── Stage config ───────────────────────────────────────────────────────── */

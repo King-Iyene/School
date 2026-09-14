@@ -113,7 +113,7 @@ export default function Classes() {
     return matchLevel && matchSearch;
   });
 
-  const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface';
+  const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface text-app-text';
 
   return (
     <div className="space-y-5">

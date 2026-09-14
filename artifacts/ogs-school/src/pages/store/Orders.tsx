@@ -151,7 +151,7 @@ export default function Orders() {
       <div className="flex flex-wrap gap-3">
         <div className="relative flex-1 min-w-48">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-app-text-muted" />
-          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by customer name..." className="w-full pl-10 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface" />
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by customer name..." className="w-full pl-10 pr-4 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface text-app-text" />
         </div>
         <div className="relative">
           <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="appearance-none pl-4 pr-8 py-2.5 border border-app-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-app-primary bg-app-surface">

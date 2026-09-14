@@ -229,7 +229,7 @@ export default function StudentAttendance() {
   const lateCount    = records.filter(r => r.status === 'late').length;
   const missingCount = recentDays.filter(d => d !== today && !recordedDates.has(d)).length;
 
-  const inputClass = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface';
+  const inputClass = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface text-app-text';
 
   if (!metaLoaded) {
     return (

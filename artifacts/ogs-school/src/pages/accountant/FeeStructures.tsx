@@ -23,7 +23,7 @@ interface AcademicYear { id: string; name: string; is_current?: boolean; }
 interface Term { id: string; name: string; }
 
 const LEVELS = ['all', 'JSS1', 'JSS2', 'JSS3', 'SS1', 'SS2', 'SS3'];
-const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface';
+const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface text-app-text';
 
 export default function FeeStructures() {
   const { profile } = useAuth();

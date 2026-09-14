@@ -30,7 +30,7 @@ ALTER TABLE staff_accommodation_assignments DROP COLUMN IF EXISTS room_id;
 ALTER TABLE staff_accommodation_assignments
   ADD COLUMN IF NOT EXISTS room_id uuid REFERENCES asset_rooms(id) ON DELETE SET NULL;`;
 
-const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface';
+const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface text-app-text';
 
 interface Assignment {
   id: string;

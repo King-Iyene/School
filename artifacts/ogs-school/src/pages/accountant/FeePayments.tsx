@@ -42,7 +42,7 @@ const PAYMENT_METHODS = ['bank_transfer', 'cash', 'cheque', 'online', 'pos'];
 const STATUS_OPTIONS = ['paid', 'partially_paid', 'unpaid', 'pending'];
 const statusColors: Record<string, string> = { paid: 'success', partially_paid: 'warning', partial: 'warning', pending: 'default', unpaid: 'error', overdue: 'error' };
 
-const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface';
+const inputCls = 'w-full border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 bg-app-surface text-app-text';
 
 function formatCurrency(amount: number): string {
   return new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(amount);

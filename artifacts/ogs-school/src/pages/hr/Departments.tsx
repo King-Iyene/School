@@ -21,7 +21,7 @@ CREATE POLICY "school_access" ON departments
 -- Add department column to staff profiles:
 ALTER TABLE profiles ADD COLUMN IF NOT EXISTS department text;`;
 
-const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface';
+const ic = 'border border-app-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-app-primary/30 w-full bg-app-surface text-app-text';
 
 interface Department {
   id: string; name: string; description: string | null; hod_id: string | null;
