@@ -180,8 +180,8 @@ export default function AIChat({ compact = false, messages, onMessagesChange }: 
     const action = msg.action!;
     const entries = Object.entries(action.payload).filter(([, v]) => v !== undefined && v !== null && v !== '');
     return (
-      <div className="mt-2 rounded-xl border border-indigo-200 bg-indigo-50/60 p-3 text-sm">
-        <div className="flex items-center gap-1.5 font-semibold text-indigo-800 mb-1.5">
+      <div className="mt-2 rounded-xl border border-indigo-200 dark:border-indigo-500/30 bg-indigo-50/60 dark:bg-indigo-500/10 p-3 text-sm">
+        <div className="flex items-center gap-1.5 font-semibold text-indigo-800 dark:text-indigo-300 mb-1.5">
           <Sparkles className="w-3.5 h-3.5" /> Action needs your approval
         </div>
         <p className="text-app-text mb-2">{action.summary}</p>

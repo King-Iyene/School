@@ -342,7 +342,7 @@ export default function Timetable() {
                         return (
                           <td key={day.id} className="px-2 py-3 text-center border-r border-app-border last:border-r-0 align-top relative min-w-[140px]">
                             {entry ? (
-                              <div className={`rounded-xl p-2.5 h-full flex flex-col justify-center items-center border ${entry.is_break ? 'bg-amber-50/80 border-amber-100' : 'bg-emerald-50/80 border-emerald-100'}`}>
+                              <div className={`rounded-xl p-2.5 h-full flex flex-col justify-center items-center border ${entry.is_break ? 'bg-amber-50/80 dark:bg-amber-500/10 border-amber-100 dark:border-amber-500/30' : 'bg-emerald-50/80 dark:bg-emerald-500/10 border-emerald-100 dark:border-emerald-500/30'}`}>
                                 {entry.is_break ? (
                                    <div className="text-amber-600/80 font-medium text-xs uppercase tracking-widest">Break</div>
                                 ) : (

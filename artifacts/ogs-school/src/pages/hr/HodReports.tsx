@@ -319,7 +319,7 @@ export default function HodReports() {
             </label>
             <div
               onClick={() => fileInputRef.current?.click()}
-              className="border-2 border-dashed border-app-border rounded-xl p-4 flex flex-col items-center gap-2 cursor-pointer hover:border-emerald-400 hover:bg-emerald-50/40 transition-colors group"
+              className="border-2 border-dashed border-app-border rounded-xl p-4 flex flex-col items-center gap-2 cursor-pointer hover:border-emerald-400 hover:bg-emerald-50/40 dark:hover:bg-emerald-500/10 transition-colors group"
             >
               <Upload size={20} className="text-app-text-muted group-hover:text-emerald-500" />
               {selectedFile ? (

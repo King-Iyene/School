@@ -278,7 +278,7 @@ export default function Examinations() {
                     </thead>
                     <tbody className="divide-y divide-app-border">
                       {selectedGroup.subjects.map((s, idx) => (
-                        <tr key={idx} className={`hover:bg-app-surface-alt transition-colors ${s.is_absent ? 'bg-red-50/30' : ''}`}>
+                        <tr key={idx} className={`hover:bg-app-surface-alt transition-colors ${s.is_absent ? 'bg-red-50/30 dark:bg-red-500/10' : ''}`}>
                           <td className="px-5 py-3.5 font-medium text-app-text">{s.subject_name}</td>
                           <td className="px-4 py-3.5 text-center text-app-text-muted">{s.is_absent ? '—' : s.ca}</td>
                           <td className="px-4 py-3.5 text-center text-app-text-muted">{s.is_absent ? '—' : s.test}</td>

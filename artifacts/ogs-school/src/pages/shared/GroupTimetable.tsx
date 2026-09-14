@@ -276,9 +276,9 @@ export default function GroupTimetable() {
                   return (
                     <tr
                       key={slot.id}
-                      className={`${isBreakRow ? 'bg-amber-50/60' : rowIdx % 2 === 0 ? 'bg-app-surface' : 'bg-app-surface-alt/30'}`}
+                      className={`${isBreakRow ? 'bg-amber-50/60 dark:bg-amber-500/10' : rowIdx % 2 === 0 ? 'bg-app-surface' : 'bg-app-surface-alt/30'}`}
                     >
-                      <td className={`sticky left-0 z-10 px-4 py-2.5 border-r-2 border-app-border whitespace-nowrap ${isBreakRow ? 'bg-amber-50' : rowIdx % 2 === 0 ? 'bg-app-surface' : 'bg-app-surface-alt/60'}`}>
+                      <td className={`sticky left-0 z-10 px-4 py-2.5 border-r-2 border-app-border whitespace-nowrap ${isBreakRow ? 'bg-amber-50 dark:bg-amber-500/15' : rowIdx % 2 === 0 ? 'bg-app-surface' : 'bg-app-surface-alt/60'}`}>
                         <div className="flex items-center gap-2">
                           {isBreakRow && (
                             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />

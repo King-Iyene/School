@@ -215,7 +215,7 @@ export default function Announcements() {
             return (
               <div
                 key={a.id}
-                className={`bg-app-surface rounded-2xl border shadow-sm p-5 transition-shadow hover:shadow-md ${a.is_pinned ? 'border-amber-200 bg-amber-50/30' : 'border-app-border'}`}
+                className={`bg-app-surface rounded-2xl border shadow-sm p-5 transition-shadow hover:shadow-md ${a.is_pinned ? 'border-amber-200 dark:border-amber-500/30 bg-amber-50/30 dark:bg-amber-500/10' : 'border-app-border'}`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">

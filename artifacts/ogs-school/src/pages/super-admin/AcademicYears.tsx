@@ -331,18 +331,18 @@ export default function AcademicYears() {
 
       {/* Active session banner */}
       {(currentYear || currentAYT) && (
-        <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-start gap-3">
-          <div className="w-9 h-9 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-            <CheckCircle className="w-5 h-5 text-emerald-600" />
+        <div className="bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 rounded-2xl p-4 flex items-start gap-3">
+          <div className="w-9 h-9 bg-emerald-100 dark:bg-emerald-500/20 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+            <CheckCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
           </div>
           <div>
-            <p className="font-semibold text-emerald-800 text-sm">Active Session</p>
-            <p className="text-emerald-700 text-sm mt-0.5">
+            <p className="font-semibold text-emerald-800 dark:text-emerald-300 text-sm">Active Session</p>
+            <p className="text-emerald-700 dark:text-emerald-400 text-sm mt-0.5">
               {currentYear?.name ?? '—'}
               {currentAYT && <span className="mx-1.5 text-emerald-400">/</span>}
               {currentAYT?.terms?.name ?? ''}
               {currentAYT?.start_date && currentAYT?.end_date && (
-                <span className="text-emerald-500 text-xs ml-2">
+                <span className="text-emerald-500 dark:text-emerald-400/80 text-xs ml-2">
                   ({new Date(currentAYT.start_date).toLocaleDateString()} – {new Date(currentAYT.end_date).toLocaleDateString()})
                 </span>
               )}
@@ -367,10 +367,10 @@ export default function AcademicYears() {
           {years.map(year => (
             <div key={year.id} className="bg-app-surface rounded-2xl border border-app-border shadow-sm overflow-hidden">
               {/* Year header row */}
-              <div className={`px-5 py-4 border-b border-app-border flex items-center justify-between gap-3 flex-wrap ${year.is_current ? 'bg-emerald-50/60' : ''}`}>
+              <div className={`px-5 py-4 border-b border-app-border flex items-center justify-between gap-3 flex-wrap ${year.is_current ? 'bg-emerald-50/60 dark:bg-emerald-500/10' : ''}`}>
                 <div className="flex items-center gap-3">
-                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${year.is_current ? 'bg-emerald-100' : 'bg-slate-100'}`}>
-                    <Calendar className={`w-4 h-4 ${year.is_current ? 'text-emerald-600' : 'text-app-text-muted'}`} />
+                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${year.is_current ? 'bg-emerald-100 dark:bg-emerald-500/20' : 'bg-slate-100 dark:bg-app-surface-alt'}`}>
+                    <Calendar className={`w-4 h-4 ${year.is_current ? 'text-emerald-600 dark:text-emerald-400' : 'text-app-text-muted'}`} />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
