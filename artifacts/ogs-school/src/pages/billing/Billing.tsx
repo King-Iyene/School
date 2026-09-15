@@ -179,7 +179,7 @@ export default function Billing() {
         </div>
       )}
       {tenant.status === 'trial' && trialDaysLeft !== null && (
-        <div className="rounded-xl px-4 py-3 text-sm bg-brand-mint/10 text-brand-indigo border border-brand-mint/30">
+        <div className="rounded-xl px-4 py-3 text-sm bg-brand-mint/10 text-brand-indigo dark:text-brand-mint border border-brand-mint/30">
           {trialDaysLeft > 0
             ? `Your free trial ends in ${trialDaysLeft} day${trialDaysLeft === 1 ? '' : 's'}. ${hasCard ? "Your saved card will be charged automatically." : 'Add a card below so your subscription can continue.'}`
             : 'Your free trial has ended.'}
@@ -227,7 +227,7 @@ export default function Billing() {
                   <button
                     onClick={() => changePlan(tier)}
                     disabled={busyPlan !== null}
-                    className="bg-app-surface text-app-text mt-4 px-4 py-2 border border-app-border hover:border-brand-indigo hover:text-brand-indigo disabled:opacity-50 text-app-text text-sm font-semibold rounded-lg transition-colors"
+                    className="bg-app-surface text-app-text mt-4 px-4 py-2 border border-app-border hover:border-brand-indigo dark:hover:border-brand-violet hover:text-brand-indigo dark:hover:text-brand-violet disabled:opacity-50 text-app-text text-sm font-semibold rounded-lg transition-colors"
                   >
                     {busyPlan === tier ? 'Updating…' : PLAN_ORDER.indexOf(tier) > PLAN_ORDER.indexOf(tenant.plan_tier) ? 'Upgrade' : 'Downgrade'}
                   </button>
