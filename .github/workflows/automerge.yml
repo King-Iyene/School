@@ -1,0 +1,15 @@
+name: Auto-merge Denzeliy PRs
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  automerge:
+    if: github.event.pull_request.user.login == 'Denzeliy'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge PR
+        env:
+          GH_TOKEN: ${{ secrets.KING_MERGE_TOKEN }}
+        run: gh pr merge --merge ${{ github.event.pull_request.number }} --repo ${{ github.repository }}
