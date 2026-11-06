@@ -272,7 +272,7 @@ function AppContent() {
   // domain — a visitor on a tenant's own connected custom domain (e.g.
   // portal.kdsquares.com) should never see "start your school's free
   // trial" or the generic onboarding flow; send them to login instead.
-  const platformOnlyPaths = ['/landing', '/onboarding'];
+  const platformOnlyPaths = ['/', '/landing', '/onboarding'];
   if (isOnOwnCustomDomain && platformOnlyPaths.includes(path)) {
     navigate('/login');
     return null;
@@ -288,6 +288,8 @@ function AppContent() {
     if (path === '/landing') return <Landing />;
     if (path === '/onboarding') return <Onboarding />;
   }
+
+  if (path === '/' && !user) return <Landing />;
 
   if (loading) {
     return (
