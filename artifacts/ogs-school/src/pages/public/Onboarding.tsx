@@ -202,7 +202,7 @@ export default function Onboarding() {
 
       <div className="flex-1 flex flex-col">
         <div className="p-4 sm:p-6 lg:hidden">
-          <button onClick={() => navigate('/landing')} className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors">
+          <button onClick={() => navigate('/home')} className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors">
             <ArrowLeft className="w-4 h-4" /> Back to home
           </button>
         </div>
@@ -210,7 +210,7 @@ export default function Onboarding() {
         <div className="flex-1 flex items-center justify-center p-4 sm:p-10">
           <div className="w-full max-w-md">
             <button
-              onClick={() => navigate('/landing')}
+              onClick={() => navigate('/home')}
               className="hidden lg:inline-flex mb-8 items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" /> Back to home
@@ -260,7 +260,7 @@ export default function Onboarding() {
                     <input type="email" value={adminEmail} onChange={e => setAdminEmail(e.target.value)} required className={inputClass} />
                   </Field>
                   <div className="flex items-center justify-between pt-2">
-                    <button type="button" onClick={() => navigate('/landing')} className="text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors">
+                    <button type="button" onClick={() => navigate('/home')} className="text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors">
                       Skip for now
                     </button>
                     <button type="submit" className={primaryBtnClass}>Continue</button>
