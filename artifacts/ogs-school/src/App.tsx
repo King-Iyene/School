@@ -272,20 +272,22 @@ function AppContent() {
   // domain — a visitor on a tenant's own connected custom domain (e.g.
   // portal.kdsquares.com) should never see "start your school's free
   // trial" or the generic onboarding flow; send them to login instead.
-  const platformOnlyPaths = ['/', '/landing', '/onboarding'];
+  const platformOnlyPaths = ['/', '/home', '/onboarding'];
   if (isOnOwnCustomDomain && platformOnlyPaths.includes(path)) {
     navigate('/login');
     return null;
   }
 
-  const publicPaths = ['/apply', '/admission', '/admission-payment', '/schedule-exam', '/application-status', '/landing', '/onboarding'];
+  if (path === '/landing') { navigate('/home'); return null; }
+
+  const publicPaths = ['/apply', '/admission', '/admission-payment', '/schedule-exam', '/application-status', '/home', '/onboarding'];
   if (publicPaths.includes(path)) {
     if (path === '/apply') { navigate('/admission'); return null; }
     if (path === '/admission') return <AdmissionForm />;
     if (path === '/admission-payment') return <AdmissionPayment />;
     if (path === '/schedule-exam') return <ExamScheduling />;
     if (path === '/application-status') return <ApplicationStatus />;
-    if (path === '/landing') return <Landing />;
+    if (path === '/home') return <Landing />;
     if (path === '/onboarding') return <Onboarding />;
   }
 
