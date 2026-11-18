@@ -55,7 +55,7 @@ function TrialExpiredAdmin() {
       const handler = window.PaystackPop!.setup({
         key: platformKey,
         email: settings.email || 'billing@schoolos.app',
-        amount: CARD_VERIFICATION_AMOUNT_NGN * 100,
+        amount: price * 100,
         currency: 'NGN',
         channels: ['card'],
         callback: (response: { reference: string }) => {
