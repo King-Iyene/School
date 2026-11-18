@@ -44,6 +44,8 @@ const PATH_FEATURE_OVERRIDES: Record<string, Feature> = {
   '/student/take-exam': 'cbt_engine',
   '/system/appearance': 'white_labeling',
   '/system/webhooks': 'webhooks',
+  '/system/sms': 'sms_email_broadcasts',
+  '/system/email': 'sms_email_broadcasts',
 };
 
 export function filterNavByPlan(items: NavItem[], planTier?: PlanTier): NavItem[] {
@@ -63,7 +65,6 @@ const superAdminNav: NavItem[] = [
   { label: 'Notice Board', path: '/notice-board', icon: Megaphone },
   { label: 'Notifications',path: '/notifications',icon: Bell },
   { label: 'My Profile',    path: '/my-profile',    icon: User },
-  { label: 'Billing',       path: '/billing',       icon: CreditCard },
 
   // ── Student Information ─────────────────────────────────────────────────────
   { label: 'Student Admission',     path: '/student-mgmt/admission',         icon: UserPlus,    group: 'Student Information' },
@@ -241,17 +242,18 @@ const superAdminNav: NavItem[] = [
 
   // ── System Settings (always last) ────────────────────────────────────────────
   { label: 'General Setting',      path: '/system/general',            icon: Globe,        group: 'System Settings' },
-  { label: 'Appearance',           path: '/system/appearance',         icon: Palette,      group: 'System Settings' },
-  { label: 'Webhooks',             path: '/system/webhooks',           icon: Webhook,      group: 'System Settings' },
+  { label: 'Billing',              path: '/billing',                   icon: CreditCard,   group: 'System Settings' },
   { label: 'Role Permission',      path: '/system/role-permission',    icon: ShieldCheck,  group: 'System Settings' },
   { label: 'Holiday',              path: '/system/holiday',            icon: Umbrella,     group: 'System Settings' },
   { label: 'Weekend',              path: '/system/weekend',            icon: CalendarCheck,group: 'System Settings' },
-  { label: 'SMS Settings',         path: '/system/sms',                icon: MessageSquare,group: 'System Settings' },
-  { label: 'Email Setting',        path: '/system/email',              icon: AtSign,       group: 'System Settings' },
-  { label: 'Payment Methods',      path: '/finance/payment-methods',   icon: CreditCard,   group: 'System Settings' },
   { label: 'Backup',               path: '/backup',                    icon: HardDrive,    group: 'System Settings' },
   { label: 'Update System',        path: '/system/update',             icon: RefreshCw,    group: 'System Settings' },
   { label: 'Support Tickets',      path: '/support',                   icon: LifeBuoy,     group: 'System Settings' },
+  { label: 'Appearance',           path: '/system/appearance',         icon: Palette,      group: 'System Settings' },
+  { label: 'Webhooks',             path: '/system/webhooks',           icon: Webhook,      group: 'System Settings' },
+  { label: 'SMS Settings',         path: '/system/sms',                icon: MessageSquare,group: 'System Settings' },
+  { label: 'Email Setting',        path: '/system/email',              icon: AtSign,       group: 'System Settings' },
+  { label: 'Payment Methods',      path: '/finance/payment-methods',   icon: CreditCard,   group: 'System Settings' },
 ];
 
 const teacherNav: NavItem[] = [
