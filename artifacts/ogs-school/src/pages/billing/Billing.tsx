@@ -258,7 +258,7 @@ export default function Billing() {
               </thead>
               <tbody>
                 {events.map((ev) => (
-                  <tr key={ev.id} className="border-b border-slate-50 last:border-0">
+                  <tr key={ev.id} className="border-b border-app-border/50 last:border-0">
                     <td className="py-2 pr-4 text-app-text-muted">{new Date(ev.created_at).toLocaleDateString()}</td>
                     <td className="py-2 pr-4 text-app-text-muted">{PLAN_LABELS[ev.plan_tier]}</td>
                     <td className="py-2 pr-4 text-app-text-muted">{ev.currency === 'NGN' ? formatNaira(ev.amount) : `${ev.currency} ${ev.amount}`}</td>
