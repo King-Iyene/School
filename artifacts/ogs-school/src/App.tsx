@@ -268,12 +268,7 @@ function AppContent() {
     }
   }, [user, profile, path]);
 
-  // The SaaS marketing/sign-up pages only make sense on the platform's own
-  // domain — a visitor on a tenant's own connected custom domain (e.g.
-  // portal.kdsquares.com) should never see "start your school's free
-  // trial" or the generic onboarding flow; send them to login instead.
-  const platformOnlyPaths = ['/', '/home', '/onboarding'];
-  if (isOnOwnCustomDomain && platformOnlyPaths.includes(path)) {
+  if (isOnOwnCustomDomain && path === '/onboarding') {
     navigate('/login');
     return null;
   }
