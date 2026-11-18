@@ -255,7 +255,6 @@ const superAdminNav: NavItem[] = [
   { label: 'Webhooks',             path: '/system/webhooks',           icon: Webhook,      group: 'System Settings' },
   { label: 'SMS Settings',         path: '/system/sms',                icon: MessageSquare,group: 'System Settings' },
   { label: 'Email Setting',        path: '/system/email',              icon: AtSign,       group: 'System Settings' },
-  { label: 'Payment Methods',      path: '/finance/payment-methods',   icon: CreditCard,   group: 'System Settings' },
 ];
 
 const teacherNav: NavItem[] = [
