@@ -640,7 +640,11 @@ function AppContent() {
     );
   }
 
-  if (tenant && (tenant.status === 'suspended' || tenant.status === 'canceled')) {
+  const isTrialExpired = tenant?.status === 'trial'
+    && !!tenant.trial_ends_at
+    && new Date(tenant.trial_ends_at).getTime() <= Date.now();
+
+  if (tenant && (tenant.status === 'suspended' || tenant.status === 'canceled' || isTrialExpired)) {
     return <AccountLockout />;
   }
 

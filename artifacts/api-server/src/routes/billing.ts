@@ -315,6 +315,72 @@ router.post("/billing/update-card", requireBillingAdmin, async (req, res) => {
 });
 
 /**
+ * Activate an expired trial: save the card, charge the plan, and move the
+ * tenant to 'active'. Called from the trial-expired lockout screen.
+ */
+router.post("/billing/activate-trial", requireBillingAdmin, async (req, res) => {
+  const schoolId = (req as AuthedRequest).schoolId!;
+  const { paystackReference } = req.body ?? {};
+  if (!paystackReference) return res.status(400).json({ error: "Missing payment reference" });
+  if (!supabaseAdmin) return res.status(503).json({ error: "Not configured" });
+
+  const verification = await verifyPaystackTransaction(paystackReference, 100);
+  if (!verification.ok) {
+    return res.status(402).json({ error: verification.reason });
+  }
+
+  const { data: tenant, error } = await supabaseAdmin
+    .from("tenants")
+    .select("plan_tier, status, trial_ends_at")
+    .eq("id", schoolId)
+    .maybeSingle();
+  if (error || !tenant) return res.status(404).json({ error: "Tenant not found" });
+
+  const isExpiredTrial =
+    tenant.status === "trial" &&
+    tenant.trial_ends_at &&
+    new Date(tenant.trial_ends_at).getTime() <= Date.now();
+  if (!isExpiredTrial) {
+    return res.status(409).json({ error: "This account is not in an expired trial state." });
+  }
+
+  const { error: saveCardErr } = await supabaseAdmin
+    .from("tenants")
+    .update({
+      paystack_authorization_code: verification.authorizationCode,
+      paystack_customer_code: verification.customerCode,
+    })
+    .eq("id", schoolId);
+  if (saveCardErr) {
+    logger.error({ err: saveCardErr, schoolId }, "activate-trial: card save failed");
+    return res.status(500).json({ error: "Card was verified, but could not be saved. Please try again." });
+  }
+  refundVerificationCharge(paystackReference).catch(() => {});
+
+  const { data: settings } = await supabaseAdmin
+    .from("tenant_settings")
+    .select("email")
+    .eq("tenant_id", schoolId)
+    .maybeSingle();
+  const result = await chargePlan(schoolId, tenant.plan_tier, settings?.email || "");
+  if (result.ok) {
+    await supabaseAdmin
+      .from("tenants")
+      .update({
+        status: "active",
+        next_billing_at: new Date(Date.now() + BILLING_PERIOD_DAYS * 24 * 60 * 60 * 1000).toISOString(),
+        payment_retry_count: 0,
+        last_payment_error: null,
+      })
+      .eq("id", schoolId);
+    return res.status(200).json({ ok: true, message: "Payment successful! Your account is now active." });
+  }
+
+  await supabaseAdmin.from("tenants").update({ last_payment_error: result.reason }).eq("id", schoolId);
+  return res.status(402).json({ ok: false, error: `Card saved, but the payment failed: ${result.reason}` });
+});
+
+/**
  * Runs the whole subscription lifecycle for every tenant that's due for
  * something today. Not wired to a schedule by this change — point a daily
  * cron (Vercel Cron, Supabase Cron, a GitHub Action) at this endpoint with
