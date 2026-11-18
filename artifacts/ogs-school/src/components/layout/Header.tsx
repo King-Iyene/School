@@ -400,7 +400,7 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
                       const role = profile?.role;
                       if (role === 'student') navigate('/student/profile');
                       else if (role === 'parent') navigate('/children');
-                      else navigate(`/teacher-profile?id=${profile?.id}`);
+                      else navigate('/my-profile');
                       setShowProfile(false);
                     }}
                     className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-app-text hover:bg-app-surface-alt transition-colors"
