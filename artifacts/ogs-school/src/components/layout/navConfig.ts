@@ -44,6 +44,8 @@ const PATH_FEATURE_OVERRIDES: Record<string, Feature> = {
   '/student/take-exam': 'cbt_engine',
   '/system/appearance': 'white_labeling',
   '/system/webhooks': 'webhooks',
+  '/backup': 'payment_gateway_collections',
+  '/support': 'payment_gateway_collections',
   '/system/sms': 'sms_email_broadcasts',
   '/system/email': 'sms_email_broadcasts',
 };
@@ -253,7 +255,6 @@ const superAdminNav: NavItem[] = [
   { label: 'Webhooks',             path: '/system/webhooks',           icon: Webhook,      group: 'System Settings' },
   { label: 'SMS Settings',         path: '/system/sms',                icon: MessageSquare,group: 'System Settings' },
   { label: 'Email Setting',        path: '/system/email',              icon: AtSign,       group: 'System Settings' },
-  { label: 'Payment Methods',      path: '/finance/payment-methods',   icon: CreditCard,   group: 'System Settings' },
 ];
 
 const teacherNav: NavItem[] = [
