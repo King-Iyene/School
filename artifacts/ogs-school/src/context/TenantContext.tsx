@@ -101,23 +101,6 @@ export function TenantProvider({ children }: { children: ReactNode }) {
     return tenantRow as Tenant;
   }, []);
 
-  const loadDefaultTenant = useCallback(async () => {
-    // No authenticated profile and no tenant subdomain in the URL (the
-    // current production deployment serves one school on its own domain,
-    // e.g. eportal.okrikagrammarschool.org, not <slug>.schoolos.app) — used
-    // for pre-auth public pages like Login and the admission form so they
-    // still show real branding instead of the generic fallback.
-    const { data: tenantRow } = await supabase.from('tenants').select('*').order('created_at').limit(1).maybeSingle();
-    if (!tenantRow) return;
-    const { data: settingsRow } = await supabase
-      .from('tenant_settings')
-      .select('*')
-      .eq('tenant_id', tenantRow.id)
-      .maybeSingle();
-    setTenant(tenantRow as Tenant);
-    if (settingsRow) setSettings(settingsRow as TenantSettings);
-  }, []);
-
   const refresh = useCallback(async () => {
     setLoading(true);
     setIsOnOwnCustomDomain(false);
@@ -125,11 +108,6 @@ export function TenantProvider({ children }: { children: ReactNode }) {
       if (profile?.school_id) {
         await loadByTenantId(profile.school_id);
       } else {
-        // Check custom domains FIRST, before guessing this is a
-        // <slug>.schoolos.app-style address: a real custom domain like
-        // "portal.kdsquares.com" has 3 dot-separated labels too, so
-        // checking slugFromHostname() first would misread "portal" as a
-        // subdomain slug and never reach the actual custom-domain match.
         const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
         const isLocalOrIp = !hostname || hostname === 'localhost' || /^\d+\.\d+\.\d+\.\d+$/.test(hostname);
         const byDomain = isLocalOrIp ? null : await resolveByCustomDomain(hostname);
@@ -140,16 +118,13 @@ export function TenantProvider({ children }: { children: ReactNode }) {
 
         const slug = slugFromHostname();
         if (slug) {
-          const bySlug = await resolveBySlug(slug);
-          if (bySlug) return;
+          await resolveBySlug(slug);
         }
-
-        await loadDefaultTenant();
       }
     } finally {
       setLoading(false);
     }
-  }, [profile?.school_id, loadByTenantId, resolveBySlug, resolveByCustomDomain, loadDefaultTenant]);
+  }, [profile?.school_id, loadByTenantId, resolveBySlug, resolveByCustomDomain]);
 
   useEffect(() => {
     refresh();
