@@ -58,24 +58,24 @@ function TrialExpiredAdmin() {
         amount: CARD_VERIFICATION_AMOUNT_NGN * 100,
         currency: 'NGN',
         channels: ['card'],
-        callback: async (response: { reference: string }) => {
-          try {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session?.access_token) throw new Error('Session expired — please sign in again.');
-            const res = await fetch(apiUrl('/api/billing/activate-trial'), {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
-              body: JSON.stringify({ paystackReference: response.reference }),
-            });
-            const data = await res.json().catch(() => ({}));
-            if (!res.ok) throw new Error(data?.error || 'Payment verification failed.');
-            setSuccess(true);
-            await refresh();
-          } catch (err: any) {
-            setError(err.message);
-          } finally {
-            setBusy(false);
-          }
+        callback: (response: { reference: string }) => {
+          supabase.auth.getSession()
+            .then(({ data: { session } }) => {
+              if (!session?.access_token) throw new Error('Session expired — please sign in again.');
+              return fetch(apiUrl('/api/billing/activate-trial'), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
+                body: JSON.stringify({ paystackReference: response.reference }),
+              });
+            })
+            .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
+            .then(({ ok, data }) => {
+              if (!ok) throw new Error(data?.error || 'Payment verification failed.');
+              setSuccess(true);
+              return refresh();
+            })
+            .catch((err: any) => setError(err.message))
+            .finally(() => setBusy(false));
         },
         onClose: () => setBusy(false),
       });
