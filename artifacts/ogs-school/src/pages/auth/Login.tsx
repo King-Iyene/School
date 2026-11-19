@@ -85,7 +85,7 @@ export default function Login() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 shadow-sm overflow-hidden ${!logoUrl ? '' : 'bg-white border border-slate-200'}`}>
-            <img src={logoUrl || '/brand/loop-mark.svg'} alt="Logo" className="w-full h-full object-contain" />
+            <img src={logoUrl || '/brand/loop-logo.jpg'} alt="Logo" className="w-full h-full object-contain" />
           </div>
           <h1 className="text-3xl font-bold text-slate-900">{schoolName}</h1>
           <p className="text-slate-500 mt-1">School Management System</p>
